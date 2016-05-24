@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBlue">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/article_title_ll"
+        android:layout_centerInParent="true">
+        <TextView
+            android:id="@+id/article_title_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="全部板块"
+            android:textSize="20sp"
+            android:textColor="@color/colorWhite"
+            android:gravity="center"/>
+        <ImageButton
+            android:id="@+id/article_title_drop_ib"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/article_title_tv"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/dropdown"
+            android:scaleType="centerInside"
+            android:background="@null"
+            android:clickable="false"
+            />
+
+    </LinearLayout>
+
+</RelativeLayout>
