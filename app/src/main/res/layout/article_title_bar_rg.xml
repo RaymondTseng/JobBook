@@ -18,7 +18,6 @@
         android:id="@+id/article_title_engagement_rb"
         android:text="就业技巧"
         android:drawableLeft="@drawable/article_title_engagement_drawable"
-        android:background="@color/colorBlue"
         style="@style/article_title_bar_rb_style"/>
     <RadioButton
         android:id="@+id/article_title_politic_rb"

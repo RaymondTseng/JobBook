@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/article_title_tv"
             android:layout_centerVertical="true"
-            android:src="@mipmap/dropdown"
+            android:src="@mipmap/down_white"
             android:scaleType="centerInside"
             android:background="@null"
             android:clickable="false"

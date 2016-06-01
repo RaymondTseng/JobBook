@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:state_checked="true" android:drawable="@mipmap/engagement"></item>
-    <item android:drawable="@mipmap/job_24px_gray"></item>
+    <item android:state_checked="true" android:drawable="@mipmap/engagement_24px_white"></item>
+    <item android:drawable="@mipmap/engagement_24px_gray"></item>
 </selector>

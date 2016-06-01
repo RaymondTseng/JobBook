@@ -56,7 +56,7 @@
                     android:id="@+id/job_lv_time_iv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@mipmap/location"
+                    android:src="@mipmap/time"
                     />
                 <TextView
                     android:id="@+id/job_lv_time_tv"
@@ -78,7 +78,7 @@
                     android:id="@+id/job_lv_location_iv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@mipmap/location"
+                    android:src="@mipmap/location_gray"
                     />
                 <TextView
                     android:id="@+id/job_lv_location_tv"

@@ -1,16 +1,19 @@
 package com.example.jobbook.fragment;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
@@ -39,6 +42,7 @@ public class ArticleFragment extends Fragment implements View.OnClickListener, P
     private View mMenuView;
 
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState){
@@ -51,7 +55,7 @@ public class ArticleFragment extends Fragment implements View.OnClickListener, P
         mMenuView = getActivity().getLayoutInflater().inflate(R.layout.article_title_bar_rg, null);
         mBlankLayout = (LinearLayout) view.findViewById(R.id.article_blank_ll);
         mListView = (ListView) view.findViewById(R.id.article_lv);
-        mMenuPopupWindow = new PopupWindow(mMenuView, ViewGroup.LayoutParams.MATCH_PARENT, 350, true);
+        mMenuPopupWindow = new PopupWindow(mMenuView, ViewGroup.LayoutParams.MATCH_PARENT, (getmHeight()/556)*192, true);
         mMenuPopupWindow.setBackgroundDrawable(new BitmapDrawable(getResources(),
                 Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888)));
         mMenuPopupWindow.setOutsideTouchable(true);
@@ -88,5 +92,9 @@ public class ArticleFragment extends Fragment implements View.OnClickListener, P
         mBlankLayout.startAnimation(mBlankLayoutHideAnimation);
         mListView.startAnimation(mListViewHideAnimation);
         mBlankLayout.setVisibility(View.GONE);
+    }
+    private int getmHeight(){
+        DisplayMetrics dm = getActivity().getResources().getDisplayMetrics();
+        return dm.heightPixels;
     }
 }

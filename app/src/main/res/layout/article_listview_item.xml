@@ -12,7 +12,7 @@
             android:id="@+id/article_lv_label_iv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/job_24px"/>
+            android:src="@mipmap/engagement_24px_blue"/>
         <TextView
             android:id="@+id/article_lv_title_tv"
             android:layout_width="wrap_content"
