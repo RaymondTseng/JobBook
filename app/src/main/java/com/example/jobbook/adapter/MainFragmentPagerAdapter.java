@@ -4,6 +4,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.example.jobbook.fragment.LoginFragment;
+import com.example.jobbook.fragment.PersonFragment;
+
 import java.util.List;
 
 /**
@@ -11,6 +14,7 @@ import java.util.List;
  */
 public class MainFragmentPagerAdapter extends FragmentPagerAdapter {
     private List<Fragment> mFragments;
+    private PersonFragment mPersonFragment;
     public MainFragmentPagerAdapter(FragmentManager fm, List<Fragment> mFragments) {
         super(fm);
         this.mFragments = mFragments;
@@ -25,4 +29,9 @@ public class MainFragmentPagerAdapter extends FragmentPagerAdapter {
     public int getCount() {
         return mFragments.size();
     }
+    public void toPersonFragment(){
+        mFragments.set(3,  new PersonFragment());
+        notifyDataSetChanged();
+    }
 }
+

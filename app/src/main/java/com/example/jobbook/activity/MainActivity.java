@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
@@ -11,13 +12,14 @@ import com.example.jobbook.R;
 import com.example.jobbook.adapter.MainFragmentPagerAdapter;
 import com.example.jobbook.fragment.ArticleFragment;
 import com.example.jobbook.fragment.JobFragment;
-import com.example.jobbook.fragment.PersonFragment;
+import com.example.jobbook.fragment.LoginFragment;
 import com.example.jobbook.fragment.QuestionFragment;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener, ViewPager.OnPageChangeListener{
+public class MainActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener,
+        ViewPager.OnPageChangeListener, LoginFragment.transferData{
     private ViewPager mFragmentContainer;
     private RadioButton mJobRadioButton;
     private RadioButton mArticleRadioButton;
@@ -26,7 +28,6 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     private JobFragment mJobFragment;
     private ArticleFragment mArticleFragment;
     private QuestionFragment mQuestionFragment;
-    private PersonFragment mPersonFragment;
     private RadioGroup mRadioGroup;
     private MainFragmentPagerAdapter mFragmentPagerAdapter;
     private List<Fragment> mFragments;
@@ -52,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         mFragments.add(new JobFragment());
         mFragments.add(new ArticleFragment());
         mFragments.add(new QuestionFragment());
-        mFragments.add(new PersonFragment());
+        mFragments.add(new LoginFragment());
     }
     private void initEvent(){
         mJobRadioButton.setChecked(true);
@@ -113,4 +114,9 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
 
     }
 
+    @Override
+    public void changeViewPager() {
+        Log.i("TAG","4");
+        mFragmentPagerAdapter.toPersonFragment();
+    }
 }
