@@ -4,10 +4,10 @@
 
     <scale
         android:toYScale="1.0"
-        android:fromYScale="0.0"
+        android:fromYScale="0.1"
         android:fromXScale="1.0"
         android:toXScale="1.0"
         android:duration="150"
         android:pivotY="0%"
-        android:interpolator="@android:anim/anticipate_interpolator"/>
+        android:interpolator="@android:anim/decelerate_interpolator"/>
 </set>

@@ -13,12 +13,14 @@
         android:id="@+id/article_title_all_rb"
         android:text="全部技巧"
         android:drawableLeft="@drawable/article_title_all_rb_drawable"
-        style="@style/article_title_bar_rb_style"/>
+        style="@style/article_title_bar_rb_style"
+        android:checked="true"/>
     <RadioButton
         android:id="@+id/article_title_engagement_rb"
         android:text="就业技巧"
         android:drawableLeft="@drawable/article_title_engagement_drawable"
-        style="@style/article_title_bar_rb_style"/>
+        style="@style/article_title_bar_rb_style"
+        />
     <RadioButton
         android:id="@+id/article_title_politic_rb"
         android:text="政策解读"

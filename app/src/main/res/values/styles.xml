@@ -25,7 +25,7 @@
 
     </style>
     <style name="listview_content_tv_style">
-        <item name="android:textColor">@color/colorGray</item>
+        <item name="android:textColor">@color/colorDarkGray</item>
         <item name="android:textSize">12sp</item>
     </style>
     <style name="article_title_bar_rb_style">
@@ -41,6 +41,22 @@
     <style name="article_menu_animation_style" parent="android:Animation">
         <item name="android:windowEnterAnimation">@anim/article_menu_show</item>
         <item name="android:windowExitAnimation">@anim/article_menu_hide</item>
+    </style>
+    <style name="person_content_tv_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:layout_marginLeft">16dp</item>
+        <item name="android:layout_centerVertical">true</item>
+    </style>
+    <style name="person_content_iv_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:src">@mipmap/right_blue</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_marginRight">16dp</item>
+        <item name="android:layout_centerVertical">true</item>
     </style>
 
 </resources>
