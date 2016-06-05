@@ -3,6 +3,7 @@ package com.example.jobbook.adapter;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.util.Log;
 
 import com.example.jobbook.fragment.LoginFragment;
 import com.example.jobbook.fragment.PersonFragment;
@@ -28,6 +29,11 @@ public class MainFragmentPagerAdapter extends FragmentPagerAdapter {
     @Override
     public int getCount() {
         return mFragments.size();
+    }
+    @Override
+    public int getItemPosition(Object object) {
+        Log.i("TAG", "Call");
+        return POSITION_NONE;
     }
     public void toPersonFragment(){
         mFragments.set(3,  new PersonFragment());
