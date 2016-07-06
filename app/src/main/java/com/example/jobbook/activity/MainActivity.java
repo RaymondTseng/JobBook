@@ -116,7 +116,6 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
 
     @Override
     public void changeViewPager() {
-        Log.i("TAG","4");
         mFragmentPagerAdapter.toPersonFragment();
     }
 }

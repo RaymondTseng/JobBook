@@ -15,9 +15,10 @@ import java.util.List;
  */
 public class MainFragmentPagerAdapter extends FragmentPagerAdapter {
     private List<Fragment> mFragments;
-    private PersonFragment mPersonFragment;
+    private FragmentManager mFragmentManager;
     public MainFragmentPagerAdapter(FragmentManager fm, List<Fragment> mFragments) {
         super(fm);
+        mFragmentManager = fm;
         this.mFragments = mFragments;
     }
 
@@ -30,12 +31,9 @@ public class MainFragmentPagerAdapter extends FragmentPagerAdapter {
     public int getCount() {
         return mFragments.size();
     }
-    @Override
-    public int getItemPosition(Object object) {
-        Log.i("TAG", "Call");
-        return POSITION_NONE;
-    }
+
     public void toPersonFragment(){
+        mFragmentManager.beginTransaction().remove(mFragments.get(3)).commit();
         mFragments.set(3,  new PersonFragment());
         notifyDataSetChanged();
     }
