@@ -61,6 +61,7 @@
             android:id="@+id/login_register_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:clickable="true"
             android:text="注册"
             android:layout_alignParentLeft="true"
             android:textSize="16sp"
