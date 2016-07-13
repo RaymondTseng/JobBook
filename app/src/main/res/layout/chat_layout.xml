@@ -82,10 +82,11 @@
             android:layout_width="0dp"
             android:layout_weight="31"
             android:layout_height="wrap_content"
-            android:paddingLeft="16dp"
+            android:layout_marginLeft="16dp"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:paddingRight="22dp"
+            android:layout_marginRight="22dp"
+            android:text="123"
             />
 
         <FrameLayout
