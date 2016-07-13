@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/job_lv_iv"
+            android:layout_width="78dp"
+            android:layout_height="78dp"
+            android:src="@mipmap/apple_logo"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/job_lv_iv"
+            android:layout_marginTop="16dp"
+            android:layout_marginLeft="16dp"
+            android:paddingBottom="16dp">
+            <TextView
+                android:id="@+id/job_lv_name_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="平面设计师"
+                android:textColor="@color/colorBlue"
+                android:textSize="16sp"/>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/job_lv_company_ll"
+                android:layout_below="@id/job_lv_name_tv">
+                <ImageView
+                    android:id="@+id/job_lv_company_iv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/company"
+                    />
+                <TextView
+                    android:id="@+id/job_lv_company_tv"
+                    android:layout_toRightOf="@id/job_lv_company_iv"
+                    android:layout_centerInParent="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="卖苹果公司"
+                    style="@style/listview_content_tv_style"/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/job_lv_time_ll"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="16dp">
+                <ImageView
+                    android:id="@+id/job_lv_time_iv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/time"
+                    />
+                <TextView
+                    android:id="@+id/job_lv_time_tv"
+                    android:layout_toRightOf="@id/job_lv_time_iv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="4.15~5.20"
+                    style="@style/listview_content_tv_style"
+                    android:layout_centerVertical="true" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/job_lv_location_ll"
+                android:layout_below="@id/job_lv_company_ll"
+                android:layout_toLeftOf="@id/job_lv_time_ll"
+                android:layout_marginRight="32dp">
+                <ImageView
+                    android:id="@+id/job_lv_location_iv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/location_gray"
+                    />
+                <TextView
+                    android:id="@+id/job_lv_location_tv"
+                    android:layout_toRightOf="@id/job_lv_location_iv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="位于美国洛杉矶中国大道那个多少号来着"
+                    style="@style/listview_content_tv_style"
+                    android:layout_centerVertical="true" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/job_lv_salary_ll"
+                android:layout_alignBottom="@id/job_lv_location_ll"
+                android:layout_marginRight="16dp"
+                android:layout_alignParentRight="true">
+                <TextView
+                    android:id="@+id/job_lv_salary_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="¥1.5k~2.5k"
+                    android:textColor="@color/colorBlue"
+                    style="@style/listview_content_tv_style"
+                    android:layout_centerVertical="true" />
+            </RelativeLayout>
+
+
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+</LinearLayout>

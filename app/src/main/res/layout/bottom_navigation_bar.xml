@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RadioGroup
+        android:background="@color/colorWhite"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:orientation="horizontal"
+        android:id="@+id/bottom_bar_rg">
+        <RadioButton
+            android:id="@+id/job_rb"
+            style="@style/bottom_bar_rb_style"
+            android:drawableTop="@drawable/job_rb"
+            android:text="职谱" />
+        <RadioButton
+            android:id="@+id/article_rb"
+            style="@style/bottom_bar_rb_style"
+            android:drawableTop="@drawable/article_rb"
+            android:text="干货"/>
+        <RadioButton
+            android:id="@+id/question_rb"
+            style="@style/bottom_bar_rb_style"
+            android:drawableTop="@drawable/question_rb"
+            android:text="问问"/>
+        <RadioButton
+            android:id="@+id/person_rb"
+            style="@style/bottom_bar_rb_style"
+            android:drawableTop="@drawable/person_rb"
+            android:text="个人"/>
+    </RadioGroup>
+</LinearLayout>

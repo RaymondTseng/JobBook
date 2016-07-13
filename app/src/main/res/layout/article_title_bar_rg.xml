@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/article_title_rg"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBlue"
+    android:alpha="0.8"
+    android:orientation="vertical"
+    android:weightSum="4"
+    android:visibility="visible"
+    android:animateLayoutChanges="true">
+    <RadioButton
+        android:id="@+id/article_title_all_rb"
+        android:text="全部技巧"
+        android:drawableLeft="@drawable/article_title_all_rb_drawable"
+        style="@style/article_title_bar_rb_style"
+        android:checked="true"/>
+    <RadioButton
+        android:id="@+id/article_title_engagement_rb"
+        android:text="就业技巧"
+        android:drawableLeft="@drawable/article_title_engagement_drawable"
+        style="@style/article_title_bar_rb_style"
+        />
+    <RadioButton
+        android:id="@+id/article_title_politic_rb"
+        android:text="政策解读"
+        android:drawableLeft="@drawable/article_title_politic_drawable"
+        style="@style/article_title_bar_rb_style"/>
+    <RadioButton
+        android:id="@+id/article_title_life_rb"
+        android:text="生活资讯"
+        android:drawableLeft="@drawable/article_title_life_drawable"
+        style="@style/article_title_bar_rb_style"/>
+</RadioGroup>
