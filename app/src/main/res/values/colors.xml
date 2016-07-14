@@ -9,14 +9,18 @@
 
     <color name="colorBlue">#7992F9</color>
 
-    <color name="colorLightGray">#F4F4F4</color>
+    <color name="colorBackgroundGray">#F4F4F4</color>
 
     <color name="colorWhite">#FFFFFF</color>
 
     <color name="colorBlack">#000000</color>
 
-    <color name="colorDarkGray">#9E9E9E</color>
+    <color name="colorTextGray">#9E9E9E</color>
 
     <color name="colorPink">#f97979</color>
+
+    <color name="colorYellow">#f9cb79</color>
+    
+    <color name="colorInputGray">#E0E0E0</color>
 
 </resources>

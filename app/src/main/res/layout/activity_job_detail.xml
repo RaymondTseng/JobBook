@@ -3,6 +3,7 @@
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:orientation="vertical"
     android:weightSum="512"
+    android:background="@color/colorWhite"
     >
     <include
         android:layout_width="match_parent"
@@ -11,6 +12,22 @@
         layout="@layout/job_detail_title_bar"/>
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></ScrollView>
+        android:layout_height="0dp"
+        android:layout_weight="456">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <include
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                layout="@layout/job_detail_brief"/>
+            <include
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                layout="@layout/job_detail_description"/>
+        </LinearLayout>
+
+    </ScrollView>
 
 </LinearLayout>

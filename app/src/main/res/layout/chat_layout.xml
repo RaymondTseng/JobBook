@@ -24,17 +24,14 @@
             android:orientation="vertical">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="千度"
-                android:textSize="12sp" />
+                style="@style/Black12sptv"
+                />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:text="伟大的王hr"
-                android:textSize="16sp" />
+                style="@style/Black16sptv" />
 
         </LinearLayout>
 
@@ -87,6 +84,7 @@
             android:paddingBottom="8dp"
             android:layout_marginRight="22dp"
             android:text="123"
+            android:background="@null"
             />
 
         <FrameLayout

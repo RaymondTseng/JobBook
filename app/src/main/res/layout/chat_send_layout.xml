@@ -24,6 +24,7 @@
             android:paddingLeft="8dp"
             android:paddingRight="13dp"
             android:paddingTop="9dp"
+            style="@style/Black14sptv"
             android:text="12354389583045830583904580395809344636644363464336" />
     </RelativeLayout>
 </LinearLayout>

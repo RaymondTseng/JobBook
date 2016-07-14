@@ -1,11 +1,13 @@
 package com.example.jobbook.job.widget;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 
@@ -21,7 +23,8 @@ import java.util.List;
 /**
  * Created by Xu on 2016/7/5.
  */
-public class JobFragment extends Fragment implements JobView, View.OnFocusChangeListener {
+public class JobFragment extends Fragment implements JobView, View.OnFocusChangeListener,
+        AdapterView.OnItemClickListener {
 
     private ListView mListView;
     private EditText mEditText;
@@ -41,6 +44,8 @@ public class JobFragment extends Fragment implements JobView, View.OnFocusChange
         mEditText.setOnFocusChangeListener(this);
         mListView.setOnFocusChangeListener(this);
         mJobPresenter = new JobPresenterImpl(this);
+        mListView.setAdapter(new JobListViewAdapter(getActivity()));
+        mListView.setOnItemClickListener(this);
     }
 
     @Override
@@ -71,5 +76,11 @@ public class JobFragment extends Fragment implements JobView, View.OnFocusChange
                 break;
 
         }
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Intent intent = new Intent(getActivity(), JobDetailActivity.class);
+        startActivity(intent);
     }
 }
