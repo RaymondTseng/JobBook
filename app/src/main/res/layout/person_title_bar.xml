@@ -18,6 +18,7 @@
         android:gravity="center_vertical"
         android:textColor="@color/colorWhite" />
     <ImageButton
+        android:id="@+id/person_setting_ib"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@mipmap/setting"

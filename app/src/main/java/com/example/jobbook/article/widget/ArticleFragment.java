@@ -1,5 +1,6 @@
 package com.example.jobbook.article.widget;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -28,7 +30,8 @@ import java.util.List;
 /**
  * Created by Xu on 2016/7/5.
  */
-public class ArticleFragment extends Fragment implements ArticleView,View.OnClickListener, PopupWindow.OnDismissListener{
+public class ArticleFragment extends Fragment implements ArticleView,View.OnClickListener, PopupWindow.OnDismissListener,
+        AdapterView.OnItemClickListener{
 
     private ListView mListView;
     private LinearLayout mArticleTitleLayout;
@@ -51,6 +54,7 @@ public class ArticleFragment extends Fragment implements ArticleView,View.OnClic
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_article, container, false);
         initViews(view);
+        initAnimation();
         return view;
     }
 
@@ -69,9 +73,13 @@ public class ArticleFragment extends Fragment implements ArticleView,View.OnClic
         mMenuPopupWindow.setBackgroundDrawable(new BitmapDrawable(getResources(),
                 Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888)));
         mMenuPopupWindow.setOutsideTouchable(true);
-        mMenuPopupWindow.setAnimationStyle(R.style.article_menu_animation_style);
         mMenuPopupWindow.setOnDismissListener(this);
         mArticleTitleLayout.setOnClickListener(this);
+//        mListView.setAdapter(new ArticleListViewAdapter(getActivity()));
+        mListView.setOnItemClickListener(this);
+    }
+    private void initAnimation(){
+        mMenuPopupWindow.setAnimationStyle(R.style.article_menu_animation_style);
         mBlankLayoutShowAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.article_menu_show);
         mBlankLayoutHideAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.article_menu_hide);
         mListViewShowAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.article_listview_show);
@@ -115,10 +123,10 @@ public class ArticleFragment extends Fragment implements ArticleView,View.OnClic
                     mMenuPopupWindow.dismiss();
                 }else{
                     mDropImageButton.startAnimation(mDropImageButtonAnimation);
-                    mMenuPopupWindow.showAsDropDown(v ,0 , 20);
+                    mListView.startAnimation(mListViewShowAnimation);
+                    mMenuPopupWindow.showAsDropDown(v ,0 , (getmHeight()/720)*20);
                     mBlankLayout.startAnimation(mBlankLayoutShowAnimation);
                     mBlankLayout.setVisibility(View.VISIBLE);
-                    mListView.startAnimation(mListViewShowAnimation);
                     mDropImageButton.setImageResource(R.mipmap.down_white);
                 }
                 break;
@@ -140,5 +148,11 @@ public class ArticleFragment extends Fragment implements ArticleView,View.OnClic
         mListView.startAnimation(mListViewHideAnimation);
         mDropImageButton.setImageResource(R.mipmap.up_white);
         mBlankLayout.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Intent intent = new Intent(getActivity(), ArticleDetailActivity.class);
+        startActivity(intent);
     }
 }
