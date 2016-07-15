@@ -16,7 +16,7 @@
         android:layout_marginTop="4dp"
         android:paddingLeft="32dp"
         android:text="我来好奇一下"
-        style="@style/DarkGray14sptv"/>
+        style="@style/TextGray14sptv"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -42,7 +42,7 @@
                 android:id="@+id/question_lv_user_name_tv"
                 android:paddingLeft="16dp"
                 android:text="卖苹果公司"
-                style="@style/DarkGray12sptv"
+                style="@style/TextGray12sptv"
                 />
 
         </LinearLayout>
@@ -63,7 +63,7 @@
             <TextView
                 android:id="@+id/question_lv_comment_tv"
                 android:text="1.6k"
-                style="@style/DarkGray12sptv"/>
+                style="@style/TextGray12sptv"/>
 
             <ImageView
                 android:layout_marginLeft="16dp"
@@ -75,7 +75,7 @@
                 android:id="@+id/question_lv_time_tv"
                 android:text="4.15"
                 android:layout_marginRight="16dp"
-                style="@style/DarkGray12sptv"/>
+                style="@style/TextGray12sptv"/>
         </LinearLayout>
 
     </RelativeLayout>

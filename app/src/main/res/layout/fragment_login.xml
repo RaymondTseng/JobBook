@@ -23,10 +23,9 @@
         android:layout_marginTop="32dp"
         android:layout_marginLeft="48dp"
         android:layout_marginRight="48dp"
-        android:background="@color/colorLightGray"
+        android:background="@color/colorBackgroundGray"
         android:hint="账号"
-        android:paddingLeft="16dp"
-        android:textColorHint="@color/colorDarkGray"/>
+        android:paddingLeft="16dp" />
     <EditText
         android:id="@+id/login_password_et"
         android:layout_width="match_parent"
@@ -35,10 +34,9 @@
         android:layout_marginTop="16dp"
         android:layout_marginLeft="48dp"
         android:layout_marginRight="48dp"
-        android:background="@color/colorLightGray"
+        android:background="@color/colorBackgroundGray"
         android:hint="密码"
-        android:paddingLeft="16dp"
-        android:textColorHint="@color/colorDarkGray"/>
+        android:paddingLeft="16dp" />
     <Button
         android:id="@+id/login_login_bt"
         android:layout_width="match_parent"

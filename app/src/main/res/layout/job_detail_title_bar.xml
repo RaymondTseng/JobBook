@@ -18,7 +18,7 @@
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@mipmap/favourite_tapped"
+        android:src="@mipmap/favourite_white"
         android:background="@null"
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
