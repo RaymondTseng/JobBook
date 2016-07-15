@@ -16,6 +16,7 @@
         android:paddingRight="8dp"
         android:paddingTop="6dp"
         android:layout_marginRight="32dp"
+        style="@style/Black14sptv"
         android:text="12379999999999999999999999999999999999999999999999999999" />
 
 

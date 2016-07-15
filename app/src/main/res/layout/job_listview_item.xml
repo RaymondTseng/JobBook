@@ -41,10 +41,8 @@
                     android:id="@+id/job_lv_company_tv"
                     android:layout_toRightOf="@id/job_lv_company_iv"
                     android:layout_centerInParent="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:text="卖苹果公司"
-                    style="@style/listview_content_tv_style"/>
+                    style="@style/TextGray12sptv"/>
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="wrap_content"
@@ -61,10 +59,8 @@
                 <TextView
                     android:id="@+id/job_lv_time_tv"
                     android:layout_toRightOf="@id/job_lv_time_iv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:text="4.15~5.20"
-                    style="@style/listview_content_tv_style"
+                    style="@style/TextGray12sptv"
                     android:layout_centerVertical="true" />
             </RelativeLayout>
             <RelativeLayout
@@ -83,10 +79,8 @@
                 <TextView
                     android:id="@+id/job_lv_location_tv"
                     android:layout_toRightOf="@id/job_lv_location_iv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:text="位于美国洛杉矶中国大道那个多少号来着"
-                    style="@style/listview_content_tv_style"
+                    style="@style/TextGray12sptv"
                     android:layout_centerVertical="true" />
             </RelativeLayout>
             <RelativeLayout
@@ -98,11 +92,9 @@
                 android:layout_alignParentRight="true">
                 <TextView
                     android:id="@+id/job_lv_salary_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:text="¥1.5k~2.5k"
                     android:textColor="@color/colorBlue"
-                    style="@style/listview_content_tv_style"
+                    style="@style/TextGray12sptv"
                     android:layout_centerVertical="true" />
             </RelativeLayout>
 

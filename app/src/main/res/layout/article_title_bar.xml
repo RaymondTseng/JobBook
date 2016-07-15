@@ -10,11 +10,8 @@
         android:layout_centerInParent="true">
         <TextView
             android:id="@+id/article_title_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:text="全部板块"
-            android:textSize="20sp"
-            android:textColor="@color/colorWhite"
+            style="@style/White20sptv"
             android:gravity="center"/>
         <ImageButton
             android:id="@+id/article_title_drop_ib"

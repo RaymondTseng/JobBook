@@ -11,11 +11,8 @@
         android:layout_centerVertical="true"
         android:layout_marginLeft="16dp"/>
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:text="岗位详情"
-        android:textColor="@color/colorWhite"
-        android:textSize="20sp"
+        style="@style/White20sptv"
         android:layout_centerVertical="true"
         android:layout_marginLeft="72dp"/>
     <ImageButton

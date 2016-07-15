@@ -7,21 +7,16 @@
     <TextView
         android:id="@+id/question_lv_title_tv"
         android:layout_marginTop="16dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:text="对于公司，他们希望的员工是怎么样的"
-        android:textSize="16sp"
-        android:textColor="@color/colorBlack"
+        style="@style/Black16sptv"
         android:paddingLeft="16dp"/>
 
     <TextView
         android:id="@+id/question_lv_content_tv"
         android:layout_marginTop="4dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:paddingLeft="32dp"
         android:text="我来好奇一下"
-        style="@style/listview_content_tv_style"/>
+        style="@style/DarkGray14sptv"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -45,11 +40,9 @@
 
             <TextView
                 android:id="@+id/question_lv_user_name_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:paddingLeft="16dp"
                 android:text="卖苹果公司"
-                style="@style/listview_content_tv_style"
+                style="@style/DarkGray12sptv"
                 />
 
         </LinearLayout>
@@ -69,10 +62,8 @@
 
             <TextView
                 android:id="@+id/question_lv_comment_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:text="1.6k"
-                style="@style/listview_content_tv_style"/>
+                style="@style/DarkGray12sptv"/>
 
             <ImageView
                 android:layout_marginLeft="16dp"
@@ -82,11 +73,9 @@
 
             <TextView
                 android:id="@+id/question_lv_time_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:text="4.15"
                 android:layout_marginRight="16dp"
-                style="@style/listview_content_tv_style"/>
+                style="@style/DarkGray12sptv"/>
         </LinearLayout>
 
     </RelativeLayout>

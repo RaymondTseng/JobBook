@@ -15,32 +15,23 @@
         android:layout_centerVertical="true"/>
     <TextView
         android:id="@+id/person_name_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:text="里卓洋"
-        android:textSize="16sp"
         android:textStyle="bold"
-        android:textColor="@color/colorBlack"
+        style="@style/Black16sptv"
         android:layout_toRightOf="@id/person_logo_iv"
         android:layout_marginLeft="16dp"
         android:layout_alignTop="@id/person_logo_iv"/>
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/person_status_tv"
         android:layout_centerVertical="true"
         android:text="求职"
         android:layout_alignLeft="@id/person_name_tv"
-        android:textSize="16sp"
-        android:textColor="@color/colorDarkGray"/>
+        style="@style/TextGray16sptv"/>
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_alignBottom="@id/person_logo_iv"
         android:text="考虑机会"
         android:layout_alignLeft="@id/person_status_tv"
-        android:textSize="16sp"
-        android:textColor="@color/colorDarkGray"/>
+        style="@style/TextGray16sptv"/>
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
