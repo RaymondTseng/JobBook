@@ -24,6 +24,7 @@ import com.example.jobbook.R;
 import com.example.jobbook.article.ArticleListViewAdapter;
 import com.example.jobbook.article.view.ArticleView;
 import com.example.jobbook.bean.ArticleBean;
+import com.example.jobbook.util.Util;
 
 import java.util.List;
 
@@ -152,7 +153,6 @@ public class ArticleFragment extends Fragment implements ArticleView,View.OnClic
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Intent intent = new Intent(getActivity(), ArticleDetailActivity.class);
-        startActivity(intent);
+        Util.toAnotherActivity(getActivity(), ArticleDetailActivity.class);
     }
 }
