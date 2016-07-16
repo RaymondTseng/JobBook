@@ -8,6 +8,7 @@ import com.example.jobbook.R;
 import com.example.jobbook.article.presenter.ArticleDetailPresenterImpl;
 import com.example.jobbook.article.view.ArticleDetailView;
 import com.example.jobbook.bean.ArticleBean;
+import com.example.jobbook.bean.ArticleCommentBean;
 import com.example.jobbook.util.Util;
 
 import java.util.List;
@@ -36,7 +37,7 @@ public class ArticleDetailActivity extends Activity implements ArticleDetailView
     }
 
     @Override
-    public void addComments(List<ArticleDetailCommentBean> mComments) {
+    public void addComments(List<ArticleCommentBean> mComments) {
 //        mListView.setAdapter(new ArticleDetailListViewAdapter(this));
     }
 
