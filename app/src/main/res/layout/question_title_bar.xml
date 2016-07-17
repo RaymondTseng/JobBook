@@ -15,6 +15,7 @@
             android:layout_marginLeft="72dp"/>
 
         <ImageButton
+            android:id="@+id/question_add_ib"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"

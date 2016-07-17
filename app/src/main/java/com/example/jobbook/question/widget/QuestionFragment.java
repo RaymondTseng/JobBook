@@ -1,11 +1,13 @@
 package com.example.jobbook.question.widget;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 import com.example.jobbook.R;
@@ -23,6 +25,7 @@ import java.util.List;
 public class QuestionFragment extends Fragment implements QuestionView{
 
     private ListView mListView;
+    private ImageButton mNewQuestionImageButton;
     private QuestionPresenter mQuestionPresenter;
 
     @Nullable
@@ -30,11 +33,20 @@ public class QuestionFragment extends Fragment implements QuestionView{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_question, container, false);
         initViews(view);
+
+        mNewQuestionImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), NewQuestionActivity.class);
+                startActivity(intent);
+            }
+        });
         return view;
     }
 
     public void initViews(View view) {
         mListView = (ListView) view.findViewById(R.id.question_lv);
+        mNewQuestionImageButton = (ImageButton) view.findViewById(R.id.question_add_ib);
         mQuestionPresenter = new QuestionPresenterImpl(this);
     }
 

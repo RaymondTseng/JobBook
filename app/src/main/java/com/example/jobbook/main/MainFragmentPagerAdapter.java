@@ -36,6 +36,7 @@ public class MainFragmentPagerAdapter extends FragmentPagerAdapter {
     public int getCount() {
         return mFragments.size();
     }
+
     @Override
     public int getItemPosition(Object object) {
         Log.i("TAG", "Call");
