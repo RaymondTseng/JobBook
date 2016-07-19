@@ -20,6 +20,14 @@
         </activity>
         <activity android:name=".job.widget.JobDetailActivity"/>
 
+        <activity android:name=".chat.widget.ChatActivity"/>
+
+        <activity android:name=".feedback.widget.FeedBackActivity" />
+
+        <activity android:name=".job.widget.CompanyDetailActivity" />
+
+        <activity android:name=".question.widget.NewQuestionActivity" />
+
     </application>
 
 

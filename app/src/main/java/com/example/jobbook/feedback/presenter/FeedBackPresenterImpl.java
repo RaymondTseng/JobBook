@@ -34,5 +34,4 @@ public class FeedBackPresenterImpl implements FeedBackPresenter, FeedBackModelIm
         mFeedBackView.back();
     }
 
-
 }

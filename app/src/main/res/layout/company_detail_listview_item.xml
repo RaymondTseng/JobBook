@@ -16,7 +16,6 @@
                 android:layout_height="wrap_content"
                 android:src="@mipmap/default_24px"/>
             <TextView
-                android:id="@+id/company_detail_lv_user_name_tv"
                 android:layout_alignBaseline="@id/company_detail_lv_user_logo_iv"
                 android:layout_marginLeft="8dp"
                 android:text="我是测试用的小号"
@@ -24,7 +23,6 @@
                 android:layout_gravity="center_vertical"/>
         </LinearLayout>
         <TextView
-            android:id="@+id/company_detail_lv_user_comment_tv"
             android:layout_below="@id/company_detail_lv_user_ll"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"

@@ -1,6 +1,7 @@
 package com.example.jobbook.person.widget;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.jobbook.R;
+import com.example.jobbook.feedback.widget.FeedBackActivity;
 import com.example.jobbook.person.view.PersonView;
 
 
@@ -22,6 +24,7 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
     private ListView mListView;
     private IPersonChanged mIPersonChanged;
     private Button mSwitch2PersonButton;
+    private TextView mSwitch2FeedBackTextView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -45,7 +48,9 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
 
     public void initViews(View view) {
         mSwitch2PersonButton = (Button) view.findViewById(R.id.person_switch2login_bt);
+        mSwitch2FeedBackTextView = (TextView) view.findViewById(R.id.person_feedback_tv);
         mSwitch2PersonButton.setOnClickListener(this);
+        mSwitch2FeedBackTextView.setOnClickListener(this);
     }
 
     @Override
@@ -53,13 +58,14 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
 
     }
 
-
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.person_switch2login_bt:
                 switch2Login();
+                break;
+            case R.id.person_feedback_tv:
+                startActivity(new Intent(getContext(), FeedBackActivity.class));
                 break;
         }
     }

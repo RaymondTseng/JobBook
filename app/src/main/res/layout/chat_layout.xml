@@ -30,12 +30,14 @@
                 />
 
             <TextView
+                android:id="@+id/chat_layout_name_tv"
                 android:text="伟大的王hr"
                 style="@style/Black16sptv" />
 
         </LinearLayout>
 
         <ImageButton
+            android:id="@+id/chat_layout_logo_ib"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_alignParentRight="true"
@@ -48,19 +50,22 @@
     </RelativeLayout>
 
     <ListView
+        android:id="@+id/chat_layout_lv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/chat_layout_top">
-
+        android:layout_above="@+id/linearLayout"
+        android:layout_below="@+id/chat_layout_top">
     </ListView>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_alignParentBottom="true">
+        android:layout_alignParentBottom="true"
+        android:id="@+id/linearLayout">
 
         <FrameLayout
+            android:id="@+id/cha"
             android:layout_width="0dp"
             android:layout_weight="7"
             android:layout_height="match_parent"
@@ -76,6 +81,7 @@
 
 
         <EditText
+            android:id="@+id/chat_layout_send_content_et"
             android:layout_width="0dp"
             android:layout_weight="31"
             android:layout_height="wrap_content"
@@ -88,6 +94,8 @@
             />
 
         <FrameLayout
+            android:id="@+id/chat_layout_send_fl"
+            android:clickable="true"
             android:layout_width="0dp"
             android:layout_weight="7"
             android:layout_height="match_parent"

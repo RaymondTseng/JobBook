@@ -1,81 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBackgroundGray"
+    android:orientation="vertical"
     android:weightSum="9">
+
     <include
+        layout="@layout/person_title_bar"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        layout="@layout/person_title_bar"/>
+        android:layout_weight="1" />
+
     <include
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2"
         layout="@layout/person_userinfo_ll"
-        android:layout_marginTop="16dp" />
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:layout_weight="2" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="3"
-        android:weightSum="4"
-        android:orientation="vertical"
         android:layout_marginTop="16dp"
-        android:background="@color/colorWhite">
+        android:layout_weight="3"
+        android:background="@color/colorWhite"
+        android:orientation="vertical"
+        android:weightSum="4">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
             android:background="@drawable/person_content_bg">
+
             <TextView
                 style="@style/person_content_tv_style"
                 android:text="文字简历" />
-            <ImageView
-                style="@style/person_content_iv_style"/>
+
+            <ImageView style="@style/person_content_iv_style" />
         </RelativeLayout>
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
             android:background="@drawable/person_content_bg">
+
             <TextView
                 style="@style/person_content_tv_style"
                 android:text="视频简历" />
-            <ImageView
-                style="@style/person_content_iv_style"/>
+
+            <ImageView style="@style/person_content_iv_style" />
         </RelativeLayout>
+
         <RelativeLayout
+            android:id="@+id/person_favourite_ll"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
             android:background="@drawable/person_content_bg">
+
             <TextView
                 style="@style/person_content_tv_style"
                 android:text="收藏" />
-            <ImageView
-                style="@style/person_content_iv_style"/>
+
+            <ImageView style="@style/person_content_iv_style" />
         </RelativeLayout>
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
             android:background="@drawable/person_content_bg">
+
             <TextView
+                android:id="@+id/person_feedback_tv"
+                android:clickable="true"
                 style="@style/person_content_tv_style"
                 android:text="意见反馈" />
-            <ImageView
-                style="@style/person_content_iv_style"/>
+
+            <ImageView style="@style/person_content_iv_style" />
         </RelativeLayout>
     </LinearLayout>
+
     <Button
         android:id="@+id/person_switch2login_bt"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="16dp"
         android:layout_weight="0.75"
+        android:background="@color/colorWhite"
         android:text="注销"
         android:textColor="@color/colorPink"
-        android:background="@color/colorWhite"
-        android:layout_marginTop="16dp"
-        android:textSize="16sp"/>
+        android:textSize="16sp" />
 </LinearLayout>
