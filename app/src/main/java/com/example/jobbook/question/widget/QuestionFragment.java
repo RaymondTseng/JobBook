@@ -7,11 +7,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-<<<<<<< HEAD
 import android.widget.ImageButton;
-=======
 import android.widget.AdapterView;
->>>>>>> dd1bc3dea0db6e226b47f07bd8ceabe6a81b23ee
 import android.widget.ListView;
 
 import com.example.jobbook.R;
@@ -51,12 +48,9 @@ public class QuestionFragment extends Fragment implements QuestionView, AdapterV
 
     public void initViews(View view) {
         mListView = (ListView) view.findViewById(R.id.question_lv);
-<<<<<<< HEAD
         mNewQuestionImageButton = (ImageButton) view.findViewById(R.id.question_add_ib);
-=======
 //        mListView.setAdapter(new QuestionListViewAdapter(getActivity()));
         mListView.setOnItemClickListener(this);
->>>>>>> dd1bc3dea0db6e226b47f07bd8ceabe6a81b23ee
         mQuestionPresenter = new QuestionPresenterImpl(this);
     }
 

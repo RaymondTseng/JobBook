@@ -128,6 +128,14 @@
                 />
 
         </RelativeLayout>
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/right_blue"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@null"
+            android:id="@+id/job_detail_tocompany_ib" />
     </RelativeLayout>
     <TextView
         android:layout_width="match_parent"

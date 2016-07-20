@@ -1,7 +1,8 @@
 package com.example.jobbook.article.widget;
-
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 import com.example.jobbook.R;
@@ -16,9 +17,10 @@ import java.util.List;
 /**
  * Created by 椰树 on 2016/7/15.
  */
-public class ArticleDetailActivity extends Activity implements ArticleDetailView{
+public class ArticleDetailActivity extends Activity implements ArticleDetailView, View.OnClickListener{
     private ListView mListView;
     private ArticleDetailPresenterImpl mPresenter;
+    private ImageButton mBackImageButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,9 +28,11 @@ public class ArticleDetailActivity extends Activity implements ArticleDetailView
         initViews();
     }
     private void initViews(){
+        mBackImageButton = (ImageButton) findViewById(R.id.article_detail_back_ib);
         mListView = (ListView)findViewById(R.id.article_detail_lv);
         Util.setListViewHeightBasedOnChildren(mListView);
         mPresenter = new ArticleDetailPresenterImpl(this);
+        mBackImageButton.setOnClickListener(this);
     }
 
     @Override
@@ -54,5 +58,14 @@ public class ArticleDetailActivity extends Activity implements ArticleDetailView
     @Override
     public void showLoadFailMsg() {
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.article_detail_back_ib:
+                finish();
+                break;
+        }
     }
 }

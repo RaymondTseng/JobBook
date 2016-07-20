@@ -2,6 +2,7 @@ package com.example.jobbook.question.widget;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -18,10 +19,11 @@ import java.util.List;
 /**
  * Created by 椰树 on 2016/7/15.
  */
-public class QuestionDetailActivity extends Activity implements QuestionDetailView{
+public class QuestionDetailActivity extends Activity implements QuestionDetailView, View.OnClickListener{
     private ListView mListView;
     private EditText mEditText;
     private ImageButton mSendImageButton;
+    private ImageButton mBackImageButton;
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -32,6 +34,8 @@ public class QuestionDetailActivity extends Activity implements QuestionDetailVi
         mListView = (ListView) findViewById(R.id.question_detail_lv);
         mEditText = (EditText) findViewById(R.id.question_detail_et);
         mSendImageButton = (ImageButton) findViewById(R.id.question_detail_send_ib);
+        mBackImageButton = (ImageButton) findViewById(R.id.question_detail_back_ib);
+        mBackImageButton.setOnClickListener(this);
     }
 
     @Override
@@ -63,5 +67,14 @@ public class QuestionDetailActivity extends Activity implements QuestionDetailVi
     @Override
     public String getComment() {
         return mEditText.getText().toString();
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.question_detail_back_ib:
+                finish();
+                break;
+        }
     }
 }

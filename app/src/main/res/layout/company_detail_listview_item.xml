@@ -20,7 +20,8 @@
                 android:layout_marginLeft="8dp"
                 android:text="我是测试用的小号"
                 style="@style/Black16sptv"
-                android:layout_gravity="center_vertical"/>
+                android:layout_gravity="center_vertical"
+                android:id="@+id/company_detail_lv_user_name_tv" />
         </LinearLayout>
         <TextView
             android:layout_below="@id/company_detail_lv_user_ll"
@@ -28,6 +29,7 @@
             android:layout_marginRight="16dp"
             android:layout_marginTop="12dp"
             style="@style/Black14sptv"
-            android:text="这间公司的企业文化和我的做人原则基本一致，太好了！"/>
+            android:text="这间公司的企业文化和我的做人原则基本一致，太好了！"
+            android:id="@+id/company_detail_lv_user_comment_tv" />
     </RelativeLayout>
 </LinearLayout>

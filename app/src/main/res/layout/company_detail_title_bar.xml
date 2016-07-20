@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorBlue">
     <ImageButton
+        android:id="@+id/company_detail_back_ib"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@mipmap/left_white"

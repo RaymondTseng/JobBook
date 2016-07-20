@@ -21,6 +21,7 @@
             android:gravity="center_vertical"
             android:layout_marginRight="16dp"
             android:src="@mipmap/add"
-            android:background="@color/colorBlue"/>
+            android:background="@color/colorBlue"
+            android:id="@+id/question_add_ib" />
     </RelativeLayout>
 </LinearLayout>

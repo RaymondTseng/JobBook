@@ -15,7 +15,7 @@ import com.example.jobbook.feedback.view.FeedBackView;
 /**
  * Created by Xu on 2016/7/17.
  */
-public class FeedBackActivity extends Activity implements FeedBackView {
+public class FeedBackActivity extends Activity implements FeedBackView, View.OnClickListener {
 
     private ImageButton mBackImageButton;
     private TextView mFeedBackTextView;
@@ -36,12 +36,8 @@ public class FeedBackActivity extends Activity implements FeedBackView {
         mFeedBackTextView = (TextView) findViewById(R.id.suggestion_feedback_new_tv);
         mFeedBackMailEditText = (EditText) findViewById(R.id.suggestion_feedback_mail_et);
         mFeedBackContentEditText = (EditText) findViewById(R.id.suggestion_feedback_content_et);
-        mFeedBackTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mFeedBackPresenter.feedback(mFeedBackMailEditText.getText().toString(), mFeedBackContentEditText.getText().toString());
-            }
-        });
+        mFeedBackTextView.setOnClickListener(this);
+        mBackImageButton.setOnClickListener(this);
     }
 
     @Override
@@ -61,6 +57,18 @@ public class FeedBackActivity extends Activity implements FeedBackView {
 
     @Override
     public void back() {
+        this.finish();
+    }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.suggestion_feedback_back_ib:
+                back();
+                break;
+            case R.id.suggestion_feedback_new_tv:
+                mFeedBackPresenter.feedback(mFeedBackMailEditText.getText().toString(), mFeedBackContentEditText.getText().toString());
+                break;
+        }
     }
 }
