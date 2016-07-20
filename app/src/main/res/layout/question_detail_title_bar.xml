@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBlue"
+>
+    <ImageButton
+        android:id="@+id/question_detail_back_ib"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:src="@mipmap/left_white"
+        android:background="@null"
+        android:layout_marginLeft="16dp"/>
+    <TextView
+        android:text="问题详情"
+        style="@style/White20sptv"
+        android:layout_toRightOf="@id/question_detail_back_ib"
+        android:layout_marginLeft="32dp"
+        android:layout_centerVertical="true"/>
+
+</RelativeLayout>
