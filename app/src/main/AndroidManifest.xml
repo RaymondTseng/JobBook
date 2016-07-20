@@ -19,6 +19,10 @@
 
         </activity>
         <activity android:name=".job.widget.JobDetailActivity"/>
+        <activity android:name=".article.widget.ArticleDetailActivity"/>
+        <activity android:name=".person.widget.SettingActivity"/>
+        <activity android:name=".person.widget.FavouriteActivity"/>
+        <activity android:name=".question.widget.QuestionDetailActivity"/>
 
         <activity android:name=".chat.widget.ChatActivity"/>
 

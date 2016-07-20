@@ -10,8 +10,14 @@
         layout="@layout/person_title_bar"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+<<<<<<< HEAD
         android:layout_weight="1" />
 
+=======
+        android:layout_weight="1"
+        layout="@layout/person_title_bar"
+         />
+>>>>>>> dd1bc3dea0db6e226b47f07bd8ceabe6a81b23ee
     <include
         layout="@layout/person_userinfo_ll"
         android:layout_width="match_parent"

@@ -2,6 +2,16 @@
 <project version="4">
   <component name="EntryPointsManager">
     <entry_points version="2.0" />
+<<<<<<< HEAD
+=======
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="Bundled (Maven 3)" />
+      </MavenGeneralSettings>
+    </option>
+>>>>>>> dd1bc3dea0db6e226b47f07bd8ceabe6a81b23ee
   </component>
   <component name="NullableNotNullManager">
     <option name="myDefaultNullable" value="android.support.annotation.Nullable" />
