@@ -74,14 +74,13 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
                 switch2Login();
                 break;
             case R.id.person_feedback_tv:
-                startActivity(new Intent(getContext(), FeedBackActivity.class));
+                startActivity(new Intent(getActivity(), FeedBackActivity.class));
+                break;
             case R.id.person_setting_ib:
-                Intent intent = new Intent(getActivity(), SettingActivity.class);
-                startActivity(intent);
+                startActivity(new Intent(getActivity(), SettingActivity.class));
                 break;
             case R.id.person_favourite_ll:
-                Intent intent1 = new Intent(getActivity(), FavouriteActivity.class);
-                startActivity(intent1);
+                startActivity(new Intent(getActivity(), FavouriteActivity.class));
                 break;
         }
     }
