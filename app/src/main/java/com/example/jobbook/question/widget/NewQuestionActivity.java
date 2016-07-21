@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
@@ -107,7 +108,7 @@ public class NewQuestionActivity extends Activity implements NewQuestionView, Vi
     }
 
     private void changeColor() {
-        if (!mNewQuestionTitleEditText.getText().toString().equals("") && !mNewQuestionContentEditText.getText().toString().equals("")) {
+        if (!TextUtils.isEmpty(mNewQuestionTitleEditText.getText()) && !TextUtils.isEmpty(mNewQuestionContentEditText.getText())) {
             Message message = new Message();
             message.what = CHANGE_COLOR;
             handler.sendMessage(message);
