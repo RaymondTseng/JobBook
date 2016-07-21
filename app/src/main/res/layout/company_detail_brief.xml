@@ -109,7 +109,8 @@
             android:layout_below="@id/company_detail_description_tv"
             android:layout_marginTop="34dp"
             style="@style/Black14sptv"
-            android:text="Apple 员工不只创造产品，他们的奇思妙想更引领着整个行业的潮流。员工多样化的背景带来了思想的碰撞，从令人惊叹的科技到业界领先的环保措施，我们所做的一切都闪耀着他们的灵感与创新。加入Apple，和我们一道让世界变得更美好。"/>
+            android:text="Apple 员工不只创造产品，他们的奇思妙想更引领着整个行业的潮流。员工多样化的背景带来了思想的碰撞，从令人惊叹的科技到业界领先的环保措施，我们所做的一切都闪耀着他们的灵感与创新。加入Apple，和我们一道让世界变得更美好。"
+            android:id="@+id/company_detail_company_introduction_tv" />
     </RelativeLayout>
     <TextView
         android:layout_width="match_parent"

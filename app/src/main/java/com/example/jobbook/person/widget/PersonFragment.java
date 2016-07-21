@@ -8,7 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.jobbook.R;
@@ -22,9 +24,11 @@ import com.example.jobbook.person.view.PersonView;
 public class PersonFragment extends Fragment implements PersonView, View.OnClickListener{
 
     private ListView mListView;
+    private ImageButton mSettingImageButton;
     private IPersonChanged mIPersonChanged;
     private Button mSwitch2PersonButton;
     private TextView mSwitch2FeedBackTextView;
+    private RelativeLayout mFavouriteLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -51,6 +55,11 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
         mSwitch2FeedBackTextView = (TextView) view.findViewById(R.id.person_feedback_tv);
         mSwitch2PersonButton.setOnClickListener(this);
         mSwitch2FeedBackTextView.setOnClickListener(this);
+        mSettingImageButton = (ImageButton) view.findViewById(R.id.person_setting_ib);
+        mFavouriteLayout = (RelativeLayout) view.findViewById(R.id.person_favourite_ll);
+        mSwitch2PersonButton.setOnClickListener(this);
+        mSettingImageButton.setOnClickListener(this);
+        mFavouriteLayout.setOnClickListener(this);
     }
 
     @Override
@@ -66,6 +75,13 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
                 break;
             case R.id.person_feedback_tv:
                 startActivity(new Intent(getContext(), FeedBackActivity.class));
+            case R.id.person_setting_ib:
+                Intent intent = new Intent(getActivity(), SettingActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.person_favourite_ll:
+                Intent intent1 = new Intent(getActivity(), FavouriteActivity.class);
+                startActivity(intent1);
                 break;
         }
     }

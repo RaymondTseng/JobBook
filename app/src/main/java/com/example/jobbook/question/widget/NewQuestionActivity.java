@@ -2,6 +2,7 @@ package com.example.jobbook.question.widget;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -14,7 +15,7 @@ import com.example.jobbook.question.view.NewQuestionView;
 /**
  * Created by Xu on 2016/7/16.
  */
-public class NewQuestionActivity extends Activity implements NewQuestionView{
+public class NewQuestionActivity extends Activity implements NewQuestionView, View.OnClickListener{
 
     private ImageButton mCloseImageButton;
     private EditText mNewQuestionTitleEditText;
@@ -57,4 +58,12 @@ public class NewQuestionActivity extends Activity implements NewQuestionView{
         this.finish();
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.activity_publish_close_ib:
+                close();
+                break;
+        }
+    }
 }

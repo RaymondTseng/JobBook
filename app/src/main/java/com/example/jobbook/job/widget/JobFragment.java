@@ -43,9 +43,10 @@ public class JobFragment extends Fragment implements JobView, View.OnFocusChange
         mEditText = (EditText) view.findViewById(R.id.job_et);
         mEditText.setOnFocusChangeListener(this);
         mListView.setOnFocusChangeListener(this);
-        mJobPresenter = new JobPresenterImpl(this);
-        mListView.setAdapter(new JobListViewAdapter(getActivity()));
         mListView.setOnItemClickListener(this);
+        mJobPresenter = new JobPresenterImpl(this);
+//        mListView.setAdapter(new JobListViewAdapter(getActivity()));
+//        mListView.setOnItemClickListener(this);
     }
 
     @Override
