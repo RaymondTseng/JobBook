@@ -11,29 +11,42 @@
 
         <activity android:name=".main.widget.MainActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
 
             </intent-filter>
 
         </activity>
-        <activity android:name=".job.widget.JobDetailActivity"/>
-        <activity android:name=".article.widget.ArticleDetailActivity"/>
-        <activity android:name=".person.widget.SettingActivity"/>
-        <activity android:name=".person.widget.FavouriteActivity"/>
-        <activity android:name=".question.widget.QuestionDetailActivity"/>
-
-        <activity android:name=".chat.widget.ChatActivity"/>
-
-        <activity android:name=".feedback.widget.FeedBackActivity" />
-
-        <activity android:name=".job.widget.CompanyDetailActivity" />
-
-        <activity android:name=".question.widget.NewQuestionActivity" />
+        <activity
+            android:name=".job.widget.JobDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".article.widget.ArticleDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".person.widget.SettingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".person.widget.FavouriteActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".question.widget.QuestionDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".chat.widget.ChatActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".feedback.widget.FeedBackActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".job.widget.CompanyDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".question.widget.NewQuestionActivity"
+            android:screenOrientation="portrait" />
 
     </application>
-
 
 
 </manifest>

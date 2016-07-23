@@ -1,7 +1,13 @@
 package com.example.jobbook.feedback.widget;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -15,13 +21,28 @@ import com.example.jobbook.feedback.view.FeedBackView;
 /**
  * Created by Xu on 2016/7/17.
  */
-public class FeedBackActivity extends Activity implements FeedBackView, View.OnClickListener {
+public class FeedBackActivity extends Activity implements FeedBackView, View.OnClickListener, TextWatcher {
+
+    private static int NO_CHANGE_COLOR = 0;
+    private static int CHANGE_COLOR = 1;
 
     private ImageButton mBackImageButton;
     private TextView mFeedBackTextView;
     private EditText mFeedBackMailEditText;
     private EditText mFeedBackContentEditText;
     private FeedBackPresenter mFeedBackPresenter;
+
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            if (msg.what == CHANGE_COLOR) {
+                mFeedBackTextView.setTextColor(Color.WHITE);
+            } else if (msg.what == NO_CHANGE_COLOR) {
+                mFeedBackTextView.setTextColor(Color.parseColor("#61ffffff"));
+            }
+        }
+
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +90,33 @@ public class FeedBackActivity extends Activity implements FeedBackView, View.OnC
             case R.id.suggestion_feedback_new_tv:
                 mFeedBackPresenter.feedback(mFeedBackMailEditText.getText().toString(), mFeedBackContentEditText.getText().toString());
                 break;
+        }
+    }
+
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+        changeColor();
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+
+    }
+
+    private void changeColor() {
+        if (!TextUtils.isEmpty(mFeedBackMailEditText.getText()) && !TextUtils.isEmpty(mFeedBackContentEditText.getText())) {
+            Message message = new Message();
+            message.what = CHANGE_COLOR;
+            handler.sendMessage(message);
+        }else {
+            Message message = new Message();
+            message.what = NO_CHANGE_COLOR;
+            handler.sendMessage(message);
         }
     }
 }
