@@ -5,4 +5,5 @@ package com.example.jobbook.bean;
  * 职位模型类
  */
 public class JobBean {
+
 }

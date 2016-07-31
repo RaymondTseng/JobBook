@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:weightSum="512">
+    android:weightSum="568">
 
     <RelativeLayout
         android:layout_width="match_parent"

@@ -3,7 +3,7 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorWhite"
-    android:weightSum="556"
+    android:weightSum="512"
     android:id="@+id/article_fragment">
     <include
         android:layout_weight="56"
@@ -23,6 +23,6 @@
     <ListView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="500"
+        android:layout_weight="456"
         android:id="@+id/article_lv"></ListView>
 </LinearLayout>
