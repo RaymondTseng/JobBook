@@ -3,10 +3,10 @@ package com.example.jobbook.bean;
 import java.io.Serializable;
 
 /**
- * Created by 椰树 on 2016/7/16.
- * 评论模型类
+ * Created by Xu on 2016/7/23.
+ * 公司评论模型类
  */
-public class ArticleCommentBean implements Serializable {
+public class CompanyCommentBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -14,11 +14,6 @@ public class ArticleCommentBean implements Serializable {
      * 文章评论者
      */
     private PersonBean author;
-
-    /**
-     * 评论点赞数
-     */
-    private int favourite;
 
     /**
      * 评论内容
@@ -31,14 +26,6 @@ public class ArticleCommentBean implements Serializable {
 
     public void setAuthor(PersonBean author) {
         this.author = author;
-    }
-
-    public int getFavourite() {
-        return favourite;
-    }
-
-    public void setFavourite(int favourite) {
-        this.favourite = favourite;
     }
 
     public String getContent() {
