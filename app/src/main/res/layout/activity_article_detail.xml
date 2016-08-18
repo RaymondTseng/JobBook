@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:weightSum="512"
+    android:weightSum="568"
     android:background="@color/colorWhite">
     <include
         android:layout_width="match_parent"
@@ -12,7 +12,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="456"
+        android:layout_weight="512"
         android:fillViewport="true">
         <LinearLayout
             android:layout_width="match_parent"

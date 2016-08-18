@@ -3,16 +3,16 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorWhite"
-    android:weightSum="9">
+    android:weightSum="512">
     <include
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_weight="56"
         layout="@layout/question_title_bar"/>
     <ListView
         android:id="@+id/question_lv"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="8"></ListView>
+        android:layout_weight="456"></ListView>
 
 </LinearLayout>

@@ -8,7 +8,7 @@
 
     <include
         android:id="@+id/bottom_navigation_bar"
-        android:layout_height="52dp"
+        android:layout_height="56dp"
         android:layout_width="match_parent"
         layout="@layout/bottom_navigation_bar"
         android:layout_alignParentBottom="true"

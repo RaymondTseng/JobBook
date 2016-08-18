@@ -4,26 +4,26 @@
     android:layout_height="match_parent"
     android:background="@color/colorBackgroundGray"
     android:orientation="vertical"
-    android:weightSum="9">
+    android:weightSum="512">
 
     <include
         layout="@layout/person_title_bar"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_weight="56" />
 
     <include
         layout="@layout/person_userinfo_ll"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
-        android:layout_weight="2" />
+        android:layout_weight="110" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
-        android:layout_weight="3"
+        android:layout_weight="192"
         android:background="@color/colorWhite"
         android:orientation="vertical"
         android:weightSum="4">
@@ -89,7 +89,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
-        android:layout_weight="0.75"
+        android:layout_weight="48"
         android:background="@color/colorWhite"
         android:text="注销"
         android:textColor="@color/colorPink"
