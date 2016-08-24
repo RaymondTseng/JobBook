@@ -17,4 +17,6 @@ public interface JobView {
 
     void showLoadingFailMsg();
 
+    void search();
+
 }

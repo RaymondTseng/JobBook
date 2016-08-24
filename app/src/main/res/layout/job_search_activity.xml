@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:weightSum="568"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="56"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/job_search_activity_back_ib"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:src="@mipmap/left_blue"
+            android:background="@null"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:background="@color/colorWhite"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:orientation="horizontal"
+            android:weightSum="6">
+
+            <EditText
+                android:id="@+id/job_search_activity_et"
+                android:layout_width="0dp"
+                android:layout_height="56dp"
+                android:layout_weight="5"
+                android:background="@null"
+                android:hint="搜索一些感兴趣的..." />
+
+            <ImageButton
+                android:layout_width="0dp"
+                android:layout_height="56dp"
+                android:layout_weight="1"
+                android:background="@color/colorBlue"
+                android:src="@mipmap/search" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="512"
+        android:background="#C7C4BE"
+        android:alpha="1"/>
+
+
+</LinearLayout>

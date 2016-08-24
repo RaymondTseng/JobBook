@@ -1,0 +1,219 @@
+[33mcommit 41a9b3d9ede6e09e3865dd29d6e10c3353c34dc1[m
+Author: Xu <280745397@qq.com>
+Date:   Sun Jul 24 12:10:15 2016 +0800
+
+    增加四个模型类设计
+
+[33mcommit e296ea0df2aa0b97a877a40b6094d305c6e0d58d[m
+Author: Xu <280745397@qq.com>
+Date:   Fri Jul 22 00:11:40 2016 +0800
+
+    修改一些小细节(2)
+
+[33mcommit 0a7d7d3103f035960e04079a46a7eba6a2856d94[m
+Author: Xu <280745397@qq.com>
+Date:   Thu Jul 21 22:35:31 2016 +0800
+
+    修改一些小细节
+
+[33mcommit 7d94952b841e91666e7bff0053e5e361bc5a7c8e[m
+Author: Xu <280745397@qq.com>
+Date:   Thu Jul 21 15:59:38 2016 +0800
+
+    修复两个bug
+
+[33mcommit c9ec09007fcd9dac47ef7d868698a39266423d83[m
+Merge: c3231c8 fdf352b
+Author: Xu <280745397@qq.com>
+Date:   Thu Jul 21 14:51:07 2016 +0800
+
+    Merge pull request #1 from RaymondTseng/master
+    
+    完成跳转
+
+[33mcommit fdf352b29f044c360455dd4c714f3dba4558ced2[m
+Author: RaymondTseng <761409033@qq.com>
+Date:   Wed Jul 20 17:17:18 2016 +0800
+
+    完成所有跳转
+
+[33mcommit 18ef5c56eb11631e592e5530aff868df65bb82a2[m
+Merge: c3231c8 dd1bc3d
+Author: RaymondTseng <761409033@qq.com>
+Date:   Wed Jul 20 15:01:49 2016 +0800
+
+    222
+
+[33mcommit dd1bc3dea0db6e226b47f07bd8ceabe6a81b23ee[m
+Author: RaymondTseng <761409033@qq.com>
+Date:   Wed Jul 20 14:42:06 2016 +0800
+
+    111
+
+[33mcommit be7e62f30859420e70639a083eb24845d47e064d[m
+Author: RaymondTseng <761409033@qq.com>
+Date:   Wed Jul 20 13:18:51 2016 +0800
+
+    补充
+
+[33mcommit c3231c816ac5e4c4d52d6ea86e1d4b19b80b5b73[m
+Author: Xu <280745397@qq.com>
+Date:   Wed Jul 20 00:09:32 2016 +0800
+
+    完成聊天界面
+
+[33mcommit cdfe2ec4912527f637c4bc179847f2048e1e8e88[m
+Author: Xu <280745397@qq.com>
+Date:   Mon Jul 18 00:52:32 2016 +0800
+
+    完成反馈和提问页面
+
+[33mcommit 43bcf26aeb26705eb3aac6291358054f1ae7724d[m
+Author: RaymondTseng <761409033@qq.com>
+Date:   Sat Jul 16 14:13:16 2016 +0800
+
+    完成部分界面的mvp
+
+[33mcommit 76982bd8ed41b299fb3a68de78c55d83c084cada[m
+Author: RaymondTseng <761409033@qq.com>
+Date:   Sat Jul 16 14:09:02 2016 +0800
+
+    完成部分界面的mvp
+
+[33mcommit 39f4caf57a96bd8e74ea84eb2f93aec78aa6829c[m
+Author: Xu <280745397@qq.com>
+Date:   Sat Jul 16 00:04:29 2016 +0800
+
+    完成公司详情页面的开发
+
+[33mcommit 2b9ac63c56905a8959ca6e791e958112d90ec6f6[m
+Author: RaymondTseng <761409033@qq.com>
+Date:   Sat Jul 16 00:03:23 2016 +0800
+
+    完成部分界面的Activity
+
+[33mcommit b790161f147f3e3098b07b609fbc9477c386688d[m
+Author: RaymondTseng <761409033@qq.com>
+Date:   Fri Jul 15 11:04:02 2016 +0800
+
+    遗漏的两个layout
+
+[33mcommit c74df636785e4f08ab707ec5c6efe4404ce2a019[m
+Author: RaymondTseng <761409033@qq.com>
+Date:   Fri Jul 15 10:25:04 2016 +0800
+
+    整理遗漏修补
+
+[33mcommit cf5ac59a94eb13287f037d281a4516c87216d082[m
+Author: RaymondTseng <761409033@qq.com>
+Date:   Thu Jul 14 23:08:07 2016 +0800
+
+    基本完成全部界面+整理
+
+[33mcommit 9ad80fe939a2fd2ea648bd482aa6873abce122ae[m
+Merge: dbecc45 b20798e
+Author: RaymondTseng <761409033@qq.com>
+Date:   Thu Jul 14 10:19:32 2016 +0800
+
+    Merge remote-tracking branch 'origin/master'
+
+[33mcommit b20798eee1951c09b35a4db8d07dfae98b96066e[m
+Merge: 016720c ece537f
+Author: RaymondTseng <761409033@qq.com>
+Date:   Thu Jul 14 10:08:20 2016 +0800
+
+    Merge pull request #3 from XuDeveloper/master
+    
+    项目增加聊天界面
+
+[33mcommit ece537f615cda8d9e0587829f3cc90eb354ac0dc[m
+Author: Xu <280745397@qq.com>
+Date:   Wed Jul 13 11:25:33 2016 +0800
+
+    增加聊天页面，一些小修改
+
+[33mcommit 8ee53907aced48ec2db305fb9ef13201458ae30a[m
+Author: Xu <280745397@qq.com>
+Date:   Wed Jul 13 11:22:38 2016 +0800
+
+    增加聊天页面
+
+[33mcommit dbecc4574c9dccdd7d7990ba699d1486b9ee9d0e[m
+Merge: ae918da 016720c
+Author: RaymondTseng <761409033@qq.com>
+Date:   Wed Jul 13 10:13:02 2016 +0800
+
+    Merge remote-tracking branch 'origin/master'
+    
+    # Conflicts:
+    #	.gitignore
+
+[33mcommit 016720c39d9b6fcd8d1870818f906db1377f094e[m
+Merge: 8d5454c a5ff62a
+Author: RaymondTseng <761409033@qq.com>
+Date:   Wed Jul 13 10:03:55 2016 +0800
+
+    Merge pull request #2 from XuDeveloper/master
+    
+    改成MVP架构
+
+[33mcommit a5ff62ab556dce214ae0e5100582b36d6338ba01[m
+Author: Xu <280745397@qq.com>
+Date:   Tue Jul 12 21:55:53 2016 +0800
+
+    改成MVP架构
+
+[33mcommit 8d5454c1bfaf4e9b40c8c3a0e8105e0f19dbba90[m
+Author: RaymondTseng <761409033@qq.com>
+Date:   Wed Jul 6 16:31:38 2016 +0800
+
+    整理
+
+[33mcommit 70fa8fbad11f783f7fa0d5dd5e2bfbeea00738b9[m
+Author: RaymondTseng <761409033@qq.com>
+Date:   Sun Jun 5 14:42:21 2016 +0800
+
+    hahah
+
+[33mcommit f896485aef7d6b6602ff6ca075f5751c90206430[m
+Author: RaymondTseng <761409033@qq.com>
+Date:   Sun Jun 5 12:39:47 2016 +0800
+
+    再来一遍
+
+[33mcommit 2d64bb874901fcbfe826a6eb749c555d6cbca360[m
+Author: RaymondTseng <761409033@qq.com>
+Date:   Sun Jun 5 09:54:48 2016 +0800
+
+    更新了几个界面及其他
+
+[33mcommit ab1d3d79d8171352e0ad54dbac9e5868122991b7[m
+Merge: 8606b9d aa1c003
+Author: RaymondTseng <761409033@qq.com>
+Date:   Wed Jun 1 19:13:26 2016 +0800
+
+    Merge remote-tracking branch 'origin/master'
+
+[33mcommit 8606b9d9be018303f2dda009624009989bd94115[m
+Author: RaymondTseng <761409033@qq.com>
+Date:   Wed Jun 1 19:12:11 2016 +0800
+
+    修改popupwindow大小
+
+[33mcommit aa1c003ce56e73a4a250e008444990ceb8645f6b[m
+Author: RaymondTseng <761409033@qq.com>
+Date:   Tue May 24 13:11:48 2016 +0800
+
+    Create README.md
+
+[33mcommit 6519e8dc2cfb17ad661119b333b7c0db1d0f5674[m
+Author: RaymondTseng <761409033@qq.com>
+Date:   Tue May 24 13:09:24 2016 +0800
+
+    Initial commit
+
+[33mcommit ae918da3d91a86f51d034a5edd3adbc8abeb5f12[m
+Author: RaymondTseng <761409033@qq.com>
+Date:   Tue May 24 13:05:03 2016 +0800
+
+    :neckbeard: Added .gitattributes & .gitignore files

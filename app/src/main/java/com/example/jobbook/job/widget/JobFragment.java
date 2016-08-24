@@ -4,12 +4,22 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
+import android.text.TextWatcher;
+import android.util.Log;
+import android.view.Display;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.jobbook.R;
 import com.example.jobbook.bean.JobBean;
@@ -24,7 +34,7 @@ import java.util.List;
  * Created by Xu on 2016/7/5.
  */
 public class JobFragment extends Fragment implements JobView, View.OnFocusChangeListener,
-        AdapterView.OnItemClickListener {
+        AdapterView.OnItemClickListener, View.OnClickListener {
 
     private ListView mListView;
     private EditText mEditText;
@@ -47,6 +57,9 @@ public class JobFragment extends Fragment implements JobView, View.OnFocusChange
         mJobPresenter = new JobPresenterImpl(this);
 //        mListView.setAdapter(new JobListViewAdapter(getActivity()));
 //        mListView.setOnItemClickListener(this);
+        mEditText.setFocusable(false);
+        mEditText.setOnClickListener(this);
+
     }
 
     @Override
@@ -70,10 +83,18 @@ public class JobFragment extends Fragment implements JobView, View.OnFocusChange
     }
 
     @Override
-    public void onFocusChange(View v, boolean hasFocus) {
-        switch(v.getId()){
-            case R.id.job_et:
+    public void search() {
+        SearchDialogFragment fragment = new SearchDialogFragment();
+        fragment.show(getActivity().getFragmentManager(), "search_dialog");
+        Log.i("jobfragment", "createSearchDialog");
+    }
 
+
+    @Override
+    public void onFocusChange(View v, boolean hasFocus) {
+        switch (v.getId()) {
+            case R.id.job_et:
+                Log.i("jobfragment", "123");
                 break;
 
         }
@@ -83,5 +104,11 @@ public class JobFragment extends Fragment implements JobView, View.OnFocusChange
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intent = new Intent(getActivity(), JobDetailActivity.class);
         startActivity(intent);
+    }
+
+
+    @Override
+    public void onClick(View v) {
+        search();
     }
 }

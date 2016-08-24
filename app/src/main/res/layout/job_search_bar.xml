@@ -19,14 +19,14 @@
         android:id="@+id/job_et"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="3"
+        android:layout_weight="4"
         android:background="@null"
         android:hint="搜索一些感兴趣的..."
         />
-    <ImageButton
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="0.8"
-        android:src="@mipmap/search"
-        android:background="@color/colorBlue"/>
+    <!--<ImageButton-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_weight="0.8"-->
+        <!--android:src="@mipmap/search"-->
+        <!--android:background="@color/colorBlue"/>-->
 </LinearLayout>
