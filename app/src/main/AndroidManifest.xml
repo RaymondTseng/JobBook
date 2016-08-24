@@ -45,6 +45,8 @@
         <activity
             android:name=".question.widget.NewQuestionActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".job.widget.SearchActivity"
+            android:screenOrientation="portrait" />
 
     </application>
 

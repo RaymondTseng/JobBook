@@ -24,6 +24,11 @@ public class JobPresenterImpl implements JobPresenter, JobModelImpl.OnLoadJobLis
     }
 
     @Override
+    public void search() {
+        mJobView.search();
+    }
+
+    @Override
     public void onSuccess(List<JobBean> list) {
 
     }
