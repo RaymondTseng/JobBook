@@ -58,6 +58,10 @@ public class JobListViewAdapter extends BaseAdapter {
         return view;
     }
 
+    public interface OnItemClickListener {
+        void onItemClick(View view, int position);
+    }
+
     class ViewHolder {
         ImageView mCompanyLogo;
         TextView mJobName;
