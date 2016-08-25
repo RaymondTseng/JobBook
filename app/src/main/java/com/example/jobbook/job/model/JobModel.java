@@ -7,5 +7,5 @@ import com.example.jobbook.job.model.JobModelImpl;
  */
 public interface JobModel {
 
-    void loadJobs(String url, JobModelImpl.OnLoadJobListListener listener);
+    void loadJobs(JobModelImpl.OnLoadJobListListener listener);
 }

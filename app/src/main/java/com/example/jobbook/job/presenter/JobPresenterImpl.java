@@ -1,7 +1,7 @@
 package com.example.jobbook.job.presenter;
 
-import com.example.jobbook.R;
 import com.example.jobbook.bean.JobBean;
+import com.example.jobbook.job.model.JobModel;
 import com.example.jobbook.job.model.JobModelImpl;
 import com.example.jobbook.job.view.JobView;
 
@@ -13,14 +13,16 @@ import java.util.List;
 public class JobPresenterImpl implements JobPresenter, JobModelImpl.OnLoadJobListListener {
 
     private JobView mJobView;
+    private JobModel mJobModel;
 
     public JobPresenterImpl(JobView view) {
         mJobView = view;
+        mJobModel = new JobModelImpl();
     }
 
     @Override
     public void loadJobs() {
-
+        mJobModel.loadJobs(this);
     }
 
     @Override
@@ -30,11 +32,11 @@ public class JobPresenterImpl implements JobPresenter, JobModelImpl.OnLoadJobLis
 
     @Override
     public void onSuccess(List<JobBean> list) {
-
+        mJobView.addJobs(list);
     }
 
     @Override
     public void onFailure(String msg, Exception e) {
-
+        mJobView.showLoadingFailMsg();
     }
 }

@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.jobbook.R;
+import com.example.jobbook.login.presenter.LoginPresenter;
+import com.example.jobbook.login.presenter.LoginPresenterImpl;
 import com.example.jobbook.login.view.LoginView;
 import com.example.jobbook.main.widget.MainActivity;
 
@@ -23,12 +25,14 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Log
     private Button mLoginButton;
     private TextView mRegisterTextView;
     private ILoginChanged mILoginChanged;
+    private LoginPresenter presenter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_login, null);
         initView(view);
+        presenter = new LoginPresenterImpl(this);
         return view;
     }
 
@@ -52,6 +56,12 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Log
     }
 
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+        presenter.destroy();
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.login_login_bt:
@@ -64,9 +74,9 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Log
         }
     }
 
-    public void onRegisterClick(View view) {
-        switch2Register();
-    }
+//    public void onRegisterClick(View view) {
+//        switch2Register();
+//    }
 
     @Override
     public void showProgress() {
@@ -75,6 +85,11 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Log
 
     @Override
     public void hideProgress() {
+
+    }
+
+    @Override
+    public void setNetworkError() {
 
     }
 
