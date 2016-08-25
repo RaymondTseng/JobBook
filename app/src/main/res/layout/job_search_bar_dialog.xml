@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:paddingTop="3dp"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:background="#666666">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/colorWhite"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:minHeight="50dp"
+        android:minWidth="800dp"
+        android:orientation="horizontal"
+        android:weightSum="6">
+
+        <ImageButton
+            android:id="@+id/job_search_bar_dialog_back_ib"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:src="@mipmap/left_blue" />
+
+        <EditText
+            android:id="@+id/job_search_bar_dialog_et"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="4"
+            android:background="@null"
+            android:hint="搜索一些感兴趣的..." />
+
+        <ImageButton
+            android:id="@+id/job_search_bar_dialog_search_ib"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:background="@color/colorBlue"
+            android:src="@mipmap/search" />
+    </LinearLayout>
+
+</RelativeLayout>
