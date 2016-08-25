@@ -5,11 +5,13 @@ package com.example.jobbook.register.view;
  */
 public interface RegisterView {
 
-    void showProgress();
+//    void success();
 
     void hideProgress();
 
-    void setUserError();
+    void setNetworkError();
+
+    void setUserNameError();
 
     void setPwdError();
 

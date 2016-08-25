@@ -9,6 +9,8 @@ public interface LoginView {
 
     void hideProgress();
 
+    void setNetworkError();
+
     void setUserError();
 
     void setPwdError();
