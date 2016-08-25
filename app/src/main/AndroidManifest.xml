@@ -50,6 +50,8 @@
             android:screenOrientation="portrait" />
         <activity android:name=".job.widget.SearchActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".cv.widget.TextCVActivity"
+            android:screenOrientation="portrait"/>
 
     </application>
 
