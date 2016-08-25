@@ -41,17 +41,17 @@
         android:hint="确认密码（可见）"
         android:paddingLeft="16dp"
         />
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="48"
-        android:layout_marginTop="16dp"
-        android:layout_marginLeft="48dp"
-        android:layout_marginRight="48dp"
-        android:background="@color/colorBackgroundGray"
-        android:hint="确认密码（可见）"
-        android:paddingLeft="16dp"
-        />
+    <!--<EditText-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:layout_weight="48"-->
+        <!--android:layout_marginTop="16dp"-->
+        <!--android:layout_marginLeft="48dp"-->
+        <!--android:layout_marginRight="48dp"-->
+        <!--android:background="@color/colorBackgroundGray"-->
+        <!--android:hint="确认密码（可见）"-->
+        <!--android:paddingLeft="16dp"-->
+        <!--/>-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"

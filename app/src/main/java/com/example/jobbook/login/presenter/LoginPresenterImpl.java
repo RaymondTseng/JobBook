@@ -39,6 +39,11 @@ public class LoginPresenterImpl implements LoginPresenter, LoginModelImpl.OnLogi
 
     @Override
     public void onSuccess() {
+        mLoginView.switch2Person();
+    }
 
+    @Override
+    public void onNetWorkError() {
+        mLoginView.setNetworkError();
     }
 }
