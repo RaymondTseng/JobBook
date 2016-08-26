@@ -14,9 +14,9 @@ import okhttp3.Call;
 public class LoginModelImpl implements LoginModel {
 
     @Override
-    public void login(String username, String password, OnLoginFinishedListener listener) {
+    public void login(String account, String password, OnLoginFinishedListener listener) {
         PersonBean personBean = new PersonBean();
-        personBean.setUsername(username);
+        personBean.setAccount(account);
         personBean.setPassword(password);
         OkHttpUtils.postString().url(Urls.LOGIN_URL).content(new Gson().toJson(personBean)).build().execute(new StringCallback() {
             @Override
@@ -32,7 +32,7 @@ public class LoginModelImpl implements LoginModel {
     }
 
     public interface OnLoginFinishedListener {
-        void onUsernameError();
+        void onaccountError();
 
         void onPasswordError();
 

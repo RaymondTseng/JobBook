@@ -2,6 +2,7 @@ package com.example.jobbook.register.widget;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,19 +20,20 @@ import com.example.jobbook.register.view.RegisterView;
 /**
  * Created by 椰树 on 2016/6/2.
  */
-public class RegisterFragment extends Fragment implements RegisterView, View.OnClickListener{
+public class RegisterFragment extends Fragment implements RegisterView, View.OnClickListener {
 
     private IRegisterChanged mIRegisterChanged;
     private TextView mRegisterTextView;
-    private EditText mUserNameEditText;
+    private EditText mAccountEditText;
     private EditText mPwdEditText;
     private EditText mPwdAgainEditText;
     private RegisterPresenter presenter;
+    private View view;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState){
-        View view = inflater.inflate(R.layout.fragment_register, null);
+                             Bundle savedInstanceState) {
+        view = inflater.inflate(R.layout.fragment_register, null);
         initViews(view);
         presenter = new RegisterPresenterImpl(this);
         return view;
@@ -39,7 +41,7 @@ public class RegisterFragment extends Fragment implements RegisterView, View.OnC
 
     private void initViews(View view) {
         mRegisterTextView = (TextView) view.findViewById(R.id.register_register_tv);
-        mUserNameEditText = (EditText) view.findViewById(R.id.register_account_et);
+        mAccountEditText = (EditText) view.findViewById(R.id.register_account_et);
         mPwdEditText = (EditText) view.findViewById(R.id.register_password_et);
         mPwdAgainEditText = (EditText) view.findViewById(R.id.register_password_again_et);
         mRegisterTextView.setOnClickListener(this);
@@ -59,23 +61,91 @@ public class RegisterFragment extends Fragment implements RegisterView, View.OnC
     }
 
     @Override
+    public void success() {
+        final Snackbar snackbar = Snackbar.make(view, "连接成功", Snackbar.LENGTH_LONG);
+        snackbar.setAction("dismiss", new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                snackbar.dismiss();
+            }
+        });
+        snackbar.show();
+    }
+
+    @Override
     public void hideProgress() {
 
     }
 
     @Override
-    public void setNetworkError() {
+    public void networkError() {
         Log.i("registerfragment", "error");
     }
 
     @Override
-    public void setUserNameError() {
+    public void accountBlankError() {
+        final Snackbar snackbar = Snackbar.make(view, "用户名为空", Snackbar.LENGTH_LONG);
+        snackbar.setAction("dismiss", new View.OnClickListener() {
 
+            @Override
+            public void onClick(View v) {
+                snackbar.dismiss();
+            }
+        });
+        snackbar.show();
     }
 
     @Override
-    public void setPwdError() {
+    public void pwdBlankError() {
+        final Snackbar snackbar = Snackbar.make(view, "密码为空", Snackbar.LENGTH_LONG);
+        snackbar.setAction("dismiss", new View.OnClickListener() {
 
+            @Override
+            public void onClick(View v) {
+                snackbar.dismiss();
+            }
+        });
+        snackbar.show();
+    }
+
+    @Override
+    public void pwdConfirmBlankError() {
+        final Snackbar snackbar = Snackbar.make(view, "确认密码为空", Snackbar.LENGTH_LONG);
+        snackbar.setAction("dismiss", new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                snackbar.dismiss();
+            }
+        });
+        snackbar.show();
+    }
+
+    @Override
+    public void pwdNotEqualError() {
+        final Snackbar snackbar = Snackbar.make(view, "密码与确认密码不一致", Snackbar.LENGTH_LONG);
+        snackbar.setAction("dismiss", new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                snackbar.dismiss();
+            }
+        });
+        snackbar.show();
+    }
+
+    @Override
+    public void accountExistError() {
+        final Snackbar snackbar = Snackbar.make(view, "用户名已存在", Snackbar.LENGTH_LONG);
+        snackbar.setAction("dismiss", new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                snackbar.dismiss();
+            }
+        });
+        snackbar.show();
     }
 
     @Override
@@ -92,7 +162,7 @@ public class RegisterFragment extends Fragment implements RegisterView, View.OnC
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.register_register_tv:
-                presenter.registerCheck(mUserNameEditText.getText().toString(), mPwdEditText.getText().toString());
+                presenter.registerCheck(mAccountEditText.getText().toString(), mPwdEditText.getText().toString(), mPwdAgainEditText.getText().toString());
 //                switch2Person();
                 break;
         }
@@ -106,6 +176,7 @@ public class RegisterFragment extends Fragment implements RegisterView, View.OnC
 
     public interface IRegisterChanged {
         void switchRegister2Person();
+
         void switchRegister2Login();
     }
 

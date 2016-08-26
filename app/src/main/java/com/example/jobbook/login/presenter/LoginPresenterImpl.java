@@ -18,8 +18,8 @@ public class LoginPresenterImpl implements LoginPresenter, LoginModelImpl.OnLogi
     }
 
     @Override
-    public void loginCheck(String username, String password) {
-        mLoginModel.login(username, password, this);
+    public void loginCheck(String account, String password) {
+        mLoginModel.login(account, password, this);
     }
 
     @Override
@@ -27,9 +27,14 @@ public class LoginPresenterImpl implements LoginPresenter, LoginModelImpl.OnLogi
         mLoginView = null;
     }
 
+//    @Override
+//    public void onUsernameError() {
+//        mLoginView.setUserError();
+//    }
+
     @Override
-    public void onUsernameError() {
-        mLoginView.setUserError();
+    public void onaccountError() {
+
     }
 
     @Override

@@ -27,4 +27,6 @@ dependencies {
     compile 'com.zhy:okhttputils:2.6.2'
     compile 'com.google.code.gson:gson:2.4'
     compile 'com.squareup.okio:okio:1.9.0'
+    compile 'com.android.support:design:23.2.1'
+
 }

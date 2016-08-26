@@ -5,7 +5,7 @@ package com.example.jobbook.commons;
  */
 public class Urls {
 
-    public static final String REGISTER_URL = "http://192.168.8.19/jobBook/index.php/Home/enter/test";
+    public static final String REGISTER_URL = "http://192.168.8.19/jobBook/index.php/Home/enter/doRegister";
 
     public static final String LOGIN_URL = "";
 
