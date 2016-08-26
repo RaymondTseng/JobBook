@@ -5,7 +5,7 @@ package com.example.jobbook.login.presenter;
  */
 public interface LoginPresenter {
 
-    void loginCheck(String username, String password);
+    void loginCheck(String account, String password);
 
     void destroy();
 }

@@ -20,8 +20,8 @@ public class RegisterPresenterImpl implements RegisterPresenter, RegisterModelIm
     }
 
     @Override
-    public void registerCheck(String username, String password) {
-        mRegisterModel.register(username, password, this);
+    public void registerCheck(String account, String password, String passwordConfirm) {
+        mRegisterModel.register(account, password, passwordConfirm, this);
     }
 
     @Override
@@ -30,22 +30,38 @@ public class RegisterPresenterImpl implements RegisterPresenter, RegisterModelIm
     }
 
     @Override
-    public void onUsernameError() {
-        mRegisterView.setUserNameError();
+    public void onAccountBlankError() {
+        mRegisterView.accountBlankError();
     }
 
     @Override
-    public void onPasswordError() {
-        mRegisterView.setPwdError();
+    public void onPwdBlankError() {
+        mRegisterView.pwdBlankError();
+    }
+
+    @Override
+    public void onPwdConfirmBlankError() {
+        mRegisterView.pwdConfirmBlankError();
+    }
+
+    @Override
+    public void onPwdNotEqualError() {
+        mRegisterView.pwdNotEqualError();
+    }
+
+    @Override
+    public void onAccountExistError() {
+        mRegisterView.accountExistError();
     }
 
     @Override
     public void onSuccess() {
+        mRegisterView.success();
         mRegisterView.switch2Person();
     }
 
     @Override
     public void onNetworkError() {
-        mRegisterView.setNetworkError();
+        mRegisterView.networkError();
     }
 }

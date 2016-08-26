@@ -20,8 +20,8 @@ public class MyApplication extends Application {
 
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
 //                .addInterceptor(new LoggerInterceptor("TAG"))
-                .connectTimeout(30000L, TimeUnit.MILLISECONDS)
-                .readTimeout(30000L, TimeUnit.MILLISECONDS)
+                .connectTimeout(50000L, TimeUnit.MILLISECONDS)
+                .readTimeout(50000L, TimeUnit.MILLISECONDS)
                 //其他配置
                 .build();
 

@@ -5,5 +5,5 @@ package com.example.jobbook.login.model;
  */
 public interface LoginModel {
 
-    void login(String username, String password, LoginModelImpl.OnLoginFinishedListener listener);
+    void login(String account, String password, LoginModelImpl.OnLoginFinishedListener listener);
 }
