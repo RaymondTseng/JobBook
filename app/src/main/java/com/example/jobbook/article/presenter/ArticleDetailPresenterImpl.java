@@ -21,8 +21,8 @@ public class ArticleDetailPresenterImpl implements ArticleDetailPresenter,
         mModel = new ArticleDetailModelImpl();
     }
     @Override
-    public void loadArticle() {
-//        mModel.loadArticle(null, null);
+    public void loadArticle(String articleId) {
+        mModel.loadArticle(articleId, this);
     }
 
     @Override
@@ -31,13 +31,12 @@ public class ArticleDetailPresenterImpl implements ArticleDetailPresenter,
     }
 
     @Override
-    public void onSucess(List<ArticleCommentBean> mComments) {
-        mView.hideProgress();
-        mView.addComments(mComments);
+    public void onSuccess(List<ArticleCommentBean> mComments) {
+//        mView.ad
     }
 
     @Override
-    public void onSucess(ArticleBean mArticle) {
+    public void onSuccess(ArticleBean mArticle) {
         mView.addArticle(mArticle);
     }
 

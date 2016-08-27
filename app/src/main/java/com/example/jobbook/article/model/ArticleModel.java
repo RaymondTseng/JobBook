@@ -5,5 +5,5 @@ package com.example.jobbook.article.model;
  */
 public interface ArticleModel {
 
-    void loadArticles(String url, ArticleModelImpl.OnLoadArticlesListListener listener);
+    void loadArticles(ArticleModelImpl.OnLoadArticlesListListener listener);
 }

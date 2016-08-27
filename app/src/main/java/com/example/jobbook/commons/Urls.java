@@ -11,4 +11,6 @@ public class Urls {
 
     public static final String JOB_URL = "";
 
+    public static final String ARTICLE_URL = "http://192.168.8.19/jobBook/Home/article/allArticle";
+
 }

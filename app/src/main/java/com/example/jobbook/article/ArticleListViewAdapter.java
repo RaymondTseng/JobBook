@@ -9,6 +9,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.jobbook.R;
+import com.example.jobbook.bean.ArticleBean;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -16,17 +20,21 @@ import com.example.jobbook.R;
  */
 public class ArticleListViewAdapter extends BaseAdapter {
     private Context mContext;
-    public ArticleListViewAdapter(Context mContext){
+    private List<ArticleBean> mList = new ArrayList<>();
+
+    public ArticleListViewAdapter(Context mContext, List<ArticleBean> list) {
         this.mContext = mContext;
+        this.mList = list;
     }
+
     @Override
     public int getCount() {
-        return 4;
+        return mList.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return null;
+        return mList.get(position);
     }
 
     @Override
@@ -38,26 +46,42 @@ public class ArticleListViewAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         View view;
         ViewHolder viewholder;
-        if(convertView == null){
+        ArticleBean articleBean = (ArticleBean) getItem(position);
+        if (convertView == null) {
             view = LayoutInflater.from(mContext).inflate(R.layout.article_listview_item, null);
             viewholder = new ViewHolder();
             viewholder.mContent = (TextView) view.findViewById(R.id.article_lv_content_tv);
             viewholder.mLabel = (ImageView) view.findViewById(R.id.article_lv_label_iv);
             viewholder.mLogo = (ImageView) view.findViewById(R.id.article_lv_iv);
             viewholder.mTime = (TextView) view.findViewById(R.id.article_lv_time_tv);
-            viewholder.mTitle= (TextView) view.findViewById(R.id.article_lv_title_tv);
+            viewholder.mTitle = (TextView) view.findViewById(R.id.article_lv_title_tv);
             view.setTag(viewholder);
-        }else{
+        } else {
             view = convertView;
             viewholder = (ViewHolder) view.getTag();
         }
+        viewholder.mContent.setText(articleBean.getContent());
+//        viewholder.mLabel.setBackgroundResource();
+//        viewholder.mLogo
+        viewholder.mTime.setText(articleBean.getDate());
+        viewholder.mTitle.setText(articleBean.getTitle());
         return view;
     }
-    class ViewHolder{
+
+    class ViewHolder implements View.OnClickListener {
         ImageView mLabel;
         TextView mTitle;
         TextView mContent;
         TextView mTime;
         ImageView mLogo;
+
+        @Override
+        public void onClick(View v) {
+
+        }
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(View view, int position);
     }
 }

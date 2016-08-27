@@ -22,7 +22,7 @@ public class ArticlePresenterImpl implements ArticlePresenter, ArticleModelImpl.
 
     @Override
     public void loadArticles() {
-//        mArticleModel.loadArticles(null, null);
+        mArticleModel.loadArticles(this);
     }
 
     @Override
