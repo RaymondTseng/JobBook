@@ -1,10 +1,12 @@
 package com.example.jobbook.bean;
 
+import java.io.Serializable;
+
 /**
  * Created by Xu on 2016/7/5.
  * 职位模型类
  */
-public class JobBean {
+public class JobBean implements Serializable{
     private static final long serialVersionUID = 1L;
     /**
      * id

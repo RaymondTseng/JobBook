@@ -1,9 +1,14 @@
 package com.example.jobbook.main.presenter;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 
+import com.example.jobbook.MyApplication;
 import com.example.jobbook.R;
+import com.example.jobbook.bean.PersonBean;
 import com.example.jobbook.main.view.MainView;
+import com.example.jobbook.util.Util;
 
 /**
  * Created by Xu on 2016/7/5.
@@ -29,9 +34,8 @@ public class MainPresenterImpl implements MainPresenter {
                 mMainView.switch2Question();
                 break;
             case R.id.person_rb:
-                if (getLoginStatus() == 1){
+                if (Util.getLoginStatus() == 1){
                     Log.i("mainpresenter:", "person");
-
                     mMainView.switch2Person();
                 }
                 else {
@@ -43,8 +47,20 @@ public class MainPresenterImpl implements MainPresenter {
     }
 
     @Override
-    public int getLoginStatus() {
-        return 0;
+    public PersonBean loadPersonBean(Context context) {
+        SharedPreferences share = context.getSharedPreferences("test", context.MODE_PRIVATE);
+        PersonBean personBean = null;
+        if(share != null){
+            Util.loadPersonBean(share, personBean);
+        }
+        return personBean;
     }
+
+    @Override
+    public void savePersonBean(Context context, PersonBean personBean) {
+        SharedPreferences share = context.getSharedPreferences("test", context.MODE_PRIVATE);
+        Util.savePersonBean(share, personBean);
+    }
+
 
 }
