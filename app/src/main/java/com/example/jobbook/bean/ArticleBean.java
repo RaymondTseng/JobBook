@@ -12,6 +12,11 @@ public class ArticleBean implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
+     * 文章id
+     */
+    private String article_id;
+
+    /**
      * 文章标题
      */
     private String title;
@@ -20,11 +25,6 @@ public class ArticleBean implements Serializable {
      * 文章内容
      */
     private String content;
-
-    /**
-     * 文章作者
-     */
-    private PersonBean author;
 
     /**
      * 文章发表日期
@@ -41,6 +41,14 @@ public class ArticleBean implements Serializable {
      */
     private List<ArticleCommentBean> comments;
 
+    public String getArticle_id() {
+        return article_id;
+    }
+
+    public void setArticle_id(String article_id) {
+        this.article_id = article_id;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -55,14 +63,6 @@ public class ArticleBean implements Serializable {
 
     public void setContent(String content) {
         this.content = content;
-    }
-
-    public PersonBean getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(PersonBean author) {
-        this.author = author;
     }
 
     public int getReadingquantity() {

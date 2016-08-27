@@ -1,10 +1,10 @@
 package com.example.jobbook.article.widget;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
@@ -18,10 +18,11 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.RadioButton;
-import android.widget.Toast;
 
 import com.example.jobbook.R;
 import com.example.jobbook.article.ArticleListViewAdapter;
+import com.example.jobbook.article.presenter.ArticlePresenter;
+import com.example.jobbook.article.presenter.ArticlePresenterImpl;
 import com.example.jobbook.article.view.ArticleView;
 import com.example.jobbook.bean.ArticleBean;
 import com.example.jobbook.util.Util;
@@ -31,8 +32,8 @@ import java.util.List;
 /**
  * Created by Xu on 2016/7/5.
  */
-public class ArticleFragment extends Fragment implements ArticleView,View.OnClickListener, PopupWindow.OnDismissListener,
-        AdapterView.OnItemClickListener{
+public class ArticleFragment extends Fragment implements ArticleView, View.OnClickListener, PopupWindow.OnDismissListener,
+        AdapterView.OnItemClickListener {
 
     private ListView mListView;
     private LinearLayout mArticleTitleLayout;
@@ -49,13 +50,17 @@ public class ArticleFragment extends Fragment implements ArticleView,View.OnClic
     private RadioButton mAllRadioButton;
     private RadioButton mPoliticRadioButton;
     private RadioButton mLifeRadioButton;
+    private ArticlePresenter presenter;
+    private View view;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_article, container, false);
+        view = inflater.inflate(R.layout.fragment_article, container, false);
         initViews(view);
         initAnimation();
+        presenter = new ArticlePresenterImpl(this);
+        presenter.loadArticles();
         return view;
     }
 
@@ -70,16 +75,16 @@ public class ArticleFragment extends Fragment implements ArticleView,View.OnClic
         mListView = (ListView) view.findViewById(R.id.article_lv);
         mDropImageButton = (ImageButton) view.findViewById(R.id.article_title_drop_ib);
         mMenuPopupWindow = new PopupWindow(mMenuView, ViewGroup.LayoutParams.MATCH_PARENT,
-                (getmHeight()/556)*192, true);
+                (getmHeight() / 556) * 192, true);
         mMenuPopupWindow.setBackgroundDrawable(new BitmapDrawable(getResources(),
                 Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888)));
         mMenuPopupWindow.setOutsideTouchable(true);
         mMenuPopupWindow.setOnDismissListener(this);
         mArticleTitleLayout.setOnClickListener(this);
-//        mListView.setAdapter(new ArticleListViewAdapter(getActivity()));
         mListView.setOnItemClickListener(this);
     }
-    private void initAnimation(){
+
+    private void initAnimation() {
         mMenuPopupWindow.setAnimationStyle(R.style.article_menu_animation_style);
         mBlankLayoutShowAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.article_menu_show);
         mBlankLayoutHideAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.article_menu_hide);
@@ -95,9 +100,11 @@ public class ArticleFragment extends Fragment implements ArticleView,View.OnClic
     }
 
     @Override
-    public void addArticles(List<ArticleBean> newsList) {
+    public void addArticles(List<ArticleBean> articlesList) {
         // 加载数据的地方
-//        mListView.setAdapter(new ArticleListViewAdapter(getActivity()));
+        if (articlesList != null) {
+            mListView.setAdapter(new ArticleListViewAdapter(getActivity(), articlesList));
+        }
     }
 
     @Override
@@ -107,25 +114,33 @@ public class ArticleFragment extends Fragment implements ArticleView,View.OnClic
 
     @Override
     public void showLoadFailMsg() {
+        final Snackbar snackbar = Snackbar.make(view, "干货读取错误，请重试！", Snackbar.LENGTH_LONG);
+        snackbar.setAction("dismiss", new View.OnClickListener() {
 
+            @Override
+            public void onClick(View v) {
+                snackbar.dismiss();
+            }
+        });
+        snackbar.show();
     }
 
-    private int getmHeight(){
+    private int getmHeight() {
         DisplayMetrics dm = getActivity().getResources().getDisplayMetrics();
         return dm.heightPixels;
     }
 
     @Override
     public void onClick(View v) {
-        switch(v.getId()){
+        switch (v.getId()) {
             case R.id.article_title_ll:
                 int visible = mBlankLayout.getVisibility();
-                if(mMenuPopupWindow.isShowing() && visible == View.VISIBLE){
+                if (mMenuPopupWindow.isShowing() && visible == View.VISIBLE) {
                     mMenuPopupWindow.dismiss();
-                }else{
+                } else {
                     mDropImageButton.startAnimation(mDropImageButtonAnimation);
                     mListView.startAnimation(mListViewShowAnimation);
-                    mMenuPopupWindow.showAsDropDown(v ,0 , (getmHeight()/720)*20);
+                    mMenuPopupWindow.showAsDropDown(v, 0, (getmHeight() / 720) * 20);
                     mBlankLayout.startAnimation(mBlankLayoutShowAnimation);
                     mBlankLayout.setVisibility(View.VISIBLE);
                     mDropImageButton.setImageResource(R.mipmap.down_white);

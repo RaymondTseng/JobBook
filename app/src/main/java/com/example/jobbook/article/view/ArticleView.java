@@ -11,7 +11,7 @@ public interface ArticleView {
 
     void showProgress();
 
-    void addArticles(List<ArticleBean> newsList);
+    void addArticles(List<ArticleBean> articlesList);
 
     void hideProgress();
 
