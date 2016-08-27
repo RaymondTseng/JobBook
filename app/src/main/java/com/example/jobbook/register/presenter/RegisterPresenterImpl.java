@@ -2,13 +2,12 @@ package com.example.jobbook.register.presenter;
 
 import android.widget.Toast;
 
+import com.example.jobbook.bean.PersonBean;
 import com.example.jobbook.register.model.RegisterModel;
 import com.example.jobbook.register.model.RegisterModelImpl;
 import com.example.jobbook.register.view.RegisterView;
 
-/**
- * Created by Xu on 2016/7/7.
- */
+
 public class RegisterPresenterImpl implements RegisterPresenter, RegisterModelImpl.OnRegisterFinishedListener{
 
     private RegisterModel mRegisterModel;
@@ -55,9 +54,9 @@ public class RegisterPresenterImpl implements RegisterPresenter, RegisterModelIm
     }
 
     @Override
-    public void onSuccess() {
+    public void onSuccess(PersonBean personBean) {
         mRegisterView.success();
-        mRegisterView.switch2Person();
+        mRegisterView.switch2Person(personBean);
     }
 
     @Override

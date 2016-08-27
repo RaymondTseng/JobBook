@@ -1,5 +1,7 @@
 package com.example.jobbook.register.view;
 
+import com.example.jobbook.bean.PersonBean;
+
 /**
  * Created by Xu on 2016/7/7.
  */
@@ -48,12 +50,17 @@ public interface RegisterView {
     /**
      * 跳转至Person界面
      */
-    void switch2Person();
+    void switch2Person(PersonBean personBean);
 
     /**
      * 跳转至登录界面
      */
     void switch2Login();
+
+    /**
+     * 账号非法字符错误
+     */
+    void accountIllegalError();
 
 //    void changeViewPager();
 }

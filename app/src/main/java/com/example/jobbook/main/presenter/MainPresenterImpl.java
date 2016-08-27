@@ -31,6 +31,7 @@ public class MainPresenterImpl implements MainPresenter {
             case R.id.person_rb:
                 if (getLoginStatus() == 1){
                     Log.i("mainpresenter:", "person");
+
                     mMainView.switch2Person();
                 }
                 else {

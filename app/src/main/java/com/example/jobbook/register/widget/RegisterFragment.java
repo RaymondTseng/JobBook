@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.jobbook.R;
+import com.example.jobbook.bean.PersonBean;
 import com.example.jobbook.register.presenter.RegisterPresenter;
 import com.example.jobbook.register.presenter.RegisterPresenterImpl;
 import com.example.jobbook.register.view.RegisterView;
@@ -149,8 +150,8 @@ public class RegisterFragment extends Fragment implements RegisterView, View.OnC
     }
 
     @Override
-    public void switch2Person() {
-        mIRegisterChanged.switchRegister2Person();
+    public void switch2Person(PersonBean personBean) {
+        mIRegisterChanged.switchRegister2Person(personBean);
     }
 
     @Override
@@ -159,10 +160,24 @@ public class RegisterFragment extends Fragment implements RegisterView, View.OnC
     }
 
     @Override
+    public void accountIllegalError() {
+        final Snackbar snackbar = Snackbar.make(view, "账号存在非法字符", Snackbar.LENGTH_LONG);
+        snackbar.setAction("dismiss", new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                snackbar.dismiss();
+            }
+        });
+        snackbar.show();
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.register_register_tv:
-                presenter.registerCheck(mAccountEditText.getText().toString(), mPwdEditText.getText().toString(), mPwdAgainEditText.getText().toString());
+                presenter.registerCheck(mAccountEditText.getText().toString(),
+                        mPwdEditText.getText().toString(), mPwdAgainEditText.getText().toString());
 //                switch2Person();
                 break;
         }
@@ -175,7 +190,7 @@ public class RegisterFragment extends Fragment implements RegisterView, View.OnC
     }
 
     public interface IRegisterChanged {
-        void switchRegister2Person();
+        void switchRegister2Person(PersonBean personBean);
 
         void switchRegister2Login();
     }

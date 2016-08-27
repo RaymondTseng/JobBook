@@ -1,5 +1,8 @@
 package com.example.jobbook.login.presenter;
 
+import android.text.TextUtils;
+
+import com.example.jobbook.bean.PersonBean;
 import com.example.jobbook.login.model.LoginModel;
 import com.example.jobbook.login.model.LoginModelImpl;
 import com.example.jobbook.login.view.LoginView;
@@ -32,19 +35,25 @@ public class LoginPresenterImpl implements LoginPresenter, LoginModelImpl.OnLogi
 //        mLoginView.setUserError();
 //    }
 
-    @Override
-    public void onaccountError() {
 
+    @Override
+    public void onUserError() {
+        mLoginView.setUserError();
+    }
+
+    @Override
+    public void onAccountError() {
+        mLoginView.setAccountError();
     }
 
     @Override
     public void onPasswordError() {
-        mLoginView.setPwdError();
+        mLoginView.setPasswordError();
     }
 
     @Override
-    public void onSuccess() {
-        mLoginView.switch2Person();
+    public void onSuccess(PersonBean personBean) {
+        mLoginView.switch2Person(personBean);
     }
 
     @Override

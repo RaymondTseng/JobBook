@@ -41,21 +41,21 @@ public class RegisterModelImpl implements RegisterModel {
                 @Override
                 public void onResponse(String response, int id) {
                     if (!TextUtils.isEmpty(response)) {
-                        ResultBean resultBean = new Gson().fromJson(response, ResultBean.class);
-                        if (resultBean.getStatus().equals("false")) {
-                            Log.i("receive", "response is true");
-                            listener.onAccountExistError();
+                        Log.i("TAG", response.toString());
+                        PersonBean personBean = new PersonBean();
+                        personBean = new Gson().fromJson(response, PersonBean.class);
+                        if (TextUtils.isEmpty(personBean.getPassword())) {
+                            Log.i("receive", "response is null");
+                            if(personBean.getAccount().equals("Have Registered!")){
+                                listener.onAccountExistError();
+                            }else{
+                                listener.onNetworkError();
+                            }
+                        }else{
+                            listener.onSuccess(personBean);
                         }
-                        listener.onAccountExistError();
                     } else {
-                        if (TextUtils.isEmpty(response)) {
-                            Log.i("personaccount:", "null");
-                        } else {
-                            Log.i("personaccount:", response);
-                            PersonBean personBean = new Gson().fromJson(response, PersonBean.class);
-                            Log.i("personaccount:", personBean.getAccount());
-                            listener.onSuccess();
-                        }
+
 
                     }
 
@@ -75,7 +75,7 @@ public class RegisterModelImpl implements RegisterModel {
 
         void onAccountExistError();
 
-        void onSuccess();
+        void onSuccess(PersonBean personBean);
 
         void onNetworkError();
     }

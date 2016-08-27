@@ -1,11 +1,12 @@
 package com.example.jobbook.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by Xu on 2016/7/6.
  */
-public class PersonBean {
+public class PersonBean implements Serializable{
     private static final long serialVersionUID = 1L;
 
     public static long getSerialVersionUID() {
@@ -28,12 +29,12 @@ public class PersonBean {
         this.telephone = telephone;
     }
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return userName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String name) {
+        this.userName = name;
     }
 
     public List<VideoCV> getVideoCVs() {
@@ -85,7 +86,7 @@ public class PersonBean {
     /**
      * 用户姓名
      */
-    private String name;
+    private String userName;
     /**
      * 视频简历
      */

@@ -10,6 +10,7 @@ import android.widget.RadioGroup;
 
 import com.example.jobbook.R;
 import com.example.jobbook.article.widget.ArticleFragment;
+import com.example.jobbook.bean.PersonBean;
 import com.example.jobbook.job.widget.JobFragment;
 import com.example.jobbook.main.MainFragmentPagerAdapter;
 import com.example.jobbook.main.presenter.MainPresenter;
@@ -133,7 +134,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
 
     @Override
     public void switch2Person() {
-        mFragmentPagerAdapter.toPersonFragment();
+        mFragmentPagerAdapter.toPersonFragment(new PersonBean());
         mFragmentContainer.setCurrentItem(3);
     }
 
@@ -150,7 +151,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     }
 
     @Override
-    public void switchLogin2Person() {
+    public void switchLogin2Person(PersonBean personBean) {
         switch2Person();
     }
 
@@ -160,7 +161,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     }
 
     @Override
-    public void switchRegister2Person() {
+    public void switchRegister2Person(PersonBean personBean) {
         switch2Person();
     }
 
