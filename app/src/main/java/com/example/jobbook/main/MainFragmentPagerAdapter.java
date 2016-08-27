@@ -1,12 +1,14 @@
 package com.example.jobbook.main;
 
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.util.Log;
 
 
+import com.example.jobbook.bean.PersonBean;
 import com.example.jobbook.login.widget.LoginFragment;
 import com.example.jobbook.person.widget.PersonFragment;
 import com.example.jobbook.register.widget.RegisterFragment;
@@ -43,9 +45,13 @@ public class MainFragmentPagerAdapter extends FragmentPagerAdapter {
         return POSITION_NONE;
     }
 
-    public void toPersonFragment(){
+    public void toPersonFragment(PersonBean personBean){
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("PersonBean", personBean);
         mFragmentManager.beginTransaction().remove(mFragments.get(3)).commit();
-        mFragments.set(3,  new PersonFragment());
+        PersonFragment personFragment = new PersonFragment();
+        personFragment.setArguments(bundle);
+        mFragments.set(3,  personFragment);
         notifyDataSetChanged();
     }
 

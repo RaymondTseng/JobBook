@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +36,10 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
                              Bundle savedInstanceState){
         View view = inflater.inflate(R.layout.fragment_person, container, false);
         initViews(view);
+        Bundle bundle = getArguments().getBundle("PersonBean");
+        if(bundle != null){
+            Log.i("TAG", "bundle is not null");
+        }
         return view;
     }
 

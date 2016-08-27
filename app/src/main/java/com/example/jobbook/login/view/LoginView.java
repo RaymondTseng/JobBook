@@ -1,5 +1,7 @@
 package com.example.jobbook.login.view;
 
+import com.example.jobbook.bean.PersonBean;
+
 /**
  * Created by Xu on 2016/7/7.
  */
@@ -13,11 +15,14 @@ public interface LoginView {
 
     void setUserError();
 
-    void setPwdError();
+    void setAccountError();
 
-    void switch2Person();
+    void setPasswordError();
+
+    void switch2Person(PersonBean personBean);
 
     void switch2Register();
+
 
 //    void changeViewPager();
 }

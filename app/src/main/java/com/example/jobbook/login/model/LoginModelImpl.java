@@ -1,5 +1,8 @@
 package com.example.jobbook.login.model;
 
+import android.text.TextUtils;
+import android.util.Log;
+
 import com.example.jobbook.bean.PersonBean;
 import com.example.jobbook.commons.Urls;
 import com.google.gson.Gson;
@@ -14,29 +17,49 @@ import okhttp3.Call;
 public class LoginModelImpl implements LoginModel {
 
     @Override
-    public void login(String account, String password, OnLoginFinishedListener listener) {
-        PersonBean personBean = new PersonBean();
-        personBean.setAccount(account);
-        personBean.setPassword(password);
-        OkHttpUtils.postString().url(Urls.LOGIN_URL).content(new Gson().toJson(personBean)).build().execute(new StringCallback() {
-            @Override
-            public void onError(Call call, Exception e, int id) {
+    public void login(String account, final String password, final OnLoginFinishedListener listener) {
+        if (TextUtils.isEmpty(account)) {
+            listener.onAccountError();
+        } else if (TextUtils.isEmpty(password)) {
+            listener.onPasswordError();
+        }else{
+            PersonBean personBean = new PersonBean();
+            personBean.setAccount(account);
+            personBean.setPassword(password);
+            OkHttpUtils.postString().url(Urls.LOGIN_URL).content(new Gson().toJson(personBean)).build().execute(new StringCallback() {
+                @Override
+                public void onError(Call call, Exception e, int id) {
+                    Log.i("response", e.toString());
+                    listener.onNetWorkError();
+                }
 
-            }
+                @Override
+                public void onResponse(String response, int id) {
+                    if(!TextUtils.isEmpty(response)){
+                        Log.i("TAG", response.toString());
+                        PersonBean personBean = new Gson().fromJson(response, PersonBean.class);
+                        if(personBean.getAccount().equals("Error!")){
+                            listener.onUserError();
+                        }else{
+                            Log.i("response", "login successful");
+                            listener.onSuccess(personBean);
+                        }
+                    }else{
 
-            @Override
-            public void onResponse(String response, int id) {
-
-            }
-        });
+                    }
+                }
+            });
+        }
     }
 
     public interface OnLoginFinishedListener {
-        void onaccountError();
+        void onUserError();
+
+        void onAccountError();
 
         void onPasswordError();
 
-        void onSuccess();
+        void onSuccess(PersonBean personBean);
 
         void onNetWorkError();
     }

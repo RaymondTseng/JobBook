@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import com.example.jobbook.commons.Constants;
 
 /**
  * Created by 椰树 on 2016/7/15.
@@ -57,5 +58,17 @@ public class Util {
     public static int px2dip(Context context, float pxValue) {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (pxValue / scale + 0.5f);
+    }
+    public static boolean checkError(String error){
+        return false;
+    }
+    public static boolean illegalCharactersCheck(String str){
+        String[] illegalCharacters = Constants.illegalCharacters;
+        for(String illegalCharacter : illegalCharacters){
+            if(str.contains(illegalCharacter)){
+                return true;
+            }
+        }
+        return false;
     }
 }
