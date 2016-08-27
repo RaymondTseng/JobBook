@@ -3,21 +3,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBlue">
+
     <ImageButton
+        android:id="@+id/article_detail_back_ib"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@mipmap/left_white"
         android:layout_centerVertical="true"
         android:layout_marginLeft="16dp"
-        android:id="@+id/article_detail_back_ib"
-        android:background="@null"/>
+        android:background="@null"
+        android:src="@mipmap/left_white" />
+
     <TextView
+        android:id="@+id/article_detail_readingquanity_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="100跟帖"
-        android:textColor="@color/colorWhite"
-        android:textSize="16sp"
-        android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="16dp"/>
+        android:layout_centerVertical="true"
+        android:layout_marginRight="16dp"
+        android:text="加载中"
+        android:textColor="@color/colorWhite"
+        android:textSize="16sp" />
 </RelativeLayout>

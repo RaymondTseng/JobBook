@@ -22,9 +22,9 @@ import okhttp3.Call;
 public class ArticleModelImpl implements ArticleModel {
 
     @Override
-    public void loadArticles(final OnLoadArticlesListListener listener) {
+    public void loadArticles(int type, final OnLoadArticlesListListener listener) {
         Log.i("article_response:", "load");
-        OkHttpUtils.get().addParams("", "").url(Urls.ARTICLE_URL).build().execute(new StringCallback() {
+        OkHttpUtils.get().addParams("", "").url(Urls.ARTICLE_URL + type).build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
                 Log.i("article_response:", e.getMessage());
@@ -33,9 +33,9 @@ public class ArticleModelImpl implements ArticleModel {
 
             @Override
             public void onResponse(String response, int id) {
+                Log.i("article_response:", response);
                 List<ArticleBean> list = new Gson().fromJson(response, new TypeToken<List<ArticleBean>>() {
                 }.getType());
-                Log.i("article_response:", response);
                 listener.onSuccess(list);
             }
         });

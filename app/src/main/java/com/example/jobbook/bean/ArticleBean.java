@@ -17,6 +17,11 @@ public class ArticleBean implements Serializable {
     private String article_id;
 
     /**
+     * 文章类型
+     */
+    private int type;
+
+    /**
      * 文章标题
      */
     private String title;
@@ -47,6 +52,14 @@ public class ArticleBean implements Serializable {
 
     public void setArticle_id(String article_id) {
         this.article_id = article_id;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
     }
 
     public String getTitle() {

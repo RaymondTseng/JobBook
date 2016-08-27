@@ -1,7 +1,7 @@
 package com.example.jobbook.commons;
 
 /**
- * Created by Administrator on 2016/8/25.
+ * Created by Xu on 2016/8/25.
  */
 public class Urls {
 
@@ -11,6 +11,8 @@ public class Urls {
 
     public static final String JOB_URL = "";
 
-    public static final String ARTICLE_URL = "http://192.168.8.19/jobBook/Home/article/allArticle";
+    public static final String ARTICLE_URL = "http://192.168.8.19/jobBook/Home/article/allArticle/type/";
+
+    public static final String ARTICLE_DETAIL_URL = "http://192.168.8.19/jobBook/Home/article/getArticle/a_id/";
 
 }

@@ -1,5 +1,7 @@
 package com.example.jobbook.article.model;
 
+import android.util.Log;
+
 import com.example.jobbook.bean.ArticleBean;
 import com.example.jobbook.bean.ArticleCommentBean;
 import com.example.jobbook.commons.Urls;
@@ -19,7 +21,7 @@ public class ArticleDetailModelImpl implements ArticleDetailModel {
 
     @Override
     public void loadArticle(String articleId, final OnLoadArticleListener listener) {
-        OkHttpUtils.postString().url(Urls.ARTICLE_URL).content(articleId).build().execute(new StringCallback() {
+        OkHttpUtils.postString().url(Urls.ARTICLE_DETAIL_URL + articleId).content(articleId).build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
                 listener.onFailure("network error", e);

@@ -21,6 +21,7 @@ import java.util.List;
 public class ArticleListViewAdapter extends BaseAdapter {
     private Context mContext;
     private List<ArticleBean> mList = new ArrayList<>();
+    private OnItemClickListener mOnItemClickListener;
 
     public ArticleListViewAdapter(Context mContext, List<ArticleBean> list) {
         this.mContext = mContext;
@@ -49,7 +50,7 @@ public class ArticleListViewAdapter extends BaseAdapter {
         ArticleBean articleBean = (ArticleBean) getItem(position);
         if (convertView == null) {
             view = LayoutInflater.from(mContext).inflate(R.layout.article_listview_item, null);
-            viewholder = new ViewHolder();
+            viewholder = new ViewHolder(view, position);
             viewholder.mContent = (TextView) view.findViewById(R.id.article_lv_content_tv);
             viewholder.mLabel = (ImageView) view.findViewById(R.id.article_lv_label_iv);
             viewholder.mLogo = (ImageView) view.findViewById(R.id.article_lv_iv);
@@ -74,14 +75,27 @@ public class ArticleListViewAdapter extends BaseAdapter {
         TextView mContent;
         TextView mTime;
         ImageView mLogo;
+        int position;
+
+        public ViewHolder(View view, int position) {
+            super();
+            this.position = position;
+            view.setOnClickListener(this);
+        }
 
         @Override
         public void onClick(View v) {
-
+            if(mOnItemClickListener != null) {
+                mOnItemClickListener.onItemClick(v, position);
+            }
         }
     }
 
     public interface OnItemClickListener {
         void onItemClick(View view, int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.mOnItemClickListener = onItemClickListener;
     }
 }

@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,8 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import com.example.jobbook.R;
 import com.example.jobbook.article.ArticleListViewAdapter;
@@ -25,17 +28,24 @@ import com.example.jobbook.article.presenter.ArticlePresenter;
 import com.example.jobbook.article.presenter.ArticlePresenterImpl;
 import com.example.jobbook.article.view.ArticleView;
 import com.example.jobbook.bean.ArticleBean;
+import com.example.jobbook.commons.Constants;
 import com.example.jobbook.util.Util;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Xu on 2016/7/5.
  */
-public class ArticleFragment extends Fragment implements ArticleView, View.OnClickListener, PopupWindow.OnDismissListener,
-        AdapterView.OnItemClickListener {
+public class ArticleFragment extends Fragment implements ArticleView, View.OnClickListener, PopupWindow.OnDismissListener {
+
+    public static final int ARTICLE_ALL = 0;
+    public static final int ARTICLE_ENGAGEMENT = 1;
+    public static final int ARTICLE_POLITIC = 2;
+    public static final int ARTICLE_LIFE = 3;
 
     private ListView mListView;
+    private TextView mTitleTextView;
     private LinearLayout mArticleTitleLayout;
     private LinearLayout mBlankLayout;
     private Animation mListViewHideAnimation;
@@ -52,6 +62,9 @@ public class ArticleFragment extends Fragment implements ArticleView, View.OnCli
     private RadioButton mLifeRadioButton;
     private ArticlePresenter presenter;
     private View view;
+    private List<ArticleBean> list;
+    private ArticleListViewAdapter adapter;
+    private RadioGroup radioGroup;
 
     @Nullable
     @Override
@@ -59,8 +72,11 @@ public class ArticleFragment extends Fragment implements ArticleView, View.OnCli
         view = inflater.inflate(R.layout.fragment_article, container, false);
         initViews(view);
         initAnimation();
+        list = new ArrayList<>();
         presenter = new ArticlePresenterImpl(this);
-        presenter.loadArticles();
+        // 默认加载全部文章
+        presenter.loadArticles(ARTICLE_ALL);
+        mTitleTextView.setText(Constants.ARTICLE_ALL);
         return view;
     }
 
@@ -72,6 +88,7 @@ public class ArticleFragment extends Fragment implements ArticleView, View.OnCli
         mPoliticRadioButton = (RadioButton) mMenuView.findViewById(R.id.article_title_politic_rb);
         mLifeRadioButton = (RadioButton) mMenuView.findViewById(R.id.article_title_life_rb);
         mBlankLayout = (LinearLayout) view.findViewById(R.id.article_blank_ll);
+        mTitleTextView = (TextView) view.findViewById(R.id.article_title_tv);
         mListView = (ListView) view.findViewById(R.id.article_lv);
         mDropImageButton = (ImageButton) view.findViewById(R.id.article_title_drop_ib);
         mMenuPopupWindow = new PopupWindow(mMenuView, ViewGroup.LayoutParams.MATCH_PARENT,
@@ -81,7 +98,35 @@ public class ArticleFragment extends Fragment implements ArticleView, View.OnCli
         mMenuPopupWindow.setOutsideTouchable(true);
         mMenuPopupWindow.setOnDismissListener(this);
         mArticleTitleLayout.setOnClickListener(this);
-        mListView.setOnItemClickListener(this);
+//        mListView.setOnItemClickListener(this);
+        radioGroup = (RadioGroup) mMenuView.findViewById(R.id.article_title_rg);
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId){
+                    case R.id.article_title_all_rb:
+                        mTitleTextView.setText(Constants.ARTICLE_ALL);
+                        presenter.loadArticles(ARTICLE_LIFE);
+                        adapter.notifyDataSetChanged();
+                        break;
+                    case R.id.article_title_engagement_rb:
+                        mTitleTextView.setText(Constants.ARTICLE_ENGAGEMENT);
+                        presenter.loadArticles(ARTICLE_ENGAGEMENT);
+                        adapter.notifyDataSetChanged();
+                        break;
+                    case R.id.article_title_politic_rb:
+                        mTitleTextView.setText(Constants.ARTICLE_POLITIC);
+                        presenter.loadArticles(ARTICLE_POLITIC);
+                        adapter.notifyDataSetChanged();
+                        break;
+                    case R.id.article_title_life_rb:
+                        mTitleTextView.setText(Constants.ARTICLE_LIFE);
+                        presenter.loadArticles(ARTICLE_LIFE);
+                        adapter.notifyDataSetChanged();
+                        break;
+                }
+            }
+        });
     }
 
     private void initAnimation() {
@@ -103,7 +148,18 @@ public class ArticleFragment extends Fragment implements ArticleView, View.OnCli
     public void addArticles(List<ArticleBean> articlesList) {
         // 加载数据的地方
         if (articlesList != null) {
-            mListView.setAdapter(new ArticleListViewAdapter(getActivity(), articlesList));
+            list = articlesList;
+            adapter = new ArticleListViewAdapter(getActivity(), articlesList);
+            adapter.setOnItemClickListener(new ArticleListViewAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(View view, int position) {
+                    Bundle bundle = new Bundle();
+//                    Log.i("article_detail", list.get(position).getContent());
+                    bundle.putSerializable("article_detail", list.get(position));
+                    Util.toAnotherActivity(getActivity(), ArticleDetailActivity.class, bundle);
+                }
+            });
+            mListView.setAdapter(adapter);
         }
     }
 
@@ -166,8 +222,10 @@ public class ArticleFragment extends Fragment implements ArticleView, View.OnCli
         mBlankLayout.setVisibility(View.GONE);
     }
 
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Util.toAnotherActivity(getActivity(), ArticleDetailActivity.class);
-    }
+//    @Override
+//    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//        Bundle bundle = new Bundle();
+//        bundle.putSerializable("article_detail", list.get(position));
+//        Util.toAnotherActivity(getActivity(), ArticleDetailActivity.class, bundle);
+//    }
 }
