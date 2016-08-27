@@ -21,8 +21,8 @@ public class ArticlePresenterImpl implements ArticlePresenter, ArticleModelImpl.
     }
 
     @Override
-    public void loadArticles() {
-        mArticleModel.loadArticles(this);
+    public void loadArticles(int type) {
+        mArticleModel.loadArticles(type, this);
     }
 
     @Override

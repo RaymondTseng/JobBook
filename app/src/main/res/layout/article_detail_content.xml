@@ -1,38 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorWhite"
-    >
+    android:orientation="vertical">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp">
+
         <TextView
-            android:id="@+id/article_detail_name_tv"
-            android:text="这是一个简单的标题"
-            style="@style/Black16sptv"/>
+            android:id="@+id/article_detail_title_tv"
+            style="@style/Black16sptv"
+            android:text="标题加载中" />
+
         <TextView
             android:id="@+id/article_detail_content_tv"
-            android:text="    这里一大段都是一些例文，所以这大段东西会重复很多次。这里一大段都是一些例文，所以这大段东西会重复很多次。这里一大段都是一些例文，所以这大段东西会重复很多次。这里一大段都是一些例文，所以这大段东西会重复很多次。这里一大段都是一些例文，所以这大段东西会重复很多次。这里一大段都是一些例文，所以这大段东西会重复很多次。这里一大段都是一些例文，所以这大段东西会重复很多次。这里一大段都是一些例文，所以这大段东西会重复很多次。"
             style="@style/Black14sptv"
-            android:layout_below="@id/article_detail_name_tv"
-            android:layout_marginTop="16dp"/>
+            android:layout_below="@id/article_detail_title_tv"
+            android:layout_marginTop="16dp"
+            android:text="内容加载中" />
     </RelativeLayout>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:background="@color/colorBackgroundGray"/>
+        android:background="@color/colorBackgroundGray" />
+
     <TextView
+        style="@style/Black16sptv"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
-        android:text="热门跟帖"
-        style="@style/Black16sptv"/>
+        android:text="热门跟帖" />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:background="@color/colorBackgroundGray"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:layout_marginTop="16dp"/>
+        android:layout_marginTop="16dp"
+        android:background="@color/colorBackgroundGray" />
 </LinearLayout>
