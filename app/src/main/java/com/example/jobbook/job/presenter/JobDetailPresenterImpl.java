@@ -25,8 +25,8 @@ public class JobDetailPresenterImpl implements JobDetailPresenter, JobDetailMode
     }
 
     @Override
-    public void like(String jobId) {
-        mJobDetailModel.like(jobId, this);
+    public void like(boolean isLiked, String jobId) {
+        mJobDetailModel.like(isLiked, jobId, this);
     }
 
     @Override
@@ -36,12 +36,23 @@ public class JobDetailPresenterImpl implements JobDetailPresenter, JobDetailMode
 
     @Override
     public void onSuccess() {
-
+        mJobDetailView.likeSuccess();
     }
 
     @Override
-    public void onFailure(String msg, Exception e) {
+    public void onLikeJobFailure(String msg, Exception e) {
+        mJobDetailView.hideProgress();
+        mJobDetailView.likeError();
+    }
+
+    @Override
+    public void onLoadJobFailure(String msg, Exception e) {
         mJobDetailView.hideProgress();
         mJobDetailView.showLoadFailMsg();
+    }
+
+    @Override
+    public void onNoLoginError() {
+        mJobDetailView.noLoginError();
     }
 }

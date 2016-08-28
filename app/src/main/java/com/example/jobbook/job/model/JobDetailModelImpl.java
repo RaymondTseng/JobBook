@@ -15,19 +15,19 @@ import okhttp3.Call;
 /**
  * Created by 椰树 on 2016/8/28.
  */
-public class JobDetailModelImpl implements JobDetailModel{
+public class JobDetailModelImpl implements JobDetailModel {
 
     @Override
     public void loadJobDetail(String jobId, final OnLoadJobListener listener) {
         String account = "";
-        if(MyApplication.getmLoginStatus() == 1){
+        if (MyApplication.getmLoginStatus() == 1) {
             account = MyApplication.getmPersonBean().getAccount();
         }
         OkHttpUtils.postString().url(Urls.JOB_DETAIL_URL + jobId + "/account/" + account)
                 .content(jobId + "/account/" + account).build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
-                listener.onFailure("network error", e);
+                listener.onLoadJobFailure("network error", e);
             }
 
             @Override
@@ -40,21 +40,42 @@ public class JobDetailModelImpl implements JobDetailModel{
     }
 
     @Override
-    public void like(String jobId, final OnLikeJobListener listener) {
+    public void like(boolean isLiked, String jobId, final OnLikeJobListener listener) {
         String account = "";
-        if(MyApplication.getmLoginStatus() == 1){
+        if (MyApplication.getmLoginStatus() == 0) {
+            listener.onNoLoginError();
+        } else {
             account = MyApplication.getmPersonBean().getAccount();
+            String url = isLiked ? Urls.JOB_LIKE_URL + jobId + "/account/" + account : Urls.JOB_UNLIKE_URL + jobId + "/account/" + account;
+            OkHttpUtils.get().url(url).build().execute(new StringCallback() {
+                @Override
+                public void onError(Call call, Exception e, int id) {
+                    listener.onLikeJobFailure("network error", e);
+                }
+
+                @Override
+                public void onResponse(String response, int id) {
+                    if (response != null) {
+                        Log.i("job_detail_like", response);
+                        listener.onSuccess();
+                    }
+                }
+            });
         }
 
     }
 
-    public interface OnLoadJobListener{
+    public interface OnLoadJobListener {
         void onSuccess(JobDetailBean jobDetailBean);
-        void onFailure(String msg, Exception e);
+
+        void onLoadJobFailure(String msg, Exception e);
     }
 
-    public interface OnLikeJobListener{
+    public interface OnLikeJobListener {
         void onSuccess();
-        void onFailure(String msg, Exception e);
+
+        void onLikeJobFailure(String msg, Exception e);
+
+        void onNoLoginError();
     }
 }
