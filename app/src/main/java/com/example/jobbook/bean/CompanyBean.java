@@ -60,6 +60,10 @@ public class CompanyBean implements Serializable {
         this.name = name;
     }
 
+    public String getLogo() {
+        return logo;
+    }
+
     public void setLogo(String logo) {
         this.logo = logo;
     }

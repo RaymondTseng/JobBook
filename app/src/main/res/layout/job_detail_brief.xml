@@ -13,10 +13,24 @@
             android:id="@+id/job_detail_name_tv"
             android:text="平面设计师"
             style="@style/Black20sptv"/>
-        <LinearLayout
+        <TextView
+            android:id="@+id/job_detail_salary_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/job_detail_name_tv">
+            android:text="1.5K~2.5K"
+            android:textSize="16sp"
+            android:textColor="@color/colorBlue"
+            android:layout_below="@id/job_detail_name_tv"
+            android:layout_alignParentRight="true"
+            />
+        <LinearLayout
+            android:id="@+id/job_detail_location_ll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/job_detail_name_tv"
+            android:layout_toLeftOf="@id/job_detail_salary_tv"
+            android:layout_alignParentLeft="true"
+            android:layout_marginRight="16dp">
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -30,23 +44,13 @@
                 />
         </LinearLayout>
         <TextView
-            android:id="@+id/job_detail_salary_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="1.5K~2.5K"
-            android:textSize="16sp"
-            android:textColor="@color/colorBlue"
-            android:layout_below="@id/job_detail_name_tv"
-            android:layout_alignParentRight="true"
-            />
-        <TextView
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:background="@color/colorBackgroundGray"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:layout_marginTop="16dp"
-            android:layout_below="@id/job_detail_salary_tv"/>
+            android:layout_below="@id/job_detail_location_ll"/>
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="match_parent"
@@ -61,11 +65,22 @@
             android:layout_width="78dp"
             android:layout_height="78dp"
             android:src="@mipmap/apple_logo"/>
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/right_blue"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@null"
+            android:id="@+id/job_detail_tocompany_ib" />
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/job_detail_company_logo_iv"
-            android:layout_marginLeft="16dp">
+            android:layout_toLeftOf="@id/job_detail_tocompany_ib"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp"
+            android:id="@+id/job_detail_company_description_ll">
             <TextView
                 android:id="@+id/job_detail_company_name_tv"
                 android:text="苹果公司"
@@ -113,7 +128,7 @@
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/job_detail_company_logo_iv"
+            android:layout_below="@id/job_detail_company_description_ll"
             android:id="@+id/job_detail_benefit_ll"
             android:layout_marginTop="15dp"
             >
@@ -128,14 +143,6 @@
                 />
 
         </RelativeLayout>
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/right_blue"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:background="@null"
-            android:id="@+id/job_detail_tocompany_ib" />
     </RelativeLayout>
     <TextView
         android:layout_width="match_parent"
