@@ -41,6 +41,10 @@ public class JobDetailModelImpl implements JobDetailModel{
 
     @Override
     public void like(String jobId, final OnLikeJobListener listener) {
+        String account = "";
+        if(MyApplication.getmLoginStatus() == 1){
+            account = MyApplication.getmPersonBean().getAccount();
+        }
 
     }
 

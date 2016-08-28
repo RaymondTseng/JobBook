@@ -25,7 +25,7 @@ public class CompanyBean implements Serializable {
     /**
      * 公司图标
      */
-    private ImageView logo;
+    private String logo;
 
     /**
      * 公司地址
@@ -60,11 +60,7 @@ public class CompanyBean implements Serializable {
         this.name = name;
     }
 
-    public ImageView getLogo() {
-        return logo;
-    }
-
-    public void setLogo(ImageView logo) {
+    public void setLogo(String logo) {
         this.logo = logo;
     }
 

@@ -23,6 +23,7 @@ import com.example.jobbook.util.Util;
 public class JobDetailActivity extends Activity implements View.OnClickListener, JobDetailView{
     private ImageButton mBackImageButton;
     private ImageButton mToCompanyDetailImageButton;
+    private ImageButton mLikeImageButton;
     private TextView mJobNameTextView;
     private TextView mJobLocationTextView;
     private TextView mSalaryTextView;
@@ -34,6 +35,8 @@ public class JobDetailActivity extends Activity implements View.OnClickListener,
     private TextView mJobRequireTextView;
     private JobDetailPresenter mPresenter;
     private View view;
+    private JobBean jobBean;
+    private JobDetailBean jobDetailBean;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +49,7 @@ public class JobDetailActivity extends Activity implements View.OnClickListener,
     private void initViews(){
         mBackImageButton = (ImageButton) findViewById(R.id.job_detail_back_ib);
         mToCompanyDetailImageButton = (ImageButton) findViewById(R.id.job_detail_tocompany_ib);
+        mLikeImageButton = (ImageButton) findViewById(R.id.job_detail_like_ib);
         mJobNameTextView = (TextView) findViewById(R.id.job_detail_name_tv);
         mJobLocationTextView = (TextView) findViewById(R.id.job_detail_location_tv);
         mSalaryTextView = (TextView) findViewById(R.id.job_detail_salary_tv);
@@ -58,12 +62,13 @@ public class JobDetailActivity extends Activity implements View.OnClickListener,
     }
 
     private void initEvents(){
-        JobBean jobBean = (JobBean) getIntent().getExtras().getSerializable("job_detail");
+        jobBean = (JobBean) getIntent().getExtras().getSerializable("job_detail");
         Log.i("article_bean_activity", "123:" + jobBean.getId());
         mPresenter = new JobDetailPresenterImpl(this);
         mPresenter.loadJob(jobBean.getId());
         mToCompanyDetailImageButton.setOnClickListener(this);
         mBackImageButton.setOnClickListener(this);
+        mLikeImageButton.setOnClickListener(this);
     }
 
     @Override
@@ -76,6 +81,14 @@ public class JobDetailActivity extends Activity implements View.OnClickListener,
                 Util.toAnotherActivity(this, CompanyDetailActivity.class);
                 break;
             case R.id.job_detail_like_ib:
+                Log.i("like", "click");
+                like(jobBean.getId());
+                Log.i("like", jobDetailBean.isIfLike() + "");
+                if (jobDetailBean.isIfLike() == 0) {
+                    mLikeImageButton.setImageResource(R.mipmap.favourite_white);
+                } else {
+                    mLikeImageButton.setImageResource(R.mipmap.favourite_tapped);
+                }
                 break;
         }
     }
@@ -97,6 +110,8 @@ public class JobDetailActivity extends Activity implements View.OnClickListener,
 
     @Override
     public void addJob(JobDetailBean jobDetailBean) {
+        this.jobDetailBean = jobDetailBean;
+        Log.i("addjob", "success");
         mJobNameTextView.setText(jobDetailBean.getName());
         mJobLocationTextView.setText(jobDetailBean.getLocation());
         mSalaryTextView.setText(jobDetailBean.getSalary());
@@ -105,6 +120,11 @@ public class JobDetailActivity extends Activity implements View.OnClickListener,
         mCompanyDescriptionTextView.setText(jobDetailBean.getCompany().getScale());
         mJobDutyTextView.setText(jobDetailBean.getResponsibilities());
         mJobRequireTextView.setText(jobDetailBean.getRequirements());
+        if (jobDetailBean.isIfLike() == 0) {
+            mLikeImageButton.setImageResource(R.mipmap.favourite_white);
+        } else {
+            mLikeImageButton.setImageResource(R.mipmap.favourite_tapped);
+        }
 
     }
 

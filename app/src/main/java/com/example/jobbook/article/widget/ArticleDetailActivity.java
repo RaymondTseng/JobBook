@@ -39,8 +39,6 @@ public class ArticleDetailActivity extends Activity implements ArticleDetailView
         initViews();
         initEvents();
         view = getWindow().getDecorView();
-//        mNewsDetailPresenter = new NewsDetailPresenterImpl(getApplication(), this);
-//        mNewsDetailPresenter.loadNewsDetail(mNews.getDocid());
     }
 
     private void initViews() {

@@ -15,8 +15,12 @@ public class Urls {
 
     public static final String JOB_DETAIL_URL = ID + "/jobBook/Home/job/getDetail/job_id/";
 
+    public static final String JOB_LIKE_URL = ID + "/jobBook/Home/job/liked/job_id/";
+
     public static final String ARTICLE_URL = ID + "/jobBook/Home/article/allArticle/type/";
 
     public static final String ARTICLE_DETAIL_URL = ID + "/jobBook/Home/article/getArticle/a_id/";
+
+
 
 }
