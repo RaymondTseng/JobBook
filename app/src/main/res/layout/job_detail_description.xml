@@ -46,7 +46,7 @@
                 android:id="@+id/job_deatail_description_duty_tv"
                 />
             <TextView
-                android:id="@+id/job_deatail_description_duty_content_tv"
+                android:id="@+id/job_detail_description_duty_content_tv"
                 android:layout_marginLeft="16dp"
                 android:layout_toRightOf="@id/job_deatail_description_duty_tv"
                 style="@style/Black14sptv"
@@ -65,7 +65,7 @@
                 android:id="@+id/job_deatail_description_require_tv"
                 />
             <TextView
-                android:id="@+id/job_deatail_description_require_content_tv"
+                android:id="@+id/job_detail_description_require_content_tv"
                 android:layout_marginLeft="16dp"
                 android:layout_toRightOf="@id/job_deatail_description_require_tv"
                 style="@style/Black14sptv"

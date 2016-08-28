@@ -32,11 +32,13 @@ public class JobPresenterImpl implements JobPresenter, JobModelImpl.OnLoadJobLis
 
     @Override
     public void onSuccess(List<JobBean> list) {
+        mJobView.hideProgress();
         mJobView.addJobs(list);
     }
 
     @Override
     public void onFailure(String msg, Exception e) {
+        mJobView.showProgress();
         mJobView.showLoadingFailMsg();
     }
 }

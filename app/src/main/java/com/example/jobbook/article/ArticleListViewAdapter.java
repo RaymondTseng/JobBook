@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.example.jobbook.R;
 import com.example.jobbook.bean.ArticleBean;
+import com.example.jobbook.util.Util;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,9 +24,8 @@ public class ArticleListViewAdapter extends BaseAdapter {
     private List<ArticleBean> mList = new ArrayList<>();
     private OnItemClickListener mOnItemClickListener;
 
-    public ArticleListViewAdapter(Context mContext, List<ArticleBean> list) {
+    public ArticleListViewAdapter(Context mContext) {
         this.mContext = mContext;
-        this.mList = list;
     }
 
     @Override
@@ -61,7 +61,7 @@ public class ArticleListViewAdapter extends BaseAdapter {
             view = convertView;
             viewholder = (ViewHolder) view.getTag();
         }
-        viewholder.mContent.setText(articleBean.getContent());
+        viewholder.mContent.setText(Util.subContent(articleBean.getContent()));
 //        viewholder.mLabel.setBackgroundResource();
 //        viewholder.mLogo
         viewholder.mTime.setText(articleBean.getDate());
@@ -97,5 +97,10 @@ public class ArticleListViewAdapter extends BaseAdapter {
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.mOnItemClickListener = onItemClickListener;
+    }
+
+    public void updateData(List<ArticleBean> list){
+        this.mList = list;
+        notifyDataSetChanged();
     }
 }

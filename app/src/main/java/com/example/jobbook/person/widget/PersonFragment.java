@@ -15,6 +15,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.jobbook.R;
+import com.example.jobbook.bean.PersonBean;
 import com.example.jobbook.feedback.widget.FeedBackActivity;
 import com.example.jobbook.person.view.PersonView;
 
@@ -30,16 +31,14 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
     private Button mSwitch2PersonButton;
     private TextView mSwitch2FeedBackTextView;
     private RelativeLayout mFavouriteLayout;
+    private TextView mNameTextView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState){
         View view = inflater.inflate(R.layout.fragment_person, container, false);
         initViews(view);
-        Bundle bundle = getArguments().getBundle("PersonBean");
-        if(bundle != null){
-            Log.i("TAG", "bundle is not null");
-        }
+        initEvents();
         return view;
     }
 
@@ -55,21 +54,28 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
         }
     }
 
-    public void initViews(View view) {
+    private void initViews(View view) {
         mSwitch2PersonButton = (Button) view.findViewById(R.id.person_switch2login_bt);
         mSwitch2FeedBackTextView = (TextView) view.findViewById(R.id.person_feedback_tv);
-        mSwitch2PersonButton.setOnClickListener(this);
-        mSwitch2FeedBackTextView.setOnClickListener(this);
         mSettingImageButton = (ImageButton) view.findViewById(R.id.person_setting_ib);
         mFavouriteLayout = (RelativeLayout) view.findViewById(R.id.person_favourite_ll);
+        mNameTextView = (TextView) view.findViewById(R.id.person_name_tv);
+    }
+
+    private void initEvents(){
+        mSwitch2PersonButton.setOnClickListener(this);
+        mSwitch2FeedBackTextView.setOnClickListener(this);
         mSwitch2PersonButton.setOnClickListener(this);
         mSettingImageButton.setOnClickListener(this);
         mFavouriteLayout.setOnClickListener(this);
+        showPersonData();
     }
 
     @Override
     public void showPersonData() {
-
+        Bundle bundle = (Bundle) getArguments();
+        PersonBean personBean = (PersonBean) bundle.getSerializable("PersonBean");
+        mNameTextView.setText(personBean.getUsername());
     }
 
     @Override

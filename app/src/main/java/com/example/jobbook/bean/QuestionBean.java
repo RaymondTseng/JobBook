@@ -1,12 +1,13 @@
 package com.example.jobbook.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by Xu on 2016/7/5.
  * 问题模型类
  */
-public class QuestionBean {
+public class QuestionBean implements Serializable{
     private static final long serialVersionUID = 1L;
     /**
      * id

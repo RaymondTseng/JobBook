@@ -14,6 +14,10 @@ public class CompanyBean implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
+     * id
+     */
+    private String com_id;
+    /**
      * 公司名称
      */
     private String name;
@@ -26,7 +30,7 @@ public class CompanyBean implements Serializable {
     /**
      * 公司地址
      */
-    private String address;
+    private String location;
 
     /**
      * 公司规模
@@ -64,14 +68,6 @@ public class CompanyBean implements Serializable {
         this.logo = logo;
     }
 
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
     public String getWelfare() {
         return welfare;
     }
@@ -102,5 +98,21 @@ public class CompanyBean implements Serializable {
 
     public void setIntroduction(String introduction) {
         this.introduction = introduction;
+    }
+
+    public String getId() {
+        return com_id;
+    }
+
+    public void setId(String id) {
+        this.com_id = id;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 }

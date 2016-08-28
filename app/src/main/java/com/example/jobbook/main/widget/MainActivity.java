@@ -1,5 +1,6 @@
 package com.example.jobbook.main.widget;
 
+import android.content.SharedPreferences;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +9,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 
+import com.example.jobbook.MyApplication;
 import com.example.jobbook.R;
 import com.example.jobbook.article.widget.ArticleFragment;
 import com.example.jobbook.bean.PersonBean;
@@ -20,6 +22,7 @@ import com.example.jobbook.login.widget.LoginFragment;
 import com.example.jobbook.person.widget.PersonFragment;
 import com.example.jobbook.question.widget.QuestionFragment;
 import com.example.jobbook.register.widget.RegisterFragment;
+import com.example.jobbook.util.Util;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,7 +75,9 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         mFragmentContainer.setAdapter(mFragmentPagerAdapter);
         mRadioGroup.setOnCheckedChangeListener(this);
         mFragmentContainer.addOnPageChangeListener(this);
+        MyApplication.setmPersonBean(mMainPresenter.loadPersonBean(this));
     }
+
 
     /**
      * 处理底部导航栏的fragment事务
@@ -132,9 +137,10 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         mFragmentContainer.setCurrentItem(2);
     }
 
+
     @Override
     public void switch2Person() {
-        mFragmentPagerAdapter.toPersonFragment(new PersonBean());
+        mFragmentPagerAdapter.toPersonFragment(MyApplication.getmPersonBean());
         mFragmentContainer.setCurrentItem(3);
     }
 
@@ -152,6 +158,8 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
 
     @Override
     public void switchLogin2Person(PersonBean personBean) {
+        MyApplication.setmPersonBean(personBean);
+        mMainPresenter.savePersonBean(this, personBean);
         switch2Person();
     }
 
@@ -162,6 +170,8 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
 
     @Override
     public void switchRegister2Person(PersonBean personBean) {
+        MyApplication.setmPersonBean(personBean);
+        mMainPresenter.savePersonBean(this, personBean);
         switch2Person();
     }
 

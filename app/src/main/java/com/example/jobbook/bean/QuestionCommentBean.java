@@ -1,9 +1,11 @@
 package com.example.jobbook.bean;
 
+import java.io.Serializable;
+
 /**
  * Created by 椰树 on 2016/7/16.
  */
-public class QuestionCommentBean {
+public class QuestionCommentBean implements Serializable{
     private static final long serialVersionUID = 1L;
     /**
      * id

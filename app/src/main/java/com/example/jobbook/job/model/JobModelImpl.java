@@ -1,5 +1,7 @@
 package com.example.jobbook.job.model;
 
+import android.util.Log;
+
 import com.example.jobbook.bean.JobBean;
 import com.example.jobbook.commons.Urls;
 import com.google.gson.Gson;
@@ -18,14 +20,17 @@ public class JobModelImpl implements JobModel{
 
     @Override
     public void loadJobs(final OnLoadJobListListener listener) {
+        Log.i("job_response:", "load");
         OkHttpUtils.get().url(Urls.JOB_URL).addParams("", "").build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
+                Log.i("job_response:", e.getMessage());
                 listener.onFailure("network error", e);
             }
 
             @Override
             public void onResponse(String response, int id) {
+                Log.i("job_response:", response);
                 List<JobBean> jobBeanList = new Gson().fromJson(response, new TypeToken<List<JobBean>>(){}.getType());
                 listener.onSuccess(jobBeanList);
             }
