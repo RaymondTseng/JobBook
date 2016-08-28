@@ -65,11 +65,11 @@ public class JobDetailBean implements Serializable{
         this.time = time;
     }
 
-    public boolean isIfLike() {
+    public int isIfLike() {
         return ifLike;
     }
 
-    public void setIfLike(boolean ifLike) {
+    public void setIfLike(int ifLike) {
         this.ifLike = ifLike;
     }
 
@@ -123,6 +123,6 @@ public class JobDetailBean implements Serializable{
     /**
      * 是否点赞
      */
-    private boolean ifLike;
+    private int ifLike;
 
 }
