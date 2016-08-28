@@ -14,17 +14,17 @@ import okhttp3.OkHttpClient;
  */
 public class MyApplication extends Application {
 
-    private PersonBean mPersonBean;
+    private static PersonBean mPersonBean;
 
     private static int mLoginStatus = 0;
 
-    public PersonBean getmPersonBean() {
+    public static PersonBean getmPersonBean() {
         return mPersonBean;
     }
 
-    public void setmPersonBean(PersonBean mPersonBean) {
+    public static void setmPersonBean(PersonBean personBean) {
         if(mPersonBean != null){
-            this.mPersonBean = mPersonBean;
+            mPersonBean = personBean;
             mLoginStatus = 1;
         }
     }

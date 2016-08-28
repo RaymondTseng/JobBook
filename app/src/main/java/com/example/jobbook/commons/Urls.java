@@ -11,9 +11,9 @@ public class Urls {
 
     public static final String LOGIN_URL = ID + "/jobBook/Home/enter/doLogin";
 
-    public static final String JOB_URL = ID + "";
+    public static final String JOB_URL = ID + "/jobBook/Home/job/getAll";
 
-    public static final String JOB_DETAIL_URL = ID + "";
+    public static final String JOB_DETAIL_URL = ID + "/jobBook/Home/job/getDetail/job_id/";
 
     public static final String ARTICLE_URL = ID + "/jobBook/Home/article/allArticle/type/";
 

@@ -1,6 +1,7 @@
 package com.example.jobbook.job.presenter;
 
 import com.example.jobbook.bean.JobBean;
+import com.example.jobbook.bean.JobDetailBean;
 import com.example.jobbook.job.model.JobDetailModel;
 import com.example.jobbook.job.model.JobDetailModelImpl;
 import com.example.jobbook.job.view.JobDetailView;
@@ -29,8 +30,8 @@ public class JobDetailPresenterImpl implements JobDetailPresenter, JobDetailMode
     }
 
     @Override
-    public void onSuccess(JobBean mJobBean) {
-        mJobDetailView.addJob(mJobBean);
+    public void onSuccess(JobDetailBean jobDetailBean) {
+        mJobDetailView.addJob(jobDetailBean);
     }
 
     @Override

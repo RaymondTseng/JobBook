@@ -75,8 +75,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         mFragmentContainer.setAdapter(mFragmentPagerAdapter);
         mRadioGroup.setOnCheckedChangeListener(this);
         mFragmentContainer.addOnPageChangeListener(this);
-        MyApplication myApplication = (MyApplication)this.getApplication();
-        myApplication.setmPersonBean(mMainPresenter.loadPersonBean(this));
+        MyApplication.setmPersonBean(mMainPresenter.loadPersonBean(this));
     }
 
 
@@ -141,8 +140,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
 
     @Override
     public void switch2Person() {
-        MyApplication myApplication = (MyApplication)this.getApplication();
-        mFragmentPagerAdapter.toPersonFragment(myApplication.getmPersonBean());
+        mFragmentPagerAdapter.toPersonFragment(MyApplication.getmPersonBean());
         mFragmentContainer.setCurrentItem(3);
     }
 
@@ -160,8 +158,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
 
     @Override
     public void switchLogin2Person(PersonBean personBean) {
-        MyApplication myApplication = (MyApplication)this.getApplication();
-        myApplication.setmPersonBean(personBean);
+        MyApplication.setmPersonBean(personBean);
         mMainPresenter.savePersonBean(this, personBean);
         switch2Person();
     }
@@ -173,8 +170,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
 
     @Override
     public void switchRegister2Person(PersonBean personBean) {
-        MyApplication myApplication = (MyApplication)this.getApplication();
-        myApplication.setmPersonBean(personBean);
+        MyApplication.setmPersonBean(personBean);
         mMainPresenter.savePersonBean(this, personBean);
         switch2Person();
     }

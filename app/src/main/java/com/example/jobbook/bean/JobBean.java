@@ -9,12 +9,56 @@ import java.io.Serializable;
 public class JobBean implements Serializable{
     private static final long serialVersionUID = 1L;
 
-    public int getId() {
-        return id;
+    /**
+     * id
+     */
+    private String job_id;
+
+    /**
+     * 公司头像
+     */
+    private String logo;
+
+    /**
+     * 职位名称
+     */
+    private String name;
+
+    /**
+     * 公司名称
+     */
+    private String companyname;
+
+    /**
+     * 公司地址
+     */
+    private String location;
+
+    /**
+     * 时间
+     */
+    private String time;
+
+    /**
+     * 薪水
+     */
+    private String salary;
+
+
+    public String getId() {
+        return job_id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setId(String id) {
+        this.job_id = id;
+    }
+
+    public String getLogo() {
+        return logo;
+    }
+
+    public void setLogo(String logo) {
+        this.logo = logo;
     }
 
     public String getName() {
@@ -25,37 +69,22 @@ public class JobBean implements Serializable{
         this.name = name;
     }
 
-    public String getSalary() {
-        return salary;
+    public String getCompanyName() {
+        return companyname;
     }
 
-    public void setSalary(String salary) {
-        this.salary = salary;
+    public void setCompanyName(String companyName) {
+        this.companyname = companyName;
     }
 
-    public CompanyBean getCompany() {
-        return company;
+    public String getCompanyLocation() {
+        return location;
     }
 
-    public void setCompany(CompanyBean company) {
-        this.company = company;
+    public void setCompanyLocation(String companyLocation) {
+        this.location = companyLocation;
     }
 
-    public String getResponsibilities() {
-        return responsibilities;
-    }
-
-    public void setResponsibilities(String responsibilities) {
-        this.responsibilities = responsibilities;
-    }
-
-    public String getRequirements() {
-        return requirements;
-    }
-
-    public void setRequirements(String requirements) {
-        this.requirements = requirements;
-    }
     public String getTime() {
         return time;
     }
@@ -64,39 +93,11 @@ public class JobBean implements Serializable{
         this.time = time;
     }
 
-    /**
-     * id
-     */
-    private int id;
-    /**
-     * 职位名称
-     */
-    private String name;
-    /**
-     * 薪资范围
-     */
-    private String salary;
+    public String getSalary() {
+        return salary;
+    }
 
-    /**
-     * 公司
-     */
-    private CompanyBean company;
-    /**
-     * 岗位职责
-     */
-    private String responsibilities;
-    /**
-     * 任职要求
-     */
-    private String requirements;
-
-    /**
-     * 时间
-     */
-    private String time;
-
-    /**
-     * 点赞数
-     */
-    private int like;
+    public void setSalary(String salary) {
+        this.salary = salary;
+    }
 }

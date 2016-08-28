@@ -62,9 +62,9 @@ public class JobListViewAdapter extends BaseAdapter {
             view = convertView;
             viewholder = (ViewHolder) view.getTag();
         }
-        viewholder.mCompanyName.setText(jobBean.getCompany().getName());
+        viewholder.mCompanyName.setText(jobBean.getCompanyName());
         viewholder.mJobName.setText(jobBean.getName());
-        viewholder.mLocation.setText(jobBean.getCompany().getAddress());
+        viewholder.mLocation.setText(jobBean.getCompanyLocation());
         viewholder.mSalary.setText(jobBean.getSalary());
         viewholder.mTime.setText(jobBean.getTime());
         return view;

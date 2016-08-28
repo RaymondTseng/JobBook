@@ -1,6 +1,10 @@
 package com.example.jobbook.job.model;
 
+import android.util.Log;
+
+import com.example.jobbook.MyApplication;
 import com.example.jobbook.bean.JobBean;
+import com.example.jobbook.bean.JobDetailBean;
 import com.example.jobbook.commons.Urls;
 import com.google.gson.Gson;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -15,7 +19,12 @@ public class JobDetailModelImpl implements JobDetailModel{
 
     @Override
     public void loadJobDetail(String jobId, final OnLoadJobListener listener) {
-        OkHttpUtils.postString().url(Urls.JOB_DETAIL_URL + jobId).content(jobId).build().execute(new StringCallback() {
+        String account = "";
+        if(MyApplication.getmLoginStatus() == 1){
+            account = MyApplication.getmPersonBean().getAccount();
+        }
+        OkHttpUtils.postString().url(Urls.JOB_DETAIL_URL + jobId + "/account/" + account)
+                .content(jobId + "/account/" + account).build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
                 listener.onFailure("network error", e);
@@ -23,8 +32,9 @@ public class JobDetailModelImpl implements JobDetailModel{
 
             @Override
             public void onResponse(String response, int id) {
-                JobBean jobBean = new Gson().fromJson(response, JobBean.class);
-                listener.onSuccess(jobBean);
+                Log.i("job_detail_response", response);
+                JobDetailBean jobDetailBean = new Gson().fromJson(response, JobDetailBean.class);
+                listener.onSuccess(jobDetailBean);
             }
         });
     }
@@ -35,7 +45,7 @@ public class JobDetailModelImpl implements JobDetailModel{
     }
 
     public interface OnLoadJobListener{
-        void onSuccess(JobBean mJobBean);
+        void onSuccess(JobDetailBean jobDetailBean);
         void onFailure(String msg, Exception e);
     }
 

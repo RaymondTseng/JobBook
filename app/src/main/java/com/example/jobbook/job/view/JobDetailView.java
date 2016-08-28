@@ -1,18 +1,19 @@
 package com.example.jobbook.job.view;
 
 import com.example.jobbook.bean.JobBean;
+import com.example.jobbook.bean.JobDetailBean;
 
 /**
  * Created by 椰树 on 2016/8/28.
  */
 public interface JobDetailView {
-    void like();
+    void like(String jobId);
 
     void switch2Chat();
 
     void submitCV();
 
-    void addJob(JobBean jobBean);
+    void addJob(JobDetailBean jobDetailBean);
 
     void hideProgress();
 
