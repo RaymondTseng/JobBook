@@ -1,6 +1,8 @@
 package com.example.jobbook.main.widget;
 
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -173,6 +175,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         MyApplication.setmPersonBean(personBean);
         mMainPresenter.savePersonBean(this, personBean);
         switch2Person();
+
     }
 
     @Override
