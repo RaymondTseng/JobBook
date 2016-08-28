@@ -20,7 +20,7 @@ import com.example.jobbook.util.Util;
 /**
  * Created by 椰树 on 2016/7/13.
  */
-public class JobDetailActivity extends Activity implements View.OnClickListener, JobDetailView{
+public class JobDetailActivity extends Activity implements View.OnClickListener, JobDetailView {
     private ImageButton mBackImageButton;
     private ImageButton mToCompanyDetailImageButton;
     private ImageButton mLikeImageButton;
@@ -46,7 +46,8 @@ public class JobDetailActivity extends Activity implements View.OnClickListener,
         initViews();
         initEvents();
     }
-    private void initViews(){
+
+    private void initViews() {
         mBackImageButton = (ImageButton) findViewById(R.id.job_detail_back_ib);
         mToCompanyDetailImageButton = (ImageButton) findViewById(R.id.job_detail_tocompany_ib);
         mLikeImageButton = (ImageButton) findViewById(R.id.job_detail_like_ib);
@@ -61,7 +62,7 @@ public class JobDetailActivity extends Activity implements View.OnClickListener,
         mJobRequireTextView = (TextView) findViewById(R.id.job_detail_description_require_content_tv);
     }
 
-    private void initEvents(){
+    private void initEvents() {
         jobBean = (JobBean) getIntent().getExtras().getSerializable("job_detail");
         Log.i("article_bean_activity", "123:" + jobBean.getId());
         mPresenter = new JobDetailPresenterImpl(this);
@@ -73,7 +74,7 @@ public class JobDetailActivity extends Activity implements View.OnClickListener,
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.job_detail_back_ib:
                 finish();
                 break;
@@ -82,7 +83,7 @@ public class JobDetailActivity extends Activity implements View.OnClickListener,
                 break;
             case R.id.job_detail_like_ib:
                 Log.i("like", "click");
-                like(jobBean.getId());
+                like(jobDetailBean.isIfLike() == 0 ? true : false, jobBean.getId());
                 Log.i("like", jobDetailBean.isIfLike() + "");
                 if (jobDetailBean.isIfLike() == 0) {
                     mLikeImageButton.setImageResource(R.mipmap.favourite_white);
@@ -94,8 +95,8 @@ public class JobDetailActivity extends Activity implements View.OnClickListener,
     }
 
     @Override
-    public void like(String jobId) {
-        mPresenter.like(jobId);
+    public void like(boolean isLiked, String jobId) {
+        mPresenter.like(isLiked, jobId);
     }
 
     @Override
@@ -149,5 +150,44 @@ public class JobDetailActivity extends Activity implements View.OnClickListener,
     @Override
     public void showProhress() {
 
+    }
+
+    @Override
+    public void noLoginError() {
+        final Snackbar snackbar = Snackbar.make(view, "请先登录！", Snackbar.LENGTH_LONG);
+        snackbar.setAction("dismiss", new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                snackbar.dismiss();
+            }
+        });
+        snackbar.show();
+    }
+
+    @Override
+    public void likeSuccess() {
+        final Snackbar snackbar = Snackbar.make(view, "收藏成功！", Snackbar.LENGTH_LONG);
+        snackbar.setAction("dismiss", new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                snackbar.dismiss();
+            }
+        });
+        snackbar.show();
+    }
+
+    @Override
+    public void likeError() {
+        final Snackbar snackbar = Snackbar.make(view, "收藏失败，请重试！", Snackbar.LENGTH_LONG);
+        snackbar.setAction("dismiss", new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                snackbar.dismiss();
+            }
+        });
+        snackbar.show();
     }
 }

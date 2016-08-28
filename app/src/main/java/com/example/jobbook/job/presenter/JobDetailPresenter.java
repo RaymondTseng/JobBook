@@ -6,5 +6,5 @@ package com.example.jobbook.job.presenter;
 public interface JobDetailPresenter {
     void loadJob(String jobId);
 
-    void like(String jobId);
+    void like(boolean isLiked, String jobId);
 }
