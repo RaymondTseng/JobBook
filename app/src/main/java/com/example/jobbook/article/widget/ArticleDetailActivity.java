@@ -30,16 +30,15 @@ public class ArticleDetailActivity extends Activity implements ArticleDetailView
     private TextView mReadingQuantityTextView;
     private TextView mArticleTitleTextView;
     private TextView mArticleContentTextView;
+    private View view;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_article_detail);
         initViews();
-        mPresenter = new ArticleDetailPresenterImpl(this);
-        mArticleBean = (ArticleBean) getIntent().getExtras().getSerializable("article_detail");
-        Log.i("article_bean_activity", "123:" + mArticleBean.getArticle_id());
-        mPresenter.loadArticle(mArticleBean.getArticle_id());
+        initEvents();
+        view = getWindow().getDecorView();
 //        mNewsDetailPresenter = new NewsDetailPresenterImpl(getApplication(), this);
 //        mNewsDetailPresenter.loadNewsDetail(mNews.getDocid());
     }
@@ -47,11 +46,18 @@ public class ArticleDetailActivity extends Activity implements ArticleDetailView
     private void initViews() {
         mBackImageButton = (ImageButton) findViewById(R.id.article_detail_back_ib);
         mListView = (ListView) findViewById(R.id.article_detail_lv);
-        Util.setListViewHeightBasedOnChildren(mListView);
         mReadingQuantityTextView = (TextView) findViewById(R.id.article_detail_readingquanity_tv);
         mArticleTitleTextView = (TextView) findViewById(R.id.article_detail_title_tv);
         mArticleContentTextView = (TextView) findViewById(R.id.article_detail_content_tv);
+    }
+
+    private void initEvents(){
+        Util.setListViewHeightBasedOnChildren(mListView);
         mBackImageButton.setOnClickListener(this);
+        mPresenter = new ArticleDetailPresenterImpl(this);
+        mArticleBean = (ArticleBean) getIntent().getExtras().getSerializable("article_detail");
+        Log.i("article_bean_activity", "123:" + mArticleBean.getArticle_id());
+        mPresenter.loadArticle(mArticleBean.getArticle_id());
     }
 
     @Override
@@ -78,15 +84,15 @@ public class ArticleDetailActivity extends Activity implements ArticleDetailView
 
     @Override
     public void showLoadFailMsg() {
-//        final Snackbar snackbar = Snackbar.make(, "干货读取错误，请重试！", Snackbar.LENGTH_LONG);
-//        snackbar.setAction("dismiss", new View.OnClickListener() {
-//
-//            @Override
-//            public void onClick(View v) {
-//                snackbar.dismiss();
-//            }
-//        });
-//        snackbar.show();
+        final Snackbar snackbar = Snackbar.make(view, "干货读取错误，请重试！", Snackbar.LENGTH_LONG);
+        snackbar.setAction("dismiss", new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                snackbar.dismiss();
+            }
+        });
+        snackbar.show();
     }
 
     @Override

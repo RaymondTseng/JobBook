@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListAdapter;
@@ -125,5 +126,29 @@ public class Util {
         edit.putString("password", personBean.getPassword());
         edit.putString("telephone", personBean.getTelephone());
         edit.putString("username", personBean.getUsername());
+    }
+
+    /**
+     * 获取屏幕高度
+     * @param context
+     * @return
+     */
+    public static int getHeight(Context context) {
+        DisplayMetrics dm = context.getResources().getDisplayMetrics();
+        return dm.heightPixels;
+    }
+
+    /**
+     * 截取文章作为预览
+     * @param content
+     * @return
+     */
+    public static String subContent(String content){
+        if(content.length() < 100){
+            return content;
+        }
+        String result = content.substring(0, 100);
+        result = result + "...";
+        return result;
     }
 }

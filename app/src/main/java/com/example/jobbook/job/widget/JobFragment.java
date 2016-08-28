@@ -3,6 +3,7 @@ package com.example.jobbook.job.widget;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.text.TextWatcher;
@@ -27,39 +28,51 @@ import com.example.jobbook.job.JobListViewAdapter;
 import com.example.jobbook.job.presenter.JobPresenter;
 import com.example.jobbook.job.presenter.JobPresenterImpl;
 import com.example.jobbook.job.view.JobView;
+import com.example.jobbook.util.Util;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Xu on 2016/7/5.
  */
 public class JobFragment extends Fragment implements JobView, View.OnFocusChangeListener,
-        AdapterView.OnItemClickListener, View.OnClickListener {
+        JobListViewAdapter.OnItemClickListener, View.OnClickListener {
 
     private ListView mListView;
     private EditText mEditText;
     private JobPresenter mJobPresenter;
+    private View view;
+    private List<JobBean> list;
+    private JobListViewAdapter mAdapter;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_job, container, false);
+        view = inflater.inflate(R.layout.fragment_job, container, false);
         initViews(view);
+        initEvents();
         return view;
     }
 
     private void initViews(View view) {
         mListView = (ListView) view.findViewById(R.id.job_lv);
         mEditText = (EditText) view.findViewById(R.id.job_et);
+    }
+
+    private void initEvents(){
+        list = new ArrayList<>();
+        mAdapter = new JobListViewAdapter(getActivity());
+        mListView.setAdapter(mAdapter);
+        mAdapter.updateData(list);
+        mAdapter.setOnItemClickListener(this);
         mEditText.setOnFocusChangeListener(this);
         mListView.setOnFocusChangeListener(this);
-        mListView.setOnItemClickListener(this);
         mJobPresenter = new JobPresenterImpl(this);
 //        mListView.setAdapter(new JobListViewAdapter(getActivity()));
 //        mListView.setOnItemClickListener(this);
         mEditText.setFocusable(false);
         mEditText.setOnClickListener(this);
-
     }
 
     @Override
@@ -69,7 +82,10 @@ public class JobFragment extends Fragment implements JobView, View.OnFocusChange
 
     @Override
     public void addJobs(List<JobBean> jobList) {
-        mListView.setAdapter(new JobListViewAdapter(getActivity()));
+        if(jobList != null){
+            list = jobList;
+            mAdapter.updateData(list);
+        }
     }
 
     @Override
@@ -79,7 +95,15 @@ public class JobFragment extends Fragment implements JobView, View.OnFocusChange
 
     @Override
     public void showLoadingFailMsg() {
+        final Snackbar snackbar = Snackbar.make(view, "岗位读取错误，请重试！", Snackbar.LENGTH_LONG);
+        snackbar.setAction("dismiss", new View.OnClickListener() {
 
+            @Override
+            public void onClick(View v) {
+                snackbar.dismiss();
+            }
+        });
+        snackbar.show();
     }
 
     @Override
@@ -101,14 +125,14 @@ public class JobFragment extends Fragment implements JobView, View.OnFocusChange
     }
 
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Intent intent = new Intent(getActivity(), JobDetailActivity.class);
-        startActivity(intent);
-    }
-
-
-    @Override
     public void onClick(View v) {
         search();
+    }
+
+    @Override
+    public void onItemClick(View view, int position) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("job_detail", list.get(position));
+        Util.toAnotherActivity(getActivity(), JobDetailActivity.class, bundle);
     }
 }

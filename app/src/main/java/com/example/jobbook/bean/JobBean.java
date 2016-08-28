@@ -8,6 +8,62 @@ import java.io.Serializable;
  */
 public class JobBean implements Serializable{
     private static final long serialVersionUID = 1L;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSalary() {
+        return salary;
+    }
+
+    public void setSalary(String salary) {
+        this.salary = salary;
+    }
+
+    public CompanyBean getCompany() {
+        return company;
+    }
+
+    public void setCompany(CompanyBean company) {
+        this.company = company;
+    }
+
+    public String getResponsibilities() {
+        return responsibilities;
+    }
+
+    public void setResponsibilities(String responsibilities) {
+        this.responsibilities = responsibilities;
+    }
+
+    public String getRequirements() {
+        return requirements;
+    }
+
+    public void setRequirements(String requirements) {
+        this.requirements = requirements;
+    }
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
     /**
      * id
      */
@@ -17,17 +73,14 @@ public class JobBean implements Serializable{
      */
     private String name;
     /**
-     * 任职地点
-     */
-    private String location;
-    /**
      * 薪资范围
      */
     private String salary;
+
     /**
-     * 公司名称
+     * 公司
      */
-    private String company_name;
+    private CompanyBean company;
     /**
      * 岗位职责
      */
@@ -36,4 +89,14 @@ public class JobBean implements Serializable{
      * 任职要求
      */
     private String requirements;
+
+    /**
+     * 时间
+     */
+    private String time;
+
+    /**
+     * 点赞数
+     */
+    private int like;
 }

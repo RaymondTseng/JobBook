@@ -37,7 +37,8 @@ import java.util.List;
 /**
  * Created by Xu on 2016/7/5.
  */
-public class ArticleFragment extends Fragment implements ArticleView, View.OnClickListener, PopupWindow.OnDismissListener {
+public class ArticleFragment extends Fragment implements ArticleView, View.OnClickListener,
+        PopupWindow.OnDismissListener ,RadioGroup.OnCheckedChangeListener, ArticleListViewAdapter.OnItemClickListener{
 
     public static final int ARTICLE_ALL = 0;
     public static final int ARTICLE_ENGAGEMENT = 1;
@@ -56,10 +57,6 @@ public class ArticleFragment extends Fragment implements ArticleView, View.OnCli
     private PopupWindow mMenuPopupWindow;
     private View mMenuView;
     private ImageButton mDropImageButton;
-    private RadioButton mEngagementRadioButton;
-    private RadioButton mAllRadioButton;
-    private RadioButton mPoliticRadioButton;
-    private RadioButton mLifeRadioButton;
     private ArticlePresenter presenter;
     private View view;
     private List<ArticleBean> list;
@@ -68,65 +65,42 @@ public class ArticleFragment extends Fragment implements ArticleView, View.OnCli
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)  {
         view = inflater.inflate(R.layout.fragment_article, container, false);
         initViews(view);
+        initEvents();
         initAnimation();
+        return view;
+    }
+
+    private void initEvents(){
         list = new ArrayList<>();
         presenter = new ArticlePresenterImpl(this);
         // 默认加载全部文章
         presenter.loadArticles(ARTICLE_ALL);
         mTitleTextView.setText(Constants.ARTICLE_ALL);
-        return view;
-    }
-
-    private void initViews(View view) {
-        mArticleTitleLayout = (LinearLayout) view.findViewById(R.id.article_title_ll);
-        mMenuView = getActivity().getLayoutInflater().inflate(R.layout.article_title_bar_rg, null);
-        mEngagementRadioButton = (RadioButton) mMenuView.findViewById(R.id.article_title_engagement_rb);
-        mAllRadioButton = (RadioButton) mMenuView.findViewById(R.id.article_title_all_rb);
-        mPoliticRadioButton = (RadioButton) mMenuView.findViewById(R.id.article_title_politic_rb);
-        mLifeRadioButton = (RadioButton) mMenuView.findViewById(R.id.article_title_life_rb);
-        mBlankLayout = (LinearLayout) view.findViewById(R.id.article_blank_ll);
-        mTitleTextView = (TextView) view.findViewById(R.id.article_title_tv);
-        mListView = (ListView) view.findViewById(R.id.article_lv);
-        mDropImageButton = (ImageButton) view.findViewById(R.id.article_title_drop_ib);
         mMenuPopupWindow = new PopupWindow(mMenuView, ViewGroup.LayoutParams.MATCH_PARENT,
-                (getmHeight() / 556) * 192, true);
+                (Util.getHeight(getActivity()) / 556) * 192, true);
         mMenuPopupWindow.setBackgroundDrawable(new BitmapDrawable(getResources(),
                 Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888)));
         mMenuPopupWindow.setOutsideTouchable(true);
         mMenuPopupWindow.setOnDismissListener(this);
         mArticleTitleLayout.setOnClickListener(this);
 //        mListView.setOnItemClickListener(this);
+        radioGroup.setOnCheckedChangeListener(this);
+        adapter = new ArticleListViewAdapter(getActivity());
+        adapter.updateData(list);
+        adapter.setOnItemClickListener(this);
+        mListView.setAdapter(adapter);
+    }
+    private void initViews(View view) {
+        mArticleTitleLayout = (LinearLayout) view.findViewById(R.id.article_title_ll);
+        mMenuView = getActivity().getLayoutInflater().inflate(R.layout.article_title_bar_rg, null);
+        mBlankLayout = (LinearLayout) view.findViewById(R.id.article_blank_ll);
+        mTitleTextView = (TextView) view.findViewById(R.id.article_title_tv);
+        mListView = (ListView) view.findViewById(R.id.article_lv);
+        mDropImageButton = (ImageButton) view.findViewById(R.id.article_title_drop_ib);
         radioGroup = (RadioGroup) mMenuView.findViewById(R.id.article_title_rg);
-        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                switch (checkedId){
-                    case R.id.article_title_all_rb:
-                        mTitleTextView.setText(Constants.ARTICLE_ALL);
-                        presenter.loadArticles(ARTICLE_LIFE);
-                        adapter.notifyDataSetChanged();
-                        break;
-                    case R.id.article_title_engagement_rb:
-                        mTitleTextView.setText(Constants.ARTICLE_ENGAGEMENT);
-                        presenter.loadArticles(ARTICLE_ENGAGEMENT);
-                        adapter.notifyDataSetChanged();
-                        break;
-                    case R.id.article_title_politic_rb:
-                        mTitleTextView.setText(Constants.ARTICLE_POLITIC);
-                        presenter.loadArticles(ARTICLE_POLITIC);
-                        adapter.notifyDataSetChanged();
-                        break;
-                    case R.id.article_title_life_rb:
-                        mTitleTextView.setText(Constants.ARTICLE_LIFE);
-                        presenter.loadArticles(ARTICLE_LIFE);
-                        adapter.notifyDataSetChanged();
-                        break;
-                }
-            }
-        });
     }
 
     private void initAnimation() {
@@ -149,17 +123,7 @@ public class ArticleFragment extends Fragment implements ArticleView, View.OnCli
         // 加载数据的地方
         if (articlesList != null) {
             list = articlesList;
-            adapter = new ArticleListViewAdapter(getActivity(), articlesList);
-            adapter.setOnItemClickListener(new ArticleListViewAdapter.OnItemClickListener() {
-                @Override
-                public void onItemClick(View view, int position) {
-                    Bundle bundle = new Bundle();
-//                    Log.i("article_detail", list.get(position).getContent());
-                    bundle.putSerializable("article_detail", list.get(position));
-                    Util.toAnotherActivity(getActivity(), ArticleDetailActivity.class, bundle);
-                }
-            });
-            mListView.setAdapter(adapter);
+            adapter.updateData(list);
         }
     }
 
@@ -181,10 +145,6 @@ public class ArticleFragment extends Fragment implements ArticleView, View.OnCli
         snackbar.show();
     }
 
-    private int getmHeight() {
-        DisplayMetrics dm = getActivity().getResources().getDisplayMetrics();
-        return dm.heightPixels;
-    }
 
     @Override
     public void onClick(View v) {
@@ -196,19 +156,11 @@ public class ArticleFragment extends Fragment implements ArticleView, View.OnCli
                 } else {
                     mDropImageButton.startAnimation(mDropImageButtonAnimation);
                     mListView.startAnimation(mListViewShowAnimation);
-                    mMenuPopupWindow.showAsDropDown(v, 0, (getmHeight() / 720) * 20);
+                    mMenuPopupWindow.showAsDropDown(v, 0, (Util.getHeight(getActivity()) / 720) * 20);
                     mBlankLayout.startAnimation(mBlankLayoutShowAnimation);
                     mBlankLayout.setVisibility(View.VISIBLE);
                     mDropImageButton.setImageResource(R.mipmap.down_white);
                 }
-                break;
-            case R.id.article_title_all_rb:
-                break;
-            case R.id.article_title_engagement_rb:
-                break;
-            case R.id.article_title_politic_rb:
-                break;
-            case R.id.article_title_life_rb:
                 break;
         }
     }
@@ -220,6 +172,41 @@ public class ArticleFragment extends Fragment implements ArticleView, View.OnCli
         mListView.startAnimation(mListViewHideAnimation);
         mDropImageButton.setImageResource(R.mipmap.up_white);
         mBlankLayout.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onCheckedChanged(RadioGroup group, int checkedId) {
+        switch (checkedId){
+            case R.id.article_title_all_rb:
+                mTitleTextView.setText(Constants.ARTICLE_ALL);
+                presenter.loadArticles(ARTICLE_ALL);
+                adapter.notifyDataSetChanged();
+                break;
+            case R.id.article_title_engagement_rb:
+                mTitleTextView.setText(Constants.ARTICLE_ENGAGEMENT);
+                presenter.loadArticles(ARTICLE_ENGAGEMENT);
+                adapter.notifyDataSetChanged();
+                break;
+            case R.id.article_title_politic_rb:
+                mTitleTextView.setText(Constants.ARTICLE_POLITIC);
+                presenter.loadArticles(ARTICLE_POLITIC);
+                adapter.notifyDataSetChanged();
+                break;
+            case R.id.article_title_life_rb:
+                mTitleTextView.setText(Constants.ARTICLE_LIFE);
+                presenter.loadArticles(ARTICLE_LIFE);
+                adapter.notifyDataSetChanged();
+                break;
+        }
+    }
+
+
+    @Override
+    public void onItemClick(View view, int position) {
+        Bundle bundle = new Bundle();
+//                    Log.i("article_detail", list.get(position).getContent());
+        bundle.putSerializable("article_detail", list.get(position));
+        Util.toAnotherActivity(getActivity(), ArticleDetailActivity.class, bundle);
     }
 
 //    @Override
