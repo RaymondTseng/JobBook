@@ -19,20 +19,20 @@ public class CompanyPresenterImpl implements CompanyPresenter, CompanyModelmpl.O
     }
 
     @Override
-    public void loadCompany() {
-
+    public void loadCompany(CompanyBean companyBean) {
+        mCompanyModel.loadCompany(companyBean, this);
     }
 
     @Override
     public void onSuccess(CompanyBean companyBean) {
         if(companyBean != null) {
-            mCompanyView.showCompanyDetail("");
-            mCompanyView.showCompanyIntroduction("");
+            mCompanyView.addCompany(companyBean);
         }
     }
 
     @Override
     public void onFailure(String msg, Exception e) {
-
+        mCompanyView.hideProgress();
+        mCompanyView.showLoadFailMsg();
     }
 }

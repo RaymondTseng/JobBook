@@ -8,8 +8,12 @@ import com.example.jobbook.bean.CompanyBean;
 public class CompanyModelmpl implements CompanyModel {
 
     @Override
-    public void loadCompany(String url, OnLoadCompanyListener listener) {
-
+    public void loadCompany(CompanyBean companyBean, OnLoadCompanyListener listener) {
+        if(companyBean != null){
+            listener.onSuccess(companyBean);
+        }else{
+            listener.onFailure("network error", new Exception());
+        }
     }
 
     public interface OnLoadCompanyListener {

@@ -9,14 +9,20 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.jobbook.R;
+import com.example.jobbook.bean.CompanyBean;
+import com.example.jobbook.bean.CompanyCommentBean;
+import com.example.jobbook.job.CompanyCommentListViewAdapter;
 import com.example.jobbook.job.presenter.CompanyPresenter;
 import com.example.jobbook.job.presenter.CompanyPresenterImpl;
 import com.example.jobbook.job.view.CompanyView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Xu on 2016/7/15.
  */
-public class CompanyDetailActivity extends Activity implements CompanyView, View.OnClickListener {
+public class CompanyDetailActivity extends Activity implements CompanyView, View.OnClickListener, CompanyCommentListViewAdapter.OnItemClickListener {
 
     private CompanyPresenter mCompanyPresenter;
     private ImageView mCompanyLogoImageView;
@@ -25,17 +31,17 @@ public class CompanyDetailActivity extends Activity implements CompanyView, View
     private TextView mCompanyDescriptionTextView;
     private TextView mCompanyIntroductionTextView;
     private ListView mCompanyCommentListView;
+    private CompanyCommentListViewAdapter mAdapter;
     private ImageButton mBackImageButton;
+    private List<CompanyCommentBean> list;
 
-    public CompanyDetailActivity() {
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_company_detail);
-        mCompanyPresenter = new CompanyPresenterImpl(this);
         initViews();
+        initEvents();
     }
 
     private void initViews() {
@@ -46,23 +52,20 @@ public class CompanyDetailActivity extends Activity implements CompanyView, View
         mCompanyIntroductionTextView = (TextView) findViewById(R.id.company_detail_company_introduction_tv);
         mCompanyCommentListView = (ListView) findViewById(R.id.company_detail_lv);
         mBackImageButton = (ImageButton) findViewById(R.id.company_detail_back_ib);
+    }
+
+    private void initEvents(){
+        list = new ArrayList<>();
+        CompanyBean companyBean = (CompanyBean) getIntent().getExtras().getSerializable("company");
+        mCompanyPresenter = new CompanyPresenterImpl(this);
+        mCompanyPresenter.loadCompany(companyBean);
         mBackImageButton.setOnClickListener(this);
+        mAdapter = new CompanyCommentListViewAdapter(this);
+        mCompanyCommentListView.setAdapter(mAdapter);
+        mAdapter.setOnItemClickListener(this);
+        mAdapter.updateData(list);
     }
 
-    @Override
-    public void showCompanyDetail(String companyDetail) {
-
-    }
-
-    @Override
-    public void showCompanyIntroduction(String companyIntroduction) {
-
-    }
-
-    @Override
-    public void showCompanyComment() {
-
-    }
 
     @Override
     public void onClick(View v) {
@@ -71,5 +74,34 @@ public class CompanyDetailActivity extends Activity implements CompanyView, View
                 finish();
                 break;
         }
+    }
+
+    @Override
+    public void addCompany(CompanyBean companyBean) {
+        mCompanyNameTextView.setText(companyBean.getName());
+        mCompanyLocationTextView.setText(companyBean.getLocation());
+        mCompanyDescriptionTextView.setText(companyBean.getScale());
+        mCompanyIntroductionTextView.setText(companyBean.getIntroduction());
+        mAdapter.updateData(companyBean.getComments());
+    }
+
+    @Override
+    public void showProgress() {
+
+    }
+
+    @Override
+    public void hideProgress() {
+
+    }
+
+    @Override
+    public void showLoadFailMsg() {
+
+    }
+
+    @Override
+    public void onItemClick(View view, int position) {
+
     }
 }

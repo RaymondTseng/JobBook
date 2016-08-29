@@ -27,7 +27,7 @@ public class ArticleModelImpl implements ArticleModel {
         OkHttpUtils.get().addParams("", "").url(Urls.ARTICLE_URL + type).build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
-                Log.i("article_response:", e.getMessage());
+                Log.i("article_response:", "network error");
                 listener.onFailure("network error", e);
             }
 

@@ -1,6 +1,7 @@
 package com.example.jobbook;
 
 import android.app.Application;
+import android.util.Log;
 
 import com.example.jobbook.bean.PersonBean;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -23,7 +24,7 @@ public class MyApplication extends Application {
     }
 
     public static void setmPersonBean(PersonBean personBean) {
-        if(mPersonBean != null){
+        if(personBean != null){
             mPersonBean = personBean;
             mLoginStatus = 1;
         }
