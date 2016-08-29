@@ -1,13 +1,17 @@
 package com.example.jobbook.job.view;
 
+import com.example.jobbook.bean.CompanyBean;
+
 /**
  * Created by Xu on 2016/7/15.
  */
 public interface CompanyView {
 
-    void showCompanyDetail(String companyDetail);
+    void addCompany(CompanyBean companyBean);
 
-    void showCompanyIntroduction(String companyIntroduction);
+    void showProgress();
 
-    void showCompanyComment();
+    void hideProgress();
+
+    void showLoadFailMsg();
 }

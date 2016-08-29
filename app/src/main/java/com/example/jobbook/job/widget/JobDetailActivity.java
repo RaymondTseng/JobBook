@@ -79,16 +79,18 @@ public class JobDetailActivity extends Activity implements View.OnClickListener,
                 finish();
                 break;
             case R.id.job_detail_tocompany_ib:
-                Util.toAnotherActivity(this, CompanyDetailActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("company", jobDetailBean.getCompany());
+                Util.toAnotherActivity(this, CompanyDetailActivity.class, bundle);
                 break;
             case R.id.job_detail_like_ib:
                 Log.i("like", "click");
                 like(jobDetailBean.isIfLike() == 0 ? true : false, jobBean.getId());
                 Log.i("like", jobDetailBean.isIfLike() + "");
                 if (jobDetailBean.isIfLike() == 0) {
-                    mLikeImageButton.setImageResource(R.mipmap.favourite_white);
-                } else {
                     mLikeImageButton.setImageResource(R.mipmap.favourite_tapped);
+                } else {
+                    mLikeImageButton.setImageResource(R.mipmap.favourite_white);
                 }
                 break;
         }

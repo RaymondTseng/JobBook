@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
@@ -172,6 +173,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
 
     @Override
     public void switchRegister2Person(PersonBean personBean) {
+        Log.i("TAG1", personBean.getUsername());
         MyApplication.setmPersonBean(personBean);
         mMainPresenter.savePersonBean(this, personBean);
         switch2Person();
