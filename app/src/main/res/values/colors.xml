@@ -13,14 +13,14 @@
 
     <color name="colorWhite">#FFFFFF</color>
 
-    <color name="colorBlack">#000000</color>
+    <color name="colorBlack">#DE000000</color>
 
-    <color name="colorTextGray">#9E9E9E</color>
+    <color name="colorTextGray">#61000000</color>
 
     <color name="colorPink">#f97979</color>
 
     <color name="colorYellow">#f9cb79</color>
     
-    <color name="colorInputGray">#E0E0E0</color>
+    <color name="colorInputGray">#8A000000</color>
 
 </resources>

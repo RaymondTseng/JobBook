@@ -24,7 +24,7 @@
                 layout="@layout/job_detail_brief"/>
             <include
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 layout="@layout/job_detail_description"/>
         </LinearLayout>
 

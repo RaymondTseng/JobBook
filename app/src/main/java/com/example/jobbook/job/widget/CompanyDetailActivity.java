@@ -1,7 +1,12 @@
 package com.example.jobbook.job.widget;
 
 import android.app.Activity;
+import android.graphics.Canvas;
+import android.graphics.ColorFilter;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -15,6 +20,7 @@ import com.example.jobbook.job.CompanyCommentListViewAdapter;
 import com.example.jobbook.job.presenter.CompanyPresenter;
 import com.example.jobbook.job.presenter.CompanyPresenterImpl;
 import com.example.jobbook.job.view.CompanyView;
+import com.google.android.flexbox.FlexboxLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +39,7 @@ public class CompanyDetailActivity extends Activity implements CompanyView, View
     private ListView mCompanyCommentListView;
     private CompanyCommentListViewAdapter mAdapter;
     private ImageButton mBackImageButton;
+    private FlexboxLayout mBenefitLayout;
     private List<CompanyCommentBean> list;
 
 
@@ -48,10 +55,11 @@ public class CompanyDetailActivity extends Activity implements CompanyView, View
         mCompanyLogoImageView = (ImageView) findViewById(R.id.compamy_detail_company_logo_iv);
         mCompanyNameTextView = (TextView) findViewById(R.id.compamy_detail_company_name_tv);
         mCompanyLocationTextView = (TextView) findViewById(R.id.compamy_detail_company_location_tv);
-        mCompanyDescriptionTextView = (TextView) findViewById(R.id.company_detail_description_tv);
+        mCompanyDescriptionTextView = (TextView) findViewById(R.id.compamy_detail_company_description_tv);
         mCompanyIntroductionTextView = (TextView) findViewById(R.id.company_detail_company_introduction_tv);
         mCompanyCommentListView = (ListView) findViewById(R.id.company_detail_lv);
         mBackImageButton = (ImageButton) findViewById(R.id.company_detail_back_ib);
+        mBenefitLayout = (FlexboxLayout) findViewById(R.id.compamy_detail_benefit_ll);
     }
 
     private void initEvents(){
@@ -82,7 +90,19 @@ public class CompanyDetailActivity extends Activity implements CompanyView, View
         mCompanyLocationTextView.setText(companyBean.getLocation());
         mCompanyDescriptionTextView.setText(companyBean.getScale());
         mCompanyIntroductionTextView.setText(companyBean.getIntroduction());
-        mAdapter.updateData(companyBean.getComments());
+        if(companyBean.getComments().size() != 0){
+            mAdapter.updateData(companyBean.getComments());
+        }
+        String[] welfare = companyBean.getWelfare().split("、");
+        for(String temp : welfare){
+            TextView textView = new TextView(this);
+            textView.setText(temp);
+            textView.setPadding(6,6,6,6);
+            textView.setBackground(ContextCompat.getDrawable(this, R.drawable.job_detail_benefit_bg));
+            textView.setTextColor(ContextCompat.getColor(this, R.color.colorBlue));
+            textView.setTextSize(12);
+            mBenefitLayout.addView(textView);
+        }
     }
 
     @Override

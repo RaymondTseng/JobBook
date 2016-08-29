@@ -3,6 +3,7 @@ package com.example.jobbook.job.widget;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
@@ -17,6 +18,7 @@ import com.example.jobbook.job.presenter.JobDetailPresenter;
 import com.example.jobbook.job.presenter.JobDetailPresenterImpl;
 import com.example.jobbook.job.view.JobDetailView;
 import com.example.jobbook.util.Util;
+import com.google.android.flexbox.FlexboxLayout;
 import com.zhy.http.okhttp.utils.Exceptions;
 
 /**
@@ -35,6 +37,7 @@ public class JobDetailActivity extends Activity implements View.OnClickListener,
     private TextView mCompanyDescriptionTextView;
     private TextView mJobDutyTextView;
     private TextView mJobRequireTextView;
+    private FlexboxLayout mBenefitLayout;
     private JobDetailPresenter mPresenter;
     private View view;
     private JobBean jobBean;
@@ -63,6 +66,7 @@ public class JobDetailActivity extends Activity implements View.OnClickListener,
         mCompanyDescriptionTextView = (TextView) findViewById(R.id.job_detail_company_description_tv);
         mJobDutyTextView = (TextView) findViewById(R.id.job_detail_description_duty_content_tv);
         mJobRequireTextView = (TextView) findViewById(R.id.job_detail_description_require_content_tv);
+        mBenefitLayout = (FlexboxLayout) findViewById(R.id.job_detail_benefit_ll);
     }
 
     private void initEvents() {
@@ -135,6 +139,16 @@ public class JobDetailActivity extends Activity implements View.OnClickListener,
         mCompanyDescriptionTextView.setText(jobDetailBean.getCompany().getScale());
         mJobDutyTextView.setText(jobDetailBean.getResponsibilities());
         mJobRequireTextView.setText(jobDetailBean.getRequirements());
+        String[] welfare = jobDetailBean.getCompany().getWelfare().split("、");
+        for(String temp : welfare){
+            TextView textView = new TextView(this);
+            textView.setText(temp);
+            textView.setPadding(6,6,6,6);
+            textView.setBackground(ContextCompat.getDrawable(this, R.drawable.job_detail_benefit_bg));
+            textView.setTextColor(ContextCompat.getColor(this, R.color.colorBlue));
+            textView.setTextSize(12);
+            mBenefitLayout.addView(textView);
+        }
         if (MyApplication.getmLoginStatus() == 1) {
             Log.i("like_status", jobDetailBean.isIfLike() + "");
             if (jobDetailBean.isIfLike() == 0) {
