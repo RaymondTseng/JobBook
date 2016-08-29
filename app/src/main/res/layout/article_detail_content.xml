@@ -12,12 +12,12 @@
 
         <TextView
             android:id="@+id/article_detail_title_tv"
-            style="@style/Black16sptv"
+            style="@style/Black20sptv"
             android:text="标题加载中" />
 
         <TextView
             android:id="@+id/article_detail_content_tv"
-            style="@style/Black14sptv"
+            style="@style/Black16sptv"
             android:layout_below="@id/article_detail_title_tv"
             android:layout_marginTop="16dp"
             android:text="内容加载中" />
@@ -29,7 +29,7 @@
         android:background="@color/colorBackgroundGray" />
 
     <TextView
-        style="@style/Black16sptv"
+        style="@style/Black20sptv"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
         android:text="热门跟帖" />

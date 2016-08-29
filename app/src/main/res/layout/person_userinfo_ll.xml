@@ -26,12 +26,12 @@
         android:layout_centerVertical="true"
         android:text="求职"
         android:layout_alignLeft="@id/person_name_tv"
-        style="@style/TextGray16sptv"/>
+        style="@style/TextGray14sptv"/>
     <TextView
         android:layout_alignBottom="@id/person_logo_iv"
         android:text="考虑机会"
         android:layout_alignLeft="@id/person_status_tv"
-        style="@style/TextGray16sptv"/>
+        style="@style/TextGray14sptv"/>
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

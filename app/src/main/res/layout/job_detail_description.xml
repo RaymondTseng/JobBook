@@ -58,6 +58,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/job_detail_description_duty_ll"
             android:layout_marginTop="16dp"
+            android:paddingBottom="60dp"
             android:id="@+id/job_detail_description_require_ll">
             <TextView
                 android:text="任职要求"
