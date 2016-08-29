@@ -40,14 +40,13 @@ public class JobDetailModelImpl implements JobDetailModel {
     }
 
     @Override
-    public void like(boolean isLiked, String jobId, final OnLikeJobListener listener) {
+    public void like(String jobId, final OnLikeJobListener listener) {
         String account = "";
         if (MyApplication.getmLoginStatus() == 0) {
-            listener.onNoLoginError();
+            listener.onLikeJobNoLoginError();
         } else {
             account = MyApplication.getmPersonBean().getAccount();
-            String url = isLiked ? Urls.JOB_LIKE_URL + jobId + "/account/" + account : Urls.JOB_UNLIKE_URL + jobId + "/account/" + account;
-            OkHttpUtils.get().url(url).build().execute(new StringCallback() {
+            OkHttpUtils.get().url(Urls.JOB_LIKE_URL + jobId + "/account/" + account).build().execute(new StringCallback() {
                 @Override
                 public void onError(Call call, Exception e, int id) {
                     listener.onLikeJobFailure("network error", e);
@@ -57,7 +56,31 @@ public class JobDetailModelImpl implements JobDetailModel {
                 public void onResponse(String response, int id) {
                     if (response != null) {
                         Log.i("job_detail_like", response);
-                        listener.onSuccess();
+                        listener.onLikeSuccess();
+                    }
+                }
+            });
+        }
+    }
+
+    @Override
+    public void unlike(String jobId, final OnUnlikeJobListener listener) {
+        String account = "";
+        if (MyApplication.getmLoginStatus() == 0) {
+            listener.onUnlikeJobNoLoginError();
+        } else {
+            account = MyApplication.getmPersonBean().getAccount();
+            OkHttpUtils.get().url(Urls.JOB_UNLIKE_URL + jobId + "/account/" + account).build().execute(new StringCallback() {
+                @Override
+                public void onError(Call call, Exception e, int id) {
+                    listener.onUnlikeJobFailure("network error", e);
+                }
+
+                @Override
+                public void onResponse(String response, int id) {
+                    if (response != null) {
+                        Log.i("job_detail_unlike", response);
+                        listener.onUnlikeSuccess();
                     }
                 }
             });
@@ -72,10 +95,18 @@ public class JobDetailModelImpl implements JobDetailModel {
     }
 
     public interface OnLikeJobListener {
-        void onSuccess();
+        void onLikeSuccess();
 
         void onLikeJobFailure(String msg, Exception e);
 
-        void onNoLoginError();
+        void onLikeJobNoLoginError();
+    }
+
+    public interface OnUnlikeJobListener {
+        void onUnlikeSuccess();
+
+        void onUnlikeJobFailure(String msg, Exception e);
+
+        void onUnlikeJobNoLoginError();
     }
 }

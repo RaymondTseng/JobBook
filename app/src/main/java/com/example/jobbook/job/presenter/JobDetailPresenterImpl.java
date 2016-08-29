@@ -10,7 +10,7 @@ import com.example.jobbook.job.view.JobDetailView;
  * Created by 椰树 on 2016/8/28.
  */
 public class JobDetailPresenterImpl implements JobDetailPresenter, JobDetailModelImpl.OnLoadJobListener,
-        JobDetailModelImpl.OnLikeJobListener{
+        JobDetailModelImpl.OnLikeJobListener, JobDetailModelImpl.OnUnlikeJobListener {
 
     private JobDetailModel mJobDetailModel;
     private JobDetailView mJobDetailView;
@@ -25,8 +25,13 @@ public class JobDetailPresenterImpl implements JobDetailPresenter, JobDetailMode
     }
 
     @Override
-    public void like(boolean isLiked, String jobId) {
-        mJobDetailModel.like(isLiked, jobId, this);
+    public void like(String jobId) {
+        mJobDetailModel.like(jobId, this);
+    }
+
+    @Override
+    public void unlike(String jobId) {
+        mJobDetailModel.unlike(jobId, this);
     }
 
     @Override
@@ -35,7 +40,29 @@ public class JobDetailPresenterImpl implements JobDetailPresenter, JobDetailMode
     }
 
     @Override
-    public void onSuccess() {
+    public void onLoadJobFailure(String msg, Exception e) {
+        mJobDetailView.hideProgress();
+        mJobDetailView.showLoadFailMsg();
+    }
+
+    @Override
+    public void onUnlikeSuccess() {
+        mJobDetailView.unlikeSuccess();
+    }
+
+    @Override
+    public void onUnlikeJobFailure(String msg, Exception e) {
+        mJobDetailView.hideProgress();
+        mJobDetailView.unlikeError();
+    }
+
+    @Override
+    public void onUnlikeJobNoLoginError() {
+        mJobDetailView.unlikeNoLoginError();
+    }
+
+    @Override
+    public void onLikeSuccess() {
         mJobDetailView.likeSuccess();
     }
 
@@ -46,13 +73,7 @@ public class JobDetailPresenterImpl implements JobDetailPresenter, JobDetailMode
     }
 
     @Override
-    public void onLoadJobFailure(String msg, Exception e) {
-        mJobDetailView.hideProgress();
-        mJobDetailView.showLoadFailMsg();
-    }
-
-    @Override
-    public void onNoLoginError() {
-        mJobDetailView.noLoginError();
+    public void onLikeJobNoLoginError() {
+        mJobDetailView.likeNoLoginError();
     }
 }
