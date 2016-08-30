@@ -20,6 +20,7 @@ import com.example.jobbook.job.CompanyCommentListViewAdapter;
 import com.example.jobbook.job.presenter.CompanyPresenter;
 import com.example.jobbook.job.presenter.CompanyPresenterImpl;
 import com.example.jobbook.job.view.CompanyView;
+import com.example.jobbook.util.ImageLoadUtils;
 import com.google.android.flexbox.FlexboxLayout;
 
 import java.util.ArrayList;
@@ -86,6 +87,7 @@ public class CompanyDetailActivity extends Activity implements CompanyView, View
 
     @Override
     public void addCompany(CompanyBean companyBean) {
+        ImageLoadUtils.display(this, mCompanyLogoImageView, companyBean.getLogo());
         mCompanyNameTextView.setText(companyBean.getName());
         mCompanyLocationTextView.setText(companyBean.getLocation());
         mCompanyDescriptionTextView.setText(companyBean.getScale());

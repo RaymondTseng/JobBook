@@ -5,5 +5,5 @@ package com.example.jobbook.article.presenter;
  */
 public interface ArticlePresenter {
 
-    void loadArticles(int type);
+    void loadArticles(int pageIndex, int type);
 }

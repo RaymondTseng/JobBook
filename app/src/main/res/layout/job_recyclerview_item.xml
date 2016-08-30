@@ -9,9 +9,9 @@
             android:id="@+id/job_lv_iv"
             android:layout_width="78dp"
             android:layout_height="78dp"
-            android:src="@mipmap/apple_logo"
             android:layout_marginLeft="16dp"
-            android:layout_marginTop="16dp"/>
+            android:layout_marginTop="16dp"
+            />
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -69,6 +69,7 @@
                 android:id="@+id/job_lv_location_ll"
                 android:layout_below="@id/job_lv_company_ll"
                 android:layout_toLeftOf="@id/job_lv_time_ll"
+                android:layout_alignLeft="@+id/job_lv_company_ll"
                 android:layout_marginRight="32dp">
                 <ImageView
                     android:id="@+id/job_lv_location_iv"

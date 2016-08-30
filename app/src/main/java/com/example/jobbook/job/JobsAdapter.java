@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.example.jobbook.R;
 import com.example.jobbook.bean.JobBean;
+import com.example.jobbook.util.ImageLoadUtils;
 
 import java.util.List;
 
@@ -53,6 +54,7 @@ public class JobsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             if(job == null){
                 return;
             }
+            ImageLoadUtils.display(mContext, ((ItemViewHolder)holder).mCompanyLogo, job.getLogo());
             ((ItemViewHolder) holder).mCompanyName.setText(job.getCompanyName());
             ((ItemViewHolder) holder).mJobName.setText(job.getName());
             ((ItemViewHolder) holder).mLocation.setText(job.getCompanyLocation());
@@ -105,7 +107,7 @@ public class JobsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         TextView mSalary;
         public ItemViewHolder(View view) {
             super(view);
-            mCompanyLogo = (ImageView) view.findViewById(R.id.job_lv_company_iv);
+            mCompanyLogo = (ImageView) view.findViewById(R.id.job_lv_iv);
             mJobName = (TextView) view.findViewById(R.id.job_lv_name_tv);
             mCompanyName = (TextView) view.findViewById(R.id.job_lv_company_tv);
             mLocation = (TextView) view.findViewById(R.id.job_lv_location_tv);

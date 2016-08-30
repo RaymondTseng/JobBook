@@ -58,7 +58,6 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/job_detail_description_duty_ll"
             android:layout_marginTop="16dp"
-            android:paddingBottom="60dp"
             android:id="@+id/job_detail_description_require_ll">
             <TextView
                 android:text="任职要求"
@@ -73,6 +72,7 @@
                 android:text="1.设计相关专业，2年以上工作经验；\n2.对设计流行趋势的洞察力，对视觉和交互的独到见解，注重细节的处理；\n3.熟悉移动客户端的相关设计规范及实现，能够快速把握用户操作流程及用户需求；\n4.精通使用Photoshop、Illustrator等常用设计软件；\n5.良好的沟通能力与团队意识，有激情，创造力和责任感，能够适应快节奏的工作模式；\n6.有完整的APP界面、网页界面、ICON整套案例的优先；"/>
         </RelativeLayout>
     </RelativeLayout>
+
     <ImageButton
         android:id="@+id/job_detail_bottom_bt"
         android:layout_width="match_parent"
@@ -81,57 +81,5 @@
         android:background="@color/colorBlue"
         android:layout_marginTop="20dp"
         android:visibility="gone"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="2"
-        android:background="@drawable/job_detail_bottom_ll_bg"
-        >
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:paddingBottom="10dp"
-                android:paddingTop="10dp"
-                >
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/talk"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="和ta聊聊"
-                    android:textSize="16sp"
-                    android:textColor="@color/colorBlue"/>
-            </LinearLayout>
 
-        </RelativeLayout>
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/profile_blue"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="投递简历"
-                    android:textSize="16sp"
-                    android:textColor="@color/colorBlue"/>
-            </LinearLayout>
-
-        </RelativeLayout>
-    </LinearLayout>
 </LinearLayout>
