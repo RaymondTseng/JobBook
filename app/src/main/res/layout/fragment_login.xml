@@ -25,6 +25,7 @@
         android:layout_marginRight="48dp"
         android:background="@color/colorBackgroundGray"
         android:hint="账号"
+        android:textCursorDrawable="@drawable/edtitext_cursor"
         android:paddingLeft="16dp" />
     <EditText
         android:id="@+id/login_password_et"
@@ -36,6 +37,7 @@
         android:layout_marginRight="48dp"
         android:background="@color/colorBackgroundGray"
         android:hint="密码"
+        android:textCursorDrawable="@drawable/edtitext_cursor"
         android:paddingLeft="16dp" />
     <Button
         android:id="@+id/login_login_bt"

@@ -5,5 +5,5 @@ package com.example.jobbook.question.model;
  */
 public interface QuestionModel {
 
-    void loadQuestions(String url, QuestionModelImpl.OnLoadQuestionsListListener listener);
+    void loadQuestions(QuestionModelImpl.OnLoadQuestionsListListener listener);
 }

@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:weightSum="568">
+    android:weightSum="568"
+    android:background="@color/colorWhite">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -52,6 +53,7 @@
             android:id="@+id/suggestion_feedback_mail_et"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:textCursorDrawable="@drawable/edtitext_cursor"
             android:background="@null"/>
     </LinearLayout>
     <TextView
@@ -76,7 +78,9 @@
         android:layout_weight="408"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
+        android:textCursorDrawable="@drawable/edtitext_cursor"
         android:hint="在这里你可以疯狂吐槽职谱，也可以描述你喜欢的功能"
+        android:background="@null"
         android:gravity="top|left"/>
 
 </LinearLayout>

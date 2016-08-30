@@ -16,6 +16,7 @@
         android:layout_marginRight="48dp"
         android:background="@color/colorBackgroundGray"
         android:hint="账号"
+        android:textCursorDrawable="@drawable/edtitext_cursor"
         android:paddingLeft="16dp" />
     <EditText
         android:id="@+id/register_password_et"
@@ -24,6 +25,7 @@
         android:layout_weight="48"
         android:layout_marginLeft="48dp"
         android:layout_marginRight="48dp"
+        android:textCursorDrawable="@drawable/edtitext_cursor"
         android:layout_marginTop="16dp"
         android:background="@color/colorBackgroundGray"
         android:hint="密码"
@@ -36,6 +38,7 @@
         android:layout_weight="48"
         android:layout_marginTop="16dp"
         android:layout_marginLeft="48dp"
+        android:textCursorDrawable="@drawable/edtitext_cursor"
         android:layout_marginRight="48dp"
         android:background="@color/colorBackgroundGray"
         android:hint="确认密码（可见）"
