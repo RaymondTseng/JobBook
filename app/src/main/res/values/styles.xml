@@ -7,6 +7,7 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+
     <style name="bottom_bar_rb_style">
 
         <item name="android:layout_width">0dp</item>
@@ -24,60 +25,70 @@
         <item name="android:layout_marginBottom">5dp</item>
 
     </style>
+
     <style name="White20sptv">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/colorWhite</item>
         <item name="android:textSize">20sp</item>
     </style>
+
     <style name="White16sptv">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/colorWhite</item>
         <item name="android:textSize">16sp</item>
     </style>
+
     <style name="Black20sptv">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/colorBlack</item>
         <item name="android:textSize">20sp</item>
     </style>
+
     <style name="Black16sptv">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/colorBlack</item>
         <item name="android:textSize">16sp</item>
     </style>
+
     <style name="Black14sptv">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/colorBlack</item>
         <item name="android:textSize">14sp</item>
     </style>
+
     <style name="Black12sptv">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/colorBlack</item>
         <item name="android:textSize">12sp</item>
     </style>
+
     <style name="TextGray16sptv">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/colorTextGray</item>
         <item name="android:textSize">16sp</item>
     </style>
+
     <style name="TextGray14sptv">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/colorTextGray</item>
         <item name="android:textSize">14sp</item>
     </style>
+
     <style name="TextGray12sptv">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/colorTextGray</item>
         <item name="android:textSize">12sp</item>
     </style>
+
     <style name="article_title_bar_rb_style">
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">@drawable/article_title_rb_text_color</item>
@@ -88,25 +99,39 @@
         <item name="android:button">@null</item>
         <item name="android:layout_marginLeft">16dp</item>
     </style>
+
     <style name="article_menu_animation_style" parent="android:Animation">
         <item name="android:windowEnterAnimation">@anim/article_menu_show</item>
         <item name="android:windowExitAnimation">@anim/article_menu_hide</item>
     </style>
-    <style name="person_content_tv_style">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
+
+    <!--<style name="person_content_tv_style">-->
+        <!--<item name="android:layout_width">wrap_content</item>-->
+        <!--<item name="android:layout_height">wrap_content</item>-->
+        <!--<item name="android:textSize">16sp</item>-->
+        <!--<item name="android:textColor">@color/colorBlack</item>-->
+        <!--<item name="android:layout_marginLeft">16dp</item>-->
+        <!--<item name="android:layout_centerVertical">true</item>-->
+    <!--</style>-->
+
+    <style name="person_content_big_button_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_weight">1</item>
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/colorBlack</item>
-        <item name="android:layout_marginLeft">16dp</item>
-        <item name="android:layout_centerVertical">true</item>
+        <item name="android:gravity">left|center_vertical</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:background">@drawable/person_big_bt</item>
     </style>
-    <style name="person_content_iv_style">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:src">@mipmap/right_blue</item>
-        <item name="android:layout_alignParentRight">true</item>
-        <item name="android:layout_marginRight">16dp</item>
-        <item name="android:layout_centerVertical">true</item>
-    </style>
+
+    <!--<style name="person_content_iv_style">-->
+        <!--<item name="android:layout_width">wrap_content</item>-->
+        <!--<item name="android:layout_height">wrap_content</item>-->
+        <!--<item name="android:src">@mipmap/right_blue</item>-->
+        <!--<item name="android:layout_alignParentRight">true</item>-->
+        <!--<item name="android:layout_marginRight">16dp</item>-->
+        <!--<item name="android:layout_centerVertical">true</item>-->
+    <!--</style>-->
 
 </resources>

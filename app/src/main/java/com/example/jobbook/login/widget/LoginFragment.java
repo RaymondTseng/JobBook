@@ -23,7 +23,7 @@ import com.example.jobbook.main.widget.MainActivity;
 /**
  * Created by 椰树 on 2016/6/2.
  */
-public class LoginFragment extends Fragment implements View.OnClickListener, LoginView{
+public class LoginFragment extends Fragment implements View.OnClickListener, LoginView {
 
     private Button mLoginButton;
     private TextView mRegisterTextView;
@@ -74,7 +74,6 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Log
         switch (v.getId()) {
             case R.id.login_login_bt:
                 presenter.loginCheck(mAccountEditText.getText().toString(), mPasswordEditText.getText().toString());
-//                switch2Person();
                 break;
 
             case R.id.login_register_tv:
@@ -154,7 +153,8 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Log
 
 
     public interface ILoginChanged {
-    void switchLogin2Person(PersonBean personBean);
-    void switchLogin2Register();
-}
+        void switchLogin2Person(PersonBean personBean);
+
+        void switchLogin2Register();
+    }
 }

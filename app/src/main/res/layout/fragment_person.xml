@@ -28,60 +28,45 @@
         android:orientation="vertical"
         android:weightSum="4">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:background="@drawable/person_content_bg">
+        <Button
+            android:id="@+id/person_textcv_bt"
+            android:text="文字简历"
+            style="@style/person_content_big_button_style"
+            />
 
-            <TextView
-                style="@style/person_content_tv_style"
-                android:text="文字简历" />
+        <Button
+            android:id="@+id/person_videocv_bt"
+            android:text="视频简历"
+            style="@style/person_content_big_button_style"
+            />
 
-            <ImageView style="@style/person_content_iv_style" />
-        </RelativeLayout>
+        <Button
+            android:id="@+id/person_favourite_bt"
+            android:text="收藏"
+            style="@style/person_content_big_button_style"
+            />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:background="@drawable/person_content_bg">
+        <!--<RelativeLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="0dp"-->
+            <!--android:layout_weight="1"-->
+            <!--android:background="@drawable/person_content_bg">-->
 
-            <TextView
-                style="@style/person_content_tv_style"
-                android:text="视频简历" />
+            <!--<TextView-->
+                <!--android:id="@+id/person_feedback_tv"-->
+                <!--android:clickable="false"-->
+                <!--style="@style/person_content_tv_style"-->
+                <!--android:text="意见反馈" />-->
 
-            <ImageView style="@style/person_content_iv_style" />
-        </RelativeLayout>
+            <!--<ImageView style="@style/person_content_iv_style" />-->
+        <!--</RelativeLayout>-->
 
-        <RelativeLayout
-            android:id="@+id/person_favourite_ll"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:background="@drawable/person_content_bg">
+        <Button
+            android:id="@+id/person_feedback_bt"
+            android:text="意见反馈"
+            style="@style/person_content_big_button_style"
+            />
 
-            <TextView
-                style="@style/person_content_tv_style"
-                android:text="收藏" />
-
-            <ImageView style="@style/person_content_iv_style" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:background="@drawable/person_content_bg">
-
-            <TextView
-                android:id="@+id/person_feedback_tv"
-                android:clickable="true"
-                style="@style/person_content_tv_style"
-                android:text="意见反馈" />
-
-            <ImageView style="@style/person_content_iv_style" />
-        </RelativeLayout>
     </LinearLayout>
 
     <Button
