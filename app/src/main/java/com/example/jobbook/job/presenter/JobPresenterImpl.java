@@ -22,6 +22,7 @@ public class JobPresenterImpl implements JobPresenter, JobModelImpl.OnLoadJobLis
 
     @Override
     public void loadJobs() {
+        mJobView.showProgress();
         mJobModel.loadJobs(this);
     }
 
@@ -38,7 +39,7 @@ public class JobPresenterImpl implements JobPresenter, JobModelImpl.OnLoadJobLis
 
     @Override
     public void onFailure(String msg, Exception e) {
-        mJobView.showProgress();
+        mJobView.hideProgress();
         mJobView.showLoadingFailMsg();
     }
 }

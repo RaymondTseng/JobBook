@@ -9,10 +9,21 @@
         android:layout_height="0dp"
         android:layout_weight="56"
         layout="@layout/job_search_bar"/>
-    <ListView
-        android:id="@+id/job_lv"
+    <android.support.v4.widget.SwipeRefreshLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/job_swipe_container"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="456"
-        ></ListView>
+        >
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/job_rv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical"
+            android:dividerHeight="2dp"
+            ></android.support.v7.widget.RecyclerView>
+    </android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>
