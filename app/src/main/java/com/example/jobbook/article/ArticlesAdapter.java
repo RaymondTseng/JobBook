@@ -1,4 +1,4 @@
-package com.example.jobbook.job;
+package com.example.jobbook.article;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -10,31 +10,32 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.jobbook.R;
-import com.example.jobbook.bean.JobBean;
+import com.example.jobbook.bean.ArticleBean;
+import com.example.jobbook.util.Util;
 
 import java.util.List;
 
 /**
  * Created by 椰树 on 2016/8/30.
  */
-public class JobsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class ArticlesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int TYPE_ITEM = 0;
     private static final int TYPE_FOOTER = 1;
 
-    private List<JobBean> mData;
+    private List<ArticleBean> mData;
     private boolean mShowFooter = true;
     private Context mContext;
 
     private OnItemClickListener mOnItemClickListener;
 
-    public JobsAdapter(Context mContext){
+    public ArticlesAdapter(Context mContext){
         this.mContext = mContext;
     }
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if(viewType == TYPE_ITEM) {
             View v = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.job_recyclerview_item, parent, false);
+                    .inflate(R.layout.article_recyclerview_item, parent, false);
             ItemViewHolder vh = new ItemViewHolder(v);
             return vh;
         } else {
@@ -49,19 +50,19 @@ public class JobsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if(holder instanceof ItemViewHolder){
-            JobBean job = mData.get(position);
-            if(job == null){
+            ArticleBean article = mData.get(position);
+            if(article == null){
                 return;
             }
-            ((ItemViewHolder) holder).mCompanyName.setText(job.getCompanyName());
-            ((ItemViewHolder) holder).mJobName.setText(job.getName());
-            ((ItemViewHolder) holder).mLocation.setText(job.getCompanyLocation());
-            ((ItemViewHolder) holder).mSalary.setText(job.getSalary());
-            ((ItemViewHolder) holder).mTime.setText(job.getTime());
+            ((ItemViewHolder) holder).mContent.setText(Util.subContent(article.getContent()));
+//            ((ItemViewHolder) holder).mLabel.setBackgroundResource();
+//            ((ItemViewHolder) holder).mLogo
+            ((ItemViewHolder) holder).mTime.setText(article.getDate());
+            ((ItemViewHolder) holder).mTitle.setText(article.getTitle());
         }
     }
 
-    public void updateData(List<JobBean> mData){
+    public void updateData(List<ArticleBean> mData){
         this.mData = mData;
         this.notifyDataSetChanged();
     }
@@ -97,20 +98,18 @@ public class JobsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     public class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        ImageView mCompanyLogo;
-        TextView mJobName;
-        TextView mCompanyName;
-        TextView mLocation;
+        ImageView mLabel;
+        TextView mTitle;
+        TextView mContent;
         TextView mTime;
-        TextView mSalary;
+        ImageView mLogo;
         public ItemViewHolder(View view) {
             super(view);
-            mCompanyLogo = (ImageView) view.findViewById(R.id.job_lv_company_iv);
-            mJobName = (TextView) view.findViewById(R.id.job_lv_name_tv);
-            mCompanyName = (TextView) view.findViewById(R.id.job_lv_company_tv);
-            mLocation = (TextView) view.findViewById(R.id.job_lv_location_tv);
-            mTime = (TextView) view.findViewById(R.id.job_lv_time_tv);
-            mSalary = (TextView) view.findViewById(R.id.job_lv_salary_tv);
+            mContent = (TextView) view.findViewById(R.id.article_lv_content_tv);
+            mLabel = (ImageView) view.findViewById(R.id.article_lv_label_iv);
+            mLogo = (ImageView) view.findViewById(R.id.article_lv_iv);
+            mTime = (TextView) view.findViewById(R.id.article_lv_time_tv);
+            mTitle = (TextView) view.findViewById(R.id.article_lv_title_tv);
             itemView.setOnClickListener(this);
         }
 
@@ -122,7 +121,7 @@ public class JobsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
     }
 
-    public JobBean getItem(int position){
+    public ArticleBean getItem(int position){
         return mData == null ? null : mData.get(position);
     }
 

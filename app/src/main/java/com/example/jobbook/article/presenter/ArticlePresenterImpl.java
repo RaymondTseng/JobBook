@@ -22,6 +22,7 @@ public class ArticlePresenterImpl implements ArticlePresenter, ArticleModelImpl.
 
     @Override
     public void loadArticles(int type) {
+        mArticleView.showProgress();
         mArticleModel.loadArticles(type, this);
     }
 

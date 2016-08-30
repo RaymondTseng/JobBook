@@ -49,7 +49,7 @@ public class ArticleListViewAdapter extends BaseAdapter {
         ViewHolder viewholder;
         ArticleBean articleBean = (ArticleBean) getItem(position);
         if (convertView == null) {
-            view = LayoutInflater.from(mContext).inflate(R.layout.article_listview_item, null);
+            view = LayoutInflater.from(mContext).inflate(R.layout.article_recyclerview_item, null);
             viewholder = new ViewHolder(view, position);
             viewholder.mContent = (TextView) view.findViewById(R.id.article_lv_content_tv);
             viewholder.mLabel = (ImageView) view.findViewById(R.id.article_lv_label_iv);

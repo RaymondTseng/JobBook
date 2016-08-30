@@ -1,6 +1,5 @@
 package com.example.jobbook.job.presenter;
 
-import com.example.jobbook.bean.JobBean;
 import com.example.jobbook.bean.JobDetailBean;
 import com.example.jobbook.job.model.JobDetailModel;
 import com.example.jobbook.job.model.JobDetailModelImpl;
