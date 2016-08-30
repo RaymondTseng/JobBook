@@ -30,12 +30,17 @@ public class JobListViewAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
+        if(mList == null){
+            return 0;
+        }
         return mList.size();
+
     }
 
     @Override
     public Object getItem(int position) {
-        return mList.get(position);
+
+        return mList == null ? null : mList.get(position);
     }
 
     @Override
