@@ -6,6 +6,10 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -24,11 +28,17 @@ import android.widget.TextView;
 
 import com.example.jobbook.R;
 import com.example.jobbook.article.ArticleListViewAdapter;
+import com.example.jobbook.article.ArticlesAdapter;
 import com.example.jobbook.article.presenter.ArticlePresenter;
 import com.example.jobbook.article.presenter.ArticlePresenterImpl;
 import com.example.jobbook.article.view.ArticleView;
 import com.example.jobbook.bean.ArticleBean;
+import com.example.jobbook.bean.JobBean;
 import com.example.jobbook.commons.Constants;
+import com.example.jobbook.commons.Urls;
+import com.example.jobbook.job.JobsAdapter;
+import com.example.jobbook.job.widget.JobDetailActivity;
+import com.example.jobbook.util.DividerItemDecoration;
 import com.example.jobbook.util.Util;
 
 import java.util.ArrayList;
@@ -38,14 +48,16 @@ import java.util.List;
  * Created by Xu on 2016/7/5.
  */
 public class ArticleFragment extends Fragment implements ArticleView, View.OnClickListener,
-        PopupWindow.OnDismissListener ,RadioGroup.OnCheckedChangeListener, ArticleListViewAdapter.OnItemClickListener{
+        PopupWindow.OnDismissListener, RadioGroup.OnCheckedChangeListener, SwipeRefreshLayout.OnRefreshListener {
 
     public static final int ARTICLE_ALL = 0;
     public static final int ARTICLE_ENGAGEMENT = 1;
     public static final int ARTICLE_POLITIC = 2;
     public static final int ARTICLE_LIFE = 3;
 
-    private ListView mListView;
+    private int pageIndex = 0;
+
+    //    private ListView mListView;
     private TextView mTitleTextView;
     private LinearLayout mArticleTitleLayout;
     private LinearLayout mBlankLayout;
@@ -60,12 +72,16 @@ public class ArticleFragment extends Fragment implements ArticleView, View.OnCli
     private ArticlePresenter presenter;
     private View view;
     private List<ArticleBean> list;
-    private ArticleListViewAdapter adapter;
+    //    private ArticleListViewAdapter adapter;
+    private ArticlesAdapter adapter;
     private RadioGroup radioGroup;
+    private RecyclerView mRecyclerView;
+    private LinearLayoutManager mLayoutManager;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)  {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_article, container, false);
         initViews(view);
         initEvents();
@@ -73,11 +89,20 @@ public class ArticleFragment extends Fragment implements ArticleView, View.OnCli
         return view;
     }
 
-    private void initEvents(){
+    private void initViews(View view) {
+        mArticleTitleLayout = (LinearLayout) view.findViewById(R.id.article_title_ll);
+        mMenuView = getActivity().getLayoutInflater().inflate(R.layout.article_title_bar_rg, null);
+        mBlankLayout = (LinearLayout) view.findViewById(R.id.article_blank_ll);
+        mTitleTextView = (TextView) view.findViewById(R.id.article_title_tv);
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.article_rv);
+        mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.article_swipe_container);
+        mDropImageButton = (ImageButton) view.findViewById(R.id.article_title_drop_ib);
+        radioGroup = (RadioGroup) mMenuView.findViewById(R.id.article_title_rg);
+    }
+
+    private void initEvents() {
         list = new ArrayList<>();
         presenter = new ArticlePresenterImpl(this);
-        // 默认加载全部文章
-        presenter.loadArticles(ARTICLE_ALL);
         mTitleTextView.setText(Constants.ARTICLE_ALL);
         mMenuPopupWindow = new PopupWindow(mMenuView, ViewGroup.LayoutParams.MATCH_PARENT,
                 (Util.getHeight(getActivity()) / 556) * 192, true);
@@ -86,21 +111,19 @@ public class ArticleFragment extends Fragment implements ArticleView, View.OnCli
         mMenuPopupWindow.setOutsideTouchable(true);
         mMenuPopupWindow.setOnDismissListener(this);
         mArticleTitleLayout.setOnClickListener(this);
-//        mListView.setOnItemClickListener(this);
         radioGroup.setOnCheckedChangeListener(this);
-        adapter = new ArticleListViewAdapter(getActivity());
-        adapter.updateData(list);
-        adapter.setOnItemClickListener(this);
-        mListView.setAdapter(adapter);
-    }
-    private void initViews(View view) {
-        mArticleTitleLayout = (LinearLayout) view.findViewById(R.id.article_title_ll);
-        mMenuView = getActivity().getLayoutInflater().inflate(R.layout.article_title_bar_rg, null);
-        mBlankLayout = (LinearLayout) view.findViewById(R.id.article_blank_ll);
-        mTitleTextView = (TextView) view.findViewById(R.id.article_title_tv);
-        mListView = (ListView) view.findViewById(R.id.article_lv);
-        mDropImageButton = (ImageButton) view.findViewById(R.id.article_title_drop_ib);
-        radioGroup = (RadioGroup) mMenuView.findViewById(R.id.article_title_rg);
+        mSwipeRefreshLayout.setColorSchemeResources(R.color.colorBlue);
+        mSwipeRefreshLayout.setOnRefreshListener(this);
+        mLayoutManager = new LinearLayoutManager(getActivity());
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST));
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        adapter = new ArticlesAdapter(getActivity().getApplicationContext());
+        adapter.setOnItemClickListener(mOnItemClickListener);
+        mRecyclerView.setAdapter(adapter);
+        mRecyclerView.addOnScrollListener(mOnScrollListener);
+        onRefresh();
     }
 
     private void initAnimation() {
@@ -115,25 +138,41 @@ public class ArticleFragment extends Fragment implements ArticleView, View.OnCli
 
     @Override
     public void showProgress() {
-
+        mSwipeRefreshLayout.setRefreshing(true);
     }
 
     @Override
     public void addArticles(List<ArticleBean> articlesList) {
         // 加载数据的地方
-        if (articlesList != null) {
-            list = articlesList;
-            adapter.updateData(list);
+//        if (articlesList != null) {
+//            list = articlesList;
+////            adapter.updateData(list);
+//        }
+        adapter.setmShowFooter(true);
+        if (list == null) {
+            list = new ArrayList<>();
         }
+        list = articlesList;
+        if (pageIndex == 0) {
+            adapter.updateData(list);
+        } else {
+            //如果没有更多数据了,则隐藏footer布局
+            if (articlesList == null || articlesList.size() == 0) {
+                adapter.setmShowFooter(false);
+            }
+            adapter.notifyDataSetChanged();
+        }
+        pageIndex += Urls.PAZE_SIZE;
     }
 
     @Override
     public void hideProgress() {
-
+        mSwipeRefreshLayout.setRefreshing(false);
     }
 
     @Override
     public void showLoadFailMsg() {
+//        View view = view == null ?
         final Snackbar snackbar = Snackbar.make(view, "干货读取错误，请重试！", Snackbar.LENGTH_LONG);
         snackbar.setAction("dismiss", new View.OnClickListener() {
 
@@ -155,7 +194,7 @@ public class ArticleFragment extends Fragment implements ArticleView, View.OnCli
                     mMenuPopupWindow.dismiss();
                 } else {
                     mDropImageButton.startAnimation(mDropImageButtonAnimation);
-                    mListView.startAnimation(mListViewShowAnimation);
+                    mRecyclerView.startAnimation(mListViewShowAnimation);
                     mMenuPopupWindow.showAsDropDown(v, 0, (Util.getHeight(getActivity()) / 720) * 20);
                     mBlankLayout.startAnimation(mBlankLayoutShowAnimation);
                     mBlankLayout.setVisibility(View.VISIBLE);
@@ -169,14 +208,14 @@ public class ArticleFragment extends Fragment implements ArticleView, View.OnCli
     public void onDismiss() {
         mDropImageButton.startAnimation(mDropImageButtonAnimation);
         mBlankLayout.startAnimation(mBlankLayoutHideAnimation);
-        mListView.startAnimation(mListViewHideAnimation);
+        mRecyclerView.startAnimation(mListViewHideAnimation);
         mDropImageButton.setImageResource(R.mipmap.up_white);
         mBlankLayout.setVisibility(View.GONE);
     }
 
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
-        switch (checkedId){
+        switch (checkedId) {
             case R.id.article_title_all_rb:
                 mTitleTextView.setText(Constants.ARTICLE_ALL);
                 presenter.loadArticles(ARTICLE_ALL);
@@ -201,13 +240,13 @@ public class ArticleFragment extends Fragment implements ArticleView, View.OnCli
     }
 
 
-    @Override
-    public void onItemClick(View view, int position) {
-        Bundle bundle = new Bundle();
+//    @Override
+//    public void onItemClick(View view, int position) {
+//        Bundle bundle = new Bundle();
 //                    Log.i("article_detail", list.get(position).getContent());
-        bundle.putSerializable("article_detail", list.get(position));
-        Util.toAnotherActivity(getActivity(), ArticleDetailActivity.class, bundle);
-    }
+//        bundle.putSerializable("article_detail", list.get(position));
+//        Util.toAnotherActivity(getActivity(), ArticleDetailActivity.class, bundle);
+//    }
 
 //    @Override
 //    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -215,4 +254,47 @@ public class ArticleFragment extends Fragment implements ArticleView, View.OnCli
 //        bundle.putSerializable("article_detail", list.get(position));
 //        Util.toAnotherActivity(getActivity(), ArticleDetailActivity.class, bundle);
 //    }
+
+    private RecyclerView.OnScrollListener mOnScrollListener = new RecyclerView.OnScrollListener() {
+
+        private int lastVisiableItem;
+
+        @Override
+        public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+            super.onScrollStateChanged(recyclerView, newState);
+            if (newState == RecyclerView.SCROLL_STATE_IDLE
+                    && lastVisiableItem + 1 == adapter.getItemCount()
+                    && adapter.ismShowFooter()) {
+                //加载更多
+                Log.i("article_fragment", "loading more data");
+                presenter.loadArticles(ARTICLE_ALL);
+            }
+        }
+
+        @Override
+        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+            super.onScrolled(recyclerView, dx, dy);
+            lastVisiableItem = mLayoutManager.findLastVisibleItemPosition();
+        }
+    };
+
+    private ArticlesAdapter.OnItemClickListener mOnItemClickListener = new ArticlesAdapter.OnItemClickListener() {
+        @Override
+        public void onItemClick(View view, int position) {
+            ArticleBean article = adapter.getItem(position);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("article_detail", article);
+            Util.toAnotherActivity(getActivity(), ArticleDetailActivity.class, bundle);
+        }
+    };
+
+    @Override
+    public void onRefresh() {
+        Log.i("TAG", "onRefresh");
+        pageIndex = 0;
+        if (list != null) {
+            list.clear();
+        }
+        presenter.loadArticles(ARTICLE_ALL);
+    }
 }

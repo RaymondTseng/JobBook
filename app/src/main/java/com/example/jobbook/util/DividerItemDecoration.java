@@ -1,4 +1,4 @@
-package com.example.jobbook.job.widget;
+package com.example.jobbook.util;
 
 import android.content.Context;
 import android.content.res.TypedArray;

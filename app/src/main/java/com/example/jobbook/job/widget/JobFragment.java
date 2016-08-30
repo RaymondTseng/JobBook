@@ -1,11 +1,8 @@
 package com.example.jobbook.job.widget;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -15,22 +12,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.AdapterView;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.jobbook.R;
 import com.example.jobbook.bean.JobBean;
 import com.example.jobbook.commons.Urls;
-import com.example.jobbook.job.JobListViewAdapter;
 import com.example.jobbook.job.JobsAdapter;
 import com.example.jobbook.job.presenter.JobPresenter;
 import com.example.jobbook.job.presenter.JobPresenterImpl;
 import com.example.jobbook.job.view.JobView;
+import com.example.jobbook.util.DividerItemDecoration;
 import com.example.jobbook.util.Util;
 
 import java.util.ArrayList;
@@ -66,9 +57,9 @@ public class JobFragment extends Fragment implements JobView, View.OnFocusChange
         mRecyclerView = (RecyclerView) view.findViewById(R.id.job_rv);
         mEditText = (EditText) view.findViewById(R.id.job_et);
         mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.job_swipe_container);
-}
+    }
 
-    private void initEvents(){
+    private void initEvents() {
         mAdapter = new JobsAdapter(getActivity().getApplicationContext());
         mSwipeRefreshLayout.setColorSchemeResources(R.color.colorBlue);
         mLayoutManager = new LinearLayoutManager(getActivity());
@@ -87,7 +78,7 @@ public class JobFragment extends Fragment implements JobView, View.OnFocusChange
         onRefresh();
     }
 
-    private RecyclerView.OnScrollListener  mOnScrollListener = new RecyclerView.OnScrollListener(){
+    private RecyclerView.OnScrollListener mOnScrollListener = new RecyclerView.OnScrollListener() {
 
         private int lastVisibleItem;
 
@@ -109,6 +100,7 @@ public class JobFragment extends Fragment implements JobView, View.OnFocusChange
             }
         }
     };
+
     @Override
     public void showProgress() {
         mSwipeRefreshLayout.setRefreshing(true);
@@ -117,15 +109,15 @@ public class JobFragment extends Fragment implements JobView, View.OnFocusChange
     @Override
     public void addJobs(List<JobBean> jobList) {
         mAdapter.setmShowFooter(true);
-        if(list == null){
+        if (list == null) {
             list = new ArrayList<>();
         }
         list = jobList;
-        if(pageIndex == 0) {
+        if (pageIndex == 0) {
             mAdapter.updateData(list);
         } else {
             //如果没有更多数据了,则隐藏footer布局
-            if(jobList == null || jobList.size() == 0) {
+            if (jobList == null || jobList.size() == 0) {
                 mAdapter.setmShowFooter(false);
             }
             mAdapter.notifyDataSetChanged();
@@ -140,7 +132,7 @@ public class JobFragment extends Fragment implements JobView, View.OnFocusChange
 
     @Override
     public void showLoadingFailMsg() {
-        if(pageIndex == 0) {
+        if (pageIndex == 0) {
             mAdapter.setmShowFooter(false);
             mAdapter.notifyDataSetChanged();
         }
@@ -179,7 +171,6 @@ public class JobFragment extends Fragment implements JobView, View.OnFocusChange
         search();
     }
 
-
     private JobsAdapter.OnItemClickListener mOnItemClickListener = new JobsAdapter.OnItemClickListener() {
         @Override
         public void onItemClick(View view, int position) {
@@ -194,7 +185,7 @@ public class JobFragment extends Fragment implements JobView, View.OnFocusChange
     public void onRefresh() {
         Log.i("TAG", "onRefresh");
         pageIndex = 0;
-        if(list != null){
+        if (list != null) {
             list.clear();
         }
         mJobPresenter.loadJobs();

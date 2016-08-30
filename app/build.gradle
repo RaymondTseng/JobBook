@@ -29,5 +29,6 @@ dependencies {
     compile 'com.squareup.okio:okio:1.9.0'
     compile 'com.android.support:design:23.2.1'
     compile 'com.google.android:flexbox:0.2.3'
-    compile 'com.demievil.library:refreshlayout:1.0.0@aar'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'com.android.support:support-v4:23.1.0'
 }
