@@ -22,9 +22,9 @@ import okhttp3.Call;
 public class ArticleModelImpl implements ArticleModel {
 
     @Override
-    public void loadArticles(int type, final OnLoadArticlesListListener listener) {
+    public void loadArticles(int pageIndex, int type, final OnLoadArticlesListListener listener) {
         Log.i("article_response:", "load");
-        OkHttpUtils.get().addParams("", "").url(Urls.ARTICLE_URL + type).build().execute(new StringCallback() {
+        OkHttpUtils.postString().url(Urls.ARTICLE_URL + type).content(String.valueOf(pageIndex)).build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
                 Log.i("article_response:", "network error");
@@ -43,6 +43,7 @@ public class ArticleModelImpl implements ArticleModel {
 
     public interface OnLoadArticlesListListener {
         void onSuccess(List<ArticleBean> list);
+
         void onFailure(String msg, Exception e);
     }
 

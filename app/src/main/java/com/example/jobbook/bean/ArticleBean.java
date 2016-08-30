@@ -22,6 +22,11 @@ public class ArticleBean implements Serializable {
     private int type;
 
     /**
+     * 文章图片
+     */
+    private String image;
+
+    /**
      * 文章标题
      */
     private String title;
@@ -100,5 +105,13 @@ public class ArticleBean implements Serializable {
 
     public void setComments(List<ArticleCommentBean> comments) {
         this.comments = comments;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

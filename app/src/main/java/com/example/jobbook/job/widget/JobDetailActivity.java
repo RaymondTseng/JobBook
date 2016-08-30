@@ -17,6 +17,7 @@ import com.example.jobbook.bean.JobDetailBean;
 import com.example.jobbook.job.presenter.JobDetailPresenter;
 import com.example.jobbook.job.presenter.JobDetailPresenterImpl;
 import com.example.jobbook.job.view.JobDetailView;
+import com.example.jobbook.util.ImageLoadUtils;
 import com.example.jobbook.util.Util;
 import com.google.android.flexbox.FlexboxLayout;
 import com.zhy.http.okhttp.utils.Exceptions;
@@ -28,6 +29,7 @@ public class JobDetailActivity extends Activity implements View.OnClickListener,
     private ImageButton mBackImageButton;
     private ImageButton mToCompanyDetailImageButton;
     private ImageButton mLikeImageButton;
+    private ImageView mCompanyLogoImageView;
     private TextView mJobNameTextView;
     private TextView mJobLocationTextView;
     private TextView mSalaryTextView;
@@ -57,6 +59,7 @@ public class JobDetailActivity extends Activity implements View.OnClickListener,
         mBackImageButton = (ImageButton) findViewById(R.id.job_detail_back_ib);
         mToCompanyDetailImageButton = (ImageButton) findViewById(R.id.job_detail_tocompany_ib);
         mLikeImageButton = (ImageButton) findViewById(R.id.job_detail_like_ib);
+        mCompanyImageView = (ImageView) findViewById(R.id.job_detail_company_logo_iv);
         mJobNameTextView = (TextView) findViewById(R.id.job_detail_name_tv);
         mJobLocationTextView = (TextView) findViewById(R.id.job_detail_location_tv);
         mSalaryTextView = (TextView) findViewById(R.id.job_detail_salary_tv);
@@ -131,6 +134,7 @@ public class JobDetailActivity extends Activity implements View.OnClickListener,
     public void addJob(JobDetailBean jobDetailBean) {
         this.jobDetailBean = jobDetailBean;
         Log.i("addjob", "success");
+        ImageLoadUtils.display(this, mCompanyImageView, jobDetailBean.getCompany().getLogo());
         mJobNameTextView.setText(jobDetailBean.getName());
         mJobLocationTextView.setText(jobDetailBean.getLocation());
         mSalaryTextView.setText(jobDetailBean.getSalary());
@@ -140,10 +144,10 @@ public class JobDetailActivity extends Activity implements View.OnClickListener,
         mJobDutyTextView.setText(jobDetailBean.getResponsibilities());
         mJobRequireTextView.setText(jobDetailBean.getRequirements());
         String[] welfare = jobDetailBean.getCompany().getWelfare().split("、");
-        for(String temp : welfare){
+        for (String temp : welfare) {
             TextView textView = new TextView(this);
             textView.setText(temp);
-            textView.setPadding(6,6,6,6);
+            textView.setPadding(6, 6, 6, 6);
             textView.setBackground(ContextCompat.getDrawable(this, R.drawable.job_detail_benefit_bg));
             textView.setTextColor(ContextCompat.getColor(this, R.color.colorBlue));
             textView.setTextSize(12);
@@ -263,7 +267,7 @@ public class JobDetailActivity extends Activity implements View.OnClickListener,
     private void refresh() {
         try {
             Thread.sleep(1000);
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         onCreate(null);

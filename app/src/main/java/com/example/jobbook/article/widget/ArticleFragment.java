@@ -27,7 +27,6 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.example.jobbook.R;
-import com.example.jobbook.article.ArticleListViewAdapter;
 import com.example.jobbook.article.ArticlesAdapter;
 import com.example.jobbook.article.presenter.ArticlePresenter;
 import com.example.jobbook.article.presenter.ArticlePresenterImpl;
@@ -50,14 +49,9 @@ import java.util.List;
 public class ArticleFragment extends Fragment implements ArticleView, View.OnClickListener,
         PopupWindow.OnDismissListener, RadioGroup.OnCheckedChangeListener, SwipeRefreshLayout.OnRefreshListener {
 
-    public static final int ARTICLE_ALL = 0;
-    public static final int ARTICLE_ENGAGEMENT = 1;
-    public static final int ARTICLE_POLITIC = 2;
-    public static final int ARTICLE_LIFE = 3;
-
     private int pageIndex = 0;
+    private int currentType = Constants.INDEX_ARTICLE_ALL;
 
-    //    private ListView mListView;
     private TextView mTitleTextView;
     private LinearLayout mArticleTitleLayout;
     private LinearLayout mBlankLayout;
@@ -72,7 +66,6 @@ public class ArticleFragment extends Fragment implements ArticleView, View.OnCli
     private ArticlePresenter presenter;
     private View view;
     private List<ArticleBean> list;
-    //    private ArticleListViewAdapter adapter;
     private ArticlesAdapter adapter;
     private RadioGroup radioGroup;
     private RecyclerView mRecyclerView;
@@ -144,10 +137,6 @@ public class ArticleFragment extends Fragment implements ArticleView, View.OnCli
     @Override
     public void addArticles(List<ArticleBean> articlesList) {
         // 加载数据的地方
-//        if (articlesList != null) {
-//            list = articlesList;
-////            adapter.updateData(list);
-//        }
         adapter.setmShowFooter(true);
         if (list == null) {
             list = new ArrayList<>();
@@ -172,7 +161,11 @@ public class ArticleFragment extends Fragment implements ArticleView, View.OnCli
 
     @Override
     public void showLoadFailMsg() {
-//        View view = view == null ?
+        if(pageIndex == 0) {
+            adapter.setmShowFooter(false);
+            adapter.notifyDataSetChanged();
+        }
+        view = view == null ? mRecyclerView.getRootView() : getActivity().findViewById(R.id.main_layout);
         final Snackbar snackbar = Snackbar.make(view, "干货读取错误，请重试！", Snackbar.LENGTH_LONG);
         snackbar.setAction("dismiss", new View.OnClickListener() {
 
@@ -218,22 +211,27 @@ public class ArticleFragment extends Fragment implements ArticleView, View.OnCli
         switch (checkedId) {
             case R.id.article_title_all_rb:
                 mTitleTextView.setText(Constants.ARTICLE_ALL);
-                presenter.loadArticles(ARTICLE_ALL);
+                presenter.loadArticles(pageIndex, Constants.INDEX_ARTICLE_ALL);
+                currentType = Constants.INDEX_ARTICLE_ALL;
                 adapter.notifyDataSetChanged();
                 break;
             case R.id.article_title_engagement_rb:
                 mTitleTextView.setText(Constants.ARTICLE_ENGAGEMENT);
-                presenter.loadArticles(ARTICLE_ENGAGEMENT);
+                presenter.loadArticles(pageIndex, Constants.INDEX_ARTICLE_ENGAGEMENT);
+                currentType = Constants.INDEX_ARTICLE_ENGAGEMENT;
+                Log.i("engagement", "change");
                 adapter.notifyDataSetChanged();
                 break;
             case R.id.article_title_politic_rb:
                 mTitleTextView.setText(Constants.ARTICLE_POLITIC);
-                presenter.loadArticles(ARTICLE_POLITIC);
+                presenter.loadArticles(pageIndex, Constants.INDEX_ARTICLE_POLITIC);
+                currentType = Constants.INDEX_ARTICLE_POLITIC;
                 adapter.notifyDataSetChanged();
                 break;
             case R.id.article_title_life_rb:
                 mTitleTextView.setText(Constants.ARTICLE_LIFE);
-                presenter.loadArticles(ARTICLE_LIFE);
+                presenter.loadArticles(pageIndex, Constants.INDEX_ARTICLE_LIFE);
+                currentType = Constants.INDEX_ARTICLE_LIFE;
                 adapter.notifyDataSetChanged();
                 break;
         }
@@ -267,7 +265,7 @@ public class ArticleFragment extends Fragment implements ArticleView, View.OnCli
                     && adapter.ismShowFooter()) {
                 //加载更多
                 Log.i("article_fragment", "loading more data");
-                presenter.loadArticles(ARTICLE_ALL);
+                presenter.loadArticles(pageIndex, Constants.INDEX_ARTICLE_ALL);
             }
         }
 
@@ -295,6 +293,6 @@ public class ArticleFragment extends Fragment implements ArticleView, View.OnCli
         if (list != null) {
             list.clear();
         }
-        presenter.loadArticles(ARTICLE_ALL);
+        presenter.loadArticles(pageIndex, currentType);
     }
 }

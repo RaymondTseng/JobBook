@@ -64,7 +64,7 @@
             android:id="@+id/job_detail_company_logo_iv"
             android:layout_width="78dp"
             android:layout_height="78dp"
-            android:src="@mipmap/apple_logo"/>
+            />
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -82,16 +82,18 @@
             android:layout_marginLeft="16dp"
             android:id="@+id/job_detail_company_description_ll">
             <TextView
-                android:id="@+id/job_detail_company_name_tv"
-                android:text="苹果公司"
-                style="@style/Black16sptv"/>
-            <TextView
+                android:id="@+id/job_detail_authenticate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="认证"
                 android:textSize="14sp"
                 android:textColor="@color/colorYellow"
-                android:layout_toRightOf="@id/job_detail_company_name_tv"
+                />
+            <TextView
+                android:id="@+id/job_detail_company_name_tv"
+                android:text="苹果公司"
+                style="@style/Black16sptv"
+                android:layout_toRightOf="@id/job_detail_authenticate"
                 android:layout_marginLeft="16dp"/>
             <LinearLayout
                 android:layout_width="wrap_content"

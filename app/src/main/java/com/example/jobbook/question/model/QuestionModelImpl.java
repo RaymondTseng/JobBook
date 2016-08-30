@@ -32,8 +32,8 @@ public class QuestionModelImpl implements QuestionModel {
             @Override
             public void onResponse(String response, int id) {
                 Log.i("question_response", response);
-                List<QuestionBean> questionBeanList = new Gson().fromJson(response, new TypeToken<List<QuestionBean>>(){}.getType());
-                listener.onSuccess(questionBeanList);
+//                List<QuestionBean> questionBeanList = new Gson().fromJson(response, new TypeToken<List<QuestionBean>>(){}.getType());
+//                listener.onSuccess(questionBeanList);
             }
         });
     }
