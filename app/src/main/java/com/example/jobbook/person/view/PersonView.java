@@ -7,5 +7,5 @@ public interface PersonView {
 
     void showPersonData();
 
-    void switch2Login();
+    void switchPerson2Login();
 }

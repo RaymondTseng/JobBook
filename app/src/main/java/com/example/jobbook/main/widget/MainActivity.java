@@ -151,6 +151,8 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     public void switch2Login() {
         mFragmentPagerAdapter.toLoginFragment();
         mFragmentContainer.setCurrentItem(3);
+        MyApplication.setmNoLoginStatus();
+        MyApplication.setmPersonBean(null);
     }
 
     @Override
@@ -177,7 +179,6 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         MyApplication.setmPersonBean(personBean);
         mMainPresenter.savePersonBean(this, personBean);
         switch2Person();
-
     }
 
     @Override

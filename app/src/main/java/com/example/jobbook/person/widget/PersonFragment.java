@@ -28,9 +28,9 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
     private ListView mListView;
     private ImageButton mSettingImageButton;
     private IPersonChanged mIPersonChanged;
-    private Button mSwitch2PersonButton;
-    private TextView mSwitch2FeedBackTextView;
-    private RelativeLayout mFavouriteLayout;
+    private Button mSwitchPerson2LoginButton;
+    private Button mSwitch2FeedBackButton;
+    private Button mFavouriteButton;
     private TextView mNameTextView;
 
     @Override
@@ -55,19 +55,18 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
     }
 
     private void initViews(View view) {
-        mSwitch2PersonButton = (Button) view.findViewById(R.id.person_switch2login_bt);
-        mSwitch2FeedBackTextView = (TextView) view.findViewById(R.id.person_feedback_tv);
+        mSwitchPerson2LoginButton = (Button) view.findViewById(R.id.person_switch2login_bt);
+        mSwitch2FeedBackButton = (Button) view.findViewById(R.id.person_feedback_bt);
         mSettingImageButton = (ImageButton) view.findViewById(R.id.person_setting_ib);
-        mFavouriteLayout = (RelativeLayout) view.findViewById(R.id.person_favourite_ll);
+        mFavouriteButton = (Button) view.findViewById(R.id.person_favourite_bt);
         mNameTextView = (TextView) view.findViewById(R.id.person_name_tv);
     }
 
     private void initEvents(){
-        mSwitch2PersonButton.setOnClickListener(this);
-        mSwitch2FeedBackTextView.setOnClickListener(this);
-        mSwitch2PersonButton.setOnClickListener(this);
+        mSwitchPerson2LoginButton.setOnClickListener(this);
+        mSwitch2FeedBackButton.setOnClickListener(this);
         mSettingImageButton.setOnClickListener(this);
-        mFavouriteLayout.setOnClickListener(this);
+        mFavouriteButton.setOnClickListener(this);
         showPersonData();
     }
 
@@ -82,22 +81,22 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.person_switch2login_bt:
-                switch2Login();
+                switchPerson2Login();
                 break;
-            case R.id.person_feedback_tv:
+            case R.id.person_feedback_bt:
                 startActivity(new Intent(getActivity(), FeedBackActivity.class));
                 break;
             case R.id.person_setting_ib:
                 startActivity(new Intent(getActivity(), SettingActivity.class));
                 break;
-            case R.id.person_favourite_ll:
+            case R.id.person_favourite_bt:
                 startActivity(new Intent(getActivity(), FavouriteActivity.class));
                 break;
         }
     }
 
     @Override
-    public void switch2Login() {
+    public void switchPerson2Login() {
         mIPersonChanged.switchPerson2Login();
     }
 
