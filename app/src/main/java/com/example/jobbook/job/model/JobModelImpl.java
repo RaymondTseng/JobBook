@@ -19,9 +19,9 @@ import okhttp3.Call;
 public class JobModelImpl implements JobModel{
 
     @Override
-    public void loadJobs(final OnLoadJobListListener listener) {
+    public void loadJobs(int pageIndex, final OnLoadJobListListener listener) {
         Log.i("job_response:", "load");
-        OkHttpUtils.get().url(Urls.JOB_URL).addParams("", "").build().execute(new StringCallback() {
+        OkHttpUtils.postString().url(Urls.JOB_URL).content(String.valueOf(pageIndex)).build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
                 Log.i("job_response:", e.getMessage());

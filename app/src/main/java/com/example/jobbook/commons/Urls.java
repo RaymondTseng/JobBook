@@ -5,7 +5,7 @@ package com.example.jobbook.commons;
  */
 public class Urls {
 
-    public static final int PAZE_SIZE = 20;
+    public static final int PAZE_SIZE = 10;
 
     public static final String ID = "http://192.168.8.20";
 
@@ -24,6 +24,10 @@ public class Urls {
     public static final String ARTICLE_URL = ID + "/jobBook/Home/article/allArticle/type/";
 
     public static final String ARTICLE_DETAIL_URL = ID + "/jobBook/Home/article/getArticle/a_id/";
+
+    public static final String QUESTION_URL = ID + "/jobBook/Home/question/allQuestions";
+
+    public static final String QUESTION_DETAIL_URL = ID + "";
 
 
 

@@ -9,10 +9,15 @@
         android:layout_height="0dp"
         android:layout_weight="56"
         layout="@layout/question_title_bar"/>
-    <ListView
-        android:id="@+id/question_lv"
+    <android.support.v4.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="456"></ListView>
-
+        android:layout_weight="456"
+        android:id="@+id/question_swipe_container">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/question_rv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            ></android.support.v7.widget.RecyclerView>
+    </android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>

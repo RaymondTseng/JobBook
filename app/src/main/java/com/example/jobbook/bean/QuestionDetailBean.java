@@ -4,10 +4,9 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * Created by Xu on 2016/7/5.
- * 问题模型类
+ * Created by 椰树 on 2016/8/30.
  */
-public class QuestionBean implements Serializable{
+public class QuestionDetailBean implements Serializable{
     private static final long serialVersionUID = 1L;
     /**
      * id
@@ -33,6 +32,10 @@ public class QuestionBean implements Serializable{
      *问题阅读量
      */
     private int readingquantity;
+    /**
+     *问题评论
+     */
+    private List<QuestionCommentBean> comments;
 
     public int getId() {
         return id;
@@ -82,4 +85,11 @@ public class QuestionBean implements Serializable{
         this.readingquantity = readingquantity;
     }
 
+    public List<QuestionCommentBean> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<QuestionCommentBean> comments) {
+        this.comments = comments;
+    }
 }

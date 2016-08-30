@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:weightSum="568">
+    android:weightSum="568"
+    android:background="@color/colorWhite">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -39,7 +40,18 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_weight="48"
+        android:background="@null"
+        android:paddingTop="12dp"
+        android:textCursorDrawable="@drawable/edtitext_cursor"
+        android:drawableTint="@color/colorBlack"
+        android:paddingBottom="12dp"
         android:hint="标题..." />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/colorBackgroundGray"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"/>
 
     <EditText
         android:id="@+id/activity_publish_question_content_et"
@@ -49,6 +61,7 @@
         android:layout_weight="408"
         android:background="@null"
         android:gravity="top|left"
+        android:textCursorDrawable="@drawable/edtitext_cursor"
         android:hint="详细描述一下问题的内容..."
         android:paddingLeft="16dp" />
 

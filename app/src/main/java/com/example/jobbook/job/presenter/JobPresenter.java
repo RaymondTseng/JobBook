@@ -5,9 +5,8 @@ package com.example.jobbook.job.presenter;
  */
 public interface JobPresenter {
 
-//    void loadJobs(int page);
 
-    void loadJobs();
+    void loadJobs(int pageIndex);
 
     void search();
 }
