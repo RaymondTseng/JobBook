@@ -33,6 +33,8 @@ public class Urls {
 
     public static final String SEND_QUESTION_COMMENT_URL = ID + "/jobBook/Home/question/comment";
 
+    public static final String SEARCH_URL = ID + "/jobBook/Home/job/search/keyword/";
+
 
 
 }

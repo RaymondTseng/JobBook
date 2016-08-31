@@ -1,27 +1,19 @@
 package com.example.jobbook.job.widget;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.AdapterView;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.jobbook.R;
 import com.example.jobbook.bean.JobBean;
@@ -30,6 +22,7 @@ import com.example.jobbook.job.JobsAdapter;
 import com.example.jobbook.job.presenter.JobPresenter;
 import com.example.jobbook.job.presenter.JobPresenterImpl;
 import com.example.jobbook.job.view.JobView;
+import com.example.jobbook.search.widget.SearchDialogFragment;
 import com.example.jobbook.util.DividerItemDecoration;
 import com.example.jobbook.util.Util;
 
@@ -69,7 +62,7 @@ public class JobFragment extends Fragment implements JobView, View.OnFocusChange
 }
 
     private void initEvents(){
-        mAdapter = new JobsAdapter(getActivity().getApplicationContext());
+        mAdapter = new JobsAdapter(getActivity());
         mSwipeRefreshLayout.setColorSchemeResources(R.color.colorBlue);
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST));
@@ -78,6 +71,9 @@ public class JobFragment extends Fragment implements JobView, View.OnFocusChange
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mEditText.setOnFocusChangeListener(this);
         mSwipeRefreshLayout.setOnRefreshListener(this);
+        mSwipeRefreshLayout.setProgressViewOffset(false, 0, (int) TypedValue
+                .applyDimension(TypedValue.COMPLEX_UNIT_DIP, 24, getResources()
+                        .getDisplayMetrics()));
         mJobPresenter = new JobPresenterImpl(this);
         mAdapter.setOnItemClickListener(mOnItemClickListener);
         mRecyclerView.setAdapter(mAdapter);
@@ -88,7 +84,7 @@ public class JobFragment extends Fragment implements JobView, View.OnFocusChange
         onRefresh();
     }
 
-    private RecyclerView.OnScrollListener  mOnScrollListener = new RecyclerView.OnScrollListener(){
+    private RecyclerView.OnScrollListener mOnScrollListener = new RecyclerView.OnScrollListener(){
 
         private int lastVisibleItem;
 
@@ -165,7 +161,6 @@ public class JobFragment extends Fragment implements JobView, View.OnFocusChange
         Log.i("jobfragment", "createSearchDialog");
     }
 
-
     @Override
     public void onFocusChange(View v, boolean hasFocus) {
         switch (v.getId()) {
@@ -181,7 +176,6 @@ public class JobFragment extends Fragment implements JobView, View.OnFocusChange
         search();
     }
 
-
     private JobsAdapter.OnItemClickListener mOnItemClickListener = new JobsAdapter.OnItemClickListener() {
         @Override
         public void onItemClick(View view, int position) {
@@ -195,10 +189,10 @@ public class JobFragment extends Fragment implements JobView, View.OnFocusChange
     @Override
     public void onRefresh() {
         Log.i("TAG", "onRefresh");
-        pageIndex = 0;
-        if(list != null){
-            list.clear();
-        }
+//        pageIndex = 0;
+//        if(list != null){
+//            list.clear();
+//        }
         mJobPresenter.loadJobs(pageIndex);
     }
 }

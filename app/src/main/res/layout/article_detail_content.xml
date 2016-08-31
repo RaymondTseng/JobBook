@@ -23,22 +23,22 @@
             android:text="内容加载中" />
     </RelativeLayout>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="@color/colorBackgroundGray" />
+    <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="2dp"-->
+        <!--android:background="@color/colorBackgroundGray" />-->
 
-    <TextView
-        style="@style/Black20sptv"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
-        android:text="热门跟帖" />
+    <!--<TextView-->
+        <!--style="@style/Black20sptv"-->
+        <!--android:layout_marginLeft="16dp"-->
+        <!--android:layout_marginTop="16dp"-->
+        <!--android:text="热门跟帖" />-->
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="16dp"
-        android:background="@color/colorBackgroundGray" />
+    <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="2dp"-->
+        <!--android:layout_marginLeft="16dp"-->
+        <!--android:layout_marginRight="16dp"-->
+        <!--android:layout_marginTop="16dp"-->
+        <!--android:background="@color/colorBackgroundGray" />-->
 </LinearLayout>
