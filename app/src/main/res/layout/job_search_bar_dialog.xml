@@ -3,11 +3,11 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:paddingTop="3dp"
     android:layout_width="match_parent"
-    android:layout_height="50dp"
+    android:layout_height="wrap_content"
     android:background="#666666">
 
-
     <LinearLayout
+        android:id="@+id/search_ll"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@color/colorWhite"
@@ -42,5 +42,26 @@
             android:background="@color/colorBlue"
             android:src="@mipmap/search" />
     </LinearLayout>
+
+    <ListView
+        android:id="@+id/job_search_record_lv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/search_ll"></ListView>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_below="@+id/job_search_record_lv"
+        >
+
+        <TextView
+            android:id="@+id/job_search_remove_record_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="清除历史记录"
+            android:layout_gravity="center"/>
+
+    </FrameLayout>
 
 </RelativeLayout>

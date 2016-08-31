@@ -4,7 +4,8 @@
     android:layout_height="wrap_content">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="#ffffff">
         <ImageView
             android:id="@+id/job_lv_iv"
             android:layout_width="78dp"
@@ -23,9 +24,14 @@
                 android:id="@+id/job_lv_name_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="平面设计师"
+                android:text="平面设计师平面设计师平面设计师平面设计师平面设计师平面设计师"
                 android:textColor="@color/colorBlue"
-                android:textSize="16sp"/>
+                android:textSize="16sp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:paddingRight="10dp"
+                android:layout_toLeftOf="@+id/job_lv_time_ll"
+                android:layout_toStartOf="@+id/job_lv_time_ll" />
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -70,7 +76,7 @@
                 android:layout_below="@id/job_lv_company_ll"
                 android:layout_toLeftOf="@id/job_lv_time_ll"
                 android:layout_alignLeft="@+id/job_lv_company_ll"
-                android:layout_marginRight="32dp">
+                android:layout_marginRight="16dp">
                 <ImageView
                     android:id="@+id/job_lv_location_iv"
                     android:layout_width="wrap_content"
@@ -82,21 +88,26 @@
                     android:layout_toRightOf="@id/job_lv_location_iv"
                     android:text="位于美国洛杉矶中国大道那个多少号来着"
                     style="@style/TextGray12sptv"
-                    android:layout_centerVertical="true" />
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/job_lv_salary_ll"
                 android:layout_alignBottom="@id/job_lv_location_ll"
-                android:layout_marginRight="16dp"
+                android:layout_toRightOf="@+id/job_lv_location_ll"
+                android:layout_below="@id/job_lv_time_ll"
                 android:layout_alignParentRight="true">
                 <TextView
                     android:id="@+id/job_lv_salary_tv"
+                    android:paddingRight="16dp"
                     android:text="¥1.5k~2.5k"
                     android:textColor="@color/colorBlue"
                     style="@style/TextGray12sptv"
-                    android:layout_centerVertical="true" />
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true" />
             </RelativeLayout>
 
 

@@ -29,6 +29,8 @@ public class Urls {
 
     public static final String QUESTION_DETAIL_URL = ID + "";
 
+    public static final String SEARCH_URL = ID + "/jobBook/Home/job/search/keyword/";
+
 
 
 }

@@ -14,10 +14,16 @@ import com.example.jobbook.MyApplication;
 import com.example.jobbook.bean.PersonBean;
 import com.example.jobbook.commons.Constants;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 /**
  * Created by 椰树 on 2016/7/15.
  */
 public class Util {
+
+    private static LinkedList<String> searchRecords = new LinkedList<>();
+
     public static void toAnotherActivity(Context mContext, Class<?> cls){
         Intent intent = new Intent(mContext, cls);
         mContext.startActivity(intent);
@@ -151,4 +157,11 @@ public class Util {
         result = result + "...";
         return result;
     }
+
+    /**
+     * 返回搜索纪录
+     * @return
+     */
+
+
 }

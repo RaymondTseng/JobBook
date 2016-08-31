@@ -1,6 +1,7 @@
 package com.example.jobbook.util;
 
 import android.content.Context;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.widget.ImageView;
 
@@ -27,6 +28,8 @@ public class ImageLoadUtils {
 //        Glide.with(context).load(url).placeholder(R.drawable.ic_image_loading)
 //                .error(R.drawable.ic_image_loadfail).crossFade().into(imageView);
 //        Log.i("image_url", url);
-        Glide.with(context).load(url).diskCacheStrategy(DiskCacheStrategy.ALL).skipMemoryCache(true).crossFade(100).into(imageView);
+//        Glide.with(context).load(url).diskCacheStrategy(DiskCacheStrategy.ALL).skipMemoryCache(true).crossFade(100).into(imageView);
+        Glide.with(context).load(url).diskCacheStrategy(DiskCacheStrategy.NONE).crossFade().into(imageView);
     }
+
 }

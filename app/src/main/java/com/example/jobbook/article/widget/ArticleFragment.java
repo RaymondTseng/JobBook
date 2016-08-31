@@ -211,47 +211,39 @@ public class ArticleFragment extends Fragment implements ArticleView, View.OnCli
         switch (checkedId) {
             case R.id.article_title_all_rb:
                 mTitleTextView.setText(Constants.ARTICLE_ALL);
-                presenter.loadArticles(pageIndex, Constants.INDEX_ARTICLE_ALL);
+//                presenter.loadArticles(pageIndex, Constants.INDEX_ARTICLE_ALL);
                 currentType = Constants.INDEX_ARTICLE_ALL;
+                onRefresh();
+                Log.i("all", "change");
                 adapter.notifyDataSetChanged();
                 break;
             case R.id.article_title_engagement_rb:
                 mTitleTextView.setText(Constants.ARTICLE_ENGAGEMENT);
-                presenter.loadArticles(pageIndex, Constants.INDEX_ARTICLE_ENGAGEMENT);
+//                presenter.loadArticles(pageIndex, Constants.INDEX_ARTICLE_ENGAGEMENT);
                 currentType = Constants.INDEX_ARTICLE_ENGAGEMENT;
+                onRefresh();
                 Log.i("engagement", "change");
                 adapter.notifyDataSetChanged();
                 break;
             case R.id.article_title_politic_rb:
                 mTitleTextView.setText(Constants.ARTICLE_POLITIC);
-                presenter.loadArticles(pageIndex, Constants.INDEX_ARTICLE_POLITIC);
+//                presenter.loadArticles(pageIndex, Constants.INDEX_ARTICLE_POLITIC);
                 currentType = Constants.INDEX_ARTICLE_POLITIC;
+                onRefresh();
+                Log.i("politic", "change");
                 adapter.notifyDataSetChanged();
                 break;
             case R.id.article_title_life_rb:
                 mTitleTextView.setText(Constants.ARTICLE_LIFE);
-                presenter.loadArticles(pageIndex, Constants.INDEX_ARTICLE_LIFE);
+//                presenter.loadArticles(pageIndex, Constants.INDEX_ARTICLE_LIFE);
                 currentType = Constants.INDEX_ARTICLE_LIFE;
+                onRefresh();
+                Log.i("life", "change");
                 adapter.notifyDataSetChanged();
                 break;
         }
     }
 
-
-//    @Override
-//    public void onItemClick(View view, int position) {
-//        Bundle bundle = new Bundle();
-//                    Log.i("article_detail", list.get(position).getContent());
-//        bundle.putSerializable("article_detail", list.get(position));
-//        Util.toAnotherActivity(getActivity(), ArticleDetailActivity.class, bundle);
-//    }
-
-//    @Override
-//    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//        Bundle bundle = new Bundle();
-//        bundle.putSerializable("article_detail", list.get(position));
-//        Util.toAnotherActivity(getActivity(), ArticleDetailActivity.class, bundle);
-//    }
 
     private RecyclerView.OnScrollListener mOnScrollListener = new RecyclerView.OnScrollListener() {
 

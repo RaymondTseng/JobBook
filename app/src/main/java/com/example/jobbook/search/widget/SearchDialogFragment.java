@@ -1,6 +1,5 @@
-package com.example.jobbook.job.widget;
+package com.example.jobbook.search.widget;
 
-import android.app.ActionBar;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.Intent;
@@ -16,14 +15,21 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.jobbook.R;
 import com.example.jobbook.util.Util;
+
+import java.util.List;
 
 /**
  * Created by Xu on 2016/8/24.
  */
 public class SearchDialogFragment extends DialogFragment {
+
+    private ListView mRecordListView;
+    private TextView mRemoveRecordTextView;
 
     @Nullable
     @Override
@@ -38,6 +44,7 @@ public class SearchDialogFragment extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.job_search_bar_dialog, null);
+        initViews(view);
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity()).setView(view);
         ImageButton mBackImageButton = (ImageButton) view.findViewById(R.id.job_search_bar_dialog_back_ib);
         final EditText mEditText = (EditText) view.findViewById(R.id.job_search_bar_dialog_et);
@@ -60,6 +67,11 @@ public class SearchDialogFragment extends DialogFragment {
             }
         });
         return builder.create();
+    }
+
+    private void initViews(View view) {
+        mRecordListView = (ListView) view.findViewById(R.id.job_search_record_lv);
+        mRemoveRecordTextView = (TextView) view.findViewById(R.id.job_search_remove_record_tv);
     }
 
     @Override
