@@ -20,9 +20,9 @@ import okhttp3.Call;
 public class QuestionModelImpl implements QuestionModel {
 
     @Override
-    public void loadQuestions(final OnLoadQuestionsListListener listener) {
+    public void loadQuestions(int pageIndex, final OnLoadQuestionsListListener listener) {
         Log.i("question_response:", "load");
-        OkHttpUtils.get().url(Urls.QUESTION_URL).addParams("", "").build().execute(new StringCallback() {
+        OkHttpUtils.postString().url(Urls.QUESTION_URL).content(pageIndex + "").build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
                 Log.i("question_response:", e.getMessage());
@@ -32,8 +32,8 @@ public class QuestionModelImpl implements QuestionModel {
             @Override
             public void onResponse(String response, int id) {
                 Log.i("question_response", response);
-//                List<QuestionBean> questionBeanList = new Gson().fromJson(response, new TypeToken<List<QuestionBean>>(){}.getType());
-//                listener.onSuccess(questionBeanList);
+                List<QuestionBean> questionBeanList = new Gson().fromJson(response, new TypeToken<List<QuestionBean>>(){}.getType());
+                listener.onSuccess(questionBeanList);
             }
         });
     }

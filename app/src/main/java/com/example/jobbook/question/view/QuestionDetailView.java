@@ -16,9 +16,17 @@ public interface QuestionDetailView {
 
     void addComments(List<QuestionCommentBean> mComments);
 
+    void sendSuccess();
+
     void hideProgress();
 
-    void showLoadFailMsg();
+    void showLoadFailMsg(int error);
 
     String getComment();
+
+    void editTextBlankError();
+
+    void noLoginError();
+
+    void sendComment(String comment);
 }

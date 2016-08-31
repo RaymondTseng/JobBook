@@ -27,7 +27,11 @@ public class Urls {
 
     public static final String QUESTION_URL = ID + "/jobBook/Home/question/allQuestions";
 
-    public static final String QUESTION_DETAIL_URL = ID + "";
+    public static final String QUESTION_DETAIL_URL = ID + "/jobBook/Home/question/getQuestion/q_id/";
+
+    public static final String NEW_QUESTION_URL = ID + "/jobBook/Home/question/releaseQuestion";
+
+    public static final String SEND_QUESTION_COMMENT_URL = ID + "/jobBook/Home/question/comment";
 
     public static final String SEARCH_URL = ID + "/jobBook/Home/job/search/keyword/";
 

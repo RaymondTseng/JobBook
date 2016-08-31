@@ -9,7 +9,7 @@ public interface NewQuestionView {
 
     void showSuccess();
 
-    void switch2Question();
+    void publishNoLoginError();
 
     void close();
 

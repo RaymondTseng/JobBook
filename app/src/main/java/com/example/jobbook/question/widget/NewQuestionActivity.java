@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.design.widget.Snackbar;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -14,10 +15,14 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.jobbook.MyApplication;
 import com.example.jobbook.R;
+import com.example.jobbook.bean.QuestionBean;
+import com.example.jobbook.main.widget.MainActivity;
 import com.example.jobbook.question.presenter.NewQuestionPresenter;
 import com.example.jobbook.question.presenter.NewQuestionPresenterImpl;
 import com.example.jobbook.question.view.NewQuestionView;
+import com.example.jobbook.util.Util;
 
 /**
  * Created by Xu on 2016/7/16.
@@ -33,10 +38,13 @@ public class NewQuestionActivity extends Activity implements NewQuestionView, Vi
     private TextView mNewQuestionReleaseTextView;
     private NewQuestionPresenter mNewQuestionPresenter;
 
+    private MyApplication myApplication;
+
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             if (msg.what == CHANGE_COLOR) {
+                mNewQuestionReleaseTextView.setClickable(true);
                 mNewQuestionReleaseTextView.setTextColor(Color.WHITE);
             } else if (msg.what == NO_CHANGE_COLOR) {
                 mNewQuestionReleaseTextView.setTextColor(Color.parseColor("#61ffffff"));
@@ -51,35 +59,71 @@ public class NewQuestionActivity extends Activity implements NewQuestionView, Vi
         setContentView(R.layout.activity_publish);
         mNewQuestionPresenter = new NewQuestionPresenterImpl(this);
         initViews();
+        initEvents();
     }
 
     private void initViews() {
         mCloseImageButton = (ImageButton) findViewById(R.id.activity_publish_close_ib);
-        mCloseImageButton.setOnClickListener(this);
         mNewQuestionTitleEditText = (EditText) findViewById(R.id.activity_publish_question_title_et);
         mNewQuestionContentEditText = (EditText) findViewById(R.id.activity_publish_question_content_et);
         mNewQuestionReleaseTextView = (TextView) findViewById(R.id.activity_publish_question_release_tv);
+    }
+
+    private void initEvents(){
+        mCloseImageButton.setOnClickListener(this);
         mNewQuestionTitleEditText.addTextChangedListener(this);
         mNewQuestionContentEditText.addTextChangedListener(this);
+        mNewQuestionReleaseTextView.setOnClickListener(this);
     }
 
     @Override
     public void showError() {
+        View view = getWindow().getDecorView();
+        final Snackbar snackbar = Snackbar.make(view, "发表失败,请重试！", Snackbar.LENGTH_LONG);
+        snackbar.setAction("dismiss", new View.OnClickListener() {
 
+            @Override
+            public void onClick(View v) {
+                snackbar.dismiss();
+            }
+        });
+        snackbar.show();
     }
 
     @Override
     public void showSuccess() {
-        mNewQuestionPresenter.newquestion(null);
+        View view = getWindow().getDecorView();
+        final Snackbar snackbar = Snackbar.make(view, "发表成功!", Snackbar.LENGTH_LONG);
+        snackbar.setAction("dismiss", new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                snackbar.dismiss();
+            }
+        });
+        snackbar.show();
     }
 
     @Override
-    public void switch2Question() {
+    public void publishNoLoginError() {
+        View view = getWindow().getDecorView();
+        final Snackbar snackbar = Snackbar.make(view, "请先登录！", Snackbar.LENGTH_LONG);
+        snackbar.setAction("dismiss", new View.OnClickListener() {
 
+            @Override
+            public void onClick(View v) {
+                snackbar.dismiss();
+            }
+        });
+        snackbar.show();
     }
+
 
     @Override
     public void close() {
+        myApplication = (MyApplication) getApplication();
+        Handler handler = myApplication.getHandler();
+        handler.sendEmptyMessage(1);
         this.finish();
     }
 
@@ -88,6 +132,17 @@ public class NewQuestionActivity extends Activity implements NewQuestionView, Vi
         switch (v.getId()){
             case R.id.activity_publish_close_ib:
                 close();
+                break;
+            case R.id.activity_publish_question_release_tv:
+                QuestionBean questionBean = new QuestionBean();
+                if(MyApplication.getmLoginStatus() == 0){
+                    publishNoLoginError();
+                }else{
+                    questionBean.setAuthor(MyApplication.getmPersonBean());
+                    questionBean.setTitle(mNewQuestionTitleEditText.getText().toString());
+                    questionBean.setContent(mNewQuestionContentEditText.getText().toString());
+                    mNewQuestionPresenter.newquestion(questionBean);
+                }
                 break;
         }
     }

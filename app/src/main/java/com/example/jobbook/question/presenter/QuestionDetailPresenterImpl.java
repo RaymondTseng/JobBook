@@ -13,7 +13,8 @@ import java.util.List;
  * Created by 椰树 on 2016/7/16.
  */
 public class QuestionDetailPresenterImpl implements QuestionDetailPresenter,
-        QuestionDetailModelImpl.OnLoadQuestionCommentsListener, QuestionDetailModelImpl.OnLoadQuestionListener {
+        QuestionDetailModelImpl.OnLoadQuestionCommentsListener, QuestionDetailModelImpl.OnLoadQuestionListener,
+    QuestionDetailModelImpl.OnSendQuestionCommentListener{
     private QuestionDetailView mView;
     private QuestionDetailModel mModel;
 
@@ -34,23 +35,32 @@ public class QuestionDetailPresenterImpl implements QuestionDetailPresenter,
     }
 
     @Override
-    public void onFailure(String msg, Exception e) {
+    public void onSuccess() {
         mView.hideProgress();
-        mView.showLoadFailMsg();
+        mView.sendSuccess();
     }
 
     @Override
-    public void loadQuestion() {
-//        mModel.loadQuestion(null, null);
+    public void onFailure(String msg, Exception e, int error) {
+        mView.hideProgress();
+        mView.showLoadFailMsg(error);
+    }
+
+
+    @Override
+    public void loadQuestion(QuestionBean questionBean) {
+        mView.showProgress();
+        mModel.loadQuestion(questionBean, this);
     }
 
     @Override
-    public void loadComments() {
-//        mModel.loadComments(null, null);
+    public void loadQuestionComments(int id) {
+        mView.showProgress();
+        mModel.loadQuestionComments(id, this);
     }
 
     @Override
-    public void sendComment() {
-
+    public void sendComment(QuestionCommentBean questionCommentBean) {
+        mModel.sendComment(questionCommentBean, this);
     }
 }

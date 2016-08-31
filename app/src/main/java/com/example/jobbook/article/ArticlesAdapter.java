@@ -59,13 +59,13 @@ public class ArticlesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             ((ItemViewHolder) holder).mContent.setText(Util.subContent(article.getContent()));
             switch (article.getType()) {
                 case Constants.INDEX_ARTICLE_ENGAGEMENT:
-                    ((ItemViewHolder) holder).mLabel.setBackgroundResource(R.mipmap.engagement_24px_blue);
+                    ((ItemViewHolder) holder).mLabel.setImageResource(R.mipmap.engagement_24px_blue);
                     break;
                 case Constants.INDEX_ARTICLE_POLITIC:
-                    ((ItemViewHolder) holder).mLabel.setBackgroundResource(R.mipmap.politic_blue);
+                    ((ItemViewHolder) holder).mLabel.setImageResource(R.mipmap.politic_blue);
                     break;
                 case Constants.INDEX_ARTICLE_LIFE:
-                    ((ItemViewHolder) holder).mLabel.setBackgroundResource(R.mipmap.life_blue);
+                    ((ItemViewHolder) holder).mLabel.setImageResource(R.mipmap.life_blue);
                     break;
             }
             ImageLoadUtils.display(mContext, ((ItemViewHolder)holder).mLogo, article.getImage());

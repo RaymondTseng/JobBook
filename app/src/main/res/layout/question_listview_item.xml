@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
 
     <TextView
@@ -42,7 +42,7 @@
                 android:id="@+id/question_lv_user_name_tv"
                 android:paddingLeft="16dp"
                 android:text="卖苹果公司"
-                style="@style/TextGray12sptv"
+                style="@style/Black12sptv"
                 />
 
         </LinearLayout>
