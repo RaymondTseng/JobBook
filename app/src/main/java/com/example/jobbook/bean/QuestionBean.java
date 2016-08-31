@@ -12,7 +12,7 @@ public class QuestionBean implements Serializable{
     /**
      * id
      */
-    private int id;
+    private int q_id;
     /**
      * 问题作者
      */
@@ -32,14 +32,14 @@ public class QuestionBean implements Serializable{
     /**
      *问题阅读量
      */
-    private int readingquantity;
+    private int commentnum;
 
     public int getId() {
-        return id;
+        return q_id;
     }
 
     public void setId(int id) {
-        this.id = id;
+        this.q_id = id;
     }
 
     public PersonBean getAuthor() {
@@ -74,12 +74,12 @@ public class QuestionBean implements Serializable{
         this.date = date;
     }
 
-    public int getReadingquantity() {
-        return readingquantity;
+    public int getCommentnum() {
+        return commentnum;
     }
 
-    public void setReadingquantity(int readingquantity) {
-        this.readingquantity = readingquantity;
+    public void setCommentnum(int commentnum) {
+        this.commentnum = commentnum;
     }
 
 }

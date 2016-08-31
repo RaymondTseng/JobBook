@@ -2,6 +2,7 @@ package com.example.jobbook.question;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import com.example.jobbook.R;
 import com.example.jobbook.bean.JobBean;
 import com.example.jobbook.bean.QuestionBean;
+import com.example.jobbook.commons.Urls;
 
 import java.util.List;
 
@@ -56,7 +58,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             ((ItemViewHolder) holder).mTitle.setText(question.getTitle());
             ((ItemViewHolder) holder).mContent.setText(question.getContent());
             ((ItemViewHolder) holder).mUserName.setText(question.getAuthor().getUsername());
-            ((ItemViewHolder) holder).mCommentNumbers.setText(question.getReadingquantity());
+            ((ItemViewHolder) holder).mCommentNumbers.setText(question.getCommentnum() + "");
             ((ItemViewHolder) holder).mTime.setText(question.getDate());
         }
     }
@@ -93,7 +95,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         public ItemViewHolder(View view) {
             super(view);
             mTitle = (TextView) view.findViewById(R.id.question_lv_title_tv);
-            mContent = (TextView) view.findViewById(R.id.question_lv_title_tv);
+            mContent = (TextView) view.findViewById(R.id.question_lv_content_tv);
             mUserHead = (ImageView) view.findViewById(R.id.question_lv_user_head_iv);
             mUserName = (TextView) view.findViewById(R.id.question_lv_user_name_tv);
             mCommentNumbers = (TextView) view.findViewById(R.id.question_lv_comment_tv);
@@ -111,6 +113,9 @@ public class QuestionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     public void updateData(List<QuestionBean> mData){
         this.mData = mData;
+        if(mData.size() % Urls.PAZE_SIZE != 0){
+            this.setmShowFooter(false);
+        }
         this.notifyDataSetChanged();
     }
     public interface OnItemClickListener {

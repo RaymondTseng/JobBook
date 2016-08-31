@@ -55,7 +55,8 @@
                 android:layout_marginLeft="8dp"
                 android:layout_centerVertical="true"
                 android:text="提出于 2016-4-15"
-                style="@style/TextGray12sptv"/>
+                style="@style/TextGray12sptv"
+                android:id="@+id/question_detail_time_tv" />
         </RelativeLayout>
     </RelativeLayout>
 </LinearLayout>

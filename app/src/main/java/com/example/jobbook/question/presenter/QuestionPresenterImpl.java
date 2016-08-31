@@ -1,5 +1,7 @@
 package com.example.jobbook.question.presenter;
 
+import android.util.Log;
+
 import com.example.jobbook.bean.QuestionBean;
 import com.example.jobbook.question.model.QuestionModel;
 import com.example.jobbook.question.model.QuestionModelImpl;
@@ -21,9 +23,10 @@ public class QuestionPresenterImpl implements QuestionPresenter,QuestionModelImp
     }
 
     @Override
-    public void loadQuestion() {
+    public void loadQuestion(int pageIndex) {
         mQuestionView.showProgress();
-        mQuestionModel.loadQuestions(this);
+        Log.i("question", "showprogress");
+        mQuestionModel.loadQuestions(pageIndex, this);
     }
 
     @Override

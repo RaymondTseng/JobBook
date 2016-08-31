@@ -14,14 +14,5 @@
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="72dp"/>
 
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:gravity="center_vertical"
-            android:layout_marginRight="16dp"
-            android:src="@mipmap/add"
-            android:background="@color/colorBlue"
-            android:id="@+id/question_add_ib" />
     </RelativeLayout>
 </LinearLayout>

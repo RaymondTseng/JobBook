@@ -5,5 +5,5 @@ package com.example.jobbook.question.presenter;
  */
 public interface QuestionPresenter {
 
-    void loadQuestion();
+    void loadQuestion(int pageIndex);
 }

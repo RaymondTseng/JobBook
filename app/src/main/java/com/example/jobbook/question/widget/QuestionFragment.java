@@ -1,8 +1,12 @@
 package com.example.jobbook.question.widget;
 
+import android.app.Application;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -14,17 +18,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.AdapterView;
-import android.widget.ListView;
 
+import com.example.jobbook.MyApplication;
 import com.example.jobbook.R;
-import com.example.jobbook.bean.JobBean;
 import com.example.jobbook.bean.QuestionBean;
 import com.example.jobbook.commons.Urls;
-import com.example.jobbook.job.JobsAdapter;
-import com.example.jobbook.job.widget.JobDetailActivity;
 import com.example.jobbook.question.QuestionAdapter;
-import com.example.jobbook.question.QuestionListViewAdapter;
 import com.example.jobbook.question.presenter.QuestionPresenter;
 import com.example.jobbook.question.presenter.QuestionPresenterImpl;
 import com.example.jobbook.question.view.QuestionView;
@@ -40,17 +39,28 @@ import java.util.List;
 public class QuestionFragment extends Fragment implements QuestionView,
 SwipeRefreshLayout.OnRefreshListener{
 
+    private static int REFRESH = 1;
+
     private RecyclerView mRecyclerView;
     private SwipeRefreshLayout mSwipeRefreshLayout;
-    private ImageButton mNewQuestionImageButton;
+    private FloatingActionButton mNewQuestionFAB;
     private QuestionPresenter mQuestionPresenter;
     private List<QuestionBean> mData;
     private View view;
     private QuestionAdapter mAdapter;
     private LinearLayoutManager mLayoutManager;
+    private MyApplication myApplication;
 
     private int pageIndex = 0;
 
+    final Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            if(msg.what == REFRESH){
+                onRefresh();
+            }
+        }
+    };
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -62,7 +72,7 @@ SwipeRefreshLayout.OnRefreshListener{
 
     public void initViews(View view) {
         mRecyclerView = (RecyclerView) view.findViewById(R.id.question_rv);
-        mNewQuestionImageButton = (ImageButton) view.findViewById(R.id.question_add_ib);
+        mNewQuestionFAB = (FloatingActionButton) view.findViewById(R.id.question_add_fab);
         mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.question_swipe_container);
     }
 
@@ -70,6 +80,8 @@ SwipeRefreshLayout.OnRefreshListener{
         mSwipeRefreshLayout.setOnRefreshListener(this);
         mQuestionPresenter = new QuestionPresenterImpl(this);
         mLayoutManager = new LinearLayoutManager(getActivity());
+        mSwipeRefreshLayout.setProgressViewOffset(false, 0, Util.getHeight(getActivity()) / 4);
+        mSwipeRefreshLayout.setColorSchemeResources(R.color.colorBlue);
         mAdapter = new QuestionAdapter(getActivity().getApplicationContext());
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST));
         mRecyclerView.setHasFixedSize(true);
@@ -78,11 +90,12 @@ SwipeRefreshLayout.OnRefreshListener{
         mAdapter.setOnItemClickListener(mOnItemClickListener);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.addOnScrollListener(mOnScrollListener);
-        mNewQuestionImageButton.setOnClickListener(new View.OnClickListener() {
+        mNewQuestionFAB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), NewQuestionActivity.class);
-                startActivity(intent);
+                myApplication = (MyApplication) getActivity().getApplication();
+                myApplication.setHandler(handler);
+                Util.toAnotherActivity(getActivity(), NewQuestionActivity.class);
             }
         });
         onRefresh();
@@ -106,7 +119,7 @@ SwipeRefreshLayout.OnRefreshListener{
                     && mAdapter.ismShowFooter()) {
                 //加载更多
                 Log.i("question_fragment", "loading more data");
-                mQuestionPresenter.loadQuestion();
+                mQuestionPresenter.loadQuestion(pageIndex);
             }
         }
     };
@@ -132,7 +145,7 @@ SwipeRefreshLayout.OnRefreshListener{
         if(mData == null){
             mData = new ArrayList<>();
         }
-        mData = questionList;
+        mData.addAll(questionList);
         if(pageIndex == 0) {
             mAdapter.updateData(mData);
         } else {
@@ -175,6 +188,6 @@ SwipeRefreshLayout.OnRefreshListener{
         if(mData != null){
             mData.clear();
         }
-        mQuestionPresenter.loadQuestion();
+        mQuestionPresenter.loadQuestion(pageIndex);
     }
 }

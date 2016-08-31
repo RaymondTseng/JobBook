@@ -1,12 +1,15 @@
 package com.example.jobbook.question.model;
 
+import com.example.jobbook.bean.QuestionBean;
+import com.example.jobbook.bean.QuestionCommentBean;
+
 /**
  * Created by 椰树 on 2016/7/16.
  */
 public interface QuestionDetailModel {
-    void loadQuestion(String url, QuestionDetailModelImpl.OnLoadQuestionListener mListener);
+    void loadQuestionComments(int id, QuestionDetailModelImpl.OnLoadQuestionCommentsListener mListener);
 
-    void loadComments(String url, QuestionDetailModelImpl.OnLoadQuestionCommentsListener mListener);
+    void loadQuestion(QuestionBean questionBean, QuestionDetailModelImpl.OnLoadQuestionListener mListener);
 
-    void sendComment(String url, QuestionDetailModelImpl.OnSendQuestionCommentListener mListener);
+    void sendComment(QuestionCommentBean questionCommentBean, QuestionDetailModelImpl.OnSendQuestionCommentListener mListener);
 }

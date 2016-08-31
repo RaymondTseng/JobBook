@@ -116,6 +116,7 @@ public class ArticleFragment extends Fragment implements ArticleView, View.OnCli
         adapter.setOnItemClickListener(mOnItemClickListener);
         mRecyclerView.setAdapter(adapter);
         mRecyclerView.addOnScrollListener(mOnScrollListener);
+        mSwipeRefreshLayout.setProgressViewOffset(false, 0, Util.getHeight(getActivity()) / 4);
         onRefresh();
     }
 

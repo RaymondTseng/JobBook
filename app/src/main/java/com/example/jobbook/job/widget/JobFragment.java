@@ -84,6 +84,7 @@ public class JobFragment extends Fragment implements JobView, View.OnFocusChange
         mRecyclerView.addOnScrollListener(mOnScrollListener);
         mEditText.setFocusable(false);
         mEditText.setOnClickListener(this);
+        mSwipeRefreshLayout.setProgressViewOffset(false, 0, Util.getHeight(getActivity()) / 4);
         onRefresh();
     }
 

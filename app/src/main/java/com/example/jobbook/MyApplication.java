@@ -2,6 +2,7 @@ package com.example.jobbook;
 
 import android.app.Application;
 import android.content.Context;
+import android.os.Handler;
 import android.util.Log;
 
 import com.example.jobbook.bean.PersonBean;
@@ -19,6 +20,8 @@ public class MyApplication extends Application {
     private static PersonBean mPersonBean;
 
     private static int mLoginStatus = 0;
+
+    private Handler handler = null;
 
     public static PersonBean getmPersonBean() {
         return mPersonBean;
@@ -38,6 +41,14 @@ public class MyApplication extends Application {
     public static void setmNoLoginStatus() {
         mLoginStatus = 0;
         mPersonBean = null;
+    }
+
+    public Handler getHandler() {
+        return handler;
+    }
+
+    public void setHandler(Handler handler) {
+        this.handler = handler;
     }
 
     @Override

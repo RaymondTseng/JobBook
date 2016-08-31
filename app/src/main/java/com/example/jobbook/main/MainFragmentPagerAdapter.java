@@ -68,5 +68,9 @@ public class MainFragmentPagerAdapter extends FragmentPagerAdapter {
         notifyDataSetChanged();
     }
 
+    public void sendArguments(int position, Bundle bundle){
+        mFragments.get(position).setArguments(bundle);
+    }
+
 }
 
