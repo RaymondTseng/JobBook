@@ -3,8 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorWhite"
-    android:weightSum="568"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:weightSum="568">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,9 +16,8 @@
             android:id="@+id/job_search_activity_back_ib"
             android:layout_width="56dp"
             android:layout_height="56dp"
-            android:src="@mipmap/left_blue"
             android:background="@null"
-            />
+            android:src="@mipmap/left_blue" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -49,12 +48,22 @@
     </LinearLayout>
 
 
-    <ImageView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="512"
-        android:background="#C7C4BE"
-        android:alpha="1"/>
+        android:background="#C7C4BE">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/job_search_activity_rv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:dividerHeight="2dp"
+            android:scrollbars="vertical">
+
+        </android.support.v7.widget.RecyclerView>
+
+    </LinearLayout>
 
 
 </LinearLayout>
