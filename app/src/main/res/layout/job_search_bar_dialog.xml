@@ -47,14 +47,14 @@
         android:id="@+id/job_search_record_lv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#ffffff"
+        android:background="@color/colorWhite"
         android:layout_below="@+id/search_ll"></ListView>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_below="@+id/job_search_record_lv"
-        android:background="#ffffff"
+        android:background="@color/colorWhite"
         >
 
         <TextView
