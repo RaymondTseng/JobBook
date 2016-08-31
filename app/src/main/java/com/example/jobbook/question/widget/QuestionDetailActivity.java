@@ -71,7 +71,6 @@ public class QuestionDetailActivity extends Activity implements QuestionDetailVi
         mBackImageButton.setOnClickListener(this);
         mSendImageButton.setOnClickListener(this);
         mListView.setAdapter(mAdapter);
-        Util.setListViewHeightBasedOnChildren(mListView);
     }
 
     @Override
@@ -91,6 +90,7 @@ public class QuestionDetailActivity extends Activity implements QuestionDetailVi
     @Override
     public void addComments(List<QuestionCommentBean> mComments) {
         mAdapter.updateData(mComments);
+        Util.setListViewHeightBasedOnChildren(mListView);
     }
 
     @Override
