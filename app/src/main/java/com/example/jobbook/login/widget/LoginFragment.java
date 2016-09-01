@@ -82,10 +82,6 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Log
         }
     }
 
-//    public void onRegisterClick(View view) {
-//        switch2Register();
-//    }
-
     @Override
     public void showProgress() {
 

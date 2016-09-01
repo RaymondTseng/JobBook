@@ -7,6 +7,9 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 
 /**
  * Created by Xu on 2016/8/29.
@@ -27,9 +30,9 @@ public class ImageLoadUtils {
         }
 //        Glide.with(context).load(url).placeholder(R.drawable.ic_image_loading)
 //                .error(R.drawable.ic_image_loadfail).crossFade().into(imageView);
-//        Log.i("image_url", url);
+        Log.i("image_url", url);
 //        Glide.with(context).load(url).diskCacheStrategy(DiskCacheStrategy.ALL).skipMemoryCache(true).crossFade(100).into(imageView);
-        Glide.with(context).load(url).diskCacheStrategy(DiskCacheStrategy.NONE).skipMemoryCache(true).into(imageView);
+        Glide.with(context).load(url).diskCacheStrategy(DiskCacheStrategy.ALL).skipMemoryCache(true).into(imageView);
     }
 
 }

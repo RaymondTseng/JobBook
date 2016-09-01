@@ -4,7 +4,6 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
-
     <application
         android:allowBackup="true"
         android:name=".MyApplication"
@@ -13,6 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         >
+
+        <meta-data
+            android:name="com.example.jobbook.util.MyGlideModule"
+            android:value="GlideModule" />
 
         <activity android:name=".main.widget.MainActivity"
             android:windowSoftInputMode="adjustPan|adjustResize">
@@ -38,6 +41,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".question.widget.QuestionDetailActivity"
+            android:windowSoftInputMode="adjustResize"
             android:screenOrientation="portrait" />
         <activity
             android:name=".chat.widget.ChatActivity"

@@ -194,7 +194,6 @@ public class Util {
         SharedPreferences.Editor editor = share.edit();
         for (int i = index; i < newSearchRecord.size(); i++) {
             editor.putString(i + "", newSearchRecord.get(i));
-            Log.i("set_data", "index:" + i + ",data:" + share.getString("" + i, ""));
         }
         editor.commit();
     }
