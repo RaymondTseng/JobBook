@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:paddingTop="3dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#666666">
+    android:background="#666666"
+    android:paddingTop="3dp">
 
     <LinearLayout
         android:id="@+id/search_ll"
@@ -24,7 +24,7 @@
             android:layout_height="50dp"
             android:layout_weight="1"
             android:background="@null"
-            android:src="@mipmap/left_blue" />
+            android:src="@mipmap/left_grey" />
 
         <EditText
             android:id="@+id/job_search_bar_dialog_et"
@@ -39,32 +39,31 @@
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_weight="1"
-            android:background="@color/colorBlue"
-            android:src="@mipmap/search" />
+            android:background="@color/colorWhite"
+            android:src="@mipmap/search_grey" />
     </LinearLayout>
 
     <ListView
         android:id="@+id/job_search_record_lv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorWhite"
-        android:layout_below="@+id/search_ll"></ListView>
+        android:layout_below="@+id/search_ll"
+        android:background="@color/colorWhite"></ListView>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_below="@+id/job_search_record_lv"
-        android:background="@color/colorWhite"
-        >
+        android:background="@color/colorWhite">
 
         <TextView
             android:id="@+id/job_search_remove_record_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:text="清除历史记录"
-            android:textSize="16sp"
             android:textColor="#000000"
-            android:layout_gravity="center"/>
+            android:textSize="16sp" />
 
     </FrameLayout>
 

@@ -6,19 +6,19 @@
     <ImageView
         android:layout_width="16dp"
         android:layout_height="16dp"
-        android:background="@mipmap/time"
-        android:layout_marginTop="15dp"
         android:layout_marginBottom="15dp"
-        android:layout_marginLeft="14dp"/>
+        android:layout_marginLeft="14dp"
+        android:layout_marginTop="15dp"
+        android:background="@mipmap/time" />
 
     <TextView
+        android:id="@+id/job_search_item_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="我的未来"
-        android:layout_marginTop="15dp"
         android:layout_marginBottom="15dp"
         android:layout_marginLeft="16dp"
-        />
+        android:layout_marginTop="15dp"
+        android:text="我的未来" />
 
 
 </LinearLayout>

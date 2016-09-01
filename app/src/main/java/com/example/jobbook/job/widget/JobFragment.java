@@ -189,10 +189,10 @@ public class JobFragment extends Fragment implements JobView, View.OnFocusChange
     @Override
     public void onRefresh() {
         Log.i("TAG", "onRefresh");
-//        pageIndex = 0;
-//        if(list != null){
-//            list.clear();
-//        }
+        pageIndex = 0;
+        if(list != null){
+            list.clear();
+        }
         mJobPresenter.loadJobs(pageIndex);
     }
 }

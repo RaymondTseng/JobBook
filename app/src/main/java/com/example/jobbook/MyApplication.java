@@ -8,6 +8,7 @@ import android.util.Log;
 import com.example.jobbook.bean.PersonBean;
 import com.zhy.http.okhttp.OkHttpUtils;
 
+import java.util.LinkedList;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
@@ -28,13 +29,39 @@ public class MyApplication extends Application {
     }
 
     public static void setmPersonBean(PersonBean personBean) {
-        if(personBean != null){
+        if (personBean != null) {
             mPersonBean = personBean;
             mLoginStatus = 1;
         }
     }
 
-    public static int getmLoginStatus(){
+//    public static LinkedList<String> getmSearchRecordList() {
+//        return mSearchRecordList;
+//    }
+//
+//    public static void setmSearchRecordList(LinkedList<String> list) {
+//        if (list != null) {
+//            mSearchRecordList = list;
+//        }
+//    }
+//
+//    public static void addmSearchRecordList(String item) {
+//        if (item != null) {
+//            if (mSearchRecordList.size() <= 10) {
+//                mSearchRecordList.add(item);
+//            }else {
+//                int index = mSearchRecordList.size() - 10;
+//                while(index != 0) {
+//                    mSearchRecordList.removeFirst();
+//                    index --;
+//                }
+//                mSearchRecordList.addLast(item);
+//            }
+//        }
+//    }
+
+
+    public static int getmLoginStatus() {
         return mLoginStatus;
     }
 
@@ -52,8 +79,7 @@ public class MyApplication extends Application {
     }
 
     @Override
-    public void onCreate()
-    {
+    public void onCreate() {
         super.onCreate();
 
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
