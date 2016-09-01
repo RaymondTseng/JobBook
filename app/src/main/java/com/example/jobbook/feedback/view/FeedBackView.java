@@ -9,7 +9,5 @@ public interface FeedBackView {
 
     void showSuccess();
 
-    void switch2Main();
-
     void back();
 }

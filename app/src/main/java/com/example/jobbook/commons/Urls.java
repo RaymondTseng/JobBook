@@ -9,7 +9,7 @@ public class Urls {
 
     public static final String ID = "http://192.168.8.20";
 
-    public static final String REGISTER_URL = ID + "/jobBook/index.php/Home/enter/doRegister";
+    public static final String REGISTER_URL = ID + "/jobBook/Home/enter/doRegister/";
 
     public static final String LOGIN_URL = ID + "/jobBook/Home/enter/doLogin";
 
@@ -35,6 +35,10 @@ public class Urls {
 
     public static final String SEARCH_URL = ID + "/jobBook/Home/job/search/keyword/";
 
+    public static final String GET_CODE_URL = ID + "/jobBook/Home/enter/verify";
 
+    public static final String FEED_BACK_URL = ID + "";
+
+    public static final String FAVOURITE_URL = ID + "";
 
 }

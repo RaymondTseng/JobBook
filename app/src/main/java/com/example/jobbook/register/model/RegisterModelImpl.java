@@ -6,6 +6,7 @@ import android.util.Log;
 import com.example.jobbook.bean.PersonBean;
 import com.example.jobbook.bean.ResultBean;
 import com.example.jobbook.commons.Urls;
+import com.example.jobbook.util.Util;
 import com.google.gson.Gson;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
@@ -18,7 +19,8 @@ import okhttp3.Call;
 public class RegisterModelImpl implements RegisterModel {
 
     @Override
-    public void register(final String account, final String password, final String passwordConfirm, final OnRegisterFinishedListener listener) {
+    public void register(final String account, final String userName, final String telephone, final String password,
+                         final String passwordConfirm, final String code, final OnRegisterFinishedListener listener) {
         if (TextUtils.isEmpty(account)) {
             listener.onAccountBlankError();
         } else if (TextUtils.isEmpty(password)) {
@@ -27,11 +29,23 @@ public class RegisterModelImpl implements RegisterModel {
             listener.onPwdConfirmBlankError();
         } else if (!password.equals(passwordConfirm)) {
             listener.onPwdNotEqualError();
-        } else {
+        }else if(TextUtils.isEmpty(userName)){
+            listener.onUserNameBlankError();
+        }else if(TextUtils.isEmpty(telephone)){
+            listener.onTelephoneBlankError();
+        }else if(TextUtils.isEmpty(code)) {
+            listener.onCodeBlankError();
+        }else if(Util.illegalCharactersCheck(account)){
+            listener.onAccountIllegalError();
+        }
+        else {
             PersonBean personBean = new PersonBean();
             personBean.setAccount(account);
             personBean.setPassword(password);
-            OkHttpUtils.postString().url(Urls.REGISTER_URL).content(new Gson().toJson(personBean)).build().execute(new StringCallback() {
+            personBean.setUsername(userName);
+            personBean.setTelephone(telephone);
+            OkHttpUtils.postString().url(Urls.REGISTER_URL + "code/" + code).content(new Gson().
+                    toJson(personBean)).build().execute(new StringCallback() {
                 @Override
                 public void onError(Call call, Exception e, int id) {
                     Log.i("response", e.toString());
@@ -48,7 +62,10 @@ public class RegisterModelImpl implements RegisterModel {
                             Log.i("receive", "response is null");
                             if(personBean.getAccount().equals("Have Registered!")){
                                 listener.onAccountExistError();
-                            }else{
+                            }else if(personBean.getAccount().equals("Verify Wrong!")){
+                                listener.onCodeError();
+                            }
+                            else{
                                 listener.onNetworkError();
                             }
                         }else{
@@ -64,8 +81,15 @@ public class RegisterModelImpl implements RegisterModel {
         }
     }
 
+
     public interface OnRegisterFinishedListener {
+        void onAccountIllegalError();
+
         void onAccountBlankError();
+
+        void onUserNameBlankError();
+
+        void onTelephoneBlankError();
 
         void onPwdBlankError();
 
@@ -73,10 +97,15 @@ public class RegisterModelImpl implements RegisterModel {
 
         void onPwdNotEqualError();
 
+        void onCodeBlankError();
+
+        void onCodeError();
+
         void onAccountExistError();
 
         void onSuccess(PersonBean personBean);
 
         void onNetworkError();
+
     }
 }

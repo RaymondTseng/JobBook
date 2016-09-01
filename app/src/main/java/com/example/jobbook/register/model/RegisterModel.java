@@ -6,5 +6,7 @@ package com.example.jobbook.register.model;
  */
 public interface RegisterModel {
 
-    void register(String account, String password, String passwordConfirm, RegisterModelImpl.OnRegisterFinishedListener listener);
+    void register(String account,String userName, String email, String password,
+                  String passwordConfirm, String code, RegisterModelImpl.OnRegisterFinishedListener listener);
+
 }

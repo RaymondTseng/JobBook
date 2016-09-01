@@ -25,13 +25,12 @@ public class FeedBackPresenterImpl implements FeedBackPresenter, FeedBackModelIm
     @Override
     public void onSuccess() {
         mFeedBackView.showSuccess();
-        mFeedBackView.switch2Main();
+        mFeedBackView.back();
     }
 
     @Override
     public void onFailure() {
         mFeedBackView.showError();
-        mFeedBackView.back();
     }
 
 }

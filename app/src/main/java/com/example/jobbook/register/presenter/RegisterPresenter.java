@@ -5,7 +5,9 @@ package com.example.jobbook.register.presenter;
  */
 public interface RegisterPresenter {
 
-    void registerCheck(String account, String password, String passwordConfirm);
+    void registerCheck(String account,String userName, String email, String password,
+                       String passwordConfirm, String code);
 
     void destroy();
+
 }

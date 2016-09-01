@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.design.widget.Snackbar;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -48,8 +49,8 @@ public class FeedBackActivity extends Activity implements FeedBackView, View.OnC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_suggestion_feedback);
-        mFeedBackPresenter = new FeedBackPresenterImpl(this);
         initViews();
+        initEvents();
     }
 
     private void initViews() {
@@ -61,19 +62,35 @@ public class FeedBackActivity extends Activity implements FeedBackView, View.OnC
         mBackImageButton.setOnClickListener(this);
     }
 
+    private void initEvents(){
+        mFeedBackPresenter = new FeedBackPresenterImpl(this);
+        mFeedBackTextView.setOnClickListener(this);
+        mBackImageButton.setOnClickListener(this);
+        mFeedBackMailEditText.addTextChangedListener(this);
+        mFeedBackContentEditText.addTextChangedListener(this);
+    }
+
     @Override
     public void showError() {
-
+        showSnackbar("提交失败!");
     }
 
     @Override
     public void showSuccess() {
-
+        showSnackbar("提交成功！");
     }
 
-    @Override
-    public void switch2Main() {
+    private void showSnackbar(String content){
+        View view = getWindow().getDecorView();
+        final Snackbar snackbar = Snackbar.make(view, content, Snackbar.LENGTH_LONG);
+        snackbar.setAction("dismiss", new View.OnClickListener() {
 
+            @Override
+            public void onClick(View v) {
+                snackbar.dismiss();
+            }
+        });
+        snackbar.show();
     }
 
     @Override
