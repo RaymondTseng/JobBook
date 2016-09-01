@@ -17,7 +17,7 @@
             android:layout_width="56dp"
             android:layout_height="56dp"
             android:background="@null"
-            android:src="@mipmap/left_blue" />
+            android:src="@mipmap/left_grey" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -40,8 +40,8 @@
                 android:layout_width="0dp"
                 android:layout_height="56dp"
                 android:layout_weight="1"
-                android:background="@color/colorBlue"
-                android:src="@mipmap/search" />
+                android:background="@color/colorWhite"
+                android:src="@mipmap/search_grey" />
 
         </LinearLayout>
 

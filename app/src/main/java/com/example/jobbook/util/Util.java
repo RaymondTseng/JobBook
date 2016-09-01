@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
@@ -23,23 +24,24 @@ import java.util.Queue;
  */
 public class Util {
 
-    private static LinkedList<String> searchRecords = new LinkedList<>();
-
-    public static void toAnotherActivity(Context mContext, Class<?> cls){
+    public static void toAnotherActivity(Context mContext, Class<?> cls) {
         Intent intent = new Intent(mContext, cls);
         mContext.startActivity(intent);
     }
-    public static void toAnotherActivity(Context mContext, Class<?> cls, Bundle bundle){
+
+    public static void toAnotherActivity(Context mContext, Class<?> cls, Bundle bundle) {
         Intent intent = new Intent(mContext, cls);
         intent.putExtras(bundle);
         mContext.startActivity(intent);
     }
+
     /**
      * 动态设置ListView的高度
+     *
      * @param listView
      */
     public static void setListViewHeightBasedOnChildren(ListView listView) {
-        if(listView == null) return;
+        if (listView == null) return;
         ListAdapter listAdapter = listView.getAdapter();
         if (listAdapter == null) {
             // pre-condition
@@ -74,22 +76,24 @@ public class Util {
 
     /**
      * 检测错误类型
+     *
      * @param error
      * @return
      */
-    public static boolean checkError(String error){
+    public static boolean checkError(String error) {
         return false;
     }
 
     /**
      * 检测账号是否有非法字符
+     *
      * @param str
      * @return
      */
-    public static boolean illegalCharactersCheck(String str){
+    public static boolean illegalCharactersCheck(String str) {
         String[] illegalCharacters = Constants.illegalCharacters;
-        for(String illegalCharacter : illegalCharacters){
-            if(str.contains(illegalCharacter)){
+        for (String illegalCharacter : illegalCharacters) {
+            if (str.contains(illegalCharacter)) {
                 return true;
             }
         }
@@ -98,19 +102,21 @@ public class Util {
 
     /**
      * 获取登录状态
+     *
      * @return
      */
-    public static int getLoginStatus(){
+    public static int getLoginStatus() {
         return MyApplication.getmLoginStatus();
     }
 
     /**
      * 加载已存在的PersonBean
+     *
      * @param share
      * @param personBean
      * @return
      */
-    public static PersonBean loadPersonBean(SharedPreferences share, PersonBean personBean){
+    public static PersonBean loadPersonBean(SharedPreferences share, PersonBean personBean) {
         personBean = new PersonBean();
         personBean.setAccount(share.getString("account", ""));
         personBean.setPassword(share.getString("password", ""));
@@ -124,10 +130,11 @@ public class Util {
 
     /**
      * 保存新注册或登录的PersonBean
+     *
      * @param share
      * @param personBean
      */
-    public static void savePersonBean(SharedPreferences share, PersonBean personBean){
+    public static void savePersonBean(SharedPreferences share, PersonBean personBean) {
         SharedPreferences.Editor edit = share.edit(); //编辑文件
         edit.putString("account", personBean.getAccount());
         edit.putString("password", personBean.getPassword());
@@ -137,6 +144,7 @@ public class Util {
 
     /**
      * 获取屏幕高度
+     *
      * @param context
      * @return
      */
@@ -147,11 +155,12 @@ public class Util {
 
     /**
      * 截取文章作为预览
+     *
      * @param content
      * @return
      */
-    public static String subContent(String content){
-        if(content.length() < 100){
+    public static String subContent(String content) {
+        if (content.length() < 100) {
             return content;
         }
         String result = content.substring(0, 100);
@@ -161,8 +170,45 @@ public class Util {
 
     /**
      * 返回搜索纪录
+     * @param share
      * @return
      */
+    public static LinkedList<String> getSearchList(SharedPreferences share) {
+        LinkedList<String> searchRecord = new LinkedList<>();
+        int index = 0;
+        while (!TextUtils.isEmpty(share.getString(index + "", ""))) {
+            searchRecord.add(share.getString(index + "", ""));
+            index++;
+        }
+        return searchRecord;
+    }
 
+    /**
+     * 设置搜索记录
+     * @param share
+     * @param newSearchRecord
+     */
+    public static void setSearchList(SharedPreferences share, LinkedList<String> newSearchRecord) {
+        LinkedList<String> searchRecord = Util.getSearchList(share);
+        int index = searchRecord.size();
+        SharedPreferences.Editor editor = share.edit();
+        for (int i = index; i < newSearchRecord.size(); i++) {
+            editor.putString(i + "", newSearchRecord.get(i));
+            Log.i("set_data", "index:" + i + ",data:" + share.getString("" + i, ""));
+        }
+        editor.commit();
+    }
+
+    /**
+     * 清空搜索记录
+     * @param share
+     */
+    public static void clearSearchList(SharedPreferences share) {
+        if(Util.getSearchList(share) != null) {
+            SharedPreferences.Editor editor = share.edit();
+            editor.clear();
+            editor.commit();
+        }
+    }
 
 }

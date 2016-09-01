@@ -2,34 +2,48 @@ package com.example.jobbook.search.widget;
 
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.jobbook.R;
+import com.example.jobbook.search.SearchRecordListViewAdapter;
 import com.example.jobbook.util.Util;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
  * Created by Xu on 2016/8/24.
  */
-public class SearchDialogFragment extends DialogFragment {
+public class SearchDialogFragment extends DialogFragment implements View.OnClickListener{
 
     private ListView mRecordListView;
     private TextView mRemoveRecordTextView;
+    private ImageButton mBackImageButton;
+    private EditText mEditText;
+    private ImageButton mSearchImageButton;
+    private View view;
+    private SearchRecordListViewAdapter adapter;
+    private LinkedList<String> list;
+    private SharedPreferences sharedPreferences;
 
     @Nullable
     @Override
@@ -43,24 +57,25 @@ public class SearchDialogFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.job_search_bar_dialog, null);
+        view = inflater.inflate(R.layout.job_search_bar_dialog, null);
         initViews(view);
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity()).setView(view);
-        ImageButton mBackImageButton = (ImageButton) view.findViewById(R.id.job_search_bar_dialog_back_ib);
-        final EditText mEditText = (EditText) view.findViewById(R.id.job_search_bar_dialog_et);
-        ImageButton mSearchImageButton = (ImageButton) view.findViewById(R.id.job_search_bar_dialog_search_ib);
-        mBackImageButton.setOnClickListener(new View.OnClickListener() {
+        mBackImageButton.setOnClickListener(this);
+        list = new LinkedList<>();
+        sharedPreferences = getActivity().getSharedPreferences("search", Context.MODE_PRIVATE);
+        if (Util.getSearchList(sharedPreferences).size() != 0) {
+            list = Util.getSearchList(sharedPreferences);
+            adapter = new SearchRecordListViewAdapter(getActivity(), list);
+            mRecordListView.setAdapter(adapter);
+        }
+        mSearchImageButton.setOnClickListener(this);
+        mRemoveRecordTextView.setOnClickListener(this);
+        mRecordListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(View v) {
-                dismiss();
-            }
-        });
-        mSearchImageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getActivity(), SearchActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putString("content", mEditText.getText().toString());
+                bundle.putString("content", list.get(list.size() - position - 1));
                 intent.putExtras(bundle);
                 startActivity(intent);
                 dismiss();
@@ -72,6 +87,9 @@ public class SearchDialogFragment extends DialogFragment {
     private void initViews(View view) {
         mRecordListView = (ListView) view.findViewById(R.id.job_search_record_lv);
         mRemoveRecordTextView = (TextView) view.findViewById(R.id.job_search_remove_record_tv);
+        mBackImageButton = (ImageButton) view.findViewById(R.id.job_search_bar_dialog_back_ib);
+        mEditText = (EditText) view.findViewById(R.id.job_search_bar_dialog_et);
+        mSearchImageButton = (ImageButton) view.findViewById(R.id.job_search_bar_dialog_search_ib);
     }
 
     @Override
@@ -83,4 +101,33 @@ public class SearchDialogFragment extends DialogFragment {
         getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(0xff000000));
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.job_search_bar_dialog_back_ib:
+                dismiss();
+                break;
+
+            case R.id.job_search_bar_dialog_search_ib:
+                if (!TextUtils.isEmpty(mEditText.getText().toString())) {
+                    list.add(mEditText.getText().toString());
+                    Log.i("search_dialog", "size=" + list.size() + ",add data:" + mEditText.getText().toString());
+                    Util.setSearchList(sharedPreferences, list);
+                }
+                Intent intent = new Intent(getActivity(), SearchActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("content", mEditText.getText().toString());
+                intent.putExtras(bundle);
+                startActivity(intent);
+                dismiss();
+                break;
+
+            case R.id.job_search_remove_record_tv:
+                Util.clearSearchList(sharedPreferences);
+                adapter.clearData();
+                Util.setSearchList(sharedPreferences, list = new LinkedList<>());
+                break;
+
+        }
+    }
 }
