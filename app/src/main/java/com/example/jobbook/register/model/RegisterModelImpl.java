@@ -29,21 +29,21 @@ public class RegisterModelImpl implements RegisterModel {
             listener.onPwdConfirmBlankError();
         } else if (!password.equals(passwordConfirm)) {
             listener.onPwdNotEqualError();
-        }else if(TextUtils.isEmpty(userName)){
+        } else if (TextUtils.isEmpty(userName)) {
             listener.onUserNameBlankError();
-        }else if(TextUtils.isEmpty(telephone)){
+        } else if (TextUtils.isEmpty(telephone)) {
             listener.onTelephoneBlankError();
-        }else if(TextUtils.isEmpty(code)) {
+        } else if (TextUtils.isEmpty(code)) {
             listener.onCodeBlankError();
-        }else if(Util.illegalCharactersCheck(account)){
+        } else if (Util.illegalCharactersCheck(account)) {
             listener.onAccountIllegalError();
-        }
-        else {
+        } else {
             PersonBean personBean = new PersonBean();
             personBean.setAccount(account);
             personBean.setPassword(password);
             personBean.setUsername(userName);
             personBean.setTelephone(telephone);
+            Log.i("registermodelimpl", Urls.REGISTER_URL + "code/" + code);
             OkHttpUtils.postString().url(Urls.REGISTER_URL + "code/" + code).content(new Gson().
                     toJson(personBean)).build().execute(new StringCallback() {
                 @Override
@@ -60,15 +60,14 @@ public class RegisterModelImpl implements RegisterModel {
                         personBean = new Gson().fromJson(response, PersonBean.class);
                         if (TextUtils.isEmpty(personBean.getPassword())) {
                             Log.i("receive", "response is null");
-                            if(personBean.getAccount().equals("Have Registered!")){
+                            if (personBean.getAccount().equals("Have Registered!")) {
                                 listener.onAccountExistError();
-                            }else if(personBean.getAccount().equals("Verify Wrong!")){
+                            } else if (personBean.getAccount().equals("Verify Wrong!")) {
                                 listener.onCodeError();
-                            }
-                            else{
+                            } else {
                                 listener.onNetworkError();
                             }
-                        }else{
+                        } else {
                             listener.onSuccess(personBean);
                         }
                     } else {

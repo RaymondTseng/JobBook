@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -48,6 +49,7 @@ public class RegisterFragment extends Fragment implements RegisterView, View.OnC
         view = inflater.inflate(R.layout.fragment_register, null);
         initViews(view);
         initEvents();
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         return view;
     }
 
@@ -58,15 +60,17 @@ public class RegisterFragment extends Fragment implements RegisterView, View.OnC
         mEmailEditText = (EditText) view.findViewById(R.id.register_telephone_et);
         mPwdEditText = (EditText) view.findViewById(R.id.register_password_et);
         mPwdAgainEditText = (EditText) view.findViewById(R.id.register_confirm_password_et);
-        mCodeEditText = (EditText) view.findViewById(R.id.register_code_et) ;
+        mCodeEditText = (EditText) view.findViewById(R.id.register_code_et);
         mCloseImageButton = (ImageButton) view.findViewById(R.id.register_close_ib);
         mCodeImageView = (ImageView) view.findViewById(R.id.register_code_iv);
     }
-    private void initEvents(){
+
+    private void initEvents() {
         presenter = new RegisterPresenterImpl(this);
         mRegisterButton.setOnClickListener(this);
         mCloseImageButton.setOnClickListener(this);
         mCodeImageView.setOnClickListener(this);
+        Log.i("registerfragment", "load code:" + Urls.GET_CODE_URL);
         ImageLoadUtils.display(getActivity(), mCodeImageView, Urls.GET_CODE_URL);
     }
 
@@ -155,11 +159,12 @@ public class RegisterFragment extends Fragment implements RegisterView, View.OnC
     @Override
     public void codeError() {
         showSnackbar("验证码错误");
+//        refreshCode();
     }
 
 
-    private void showSnackbar(String content){
-        if(view == null){
+    private void showSnackbar(String content) {
+        if (view == null) {
             view = getActivity().findViewById(R.id.main_layout);
         }
         final Snackbar snackbar = Snackbar.make(view, content, Snackbar.LENGTH_LONG);
@@ -181,15 +186,13 @@ public class RegisterFragment extends Fragment implements RegisterView, View.OnC
                         mUserNameEditText.getText().toString(), mEmailEditText.getText().toString(),
                         mPwdEditText.getText().toString(), mPwdAgainEditText.getText().toString(),
                         mCodeEditText.getText().toString());
-//                switch2Person();
                 break;
             case R.id.register_close_ib:
                 switch2Login();
                 break;
             case R.id.register_code_iv:
                 Log.i("register", "click");
-                mCodeImageView.setImageResource(0);
-                ImageLoadUtils.display(getActivity(), mCodeImageView, Urls.GET_CODE_URL);
+                refreshCode();
                 break;
         }
     }
@@ -198,6 +201,11 @@ public class RegisterFragment extends Fragment implements RegisterView, View.OnC
     public void onDestroy() {
         super.onDestroy();
         presenter.destroy();
+    }
+
+    public void refreshCode() {
+        mCodeImageView.setImageResource(0);
+        ImageLoadUtils.display(getActivity(), mCodeImageView, Urls.GET_CODE_URL);
     }
 
     public interface IRegisterChanged {
