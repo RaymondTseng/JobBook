@@ -62,5 +62,28 @@ public interface RegisterView {
      */
     void accountIllegalError();
 
-//    void changeViewPager();
+    /**
+     * 用户名为空错误
+     */
+    void userNameBlankError();
+
+    /**
+     * 邮箱为空错误
+     */
+    void telephoneBlankError();
+
+    /**
+     * 验证码为空
+     */
+    void codeBlankError();
+
+    /**
+     * 验证码错误
+     */
+    void codeError();
+
+    /**
+     * 加载验证码
+     */
+
 }

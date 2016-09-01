@@ -1,5 +1,6 @@
 package com.example.jobbook.register.presenter;
 
+import android.util.Log;
 import android.widget.Toast;
 
 import com.example.jobbook.bean.PersonBean;
@@ -8,7 +9,8 @@ import com.example.jobbook.register.model.RegisterModelImpl;
 import com.example.jobbook.register.view.RegisterView;
 
 
-public class RegisterPresenterImpl implements RegisterPresenter, RegisterModelImpl.OnRegisterFinishedListener{
+public class RegisterPresenterImpl implements RegisterPresenter, RegisterModelImpl.OnRegisterFinishedListener
+         {
 
     private RegisterModel mRegisterModel;
     private RegisterView mRegisterView;
@@ -19,8 +21,9 @@ public class RegisterPresenterImpl implements RegisterPresenter, RegisterModelIm
     }
 
     @Override
-    public void registerCheck(String account, String password, String passwordConfirm) {
-        mRegisterModel.register(account, password, passwordConfirm, this);
+    public void registerCheck(String account,String userName, String email, String password,
+                              String passwordConfirm, String code) {
+        mRegisterModel.register(account, userName, email, password, passwordConfirm, code, this);
     }
 
     @Override
@@ -29,8 +32,23 @@ public class RegisterPresenterImpl implements RegisterPresenter, RegisterModelIm
     }
 
     @Override
+    public void onAccountIllegalError() {
+        mRegisterView.accountIllegalError();
+    }
+
+    @Override
     public void onAccountBlankError() {
         mRegisterView.accountBlankError();
+    }
+
+    @Override
+    public void onUserNameBlankError() {
+        mRegisterView.userNameBlankError();
+    }
+
+    @Override
+    public void onTelephoneBlankError() {
+        mRegisterView.telephoneBlankError();
     }
 
     @Override
@@ -49,6 +67,16 @@ public class RegisterPresenterImpl implements RegisterPresenter, RegisterModelIm
     }
 
     @Override
+    public void onCodeBlankError() {
+        mRegisterView.codeBlankError();
+    }
+
+    @Override
+    public void onCodeError() {
+        mRegisterView.codeError();
+    }
+
+    @Override
     public void onAccountExistError() {
         mRegisterView.accountExistError();
     }
@@ -63,4 +91,6 @@ public class RegisterPresenterImpl implements RegisterPresenter, RegisterModelIm
     public void onNetworkError() {
         mRegisterView.networkError();
     }
+
+
 }
