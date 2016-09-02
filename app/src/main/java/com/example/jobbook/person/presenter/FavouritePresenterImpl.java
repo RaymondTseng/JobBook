@@ -14,13 +14,14 @@ public class FavouritePresenterImpl implements FavouritePresenter, FavouriteMode
     private FavouriteView mView;
     private FavouriteModel mModel;
 
-    public FavouritePresenterImpl(FavouriteView mView){
+    public FavouritePresenterImpl(FavouriteView mView) {
         this.mView = mView;
         mModel = new FavouriteModelImpl();
     }
+
     @Override
-    public void loadJobs() {
-//       mModel.loadJobs(null, null);
+    public void loadFavouriteJobs(int pageIndex, String accountName) {
+        mModel.loadFavouriteJobs(pageIndex, accountName, this);
     }
 
     @Override
