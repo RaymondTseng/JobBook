@@ -14,6 +14,7 @@ import com.example.jobbook.MyApplication;
 import com.example.jobbook.R;
 import com.example.jobbook.bean.JobBean;
 import com.example.jobbook.bean.JobDetailBean;
+import com.example.jobbook.commons.Constants;
 import com.example.jobbook.job.presenter.JobDetailPresenter;
 import com.example.jobbook.job.presenter.JobDetailPresenterImpl;
 import com.example.jobbook.job.view.JobDetailView;

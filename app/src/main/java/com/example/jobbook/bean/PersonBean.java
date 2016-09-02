@@ -37,30 +37,6 @@ public class PersonBean implements Serializable{
         this.userName = name;
     }
 
-    public List<VideoCV> getVideoCVs() {
-        return videoCVs;
-    }
-
-    public void setVideoCVs(List<VideoCV> videoCVs) {
-        this.videoCVs = videoCVs;
-    }
-
-    public List<TextCV> getTextCVs() {
-        return textCVs;
-    }
-
-    public void setTextCVs(List<TextCV> textCVs) {
-        this.textCVs = textCVs;
-    }
-
-    public List<JobBean> getFavourite() {
-        return favourite;
-    }
-
-    public void setFavourite(List<JobBean> favourite) {
-        this.favourite = favourite;
-    }
-
     public String getAccount() {
 
         return account;
@@ -87,17 +63,6 @@ public class PersonBean implements Serializable{
      * 用户姓名
      */
     private String userName;
-    /**
-     * 视频简历
-     */
-    private List<VideoCV> videoCVs;
-    /**
-     * 文字简历
-     */
-    private List<TextCV> textCVs;
-    /**
-     * 收藏
-     */
-    private List<JobBean> favourite;
+
 
 }

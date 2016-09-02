@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.example.jobbook.R;
 import com.example.jobbook.bean.CompanyBean;
 import com.example.jobbook.bean.CompanyCommentBean;
+import com.example.jobbook.commons.Constants;
 import com.example.jobbook.job.CompanyCommentListViewAdapter;
 import com.example.jobbook.job.presenter.CompanyPresenter;
 import com.example.jobbook.job.presenter.CompanyPresenterImpl;
