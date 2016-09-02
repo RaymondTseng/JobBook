@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -17,7 +18,6 @@ import com.example.jobbook.bean.PersonBean;
 import com.example.jobbook.login.presenter.LoginPresenter;
 import com.example.jobbook.login.presenter.LoginPresenterImpl;
 import com.example.jobbook.login.view.LoginView;
-import com.example.jobbook.main.widget.MainActivity;
 
 
 /**
@@ -38,6 +38,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Log
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_login, null);
         initView(view);
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         presenter = new LoginPresenterImpl(this);
         return view;
     }

@@ -39,6 +39,6 @@ public class Urls {
 
     public static final String FEED_BACK_URL = ID + "";
 
-    public static final String FAVOURITE_URL = ID + "";
+    public static final String FAVOURITE_URL = ID + "/jobBook/Home/person/MyFavourite/account/";
 
 }

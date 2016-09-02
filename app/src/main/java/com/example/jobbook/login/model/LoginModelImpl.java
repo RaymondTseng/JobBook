@@ -36,7 +36,7 @@ public class LoginModelImpl implements LoginModel {
                 @Override
                 public void onResponse(String response, int id) {
                     if(!TextUtils.isEmpty(response)){
-                        Log.i("TAG", response.toString());
+                        Log.i("login_response", response.toString());
                         PersonBean personBean = new Gson().fromJson(response, PersonBean.class);
                         if(personBean.getAccount().equals("Error!")){
                             listener.onUserError();

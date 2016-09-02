@@ -37,7 +37,7 @@ import java.util.List;
  * Created by Xu on 2016/7/5.
  */
 public class QuestionFragment extends Fragment implements QuestionView,
-SwipeRefreshLayout.OnRefreshListener{
+        SwipeRefreshLayout.OnRefreshListener {
 
     private static int REFRESH = 1;
 
@@ -53,14 +53,15 @@ SwipeRefreshLayout.OnRefreshListener{
 
     private int pageIndex = 0;
 
-    final Handler handler = new Handler(){
+    final Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            if(msg.what == REFRESH){
+            if (msg.what == REFRESH) {
                 onRefresh();
             }
         }
     };
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -76,7 +77,7 @@ SwipeRefreshLayout.OnRefreshListener{
         mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.question_swipe_container);
     }
 
-    private void initEvents(){
+    private void initEvents() {
         mSwipeRefreshLayout.setOnRefreshListener(this);
         mQuestionPresenter = new QuestionPresenterImpl(this);
         mLayoutManager = new LinearLayoutManager(getActivity());
@@ -101,7 +102,7 @@ SwipeRefreshLayout.OnRefreshListener{
         onRefresh();
     }
 
-    private RecyclerView.OnScrollListener  mOnScrollListener = new RecyclerView.OnScrollListener(){
+    private RecyclerView.OnScrollListener mOnScrollListener = new RecyclerView.OnScrollListener() {
 
         private int lastVisibleItem;
 
@@ -142,15 +143,15 @@ SwipeRefreshLayout.OnRefreshListener{
     @Override
     public void addQuestions(List<QuestionBean> questionList) {
         mAdapter.setmShowFooter(true);
-        if(mData == null){
+        if (mData == null) {
             mData = new ArrayList<>();
         }
         mData.addAll(questionList);
-        if(pageIndex == 0) {
+        if (pageIndex == 0) {
             mAdapter.updateData(mData);
         } else {
             //如果没有更多数据了,则隐藏footer布局
-            if(questionList == null || questionList.size() == 0) {
+            if (questionList == null || questionList.size() == 0) {
                 mAdapter.setmShowFooter(false);
             }
             mAdapter.notifyDataSetChanged();
@@ -165,7 +166,7 @@ SwipeRefreshLayout.OnRefreshListener{
 
     @Override
     public void showLoadFailMsg() {
-        if(pageIndex == 0) {
+        if (pageIndex == 0) {
             mAdapter.setmShowFooter(false);
             mAdapter.notifyDataSetChanged();
         }
@@ -185,7 +186,7 @@ SwipeRefreshLayout.OnRefreshListener{
     public void onRefresh() {
         Log.i("TAG", "onRefresh");
         pageIndex = 0;
-        if(mData != null){
+        if (mData != null) {
             mData.clear();
         }
         mQuestionPresenter.loadQuestion(pageIndex);
