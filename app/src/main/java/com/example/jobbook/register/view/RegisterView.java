@@ -82,8 +82,5 @@ public interface RegisterView {
      */
     void codeError();
 
-    /**
-     * 加载验证码
-     */
 
 }

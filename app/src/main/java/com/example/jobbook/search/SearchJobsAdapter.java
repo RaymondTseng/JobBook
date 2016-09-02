@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.example.jobbook.R;
 import com.example.jobbook.bean.JobBean;
+import com.example.jobbook.commons.Constants;
 import com.example.jobbook.util.ImageLoadUtils;
 
 import java.util.List;

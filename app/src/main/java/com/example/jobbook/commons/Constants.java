@@ -5,6 +5,10 @@ package com.example.jobbook.commons;
  */
 public class Constants {
 
+    public static final String AppKey = "16b9c665dd7f8";
+
+    public static final String AppSecret = "ff6619fa904b54a03a9aa892187520d2";
+
     public static final String[] illegalCharacters = {"_","\\","-","/","'","%","[","]","^","&"};
 
     public static final String ARTICLE_ALL = "全部板块";
@@ -22,4 +26,8 @@ public class Constants {
     public static final int INDEX_ARTICLE_POLITIC = 2;
 
     public static final int INDEX_ARTICLE_LIFE = 3;
+
+    public static final int CACHE = 1;
+
+    public static final int NO_CACHE = 0;
 }

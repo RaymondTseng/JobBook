@@ -1,5 +1,6 @@
 package com.example.jobbook.register.model;
 
+import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -8,6 +9,8 @@ import com.example.jobbook.bean.ResultBean;
 import com.example.jobbook.commons.Urls;
 import com.example.jobbook.util.Util;
 import com.google.gson.Gson;
+import com.jude.smssdk_mob.Callback;
+import com.jude.smssdk_mob.SMSManager;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -19,7 +22,7 @@ import okhttp3.Call;
 public class RegisterModelImpl implements RegisterModel {
 
     @Override
-    public void register(final String account, final String userName, final String telephone, final String password,
+    public void register(Context mContext, final String account, final String userName, final String telephone, final String password,
                          final String passwordConfirm, final String code, final OnRegisterFinishedListener listener) {
         if (TextUtils.isEmpty(account)) {
             listener.onAccountBlankError();
@@ -38,47 +41,57 @@ public class RegisterModelImpl implements RegisterModel {
         } else if (Util.illegalCharactersCheck(account)) {
             listener.onAccountIllegalError();
         } else {
-            PersonBean personBean = new PersonBean();
-            personBean.setAccount(account);
-            personBean.setPassword(password);
-            personBean.setUsername(userName);
-            personBean.setTelephone(telephone);
-            Log.i("registermodelimpl", Urls.REGISTER_URL + "code/" + code);
-            OkHttpUtils.postString().url(Urls.REGISTER_URL + "code/" + code).content(new Gson().
-                    toJson(personBean)).build().execute(new StringCallback() {
+            SMSManager.getInstance().verifyCode(mContext, "86", telephone, code, new Callback() {
                 @Override
-                public void onError(Call call, Exception e, int id) {
-                    Log.i("response", e.toString());
-                    listener.onNetworkError();
+                public void success() {
+                    PersonBean personBean = new PersonBean();
+                    personBean.setAccount(account);
+                    personBean.setPassword(password);
+                    personBean.setUsername(userName);
+                    personBean.setTelephone(telephone);
+                    Log.i("registermodelimpl", Urls.REGISTER_URL);
+                    OkHttpUtils.postString().url(Urls.REGISTER_URL).content(new Gson().
+                            toJson(personBean)).build().execute(new StringCallback() {
+                        @Override
+                        public void onError(Call call, Exception e, int id) {
+                            Log.i("response", e.toString());
+                            listener.onNetworkError();
+                        }
+
+                        @Override
+                        public void onResponse(String response, int id) {
+                            if (!TextUtils.isEmpty(response)) {
+                                Log.i("TAG", response.toString());
+                                PersonBean personBean = new PersonBean();
+                                personBean = new Gson().fromJson(response, PersonBean.class);
+                                if (TextUtils.isEmpty(personBean.getPassword())) {
+                                    Log.i("receive", "response is null");
+                                    if (personBean.getAccount().equals("Have Registered!")) {
+                                        listener.onAccountExistError();
+                                    } else if (personBean.getAccount().equals("Verify Wrong!")) {
+                                        listener.onCodeError();
+                                    } else {
+                                        listener.onNetworkError();
+                                    }
+                                } else {
+                                    listener.onSuccess(personBean);
+                                }
+                            }
+
+                        }
+                    });
                 }
 
                 @Override
-                public void onResponse(String response, int id) {
-                    if (!TextUtils.isEmpty(response)) {
-                        Log.i("TAG", response.toString());
-                        PersonBean personBean = new PersonBean();
-                        personBean = new Gson().fromJson(response, PersonBean.class);
-                        if (TextUtils.isEmpty(personBean.getPassword())) {
-                            Log.i("receive", "response is null");
-                            if (personBean.getAccount().equals("Have Registered!")) {
-                                listener.onAccountExistError();
-                            } else if (personBean.getAccount().equals("Verify Wrong!")) {
-                                listener.onCodeError();
-                            } else {
-                                listener.onNetworkError();
-                            }
-                        } else {
-                            listener.onSuccess(personBean);
-                        }
-                    } else {
-
-
-                    }
-
+                public void error(Throwable error) {
+                    Log.i("register", "code error");
+                    listener.onCodeError();
                 }
             });
         }
     }
+
+
 
 
     public interface OnRegisterFinishedListener {

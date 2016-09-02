@@ -12,6 +12,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         >
+        <meta-data
+            android:name="SMS_MOB_APPKEY"
+            android:value="16b9c665dd7f8"
+            />
+        <meta-data
+            android:name="SMS_MOB_APPSECRET"
+            android:value="ff6619fa904b54a03a9aa892187520d2"
+            />
 
         <meta-data
             android:name="com.example.jobbook.util.MyGlideModule"

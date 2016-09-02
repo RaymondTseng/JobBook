@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,25 +24,29 @@ import com.example.jobbook.register.presenter.RegisterPresenterImpl;
 import com.example.jobbook.register.view.RegisterView;
 import com.example.jobbook.util.ImageLoadUtils;
 import com.example.jobbook.util.Util;
+import com.jude.smssdk_mob.SMSManager;
+import com.jude.smssdk_mob.TimeListener;
 
 
 /**
  * Created by 椰树 on 2016/6/2.
  */
-public class RegisterFragment extends Fragment implements RegisterView, View.OnClickListener {
+public class RegisterFragment extends Fragment implements RegisterView, View.OnClickListener, TimeListener {
 
     private IRegisterChanged mIRegisterChanged;
     private Button mRegisterButton;
     private EditText mAccountEditText;
     private EditText mUserNameEditText;
-    private EditText mEmailEditText;
+    private EditText mTelEditText;
     private EditText mPwdEditText;
     private EditText mPwdAgainEditText;
     private EditText mCodeEditText;
     private ImageView mCodeImageView;
+    private Button mGetCodeButton;
     private ImageButton mCloseImageButton;
     private RegisterPresenter presenter;
     private View view;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -57,21 +62,21 @@ public class RegisterFragment extends Fragment implements RegisterView, View.OnC
         mRegisterButton = (Button) view.findViewById(R.id.register_register_bt);
         mAccountEditText = (EditText) view.findViewById(R.id.register_account_et);
         mUserNameEditText = (EditText) view.findViewById(R.id.register_username_et);
-        mEmailEditText = (EditText) view.findViewById(R.id.register_telephone_et);
+        mTelEditText = (EditText) view.findViewById(R.id.register_telephone_et);
         mPwdEditText = (EditText) view.findViewById(R.id.register_password_et);
         mPwdAgainEditText = (EditText) view.findViewById(R.id.register_confirm_password_et);
         mCodeEditText = (EditText) view.findViewById(R.id.register_code_et);
         mCloseImageButton = (ImageButton) view.findViewById(R.id.register_close_ib);
-        mCodeImageView = (ImageView) view.findViewById(R.id.register_code_iv);
+        mGetCodeButton = (Button) view.findViewById(R.id.register_code_bt);
     }
 
     private void initEvents() {
         presenter = new RegisterPresenterImpl(this);
         mRegisterButton.setOnClickListener(this);
         mCloseImageButton.setOnClickListener(this);
-        mCodeImageView.setOnClickListener(this);
+        mGetCodeButton.setOnClickListener(this);
         Log.i("registerfragment", "load code:" + Urls.GET_CODE_URL);
-        ImageLoadUtils.display(getActivity(), mCodeImageView, Urls.GET_CODE_URL);
+        SMSManager.getInstance().registerTimeListener(this);
     }
 
     @Override
@@ -162,7 +167,6 @@ public class RegisterFragment extends Fragment implements RegisterView, View.OnC
 //        refreshCode();
     }
 
-
     private void showSnackbar(String content) {
         if (view == null) {
             view = getActivity().findViewById(R.id.main_layout);
@@ -182,17 +186,20 @@ public class RegisterFragment extends Fragment implements RegisterView, View.OnC
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.register_register_bt:
-                presenter.registerCheck(mAccountEditText.getText().toString(),
-                        mUserNameEditText.getText().toString(), mEmailEditText.getText().toString(),
+                presenter.registerCheck(getActivity(), mAccountEditText.getText().toString(),
+                        mUserNameEditText.getText().toString(), mTelEditText.getText().toString(),
                         mPwdEditText.getText().toString(), mPwdAgainEditText.getText().toString(),
                         mCodeEditText.getText().toString());
                 break;
             case R.id.register_close_ib:
                 switch2Login();
                 break;
-            case R.id.register_code_iv:
-                Log.i("register", "click");
-                refreshCode();
+            case R.id.register_code_bt:
+                if(!TextUtils.isEmpty(mTelEditText.getText().toString())){
+                    SMSManager.getInstance().sendMessage(getActivity(), "86", mTelEditText.getText().toString());
+                }else{
+                    codeBlankError();
+                }
                 break;
         }
     }
@@ -201,11 +208,26 @@ public class RegisterFragment extends Fragment implements RegisterView, View.OnC
     public void onDestroy() {
         super.onDestroy();
         presenter.destroy();
+        SMSManager.getInstance().unRegisterTimeListener(this);
     }
 
     public void refreshCode() {
         mCodeImageView.setImageResource(0);
         ImageLoadUtils.display(getActivity(), mCodeImageView, Urls.GET_CODE_URL);
+    }
+
+    @Override
+    public void onLastTimeNotify(int lastSecond) {
+        if(lastSecond > 0){
+            mGetCodeButton.setText(lastSecond + "s");
+        }else{
+            mGetCodeButton.setText("发送验证码");
+        }
+    }
+
+    @Override
+    public void onAbleNotify(boolean valuable) {
+        mGetCodeButton.setEnabled(valuable);
     }
 
     public interface IRegisterChanged {

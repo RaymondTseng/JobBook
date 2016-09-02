@@ -166,12 +166,30 @@
                 />
 
         </RelativeLayout>
-        <ImageView
-            android:id="@+id/register_code_iv"
+        <!--<ImageView-->
+            <!--android:id="@+id/register_code_iv"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="1"-->
+            <!--android:clickable="true"/>-->
+        <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:clickable="true"/>
+            android:layout_weight="1">
+            <Button
+                android:id="@+id/register_code_bt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="获取验证码"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:textColor="@color/colorWhite"
+                android:layout_marginRight="16dp"
+                android:background="@color/colorBlue"
+                android:gravity="center"
+                android:textSize="16sp"
+                />
+        </RelativeLayout>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"

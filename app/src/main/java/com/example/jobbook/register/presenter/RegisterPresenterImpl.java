@@ -1,5 +1,6 @@
 package com.example.jobbook.register.presenter;
 
+import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -21,15 +22,18 @@ public class RegisterPresenterImpl implements RegisterPresenter, RegisterModelIm
     }
 
     @Override
-    public void registerCheck(String account,String userName, String email, String password,
+    public void registerCheck(Context mContext, String account,String userName, String email, String password,
                               String passwordConfirm, String code) {
-        mRegisterModel.register(account, userName, email, password, passwordConfirm, code, this);
+        mRegisterModel.register(mContext, account, userName, email, password, passwordConfirm, code, this);
     }
 
     @Override
     public void destroy() {
         mRegisterView = null;
     }
+
+
+
 
     @Override
     public void onAccountIllegalError() {
