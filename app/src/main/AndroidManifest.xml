@@ -5,27 +5,25 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:allowBackup="true"
         android:name=".MyApplication"
+        android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        >
+        android:theme="@style/AppTheme">
         <meta-data
             android:name="SMS_MOB_APPKEY"
-            android:value="16b9c665dd7f8"
-            />
+            android:value="16b9c665dd7f8" />
         <meta-data
             android:name="SMS_MOB_APPSECRET"
-            android:value="ff6619fa904b54a03a9aa892187520d2"
-            />
+            android:value="ff6619fa904b54a03a9aa892187520d2" />
 
         <meta-data
             android:name="com.example.jobbook.util.MyGlideModule"
             android:value="GlideModule" />
 
-        <activity android:name=".main.widget.MainActivity"
+        <activity
+            android:name=".main.widget.MainActivity"
             android:windowSoftInputMode="adjustPan|adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -49,8 +47,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".question.widget.QuestionDetailActivity"
-            android:windowSoftInputMode="adjustResize"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".chat.widget.ChatActivity"
             android:screenOrientation="portrait" />
@@ -63,13 +61,18 @@
         <activity
             android:name=".question.widget.NewQuestionActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".search.widget.SearchActivity"
+        <activity
+            android:name=".search.widget.SearchActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".cv.widget.TextCVActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".upload.widget.UploadTakePhotoActivity"/>
-        <activity android:name=".upload.widget.UploadPickPhotoActivity"/>
-        <activity android:name=".person.widget.UserDetailActivity"/>
+        <activity
+            android:name=".cv.widget.TextCVActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".upload.widget.UploadTakePhotoActivity" />
+        <activity android:name=".upload.widget.UploadPickPhotoActivity" />
+        <activity android:name=".person.widget.UserDetailActivity" />
+        <activity android:name=".update.widget.UpdatePhoneActivity" />
+        <activity android:name=".update.widget.UpdatePwdActivity" />
+        <activity android:name=".update.widget.UpdateUsernameActivity" />
 
     </application>
 

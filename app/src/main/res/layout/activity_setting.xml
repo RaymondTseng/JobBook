@@ -29,14 +29,6 @@
             android:text="设置" />
     </RelativeLayout>
 
-    <Button
-        android:id="@+id/person_changephone_bt"
-        style="@style/person_content_big_button_style"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="2dp"
-        android:layout_weight="48"
-        android:text="修改手机号码" />
     <!--<RelativeLayout-->
     <!--android:layout_width="match_parent"-->
     <!--android:layout_height="0dp"-->
@@ -59,14 +51,6 @@
     <!--android:layout_marginRight="16dp"/>-->
     <!--</RelativeLayout>-->
 
-    <Button
-        android:id="@+id/person_changepwd_bt"
-        style="@style/person_content_big_button_style"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="2dp"
-        android:layout_weight="48"
-        android:text="修改密码" />
 
     <!--<Button-->
         <!--android:layout_width="match_parent"-->

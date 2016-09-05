@@ -11,7 +11,11 @@ import android.widget.TextView;
 import com.example.jobbook.MyApplication;
 import com.example.jobbook.R;
 import com.example.jobbook.bean.PersonBean;
+import com.example.jobbook.update.widget.UpdatePhoneActivity;
+import com.example.jobbook.update.widget.UpdatePwdActivity;
+import com.example.jobbook.update.widget.UpdateUsernameActivity;
 import com.example.jobbook.util.ImageLoadUtils;
+import com.example.jobbook.util.Util;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -35,8 +39,6 @@ public class UserDetailActivity extends Activity implements View.OnClickListener
         setContentView(R.layout.person_userinfo);
         initViews();
         initEvents();
-
-
     }
 
     private void initViews() {
@@ -46,7 +48,7 @@ public class UserDetailActivity extends Activity implements View.OnClickListener
         mChangeUserNameRelativeLayout = (RelativeLayout) findViewById(R.id.person_userinfo_changeusername_rl);
         mUserNameTextView = (TextView) findViewById(R.id.person_userinfo_changeusername_tv);
         mChangePhoneButton = (Button) findViewById(R.id.person_userinfo_changephone_bt);
-        mChangePwdButton = (Button) findViewById(R.id.person_changepwd_bt);
+        mChangePwdButton = (Button) findViewById(R.id.person_userinfo_changepwd_bt);
     }
 
     private void initEvents() {
@@ -67,15 +69,19 @@ public class UserDetailActivity extends Activity implements View.OnClickListener
                 break;
 
             case R.id.person_userinfo_changehead_rl:
+
                 break;
 
             case R.id.person_userinfo_changeusername_rl:
+                Util.toAnotherActivity(this, UpdateUsernameActivity.class);
                 break;
 
             case R.id.person_userinfo_changephone_bt:
+                Util.toAnotherActivity(this, UpdatePhoneActivity.class);
                 break;
 
             case R.id.person_userinfo_changepwd_bt:
+                Util.toAnotherActivity(this, UpdatePwdActivity.class);
                 break;
         }
     }
