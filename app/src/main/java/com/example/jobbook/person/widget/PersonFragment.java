@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.example.jobbook.R;
 import com.example.jobbook.bean.PersonBean;
+import com.example.jobbook.cv.widget.TextCVActivity;
 import com.example.jobbook.feedback.widget.FeedBackActivity;
 import com.example.jobbook.person.view.PersonView;
 
@@ -32,6 +33,7 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
     private Button mSwitch2FeedBackButton;
     private Button mFavouriteButton;
     private TextView mNameTextView;
+    private Button mSwitch2TextCVButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -60,6 +62,7 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
         mSettingImageButton = (ImageButton) view.findViewById(R.id.person_setting_ib);
         mFavouriteButton = (Button) view.findViewById(R.id.person_favourite_bt);
         mNameTextView = (TextView) view.findViewById(R.id.person_name_tv);
+        mSwitch2TextCVButton = (Button) view.findViewById(R.id.person_textcv_bt);
     }
 
     private void initEvents(){
@@ -67,6 +70,7 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
         mSwitch2FeedBackButton.setOnClickListener(this);
         mSettingImageButton.setOnClickListener(this);
         mFavouriteButton.setOnClickListener(this);
+        mSwitch2TextCVButton.setOnClickListener(this);
         showPersonData();
     }
 
@@ -92,6 +96,8 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
             case R.id.person_favourite_bt:
                 startActivity(new Intent(getActivity(), FavouriteActivity.class));
                 break;
+            case R.id.person_textcv_bt:
+                startActivity(new Intent(getActivity(), TextCVActivity.class));
         }
     }
 

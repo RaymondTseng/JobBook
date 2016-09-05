@@ -3,11 +3,6 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorWhite">
-    <TextView
-        android:text="工作经历"
-        style="@style/Black20sptv"
-        android:layout_gravity="center"
-        android:layout_marginTop="16dp"/>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -18,16 +13,20 @@
             android:layout_centerInParent="true"
             >
             <TextView
+                android:id="@+id/job_exp_inauguration_tv"
                 android:text="就职年月(2016.12)"
-                style="@style/TextGray16sptv"/>
+                style="@style/TextGray16sptv"
+                android:layout_gravity="center"/>
             <TextView
                 android:layout_width="1dp"
                 android:layout_height="26dp"
-                android:background="@color/colorInputGray"
+                android:background="@color/colorBackgroundGray"
                 android:layout_marginLeft="14dp"/>
             <TextView
+                android:id="@+id/job_exp_dimission_tv"
                 android:text="离职年月(2017.12)"
                 style="@style/TextGray16sptv"
+                android:layout_gravity="center"
                 android:layout_marginLeft="14dp"/>
         </LinearLayout>
     </RelativeLayout>
@@ -36,52 +35,55 @@
         android:layout_height="1dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="5dp"
         android:background="@color/colorBackgroundGray"/>
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="12dp"
-        android:layout_marginTop="12dp">
+        android:layout_marginTop="12dp"
+        >
+        <EditText
+            android:id="@+id/text_cv_job_company_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="40dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/text_cv_et_bg"
+            android:drawableLeft="@drawable/text_cv_vertical_line"
+            android:textCursorDrawable="@drawable/edtitext_cursor"
+            />
         <TextView
             android:text="公司"
             style="@style/Black16sptv"
-            android:layout_marginLeft="16dp"/>
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="16dp"
-            android:layout_marginLeft="8dp"
-            android:drawableLeft="@drawable/text_cv_vertical_line"
-            android:background="@null"/>
-    </LinearLayout>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/colorBackgroundGray"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"/>
-    <LinearLayout
+            android:layout_marginLeft="16dp"
+            android:layout_alignBaseline="@id/text_cv_job_company_et"
+            />
+
+    </RelativeLayout>
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
-        android:layout_marginTop="12dp">
+        >
+        <EditText
+            android:id="@+id/text_cv_job_position_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="40dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/text_cv_et_bg"
+            android:drawableLeft="@drawable/text_cv_vertical_line"
+            android:textCursorDrawable="@drawable/edtitext_cursor"
+            />
         <TextView
             android:text="职位"
             style="@style/Black16sptv"
-            android:layout_marginLeft="16dp"/>
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="16dp"
-            android:layout_marginLeft="8dp"
-            android:drawableLeft="@drawable/text_cv_vertical_line"
-            android:background="@null"/>
-    </LinearLayout>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/colorBackgroundGray"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"/>
+            android:layout_marginLeft="16dp"
+            android:layout_alignBaseline="@id/text_cv_job_position_et"
+
+            />
+
+    </RelativeLayout>
 </LinearLayout>
