@@ -42,7 +42,7 @@ import java.util.List;
 /**
  * Created by 椰树 on 2016/8/25.
  */
-public class TextCVActivity extends AppCompatActivity implements OnDateSetListener, View.OnClickListener, TextCVView{
+public class TextCVActivity extends AppCompatActivity implements OnDateSetListener, View.OnClickListener, TextCVView {
     private static final String EDU_ADMISSION = "1";
     private static final String EDU_GRADUATION = "2";
     private static final String JOB_INAUGURATION = "3";
@@ -78,6 +78,7 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
     private TextCVPresenter mPresenter;
 
     SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM");
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,7 +86,8 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
         initView();
         initEvents();
     }
-    private void initView(){
+
+    private void initView() {
         mNameEditText = (EditText) findViewById(R.id.text_cv_name_et);
         mSexSpinner = (Spinner) findViewById(R.id.text_cv_sex_spinner);
         mQualificationEditText = (EditText) findViewById(R.id.text_cv_qualification_et);
@@ -111,7 +113,8 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
         mEduDivider = (TextView) findViewById(R.id.edu_exp_divider);
         mJobDivider = (TextView) findViewById(R.id.job_exp_divider);
     }
-    private void initEvents(){
+
+    private void initEvents() {
         mPresenter = new TextCVPresenterImpl(this);
         mJobExpInaugurationTextView.setOnClickListener(this);
         mJobExpDimissionTextView.setOnClickListener(this);
@@ -126,11 +129,11 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
         mEduExpAdmissionTextView.setTag(0);
         mEduExpGraduationTextView.setTag(0);
         mJobExpInaugurationDialog = new TimePickerDialog.Builder()
-                    .setType(Type.YEAR_MONTH)
-                    .setTitleStringId("选择时间")
-                    .setThemeColor(ContextCompat.getColor(this, R.color.colorPrimary))
-                    .setCallBack(this)
-                    .build();
+                .setType(Type.YEAR_MONTH)
+                .setTitleStringId("选择时间")
+                .setThemeColor(ContextCompat.getColor(this, R.color.colorPrimary))
+                .setCallBack(this)
+                .build();
         mJobExpDimissionDialog = new TimePickerDialog.Builder()
                 .setType(Type.YEAR_MONTH)
                 .setTitleStringId("选择时间")
@@ -157,19 +160,19 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
         Date d = new Date(millseconds);
         String text = sf.format(d);
         String tag = timePickerView.getTag();
-        if(tag.startsWith(JOB_DIMISSION)){
+        if (tag.startsWith(JOB_DIMISSION)) {
             View view = mJobContainerLayout.getChildAt(Integer.valueOf(tag.split(";")[1]));
             TextView mJobExpDimissionTextView = (TextView) view.findViewById(R.id.job_exp_dimission_tv);
             mJobExpDimissionTextView.setText(text);
-        }else if(tag.startsWith(JOB_INAUGURATION)){
+        } else if (tag.startsWith(JOB_INAUGURATION)) {
             View view = mJobContainerLayout.getChildAt(Integer.valueOf(tag.split(";")[1]));
             TextView mJobExpInaugurationTextView = (TextView) view.findViewById(R.id.job_exp_inauguration_tv);
             mJobExpInaugurationTextView.setText(text);
-        }else if(tag.startsWith(EDU_ADMISSION)){
+        } else if (tag.startsWith(EDU_ADMISSION)) {
             View view = mEduContainerLayout.getChildAt(Integer.valueOf(tag.split(";")[1]));
             TextView mEduExpAdmissionTextView = (TextView) view.findViewById(R.id.education_exp_admission_tv);
             mEduExpAdmissionTextView.setText(text);
-        }else{
+        } else {
             View view = mEduContainerLayout.getChildAt(Integer.valueOf(tag.split(";")[1]));
             TextView mEduExpGraduationTextView = (TextView) view.findViewById(R.id.education_exp_graduation_tv);
             mEduExpGraduationTextView.setText(text);
@@ -178,21 +181,21 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.job_exp_inauguration_tv:
-                mJobExpInaugurationDialog.show(getSupportFragmentManager(), JOB_INAUGURATION + ";" + (int)v.getTag());
+                mJobExpInaugurationDialog.show(getSupportFragmentManager(), JOB_INAUGURATION + ";" + (int) v.getTag());
                 mJobDivider.setBackgroundColor(ContextCompat.getColor(v.getContext(), R.color.colorBackgroundGray));
                 break;
             case R.id.job_exp_dimission_tv:
-                mJobExpDimissionDialog.show(getSupportFragmentManager(), JOB_DIMISSION + ";" + (int)v.getTag());
+                mJobExpDimissionDialog.show(getSupportFragmentManager(), JOB_DIMISSION + ";" + (int) v.getTag());
                 mJobDivider.setBackgroundColor(ContextCompat.getColor(v.getContext(), R.color.colorBackgroundGray));
                 break;
             case R.id.education_exp_admission_tv:
-                mEduExpAdmissionDialog.show(getSupportFragmentManager(), EDU_ADMISSION + ";" + (int)v.getTag());
+                mEduExpAdmissionDialog.show(getSupportFragmentManager(), EDU_ADMISSION + ";" + (int) v.getTag());
                 mEduDivider.setBackgroundColor(ContextCompat.getColor(v.getContext(), R.color.colorBackgroundGray));
                 break;
             case R.id.education_exp_graduation_tv:
-                mEduExpGraduationDialog.show(getSupportFragmentManager(), EDU_GRADUATION + ";" + (int)v.getTag());
+                mEduExpGraduationDialog.show(getSupportFragmentManager(), EDU_GRADUATION + ";" + (int) v.getTag());
                 mEduDivider.setBackgroundColor(ContextCompat.getColor(v.getContext(), R.color.colorBackgroundGray));
                 break;
             case R.id.text_cv_close_ib:
@@ -397,7 +400,7 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
                 mExpectSalaryEditText.getText().toString(), mExpectLocationEditText.getText().toString());
         List<EducationExpBean> educationExpBeanList = new ArrayList<>();
         List<JobExpBean> jobExpBeanList = new ArrayList<>();
-        for(int i = 0; i < mEduContainerLayout.getChildCount(); i++){
+        for (int i = 0; i < mEduContainerLayout.getChildCount(); i++) {
             View view = mEduContainerLayout.getChildAt(i);
             TextView mAdmissionTextView = (TextView) view.findViewById(R.id.education_exp_admission_tv);
             TextView mGraduationTextView = (TextView) view.findViewById(R.id.education_exp_graduation_tv);
@@ -410,7 +413,7 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
             educationExpBean.setMajor(mMajorEditText.getText().toString());
             educationExpBeanList.add(educationExpBean);
         }
-        for(int i = 0; i < mJobContainerLayout.getChildCount(); i++){
+        for (int i = 0; i < mJobContainerLayout.getChildCount(); i++) {
             View view = mJobContainerLayout.getChildAt(i);
             TextView mInaugurationTextView = (TextView) view.findViewById(R.id.job_exp_inauguration_tv);
             TextView mDimissionTextView = (TextView) view.findViewById(R.id.job_exp_dimission_tv);
@@ -431,9 +434,9 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
     public void load(TextCVBean textCVBean) {
         mNameEditText.setText(textCVBean.getName());
         String[] sex = getResources().getStringArray(R.array.sex);
-        for(int i = 0; i < sex.length; i++){
+        for (int i = 0; i < sex.length; i++) {
             String str = sex[i];
-            if(textCVBean.getSex().equals(str)){
+            if (textCVBean.getSex().equals(str)) {
                 mSexSpinner.setSelection(i);
                 break;
             }
@@ -443,9 +446,9 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
         mTypeEditText.setText(textCVBean.getDisabilityType());
         mLevelEditText.setText(textCVBean.getDisabilityLevel());
         String[] ifHave = getResources().getStringArray(R.array.ifhave);
-        for(int i = 0; i < ifHave.length; i++){
+        for (int i = 0; i < ifHave.length; i++) {
             String str = ifHave[i];
-            if(textCVBean.isHaveDisabilityCard().equals(str)){
+            if (textCVBean.isHaveDisabilityCard().equals(str)) {
                 mCertificationSpinner.setSelection(i);
                 break;
             }
@@ -455,7 +458,7 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
         mExpectJobEditText.setText(textCVBean.getExpectPosition());
         mExpectSalaryEditText.setText(textCVBean.getExpectSalary());
         mExpectLocationEditText.setText(textCVBean.getExpectLocation());
-        for(int i = 0; i < textCVBean.getEducationExpBeanList().size(); i++){
+        for (int i = 0; i < textCVBean.getEducationExpBeanList().size(); i++) {
             View view = mEduContainerLayout.getChildAt(i);
             EducationExpBean educationExpBean = textCVBean.getEducationExpBeanList().get(i);
             TextView mAdmissionTextView = (TextView) view.findViewById(R.id.education_exp_admission_tv);
@@ -467,7 +470,7 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
             mSchoolEditText.setText(educationExpBean.getSchool());
             mMajorEditText.setText(educationExpBean.getMajor());
         }
-        for(int i = 0; i < textCVBean.getJobExpBeanList().size(); i++){
+        for (int i = 0; i < textCVBean.getJobExpBeanList().size(); i++) {
             View view = mJobContainerLayout.getChildAt(i);
             JobExpBean jobExpBean = textCVBean.getJobExpBeanList().get(i);
             TextView mInaugurationTextView = (TextView) view.findViewById(R.id.job_exp_inauguration_tv);
@@ -481,29 +484,29 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
         }
     }
 
-    private void setBackgroundRed(final EditText editText, final TextView textView){
-        if(editText == null){
+    private void setBackgroundRed(final EditText editText, final TextView textView) {
+        if (editText == null) {
             Log.i("TextCV", "arguments error!");
-        }else{
+        } else {
 //            editText.setBackground(ContextCompat.getDrawable(this, R.drawable.text_cv_et_red_bg));
             editText.setBackgroundResource(R.drawable.text_cv_et_red_bg);
             textView.setTextColor(ContextCompat.getColor(this, R.color.colorPink));
             textView.setCompoundDrawablesWithIntrinsicBounds(null, null, ContextCompat.
-                    getDrawable(this, R.drawable.text_cv_vertical_red_line),null);
+                    getDrawable(this, R.drawable.text_cv_vertical_red_line), null);
             editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                 @Override
                 public void onFocusChange(View v, boolean hasFocus) {
                     editText.setBackgroundResource(R.drawable.text_cv_et_bg);
                     textView.setTextColor(ContextCompat.getColor(v.getContext(), R.color.colorBlack));
                     textView.setCompoundDrawablesWithIntrinsicBounds(null, null, ContextCompat.
-                            getDrawable(v.getContext(), R.drawable.text_cv_vertical_gray_line),null);
-                    if(textView.getText().toString().length() > 2){
-                        editText.setPadding(Util.dip2px(v.getContext(), 72), 0 , 0, Util.dip2px(v.getContext(), 8));
-                    }else{
+                            getDrawable(v.getContext(), R.drawable.text_cv_vertical_gray_line), null);
+                    if (textView.getText().toString().length() > 2) {
+                        editText.setPadding(Util.dip2px(v.getContext(), 72), 0, 0, Util.dip2px(v.getContext(), 8));
+                    } else {
                         editText.setPadding(Util.dip2px(v.getContext(), 40), 0, 0, Util.dip2px(v.getContext(), 8));
                     }
-        }
-    });
+                }
+            });
         }
     }
 }

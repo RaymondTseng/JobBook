@@ -14,8 +14,6 @@ import com.example.jobbook.R;
 public class SettingActivity extends Activity implements View.OnClickListener {
 
     private ImageButton mBackImageButton;
-    private Button mChangePhoneButton;
-    private Button mChangePwdButton;
     private Button mClearCacheButton;
     private Button mAboutButton;
 
@@ -28,13 +26,9 @@ public class SettingActivity extends Activity implements View.OnClickListener {
 
     private void initViews() {
         mBackImageButton = (ImageButton) findViewById(R.id.setting_back_ib);
-        mChangePhoneButton = (Button) findViewById(R.id.person_changephone_bt);
-        mChangePwdButton = (Button) findViewById(R.id.person_changepwd_bt);
         mClearCacheButton = (Button) findViewById(R.id.person_clearcache_bt);
         mAboutButton = (Button) findViewById(R.id.person_about_bt);
         mBackImageButton.setOnClickListener(this);
-        mChangePhoneButton.setOnClickListener(this);
-        mChangePwdButton.setOnClickListener(this);
         mClearCacheButton.setOnClickListener(this);
         mAboutButton.setOnClickListener(this);
     }
@@ -44,12 +38,6 @@ public class SettingActivity extends Activity implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.setting_back_ib:
                 finish();
-                break;
-
-            case R.id.person_changephone_bt:
-                break;
-
-            case R.id.person_changepwd_bt:
                 break;
 
             case R.id.person_clearcache_bt:
