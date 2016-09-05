@@ -43,4 +43,6 @@ public class Urls {
 
     public static final String TEXT_CV_URL = ID + "";
 
+    public static final String UPLOAD_IMAGE_URL = ID + "/jobBook/Home/person/upload/";
+
 }

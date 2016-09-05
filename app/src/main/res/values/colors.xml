@@ -11,6 +11,8 @@
 
     <color name="colorBackgroundGray">#1F000000</color>
 
+    <color name="colorSettingsBackgroundGray">#f4f4f4</color>
+
     <color name="colorWhite">#FFFFFF</color>
 
     <color name="colorBlack">#DE000000</color>

@@ -1,42 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/person_userinfo_rl"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorWhite">
+
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/person_logo_iv"
         android:layout_width="78dp"
         android:layout_height="78dp"
-        android:src="@mipmap/person_img"
         android:layout_alignParentLeft="true"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_centerVertical="true"
         android:layout_marginBottom="16dp"
-        android:layout_centerVertical="true"/>
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp" />
+
     <TextView
         android:id="@+id/person_name_tv"
-        android:text="里卓洋"
-        android:textStyle="bold"
         style="@style/Black16sptv"
-        android:layout_toRightOf="@id/person_logo_iv"
+        android:layout_alignTop="@id/person_logo_iv"
         android:layout_marginLeft="16dp"
-        android:layout_alignTop="@id/person_logo_iv"/>
-    <TextView
-        android:id="@+id/person_status_tv"
-        android:layout_centerVertical="true"
-        android:text="求职"
-        android:layout_alignLeft="@id/person_name_tv"
-        style="@style/TextGray14sptv"/>
-    <TextView
-        android:layout_alignBottom="@id/person_logo_iv"
-        android:text="考虑机会"
-        android:layout_alignLeft="@id/person_status_tv"
-        style="@style/TextGray14sptv"/>
+        android:layout_toRightOf="@id/person_logo_iv"
+        android:text="里卓洋"
+        android:textStyle="bold" />
+    <!--<TextView-->
+    <!--android:id="@+id/person_status_tv"-->
+    <!--android:layout_centerVertical="true"-->
+    <!--android:text="求职"-->
+    <!--android:layout_alignLeft="@id/person_name_tv"-->
+    <!--style="@style/TextGray14sptv"/>-->
+    <!--<TextView-->
+    <!--android:layout_alignBottom="@id/person_logo_iv"-->
+    <!--android:text="考虑机会"-->
+    <!--android:layout_alignLeft="@id/person_status_tv"-->
+    <!--style="@style/TextGray14sptv"/>-->
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@mipmap/right_blue"
         android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
         android:layout_marginRight="16dp"
-        android:layout_centerVertical="true"/>
+        android:src="@mipmap/right_blue" />
 </RelativeLayout>

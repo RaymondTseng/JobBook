@@ -67,6 +67,9 @@
             android:screenOrientation="portrait" />
         <activity android:name=".cv.widget.TextCVActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".upload.widget.UploadTakePhotoActivity"/>
+        <activity android:name=".upload.widget.UploadPickPhotoActivity"/>
+        <activity android:name=".person.widget.UserDetailActivity"/>
 
     </application>
 

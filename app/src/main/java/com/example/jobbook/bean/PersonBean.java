@@ -6,11 +6,40 @@ import java.util.List;
 /**
  * Created by Xu on 2016/7/6.
  */
-public class PersonBean implements Serializable{
+public class PersonBean implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
+    /**
+     * 用户账号
+     */
+    private String account;
+
+    /**
+     * 用户头像
+     */
+    private String head;
+
+    /**
+     * 用户密码
+     */
+    private String password;
+
+    /**
+     * 手机号码
+     */
+    private String telephone;
+
+    /**
+     * 用户姓名
+     */
+    private String userName;
+
+    public String getHead() {
+        return head;
+    }
+
+    public void setHead(String head) {
+        this.head = head;
     }
 
     public String getPassword() {
@@ -38,7 +67,6 @@ public class PersonBean implements Serializable{
     }
 
     public String getAccount() {
-
         return account;
     }
 
@@ -46,23 +74,7 @@ public class PersonBean implements Serializable{
         this.account = account;
     }
 
-    /**
-     * 用户账号
-     */
 
-    private String account;
-    /**
-     * 用户密码
-     */
-    private String password;
-    /**
-     * 手机号码
-     */
-    private String telephone;
-    /**
-     * 用户姓名
-     */
-    private String userName;
 
 
 }

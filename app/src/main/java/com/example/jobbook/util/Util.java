@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Environment;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -122,6 +123,7 @@ public class Util {
         personBean.setPassword(share.getString("password", ""));
         personBean.setTelephone(share.getString("telephone", ""));
         personBean.setUsername(share.getString("username", ""));
+        personBean.setHead(share.getString("head", ""));
 //        personBean.setTextCVs(null);
 //        personBean.setVideoCVs(null);
 //        personBean.setFavourite(null);
@@ -140,6 +142,8 @@ public class Util {
         edit.putString("password", personBean.getPassword());
         edit.putString("telephone", personBean.getTelephone());
         edit.putString("username", personBean.getUsername());
+        edit.putString("head", personBean.getHead());
+        edit.commit();
     }
 
     /**
@@ -208,6 +212,21 @@ public class Util {
             editor.clear();
             editor.commit();
         }
+    }
+
+    /**
+     * 判断是否有SD卡
+     *
+     * @return 有SD卡返回true，否则false
+     */
+    public static boolean hasSDCard() {
+        // 获取外部存储的状态
+        String state = Environment.getExternalStorageState();
+        if (Environment.MEDIA_MOUNTED.equals(state)) {
+            // 有SD卡
+            return true;
+        }
+        return false;
     }
 
 }
