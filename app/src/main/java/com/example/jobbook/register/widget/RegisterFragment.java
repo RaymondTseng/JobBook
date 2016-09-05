@@ -23,7 +23,6 @@ import com.example.jobbook.register.presenter.RegisterPresenter;
 import com.example.jobbook.register.presenter.RegisterPresenterImpl;
 import com.example.jobbook.register.view.RegisterView;
 import com.example.jobbook.util.ImageLoadUtils;
-import com.example.jobbook.util.Util;
 import com.jude.smssdk_mob.SMSManager;
 import com.jude.smssdk_mob.TimeListener;
 

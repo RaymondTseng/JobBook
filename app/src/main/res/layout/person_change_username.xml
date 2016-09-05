@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorSettingsBackgroundGray"
+    android:orientation="vertical"
+    android:weightSum="568">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="56"
+        android:background="@color/colorBlue">
+
+        <ImageButton
+            android:id="@+id/person_userinfo_back_ib"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="16dp"
+            android:background="@null"
+            android:src="@mipmap/left_white" />
+
+        <TextView
+            style="@style/White20sptv"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="32dp"
+            android:layout_toRightOf="@id/person_userinfo_back_ib"
+            android:text="修改昵称" />
+
+        <TextView
+            style="@style/White16sptv"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="18dp"
+            android:background="@null"
+            android:text="保存" />
+
+    </RelativeLayout>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="48"
+        android:layout_marginTop="16dp"
+        android:paddingLeft="16dp"
+        android:text="122222"
+        android:paddingBottom="11dp"
+        android:paddingTop="11dp"/>
+
+</LinearLayout>

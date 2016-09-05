@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,29 +16,37 @@ import android.widget.TextView;
 
 import com.example.jobbook.R;
 import com.example.jobbook.bean.PersonBean;
-import com.example.jobbook.cv.widget.TextCVActivity;
 import com.example.jobbook.feedback.widget.FeedBackActivity;
 import com.example.jobbook.person.view.PersonView;
+import com.example.jobbook.upload.widget.UploadPopupWindow;
+import com.example.jobbook.upload.widget.UploadTakePhotoActivity;
+import com.example.jobbook.util.ImageLoadUtils;
+import com.example.jobbook.util.Util;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 
 /**
  * Created by 椰树 on 2016/5/20.
  */
-public class PersonFragment extends Fragment implements PersonView, View.OnClickListener{
+public class PersonFragment extends Fragment implements PersonView, View.OnClickListener {
 
     private ListView mListView;
     private ImageButton mSettingImageButton;
+    private CircleImageView mPersonHeadImageView;
+    private RelativeLayout mPersonUserInfoRelativeLayout;
     private IPersonChanged mIPersonChanged;
     private Button mSwitchPerson2LoginButton;
     private Button mSwitch2FeedBackButton;
     private Button mFavouriteButton;
+    private UploadPopupWindow mUploadPopupWindow;
     private TextView mNameTextView;
-    private Button mSwitch2TextCVButton;
+    private View view;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState){
-        View view = inflater.inflate(R.layout.fragment_person, container, false);
+                             Bundle savedInstanceState) {
+        view = inflater.inflate(R.layout.fragment_person, container, false);
         initViews(view);
         initEvents();
         return view;
@@ -62,15 +70,17 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
         mSettingImageButton = (ImageButton) view.findViewById(R.id.person_setting_ib);
         mFavouriteButton = (Button) view.findViewById(R.id.person_favourite_bt);
         mNameTextView = (TextView) view.findViewById(R.id.person_name_tv);
-        mSwitch2TextCVButton = (Button) view.findViewById(R.id.person_textcv_bt);
+        mPersonHeadImageView = (CircleImageView) view.findViewById(R.id.person_logo_iv);
+        mPersonUserInfoRelativeLayout = (RelativeLayout) view.findViewById(R.id.person_userinfo_rl);
     }
 
-    private void initEvents(){
+    private void initEvents() {
         mSwitchPerson2LoginButton.setOnClickListener(this);
         mSwitch2FeedBackButton.setOnClickListener(this);
         mSettingImageButton.setOnClickListener(this);
         mFavouriteButton.setOnClickListener(this);
-        mSwitch2TextCVButton.setOnClickListener(this);
+        mPersonHeadImageView.setOnClickListener(this);
+        mPersonUserInfoRelativeLayout.setOnClickListener(this);
         showPersonData();
     }
 
@@ -79,6 +89,7 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
         Bundle bundle = (Bundle) getArguments();
         PersonBean personBean = (PersonBean) bundle.getSerializable("PersonBean");
         mNameTextView.setText(personBean.getUsername());
+        ImageLoadUtils.display(getActivity(), mPersonHeadImageView, personBean.getHead());
     }
 
     @Override
@@ -96,8 +107,14 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
             case R.id.person_favourite_bt:
                 startActivity(new Intent(getActivity(), FavouriteActivity.class));
                 break;
-            case R.id.person_textcv_bt:
-                startActivity(new Intent(getActivity(), TextCVActivity.class));
+            case R.id.person_logo_iv:
+                mUploadPopupWindow = new UploadPopupWindow(getActivity(), onItemClick);
+                mUploadPopupWindow.showAtLocation(view, Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+                break;
+            case R.id.person_userinfo_rl:
+                Util.toAnotherActivity(getActivity(), UserDetailActivity.class);
+                break;
+
         }
     }
 
@@ -109,4 +126,25 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
     public interface IPersonChanged {
         void switchPerson2Login();
     }
+
+    private View.OnClickListener onItemClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            mUploadPopupWindow.dismiss();
+            switch (v.getId()) {
+                case R.id.person_upload_takePhoto_bt:
+                    Util.toAnotherActivity(getActivity(), UploadTakePhotoActivity.class);
+                    break;
+                case R.id.person_upload_pickPhoto_bt:
+                    Intent pickIntent = new Intent(Intent.ACTION_PICK);
+                    pickIntent.setType("image/*");
+                    getActivity().startActivityForResult(pickIntent, 1);
+                    break;
+                case R.id.person_upload_cancel_bt:
+                    mUploadPopupWindow.dismiss();
+                    break;
+            }
+        }
+    };
+
 }

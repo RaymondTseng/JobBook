@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorSettingsBackgroundGray"
+    android:orientation="vertical"
+    android:weightSum="568">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="56"
+        android:background="@color/colorBlue">
+
+        <ImageButton
+            android:id="@+id/person_userinfo_back_ib"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="16dp"
+            android:background="@null"
+            android:src="@mipmap/left_white" />
+
+        <TextView
+            style="@style/White20sptv"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="32dp"
+            android:layout_toRightOf="@id/person_userinfo_back_ib"
+            android:text="修改手机号" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="48">
+
+        <TextView
+            android:id="@+id/texttview1"
+            style="@style/Black16sptv"
+            android:layout_centerVertical="true"
+            android:paddingLeft="16dp"
+            android:text="原手机号码" />
+
+        <TextView
+            android:id="@+id/divider1"
+            style="@style/Black16sptv"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="8dp"
+            android:layout_toEndOf="@+id/texttview1"
+            android:layout_toRightOf="@+id/texttview1"
+            android:text="12333" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:layout_weight="48">
+
+        <TextView
+            android:id="@+id/texttview2"
+            style="@style/Black16sptv"
+            android:layout_centerVertical="true"
+            android:paddingLeft="16dp"
+            android:text="验证码" />
+
+        <TextView
+            android:id="@+id/divider2"
+            android:layout_width="1dp"
+            android:layout_height="24dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="8dp"
+            android:layout_toEndOf="@+id/texttview2"
+            android:layout_toRightOf="@+id/texttview2"
+            android:background="#1f000000" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="8dp"
+            android:layout_toEndOf="@+id/divider2"
+            android:layout_toRightOf="@+id/divider2" />
+
+        <Button
+            android:id="@+id/register_code_bt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/colorBlue"
+            android:gravity="center"
+            android:text="获取验证码"
+            android:textColor="@color/colorWhite"
+            android:textSize="14sp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+             />
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="48">
+
+        <TextView
+            android:id="@+id/texttview3"
+            style="@style/Black16sptv"
+            android:layout_centerVertical="true"
+            android:paddingLeft="16dp"
+            android:text="新手机号码" />
+
+        <TextView
+            android:id="@+id/divider3"
+            android:layout_width="1dp"
+            android:layout_height="24dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="8dp"
+            android:layout_toEndOf="@+id/texttview3"
+            android:layout_toRightOf="@+id/texttview3"
+            android:background="#1f000000" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="8dp"
+            android:layout_toEndOf="@+id/divider3"
+            android:layout_toRightOf="@+id/divider3" />
+
+    </RelativeLayout>
+
+
+</LinearLayout>
