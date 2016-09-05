@@ -1,5 +1,7 @@
 package com.example.jobbook.cv.view;
 
+import com.example.jobbook.bean.TextCVBean;
+
 /**
  * Created by 椰树 on 2016/9/4.
  */
@@ -65,42 +67,42 @@ public interface TextCVView {
     /**
      * 入学年月为空错误
      */
-    void eduExpAdmissionError();
+    void eduExpAdmissionError(int id);
 
     /**
      * 毕业年月为空错误
      */
-    void eduExpGraduationError();
+    void eduExpGraduationError(int id);
 
     /**
      * 教育经历学校为空错误
      */
-    void eduExpSchoolBlankError();
+    void eduExpSchoolBlankError(int id);
 
     /**
      * 教育经历专业为空错误
      */
-    void eduExpMajorBlankError();
+    void eduExpMajorBlankError(int id);
 
     /**
      * 就职年月为空错误
      */
-    void jobExpInaugurationBlankError();
+    void jobExpInaugurationBlankError(int id);
 
     /**
      * 离职年月为空错误
      */
-    void jobExpDimissionBlankError();
+    void jobExpDimissionBlankError(int id);
 
     /**
      * 工作经历公司为空错误
      */
-    void jobExpCompanyBlankError();
+    void jobExpCompanyBlankError(int id);
 
     /**
      * 工作经历职位为空错误
      */
-    void jobExpPositionBlankError();
+    void jobExpPositionBlankError(int id);
 
     /**
      * 期待工作职位为空错误
@@ -120,5 +122,7 @@ public interface TextCVView {
     void close();
 
     void save();
+
+    void load(TextCVBean textCVBean);
 
 }

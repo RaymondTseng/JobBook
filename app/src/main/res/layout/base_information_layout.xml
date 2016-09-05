@@ -24,10 +24,10 @@
             style="@style/Black16sptv"
             android:gravity="center"
             android:drawablePadding="8dp"
-            android:drawableRight="@drawable/text_cv_vertical_line"
+            android:drawableRight="@drawable/text_cv_vertical_gray_line"
             />
         <Spinner
-            android:id="@+id/text_cv_name_spinner"
+            android:id="@+id/text_cv_sex_spinner"
             android:popupBackground="@color/colorWhite"
             android:layout_alignBaseline="@id/text_cv_name_tv"
             android:layout_toRightOf="@id/text_cv_name_tv"
@@ -51,19 +51,25 @@
         <EditText
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
-            android:id="@+id/text_cv_education_et"
+            android:id="@+id/text_cv_qualification_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="72dp"
-            android:background="@drawable/text_cv_et_bg"
-            android:drawableLeft="@drawable/text_cv_vertical_line"
             android:textCursorDrawable="@drawable/edtitext_cursor"
-            />
+            android:background="@drawable/text_cv_et_bg"
+            android:paddingBottom="8dp"/>
+            <!--android:paddingLeft="72dp"-->
+            <!--android:background="@drawable/text_cv_et_bg"-->
+            <!--android:drawableLeft="@drawable/text_cv_vertical_line"-->
         <TextView
             android:text="最高学历"
+            android:id="@+id/text_cv_qualification_tv"
             style="@style/Black16sptv"
             android:layout_marginLeft="16dp"
-            android:layout_alignBaseline="@id/text_cv_education_et"
+            android:layout_alignBaseline="@id/text_cv_qualification_et"
+            android:drawableRight="@drawable/text_cv_vertical_gray_line"
+            android:gravity="center"
+            android:drawablePadding="6dp"
             />
 
     </RelativeLayout>
@@ -79,14 +85,18 @@
             android:paddingLeft="72dp"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
+            android:paddingBottom="8dp"
             android:background="@drawable/text_cv_et_bg"
-            android:drawableLeft="@drawable/text_cv_vertical_line"
             android:textCursorDrawable="@drawable/edtitext_cursor"
             />
         <TextView
             android:text="所在城市"
             style="@style/Black16sptv"
+            android:id="@+id/text_cv_location_tv"
             android:layout_marginLeft="16dp"
+            android:drawableRight="@drawable/text_cv_vertical_gray_line"
+            android:gravity="center"
+            android:drawablePadding="6dp"
             android:layout_alignBaseline="@id/text_cv_location_et"
             />
 
@@ -103,14 +113,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="72dp"
+            android:paddingBottom="8dp"
             android:background="@drawable/text_cv_et_bg"
-            android:drawableLeft="@drawable/text_cv_vertical_line"
             android:textCursorDrawable="@drawable/edtitext_cursor"
             />
         <TextView
             android:text="残疾类型"
+            android:id="@+id/text_cv_type_tv"
             android:layout_marginLeft="16dp"
             style="@style/Black16sptv"
+            android:drawableRight="@drawable/text_cv_vertical_gray_line"
+            android:gravity="center"
+            android:drawablePadding="6dp"
             android:layout_alignBaseline="@id/text_cv_type_et"
             />
 
@@ -128,12 +142,16 @@
             android:layout_height="wrap_content"
             android:paddingLeft="72dp"
             android:background="@drawable/text_cv_et_bg"
-            android:drawableLeft="@drawable/text_cv_vertical_line"
+            android:paddingBottom="8dp"
             android:textCursorDrawable="@drawable/edtitext_cursor"
             />
         <TextView
             android:text="残疾等级"
             style="@style/Black16sptv"
+            android:id="@+id/text_cv_level_tv"
+            android:drawableRight="@drawable/text_cv_vertical_gray_line"
+            android:gravity="center"
+            android:drawablePadding="6dp"
             android:layout_marginLeft="16dp"
             android:layout_alignBaseline="@id/text_cv_level_et"
             />
@@ -151,7 +169,7 @@
             android:gravity="center"
             android:layout_marginLeft="16dp"
             android:drawablePadding="8dp"
-            android:drawableRight="@drawable/text_cv_vertical_line"
+            android:drawableRight="@drawable/text_cv_vertical_gray_line"
             />
         <Spinner
             android:id="@+id/text_cv_certificate_spinner"
@@ -186,12 +204,16 @@
             android:layout_height="wrap_content"
             android:paddingLeft="72dp"
             android:background="@drawable/text_cv_et_bg"
-            android:drawableLeft="@drawable/text_cv_vertical_line"
+            android:paddingBottom="8dp"
             android:textCursorDrawable="@drawable/edtitext_cursor"
             />
         <TextView
             android:text="联系电话"
             style="@style/Black16sptv"
+            android:id="@+id/text_cv_tel_tv"
+            android:drawableRight="@drawable/text_cv_vertical_gray_line"
+            android:gravity="center"
+            android:drawablePadding="6dp"
             android:layout_marginLeft="16dp"
             android:layout_alignBaseline="@id/text_cv_tel_et"
             />
@@ -210,12 +232,16 @@
             android:layout_height="wrap_content"
             android:paddingLeft="72dp"
             android:background="@drawable/text_cv_et_bg"
-            android:drawableLeft="@drawable/text_cv_vertical_line"
+            android:paddingBottom="8dp"
             android:textCursorDrawable="@drawable/edtitext_cursor"
             />
         <TextView
             android:text="联系邮箱"
             style="@style/Black16sptv"
+            android:id="@+id/text_cv_email_tv"
+            android:drawableRight="@drawable/text_cv_vertical_gray_line"
+            android:gravity="center"
+            android:drawablePadding="6dp"
             android:layout_marginLeft="16dp"
             android:layout_alignBaseline="@id/text_cv_email_et"
             />

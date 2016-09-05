@@ -38,11 +38,15 @@ public class LoginModelImpl implements LoginModel {
                     if(!TextUtils.isEmpty(response)){
                         Log.i("login_response", response.toString());
                         PersonBean personBean = new Gson().fromJson(response, PersonBean.class);
-                        if(personBean.getAccount().equals("Error!")){
-                            listener.onUserError();
+                        if(personBean != null){
+                            if(personBean.getAccount().equals("Error!")){
+                                listener.onUserError();
+                            }else{
+                                Log.i("response", "login successful");
+                                listener.onSuccess(personBean);
+                            }
                         }else{
-                            Log.i("response", "login successful");
-                            listener.onSuccess(personBean);
+                            listener.onNetWorkError();
                         }
                     }else{
 

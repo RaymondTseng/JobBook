@@ -1,12 +1,16 @@
 package com.example.jobbook.cv.model;
 
 import android.text.TextUtils;
+import android.util.Log;
 
+import com.example.jobbook.MyApplication;
 import com.example.jobbook.bean.EducationExpBean;
 import com.example.jobbook.bean.JobExpBean;
 import com.example.jobbook.bean.TextCVBean;
+import com.example.jobbook.commons.Constants;
 import com.example.jobbook.commons.Urls;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -21,100 +25,136 @@ public class TextCVModelImpl implements TextCVModel {
 
 
     @Override
-    public void save(String head, String name, String sex, String qualification, String location,
-                     String type, String level, boolean haveCertification, String tel, String email,
-                     String expectJob, String expectSalary, String expectLocation,
-                     List<EducationExpBean> educationExpBeanList, List<JobExpBean> jobExpBeanList,
-                     OnBasedInformationFinishedListener onBasedInformationFinishedListener,
-                     OnEducationExpFinishedListener onEducationExpFinishedListener,
-                     OnJobExpFinishedListener onJobExpFinishedListener) {
-        if(TextUtils.isEmpty(head)){
+    public void save(TextCVBean textCVBean, final OnBasedInformationFinishedListener onBasedInformationFinishedListener,
+                     final OnEducationExpFinishedListener onEducationExpFinishedListener,
+                     final OnJobExpFinishedListener onJobExpFinishedListener) {
+        if(TextUtils.isEmpty(textCVBean.getHead())){
             onBasedInformationFinishedListener.onHeadBlankError();
-        }else if(TextUtils.isEmpty(name)){
+        }else if(TextUtils.isEmpty(textCVBean.getName())){
             onBasedInformationFinishedListener.onNameBlankError();
-        }else if(TextUtils.isEmpty(sex)){
+        }else if(TextUtils.isEmpty(textCVBean.getSex())){
             onBasedInformationFinishedListener.onSexBlankError();
-        }else if(TextUtils.isEmpty(qualification)){
+        }else if(TextUtils.isEmpty(textCVBean.getQualification())){
             onBasedInformationFinishedListener.onQualificationBlankError();
-        }else if(TextUtils.isEmpty(location)){
+        }else if(TextUtils.isEmpty(textCVBean.getCity())){
             onBasedInformationFinishedListener.onLocationBlankError();
-        }else if(TextUtils.isEmpty(type)){
+        }else if(TextUtils.isEmpty(textCVBean.getDisabilityType())){
             onBasedInformationFinishedListener.onTypeBlankError();
-        }else if(TextUtils.isEmpty(level)){
+        }else if(TextUtils.isEmpty(textCVBean.getDisabilityLevel())){
             onBasedInformationFinishedListener.onLevelBlankError();
-        }else if(TextUtils.isEmpty(String.valueOf(haveCertification))){
+        }else if(TextUtils.isEmpty(textCVBean.isHaveDisabilityCard())){
             onBasedInformationFinishedListener.onCertificationBlankError();
-        }else if(TextUtils.isEmpty(tel)){
+        }else if(TextUtils.isEmpty(textCVBean.getTelephone())){
             onBasedInformationFinishedListener.onTelBlankError();
-        }else if(TextUtils.isEmpty(email)){
+        }else if(TextUtils.isEmpty(textCVBean.getEmail())){
             onBasedInformationFinishedListener.onEmailBlankError();
-        }else if(TextUtils.isEmpty(expectJob)){
+        }else if(TextUtils.isEmpty(textCVBean.getExpectPosition())){
             onBasedInformationFinishedListener.onExpectJobBlankError();
-        }else if(TextUtils.isEmpty(expectSalary)){
+        }else if(TextUtils.isEmpty(textCVBean.getExpectSalary())){
             onBasedInformationFinishedListener.onExpectSalaryBlankError();
-        }else if(TextUtils.isEmpty(expectLocation)){
+        }else if(TextUtils.isEmpty(textCVBean.getExpectLocation())){
             onBasedInformationFinishedListener.onExpectLocationBlankError();
         }else{
-            for(EducationExpBean educationExpBean : educationExpBeanList){
-                if(TextUtils.isEmpty(educationExpBean.getAdmissionDate())){
-                    onEducationExpFinishedListener.onAdmissionTimeBlankError();
+            for(int i = 0; i < textCVBean.getEducationExpBeanList().size(); i++){
+                EducationExpBean educationExpBean = textCVBean.getEducationExpBeanList().get(i);
+                if(!ifNumber(educationExpBean.getAdmissionDate())){
+                    onEducationExpFinishedListener.onAdmissionTimeBlankError(i);
                     return;
-                }else if(TextUtils.isEmpty(educationExpBean.getGraduationDate())){
-                    onEducationExpFinishedListener.onGraduationTimeBlankError();
+                }else if(!ifNumber(educationExpBean.getGraduationDate())){
+                    onEducationExpFinishedListener.onGraduationTimeBlankError(i);
                     return;
                 }else if(TextUtils.isEmpty(educationExpBean.getSchool())){
-                    onEducationExpFinishedListener.onSchoolBlankError();
+                    onEducationExpFinishedListener.onSchoolBlankError(i);
                     return;
                 }
             }
-            for(JobExpBean jobExpBean : jobExpBeanList){
-                if(TextUtils.isEmpty(jobExpBean.getInaugurationDate())){
-                    onJobExpFinishedListener.onInaugurationTimeBlankError();
+            for(int i = 0; i < textCVBean.getJobExpBeanList().size(); i++){
+                JobExpBean jobExpBean = textCVBean.getJobExpBeanList().get(i);
+                if(!ifNumber(jobExpBean.getInaugurationDate())){
+                    onJobExpFinishedListener.onInaugurationTimeBlankError(i);
                     return;
-                }else if(TextUtils.isEmpty(jobExpBean.getDimissionDate())){
-                    onJobExpFinishedListener.onDimissionTimeBlankError();
+                }else if(!ifNumber(jobExpBean.getDimissionDate())){
+                    onJobExpFinishedListener.onDimissionTimeBlankError(i);
                     return;
                 }else if(TextUtils.isEmpty(jobExpBean.getCompany())){
-                    onJobExpFinishedListener.onCompanyBlankError();
+                    onJobExpFinishedListener.onCompanyBlankError(i);
                     return;
                 }else if(TextUtils.isEmpty(jobExpBean.getPosition())){
-                    onJobExpFinishedListener.onPositionBlankError();
+                    onJobExpFinishedListener.onPositionBlankError(i);
                     return;
                 }
             }
-            TextCVBean textCVBean = new TextCVBean();
-            textCVBean.setHead(head);
-            textCVBean.setName(name);
-            textCVBean.setSex(sex);
-            textCVBean.setQualification(qualification);
-            textCVBean.setCity(location);
-            textCVBean.setDisabilityType(type);
-            textCVBean.setDisabilityLevel(level);
-            textCVBean.setHaveDisabilityCard(haveCertification);
-            textCVBean.setTelephone(tel);
-            textCVBean.setEmail(email);
-            textCVBean.setExpectPosition(expectJob);
-            textCVBean.setExpectSalary(expectSalary);
-            textCVBean.setExpectLocation(expectLocation);
-            textCVBean.setEducationExpBeanList(educationExpBeanList);
-            textCVBean.setJobExpBeanList(jobExpBeanList);
-            OkHttpUtils.postString().url(Urls.TEXT_CV_URL).content(new Gson().toJson(textCVBean)).build().execute(new StringCallback() {
+//            TextCVBean textCVBean = new TextCVBean();
+//            textCVBean.setHead(head);
+//            textCVBean.setName(name);
+//            textCVBean.setSex(sex);
+//            textCVBean.setQualification(qualification);
+//            textCVBean.setCity(location);
+//            textCVBean.setDisabilityType(type);
+//            textCVBean.setDisabilityLevel(level);
+//            textCVBean.setHaveDisabilityCard(haveCertification);
+//            textCVBean.setTelephone(tel);
+//            textCVBean.setEmail(email);
+//            textCVBean.setExpectPosition(expectJob);
+//            textCVBean.setExpectSalary(expectSalary);
+//            textCVBean.setExpectLocation(expectLocation);
+//            textCVBean.setEducationExpBeanList(educationExpBeanList);
+//            textCVBean.setJobExpBeanList(jobExpBeanList);
+            OkHttpUtils.postString().url(Urls.POST_TEXT_CV_URL + MyApplication.getmPersonBean().getAccount())
+                    .content(new Gson().toJson(textCVBean)).build().execute(new StringCallback() {
                 @Override
                 public void onError(Call call, Exception e, int id) {
-
+                    onBasedInformationFinishedListener.onFailure("network", e, id);
+//                    onEducationExpFinishedListener.onFailure("network", e, id);
+//                    onJobExpFinishedListener.onFailure("network", e, id);
                 }
 
                 @Override
                 public void onResponse(String response, int id) {
-
+                    Log.i("TextCV", response);
+                    if(response.equals("true")){
+                        onBasedInformationFinishedListener.onSuccess();
+                        onEducationExpFinishedListener.onSuccess();
+                        onJobExpFinishedListener.onSuccess();
+                    }
                 }
             });
         }
 
     }
 
+    @Override
+    public void load(final OnLoadTextCVListener listener) {
+        OkHttpUtils.get().url(Urls.LOAD_TEXT_CV_URL + MyApplication.getmPersonBean().getAccount())
+                .addParams("","").build().execute(new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+                listener.onFailure("network", e, id);
+            }
+
+            @Override
+            public void onResponse(String response, int id) {
+                TextCVBean textCVBean = new Gson().fromJson(response, TextCVBean.class);
+                if(textCVBean != null){
+                    listener.onSuccess(textCVBean);
+                }else{
+                    listener.onFailure("null", new Exception(), id);
+                }
+            }
+        });
+    }
+
+    private boolean ifNumber(String date){
+        for(String number : Constants.numbers){
+            if(date.startsWith(number)){
+                return true;
+            }
+        }
+        return false;
+    }
+
     public interface OnBasedInformationFinishedListener{
-        void onSuccess(int id);
+        void onSuccess();
         void onFailure(String msg, Exception e, int id);
         void onHeadBlankError();
         void onNameBlankError();
@@ -131,18 +171,23 @@ public class TextCVModelImpl implements TextCVModel {
         void onExpectLocationBlankError();
     }
     public interface OnEducationExpFinishedListener{
-        void onSuccess(int id);
+        void onSuccess();
         void onFailure(String msg, Exception e, int id);
-        void onAdmissionTimeBlankError();
-        void onGraduationTimeBlankError();
-        void onSchoolBlankError();
+        void onAdmissionTimeBlankError(int id);
+        void onGraduationTimeBlankError(int id);
+        void onSchoolBlankError(int id);
     }
     public interface OnJobExpFinishedListener{
-        void onSuccess(int id);
+        void onSuccess();
         void onFailure(String msg, Exception e, int id);
-        void onInaugurationTimeBlankError();
-        void onDimissionTimeBlankError();
-        void onCompanyBlankError();
-        void onPositionBlankError();
+        void onInaugurationTimeBlankError(int id);
+        void onDimissionTimeBlankError(int id);
+        void onCompanyBlankError(int id);
+        void onPositionBlankError(int id);
+    }
+
+    public interface OnLoadTextCVListener{
+        void onSuccess(TextCVBean textCVBean);
+        void onFailure(String msg, Exception e, int id);
     }
 }

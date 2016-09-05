@@ -31,6 +31,7 @@
         </LinearLayout>
     </RelativeLayout>
     <TextView
+        android:id="@+id/job_exp_divider"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginLeft="16dp"
@@ -44,21 +45,25 @@
         android:layout_marginTop="12dp"
         >
         <EditText
-            android:id="@+id/text_cv_job_company_et"
+            android:id="@+id/job_exp_company_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="40dp"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
+            android:paddingBottom="8dp"
+            android:paddingLeft="40dp"
             android:background="@drawable/text_cv_et_bg"
-            android:drawableLeft="@drawable/text_cv_vertical_line"
             android:textCursorDrawable="@drawable/edtitext_cursor"
             />
         <TextView
             android:text="公司"
             style="@style/Black16sptv"
+            android:id="@+id/job_exp_company_tv"
+            android:drawableRight="@drawable/text_cv_vertical_gray_line"
+            android:gravity="center"
+            android:drawablePadding="6dp"
             android:layout_marginLeft="16dp"
-            android:layout_alignBaseline="@id/text_cv_job_company_et"
+            android:layout_alignBaseline="@id/job_exp_company_et"
             />
 
     </RelativeLayout>
@@ -67,21 +72,25 @@
         android:layout_height="wrap_content"
         >
         <EditText
-            android:id="@+id/text_cv_job_position_et"
+            android:id="@+id/job_exp_position_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="40dp"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
+            android:paddingBottom="8dp"
+            android:paddingLeft="40dp"
             android:background="@drawable/text_cv_et_bg"
-            android:drawableLeft="@drawable/text_cv_vertical_line"
             android:textCursorDrawable="@drawable/edtitext_cursor"
             />
         <TextView
             android:text="职位"
             style="@style/Black16sptv"
+            android:id="@+id/job_exp_position_tv"
+            android:drawableRight="@drawable/text_cv_vertical_gray_line"
+            android:gravity="center"
+            android:drawablePadding="6dp"
             android:layout_marginLeft="16dp"
-            android:layout_alignBaseline="@id/text_cv_job_position_et"
+            android:layout_alignBaseline="@id/job_exp_position_et"
 
             />
 
