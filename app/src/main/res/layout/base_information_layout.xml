@@ -11,189 +11,216 @@
         style="@style/Black20sptv"
         android:gravity="center"
         android:layout_marginBottom="8dp"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp">
-        <TextView
-            android:text="性别"
-            style="@style/Black16sptv"
-            android:layout_marginLeft="16dp"/>
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="16dp"
-            android:layout_marginLeft="8dp"
-            android:drawableLeft="@drawable/text_cv_vertical_line"
-            android:background="@null"/>
-    </LinearLayout>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/colorBackgroundGray"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"/>
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="12dp"
-        android:layout_marginTop="12dp">
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        >
+        <TextView
+            android:id="@+id/text_cv_name_tv"
+            android:text="性别"
+            style="@style/Black16sptv"
+            android:gravity="center"
+            android:drawablePadding="8dp"
+            android:drawableRight="@drawable/text_cv_vertical_line"
+            />
+        <Spinner
+            android:id="@+id/text_cv_name_spinner"
+            android:popupBackground="@color/colorWhite"
+            android:layout_alignBaseline="@id/text_cv_name_tv"
+            android:layout_toRightOf="@id/text_cv_name_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/sex"
+            android:spinnerMode="dropdown"
+            ></Spinner>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorBackgroundGray"
+            android:layout_below="@id/text_cv_name_tv"
+            android:layout_marginTop="2dp"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        >
+        <EditText
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:id="@+id/text_cv_education_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="72dp"
+            android:background="@drawable/text_cv_et_bg"
+            android:drawableLeft="@drawable/text_cv_vertical_line"
+            android:textCursorDrawable="@drawable/edtitext_cursor"
+            />
         <TextView
             android:text="最高学历"
             style="@style/Black16sptv"
-            android:layout_marginLeft="16dp"/>
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="16dp"
-            android:layout_marginLeft="8dp"
-            android:drawableLeft="@drawable/text_cv_vertical_line"
-            android:background="@null"/>
-    </LinearLayout>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/colorBackgroundGray"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"/>
-    <LinearLayout
+            android:layout_marginLeft="16dp"
+            android:layout_alignBaseline="@id/text_cv_education_et"
+            />
+
+    </RelativeLayout>
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="12dp"
-        android:layout_marginTop="12dp">
+        >
+        <EditText
+            android:id="@+id/text_cv_location_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="72dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/text_cv_et_bg"
+            android:drawableLeft="@drawable/text_cv_vertical_line"
+            android:textCursorDrawable="@drawable/edtitext_cursor"
+            />
         <TextView
             android:text="所在城市"
             style="@style/Black16sptv"
-            android:layout_marginLeft="16dp"/>
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="16dp"
-            android:layout_marginLeft="8dp"
-            android:drawableLeft="@drawable/text_cv_vertical_line"
-            android:background="@null"/>
-    </LinearLayout>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/colorBackgroundGray"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"/>
-    <LinearLayout
+            android:layout_marginLeft="16dp"
+            android:layout_alignBaseline="@id/text_cv_location_et"
+            />
+
+    </RelativeLayout>
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="12dp"
-        android:layout_marginTop="12dp">
+        >
+        <EditText
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:id="@+id/text_cv_type_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="72dp"
+            android:background="@drawable/text_cv_et_bg"
+            android:drawableLeft="@drawable/text_cv_vertical_line"
+            android:textCursorDrawable="@drawable/edtitext_cursor"
+            />
         <TextView
             android:text="残疾类型"
+            android:layout_marginLeft="16dp"
             style="@style/Black16sptv"
-            android:layout_marginLeft="16dp"/>
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="16dp"
-            android:layout_marginLeft="8dp"
-            android:drawableLeft="@drawable/text_cv_vertical_line"
-            android:background="@null"/>
-    </LinearLayout>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/colorBackgroundGray"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"/>
-    <LinearLayout
+            android:layout_alignBaseline="@id/text_cv_type_et"
+            />
+
+    </RelativeLayout>
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="12dp"
-        android:layout_marginTop="12dp">
+        >
+        <EditText
+            android:id="@+id/text_cv_level_et"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="72dp"
+            android:background="@drawable/text_cv_et_bg"
+            android:drawableLeft="@drawable/text_cv_vertical_line"
+            android:textCursorDrawable="@drawable/edtitext_cursor"
+            />
         <TextView
             android:text="残疾等级"
             style="@style/Black16sptv"
-            android:layout_marginLeft="16dp"/>
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="16dp"
-            android:layout_marginLeft="8dp"
-            android:drawableLeft="@drawable/text_cv_vertical_line"
-            android:background="@null"/>
-    </LinearLayout>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/colorBackgroundGray"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"/>
-    <LinearLayout
+            android:layout_marginLeft="16dp"
+            android:layout_alignBaseline="@id/text_cv_level_et"
+            />
+
+    </RelativeLayout>
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="12dp"
-        android:layout_marginTop="12dp">
+        >
         <TextView
+            android:id="@+id/text_cv_certificate_tv"
             android:text="残疾证"
             style="@style/Black16sptv"
-            android:layout_marginLeft="16dp"/>
-        <EditText
+            android:gravity="center"
+            android:layout_marginLeft="16dp"
+            android:drawablePadding="8dp"
+            android:drawableRight="@drawable/text_cv_vertical_line"
+            />
+        <Spinner
+            android:id="@+id/text_cv_certificate_spinner"
+            android:gravity="center"
+            android:popupBackground="@color/colorWhite"
+            android:layout_alignBaseline="@id/text_cv_certificate_tv"
+            android:layout_toRightOf="@id/text_cv_certificate_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:entries="@array/ifhave"
             android:layout_marginRight="16dp"
-            android:layout_marginLeft="8dp"
-            android:drawableLeft="@drawable/text_cv_vertical_line"
-            android:background="@null"/>
-    </LinearLayout>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/colorBackgroundGray"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"/>
-    <LinearLayout
+            ></Spinner>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp"
+            android:background="@color/colorBackgroundGray"
+            android:layout_below="@id/text_cv_certificate_tv"
+            android:layout_marginTop="2dp"/>
+    </RelativeLayout>
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="12dp"
-        android:layout_marginTop="12dp">
+        >
+        <EditText
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:id="@+id/text_cv_tel_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="72dp"
+            android:background="@drawable/text_cv_et_bg"
+            android:drawableLeft="@drawable/text_cv_vertical_line"
+            android:textCursorDrawable="@drawable/edtitext_cursor"
+            />
         <TextView
             android:text="联系电话"
             style="@style/Black16sptv"
-            android:layout_marginLeft="16dp"/>
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="16dp"
-            android:layout_marginLeft="8dp"
-            android:drawableLeft="@drawable/text_cv_vertical_line"
-            android:background="@null"/>
-    </LinearLayout>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/colorBackgroundGray"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"/>
-    <LinearLayout
+            android:layout_marginLeft="16dp"
+            android:layout_alignBaseline="@id/text_cv_tel_et"
+            />
+
+    </RelativeLayout>
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="12dp"
-        android:layout_marginTop="12dp">
+        >
+        <EditText
+            android:id="@+id/text_cv_email_et"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="72dp"
+            android:background="@drawable/text_cv_et_bg"
+            android:drawableLeft="@drawable/text_cv_vertical_line"
+            android:textCursorDrawable="@drawable/edtitext_cursor"
+            />
         <TextView
             android:text="联系邮箱"
             style="@style/Black16sptv"
-            android:layout_marginLeft="16dp"/>
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="16dp"
-            android:layout_marginLeft="8dp"
-            android:drawableLeft="@drawable/text_cv_vertical_line"
-            android:background="@null"/>
-    </LinearLayout>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/colorBackgroundGray"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"/>
+            android:layout_marginLeft="16dp"
+            android:layout_alignBaseline="@id/text_cv_email_et"
+            />
+
+    </RelativeLayout>
 
 
 

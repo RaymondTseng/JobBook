@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorInputGray"
+    android:background="@color/colorWhite"
     android:weightSum="568">
     <RelativeLayout
         android:layout_width="match_parent"
@@ -10,7 +10,7 @@
         android:layout_weight="56"
         android:background="@color/colorWhite">
         <ImageButton
-            android:id="@+id/setting_back_ib"
+            android:id="@+id/text_cv_close_ib"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@mipmap/close"
@@ -22,6 +22,7 @@
             style="@style/Black20sptv"
             android:layout_centerInParent="true"/>
         <TextView
+            android:id="@+id/text_cv_save_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="保存"
@@ -42,7 +43,8 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorWhite">
+                android:background="@color/colorWhite"
+                >
                 <ImageView
                     android:id="@+id/text_cv_head_iv"
                     android:layout_width="wrap_content"
@@ -52,7 +54,8 @@
                     android:layout_marginLeft="32dp"
                     android:src="@mipmap/add_head"
                     android:layout_marginTop="16dp"
-                    android:layout_marginBottom="16dp"/>
+                    android:layout_marginBottom="16dp"
+                    />
                 <EditText
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -64,31 +67,55 @@
                     android:layout_marginLeft="16dp"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="16dp"
-                    android:background="@null"
-                    android:drawableBottom="@drawable/text_cv_name_bg"/>
+                    android:background="@drawable/text_cv_et_bg"
+                    android:textCursorDrawable="@drawable/edtitext_cursor"
+
+                    />
             </RelativeLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorBackgroundGray"/>
             <include
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 layout="@layout/base_information_layout"
                 android:layout_marginTop="1dp"
                 />
-            <include
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorBackgroundGray"/>
+            <TextView
+                android:text="教育经历"
+                style="@style/Black20sptv"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"/>
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                layout="@layout/education_experiment_layout"
-                android:layout_marginTop="1dp"/>
+                android:id="@+id/text_cv_edu_container"
+                android:orientation="vertical">
+                <include
+                    android:id="@+id/text_cv_edu_original_ll"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    layout="@layout/education_experiment_layout"
+                    android:layout_marginTop="1dp"/>
+            </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="28dp"
-                android:paddingTop="12dp"
+                android:layout_marginTop="12dp"
                 android:background="@color/colorWhite">
                 <ImageButton
+                    android:id="@+id/text_cv_add_edu_exp_ib"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@mipmap/add_blue"
                     android:layout_marginLeft="16dp"
+                    android:clickable="true"
                     android:background="@null"/>
                 <TextView
                     android:layout_gravity="center"
@@ -96,18 +123,34 @@
                     style="@style/Black16sptv"
                     android:layout_marginLeft="16dp"/>
             </LinearLayout>
-            <include
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorBackgroundGray"/>
+            <TextView
+                android:text="工作经历"
+                style="@style/Black20sptv"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"/>
+            <LinearLayout
+                android:id="@+id/text_cv_job_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                layout="@layout/job_experiment_layout"
-                android:layout_marginTop="1dp"/>
+                android:orientation="vertical">
+                <include
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    layout="@layout/job_experiment_layout"
+                    android:layout_marginTop="1dp"/>
+            </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="28dp"
-                android:paddingTop="12dp"
+                android:layout_marginTop="12dp"
                 android:background="@color/colorWhite">
                 <ImageButton
+                    android:id="@+id/text_cv_add_job_exp_ib"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@mipmap/add_blue"
@@ -119,6 +162,10 @@
                     style="@style/Black16sptv"
                     android:layout_marginLeft="16dp"/>
             </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorBackgroundGray"/>
             <include
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

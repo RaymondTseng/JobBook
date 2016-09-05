@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">JobBook</string>
+
+    <array name="sex">
+        <item>男</item>
+        <item>女</item>
+    </array>
+    <array name="ifhave">
+        <item>有</item>
+        <item>无</item>
+    </array>
 </resources>
