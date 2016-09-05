@@ -3,15 +3,20 @@ package com.example.jobbook.cv.presenter;
 import com.example.jobbook.bean.EducationExpBean;
 import com.example.jobbook.bean.JobExpBean;
 
+import java.util.List;
+
 /**
  * Created by 椰树 on 2016/9/4.
  */
 public interface TextCVPresenter {
     void basedInformationCheck(String head, String name, String sex, String qualification, String location,
-                  String type, String level, boolean haveCertification, String tel, String email);
+                  String type, String level, String haveCertification, String tel, String email, String expectJob,
+                               String expectSalary, String expectLocation);
 
-    void educationExpCheck(EducationExpBean educationExpBean);
+    void educationExpCheck(List<EducationExpBean> educationExpBeanList);
 
-    void jobExpCheck(JobExpBean jobExpBean);
+    void jobExpCheck(List<JobExpBean> jobExpBeanList);
+
+    void load();
 
 }

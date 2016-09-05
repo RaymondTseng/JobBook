@@ -46,7 +46,7 @@ public class TextCVBean implements Serializable{
     /**
      * 是否有残疾证
      */
-    private boolean haveDisabilityCard;
+    private String haveDisabilityCard;
 
     /**
      * 联系电话
@@ -133,11 +133,11 @@ public class TextCVBean implements Serializable{
         this.disabilityLevel = disabilityLevel;
     }
 
-    public boolean isHaveDisabilityCard() {
+    public String isHaveDisabilityCard() {
         return haveDisabilityCard;
     }
 
-    public void setHaveDisabilityCard(boolean haveDisabilityCard) {
+    public void setHaveDisabilityCard(String haveDisabilityCard) {
         this.haveDisabilityCard = haveDisabilityCard;
     }
 
