@@ -104,6 +104,7 @@ public class TextCVModelImpl implements TextCVModel {
                     .content(new Gson().toJson(textCVBean)).build().execute(new StringCallback() {
                 @Override
                 public void onError(Call call, Exception e, int id) {
+                    Log.i("response", e.getMessage());
                     onBasedInformationFinishedListener.onFailure("network", e, id);
 //                    onEducationExpFinishedListener.onFailure("network", e, id);
 //                    onJobExpFinishedListener.onFailure("network", e, id);

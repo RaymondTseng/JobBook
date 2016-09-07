@@ -10,6 +10,7 @@ import com.example.jobbook.cv.view.TextCVView;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.ContactsContract;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
@@ -235,7 +236,8 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
     @Override
     public void success() {
         MyApplication myApplication = (MyApplication) getApplication();
-        myApplication.getHandler().sendEmptyMessage(1);
+        Handler handler = myApplication.getHandler();
+        handler.sendEmptyMessage(1);
         close();
     }
 

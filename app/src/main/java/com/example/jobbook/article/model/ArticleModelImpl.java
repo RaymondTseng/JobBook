@@ -34,9 +34,14 @@ public class ArticleModelImpl implements ArticleModel {
             @Override
             public void onResponse(String response, int id) {
                 Log.i("article_response:", response);
-                List<ArticleBean> list = new Gson().fromJson(response, new TypeToken<List<ArticleBean>>() {
-                }.getType());
-                listener.onSuccess(list);
+                if(response != null){
+                    List<ArticleBean> list = new Gson().fromJson(response, new TypeToken<List<ArticleBean>>() {
+                    }.getType());
+                    listener.onSuccess(list);
+                }else {
+                    listener.onFailure("article_response:null", new Exception());
+                }
+
             }
         });
     }

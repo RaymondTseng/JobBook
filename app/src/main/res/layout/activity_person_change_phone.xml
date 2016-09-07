@@ -72,26 +72,10 @@
             style="@style/Black16sptv"
             android:layout_centerVertical="true"
             android:paddingLeft="16dp"
-            android:text="验证码" />
-
-        <TextView
-            android:id="@+id/divider2"
-            android:layout_width="1dp"
-            android:layout_height="24dp"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="8dp"
-            android:layout_toEndOf="@+id/texttview2"
-            android:layout_toRightOf="@+id/texttview2"
-            android:background="#1f000000" />
-
-        <EditText
-            android:id="@+id/person_change_phone_code_et"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_centerVertical="true"
-            android:layout_toLeftOf="@+id/person_change_phone_code_bt"
-            android:layout_toRightOf="@+id/divider2"
-            android:layout_toEndOf="@+id/divider2" />
+            android:text="验证码"
+            android:gravity="center"
+            android:drawablePadding="8dp"
+            android:drawableRight="@drawable/text_cv_vertical_gray_line"/>
 
         <Button
             android:id="@+id/person_change_phone_code_bt"
@@ -105,7 +89,20 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
-             />
+            />
+
+        <EditText
+            android:id="@+id/person_change_phone_code_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_centerVertical="true"
+            android:background="@drawable/text_cv_et_bg"
+            android:layout_toLeftOf="@id/person_change_phone_code_bt"
+            android:layout_toRightOf="@id/texttview2"/>
+
 
 
     </RelativeLayout>
@@ -121,26 +118,22 @@
             style="@style/Black16sptv"
             android:layout_centerVertical="true"
             android:paddingLeft="16dp"
-            android:text="新手机号码" />
+            android:text="新手机号码"
+            android:gravity="center"
+            android:drawableRight="@drawable/text_cv_vertical_gray_line"
+            android:drawablePadding="8dp"/>
 
-        <TextView
-            android:id="@+id/divider3"
-            android:layout_width="1dp"
-            android:layout_height="24dp"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="8dp"
-            android:layout_toEndOf="@+id/texttview3"
-            android:layout_toRightOf="@+id/texttview3"
-            android:background="#1f000000" />
 
         <EditText
             android:id="@+id/person_change_phone_new_phone_et"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
+            android:paddingTop="8dp"
+            android:layout_marginRight="8dp"
             android:layout_marginLeft="8dp"
-            android:layout_toEndOf="@+id/divider3"
-            android:layout_toRightOf="@+id/divider3" />
+            android:background="@drawable/text_cv_et_bg"
+            android:layout_toRightOf="@id/texttview3" />
 
     </RelativeLayout>
 

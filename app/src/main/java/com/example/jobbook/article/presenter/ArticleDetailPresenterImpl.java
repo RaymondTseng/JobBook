@@ -22,6 +22,7 @@ public class ArticleDetailPresenterImpl implements ArticleDetailPresenter,
     }
     @Override
     public void loadArticle(String articleId) {
+        mView.showProgress();
         mModel.loadArticle(articleId, this);
     }
 
@@ -35,8 +36,10 @@ public class ArticleDetailPresenterImpl implements ArticleDetailPresenter,
 //        mView.ad
     }
 
+
     @Override
     public void onSuccess(ArticleBean mArticle) {
+        mView.hideProgress();
         mView.addArticle(mArticle);
     }
 

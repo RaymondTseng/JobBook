@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -31,13 +32,13 @@ public class UpdatePhoneActivity extends Activity implements View.OnClickListene
     private Button mGetCodeButton;
     private EditText mNewPhoneEditText;
     private TextView mCompleteTextView;
-    private PersonBean personBean = MyApplication.getmPersonBean();
+    private PersonBean personBean;
     private UpdatePhonePresenter mPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.person_change_phone);
+        setContentView(R.layout.activity_person_change_phone);
         initViews();
         initEvents();
     }
@@ -56,6 +57,8 @@ public class UpdatePhoneActivity extends Activity implements View.OnClickListene
         mBackImageButton.setOnClickListener(this);
         mGetCodeButton.setOnClickListener(this);
         mCompleteTextView.setOnClickListener(this);
+        personBean = MyApplication.getmPersonBean();
+        Log.i("phone", "result:" + personBean.getAccount());
         mOriginalPhoneTextView.setText(personBean.getTelephone());
     }
 
