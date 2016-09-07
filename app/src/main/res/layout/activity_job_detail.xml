@@ -63,6 +63,7 @@
         </RelativeLayout>
         <RelativeLayout
             android:layout_width="0dp"
+            android:id="@+id/job_detail_send_cv_ll"
             android:layout_height="match_parent"
             android:layout_weight="1">
             <LinearLayout

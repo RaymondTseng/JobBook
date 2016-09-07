@@ -9,4 +9,6 @@ public interface JobDetailPresenter {
     void like(String jobId);
 
     void unlike(String jobId);
+
+    void sendCV(String jobId);
 }
