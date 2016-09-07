@@ -13,9 +13,11 @@ import android.widget.TextView;
 import com.example.jobbook.MyApplication;
 import com.example.jobbook.R;
 import com.example.jobbook.bean.PersonBean;
+import com.example.jobbook.person.widget.UserDetailActivity;
 import com.example.jobbook.update.presenter.UpdatePhonePresenter;
 import com.example.jobbook.update.presenter.UpdatePhonePresenterImpl;
 import com.example.jobbook.update.view.UpdatePhoneView;
+import com.example.jobbook.util.Util;
 import com.jude.smssdk_mob.SMSManager;
 
 /**
@@ -75,6 +77,7 @@ public class UpdatePhoneActivity extends Activity implements View.OnClickListene
 
     @Override
     public void close() {
+        Util.toAnotherActivity(this, UserDetailActivity.class);
         this.finish();
     }
 
@@ -85,12 +88,17 @@ public class UpdatePhoneActivity extends Activity implements View.OnClickListene
 
     @Override
     public void complete(Context mContext) {
-        mPresenter.complete(mContext, mNewPhoneEditText.getText().toString(), mCodeEditText.getText().toString());
+        mPresenter.complete(mContext, MyApplication.getmPersonBean().getAccount(), mNewPhoneEditText.getText().toString(), mCodeEditText.getText().toString());
     }
 
     @Override
     public void codeBlankError() {
         showSnackbar("验证码为空！");
+    }
+
+    @Override
+    public void codeError() {
+        showSnackbar("手机验证码错误");
     }
 
     @Override

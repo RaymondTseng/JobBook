@@ -2,17 +2,128 @@ package com.example.jobbook.update.widget;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
+import com.example.jobbook.MyApplication;
 import com.example.jobbook.R;
+import com.example.jobbook.person.widget.UserDetailActivity;
+import com.example.jobbook.update.presenter.UpdatePwdPresenter;
+import com.example.jobbook.update.presenter.UpdatePwdPresenterImpl;
+import com.example.jobbook.update.view.UpdatePwdView;
+import com.example.jobbook.util.Util;
 
 /**
  * Created by Xu on 2016/9/5.
  */
-public class UpdatePwdActivity extends Activity {
+public class UpdatePwdActivity extends Activity implements View.OnClickListener, UpdatePwdView {
+
+    private ImageButton mBackImageButton;
+    private EditText mOriginalPwdEditText;
+    private EditText mNewPwdEditText;
+    private EditText mNewPwdConfirmEditText;
+    private TextView mCompleteTextView;
+    private UpdatePwdPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.person_change_pwd);
+        setContentView(R.layout.activity_person_change_pwd);
+        initViews();
+        initEvents();
+    }
+
+    private void initViews() {
+        mBackImageButton = (ImageButton) findViewById(R.id.person_change_pwd_back_ib);
+        mOriginalPwdEditText = (EditText) findViewById(R.id.person_change_pwd_original_pwd_et);
+        mNewPwdEditText = (EditText) findViewById(R.id.person_change_pwd_new_pwd_et);
+        mNewPwdConfirmEditText = (EditText) findViewById(R.id.person_change_pwd_new_pwd_confirm_et);
+        mCompleteTextView = (TextView) findViewById(R.id.person_change_pwd_complete_tv);
+    }
+
+    private void initEvents() {
+        mBackImageButton.setOnClickListener(this);
+        mCompleteTextView.setOnClickListener(this);
+        presenter = new UpdatePwdPresenterImpl(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.person_change_pwd_back_ib:
+                close();
+                break;
+            case R.id.person_change_pwd_complete_tv:
+                complete();
+                break;
+        }
+    }
+
+    @Override
+    public void close() {
+        Util.toAnotherActivity(this, UserDetailActivity.class);
+        finish();
+    }
+
+    @Override
+    public void complete() {
+        presenter.updatePwd(MyApplication.getmPersonBean().getAccount(), mOriginalPwdEditText.getText().toString(),
+                mNewPwdEditText.getText().toString(), mNewPwdConfirmEditText.getText().toString());
+    }
+
+    @Override
+    public void oPwdBlankError() {
+        showSnackbar("原密码为空");
+    }
+
+    @Override
+    public void nPwdBlankError() {
+        showSnackbar("新密码为空");
+    }
+
+    @Override
+    public void nPwdConfirmBlankError() {
+        showSnackbar("确认密码为空");
+    }
+
+    @Override
+    public void pwdConfirmError() {
+        showSnackbar("新密码与确认密码不一致");
+    }
+
+    @Override
+    public void success() {
+        showSnackbar("修改密码成功");
+    }
+
+    @Override
+    public void networkError() {
+        showSnackbar("网络错误！");
+    }
+
+    @Override
+    public void oPwdError() {
+        showSnackbar("原密码错误！");
+    }
+
+    @Override
+    public void oPwdEqualnPwdError() {
+        showSnackbar("原密码与新密码一致！");
+    }
+
+    private void showSnackbar(String content) {
+        View view = getWindow().getDecorView();
+        final Snackbar snackbar = Snackbar.make(view, content, Snackbar.LENGTH_LONG);
+        snackbar.setAction("dismiss", new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                snackbar.dismiss();
+            }
+        });
+        snackbar.show();
     }
 }

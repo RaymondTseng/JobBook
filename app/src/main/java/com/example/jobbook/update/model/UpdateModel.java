@@ -7,9 +7,9 @@ import android.content.Context;
  */
 public interface UpdateModel {
 
-    void updatePwd();
+    void updatePwd(String account, String oPwd, String nPwd, String nPwdConfirm, UpdateModelImpl.OnUpdatePwdListener listener);
 
-    void updatePhone(Context mContext, String tel, String code, UpdateModelImpl.OnUpdatePhoneListener listener);
+    void updatePhone(Context mContext, String account, String tel, String code, UpdateModelImpl.OnUpdatePhoneListener listener);
 
-    void updateUserName();
+    void updateUserName(String account, String username, UpdateModelImpl.OnUpdateUserNameListener listener);
 }

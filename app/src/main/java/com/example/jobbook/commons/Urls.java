@@ -47,7 +47,11 @@ public class Urls {
 
     public static final String UPLOAD_IMAGE_URL = ID + "/jobBook/Home/person/upload/";
 
-    public static final String UPDATE_PHONE_URL = ID + "";
+    public static final String UPDATE_PHONE_URL = ID + "/jobBook/Home/person/updateTel/";
+
+    public static final String UPDATE_PWD_URL = ID + "/jobBook/Home/person/updatepsw/";
+
+    public static final String UPDATE_USERNAME_URL = ID + "/jobBook/Home/person/updateName/";
 
     public static final String SEND_CV_URL = ID + "";
 

@@ -13,7 +13,7 @@
         android:background="@color/colorBlue">
 
         <ImageButton
-            android:id="@+id/person_userinfo_back_ib"
+            android:id="@+id/person_change_pwd_back_ib"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -25,8 +25,16 @@
             style="@style/White20sptv"
             android:layout_centerVertical="true"
             android:layout_marginLeft="32dp"
-            android:layout_toRightOf="@id/person_userinfo_back_ib"
+            android:layout_toRightOf="@id/person_change_pwd_back_ib"
             android:text="修改密码" />
+
+        <TextView
+            android:id="@+id/person_change_pwd_complete_tv"
+            style="@style/White16sptv"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="16dp"
+            android:text="完成" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -53,12 +61,16 @@
             android:background="#1f000000" />
 
         <EditText
+            android:id="@+id/person_change_pwd_original_pwd_et"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="8dp"
-            android:layout_toEndOf="@+id/divider1"
-            android:layout_toRightOf="@+id/divider1" />
+            android:layout_marginRight="16dp"
+            android:layout_toRightOf="@+id/divider1"
+            android:inputType="textPassword" />
 
     </RelativeLayout>
 
@@ -86,14 +98,16 @@
             android:background="#1f000000" />
 
         <EditText
+            android:id="@+id/person_change_pwd_new_pwd_et"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="8dp"
+            android:layout_marginRight="16dp"
             android:layout_toEndOf="@+id/divider2"
-            android:layout_toRightOf="@+id/divider2" />
-
-
+            android:layout_toRightOf="@+id/divider2"
+            android:inputType="textPassword" />
 
     </RelativeLayout>
 
@@ -121,12 +135,16 @@
             android:background="#1f000000" />
 
         <EditText
+            android:id="@+id/person_change_pwd_new_pwd_confirm_et"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="8dp"
+            android:layout_marginRight="16dp"
             android:layout_toEndOf="@+id/divider3"
-            android:layout_toRightOf="@+id/divider3" />
+            android:layout_toRightOf="@+id/divider3"
+            android:inputType="textPassword" />
 
     </RelativeLayout>
 

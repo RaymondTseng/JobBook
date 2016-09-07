@@ -14,12 +14,16 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.jobbook.R;
 import com.example.jobbook.bean.PersonBean;
 import com.example.jobbook.cv.widget.TextCVActivity;
 import com.example.jobbook.feedback.widget.FeedBackActivity;
 import com.example.jobbook.person.view.PersonView;
+import com.example.jobbook.util.ImageLoadUtils;
 import com.example.jobbook.util.Util;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 
 /**
@@ -36,6 +40,7 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
     private TextView mNameTextView;
     private Button mSwitch2TextCVButton;
     private RelativeLayout mUserDetailRelativeLayout;
+    private CircleImageView mHeadImageView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -66,6 +71,7 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
         mNameTextView = (TextView) view.findViewById(R.id.person_name_tv);
         mSwitch2TextCVButton = (Button) view.findViewById(R.id.person_textcv_bt);
         mUserDetailRelativeLayout = (RelativeLayout) view.findViewById(R.id.person_userinfo_rl);
+        mHeadImageView = (CircleImageView) view.findViewById(R.id.person_logo_iv);
     }
 
     private void initEvents() {
@@ -83,6 +89,7 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
         Bundle bundle = (Bundle) getArguments();
         PersonBean personBean = (PersonBean) bundle.getSerializable("PersonBean");
         mNameTextView.setText(personBean.getUsername());
+        ImageLoadUtils.display(getActivity(), mHeadImageView, personBean.getHead());
     }
 
     @Override
