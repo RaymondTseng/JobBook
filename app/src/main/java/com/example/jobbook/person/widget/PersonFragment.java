@@ -3,6 +3,9 @@ package com.example.jobbook.person.widget;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,7 +17,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
+import com.example.jobbook.MyApplication;
 import com.example.jobbook.R;
 import com.example.jobbook.bean.PersonBean;
 import com.example.jobbook.cv.widget.TextCVActivity;
@@ -30,7 +33,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * Created by 椰树 on 2016/5/20.
  */
 public class PersonFragment extends Fragment implements PersonView, View.OnClickListener {
-
+    private static int REFRESH = 0;
     private ListView mListView;
     private ImageButton mSettingImageButton;
     private IPersonChanged mIPersonChanged;
@@ -40,8 +43,17 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
     private TextView mNameTextView;
     private Button mSwitch2TextCVButton;
     private RelativeLayout mUserDetailRelativeLayout;
-    private CircleImageView mHeadImageView;
+    private CircleImageView mCircleImageView;
 
+
+    final Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            if (msg.what == REFRESH) {
+                showSnackbar("保存成功！");
+            }
+        }
+    };
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -71,7 +83,7 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
         mNameTextView = (TextView) view.findViewById(R.id.person_name_tv);
         mSwitch2TextCVButton = (Button) view.findViewById(R.id.person_textcv_bt);
         mUserDetailRelativeLayout = (RelativeLayout) view.findViewById(R.id.person_userinfo_rl);
-        mHeadImageView = (CircleImageView) view.findViewById(R.id.person_logo_iv);
+        mCircleImageView = (CircleImageView) view.findViewById(R.id.person_logo_iv);
     }
 
     private void initEvents() {
@@ -89,7 +101,7 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
         Bundle bundle = (Bundle) getArguments();
         PersonBean personBean = (PersonBean) bundle.getSerializable("PersonBean");
         mNameTextView.setText(personBean.getUsername());
-        ImageLoadUtils.display(getActivity(), mHeadImageView, personBean.getHead());
+        ImageLoadUtils.display(getActivity(), mCircleImageView, personBean.getHead());
     }
 
     @Override
@@ -108,6 +120,8 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
                 Util.toAnotherActivity(getActivity(), FavouriteActivity.class);
                 break;
             case R.id.person_textcv_bt:
+                MyApplication myApplication = (MyApplication) getActivity().getApplication();
+                myApplication.setHandler(handler);
                 Util.toAnotherActivity(getActivity(), TextCVActivity.class);
                 break;
             case R.id.person_userinfo_rl:
@@ -123,5 +137,18 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
 
     public interface IPersonChanged {
         void switchPerson2Login();
+    }
+
+    private void showSnackbar(String content){
+        View view = getActivity().findViewById(R.id.main_layout);
+        final Snackbar snackbar = Snackbar.make(view, "网络错误！", Snackbar.LENGTH_LONG);
+        snackbar.setAction("dismiss", new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                snackbar.dismiss();
+            }
+        });
+        snackbar.show();
     }
 }

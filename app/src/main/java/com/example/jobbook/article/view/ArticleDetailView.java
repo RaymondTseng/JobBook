@@ -19,4 +19,5 @@ public interface ArticleDetailView {
     void hideProgress();
 
     void showLoadFailMsg();
+
 }

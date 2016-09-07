@@ -38,7 +38,6 @@ public class ArticleDetailActivity extends Activity implements ArticleDetailView
         setContentView(R.layout.activity_article_detail);
         initViews();
         initEvents();
-        view = getWindow().getDecorView();
     }
 
     private void initViews() {
@@ -56,6 +55,7 @@ public class ArticleDetailActivity extends Activity implements ArticleDetailView
         mArticleBean = (ArticleBean) getIntent().getExtras().getSerializable("article_detail");
         Log.i("article_bean_activity", "123:" + mArticleBean.getArticle_id());
         mPresenter.loadArticle(mArticleBean.getArticle_id());
+        view = getWindow().getDecorView();
     }
 
     @Override

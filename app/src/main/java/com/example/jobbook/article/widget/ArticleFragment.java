@@ -216,7 +216,6 @@ public class ArticleFragment extends Fragment implements ArticleView, View.OnCli
                 currentType = Constants.INDEX_ARTICLE_ALL;
                 onRefresh();
                 Log.i("all", "change");
-                adapter.notifyDataSetChanged();
                 break;
             case R.id.article_title_engagement_rb:
                 mTitleTextView.setText(Constants.ARTICLE_ENGAGEMENT);
@@ -224,7 +223,6 @@ public class ArticleFragment extends Fragment implements ArticleView, View.OnCli
                 currentType = Constants.INDEX_ARTICLE_ENGAGEMENT;
                 onRefresh();
                 Log.i("engagement", "change");
-                adapter.notifyDataSetChanged();
                 break;
             case R.id.article_title_politic_rb:
                 mTitleTextView.setText(Constants.ARTICLE_POLITIC);
@@ -232,7 +230,6 @@ public class ArticleFragment extends Fragment implements ArticleView, View.OnCli
                 currentType = Constants.INDEX_ARTICLE_POLITIC;
                 onRefresh();
                 Log.i("politic", "change");
-                adapter.notifyDataSetChanged();
                 break;
             case R.id.article_title_life_rb:
                 mTitleTextView.setText(Constants.ARTICLE_LIFE);
@@ -240,7 +237,6 @@ public class ArticleFragment extends Fragment implements ArticleView, View.OnCli
                 currentType = Constants.INDEX_ARTICLE_LIFE;
                 onRefresh();
                 Log.i("life", "change");
-                adapter.notifyDataSetChanged();
                 break;
         }
     }
@@ -287,5 +283,6 @@ public class ArticleFragment extends Fragment implements ArticleView, View.OnCli
             list.clear();
         }
         presenter.loadArticles(pageIndex, currentType);
+        adapter.notifyDataSetChanged();
     }
 }
