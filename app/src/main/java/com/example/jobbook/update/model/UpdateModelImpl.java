@@ -77,7 +77,13 @@ public class UpdateModelImpl implements UpdateModel {
 
                         @Override
                         public void onResponse(String response, int id) {
-                            listener.onUpdatePhoneSuccess();
+                            if (response != null && !response.equals("false")) {
+                                PersonBean personBean = new Gson().fromJson(response, PersonBean.class);
+                                MyApplication.setmPersonBean(personBean);
+                                listener.onUpdatePhoneSuccess();
+                            }else {
+                                listener.onUpdatePhoneFailure();
+                            }
                         }
                     });
 

@@ -1,4 +1,4 @@
-package com.example.jobbook.upload.presenter;
+package com.example.jobbook.person.presenter;
 
 import android.graphics.Bitmap;
 

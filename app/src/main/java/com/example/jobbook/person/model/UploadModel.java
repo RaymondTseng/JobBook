@@ -1,4 +1,4 @@
-package com.example.jobbook.upload.model;
+package com.example.jobbook.person.model;
 
 import android.graphics.Bitmap;
 

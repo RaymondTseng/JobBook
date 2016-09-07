@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
 
@@ -97,6 +98,25 @@ public class UploadManager {
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);//这里100的话表示不压缩质量
         long length = baos.toByteArray().length / 1024;//读出图片的kb大小
         return length;
+    }
+
+    /**
+     * uri转Bitmap
+     * @param context
+     * @param uri
+     * @return
+     */
+    public static Bitmap getBitmapFromUri(Context context, Uri uri) {
+        try {
+            Bitmap bitmap = MediaStore.Images.Media.getBitmap(
+                    context.getContentResolver(), uri);
+            return bitmap;
+        } catch (Exception e) {
+            Log.e("[Android]", e.getMessage());
+            Log.e("[Android]", "目录为：" + uri);
+            e.printStackTrace();
+            return null;
+        }
     }
 
 }

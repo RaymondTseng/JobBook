@@ -34,8 +34,8 @@ public class RegisterModelImpl implements RegisterModel {
             listener.onPwdNotEqualError();
         } else if (TextUtils.isEmpty(userName)) {
             listener.onUserNameBlankError();
-        } else if (TextUtils.isEmpty(telephone)) {
-            listener.onTelephoneBlankError();
+//        } else if (TextUtils.isEmpty(telephone)) {
+//            listener.onTelephoneBlankError();
         } else if (TextUtils.isEmpty(code)) {
             listener.onCodeBlankError();
         } else if (Util.illegalCharactersCheck(account)) {
@@ -48,7 +48,7 @@ public class RegisterModelImpl implements RegisterModel {
                     personBean.setAccount(account);
                     personBean.setPassword(password);
                     personBean.setUsername(userName);
-                    personBean.setTelephone(telephone);
+                    personBean.setTelephone(null);
                     Log.i("registermodelimpl", Urls.REGISTER_URL);
                     OkHttpUtils.postString().url(Urls.REGISTER_URL).content(new Gson().
                             toJson(personBean)).build().execute(new StringCallback() {

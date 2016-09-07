@@ -1,4 +1,4 @@
-package com.example.jobbook.upload.widget;
+package com.example.jobbook.upload;
 
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;

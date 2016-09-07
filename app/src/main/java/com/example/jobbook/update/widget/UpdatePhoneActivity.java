@@ -66,7 +66,7 @@ public class UpdatePhoneActivity extends Activity implements View.OnClickListene
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.person_change_phone_back_ib:
-                finish();
+                close();
                 break;
 
             case R.id.person_change_phone_code_bt:
@@ -81,7 +81,7 @@ public class UpdatePhoneActivity extends Activity implements View.OnClickListene
     @Override
     public void close() {
         Util.toAnotherActivity(this, UserDetailActivity.class);
-        this.finish();
+        finish();
     }
 
     @Override

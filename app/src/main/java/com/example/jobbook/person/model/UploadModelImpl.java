@@ -1,4 +1,4 @@
-package com.example.jobbook.upload.model;
+package com.example.jobbook.person.model;
 
 import android.graphics.Bitmap;
 import android.text.TextUtils;
@@ -21,7 +21,7 @@ import okhttp3.Call;
 public class UploadModelImpl implements UploadModel {
 
     @Override
-    public void uploadImage(Bitmap bm, final OnUploadImageListener listener) {
+    public void uploadImage(final Bitmap bm, final OnUploadImageListener listener) {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bm.compress(Bitmap.CompressFormat.JPEG, 100, stream);
         byte[] bytes = UploadManager.compressBitmap(stream.toByteArray(), 200);
@@ -39,7 +39,7 @@ public class UploadModelImpl implements UploadModel {
                 public void onResponse(String response, int id) {
                     Log.i("uploadmodelimpl", "result:" + response);
                     if (response != null && response.equals("success!")) {
-                        listener.onSuccess();
+                        listener.onSuccess(bm);
                     } else {
                         listener.onFailure("response:" + response, null);
                     }
@@ -50,7 +50,7 @@ public class UploadModelImpl implements UploadModel {
     }
 
     public interface OnUploadImageListener {
-        void onSuccess();
+        void onSuccess(Bitmap bm);
 
         void onFailure(String msg, Exception e);
     }

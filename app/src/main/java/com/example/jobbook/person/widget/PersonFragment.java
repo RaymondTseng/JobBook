@@ -141,7 +141,7 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
 
     private void showSnackbar(String content){
         View view = getActivity().findViewById(R.id.main_layout);
-        final Snackbar snackbar = Snackbar.make(view, "网络错误！", Snackbar.LENGTH_LONG);
+        final Snackbar snackbar = Snackbar.make(view, content, Snackbar.LENGTH_LONG);
         snackbar.setAction("dismiss", new View.OnClickListener() {
 
             @Override
