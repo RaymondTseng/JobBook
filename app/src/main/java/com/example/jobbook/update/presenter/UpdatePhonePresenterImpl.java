@@ -19,18 +19,24 @@ public class UpdatePhonePresenterImpl implements UpdatePhonePresenter, UpdateMod
     }
 
     @Override
-    public void complete(Context mContext, String tel, String code) {
-        mModel.updatePhone(mContext, tel, code, this);
+    public void complete(Context mContext, String account, String tel, String code) {
+        mModel.updatePhone(mContext, account, tel, code, this);
     }
 
     @Override
-    public void onSuccess() {
+    public void onUpdatePhoneSuccess() {
         mView.success();
+        mView.close();
     }
 
     @Override
-    public void onFailure() {
+    public void onUpdatePhoneFailure() {
         mView.networkError();
+    }
+
+    @Override
+    public void onCodeError() {
+        mView.codeError();
     }
 
     @Override

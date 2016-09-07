@@ -17,6 +17,9 @@ import com.example.jobbook.MyApplication;
 import com.example.jobbook.bean.PersonBean;
 import com.example.jobbook.commons.Constants;
 
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -174,6 +177,7 @@ public class Util {
 
     /**
      * 返回搜索纪录
+     *
      * @param share
      * @return
      */
@@ -189,6 +193,7 @@ public class Util {
 
     /**
      * 设置搜索记录
+     *
      * @param share
      * @param newSearchRecord
      */
@@ -204,10 +209,11 @@ public class Util {
 
     /**
      * 清空搜索记录
+     *
      * @param share
      */
     public static void clearSearchList(SharedPreferences share) {
-        if(Util.getSearchList(share) != null) {
+        if (Util.getSearchList(share) != null) {
             SharedPreferences.Editor editor = share.edit();
             editor.clear();
             editor.commit();
@@ -227,6 +233,29 @@ public class Util {
             return true;
         }
         return false;
+    }
+
+    public static String getMD5(String val) {
+        MessageDigest md5 = null;
+        try {
+            md5 = MessageDigest.getInstance("MD5");
+            md5.update(val.getBytes("UTF-8"));
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        byte[] m = md5.digest();
+        return getString(m);
+    }
+
+    private static String getString(byte[] m) {
+        StringBuilder hex = new StringBuilder(m.length * 2);
+        for (byte b : m) {
+            if ((b & 0xFF) < 0x10) hex.append("0");
+            hex.append(Integer.toHexString(b & 0xFF));
+        }
+        return hex.toString();
     }
 
 }

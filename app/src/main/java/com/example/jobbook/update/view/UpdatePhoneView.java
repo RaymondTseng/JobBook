@@ -14,6 +14,8 @@ public interface UpdatePhoneView {
 
     void codeBlankError();
 
+    void codeError();
+
     void newPhoneBlankError();
 
     void success();

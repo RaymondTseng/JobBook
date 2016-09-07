@@ -87,11 +87,11 @@
         <EditText
             android:id="@+id/person_change_phone_code_et"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="8dp"
-            android:layout_toEndOf="@+id/divider2"
-            android:layout_toRightOf="@+id/divider2" />
+            android:layout_toLeftOf="@+id/person_change_phone_code_bt"
+            android:layout_toRightOf="@+id/divider2"
+            android:layout_toEndOf="@+id/divider2" />
 
         <Button
             android:id="@+id/person_change_phone_code_bt"
