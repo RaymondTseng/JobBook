@@ -1,7 +1,11 @@
 package com.example.jobbook.person.widget;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -13,10 +17,15 @@ import android.widget.TextView;
 import com.example.jobbook.MyApplication;
 import com.example.jobbook.R;
 import com.example.jobbook.bean.PersonBean;
+import com.example.jobbook.person.presenter.UploadPresenter;
+import com.example.jobbook.person.presenter.UploadPresenterImpl;
+import com.example.jobbook.person.view.UploadView;
 import com.example.jobbook.update.widget.UpdatePhoneActivity;
 import com.example.jobbook.update.widget.UpdatePwdActivity;
 import com.example.jobbook.update.widget.UpdateUsernameActivity;
-import com.example.jobbook.upload.widget.UploadPopupWindow;
+import com.example.jobbook.upload.UploadManager;
+import com.example.jobbook.upload.CropUtils;
+import com.example.jobbook.upload.UploadPopupWindow;
 import com.example.jobbook.util.ImageLoadUtils;
 import com.example.jobbook.util.Util;
 
@@ -25,7 +34,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 /**
  * Created by Xu on 2016/9/5.
  */
-public class UserDetailActivity extends Activity implements View.OnClickListener{
+public class UserDetailActivity extends Activity implements View.OnClickListener, UploadView {
 
     private ImageButton mBackImageButton;
     private RelativeLayout mChangeHeadRelativeLayout;
@@ -36,6 +45,7 @@ public class UserDetailActivity extends Activity implements View.OnClickListener
     private Button mChangePwdButton;
     private UploadPopupWindow mPopupWindow;
     private PersonBean mPersonBean = MyApplication.getmPersonBean();
+    private UploadPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,8 +72,8 @@ public class UserDetailActivity extends Activity implements View.OnClickListener
         mChangePhoneButton.setOnClickListener(this);
         mChangePwdButton.setOnClickListener(this);
         ImageLoadUtils.display(this, mUserHeadImageView, mPersonBean.getHead());
-//        Log.i("userdetail", mPersonBean.getUsername());
         mUserNameTextView.setText(mPersonBean.getUsername());
+        presenter = new UploadPresenterImpl(this);
     }
 
     @Override
@@ -76,7 +86,7 @@ public class UserDetailActivity extends Activity implements View.OnClickListener
             case R.id.person_userinfo_changehead_rl:
                 mPopupWindow = new UploadPopupWindow(this, itemsOnClick);
                 mPopupWindow.showAtLocation(findViewById(R.id.activity_person_userinfo_ll),
-                        Gravity.BOTTOM| Gravity.CENTER_HORIZONTAL, 0, 0);
+                        Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
                 break;
 
             case R.id.person_userinfo_changeusername_rl:
@@ -104,10 +114,10 @@ public class UserDetailActivity extends Activity implements View.OnClickListener
             mPopupWindow.dismiss();
             switch (v.getId()) {
                 case R.id.person_upload_takePhoto_bt:// 拍照
-//                    takePhoto();
+                    CropUtils.pickAvatarFromCamera(UserDetailActivity.this);
                     break;
                 case R.id.person_upload_pickPhoto_bt:// 相册选择图片
-//                    pickPhoto();
+                    CropUtils.pickAvatarFromGallery(UserDetailActivity.this);
                     break;
                 case R.id.person_upload_cancel_bt:// 取消
                     finish();
@@ -115,4 +125,68 @@ public class UserDetailActivity extends Activity implements View.OnClickListener
             }
         }
     };
+
+    private CropUtils.CropHandler handler = new CropUtils.CropHandler() {
+        @Override
+        public void handleCropResult(Uri uri, int tag) {
+            sendImage(UploadManager.getBitmapFromUri(UserDetailActivity.this, uri));
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public void handleCropError(Intent data) {
+
+        }
+    };
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        CropUtils.handleResult(this, handler, requestCode, resultCode, data);
+    }
+
+    private void sendImage(Bitmap bm) {
+        presenter.uploadImage(bm);
+    }
+
+    @Override
+    public void showProgress() {
+
+    }
+
+    @Override
+    public void hideProgress() {
+
+    }
+
+    @Override
+    public void uploadSuccess() {
+        Log.i("userdetail", "上传成功！");
+    }
+
+    @Override
+    public void uploadFailure() {
+        Log.i("userdetail", "上传失败！");
+    }
+
+    @Override
+    public void loadHead(Bitmap bm) {
+        mUserHeadImageView.setImageBitmap(bm);
+    }
+
+    private void showSnackbar(String content) {
+        View view = findViewById(R.id.main_layout);
+        final Snackbar snackbar = Snackbar.make(view, content, Snackbar.LENGTH_LONG);
+        snackbar.setAction("dismiss", new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                snackbar.dismiss();
+            }
+        });
+        snackbar.show();
+    }
 }

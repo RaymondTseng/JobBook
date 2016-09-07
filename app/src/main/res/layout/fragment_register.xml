@@ -30,7 +30,7 @@
         android:layout_marginLeft="32dp"
         android:layout_marginRight="32dp">
         <TextView
-            android:text="账号"
+            android:text="手机号码"
             style="@style/Black12sptv"/>
         />
         <EditText
@@ -42,6 +42,66 @@
             android:textSize="16sp"
             android:layout_alignParentBottom="true"/>
     </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="16"></LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="60"
+        android:layout_marginRight="32dp"
+        android:layout_marginLeft="32dp"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        >
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="1">
+            <TextView
+                android:text="手机验证码"
+                style="@style/Black12sptv"/>
+            <EditText
+                android:id="@+id/register_code_et"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="16dp"
+                android:textSize="16sp"
+                android:layout_alignParentBottom="true"
+                android:textCursorDrawable="@drawable/edtitext_cursor"
+                />
+
+        </RelativeLayout>
+        <!--<ImageView-->
+        <!--android:id="@+id/register_code_iv"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_weight="1"-->
+        <!--android:clickable="true"/>-->
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+            <Button
+                android:id="@+id/register_code_bt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="获取验证码"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:textColor="@color/colorWhite"
+                android:layout_marginRight="16dp"
+                android:background="@color/colorBlue"
+                android:gravity="center"
+                android:textSize="16sp"
+                />
+        </RelativeLayout>
+    </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -69,29 +129,26 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="16"></LinearLayout>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="60"
-        android:layout_marginLeft="32dp"
-        android:layout_marginRight="32dp">
-        <TextView
-            android:text="手机号码"
-            style="@style/Black12sptv"/>
-        />
-        <EditText
-            android:id="@+id/register_telephone_et"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textCursorDrawable="@drawable/edtitext_cursor"
-            android:paddingLeft="16dp"
-            android:textSize="16sp"
-            android:layout_alignParentBottom="true"/>
-    </RelativeLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="16"></LinearLayout>
+    <!--<RelativeLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:layout_weight="60"-->
+        <!--android:layout_marginLeft="32dp"-->
+        <!--android:layout_marginRight="32dp">-->
+        <!--<TextView-->
+            <!--android:text="手机号码"-->
+            <!--style="@style/Black12sptv"/>-->
+        <!--/>-->
+        <!--<EditText-->
+            <!--android:id="@+id/register_telephone_et"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:textCursorDrawable="@drawable/edtitext_cursor"-->
+            <!--android:paddingLeft="16dp"-->
+            <!--android:textSize="16sp"-->
+            <!--android:layout_alignParentBottom="true"/>-->
+    <!--</RelativeLayout>-->
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -138,59 +195,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="16"></LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="60"
-        android:layout_marginRight="32dp"
-        android:layout_marginLeft="32dp"
-        android:orientation="horizontal"
-        android:weightSum="2"
-        >
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_weight="1">
-            <TextView
-                android:text="验证码"
-                style="@style/Black12sptv"/>
-            <EditText
-                android:id="@+id/register_code_et"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="16dp"
-                android:textSize="16sp"
-                android:layout_alignParentBottom="true"
-                android:textCursorDrawable="@drawable/edtitext_cursor"
-                />
 
-        </RelativeLayout>
-        <!--<ImageView-->
-            <!--android:id="@+id/register_code_iv"-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:layout_weight="1"-->
-            <!--android:clickable="true"/>-->
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
-            <Button
-                android:id="@+id/register_code_bt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="获取验证码"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:textColor="@color/colorWhite"
-                android:layout_marginRight="16dp"
-                android:background="@color/colorBlue"
-                android:gravity="center"
-                android:textSize="16sp"
-                />
-        </RelativeLayout>
-    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"

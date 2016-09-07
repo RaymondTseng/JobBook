@@ -23,6 +23,11 @@
             android:value="GlideModule" />
 
         <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+
+        <activity
             android:name=".main.widget.MainActivity"
             android:windowSoftInputMode="adjustPan|adjustResize">
             <intent-filter>
@@ -67,8 +72,6 @@
         <activity
             android:name=".cv.widget.TextCVActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".upload.widget.UploadTakePhotoActivity" />
-        <activity android:name=".upload.widget.UploadPickPhotoActivity" />
         <activity android:name=".person.widget.UserDetailActivity" />
         <activity android:name=".update.widget.UpdatePhoneActivity" />
         <activity android:name=".update.widget.UpdatePwdActivity" />
