@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.jobbook.MyApplication;
@@ -42,6 +43,7 @@ public class JobDetailActivity extends Activity implements View.OnClickListener,
     private TextView mJobRequireTextView;
     private FlexboxLayout mBenefitLayout;
     private JobDetailPresenter mPresenter;
+    private RelativeLayout mSendCVLayout;
     private View view;
     private JobBean jobBean;
     private JobDetailBean jobDetailBean;
@@ -71,6 +73,7 @@ public class JobDetailActivity extends Activity implements View.OnClickListener,
         mJobDutyTextView = (TextView) findViewById(R.id.job_detail_description_duty_content_tv);
         mJobRequireTextView = (TextView) findViewById(R.id.job_detail_description_require_content_tv);
         mBenefitLayout = (FlexboxLayout) findViewById(R.id.job_detail_benefit_ll);
+        mSendCVLayout = (RelativeLayout) findViewById(R.id.job_detail_send_cv_ll);
     }
 
     private void initEvents() {
@@ -81,6 +84,7 @@ public class JobDetailActivity extends Activity implements View.OnClickListener,
         mToCompanyDetailImageButton.setOnClickListener(this);
         mBackImageButton.setOnClickListener(this);
         mLikeImageButton.setOnClickListener(this);
+        mSendCVLayout.setOnClickListener(this);
     }
 
     @Override
@@ -108,6 +112,9 @@ public class JobDetailActivity extends Activity implements View.OnClickListener,
                 }
                 refresh();
                 break;
+            case R.id.job_detail_send_cv_ll:
+                sendCV(jobBean.getId());
+                break;
         }
     }
 
@@ -123,11 +130,6 @@ public class JobDetailActivity extends Activity implements View.OnClickListener,
 
     @Override
     public void switch2Chat() {
-
-    }
-
-    @Override
-    public void submitCV() {
 
     }
 
@@ -168,10 +170,11 @@ public class JobDetailActivity extends Activity implements View.OnClickListener,
     public void hideProgress() {
 
     }
-
-    @Override
-    public void showLoadFailMsg() {
-        final Snackbar snackbar = Snackbar.make(view, "岗位详情读取错误，请重试！", Snackbar.LENGTH_LONG);
+    private void showSnackbar(String content){
+        if(view == null){
+            view = getWindow().getDecorView();
+        }
+        final Snackbar snackbar = Snackbar.make(view, content, Snackbar.LENGTH_LONG);
         snackbar.setAction("dismiss", new View.OnClickListener() {
 
             @Override
@@ -180,6 +183,11 @@ public class JobDetailActivity extends Activity implements View.OnClickListener,
             }
         });
         snackbar.show();
+    }
+
+    @Override
+    public void showLoadFailMsg() {
+        showSnackbar("岗位详情读取错误，请重试！");
     }
 
     @Override
@@ -188,81 +196,43 @@ public class JobDetailActivity extends Activity implements View.OnClickListener,
     }
 
     @Override
-    public void likeNoLoginError() {
-        final Snackbar snackbar = Snackbar.make(view, "请先登录！", Snackbar.LENGTH_LONG);
-        snackbar.setAction("dismiss", new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                snackbar.dismiss();
-            }
-        });
-        snackbar.show();
-    }
-
-    @Override
-    public void unlikeNoLoginError() {
-        final Snackbar snackbar = Snackbar.make(view, "请先登录！", Snackbar.LENGTH_LONG);
-        snackbar.setAction("dismiss", new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                snackbar.dismiss();
-            }
-        });
-        snackbar.show();
+    public void NoLoginError() {
+        showSnackbar("请先登录");
     }
 
     @Override
     public void likeSuccess() {
-        final Snackbar snackbar = Snackbar.make(view, "收藏成功！", Snackbar.LENGTH_LONG);
-        snackbar.setAction("dismiss", new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                snackbar.dismiss();
-            }
-        });
-        snackbar.show();
+        showSnackbar("收藏成功！");
     }
 
     @Override
     public void unlikeSuccess() {
-        final Snackbar snackbar = Snackbar.make(view, "取消收藏成功！", Snackbar.LENGTH_LONG);
-        snackbar.setAction("dismiss", new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                snackbar.dismiss();
-            }
-        });
-        snackbar.show();
+        showSnackbar("取消收藏成功！");
     }
 
     @Override
     public void likeError() {
-        final Snackbar snackbar = Snackbar.make(view, "收藏失败，请重试！", Snackbar.LENGTH_LONG);
-        snackbar.setAction("dismiss", new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                snackbar.dismiss();
-            }
-        });
-        snackbar.show();
+        showSnackbar("收藏失败，请重试！");
     }
 
     @Override
     public void unlikeError() {
-        final Snackbar snackbar = Snackbar.make(view, "取消收藏失败，请重试！", Snackbar.LENGTH_LONG);
-        snackbar.setAction("dismiss", new View.OnClickListener() {
+        showSnackbar("取消收藏失败，请重试！");
+    }
 
-            @Override
-            public void onClick(View v) {
-                snackbar.dismiss();
-            }
-        });
-        snackbar.show();
+    @Override
+    public void sendCV(String jobId) {
+        mPresenter.sendCV(jobId);
+    }
+
+    @Override
+    public void sendCVSuccess() {
+        showSnackbar("提交成功！");
+    }
+
+    @Override
+    public void sendCVFailure() {
+        showSnackbar("提交失败！");
     }
 
     private void refresh() {

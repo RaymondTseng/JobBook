@@ -13,8 +13,6 @@ public interface JobDetailView {
 
     void switch2Chat();
 
-    void submitCV();
-
     void addJob(JobDetailBean jobDetailBean);
 
     void hideProgress();
@@ -23,9 +21,7 @@ public interface JobDetailView {
 
     void showProhress();
 
-    void likeNoLoginError();
-
-    void unlikeNoLoginError();
+    void NoLoginError();
 
     void likeSuccess();
 
@@ -34,4 +30,11 @@ public interface JobDetailView {
     void likeError();
 
     void unlikeError();
+
+    void sendCV(String jobId);
+
+    void sendCVSuccess();
+
+    void sendCVFailure();
+
 }

@@ -9,7 +9,7 @@ import com.example.jobbook.job.view.JobDetailView;
  * Created by 椰树 on 2016/8/28.
  */
 public class JobDetailPresenterImpl implements JobDetailPresenter, JobDetailModelImpl.OnLoadJobListener,
-        JobDetailModelImpl.OnLikeJobListener, JobDetailModelImpl.OnUnlikeJobListener {
+        JobDetailModelImpl.OnLikeJobListener, JobDetailModelImpl.OnUnlikeJobListener ,JobDetailModelImpl.OnSendCVListener{
 
     private JobDetailModel mJobDetailModel;
     private JobDetailView mJobDetailView;
@@ -31,6 +31,11 @@ public class JobDetailPresenterImpl implements JobDetailPresenter, JobDetailMode
     @Override
     public void unlike(String jobId) {
         mJobDetailModel.unlike(jobId, this);
+    }
+
+    @Override
+    public void sendCV(String jobId) {
+        mJobDetailModel.sendCV(jobId, this);
     }
 
     @Override
@@ -57,7 +62,7 @@ public class JobDetailPresenterImpl implements JobDetailPresenter, JobDetailMode
 
     @Override
     public void onUnlikeJobNoLoginError() {
-        mJobDetailView.unlikeNoLoginError();
+        mJobDetailView.NoLoginError();
     }
 
     @Override
@@ -73,6 +78,21 @@ public class JobDetailPresenterImpl implements JobDetailPresenter, JobDetailMode
 
     @Override
     public void onLikeJobNoLoginError() {
-        mJobDetailView.likeNoLoginError();
+        mJobDetailView.NoLoginError();
+    }
+
+    @Override
+    public void onSendCVSuccess() {
+        mJobDetailView.sendCVSuccess();
+    }
+
+    @Override
+    public void onSendCVFailure(String msg, Exception e) {
+        mJobDetailView.sendCVFailure();
+    }
+
+    @Override
+    public void onSendCVNoLoginError() {
+        mJobDetailView.NoLoginError();
     }
 }

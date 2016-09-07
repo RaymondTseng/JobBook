@@ -49,4 +49,6 @@ public class Urls {
 
     public static final String UPDATE_PHONE_URL = ID + "";
 
+    public static final String SEND_CV_URL = ID + "";
+
 }
