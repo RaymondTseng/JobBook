@@ -37,7 +37,7 @@ public class Urls {
 
     public static final String GET_CODE_URL = ID + "/jobBook/Home/enter/verify";
 
-    public static final String FEED_BACK_URL = ID + "";
+    public static final String FEED_BACK_URL = ID + "/jobBook/Home/suggestion/postSuggestion/account/";
 
     public static final String FAVOURITE_URL = ID + "/jobBook/Home/person/MyFavourite/account/";
 
@@ -45,7 +45,7 @@ public class Urls {
 
     public static final String LOAD_TEXT_CV_URL = ID + "/jobBook/Home/cv/getcv/account/";
 
-    public static final String UPLOAD_IMAGE_URL = ID + "/jobBook/Home/person/upload/";
+    public static final String UPLOAD_IMAGE_URL = ID + "/jobBook/Home/person/upload2/";
 
     public static final String UPDATE_PHONE_URL = ID + "/jobBook/Home/person/updateTel/";
 

@@ -7,6 +7,8 @@ public interface FeedBackView {
 
     void showError();
 
+    void emailError();
+
     void showSuccess();
 
     void back();

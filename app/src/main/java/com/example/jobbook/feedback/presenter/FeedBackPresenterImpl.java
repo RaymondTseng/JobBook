@@ -33,4 +33,9 @@ public class FeedBackPresenterImpl implements FeedBackPresenter, FeedBackModelIm
         mFeedBackView.showError();
     }
 
+    @Override
+    public void onEmailError() {
+        mFeedBackView.emailError();
+    }
+
 }

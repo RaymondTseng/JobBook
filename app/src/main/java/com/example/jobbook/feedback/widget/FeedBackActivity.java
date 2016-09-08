@@ -62,7 +62,7 @@ public class FeedBackActivity extends Activity implements FeedBackView, View.OnC
         mBackImageButton.setOnClickListener(this);
     }
 
-    private void initEvents(){
+    private void initEvents() {
         mFeedBackPresenter = new FeedBackPresenterImpl(this);
         mFeedBackTextView.setOnClickListener(this);
         mBackImageButton.setOnClickListener(this);
@@ -76,11 +76,16 @@ public class FeedBackActivity extends Activity implements FeedBackView, View.OnC
     }
 
     @Override
+    public void emailError() {
+        showSnackbar("邮箱格式错误！");
+    }
+
+    @Override
     public void showSuccess() {
         showSnackbar("提交成功！");
     }
 
-    private void showSnackbar(String content){
+    private void showSnackbar(String content) {
         View view = getWindow().getDecorView();
         final Snackbar snackbar = Snackbar.make(view, content, Snackbar.LENGTH_LONG);
         snackbar.setAction("dismiss", new View.OnClickListener() {
@@ -95,12 +100,17 @@ public class FeedBackActivity extends Activity implements FeedBackView, View.OnC
 
     @Override
     public void back() {
+        try {
+            Thread.sleep(1500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         this.finish();
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.suggestion_feedback_back_ib:
                 back();
                 break;
@@ -130,7 +140,7 @@ public class FeedBackActivity extends Activity implements FeedBackView, View.OnC
             Message message = new Message();
             message.what = CHANGE_COLOR;
             handler.sendMessage(message);
-        }else {
+        } else {
             Message message = new Message();
             message.what = NO_CHANGE_COLOR;
             handler.sendMessage(message);
