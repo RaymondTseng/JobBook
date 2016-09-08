@@ -31,7 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener,
-        ViewPager.OnPageChangeListener, MainView, LoginFragment.ILoginChanged, RegisterFragment.IRegisterChanged, PersonFragment.IPersonChanged {
+        ViewPager.OnPageChangeListener, MainView {
 
     private ViewPager mFragmentContainer;
     private RadioButton mJobRadioButton;
@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     private MainFragmentPagerAdapter mFragmentPagerAdapter;
     private List<Fragment> mFragments;
     private MainPresenter mMainPresenter;
+    private int mShowFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +70,8 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         mFragments.add(new JobFragment());
         mFragments.add(new ArticleFragment());
         mFragments.add(new QuestionFragment());
-        mFragments.add(new LoginFragment());
+//        mFragments.add(new LoginFragment());
+        mFragments.add(new ContainerFragment());
     }
 
     private void initEvent() {
@@ -78,6 +80,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         mFragmentContainer.setAdapter(mFragmentPagerAdapter);
         mRadioGroup.setOnCheckedChangeListener(this);
         mFragmentContainer.addOnPageChangeListener(this);
+        mShowFragment = 0;
         MyApplication.setmPersonBean(mMainPresenter.loadPersonBean(this));
     }
 
@@ -141,54 +144,9 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         mFragmentContainer.setCurrentItem(2);
     }
 
-
     @Override
-    public void switch2Person() {
-        mFragmentPagerAdapter.toPersonFragment(MyApplication.getmPersonBean());
+    public void switch2Container() {
         mFragmentContainer.setCurrentItem(3);
     }
 
-    @Override
-    public void switch2Login() {
-        mFragmentPagerAdapter.toLoginFragment();
-        mFragmentContainer.setCurrentItem(3);
-        MyApplication.setmNoLoginStatus();
-        MyApplication.setmPersonBean(null);
-    }
-
-    @Override
-    public void switch2Register() {
-        mFragmentPagerAdapter.toRegisterFragment();
-        mFragmentContainer.setCurrentItem(3);
-    }
-
-    @Override
-    public void switchLogin2Person(PersonBean personBean) {
-        MyApplication.setmPersonBean(personBean);
-        mMainPresenter.savePersonBean(this, personBean);
-        switch2Person();
-    }
-
-    @Override
-    public void switchLogin2Register() {
-        switch2Register();
-    }
-
-    @Override
-    public void switchRegister2Person(PersonBean personBean) {
-        Log.i("TAG1", personBean.getUsername());
-        MyApplication.setmPersonBean(personBean);
-        mMainPresenter.savePersonBean(this, personBean);
-        switch2Person();
-    }
-
-    @Override
-    public void switchRegister2Login() {
-        switch2Login();
-    }
-
-    @Override
-    public void switchPerson2Login() {
-        switch2Login();
-    }
 }

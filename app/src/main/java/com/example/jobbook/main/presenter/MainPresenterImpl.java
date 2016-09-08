@@ -34,14 +34,7 @@ public class MainPresenterImpl implements MainPresenter {
                 mMainView.switch2Question();
                 break;
             case R.id.person_rb:
-                if (Util.getLoginStatus() == 1){
-                    Log.i("mainpresenter:", "person");
-                    mMainView.switch2Person();
-                }
-                else {
-                    Log.i("mainpresenter:", "login");
-                    mMainView.switch2Login();
-                }
+                mMainView.switch2Container();
                 break;
         }
     }

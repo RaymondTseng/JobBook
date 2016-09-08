@@ -60,6 +60,7 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
         View view = inflater.inflate(R.layout.fragment_person, container, false);
         initViews(view);
         initEvents();
+        Log.i("person", "createview");
         return view;
     }
 
@@ -68,7 +69,8 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
         // TODO Auto-generated method stub
         super.onAttach(activity);
         try {
-            mIPersonChanged = (IPersonChanged) activity;
+//            mIPersonChanged = (IPersonChanged) activity;
+            mIPersonChanged = (IPersonChanged) getParentFragment();
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
                     + "must implement OnGridViewSelectedListener");

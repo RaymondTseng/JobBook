@@ -82,7 +82,8 @@ public class RegisterFragment extends Fragment implements RegisterView, View.OnC
         // TODO Auto-generated method stub
         super.onAttach(activity);
         try {
-            mIRegisterChanged = (IRegisterChanged) activity;
+//            mIRegisterChanged = (IRegisterChanged) activity;
+            mIRegisterChanged = (IRegisterChanged) getParentFragment();
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
                     + "must implement OnGridViewSelectedListener");
