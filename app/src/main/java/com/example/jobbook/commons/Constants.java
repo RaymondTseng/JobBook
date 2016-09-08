@@ -32,4 +32,10 @@ public class Constants {
     public static final int CACHE = 1;
 
     public static final int NO_CACHE = 0;
+
+    public static final int LOGIN = 0;
+
+    public static final int REGISTER = 1;
+
+    public static final int PERSON = 2;
 }

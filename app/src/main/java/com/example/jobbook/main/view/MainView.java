@@ -13,10 +13,6 @@ public interface MainView {
 
     void switch2Question();
 
-    void switch2Person();
-
-    void switch2Login();
-
-    void switch2Register();
+    void switch2Container();
 
 }

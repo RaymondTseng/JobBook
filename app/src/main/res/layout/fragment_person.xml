@@ -46,21 +46,6 @@
             style="@style/person_content_big_button_style"
             />
 
-        <!--<RelativeLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="0dp"-->
-            <!--android:layout_weight="1"-->
-            <!--android:background="@drawable/person_content_bg">-->
-
-            <!--<TextView-->
-                <!--android:id="@+id/person_feedback_tv"-->
-                <!--android:clickable="false"-->
-                <!--style="@style/person_content_tv_style"-->
-                <!--android:text="意见反馈" />-->
-
-            <!--<ImageView style="@style/person_content_iv_style" />-->
-        <!--</RelativeLayout>-->
-
         <Button
             android:id="@+id/person_feedback_bt"
             android:text="意见反馈"

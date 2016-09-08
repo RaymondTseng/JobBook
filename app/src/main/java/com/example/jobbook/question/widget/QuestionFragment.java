@@ -68,6 +68,7 @@ public class QuestionFragment extends Fragment implements QuestionView,
         view = inflater.inflate(R.layout.fragment_question, container, false);
         initViews(view);
         initEvents();
+        Log.i("questionfragment", "create");
         return view;
     }
 

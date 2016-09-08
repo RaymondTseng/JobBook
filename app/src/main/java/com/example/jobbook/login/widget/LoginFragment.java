@@ -40,6 +40,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Log
         initView(view);
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         presenter = new LoginPresenterImpl(this);
+        Log.i("login", "createview");
         return view;
     }
 
@@ -57,7 +58,8 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Log
         // TODO Auto-generated method stub
         super.onAttach(activity);
         try {
-            mILoginChanged = (ILoginChanged) activity;
+//            mILoginChanged = (ILoginChanged) activity;
+            mILoginChanged = (ILoginChanged) getParentFragment();
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
                     + "must implement OnGridViewSelectedListener");

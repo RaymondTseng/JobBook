@@ -127,9 +127,6 @@ public class Util {
         personBean.setTelephone(share.getString("telephone", ""));
         personBean.setUsername(share.getString("username", ""));
         personBean.setHead(share.getString("head", ""));
-//        personBean.setTextCVs(null);
-//        personBean.setVideoCVs(null);
-//        personBean.setFavourite(null);
         return personBean;
     }
 
