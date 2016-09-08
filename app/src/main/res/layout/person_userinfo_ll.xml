@@ -13,7 +13,8 @@
         android:layout_centerVertical="true"
         android:layout_marginBottom="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp" />
+        android:layout_marginTop="16dp"
+        android:src="@mipmap/default_78px"/>
 
     <TextView
         android:id="@+id/person_name_tv"

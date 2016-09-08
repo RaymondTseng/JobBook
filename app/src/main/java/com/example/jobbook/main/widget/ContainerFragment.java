@@ -24,7 +24,7 @@ import com.example.jobbook.register.widget.RegisterFragment;
  * Created by 椰树 on 2016/9/8.
  */
 public class ContainerFragment extends Fragment implements ContainerView, LoginFragment.ILoginChanged,
-        RegisterFragment.IRegisterChanged, PersonFragment.IPersonChanged{
+        RegisterFragment.IRegisterChanged, PersonFragment.IPersonChanged {
     private FrameLayout mFragmentContainer;
     private int mShowFragment;
     private FragmentManager fm;
@@ -34,30 +34,29 @@ public class ContainerFragment extends Fragment implements ContainerView, LoginF
     private PersonFragment mPersonFragment;
     private int fragmentContainerId;
 
-
     @Override
     public void update(int mShowFragment) {
         Log.i("container", "update:" + mShowFragment);
         fm = getChildFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
-        if(this.mShowFragment != mShowFragment){
+        if (this.mShowFragment != mShowFragment) {
             this.mShowFragment = mShowFragment;
             hideFragments(ft);
-            if(mShowFragment == Constants.LOGIN){
-                if(mLoginFragment == null){
+            if (mShowFragment == Constants.LOGIN) {
+                if (mLoginFragment == null) {
                     mLoginFragment = new LoginFragment();
                     ft.add(fragmentContainerId, mLoginFragment);
-                }else{
+                } else {
                     ft.show(mLoginFragment);
                 }
-            }else if(mShowFragment == Constants.REGISTER){
-                if(mRegisterFragment == null){
+            } else if (mShowFragment == Constants.REGISTER) {
+                if (mRegisterFragment == null) {
                     mRegisterFragment = new RegisterFragment();
                     ft.add(fragmentContainerId, mRegisterFragment);
-                }else{
+                } else {
                     ft.show(mRegisterFragment);
                 }
-            }else{
+            } else {
                 mPersonFragment = new PersonFragment();
                 setPersonBean(mPersonFragment);
                 ft.add(fragmentContainerId, mPersonFragment);
@@ -66,6 +65,7 @@ public class ContainerFragment extends Fragment implements ContainerView, LoginF
 
         }
     }
+
     private void hideFragments(FragmentTransaction transaction) {
 
         if (mLoginFragment != null) {
@@ -78,7 +78,8 @@ public class ContainerFragment extends Fragment implements ContainerView, LoginF
             transaction.hide(mPersonFragment);
         }
     }
-    private void setPersonBean(PersonFragment personFragment){
+
+    private void setPersonBean(PersonFragment personFragment) {
         Bundle bundle = new Bundle();
         bundle.putSerializable("PersonBean", MyApplication.getmPersonBean());
         personFragment.setArguments(bundle);
@@ -93,25 +94,25 @@ public class ContainerFragment extends Fragment implements ContainerView, LoginF
         return view;
     }
 
-    private void initViews(View view){
+    private void initViews(View view) {
         mFragmentContainer = (FrameLayout) view.findViewById(R.id.container_fragment_container);
     }
 
-    private void initEvents(){
+    private void initEvents() {
         mPresenter = new ContainerPresenterImpl(this);
         fragmentContainerId = R.id.container_fragment_container;
         fm = getChildFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         Fragment oldFragment = fm.findFragmentById(fragmentContainerId);
-        if(oldFragment != null){
+        if (oldFragment != null) {
             ft.remove(oldFragment);
         }
         mPresenter.loadPersonBean(getActivity());
-        if(MyApplication.getmLoginStatus() == 0){
+        if (MyApplication.getmLoginStatus() == 0) {
             mShowFragment = Constants.LOGIN;
             mLoginFragment = new LoginFragment();
             ft.add(fragmentContainerId, mLoginFragment);
-        }else{
+        } else {
             mShowFragment = Constants.PERSON;
             mPersonFragment = new PersonFragment();
             setPersonBean(mPersonFragment);

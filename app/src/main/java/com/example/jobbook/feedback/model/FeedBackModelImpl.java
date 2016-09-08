@@ -1,7 +1,11 @@
 package com.example.jobbook.feedback.model;
 
+import android.util.Log;
+
 import com.example.jobbook.MyApplication;
+import com.example.jobbook.bean.FeedBackBean;
 import com.example.jobbook.commons.Urls;
+import com.google.gson.Gson;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -14,23 +18,35 @@ public class FeedBackModelImpl implements FeedBackModel {
 
     @Override
     public void feedBack(String mailAddress, String content, final OnFeedBackListener listener) {
-        //是否建立一个新的bean
-//        String feedback = MyApplication.getmPersonBean().getAccount() + ";" + mailAddress + ";" + content;
-        OkHttpUtils.postString().url(Urls.FEED_BACK_URL).content("").build().execute(new StringCallback() {
+        Log.i("response:", "feedback_modelimpl");
+        FeedBackBean feedBackBean = new FeedBackBean();
+        feedBackBean.setEmail(mailAddress);
+        feedBackBean.setContent(content);
+        OkHttpUtils.postString().url(Urls.FEED_BACK_URL + MyApplication.getmPersonBean().getAccount()).content(new Gson().toJson(feedBackBean)).build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
+                Log.i("response:", e.getMessage());
                 listener.onFailure();
             }
 
             @Override
             public void onResponse(String response, int id) {
-                listener.onSuccess();
+                if (response != null) {
+                    if (response.equals("email failed")) {
+                        listener.onEmailError();
+                    }else {
+                        listener.onSuccess();
+                    }
+                }
             }
         });
     }
 
     public interface OnFeedBackListener {
         void onSuccess();
+
         void onFailure();
+
+        void onEmailError();
     }
 }
