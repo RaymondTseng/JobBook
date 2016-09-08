@@ -100,8 +100,9 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
 
     @Override
     public void showPersonData() {
-        Bundle bundle = (Bundle) getArguments();
-        PersonBean personBean = (PersonBean) bundle.getSerializable("PersonBean");
+//        Bundle bundle = (Bundle) getArguments();
+//        PersonBean personBean = (PersonBean) bundle.getSerializable("PersonBean");
+        PersonBean personBean = MyApplication.getmPersonBean();
         mNameTextView.setText(personBean.getUsername());
         ImageLoadUtils.display(getActivity(), mCircleImageView, personBean.getHead());
     }

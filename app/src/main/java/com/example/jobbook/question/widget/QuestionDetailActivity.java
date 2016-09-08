@@ -17,6 +17,7 @@ import com.example.jobbook.R;
 import com.example.jobbook.bean.QuestionBean;
 import com.example.jobbook.bean.QuestionCommentBean;
 import com.example.jobbook.bean.QuestionDetailBean;
+import com.example.jobbook.question.ExpandListView;
 import com.example.jobbook.question.QuestionDetailListViewAdapter;
 import com.example.jobbook.question.presenter.QuestionDetailPresenter;
 import com.example.jobbook.question.presenter.QuestionDetailPresenterImpl;
@@ -29,7 +30,7 @@ import java.util.List;
  * Created by 椰树 on 2016/7/15.
  */
 public class QuestionDetailActivity extends Activity implements QuestionDetailView, View.OnClickListener{
-    private ListView mListView;
+    private ExpandListView mListView;
     private EditText mEditText;
     private ImageButton mSendImageButton;
     private ImageButton mBackImageButton;
@@ -50,7 +51,7 @@ public class QuestionDetailActivity extends Activity implements QuestionDetailVi
         initEvents();
     }
     private void initViews(){
-        mListView = (ListView) findViewById(R.id.question_detail_lv);
+        mListView = (ExpandListView) findViewById(R.id.question_detail_lv);
         mEditText = (EditText) findViewById(R.id.question_detail_et);
         mSendImageButton = (ImageButton) findViewById(R.id.question_detail_send_ib);
         mBackImageButton = (ImageButton) findViewById(R.id.question_detail_back_ib);
@@ -90,7 +91,7 @@ public class QuestionDetailActivity extends Activity implements QuestionDetailVi
     @Override
     public void addComments(List<QuestionCommentBean> mComments) {
         mAdapter.updateData(mComments);
-        Util.setListViewHeightBasedOnChildren(mListView);
+//        Util.setListViewHeightBasedOnChildren(mListView);
     }
 
     @Override
