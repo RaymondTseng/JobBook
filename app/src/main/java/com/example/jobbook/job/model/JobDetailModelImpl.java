@@ -88,14 +88,14 @@ public class JobDetailModelImpl implements JobDetailModel {
     }
 
     @Override
-    public void sendCV(String jobId, final OnSendCVListener listener) {
+    public void sendCV(String companyId, final OnSendCVListener listener) {
         String account = "";
-        if(MyApplication.getmLoginStatus() == 0){
+        if (MyApplication.getmLoginStatus() == 0) {
             listener.onSendCVNoLoginError();
-        }else{
+        } else {
             account = MyApplication.getmPersonBean().getAccount();
         }
-        OkHttpUtils.postString().url(Urls.SEND_CV_URL).content("").build().execute(new StringCallback() {
+        OkHttpUtils.get().url(Urls.SEND_CV_URL + "account/" + account + "/com_id/" + companyId).build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
                 listener.onSendCVFailure("network error", e);
@@ -103,9 +103,19 @@ public class JobDetailModelImpl implements JobDetailModel {
 
             @Override
             public void onResponse(String response, int id) {
-                if(response != null){
-                    listener.onSendCVSuccess();
-                }else{
+                Log.i("jobdetail", "result:" + response);
+                if (response != null) {
+                    if (response.equals("email failed")) {
+                        listener.onSendCVEmailFailed();
+                    } else if (response.equals("No destination")) {
+                        listener.onSendCVNoDestination();
+                    } else if (response.equals("have sent")) {
+                        listener.onSendCVRepeated();
+                    } else if (response.equals("success")) {
+                        Log.i("jobdetail", response);
+                        listener.onSendCVSuccess();
+                    }
+                } else {
                     listener.onSendCVFailure("job_detail_null", new Exception());
                 }
             }
@@ -134,9 +144,17 @@ public class JobDetailModelImpl implements JobDetailModel {
         void onUnlikeJobNoLoginError();
     }
 
-    public interface  OnSendCVListener{
+    public interface OnSendCVListener {
         void onSendCVSuccess();
+
         void onSendCVFailure(String msg, Exception e);
+
         void onSendCVNoLoginError();
+
+        void onSendCVEmailFailed();
+
+        void onSendCVNoDestination();
+
+        void onSendCVRepeated();
     }
 }
