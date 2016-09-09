@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -22,6 +23,7 @@ import com.example.jobbook.job.view.JobDetailView;
 import com.example.jobbook.util.ImageLoadUtils;
 import com.example.jobbook.util.Util;
 import com.google.android.flexbox.FlexboxLayout;
+import com.lsjwzh.widget.materialloadingprogressbar.CircleProgressBar;
 import com.zhy.http.okhttp.utils.Exceptions;
 
 /**
@@ -31,7 +33,7 @@ public class JobDetailActivity extends Activity implements View.OnClickListener,
     private ImageButton mBackImageButton;
     private ImageButton mToCompanyDetailImageButton;
     private ImageButton mLikeImageButton;
-    private ImageView mCompanyLogoImageView;
+    private LinearLayout mLoadingLinearLayout;
     private TextView mJobNameTextView;
     private TextView mJobLocationTextView;
     private TextView mSalaryTextView;
@@ -74,6 +76,7 @@ public class JobDetailActivity extends Activity implements View.OnClickListener,
         mJobRequireTextView = (TextView) findViewById(R.id.job_detail_description_require_content_tv);
         mBenefitLayout = (FlexboxLayout) findViewById(R.id.job_detail_benefit_ll);
         mSendCVLayout = (RelativeLayout) findViewById(R.id.job_detail_send_cv_ll);
+        mLoadingLinearLayout = (LinearLayout) findViewById(R.id.loading_circle_progress_bar_ll);
     }
 
     private void initEvents() {
@@ -113,7 +116,7 @@ public class JobDetailActivity extends Activity implements View.OnClickListener,
                 refresh();
                 break;
             case R.id.job_detail_send_cv_ll:
-                sendCV(jobBean.getId());
+                sendCV(jobDetailBean.getCompany().getId());
                 break;
         }
     }
@@ -168,8 +171,10 @@ public class JobDetailActivity extends Activity implements View.OnClickListener,
 
     @Override
     public void hideProgress() {
-
+        Log.i("jobdetail", "hideprogress");
+        mLoadingLinearLayout.setVisibility(View.GONE);
     }
+
     private void showSnackbar(String content){
         if(view == null){
             view = getWindow().getDecorView();
@@ -191,8 +196,9 @@ public class JobDetailActivity extends Activity implements View.OnClickListener,
     }
 
     @Override
-    public void showProhress() {
-
+    public void showProgress() {
+        Log.i("jobdetail", "showprogress");
+        mLoadingLinearLayout.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -221,8 +227,8 @@ public class JobDetailActivity extends Activity implements View.OnClickListener,
     }
 
     @Override
-    public void sendCV(String jobId) {
-        mPresenter.sendCV(jobId);
+    public void sendCV(String companyId) {
+        mPresenter.sendCV(companyId);
     }
 
     @Override
@@ -233,6 +239,21 @@ public class JobDetailActivity extends Activity implements View.OnClickListener,
     @Override
     public void sendCVFailure() {
         showSnackbar("提交失败！");
+    }
+
+    @Override
+    public void sendCVEmailFailed() {
+        showSnackbar("邮箱发送失败");
+    }
+
+    @Override
+    public void sendCVNoDestination() {
+        showSnackbar("该公司没有官方邮箱，请重试！");
+    }
+
+    @Override
+    public void sendCVRepeated() {
+        showSnackbar("您之前已经发送过！");
     }
 
     private void refresh() {

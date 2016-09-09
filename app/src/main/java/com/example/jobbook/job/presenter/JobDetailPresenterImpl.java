@@ -9,18 +9,20 @@ import com.example.jobbook.job.view.JobDetailView;
  * Created by 椰树 on 2016/8/28.
  */
 public class JobDetailPresenterImpl implements JobDetailPresenter, JobDetailModelImpl.OnLoadJobListener,
-        JobDetailModelImpl.OnLikeJobListener, JobDetailModelImpl.OnUnlikeJobListener ,JobDetailModelImpl.OnSendCVListener{
+        JobDetailModelImpl.OnLikeJobListener, JobDetailModelImpl.OnUnlikeJobListener, JobDetailModelImpl.OnSendCVListener {
 
     private JobDetailModel mJobDetailModel;
     private JobDetailView mJobDetailView;
 
-    public JobDetailPresenterImpl(JobDetailView mJobDetailView){
+    public JobDetailPresenterImpl(JobDetailView mJobDetailView) {
         this.mJobDetailView = mJobDetailView;
         mJobDetailModel = new JobDetailModelImpl();
     }
+
     @Override
     public void loadJob(String jobId) {
-        mJobDetailModel.loadJobDetail(jobId,this);
+        mJobDetailView.showProgress();
+        mJobDetailModel.loadJobDetail(jobId, this);
     }
 
     @Override
@@ -34,13 +36,14 @@ public class JobDetailPresenterImpl implements JobDetailPresenter, JobDetailMode
     }
 
     @Override
-    public void sendCV(String jobId) {
-        mJobDetailModel.sendCV(jobId, this);
+    public void sendCV(String companyId) {
+        mJobDetailModel.sendCV(companyId, this);
     }
 
     @Override
     public void onSuccess(JobDetailBean jobDetailBean) {
         mJobDetailView.addJob(jobDetailBean);
+        mJobDetailView.hideProgress();
     }
 
     @Override
@@ -94,5 +97,20 @@ public class JobDetailPresenterImpl implements JobDetailPresenter, JobDetailMode
     @Override
     public void onSendCVNoLoginError() {
         mJobDetailView.NoLoginError();
+    }
+
+    @Override
+    public void onSendCVEmailFailed() {
+        mJobDetailView.sendCVEmailFailed();
+    }
+
+    @Override
+    public void onSendCVNoDestination() {
+        mJobDetailView.sendCVNoDestination();
+    }
+
+    @Override
+    public void onSendCVRepeated() {
+        mJobDetailView.sendCVRepeated();
     }
 }

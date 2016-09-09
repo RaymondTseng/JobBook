@@ -53,6 +53,6 @@ public class Urls {
 
     public static final String UPDATE_USERNAME_URL = ID + "/jobBook/Home/person/updateName/";
 
-    public static final String SEND_CV_URL = ID + "";
+    public static final String SEND_CV_URL = ID + "/jobBook/Home/mail/check/";
 
 }

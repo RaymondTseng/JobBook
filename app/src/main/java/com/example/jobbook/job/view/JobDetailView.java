@@ -19,7 +19,7 @@ public interface JobDetailView {
 
     void showLoadFailMsg();
 
-    void showProhress();
+    void showProgress();
 
     void NoLoginError();
 
@@ -31,10 +31,16 @@ public interface JobDetailView {
 
     void unlikeError();
 
-    void sendCV(String jobId);
+    void sendCV(String companyId);
 
     void sendCVSuccess();
 
     void sendCVFailure();
+
+    void sendCVEmailFailed();
+
+    void sendCVNoDestination();
+
+    void sendCVRepeated();
 
 }

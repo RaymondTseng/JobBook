@@ -11,5 +11,5 @@ public interface JobDetailModel {
 
     void unlike(String jobId, JobDetailModelImpl.OnUnlikeJobListener listener);
 
-    void sendCV(String jobId, JobDetailModelImpl.OnSendCVListener listener);
+    void sendCV(String companyId, JobDetailModelImpl.OnSendCVListener listener);
 }

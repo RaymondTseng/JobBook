@@ -1,31 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:weightSum="568"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@color/colorWhite"
-    >
+    android:orientation="vertical"
+    android:weightSum="568">
+
     <include
+        layout="@layout/job_detail_title_bar"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="56"
-        layout="@layout/job_detail_title_bar"/>
+        android:layout_weight="56" />
+
+    <include
+        layout="@layout/loading_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="600" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="512">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <include
+                layout="@layout/job_detail_brief"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                layout="@layout/job_detail_brief"/>
+                android:layout_height="wrap_content" />
+
             <include
+                layout="@layout/job_detail_description"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                layout="@layout/job_detail_description"/>
+                android:layout_height="match_parent" />
         </LinearLayout>
 
     </ScrollView>
@@ -33,53 +44,59 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="2"
         android:background="@drawable/job_detail_bottom_ll_bg"
-        >
+        android:orientation="horizontal"
+        android:weightSum="2">
+
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1">
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:paddingBottom="10dp"
-                android:paddingTop="10dp"
-                >
+                android:paddingTop="10dp">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@mipmap/talk"/>
+                    android:src="@mipmap/talk" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="和ta聊聊"
-                    android:textSize="16sp"
-                    android:textColor="@color/colorBlue"/>
+                    android:textColor="@color/colorBlue"
+                    android:textSize="16sp" />
             </LinearLayout>
 
         </RelativeLayout>
+
         <RelativeLayout
-            android:layout_width="0dp"
             android:id="@+id/job_detail_send_cv_ll"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1">
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@mipmap/profile_blue"/>
+                    android:src="@mipmap/profile_blue" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="投递简历"
-                    android:textSize="16sp"
-                    android:textColor="@color/colorBlue"/>
+                    android:textColor="@color/colorBlue"
+                    android:textSize="16sp" />
             </LinearLayout>
 
         </RelativeLayout>
