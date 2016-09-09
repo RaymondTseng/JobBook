@@ -53,7 +53,7 @@
         <activity
             android:name=".question.widget.QuestionDetailActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustResize|stateHidden"/>
         <activity
             android:name=".chat.widget.ChatActivity"
             android:screenOrientation="portrait" />

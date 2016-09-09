@@ -6,10 +6,15 @@ import android.support.design.widget.Snackbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.example.jobbook.MyApplication;
@@ -29,8 +34,8 @@ import java.util.List;
 /**
  * Created by 椰树 on 2016/7/15.
  */
-public class QuestionDetailActivity extends Activity implements QuestionDetailView, View.OnClickListener{
-    private ExpandListView mListView;
+public class QuestionDetailActivity extends Activity implements QuestionDetailView, View.OnClickListener, View.OnLayoutChangeListener{
+    private ListView mListView;
     private EditText mEditText;
     private ImageButton mSendImageButton;
     private ImageButton mBackImageButton;
@@ -42,6 +47,14 @@ public class QuestionDetailActivity extends Activity implements QuestionDetailVi
     private ImageView mQuestionUserLogoImageView;
     private QuestionDetailListViewAdapter mAdapter;
     private QuestionBean questionBean;
+    private LinearLayout mHeadView;
+    private View mRootView;
+    private RelativeLayout mTitleBarLayout;
+    private LinearLayout mInputLayout;
+    private int mScreenHeight;
+    private int mKeyBoardHeight;
+    private int mTitleBarHeight;
+    private int mInputLayoutHeight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -49,28 +62,38 @@ public class QuestionDetailActivity extends Activity implements QuestionDetailVi
         setContentView(R.layout.activity_question_detail);
         initViews();
         initEvents();
+
     }
     private void initViews(){
-        mListView = (ExpandListView) findViewById(R.id.question_detail_lv);
+        mHeadView = (LinearLayout) getLayoutInflater().inflate(R.layout.question_detail_description, null);
+        mListView = (ListView) findViewById(R.id.question_detail_lv);
         mEditText = (EditText) findViewById(R.id.question_detail_et);
         mSendImageButton = (ImageButton) findViewById(R.id.question_detail_send_ib);
         mBackImageButton = (ImageButton) findViewById(R.id.question_detail_back_ib);
-        mQuestionTitleTextView = (TextView) findViewById(R.id.question_detail_title_tv);
-        mQuestionContentTextView = (TextView) findViewById(R.id.question_detail_content_tv);
-        mQuestionUserNameTextView = (TextView) findViewById(R.id.question_detail_user_name_tv);
-        mQuestionTimeTextView = (TextView) findViewById(R.id.question_detail_time_tv);
+        mQuestionTitleTextView = (TextView) mHeadView.findViewById(R.id.question_detail_title_tv);
+        mQuestionContentTextView = (TextView) mHeadView.findViewById(R.id.question_detail_content_tv);
+        mQuestionUserNameTextView = (TextView) mHeadView.findViewById(R.id.question_detail_user_name_tv);
+        mQuestionTimeTextView = (TextView) mHeadView.findViewById(R.id.question_detail_time_tv);
         mQuestionUserLogoImageView = (ImageView) findViewById(R.id.question_detail_user_logo_iv);
+        mRootView = (View) findViewById(R.id.question_detail_root_ll);
+        mTitleBarLayout = (RelativeLayout) findViewById(R.id.question_detail_title_bar);
+        mInputLayout = (LinearLayout) findViewById(R.id.question_detail_input_ll);
     }
 
     private void initEvents(){
         questionBean = (QuestionBean) getIntent().getExtras().getSerializable("question_detail");
         Log.i("questiondetail_activity", "123:" + questionBean.getId());
+        mScreenHeight = Util.getHeight(this);
+        mKeyBoardHeight = mScreenHeight / 3;
+        mTitleBarHeight = (mScreenHeight / 568) * 56;
+        mInputLayoutHeight = mTitleBarHeight;
         mAdapter = new QuestionDetailListViewAdapter(this);
         mPresenter = new QuestionDetailPresenterImpl(this);
         mPresenter.loadQuestion(questionBean);
         mPresenter.loadQuestionComments(questionBean.getId());
         mBackImageButton.setOnClickListener(this);
         mSendImageButton.setOnClickListener(this);
+        mRootView.addOnLayoutChangeListener(this);
         mListView.setAdapter(mAdapter);
     }
 
@@ -91,6 +114,7 @@ public class QuestionDetailActivity extends Activity implements QuestionDetailVi
     @Override
     public void addComments(List<QuestionCommentBean> mComments) {
         mAdapter.updateData(mComments);
+        mListView.addHeaderView(mHeadView);
 //        Util.setListViewHeightBasedOnChildren(mListView);
     }
 
@@ -176,6 +200,29 @@ public class QuestionDetailActivity extends Activity implements QuestionDetailVi
                     sendComment(getComment());
                 }
                 break;
+        }
+    }
+
+    @Override
+    public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+        if(oldBottom != 0 && bottom != 0 &&(oldBottom - bottom > mKeyBoardHeight)){
+            int dValue = oldBottom - bottom;
+            int newHeight = mScreenHeight - dValue;
+            Log.i("question_detail", "newHeight:" + newHeight + "Height:" + mScreenHeight);
+            mTitleBarLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.
+                    MATCH_PARENT, 0, ((float)mTitleBarHeight / newHeight) * 568));
+            mInputLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.
+                    MATCH_PARENT, 0, ((float)mInputLayoutHeight / newHeight) * 568));
+            mListView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.
+                    MATCH_PARENT, 0, ((float)(newHeight - 2 * mTitleBarHeight) / newHeight) * 568));
+            Log.i("question_detail", "软键盘弹起");
+
+        }else if(oldBottom != 0 && bottom != 0 &&(bottom - oldBottom > mKeyBoardHeight)){
+            mTitleBarLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, 56));
+            mInputLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, 56));
+            mListView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, 456));
+            Log.i("question_detail", "软键盘关闭");
+
         }
     }
 }
