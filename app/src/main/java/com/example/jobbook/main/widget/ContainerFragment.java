@@ -24,50 +24,36 @@ import com.example.jobbook.register.widget.RegisterFragment;
  * Created by 椰树 on 2016/9/8.
  */
 public class ContainerFragment extends Fragment implements ContainerView, LoginFragment.ILoginChanged,
-        RegisterFragment.IRegisterChanged, PersonFragment.IPersonChanged {
+        RegisterFragment.IRegisterChanged, PersonFragment.IPersonChanged{
     private FrameLayout mFragmentContainer;
     private int mShowFragment;
-    private FragmentManager fm;
     private ContainerPresenterImpl mPresenter;
     private LoginFragment mLoginFragment;
     private RegisterFragment mRegisterFragment;
     private PersonFragment mPersonFragment;
     private int fragmentContainerId;
 
+
     @Override
     public void update(int mShowFragment) {
         Log.i("container", "update:" + mShowFragment);
-        fm = getChildFragmentManager();
+        FragmentManager fm = getChildFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
-        if (this.mShowFragment != mShowFragment) {
+        if(this.mShowFragment != mShowFragment){
             this.mShowFragment = mShowFragment;
             hideFragments(ft);
-            if (mShowFragment == Constants.LOGIN) {
-                if (mLoginFragment == null) {
-                    mLoginFragment = new LoginFragment();
-                    ft.add(fragmentContainerId, mLoginFragment);
-                } else {
-                    ft.show(mLoginFragment);
-                }
-            } else if (mShowFragment == Constants.REGISTER) {
-                if (mRegisterFragment == null) {
-                    mRegisterFragment = new RegisterFragment();
-                    ft.add(fragmentContainerId, mRegisterFragment);
-                } else {
-                    ft.show(mRegisterFragment);
-                }
-            } else {
-                mPersonFragment = new PersonFragment();
-                setPersonBean(mPersonFragment);
-                ft.add(fragmentContainerId, mPersonFragment);
+            if(mShowFragment == Constants.LOGIN){
+                ft.replace(fragmentContainerId, new LoginFragment());
+            }else if(mShowFragment == Constants.REGISTER){
+                ft.replace(fragmentContainerId, new RegisterFragment());
+            }else{
+                ft.replace(fragmentContainerId, new PersonFragment());
             }
             ft.commit();
 
         }
     }
-
     private void hideFragments(FragmentTransaction transaction) {
-
         if (mLoginFragment != null) {
             transaction.hide(mLoginFragment);
         }
@@ -79,12 +65,6 @@ public class ContainerFragment extends Fragment implements ContainerView, LoginF
         }
     }
 
-    private void setPersonBean(PersonFragment personFragment) {
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("PersonBean", MyApplication.getmPersonBean());
-        personFragment.setArguments(bundle);
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_container, null);
@@ -94,29 +74,27 @@ public class ContainerFragment extends Fragment implements ContainerView, LoginF
         return view;
     }
 
-    private void initViews(View view) {
+    private void initViews(View view){
         mFragmentContainer = (FrameLayout) view.findViewById(R.id.container_fragment_container);
     }
 
-    private void initEvents() {
+    private void initEvents(){
         mPresenter = new ContainerPresenterImpl(this);
         fragmentContainerId = R.id.container_fragment_container;
-        fm = getChildFragmentManager();
+        FragmentManager fm = getChildFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         Fragment oldFragment = fm.findFragmentById(fragmentContainerId);
-        if (oldFragment != null) {
+        if(oldFragment != null){
+            Log.i("old", oldFragment.toString());
             ft.remove(oldFragment);
         }
         mPresenter.loadPersonBean(getActivity());
-        if (MyApplication.getmLoginStatus() == 0) {
+        if(MyApplication.getmLoginStatus() == 0){
             mShowFragment = Constants.LOGIN;
-            mLoginFragment = new LoginFragment();
-            ft.add(fragmentContainerId, mLoginFragment);
-        } else {
+            ft.replace(fragmentContainerId, new LoginFragment());
+        }else{
             mShowFragment = Constants.PERSON;
-            mPersonFragment = new PersonFragment();
-            setPersonBean(mPersonFragment);
-            ft.add(fragmentContainerId, mPersonFragment);
+            ft.replace(fragmentContainerId, new PersonFragment());
         }
         ft.commit();
     }
@@ -145,6 +123,7 @@ public class ContainerFragment extends Fragment implements ContainerView, LoginF
 
     @Override
     public void switchPerson2Login() {
+        MyApplication.setmNoLoginStatus();
         update(Constants.LOGIN);
     }
 }
