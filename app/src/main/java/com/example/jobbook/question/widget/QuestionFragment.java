@@ -18,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.example.jobbook.MyApplication;
 import com.example.jobbook.R;
@@ -97,7 +98,11 @@ public class QuestionFragment extends Fragment implements QuestionView,
             public void onClick(View v) {
                 myApplication = (MyApplication) getActivity().getApplication();
                 myApplication.setHandler(handler);
-                Util.toAnotherActivity(getActivity(), NewQuestionActivity.class);
+                if (MyApplication.getmLoginStatus() == 1) {
+                    Util.toAnotherActivity(getActivity(), NewQuestionActivity.class);
+                } else {
+                    Toast.makeText(getActivity(), "请先登录！", Toast.LENGTH_LONG).show();
+                }
             }
         });
         onRefresh();

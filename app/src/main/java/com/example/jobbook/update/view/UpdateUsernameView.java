@@ -14,4 +14,8 @@ public interface UpdateUsernameView {
     void success();
 
     void networkError();
+
+    void showProgress();
+
+    void hideProgress();
 }

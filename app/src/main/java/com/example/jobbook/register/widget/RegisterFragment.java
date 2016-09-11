@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.jobbook.R;
@@ -36,12 +37,12 @@ public class RegisterFragment extends Fragment implements RegisterView, View.OnC
     private Button mRegisterButton;
     private EditText mAccountEditText;
     private EditText mUserNameEditText;
-//    private EditText mTelEditText;
     private EditText mPwdEditText;
     private EditText mPwdAgainEditText;
     private EditText mCodeEditText;
     private Button mGetCodeButton;
     private ImageButton mCloseImageButton;
+    private LinearLayout mLoadingLinearLayout;
     private RegisterPresenter presenter;
     private View view;
 
@@ -60,12 +61,12 @@ public class RegisterFragment extends Fragment implements RegisterView, View.OnC
         mRegisterButton = (Button) view.findViewById(R.id.register_register_bt);
         mAccountEditText = (EditText) view.findViewById(R.id.register_account_et);
         mUserNameEditText = (EditText) view.findViewById(R.id.register_username_et);
-//        mTelEditText = (EditText) view.findViewById(R.id.register_telephone_et);
         mPwdEditText = (EditText) view.findViewById(R.id.register_password_et);
         mPwdAgainEditText = (EditText) view.findViewById(R.id.register_confirm_password_et);
         mCodeEditText = (EditText) view.findViewById(R.id.register_code_et);
         mCloseImageButton = (ImageButton) view.findViewById(R.id.register_close_ib);
         mGetCodeButton = (Button) view.findViewById(R.id.register_code_bt);
+        mLoadingLinearLayout = (LinearLayout) view.findViewById(R.id.loading_circle_progress_bar_ll);
     }
 
     private void initEvents() {
@@ -75,6 +76,7 @@ public class RegisterFragment extends Fragment implements RegisterView, View.OnC
         mGetCodeButton.setOnClickListener(this);
         Log.i("registerfragment", "load code:" + Urls.GET_CODE_URL);
         SMSManager.getInstance().registerTimeListener(this);
+        mLoadingLinearLayout.setVisibility(View.GONE);
     }
 
     @Override
@@ -97,7 +99,12 @@ public class RegisterFragment extends Fragment implements RegisterView, View.OnC
 
     @Override
     public void hideProgress() {
+        mLoadingLinearLayout.setVisibility(View.GONE);
+    }
 
+    @Override
+    public void showProgress() {
+        mLoadingLinearLayout.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -186,17 +193,16 @@ public class RegisterFragment extends Fragment implements RegisterView, View.OnC
         switch (v.getId()) {
             case R.id.register_register_bt:
                 presenter.registerCheck(getActivity(), mAccountEditText.getText().toString(),
-                        mUserNameEditText.getText().toString(), null,
-                        mPwdEditText.getText().toString(), mPwdAgainEditText.getText().toString(),
+                        mUserNameEditText.getText().toString(), mPwdEditText.getText().toString(), mPwdAgainEditText.getText().toString(),
                         mCodeEditText.getText().toString());
                 break;
             case R.id.register_close_ib:
                 switch2Login();
                 break;
             case R.id.register_code_bt:
-                if(!TextUtils.isEmpty(mAccountEditText.getText().toString())){
+                if (!TextUtils.isEmpty(mAccountEditText.getText().toString())) {
                     SMSManager.getInstance().sendMessage(getActivity(), "86", mAccountEditText.getText().toString());
-                }else{
+                } else {
                     codeBlankError();
                 }
                 break;
@@ -212,9 +218,9 @@ public class RegisterFragment extends Fragment implements RegisterView, View.OnC
 
     @Override
     public void onLastTimeNotify(int lastSecond) {
-        if(lastSecond > 0){
+        if (lastSecond > 0) {
             mGetCodeButton.setText(lastSecond + "s");
-        }else{
+        } else {
             mGetCodeButton.setText("发送验证码");
         }
     }

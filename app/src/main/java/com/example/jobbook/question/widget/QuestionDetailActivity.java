@@ -51,6 +51,7 @@ public class QuestionDetailActivity extends Activity implements QuestionDetailVi
     private View mRootView;
     private RelativeLayout mTitleBarLayout;
     private LinearLayout mInputLayout;
+    private LinearLayout mLoadingLinearLayout;
     private int mScreenHeight;
     private int mKeyBoardHeight;
     private int mTitleBarHeight;
@@ -78,6 +79,7 @@ public class QuestionDetailActivity extends Activity implements QuestionDetailVi
         mRootView = (View) findViewById(R.id.question_detail_root_ll);
         mTitleBarLayout = (RelativeLayout) findViewById(R.id.question_detail_title_bar);
         mInputLayout = (LinearLayout) findViewById(R.id.question_detail_input_ll);
+        mLoadingLinearLayout = (LinearLayout) findViewById(R.id.loading_circle_progress_bar_ll);
     }
 
     private void initEvents(){
@@ -99,7 +101,7 @@ public class QuestionDetailActivity extends Activity implements QuestionDetailVi
 
     @Override
     public void showProgress() {
-
+        mLoadingLinearLayout.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -127,7 +129,7 @@ public class QuestionDetailActivity extends Activity implements QuestionDetailVi
 
     @Override
     public void hideProgress() {
-
+        mLoadingLinearLayout.setVisibility(View.GONE);
     }
 
     @Override

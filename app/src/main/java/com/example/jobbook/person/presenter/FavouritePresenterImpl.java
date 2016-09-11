@@ -21,6 +21,7 @@ public class FavouritePresenterImpl implements FavouritePresenter, FavouriteMode
 
     @Override
     public void loadFavouriteJobs(int pageIndex, String accountName) {
+        mView.showProgress();
         mModel.loadFavouriteJobs(pageIndex, accountName, this);
     }
 

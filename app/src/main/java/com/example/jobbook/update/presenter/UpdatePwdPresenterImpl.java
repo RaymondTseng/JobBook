@@ -19,47 +19,56 @@ public class UpdatePwdPresenterImpl implements UpdatePwdPresenter, UpdateModelIm
 
     @Override
     public void updatePwd(String account, String oPwd, String nPwd, String nPwdConfirm) {
+        view.showProgress();
         model.updatePwd(account, oPwd, nPwd, nPwdConfirm, this);
     }
 
     @Override
     public void onUpdatePwdSuccess() {
+        view.hideProgress();
         view.success();
         view.close();
     }
 
     @Override
     public void onUpdatePwdFailure() {
+        view.hideProgress();
         view.networkError();
     }
 
     @Override
     public void onOriginalPwdError() {
+        view.hideProgress();
         view.oPwdError();
     }
 
     @Override
     public void onOriginalPwdEqualNewPwdError() {
+        view.hideProgress();
         view.oPwdEqualnPwdError();
     }
 
     @Override
     public void onOriginalPwdBlankError() {
+        view.hideProgress();
         view.oPwdBlankError();
     }
 
     @Override
     public void onNewPwdBlankError() {
+        view.hideProgress();
         view.nPwdBlankError();
     }
 
     @Override
     public void onConfirmPwdBlankError() {
+        view.hideProgress();
         view.nPwdConfirmBlankError();
     }
 
     @Override
     public void onPwdConfirmError() {
+        view.hideProgress();
         view.pwdConfirmError();
     }
 }

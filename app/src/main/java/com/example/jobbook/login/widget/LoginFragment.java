@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.jobbook.R;
@@ -32,6 +33,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Log
     private EditText mAccountEditText;
     private EditText mPasswordEditText;
     private View view;
+    private LinearLayout mLoadingLinearLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -41,6 +43,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Log
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         presenter = new LoginPresenterImpl(this);
         Log.i("login", "createview");
+        mLoadingLinearLayout.setVisibility(View.GONE);
         return view;
     }
 
@@ -50,6 +53,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Log
         mRegisterTextView = (TextView) view.findViewById(R.id.login_register_tv);
         mAccountEditText = (EditText) view.findViewById(R.id.login_account_et);
         mPasswordEditText = (EditText) view.findViewById(R.id.login_password_et);
+        mLoadingLinearLayout = (LinearLayout) view.findViewById(R.id.loading_circle_progress_bar_ll);
         mRegisterTextView.setOnClickListener(this);
     }
 
@@ -87,12 +91,12 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Log
 
     @Override
     public void showProgress() {
-
+        mLoadingLinearLayout.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideProgress() {
-
+        mLoadingLinearLayout.setVisibility(View.GONE);
     }
 
     @Override

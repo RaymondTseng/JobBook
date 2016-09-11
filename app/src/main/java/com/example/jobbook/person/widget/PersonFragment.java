@@ -54,6 +54,7 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
             }
         }
     };
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -153,5 +154,17 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
             }
         });
         snackbar.show();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.i("personfragment", "on resume");
+        onRefreshHead();
+    }
+
+    private void onRefreshHead() {
+        PersonBean personBean = MyApplication.getmPersonBean();
+        ImageLoadUtils.display(getActivity(), mCircleImageView, personBean.getHead());
     }
 }

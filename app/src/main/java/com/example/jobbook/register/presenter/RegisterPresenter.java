@@ -7,7 +7,7 @@ import android.content.Context;
  */
 public interface RegisterPresenter {
 
-    void registerCheck(Context mContext, String account,String userName, String email, String password,
+    void registerCheck(Context mContext, String account, String userName, String password,
                        String passwordConfirm, String code);
 
     void destroy();

@@ -8,6 +8,14 @@
         android:layout_height="0dp"
         android:layout_weight="56"
         layout="@layout/company_detail_title_bar"/>
+
+    <include
+        layout="@layout/loading_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="512"
+        />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"

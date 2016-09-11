@@ -13,4 +13,8 @@ public interface NewQuestionView {
 
     void close();
 
+    void showProgress();
+
+    void hideProgress();
+
 }

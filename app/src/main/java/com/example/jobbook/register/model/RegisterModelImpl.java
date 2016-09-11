@@ -22,7 +22,7 @@ import okhttp3.Call;
 public class RegisterModelImpl implements RegisterModel {
 
     @Override
-    public void register(Context mContext, final String account, final String userName, final String telephone, final String password,
+    public void register(Context mContext, final String account, final String userName, final String password,
                          final String passwordConfirm, final String code, final OnRegisterFinishedListener listener) {
         if (TextUtils.isEmpty(account)) {
             listener.onAccountBlankError();
@@ -34,14 +34,12 @@ public class RegisterModelImpl implements RegisterModel {
             listener.onPwdNotEqualError();
         } else if (TextUtils.isEmpty(userName)) {
             listener.onUserNameBlankError();
-//        } else if (TextUtils.isEmpty(telephone)) {
-//            listener.onTelephoneBlankError();
         } else if (TextUtils.isEmpty(code)) {
             listener.onCodeBlankError();
         } else if (Util.illegalCharactersCheck(account)) {
             listener.onAccountIllegalError();
         } else {
-            SMSManager.getInstance().verifyCode(mContext, "86", telephone, code, new Callback() {
+            SMSManager.getInstance().verifyCode(mContext, "86", account, code, new Callback() {
                 @Override
                 public void success() {
                     PersonBean personBean = new PersonBean();
@@ -62,8 +60,7 @@ public class RegisterModelImpl implements RegisterModel {
                         public void onResponse(String response, int id) {
                             if (!TextUtils.isEmpty(response)) {
                                 Log.i("TAG", response.toString());
-                                PersonBean personBean = new PersonBean();
-                                personBean = new Gson().fromJson(response, PersonBean.class);
+                                PersonBean personBean = new Gson().fromJson(response, PersonBean.class);
                                 if (TextUtils.isEmpty(personBean.getPassword())) {
                                     Log.i("receive", "response is null");
                                     if (personBean.getAccount().equals("Have Registered!")) {
@@ -92,16 +89,12 @@ public class RegisterModelImpl implements RegisterModel {
     }
 
 
-
-
     public interface OnRegisterFinishedListener {
         void onAccountIllegalError();
 
         void onAccountBlankError();
 
         void onUserNameBlankError();
-
-        void onTelephoneBlankError();
 
         void onPwdBlankError();
 

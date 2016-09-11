@@ -11,12 +11,14 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.jobbook.MyApplication;
 import com.example.jobbook.R;
 import com.example.jobbook.bean.PersonBean;
+import com.example.jobbook.main.widget.MainActivity;
 import com.example.jobbook.person.presenter.UploadPresenter;
 import com.example.jobbook.person.presenter.UploadPresenterImpl;
 import com.example.jobbook.person.view.UploadView;
@@ -41,11 +43,12 @@ public class UserDetailActivity extends Activity implements View.OnClickListener
     private CircleImageView mUserHeadImageView;
     private RelativeLayout mChangeUserNameRelativeLayout;
     private TextView mUserNameTextView;
-    private Button mChangePhoneButton;
+//    private Button mChangePhoneButton;
     private Button mChangePwdButton;
     private UploadPopupWindow mPopupWindow;
     private PersonBean mPersonBean = MyApplication.getmPersonBean();
     private UploadPresenter presenter;
+    private LinearLayout mLoadingLinearLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,19 +64,21 @@ public class UserDetailActivity extends Activity implements View.OnClickListener
         mUserHeadImageView = (CircleImageView) findViewById(R.id.person_userinfo_logo_iv);
         mChangeUserNameRelativeLayout = (RelativeLayout) findViewById(R.id.person_userinfo_changeusername_rl);
         mUserNameTextView = (TextView) findViewById(R.id.person_userinfo_changeusername_tv);
-        mChangePhoneButton = (Button) findViewById(R.id.person_userinfo_changephone_bt);
+//        mChangePhoneButton = (Button) findViewById(R.id.person_userinfo_changephone_bt);
         mChangePwdButton = (Button) findViewById(R.id.person_userinfo_changepwd_bt);
+        mLoadingLinearLayout = (LinearLayout) findViewById(R.id.loading_circle_progress_bar_ll);
     }
 
     private void initEvents() {
         mBackImageButton.setOnClickListener(this);
         mChangeHeadRelativeLayout.setOnClickListener(this);
         mChangeUserNameRelativeLayout.setOnClickListener(this);
-        mChangePhoneButton.setOnClickListener(this);
+//        mChangePhoneButton.setOnClickListener(this);
         mChangePwdButton.setOnClickListener(this);
         ImageLoadUtils.display(this, mUserHeadImageView, mPersonBean.getHead());
         mUserNameTextView.setText(mPersonBean.getUsername());
         presenter = new UploadPresenterImpl(this);
+        mLoadingLinearLayout.setVisibility(View.GONE);
     }
 
     @Override
@@ -94,10 +99,10 @@ public class UserDetailActivity extends Activity implements View.OnClickListener
                 finish();
                 break;
 
-            case R.id.person_userinfo_changephone_bt:
-                Util.toAnotherActivity(this, UpdatePhoneActivity.class);
-                finish();
-                break;
+//            case R.id.person_userinfo_changephone_bt:
+//                Util.toAnotherActivity(this, UpdatePhoneActivity.class);
+//                finish();
+//                break;
 
             case R.id.person_userinfo_changepwd_bt:
                 Util.toAnotherActivity(this, UpdatePwdActivity.class);
@@ -130,11 +135,6 @@ public class UserDetailActivity extends Activity implements View.OnClickListener
         @Override
         public void handleCropResult(Uri uri, int tag) {
             sendImage(UploadManager.getBitmapFromUri(UserDetailActivity.this, uri));
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
         }
 
         @Override
@@ -154,27 +154,28 @@ public class UserDetailActivity extends Activity implements View.OnClickListener
 
     @Override
     public void showProgress() {
-
+        mLoadingLinearLayout.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideProgress() {
-
+        mLoadingLinearLayout.setVisibility(View.GONE);
     }
 
     @Override
     public void uploadSuccess() {
-        Log.i("userdetail", "上传成功！");
+//        showSnackbar("上传成功！");
     }
 
     @Override
     public void uploadFailure() {
-        Log.i("userdetail", "上传失败！");
+//        showSnackbar("上传失败，请重试！");
     }
 
     @Override
     public void loadHead(Bitmap bm) {
         mUserHeadImageView.setImageBitmap(bm);
+//        this.onCreate(null);
     }
 
     private void showSnackbar(String content) {

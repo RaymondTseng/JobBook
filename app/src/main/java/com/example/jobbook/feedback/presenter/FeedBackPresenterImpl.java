@@ -19,22 +19,26 @@ public class FeedBackPresenterImpl implements FeedBackPresenter, FeedBackModelIm
 
     @Override
     public void feedback(String mailAddress, String content) {
+        mFeedBackView.showProgress();
         mFeedBackModel.feedBack(mailAddress, content, this);
     }
 
     @Override
     public void onSuccess() {
+        mFeedBackView.hideProgress();
         mFeedBackView.showSuccess();
         mFeedBackView.back();
     }
 
     @Override
     public void onFailure() {
+        mFeedBackView.hideProgress();
         mFeedBackView.showError();
     }
 
     @Override
     public void onEmailError() {
+        mFeedBackView.hideProgress();
         mFeedBackView.emailError();
     }
 

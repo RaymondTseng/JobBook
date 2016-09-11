@@ -31,6 +31,7 @@ public class FeedBackModelImpl implements FeedBackModel {
 
             @Override
             public void onResponse(String response, int id) {
+                Log.i("response:", "response:" + response);
                 if (response != null) {
                     if (response.equals("email failed")) {
                         listener.onEmailError();

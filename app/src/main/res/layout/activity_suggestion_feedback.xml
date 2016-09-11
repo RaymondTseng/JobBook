@@ -1,86 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:weightSum="568"
-    android:background="@color/colorWhite">
+    android:background="@color/colorWhite"
+    android:orientation="vertical"
+    android:weightSum="568">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="56"
         android:background="@color/colorBlue">
+
         <ImageButton
             android:id="@+id/suggestion_feedback_back_ib"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/left_white"
+            android:layout_centerVertical="true"
             android:layout_marginLeft="16dp"
-            android:layout_centerVertical="true"
-            android:background="@null"/>
+            android:background="@null"
+            android:src="@mipmap/left_white" />
+
         <TextView
-            android:layout_centerVertical="true"
-            android:text="意见反馈"
             style="@style/White20sptv"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="32dp"
             android:layout_toRightOf="@id/suggestion_feedback_back_ib"
-            android:layout_marginLeft="32dp"/>
+            android:text="意见反馈" />
+
         <TextView
             android:id="@+id/suggestion_feedback_new_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="提交"
-            android:clickable="true"
-            android:textColor="#61ffffff"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="16dp"
             android:layout_centerVertical="true"
-            android:textSize="16sp"/>
+            android:layout_marginRight="16dp"
+            android:clickable="true"
+            android:text="提交"
+            android:textColor="#61ffffff"
+            android:textSize="16sp" />
     </RelativeLayout>
+
+    <include
+        layout="@layout/loading_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="512"
+        />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="48"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
+        android:layout_weight="48"
         android:orientation="horizontal">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:gravity="center_vertical"
             android:text="联系邮箱："
             android:textColor="@color/colorBlack"
-            android:textSize="16sp"
-            android:gravity="center_vertical"/>
+            android:textSize="16sp" />
+
         <EditText
             android:id="@+id/suggestion_feedback_mail_et"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:textCursorDrawable="@drawable/edtitext_cursor"
-            android:background="@null"/>
+            android:background="@null"
+            android:textCursorDrawable="@drawable/edtitext_cursor" />
     </LinearLayout>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:background="@color/colorBackgroundGray"
         android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"/>
+        android:layout_marginRight="16dp"
+        android:background="@color/colorBackgroundGray" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_weight="48"
-        android:text="你的建议："
         android:layout_marginLeft="16dp"
+        android:layout_weight="48"
         android:gravity="center_vertical"
+        android:text="你的建议："
         android:textColor="@color/colorBlack"
-        android:textSize="16sp"/>
+        android:textSize="16sp" />
+
     <EditText
         android:id="@+id/suggestion_feedback_content_et"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="408"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:textCursorDrawable="@drawable/edtitext_cursor"
-        android:hint="在这里你可以疯狂吐槽职谱，也可以描述你喜欢的功能"
+        android:layout_weight="408"
         android:background="@null"
-        android:gravity="top|left"/>
+        android:gravity="top|left"
+        android:hint="在这里你可以疯狂吐槽职谱，也可以描述你喜欢的功能"
+        android:textCursorDrawable="@drawable/edtitext_cursor" />
 
 </LinearLayout>

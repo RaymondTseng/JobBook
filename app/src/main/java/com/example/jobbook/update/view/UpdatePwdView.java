@@ -24,4 +24,8 @@ public interface UpdatePwdView {
     void oPwdError();
 
     void oPwdEqualnPwdError();
+
+    void showProgress();
+
+    void hideProgress();
 }

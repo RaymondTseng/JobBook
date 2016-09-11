@@ -30,6 +30,13 @@
             android:text="详细信息" />
     </RelativeLayout>
 
+    <include
+        layout="@layout/loading_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="512"
+        />
+
     <RelativeLayout
         android:id="@+id/person_userinfo_changehead_rl"
         android:layout_width="match_parent"
@@ -101,14 +108,14 @@
 
     </RelativeLayout>
 
-    <Button
-        android:id="@+id/person_userinfo_changephone_bt"
-        style="@style/person_content_big_button_style"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="48"
-        android:text="修改手机号码"
-        android:textStyle="bold" />
+    <!--<Button-->
+        <!--android:id="@+id/person_userinfo_changephone_bt"-->
+        <!--style="@style/person_content_big_button_style"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:layout_weight="48"-->
+        <!--android:text="修改手机号码"-->
+        <!--android:textStyle="bold" />-->
 
     <Button
         android:id="@+id/person_userinfo_changepwd_bt"

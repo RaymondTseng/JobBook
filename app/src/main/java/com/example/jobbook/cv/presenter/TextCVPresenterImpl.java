@@ -76,6 +76,7 @@ public class TextCVPresenterImpl implements TextCVPresenter, TextCVModelImpl.OnB
 
     private void toModel(){
         if(TAG == 3){
+            mTextCVView.showProgress();
             mTextCVModel.save(textCVBean, this, this, this);
         }
     }
@@ -83,12 +84,14 @@ public class TextCVPresenterImpl implements TextCVPresenter, TextCVModelImpl.OnB
 
     @Override
     public void onSuccess() {
+        mTextCVView.hideProgress();
         mTextCVView.success();
         refresh();
     }
 
     @Override
     public void onSuccess(TextCVBean textCVBean) {
+        mTextCVView.hideProgress();
         mTextCVView.load(textCVBean);
     }
 

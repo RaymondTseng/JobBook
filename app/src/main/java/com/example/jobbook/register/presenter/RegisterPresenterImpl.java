@@ -10,8 +10,7 @@ import com.example.jobbook.register.model.RegisterModelImpl;
 import com.example.jobbook.register.view.RegisterView;
 
 
-public class RegisterPresenterImpl implements RegisterPresenter, RegisterModelImpl.OnRegisterFinishedListener
-         {
+public class RegisterPresenterImpl implements RegisterPresenter, RegisterModelImpl.OnRegisterFinishedListener {
 
     private RegisterModel mRegisterModel;
     private RegisterView mRegisterView;
@@ -22,9 +21,10 @@ public class RegisterPresenterImpl implements RegisterPresenter, RegisterModelIm
     }
 
     @Override
-    public void registerCheck(Context mContext, String account,String userName, String email, String password,
+    public void registerCheck(Context mContext, String account, String userName, String password,
                               String passwordConfirm, String code) {
-        mRegisterModel.register(mContext, account, userName, email, password, passwordConfirm, code, this);
+        mRegisterView.showProgress();
+        mRegisterModel.register(mContext, account, userName, password, passwordConfirm, code, this);
     }
 
     @Override
@@ -33,66 +33,70 @@ public class RegisterPresenterImpl implements RegisterPresenter, RegisterModelIm
     }
 
 
-
-
     @Override
     public void onAccountIllegalError() {
+        mRegisterView.hideProgress();
         mRegisterView.accountIllegalError();
     }
 
     @Override
     public void onAccountBlankError() {
+        mRegisterView.hideProgress();
         mRegisterView.accountBlankError();
     }
 
     @Override
     public void onUserNameBlankError() {
+        mRegisterView.hideProgress();
         mRegisterView.userNameBlankError();
     }
 
     @Override
-    public void onTelephoneBlankError() {
-        mRegisterView.telephoneBlankError();
-    }
-
-    @Override
     public void onPwdBlankError() {
+        mRegisterView.hideProgress();
         mRegisterView.pwdBlankError();
     }
 
     @Override
     public void onPwdConfirmBlankError() {
+        mRegisterView.hideProgress();
         mRegisterView.pwdConfirmBlankError();
     }
 
     @Override
     public void onPwdNotEqualError() {
+        mRegisterView.hideProgress();
         mRegisterView.pwdNotEqualError();
     }
 
     @Override
     public void onCodeBlankError() {
+        mRegisterView.hideProgress();
         mRegisterView.codeBlankError();
     }
 
     @Override
     public void onCodeError() {
+        mRegisterView.hideProgress();
         mRegisterView.codeError();
     }
 
     @Override
     public void onAccountExistError() {
+        mRegisterView.hideProgress();
         mRegisterView.accountExistError();
     }
 
     @Override
     public void onSuccess(PersonBean personBean) {
+        mRegisterView.hideProgress();
         mRegisterView.success();
         mRegisterView.switch2Person(personBean);
     }
 
     @Override
     public void onNetworkError() {
+        mRegisterView.hideProgress();
         mRegisterView.networkError();
     }
 

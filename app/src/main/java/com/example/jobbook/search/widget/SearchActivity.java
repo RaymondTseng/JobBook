@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.jobbook.R;
@@ -41,6 +42,7 @@ public class SearchActivity extends Activity implements View.OnClickListener, Se
     private SearchJobsAdapter adapter;
     private String mSearchContent;
     private List<JobBean> list;
+    private LinearLayout mLoadingLinearLayout;
 
     private int pageIndex = 0;
 
@@ -57,6 +59,7 @@ public class SearchActivity extends Activity implements View.OnClickListener, Se
         mBackImageButton.setOnClickListener(this);
         mSearchEditText = (EditText) findViewById(R.id.job_search_activity_et);
         mRecyclerView = (RecyclerView) findViewById(R.id.job_search_activity_rv);
+        mLoadingLinearLayout = (LinearLayout) findViewById(R.id.loading_circle_progress_bar_ll);
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
         mRecyclerView.setHasFixedSize(true);
@@ -87,12 +90,12 @@ public class SearchActivity extends Activity implements View.OnClickListener, Se
 
     @Override
     public void showProgress() {
-
+        mLoadingLinearLayout.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideProgress() {
-
+        mLoadingLinearLayout.setVisibility(View.GONE);
     }
 
     @Override

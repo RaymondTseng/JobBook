@@ -18,6 +18,11 @@ public interface RegisterView {
     void hideProgress();
 
     /**
+     * 显示进度
+     */
+    void showProgress();
+
+    /**
      * 网络错误
      */
     void networkError();
