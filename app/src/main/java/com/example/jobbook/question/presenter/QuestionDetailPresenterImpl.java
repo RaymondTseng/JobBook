@@ -61,6 +61,7 @@ public class QuestionDetailPresenterImpl implements QuestionDetailPresenter,
 
     @Override
     public void sendComment(QuestionCommentBean questionCommentBean) {
+        mView.showProgress();
         mModel.sendComment(questionCommentBean, this);
     }
 }

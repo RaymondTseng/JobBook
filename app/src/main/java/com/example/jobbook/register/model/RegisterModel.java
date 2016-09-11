@@ -8,7 +8,7 @@ import android.content.Context;
  */
 public interface RegisterModel {
 
-    void register(Context mContext, String account,String userName, String email, String password,
+    void register(Context mContext, String account, String userName, String password,
                   String passwordConfirm, String code, RegisterModelImpl.OnRegisterFinishedListener listener);
 
 

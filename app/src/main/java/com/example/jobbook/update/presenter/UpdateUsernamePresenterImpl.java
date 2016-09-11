@@ -19,22 +19,26 @@ public class UpdateUsernamePresenterImpl implements UpdateUsernamePresenter, Upd
 
     @Override
     public void update(String account, String username) {
+        view.showProgress();
         model.updateUserName(account, username, this);
     }
 
     @Override
     public void onUpdateUserNameSuccess() {
+        view.hideProgress();
         view.success();
         view.close();
     }
 
     @Override
     public void onUpdateUserNameFailure() {
+        view.hideProgress();
         view.networkError();
     }
 
     @Override
     public void onUserNameBlankError() {
+        view.hideProgress();
         view.usernameBlankError();
     }
 }

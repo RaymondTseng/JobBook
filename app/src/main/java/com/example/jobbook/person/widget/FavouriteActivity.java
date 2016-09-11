@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.example.jobbook.MyApplication;

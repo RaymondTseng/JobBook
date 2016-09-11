@@ -34,6 +34,7 @@ public class SearchPresenterImpl implements SearchPresenter, SearchModelImpl.OnS
 
     @Override
     public void onFaliure(String msg, Exception e) {
+        searchView.hideProgress();
         searchView.getSearchError();
     }
 }

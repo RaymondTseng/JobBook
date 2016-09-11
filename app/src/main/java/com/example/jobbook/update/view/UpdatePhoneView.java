@@ -21,4 +21,8 @@ public interface UpdatePhoneView {
     void success();
 
     void networkError();
+
+    void showProgress();
+
+    void hideProgress();
 }

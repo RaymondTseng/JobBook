@@ -23,6 +23,7 @@ public class LoginPresenterImpl implements LoginPresenter, LoginModelImpl.OnLogi
 
     @Override
     public void loginCheck(String account, String password) {
+        mLoginView.showProgress();
         mLoginModel.login(account, password, this);
     }
 
@@ -39,26 +40,31 @@ public class LoginPresenterImpl implements LoginPresenter, LoginModelImpl.OnLogi
 
     @Override
     public void onUserError() {
+        mLoginView.hideProgress();
         mLoginView.setUserError();
     }
 
     @Override
     public void onAccountError() {
+        mLoginView.hideProgress();
         mLoginView.setAccountError();
     }
 
     @Override
     public void onPasswordError() {
+        mLoginView.hideProgress();
         mLoginView.setPasswordError();
     }
 
     @Override
     public void onSuccess(PersonBean personBean) {
+        mLoginView.hideProgress();
         mLoginView.switch2Person(personBean);
     }
 
     @Override
     public void onNetWorkError() {
+        mLoginView.hideProgress();
         mLoginView.setNetworkError();
     }
 }

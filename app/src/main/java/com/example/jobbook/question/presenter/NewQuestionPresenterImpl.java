@@ -21,11 +21,13 @@ public class NewQuestionPresenterImpl implements NewQuestionPresenter, NewQuesti
 
     @Override
     public void newquestion(QuestionBean questionBean) {
+        mNewQuestionView.showProgress();
         mNewQuestionModel.newquestion(questionBean, this);
     }
 
     @Override
     public void onSuccess() {
+        mNewQuestionView.hideProgress();
         mNewQuestionView.showSuccess();
         mNewQuestionView.close();
 
@@ -33,6 +35,7 @@ public class NewQuestionPresenterImpl implements NewQuestionPresenter, NewQuesti
 
     @Override
     public void onFailure() {
+        mNewQuestionView.hideProgress();
         mNewQuestionView.showError();
     }
 

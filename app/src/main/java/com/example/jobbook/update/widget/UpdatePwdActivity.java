@@ -6,6 +6,7 @@ import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.jobbook.MyApplication;
@@ -27,6 +28,7 @@ public class UpdatePwdActivity extends Activity implements View.OnClickListener,
     private EditText mNewPwdConfirmEditText;
     private TextView mCompleteTextView;
     private UpdatePwdPresenter presenter;
+    private LinearLayout mLoadingLinearLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,12 +44,14 @@ public class UpdatePwdActivity extends Activity implements View.OnClickListener,
         mNewPwdEditText = (EditText) findViewById(R.id.person_change_pwd_new_pwd_et);
         mNewPwdConfirmEditText = (EditText) findViewById(R.id.person_change_pwd_new_pwd_confirm_et);
         mCompleteTextView = (TextView) findViewById(R.id.person_change_pwd_complete_tv);
+        mLoadingLinearLayout = (LinearLayout) findViewById(R.id.loading_circle_progress_bar_ll);
     }
 
     private void initEvents() {
         mBackImageButton.setOnClickListener(this);
         mCompleteTextView.setOnClickListener(this);
         presenter = new UpdatePwdPresenterImpl(this);
+        mLoadingLinearLayout.setVisibility(View.GONE);
     }
 
     @Override
@@ -112,6 +116,16 @@ public class UpdatePwdActivity extends Activity implements View.OnClickListener,
     @Override
     public void oPwdEqualnPwdError() {
         showSnackbar("原密码与新密码一致！");
+    }
+
+    @Override
+    public void showProgress() {
+        mLoadingLinearLayout.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideProgress() {
+        mLoadingLinearLayout.setVisibility(View.GONE);
     }
 
     private void showSnackbar(String content) {

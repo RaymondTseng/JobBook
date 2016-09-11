@@ -12,6 +12,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.jobbook.R;
@@ -32,6 +33,7 @@ public class FeedBackActivity extends Activity implements FeedBackView, View.OnC
     private EditText mFeedBackMailEditText;
     private EditText mFeedBackContentEditText;
     private FeedBackPresenter mFeedBackPresenter;
+    private LinearLayout mLoadingLinearLayout;
 
     private Handler handler = new Handler() {
         @Override
@@ -58,11 +60,14 @@ public class FeedBackActivity extends Activity implements FeedBackView, View.OnC
         mFeedBackTextView = (TextView) findViewById(R.id.suggestion_feedback_new_tv);
         mFeedBackMailEditText = (EditText) findViewById(R.id.suggestion_feedback_mail_et);
         mFeedBackContentEditText = (EditText) findViewById(R.id.suggestion_feedback_content_et);
+        mLoadingLinearLayout = (LinearLayout) findViewById(R.id.loading_circle_progress_bar_ll);
+        mLoadingLinearLayout.setVisibility(View.GONE);
         mFeedBackTextView.setOnClickListener(this);
         mBackImageButton.setOnClickListener(this);
     }
 
     private void initEvents() {
+        mFeedBackTextView.setTextColor(Color.WHITE);
         mFeedBackPresenter = new FeedBackPresenterImpl(this);
         mFeedBackTextView.setOnClickListener(this);
         mBackImageButton.setOnClickListener(this);
@@ -109,12 +114,23 @@ public class FeedBackActivity extends Activity implements FeedBackView, View.OnC
     }
 
     @Override
+    public void showProgress() {
+        mLoadingLinearLayout.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideProgress() {
+        mLoadingLinearLayout.setVisibility(View.GONE);
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.suggestion_feedback_back_ib:
                 back();
                 break;
             case R.id.suggestion_feedback_new_tv:
+                mFeedBackTextView.setTextColor(Color.parseColor("#61ffffff"));
                 mFeedBackPresenter.feedback(mFeedBackMailEditText.getText().toString(), mFeedBackContentEditText.getText().toString());
                 break;
         }

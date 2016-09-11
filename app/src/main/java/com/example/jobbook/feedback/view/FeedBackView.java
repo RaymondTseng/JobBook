@@ -12,4 +12,8 @@ public interface FeedBackView {
     void showSuccess();
 
     void back();
+
+    void showProgress();
+
+    void hideProgress();
 }

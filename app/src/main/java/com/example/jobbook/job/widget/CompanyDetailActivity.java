@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -43,7 +44,7 @@ public class CompanyDetailActivity extends Activity implements CompanyView, View
     private ImageButton mBackImageButton;
     private FlexboxLayout mBenefitLayout;
     private List<CompanyCommentBean> list;
-
+    private LinearLayout mLoadingLinearLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +63,7 @@ public class CompanyDetailActivity extends Activity implements CompanyView, View
         mCompanyCommentListView = (ListView) findViewById(R.id.company_detail_lv);
         mBackImageButton = (ImageButton) findViewById(R.id.company_detail_back_ib);
         mBenefitLayout = (FlexboxLayout) findViewById(R.id.compamy_detail_benefit_ll);
+        mLoadingLinearLayout = (LinearLayout) findViewById(R.id.loading_circle_progress_bar_ll);
     }
 
     private void initEvents(){
@@ -110,12 +112,12 @@ public class CompanyDetailActivity extends Activity implements CompanyView, View
 
     @Override
     public void showProgress() {
-
+        mLoadingLinearLayout.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideProgress() {
-
+        mLoadingLinearLayout.setVisibility(View.GONE);
     }
 
     @Override

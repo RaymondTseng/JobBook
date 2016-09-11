@@ -46,7 +46,8 @@ public class ArticleDetailPresenterImpl implements ArticleDetailPresenter,
     @Override
     public void onFailure(String msg, Exception e) {
         //先判断文章是否加载成功，不成功直接失败，在判断评论是否加载成功
-        mView.hideProgress();
         mView.showLoadFailMsg();
+        mView.hideProgress();
+        mView.close();
     }
 }

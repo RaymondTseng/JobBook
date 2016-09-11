@@ -20,6 +20,7 @@ public class CompanyPresenterImpl implements CompanyPresenter, CompanyModelmpl.O
 
     @Override
     public void loadCompany(CompanyBean companyBean) {
+        mCompanyView.showProgress();
         mCompanyModel.loadCompany(companyBean, this);
     }
 
@@ -27,6 +28,7 @@ public class CompanyPresenterImpl implements CompanyPresenter, CompanyModelmpl.O
     public void onSuccess(CompanyBean companyBean) {
         if(companyBean != null) {
             mCompanyView.addCompany(companyBean);
+            mCompanyView.hideProgress();
         }
     }
 

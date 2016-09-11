@@ -1,63 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/question_detail_root_ll"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:weightSum="568"
-    android:id="@+id/question_detail_root_ll"
     android:orientation="vertical"
-    >
-        <include
-            android:layout_width="match_parent"
-            android:layout_weight="56"
-            android:layout_height="0dp"
-            android:id="@+id/question_detail_title_bar"
-            layout="@layout/question_detail_title_bar"
-            />
-        <ListView
-            android:id="@+id/question_detail_lv"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="456"
-            android:layout_marginTop="2dp"
-            android:transcriptMode="normal"
-            android:divider="@drawable/listview_short_divider"
-            android:dividerHeight="2dp"
-            android:background="@color/colorWhite">
+    android:weightSum="568">
 
-        </ListView>
-        <LinearLayout
-            android:id="@+id/question_detail_input_ll"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
+    <include
+        android:id="@+id/question_detail_title_bar"
+        layout="@layout/question_detail_title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="56" />
+
+    <include
+        layout="@layout/loading_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="512"
+        />
+
+    <ListView
+        android:id="@+id/question_detail_lv"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="2dp"
+        android:layout_weight="456"
+        android:background="@color/colorWhite"
+        android:divider="@drawable/listview_short_divider"
+        android:dividerHeight="2dp"
+        android:transcriptMode="normal">
+
+    </ListView>
+
+    <LinearLayout
+        android:id="@+id/question_detail_input_ll"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="56"
+        android:background="@color/colorWhite"
+        android:orientation="horizontal"
+        android:weightSum="360">
+
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
             android:layout_weight="56"
-            android:orientation="horizontal"
-            android:weightSum="360"
-            android:background="@color/colorWhite">
-            <ImageButton
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="56"
-                android:layout_gravity="center"
-                android:src="@mipmap/share_white"
-                android:background="@color/colorBlue"/>
-            <EditText
-                android:id="@+id/question_detail_et"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="248"
-                android:background="@null"
-                android:gravity="left|center_vertical"
-                android:textCursorDrawable="@drawable/edtitext_cursor"
-                android:hint="先打个招呼吧..."
-                android:textSize="20sp"
-                android:paddingLeft="16dp"/>
-            <ImageButton
-                android:id="@+id/question_detail_send_ib"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="56"
-                android:layout_gravity="center"
-                android:src="@mipmap/right_blue"
-                android:background="@null"/>
-        </LinearLayout>
+            android:background="@color/colorBlue"
+            android:src="@mipmap/share_white" />
+
+        <EditText
+            android:id="@+id/question_detail_et"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="248"
+            android:background="@null"
+            android:gravity="left|center_vertical"
+            android:hint="先打个招呼吧..."
+            android:paddingLeft="16dp"
+            android:textCursorDrawable="@drawable/edtitext_cursor"
+            android:textSize="20sp" />
+
+        <ImageButton
+            android:id="@+id/question_detail_send_ib"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="56"
+            android:background="@null"
+            android:src="@mipmap/right_blue" />
+    </LinearLayout>
 </LinearLayout>

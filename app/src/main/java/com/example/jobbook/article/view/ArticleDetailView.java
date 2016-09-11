@@ -20,4 +20,6 @@ public interface ArticleDetailView {
 
     void showLoadFailMsg();
 
+    void close();
+
 }

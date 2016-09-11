@@ -6,6 +6,7 @@ import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -30,6 +31,7 @@ public class ArticleDetailActivity extends Activity implements ArticleDetailView
     private TextView mReadingQuantityTextView;
     private TextView mArticleTitleTextView;
     private TextView mArticleContentTextView;
+    private LinearLayout mLoadingLinearLayout;
     private View view;
 
     @Override
@@ -46,6 +48,7 @@ public class ArticleDetailActivity extends Activity implements ArticleDetailView
         mReadingQuantityTextView = (TextView) findViewById(R.id.article_detail_readingquanity_tv);
         mArticleTitleTextView = (TextView) findViewById(R.id.article_detail_title_tv);
         mArticleContentTextView = (TextView) findViewById(R.id.article_detail_content_tv);
+        mLoadingLinearLayout = (LinearLayout) findViewById(R.id.loading_circle_progress_bar_ll);
     }
 
     private void initEvents(){
@@ -60,7 +63,7 @@ public class ArticleDetailActivity extends Activity implements ArticleDetailView
 
     @Override
     public void showProgress() {
-
+        mLoadingLinearLayout.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -77,7 +80,7 @@ public class ArticleDetailActivity extends Activity implements ArticleDetailView
 
     @Override
     public void hideProgress() {
-
+        mLoadingLinearLayout.setVisibility(View.GONE);
     }
 
     @Override
@@ -91,6 +94,11 @@ public class ArticleDetailActivity extends Activity implements ArticleDetailView
             }
         });
         snackbar.show();
+    }
+
+    @Override
+    public void close() {
+        finish();
     }
 
     @Override

@@ -24,6 +24,7 @@
             android:layout_toRightOf="@id/favourite_back_ib"
             android:layout_marginLeft="32dp"/>
     </RelativeLayout>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/favourite_rv"
         android:layout_width="match_parent"
