@@ -76,7 +76,9 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
     private EditText mExpectLocationEditText;
     private TextView mEduDivider;
     private TextView mJobDivider;
+    private LinearLayout mLoadingLayout;
     private TextCVPresenter mPresenter;
+    
 
     SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM");
 
@@ -113,10 +115,12 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
         mSaveTextView = (TextView) findViewById(R.id.text_cv_save_tv);
         mEduDivider = (TextView) findViewById(R.id.edu_exp_divider);
         mJobDivider = (TextView) findViewById(R.id.job_exp_divider);
+        mLoadingLayout = (LinearLayout) findViewById(R.id.loading_circle_progress_bar_ll);
     }
 
     private void initEvents() {
         mPresenter = new TextCVPresenterImpl(this);
+        mPresenter.load();
         mJobExpInaugurationTextView.setOnClickListener(this);
         mJobExpDimissionTextView.setOnClickListener(this);
         mEduExpAdmissionTextView.setOnClickListener(this);
@@ -180,6 +184,63 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
         }
     }
 
+    private View addJobView(LinearLayout mJobContainerLayout){
+        LinearLayout jobView = (LinearLayout) View.inflate(this, R.layout.job_experiment_layout, null);
+        View jobDeleteView = View.inflate(this, R.layout.delete_exp_layout, null);
+        LinearLayout.LayoutParams jobParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT);
+        jobView.addView(jobDeleteView, jobParams);
+        mJobContainerLayout.addView(jobView, jobParams);
+        return jobView;
+    }
+
+    private void initJobView(View jobView){
+        TextView mInaugurationTextView = (TextView) jobView.findViewById(R.id.job_exp_inauguration_tv);
+        TextView mDimissionTextView = (TextView) jobView.findViewById(R.id.job_exp_dimission_tv);
+        EditText mCompantEditText = (EditText) jobView.findViewById(R.id.job_exp_company_et);
+        EditText mPositionEditText = (EditText) jobView.findViewById(R.id.job_exp_position_et);
+        mInaugurationTextView.setTag(mJobContainerLayout.getChildCount() - 1);
+        mDimissionTextView.setTag(mJobContainerLayout.getChildCount() - 1);
+        mInaugurationTextView.setOnClickListener(this);
+        mDimissionTextView.setOnClickListener(this);
+    }
+    private void initJobView(View jobView, JobExpBean jobExpBean){
+        initJobView(jobView);
+        ((TextView)jobView.findViewById(R.id.job_exp_inauguration_tv)).setText(jobExpBean.getInaugurationDate());
+        ((TextView)jobView.findViewById(R.id.job_exp_dimission_tv)).setText(jobExpBean.getDimissionDate());
+        ((EditText)jobView.findViewById(R.id.job_exp_company_et)).setText(jobExpBean.getCompany());
+        ((EditText)jobView.findViewById(R.id.job_exp_position_et)).setText(jobExpBean.getPosition());
+    }
+
+    private View addEduView(LinearLayout mEduContainerLayout){
+        LinearLayout eduView = (LinearLayout) View.inflate(this, R.layout.education_experiment_layout, null);
+        View eduDeleteView = View.inflate(this, R.layout.delete_exp_layout, null);
+        LinearLayout.LayoutParams eduParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT);
+        eduView.addView(eduDeleteView, eduParams);
+        mEduContainerLayout.addView(eduView, eduParams);
+        return eduView;
+    }
+
+    private void initEduView(View eduView){
+        TextView mAdmissionTextView = (TextView) eduView.findViewById(R.id.education_exp_admission_tv);
+        TextView mGraduationTextView = (TextView) eduView.findViewById(R.id.education_exp_graduation_tv);
+        EditText mSchoolEditText = (EditText) eduView.findViewById(R.id.education_school_et);
+        EditText mMajorEditText = (EditText) eduView.findViewById(R.id.education_major_et);
+        mAdmissionTextView.setTag(mEduContainerLayout.getChildCount() - 1);
+        mGraduationTextView.setTag(mEduContainerLayout.getChildCount() - 1);
+        mAdmissionTextView.setOnClickListener(this);
+        mGraduationTextView.setOnClickListener(this);
+    }
+
+    private void initEduView(View eduView, EducationExpBean educationExpBean){
+        initEduView(eduView);
+        ((TextView)eduView.findViewById(R.id.education_exp_admission_tv)).setText(educationExpBean.getAdmissionDate());
+        ((TextView)eduView.findViewById(R.id.education_exp_graduation_tv)).setText(educationExpBean.getGraduationDate());
+        ((EditText)eduView.findViewById(R.id.education_school_et)).setText(educationExpBean.getSchool());
+        ((EditText)eduView.findViewById(R.id.education_major_et)).setText(educationExpBean.getMajor());
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -206,28 +267,26 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
                 save();
                 break;
             case R.id.text_cv_add_edu_exp_ib:
-                View eduView = View.inflate(this, R.layout.education_experiment_layout, null);
-                LinearLayout.LayoutParams eduParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
-                        LinearLayout.LayoutParams.WRAP_CONTENT);
-                mEduContainerLayout.addView(eduView, eduParams);
-                TextView mAdmissionTextView = (TextView) eduView.findViewById(R.id.education_exp_admission_tv);
-                TextView mGraduationTextView = (TextView) eduView.findViewById(R.id.education_exp_graduation_tv);
-                mAdmissionTextView.setTag(mEduContainerLayout.getChildCount() - 1);
-                mGraduationTextView.setTag(mEduContainerLayout.getChildCount() - 1);
-                mAdmissionTextView.setOnClickListener(this);
-                mGraduationTextView.setOnClickListener(this);
+                View eduView = addEduView(mEduContainerLayout);
+                initEduView(eduView);
+                ImageButton mEduDeleteImageButton = (ImageButton) eduView.findViewById(R.id.delete_exp_ib);
+                mEduDeleteImageButton.setTag(EDU_ADMISSION + ";" + (mEduContainerLayout.getChildCount() - 1));
+                mEduDeleteImageButton.setOnClickListener(this);
                 break;
             case R.id.text_cv_add_job_exp_ib:
-                View jobView = View.inflate(this, R.layout.job_experiment_layout, null);
-                LinearLayout.LayoutParams jobParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
-                        LinearLayout.LayoutParams.WRAP_CONTENT);
-                mJobContainerLayout.addView(jobView, jobParams);
-                TextView mInaugurationTextView = (TextView) jobView.findViewById(R.id.job_exp_inauguration_tv);
-                TextView mDimissionTextView = (TextView) jobView.findViewById(R.id.job_exp_dimission_tv);
-                mInaugurationTextView.setTag(mJobContainerLayout.getChildCount() - 1);
-                mDimissionTextView.setTag(mJobContainerLayout.getChildCount() - 1);
-                mInaugurationTextView.setOnClickListener(this);
-                mDimissionTextView.setOnClickListener(this);
+                View jobView = addJobView(mJobContainerLayout);
+                initJobView(jobView);
+                ImageButton mJobDeleteImageButton = (ImageButton) jobView.findViewById(R.id.delete_exp_ib);
+                mJobDeleteImageButton.setTag(JOB_INAUGURATION + ";" + (mJobContainerLayout.getChildCount() - 1));
+                mJobDeleteImageButton.setOnClickListener(this);
+                break;
+            case R.id.delete_exp_ib:
+                String position = (String)v.getTag();
+                if(position.startsWith(JOB_INAUGURATION)){
+                    mJobContainerLayout.removeViewAt(Integer.valueOf(position.split(";")[1]));
+                }else{
+                    mEduContainerLayout.removeViewAt(Integer.valueOf(position.split(";")[1]));
+                }
                 break;
 
         }
@@ -257,12 +316,12 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
 
     @Override
     public void showProgress() {
-
+        mLoadingLayout.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideProgress() {
-
+        mLoadingLayout.setVisibility(View.GONE);
     }
 
     @Override
@@ -461,28 +520,26 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
         mExpectSalaryEditText.setText(textCVBean.getExpectSalary());
         mExpectLocationEditText.setText(textCVBean.getExpectLocation());
         for (int i = 0; i < textCVBean.getEducationExpBeanList().size(); i++) {
+            if(i != 0){
+                View view = addEduView(mEduContainerLayout);
+                ImageButton mEduDeleteImageButton = (ImageButton) view.findViewById(R.id.delete_exp_ib);
+                mEduDeleteImageButton.setTag(EDU_ADMISSION + ";" + (mEduContainerLayout.getChildCount() - 1));
+                mEduDeleteImageButton.setOnClickListener(this);
+            }
             View view = mEduContainerLayout.getChildAt(i);
             EducationExpBean educationExpBean = textCVBean.getEducationExpBeanList().get(i);
-            TextView mAdmissionTextView = (TextView) view.findViewById(R.id.education_exp_admission_tv);
-            TextView mGraduationTextView = (TextView) view.findViewById(R.id.education_exp_graduation_tv);
-            EditText mSchoolEditText = (EditText) view.findViewById(R.id.education_school_et);
-            EditText mMajorEditText = (EditText) view.findViewById(R.id.education_major_et);
-            mAdmissionTextView.setText(educationExpBean.getAdmissionDate());
-            mGraduationTextView.setText(educationExpBean.getGraduationDate());
-            mSchoolEditText.setText(educationExpBean.getSchool());
-            mMajorEditText.setText(educationExpBean.getMajor());
+            initEduView(view, educationExpBean);
         }
         for (int i = 0; i < textCVBean.getJobExpBeanList().size(); i++) {
+            if(i != 0){
+                View view = addJobView(mJobContainerLayout);
+                ImageButton mJobDeleteImageButton = (ImageButton) view.findViewById(R.id.delete_exp_ib);
+                mJobDeleteImageButton.setTag(JOB_INAUGURATION + ";" + (mJobContainerLayout.getChildCount() - 1));
+                mJobDeleteImageButton.setOnClickListener(this);
+            }
             View view = mJobContainerLayout.getChildAt(i);
             JobExpBean jobExpBean = textCVBean.getJobExpBeanList().get(i);
-            TextView mInaugurationTextView = (TextView) view.findViewById(R.id.job_exp_inauguration_tv);
-            TextView mDimissionTextView = (TextView) view.findViewById(R.id.job_exp_dimission_tv);
-            EditText mCompanyEditText = (EditText) view.findViewById(R.id.job_exp_company_et);
-            EditText mPositionEditText = (EditText) view.findViewById(R.id.job_exp_position_et);
-            mInaugurationTextView.setText(jobExpBean.getInaugurationDate());
-            mDimissionTextView.setText(jobExpBean.getDimissionDate());
-            mCompanyEditText.setText(jobExpBean.getCompany());
-            mPositionEditText.setText(jobExpBean.getPosition());
+            initJobView(view, jobExpBean);
         }
     }
 

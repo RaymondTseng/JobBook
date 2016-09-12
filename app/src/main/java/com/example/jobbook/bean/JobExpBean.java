@@ -9,12 +9,12 @@ public class JobExpBean {
     /**
      * 就职年月
      */
-    private String inaugurationDate;
+    private String inaugurationdate;
 
     /**
      * 离职年月
      */
-    private String dimissionDate;
+    private String dimissiondate;
 
     /**
      * 公司名称
@@ -27,19 +27,19 @@ public class JobExpBean {
     private String position;
 
     public String getInaugurationDate() {
-        return inaugurationDate;
+        return inaugurationdate;
     }
 
     public void setInaugurationDate(String inaugurationDate) {
-        this.inaugurationDate = inaugurationDate;
+        this.inaugurationdate = inaugurationDate;
     }
 
     public String getDimissionDate() {
-        return dimissionDate;
+        return dimissiondate;
     }
 
     public void setDimissionDate(String dimissionDate) {
-        this.dimissionDate = dimissionDate;
+        this.dimissiondate = dimissionDate;
     }
 
     public String getCompany() {

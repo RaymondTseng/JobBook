@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.jobbook.MyApplication;
@@ -21,11 +20,12 @@ import com.example.jobbook.update.presenter.UpdatePhonePresenterImpl;
 import com.example.jobbook.update.view.UpdatePhoneView;
 import com.example.jobbook.util.Util;
 import com.jude.smssdk_mob.SMSManager;
+import com.jude.smssdk_mob.TimeListener;
 
 /**
  * Created by Xu on 2016/9/5.
  */
-public class UpdatePhoneActivity extends Activity implements View.OnClickListener, UpdatePhoneView {
+public class UpdatePhoneActivity extends Activity implements View.OnClickListener, UpdatePhoneView, TimeListener {
 
     private ImageButton mBackImageButton;
     private TextView mOriginalPhoneTextView;
@@ -35,7 +35,6 @@ public class UpdatePhoneActivity extends Activity implements View.OnClickListene
     private TextView mCompleteTextView;
     private PersonBean personBean;
     private UpdatePhonePresenter mPresenter;
-    private LinearLayout mLoadingLinearLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +51,6 @@ public class UpdatePhoneActivity extends Activity implements View.OnClickListene
         mGetCodeButton = (Button) findViewById(R.id.person_change_phone_code_bt);
         mNewPhoneEditText = (EditText) findViewById(R.id.person_change_phone_new_phone_et);
         mCompleteTextView = (TextView) findViewById(R.id.person_change_phone_complete_tv);
-        mLoadingLinearLayout = (LinearLayout) findViewById(R.id.loading_circle_progress_bar_ll);
     }
 
     private void initEvents() {
@@ -62,8 +60,10 @@ public class UpdatePhoneActivity extends Activity implements View.OnClickListene
         mCompleteTextView.setOnClickListener(this);
         personBean = MyApplication.getmPersonBean();
         Log.i("phone", "result:" + personBean.getAccount());
-        mOriginalPhoneTextView.setText(personBean.getTelephone());
-        mLoadingLinearLayout.setVisibility(View.GONE);
+        mOriginalPhoneTextView.setText(personBean.getAccount());
+        SMSManager.getInstance().setDefaultDelay(60);
+        SMSManager.getInstance().registerTimeListener(this);
+
     }
 
     @Override
@@ -124,13 +124,13 @@ public class UpdatePhoneActivity extends Activity implements View.OnClickListene
     }
 
     @Override
-    public void showProgress() {
-        mLoadingLinearLayout.setVisibility(View.VISIBLE);
+    public void hideProgress() {
+
     }
 
     @Override
-    public void hideProgress() {
-        mLoadingLinearLayout.setVisibility(View.GONE);
+    public void showProgress() {
+
     }
 
     private void showSnackbar(String content) {
@@ -144,5 +144,25 @@ public class UpdatePhoneActivity extends Activity implements View.OnClickListene
             }
         });
         snackbar.show();
+    }
+
+    @Override
+    protected void onDestroy(){
+        SMSManager.getInstance().unRegisterTimeListener(this);
+        super.onDestroy();
+    }
+
+    @Override
+    public void onLastTimeNotify(int lastSecond) {
+        if(lastSecond > 0){
+            mGetCodeButton.setText(lastSecond);
+        }else{
+            mGetCodeButton.setText("发送验证码");
+        }
+    }
+
+    @Override
+    public void onAbleNotify(boolean valuable) {
+        mGetCodeButton.setEnabled(valuable);
     }
 }

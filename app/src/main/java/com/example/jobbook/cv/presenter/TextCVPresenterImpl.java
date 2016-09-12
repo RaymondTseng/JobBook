@@ -71,6 +71,7 @@ public class TextCVPresenterImpl implements TextCVPresenter, TextCVModelImpl.OnB
 
     @Override
     public void load() {
+        mTextCVView.showProgress();
         mTextCVModel.load(this);
     }
 
@@ -97,6 +98,7 @@ public class TextCVPresenterImpl implements TextCVPresenter, TextCVModelImpl.OnB
 
     @Override
     public void onFailure(String msg, Exception e, int id) {
+        mTextCVView.hideProgress();
         if(msg.equals("network")){
             mTextCVView.networkError();
         }else if(msg.equals("null")){
@@ -108,42 +110,49 @@ public class TextCVPresenterImpl implements TextCVPresenter, TextCVModelImpl.OnB
 
     @Override
     public void onInaugurationTimeBlankError(int id) {
+        mTextCVView.hideProgress();
         mTextCVView.jobExpInaugurationBlankError(id);
         refresh();
     }
 
     @Override
     public void onDimissionTimeBlankError(int id) {
+        mTextCVView.hideProgress();
         mTextCVView.jobExpDimissionBlankError(id);
         refresh();
     }
 
     @Override
     public void onCompanyBlankError(int id) {
+        mTextCVView.hideProgress();
         mTextCVView.jobExpCompanyBlankError(id);
         refresh();
     }
 
     @Override
     public void onPositionBlankError(int id) {
+        mTextCVView.hideProgress();
         mTextCVView.jobExpPositionBlankError(id);
         refresh();
     }
 
     @Override
     public void onAdmissionTimeBlankError(int id) {
+        mTextCVView.hideProgress();
         mTextCVView.eduExpAdmissionError(id);
         refresh();
     }
 
     @Override
     public void onGraduationTimeBlankError(int id) {
+        mTextCVView.hideProgress();
         mTextCVView.eduExpGraduationError(id);
         refresh();
     }
 
     @Override
     public void onSchoolBlankError(int id) {
+        mTextCVView.hideProgress();
         mTextCVView.eduExpSchoolBlankError(id);
         refresh();
     }
@@ -151,12 +160,14 @@ public class TextCVPresenterImpl implements TextCVPresenter, TextCVModelImpl.OnB
 
     @Override
     public void onHeadBlankError() {
+        mTextCVView.hideProgress();
         mTextCVView.headBlankError();
         refresh();
     }
 
     @Override
     public void onNameBlankError() {
+        mTextCVView.hideProgress();
         mTextCVView.nameBlankError();
         refresh();
     }
@@ -168,24 +179,28 @@ public class TextCVPresenterImpl implements TextCVPresenter, TextCVModelImpl.OnB
 
     @Override
     public void onQualificationBlankError() {
+        mTextCVView.hideProgress();
         mTextCVView.qualificationBlankError();
         refresh();
     }
 
     @Override
     public void onLocationBlankError() {
+        mTextCVView.hideProgress();
         mTextCVView.locationBlankError();
         refresh();
     }
 
     @Override
     public void onTypeBlankError() {
+        mTextCVView.hideProgress();
         mTextCVView.typeBlankError();
         refresh();
     }
 
     @Override
     public void onLevelBlankError() {
+        mTextCVView.hideProgress();
         mTextCVView.levelBlankError();
         refresh();
     }
@@ -197,30 +212,35 @@ public class TextCVPresenterImpl implements TextCVPresenter, TextCVModelImpl.OnB
 
     @Override
     public void onTelBlankError() {
+        mTextCVView.hideProgress();
         mTextCVView.telBlankError();
         refresh();
     }
 
     @Override
     public void onEmailBlankError() {
+        mTextCVView.hideProgress();
         mTextCVView.emailBlankError();
         refresh();
     }
 
     @Override
     public void onExpectJobBlankError() {
+        mTextCVView.hideProgress();
         mTextCVView.expectJobPositionBlankError();
         refresh();
     }
 
     @Override
     public void onExpectSalaryBlankError() {
+        mTextCVView.hideProgress();
         mTextCVView.expectJobSalaryBlankError();
         refresh();
     }
 
     @Override
     public void onExpectLocationBlankError() {
+        mTextCVView.hideProgress();
         mTextCVView.expectJobLocationBlankError();
         refresh();
     }

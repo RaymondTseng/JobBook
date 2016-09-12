@@ -36,17 +36,17 @@ public class TextCVBean implements Serializable{
     /**
      * 残疾类型
      */
-    private String disabilityType;
+    private String disabilitytype;
 
     /**
      * 残疾等级
      */
-    private String disabilityLevel;
+    private String disabilitylevel;
 
     /**
      * 是否有残疾证
      */
-    private String haveDisabilityCard;
+    private String havedisabilitycard;
 
     /**
      * 联系电话
@@ -61,21 +61,21 @@ public class TextCVBean implements Serializable{
     /**
      * 期待职位
      */
-    private String expectPosition;
+    private String expectposition;
 
     /**
      * 期待薪水
      */
-    private String expectSalary;
+    private String expectsalary;
 
     /**
      * 期待工作地点
      */
-    private String expectLocation;
+    private String expectlocation;
 
-    private List<EducationExpBean> educationExpBeanList;
+    private List<EducationExpBean> education;
 
-    private List<JobExpBean> jobExpBeanList;
+    private List<JobExpBean> work;
 
     public String getName() {
         return name;
@@ -118,27 +118,27 @@ public class TextCVBean implements Serializable{
     }
 
     public String getDisabilityType() {
-        return disabilityType;
+        return disabilitytype;
     }
 
     public void setDisabilityType(String disabilityType) {
-        this.disabilityType = disabilityType;
+        this.disabilitytype = disabilityType;
     }
 
     public String getDisabilityLevel() {
-        return disabilityLevel;
+        return disabilitylevel;
     }
 
     public void setDisabilityLevel(String disabilityLevel) {
-        this.disabilityLevel = disabilityLevel;
+        this.disabilitylevel = disabilityLevel;
     }
 
     public String isHaveDisabilityCard() {
-        return haveDisabilityCard;
+        return havedisabilitycard;
     }
 
     public void setHaveDisabilityCard(String haveDisabilityCard) {
-        this.haveDisabilityCard = haveDisabilityCard;
+        this.havedisabilitycard = haveDisabilityCard;
     }
 
     public String getTelephone() {
@@ -158,42 +158,42 @@ public class TextCVBean implements Serializable{
     }
 
     public String getExpectPosition() {
-        return expectPosition;
+        return expectposition;
     }
 
     public void setExpectPosition(String expectPosition) {
-        this.expectPosition = expectPosition;
+        this.expectposition = expectPosition;
     }
 
     public String getExpectLocation() {
-        return expectLocation;
+        return expectlocation;
     }
 
     public void setExpectLocation(String expectLocation) {
-        this.expectLocation = expectLocation;
+        this.expectlocation = expectLocation;
     }
 
     public List<EducationExpBean> getEducationExpBeanList() {
-        return educationExpBeanList;
+        return education;
     }
 
     public void setEducationExpBeanList(List<EducationExpBean> educationExpBeanList) {
-        this.educationExpBeanList = educationExpBeanList;
+        this.education = educationExpBeanList;
     }
 
     public List<JobExpBean> getJobExpBeanList() {
-        return jobExpBeanList;
+        return work;
     }
 
     public void setJobExpBeanList(List<JobExpBean> jobExpBeanList) {
-        this.jobExpBeanList = jobExpBeanList;
+        this.work = jobExpBeanList;
     }
 
     public String getExpectSalary() {
-        return expectSalary;
+        return expectsalary;
     }
 
     public void setExpectSalary(String expectSalary) {
-        this.expectSalary = expectSalary;
+        this.expectsalary = expectSalary;
     }
 }

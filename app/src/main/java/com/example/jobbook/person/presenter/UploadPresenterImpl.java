@@ -27,8 +27,8 @@ public class UploadPresenterImpl implements UploadPresenter, UploadModelImpl.OnU
 
     @Override
     public void onSuccess(Bitmap bm) {
-        view.uploadSuccess();
         view.hideProgress();
+        view.uploadSuccess();
         view.loadHead(bm);
     }
 

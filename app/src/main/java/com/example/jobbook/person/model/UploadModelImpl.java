@@ -28,7 +28,8 @@ public class UploadModelImpl implements UploadModel {
         String img = new String(Base64.encodeToString(bytes, Base64.DEFAULT));
         Log.i("img", "img:" + img);
         if (!TextUtils.isEmpty(MyApplication.getmPersonBean().getAccount())) {
-            OkHttpUtils.postString().content(img).url(Urls.UPLOAD_IMAGE_URL + "account/" + MyApplication.getmPersonBean().getAccount()).build().execute(new StringCallback() {
+            OkHttpUtils.postString().content(img).url(Urls.UPLOAD_IMAGE_URL + "account/" +
+                    MyApplication.getmPersonBean().getAccount()).build().execute(new StringCallback() {
                 @Override
                 public void onError(Call call, Exception e, int id) {
                     Log.i("uploadmodelimpl", e.getMessage() + "network error");

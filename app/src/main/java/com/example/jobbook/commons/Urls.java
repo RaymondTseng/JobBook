@@ -7,7 +7,7 @@ public class Urls {
 
     public static final int PAZE_SIZE = 10;
 
-    public static final String ID = "http://192.168.8.28";
+    public static final String ID = "http://192.168.203.217";
 
     public static final String REGISTER_URL = ID + "/jobBook/Home/enter/doRegister/";
 

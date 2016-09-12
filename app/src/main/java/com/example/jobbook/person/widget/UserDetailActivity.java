@@ -70,15 +70,18 @@ public class UserDetailActivity extends Activity implements View.OnClickListener
     }
 
     private void initEvents() {
+        Log.i("userdetail", "hide:" + mLoadingLinearLayout.getVisibility());
+        hideProgress();
+        Log.i("userdetail", "hide:" + mLoadingLinearLayout.getVisibility());
         mBackImageButton.setOnClickListener(this);
         mChangeHeadRelativeLayout.setOnClickListener(this);
         mChangeUserNameRelativeLayout.setOnClickListener(this);
-//        mChangePhoneButton.setOnClickListener(this);
         mChangePwdButton.setOnClickListener(this);
         ImageLoadUtils.display(this, mUserHeadImageView, mPersonBean.getHead());
         mUserNameTextView.setText(mPersonBean.getUsername());
         presenter = new UploadPresenterImpl(this);
-        mLoadingLinearLayout.setVisibility(View.GONE);
+        Log.i("userdetail", "hide:" + mLoadingLinearLayout.getVisibility());
+        hideProgress();
     }
 
     @Override
@@ -125,7 +128,7 @@ public class UserDetailActivity extends Activity implements View.OnClickListener
                     CropUtils.pickAvatarFromGallery(UserDetailActivity.this);
                     break;
                 case R.id.person_upload_cancel_bt:// 取消
-                    finish();
+//                    finish();
                     break;
             }
         }
@@ -159,6 +162,7 @@ public class UserDetailActivity extends Activity implements View.OnClickListener
 
     @Override
     public void hideProgress() {
+        mLoadingLinearLayout.clearAnimation();
         mLoadingLinearLayout.setVisibility(View.GONE);
     }
 
