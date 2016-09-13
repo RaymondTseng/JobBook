@@ -31,6 +31,9 @@ import com.example.jobbook.upload.UploadPopupWindow;
 import com.example.jobbook.util.ImageLoadUtils;
 import com.example.jobbook.util.Util;
 
+import java.net.URI;
+import java.net.URL;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
@@ -49,6 +52,7 @@ public class UserDetailActivity extends Activity implements View.OnClickListener
     private PersonBean mPersonBean = MyApplication.getmPersonBean();
     private UploadPresenter presenter;
     private LinearLayout mLoadingLinearLayout;
+    private MyApplication mMyApplication;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,18 +74,15 @@ public class UserDetailActivity extends Activity implements View.OnClickListener
     }
 
     private void initEvents() {
-        Log.i("userdetail", "hide:" + mLoadingLinearLayout.getVisibility());
         hideProgress();
-        Log.i("userdetail", "hide:" + mLoadingLinearLayout.getVisibility());
         mBackImageButton.setOnClickListener(this);
         mChangeHeadRelativeLayout.setOnClickListener(this);
         mChangeUserNameRelativeLayout.setOnClickListener(this);
         mChangePwdButton.setOnClickListener(this);
-        ImageLoadUtils.display(this, mUserHeadImageView, mPersonBean.getHead());
+        ImageLoadUtils.display(this, mUserHeadImageView, mPersonBean.getHead(), 0);
         mUserNameTextView.setText(mPersonBean.getUsername());
+        mMyApplication = (MyApplication) getApplication();
         presenter = new UploadPresenterImpl(this);
-        Log.i("userdetail", "hide:" + mLoadingLinearLayout.getVisibility());
-        hideProgress();
     }
 
     @Override
@@ -137,7 +138,8 @@ public class UserDetailActivity extends Activity implements View.OnClickListener
     private CropUtils.CropHandler handler = new CropUtils.CropHandler() {
         @Override
         public void handleCropResult(Uri uri, int tag) {
-            sendImage(UploadManager.getBitmapFromUri(UserDetailActivity.this, uri));
+            sendImage(UploadManager.getBitmapFromUri(getApplicationContext(), uri));
+            ImageLoadUtils.display(UserDetailActivity.this , mUserHeadImageView, uri);
         }
 
         @Override
@@ -152,6 +154,7 @@ public class UserDetailActivity extends Activity implements View.OnClickListener
     }
 
     private void sendImage(Bitmap bm) {
+        Log.i("photo", "sendImage");
         presenter.uploadImage(bm);
     }
 
@@ -162,7 +165,6 @@ public class UserDetailActivity extends Activity implements View.OnClickListener
 
     @Override
     public void hideProgress() {
-        mLoadingLinearLayout.clearAnimation();
         mLoadingLinearLayout.setVisibility(View.GONE);
     }
 
@@ -178,7 +180,10 @@ public class UserDetailActivity extends Activity implements View.OnClickListener
 
     @Override
     public void loadHead(Bitmap bm) {
-        mUserHeadImageView.setImageBitmap(bm);
+        Log.i("photo", "loadHead1");
+        mMyApplication.getHandler().sendEmptyMessage(2);
+//        mUserHeadImageView.setImageBitmap(bm);
+
 //        this.onCreate(null);
     }
 
@@ -193,5 +198,29 @@ public class UserDetailActivity extends Activity implements View.OnClickListener
             }
         });
         snackbar.show();
+    }
+
+    @Override
+    protected void onPause(){
+        Log.i("photo", "onPause");
+        super.onPause();
+    }
+
+    @Override
+    protected void onStop(){
+        Log.i("photo", "onStop");
+        super.onStop();
+    }
+
+    @Override
+    protected void onStart(){
+        Log.i("photo", "onStart");
+        super.onStart();
+    }
+
+    @Override
+    protected void onResume(){
+        Log.i("photo", "onResume");
+        super.onResume();
     }
 }

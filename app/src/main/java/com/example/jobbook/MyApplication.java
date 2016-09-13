@@ -22,6 +22,7 @@ public class MyApplication extends Application {
 
     private static int mLoginStatus = 0;
 
+
     private Handler handler = null;
 
     public static PersonBean getmPersonBean() {

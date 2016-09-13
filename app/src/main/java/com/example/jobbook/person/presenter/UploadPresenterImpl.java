@@ -1,6 +1,7 @@
 package com.example.jobbook.person.presenter;
 
 import android.graphics.Bitmap;
+import android.net.Uri;
 
 import com.example.jobbook.person.model.UploadModel;
 import com.example.jobbook.person.model.UploadModelImpl;

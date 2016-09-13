@@ -10,6 +10,7 @@ import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
 
+import com.example.jobbook.MyApplication;
 import com.example.jobbook.util.Util;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;

@@ -115,10 +115,12 @@ public class QuestionDetailActivity extends Activity implements QuestionDetailVi
 
     @Override
     public void addComments(List<QuestionCommentBean> mComments) {
+        mListView.removeHeaderView(mHeadView);
         mAdapter.updateData(mComments);
         mListView.addHeaderView(mHeadView);
 //        Util.setListViewHeightBasedOnChildren(mListView);
     }
+
 
     @Override
     public void sendSuccess() {

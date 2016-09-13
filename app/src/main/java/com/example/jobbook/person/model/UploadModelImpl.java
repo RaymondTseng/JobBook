@@ -20,6 +20,9 @@ import okhttp3.Call;
  */
 public class UploadModelImpl implements UploadModel {
 
+    public static final String SUCCESS = "success!";
+    public static final int PHOTO = Log.i("photo", "result:success");
+
     @Override
     public void uploadImage(final Bitmap bm, final OnUploadImageListener listener) {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
@@ -33,6 +36,7 @@ public class UploadModelImpl implements UploadModel {
                 @Override
                 public void onError(Call call, Exception e, int id) {
                     Log.i("uploadmodelimpl", e.getMessage() + "network error");
+                    Log.i("photo", "onError");
                     listener.onFailure("network error", e);
                 }
 
@@ -43,6 +47,7 @@ public class UploadModelImpl implements UploadModel {
                         listener.onSuccess(bm);
                     } else {
                         listener.onFailure("response:" + response, null);
+                        Log.i("photo", "result:failure");
                     }
                 }
             });
