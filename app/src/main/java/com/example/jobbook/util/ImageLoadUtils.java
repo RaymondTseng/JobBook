@@ -1,6 +1,7 @@
 package com.example.jobbook.util;
 
 import android.content.Context;
+import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.widget.ImageView;
@@ -33,6 +34,26 @@ public class ImageLoadUtils {
 //        Log.i("image_url", url);
 //        Glide.with(context).load(url).diskCacheStrategy(DiskCacheStrategy.ALL).skipMemoryCache(true).crossFade(100).into(imageView);
         Glide.with(context).load(url).diskCacheStrategy(DiskCacheStrategy.RESULT).skipMemoryCache(false).into(imageView);
+    }
+    public static void display(Context context, ImageView imageView, Uri uri) {
+        if (imageView == null) {
+            throw new IllegalArgumentException("argument error");
+        }
+//        Glide.with(context).load(url).placeholder(R.drawable.ic_image_loading)
+//                .error(R.drawable.ic_image_loadfail).crossFade().into(imageView);
+//        Log.i("image_url", url);
+//        Glide.with(context).load(url).diskCacheStrategy(DiskCacheStrategy.ALL).skipMemoryCache(true).crossFade(100).into(imageView);
+        Glide.with(context).load(uri).diskCacheStrategy(DiskCacheStrategy.NONE).skipMemoryCache(false).into(imageView);
+    }
+    public static void display(Context context, ImageView imageView, String url, int cache) {
+        if (imageView == null) {
+            throw new IllegalArgumentException("argument error");
+        }
+//        Glide.with(context).load(url).placeholder(R.drawable.ic_image_loading)
+//                .error(R.drawable.ic_image_loadfail).crossFade().into(imageView);
+//        Log.i("image_url", url);
+//        Glide.with(context).load(url).diskCacheStrategy(DiskCacheStrategy.ALL).skipMemoryCache(true).crossFade(100).into(imageView);
+        Glide.with(context).load(url).diskCacheStrategy(DiskCacheStrategy.NONE).skipMemoryCache(false).into(imageView);
     }
 
 }

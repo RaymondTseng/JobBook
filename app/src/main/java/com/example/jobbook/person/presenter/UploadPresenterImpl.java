@@ -1,6 +1,7 @@
 package com.example.jobbook.person.presenter;
 
 import android.graphics.Bitmap;
+import android.net.Uri;
 
 import com.example.jobbook.person.model.UploadModel;
 import com.example.jobbook.person.model.UploadModelImpl;
@@ -27,8 +28,8 @@ public class UploadPresenterImpl implements UploadPresenter, UploadModelImpl.OnU
 
     @Override
     public void onSuccess(Bitmap bm) {
-        view.uploadSuccess();
         view.hideProgress();
+        view.uploadSuccess();
         view.loadHead(bm);
     }
 

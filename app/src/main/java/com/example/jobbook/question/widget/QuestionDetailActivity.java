@@ -54,8 +54,8 @@ public class QuestionDetailActivity extends Activity implements QuestionDetailVi
     private LinearLayout mLoadingLinearLayout;
     private int mScreenHeight;
     private int mKeyBoardHeight;
-    private int mTitleBarHeight;
-    private int mInputLayoutHeight;
+    private float mTitleBarHeight;
+    private float mInputLayoutHeight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -87,7 +87,7 @@ public class QuestionDetailActivity extends Activity implements QuestionDetailVi
         Log.i("questiondetail_activity", "123:" + questionBean.getId());
         mScreenHeight = Util.getHeight(this);
         mKeyBoardHeight = mScreenHeight / 3;
-        mTitleBarHeight = (mScreenHeight / 568) * 56;
+        mTitleBarHeight = ((float)mScreenHeight / 568) * 56;
         mInputLayoutHeight = mTitleBarHeight;
         mAdapter = new QuestionDetailListViewAdapter(this);
         mPresenter = new QuestionDetailPresenterImpl(this);
@@ -115,10 +115,12 @@ public class QuestionDetailActivity extends Activity implements QuestionDetailVi
 
     @Override
     public void addComments(List<QuestionCommentBean> mComments) {
+        mListView.removeHeaderView(mHeadView);
         mAdapter.updateData(mComments);
         mListView.addHeaderView(mHeadView);
 //        Util.setListViewHeightBasedOnChildren(mListView);
     }
+
 
     @Override
     public void sendSuccess() {
@@ -210,11 +212,11 @@ public class QuestionDetailActivity extends Activity implements QuestionDetailVi
         if(oldBottom != 0 && bottom != 0 &&(oldBottom - bottom > mKeyBoardHeight)){
             int dValue = oldBottom - bottom;
             int newHeight = mScreenHeight - dValue;
-            Log.i("question_detail", "newHeight:" + newHeight + "Height:" + mScreenHeight);
+            Log.i("question_detail", "newHeight:" + newHeight + "Height:" + mScreenHeight + "mTitleBarHeight:" + mTitleBarHeight);
             mTitleBarLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.
-                    MATCH_PARENT, 0, ((float)mTitleBarHeight / newHeight) * 568));
+                    MATCH_PARENT, 0, (mTitleBarHeight / newHeight) * 568));
             mInputLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.
-                    MATCH_PARENT, 0, ((float)mInputLayoutHeight / newHeight) * 568));
+                    MATCH_PARENT, 0, (mInputLayoutHeight / newHeight) * 568));
             mListView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.
                     MATCH_PARENT, 0, ((float)(newHeight - 2 * mTitleBarHeight) / newHeight) * 568));
             Log.i("question_detail", "软键盘弹起");

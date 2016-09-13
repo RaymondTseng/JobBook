@@ -26,43 +26,13 @@ import com.example.jobbook.register.widget.RegisterFragment;
 public class ContainerFragment extends Fragment implements ContainerView, LoginFragment.ILoginChanged,
         RegisterFragment.IRegisterChanged, PersonFragment.IPersonChanged{
     private FrameLayout mFragmentContainer;
-    private int mShowFragment;
     private ContainerPresenterImpl mPresenter;
-    private LoginFragment mLoginFragment;
-    private RegisterFragment mRegisterFragment;
-    private PersonFragment mPersonFragment;
     private int fragmentContainerId;
 
 
     @Override
     public void update(int mShowFragment) {
-        Log.i("container", "update:" + mShowFragment);
-        FragmentManager fm = getChildFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        if(this.mShowFragment != mShowFragment){
-            this.mShowFragment = mShowFragment;
-            hideFragments(ft);
-            if(mShowFragment == Constants.LOGIN){
-                ft.replace(fragmentContainerId, new LoginFragment());
-            }else if(mShowFragment == Constants.REGISTER){
-                ft.replace(fragmentContainerId, new RegisterFragment());
-            }else{
-                ft.replace(fragmentContainerId, new PersonFragment());
-            }
-            ft.commit();
-
-        }
-    }
-    private void hideFragments(FragmentTransaction transaction) {
-        if (mLoginFragment != null) {
-            transaction.hide(mLoginFragment);
-        }
-        if (mRegisterFragment != null) {
-            transaction.hide(mRegisterFragment);
-        }
-        if (mPersonFragment != null) {
-            transaction.hide(mPersonFragment);
-        }
+        mPresenter.update(getChildFragmentManager(), mShowFragment);
     }
 
     @Override
@@ -90,10 +60,10 @@ public class ContainerFragment extends Fragment implements ContainerView, LoginF
         }
         mPresenter.loadPersonBean(getActivity());
         if(MyApplication.getmLoginStatus() == 0){
-            mShowFragment = Constants.LOGIN;
+            mPresenter.setmShowFragment(Constants.LOGIN);
             ft.replace(fragmentContainerId, new LoginFragment());
         }else{
-            mShowFragment = Constants.PERSON;
+            mPresenter.setmShowFragment(Constants.PERSON);
             ft.replace(fragmentContainerId, new PersonFragment());
         }
         ft.commit();

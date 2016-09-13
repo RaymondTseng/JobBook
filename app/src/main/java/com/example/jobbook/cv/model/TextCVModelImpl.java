@@ -10,6 +10,7 @@ import com.example.jobbook.bean.TextCVBean;
 import com.example.jobbook.commons.Constants;
 import com.example.jobbook.commons.Urls;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
@@ -84,30 +85,13 @@ public class TextCVModelImpl implements TextCVModel {
                     return;
                 }
             }
-//            TextCVBean textCVBean = new TextCVBean();
-//            textCVBean.setHead(head);
-//            textCVBean.setName(name);
-//            textCVBean.setSex(sex);
-//            textCVBean.setQualification(qualification);
-//            textCVBean.setCity(location);
-//            textCVBean.setDisabilityType(type);
-//            textCVBean.setDisabilityLevel(level);
-//            textCVBean.setHaveDisabilityCard(haveCertification);
-//            textCVBean.setTelephone(tel);
-//            textCVBean.setEmail(email);
-//            textCVBean.setExpectPosition(expectJob);
-//            textCVBean.setExpectSalary(expectSalary);
-//            textCVBean.setExpectLocation(expectLocation);
-//            textCVBean.setEducationExpBeanList(educationExpBeanList);
-//            textCVBean.setJobExpBeanList(jobExpBeanList);
+            Log.i("loadCV", textCVBean.getName());
             OkHttpUtils.postString().url(Urls.POST_TEXT_CV_URL + MyApplication.getmPersonBean().getAccount())
                     .content(new Gson().toJson(textCVBean)).build().execute(new StringCallback() {
                 @Override
                 public void onError(Call call, Exception e, int id) {
                     Log.i("response", e.getMessage());
                     onBasedInformationFinishedListener.onFailure("network", e, id);
-//                    onEducationExpFinishedListener.onFailure("network", e, id);
-//                    onJobExpFinishedListener.onFailure("network", e, id);
                 }
 
                 @Override
@@ -135,8 +119,9 @@ public class TextCVModelImpl implements TextCVModel {
 
             @Override
             public void onResponse(String response, int id) {
-                TextCVBean textCVBean = new Gson().fromJson(response, TextCVBean.class);
-                if(textCVBean != null){
+                Log.i("loadcv", response);
+                if(!response.equals("false")){
+                    TextCVBean textCVBean = new Gson().fromJson(response, TextCVBean.class);
                     listener.onSuccess(textCVBean);
                 }else{
                     listener.onFailure("null", new Exception(), id);

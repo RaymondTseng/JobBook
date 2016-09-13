@@ -11,13 +11,13 @@ public class EducationExpBean implements Serializable{
     /**
      * 入学年月
      */
-    private String admissionDate;
+    private String admissiondate;
 
 
     /**
      * 毕业年月
      */
-    private String graduationDate;
+    private String graduationdate;
 
     /**
      * 学校名称
@@ -31,19 +31,19 @@ public class EducationExpBean implements Serializable{
     private String major;
 
     public String getAdmissionDate() {
-        return admissionDate;
+        return admissiondate;
     }
 
     public void setAdmissionDate(String admissionDate) {
-        this.admissionDate = admissionDate;
+        this.admissiondate = admissionDate;
     }
 
     public String getGraduationDate() {
-        return graduationDate;
+        return graduationdate;
     }
 
     public void setGraduationDate(String graduationDate) {
-        this.graduationDate = graduationDate;
+        this.graduationdate = graduationDate;
     }
 
     public String getSchool() {

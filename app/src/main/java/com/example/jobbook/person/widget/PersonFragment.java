@@ -34,6 +34,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
  */
 public class PersonFragment extends Fragment implements PersonView, View.OnClickListener {
     private static int REFRESH = 0;
+    private static int REFRESH_NAME = 1;
+    private static int REFRESH_HEAD = 2;
     private ListView mListView;
     private ImageButton mSettingImageButton;
     private IPersonChanged mIPersonChanged;
@@ -44,6 +46,7 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
     private Button mSwitch2TextCVButton;
     private RelativeLayout mUserDetailRelativeLayout;
     private CircleImageView mCircleImageView;
+    private MyApplication mMyApplication;
 
 
     final Handler handler = new Handler() {
@@ -51,6 +54,10 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
         public void handleMessage(Message msg) {
             if (msg.what == REFRESH) {
                 showSnackbar("保存成功！");
+            }else if(msg.what == REFRESH_NAME){
+                mNameTextView.setText(MyApplication.getmPersonBean().getUsername());
+            }else if(msg.what == REFRESH_HEAD){
+                onRefreshHead();
             }
         }
     };
@@ -96,6 +103,7 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
         mFavouriteButton.setOnClickListener(this);
         mSwitch2TextCVButton.setOnClickListener(this);
         mUserDetailRelativeLayout.setOnClickListener(this);
+        mMyApplication = (MyApplication) getActivity().getApplication();
         showPersonData();
     }
 
@@ -105,7 +113,7 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
 //        PersonBean personBean = (PersonBean) bundle.getSerializable("PersonBean");
         PersonBean personBean = MyApplication.getmPersonBean();
         mNameTextView.setText(personBean.getUsername());
-        ImageLoadUtils.display(getActivity(), mCircleImageView, personBean.getHead());
+        ImageLoadUtils.display(getActivity(), mCircleImageView, personBean.getHead(), 0);
     }
 
     @Override
@@ -124,11 +132,11 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
                 Util.toAnotherActivity(getActivity(), FavouriteActivity.class);
                 break;
             case R.id.person_textcv_bt:
-                MyApplication myApplication = (MyApplication) getActivity().getApplication();
-                myApplication.setHandler(handler);
+                mMyApplication.setHandler(handler);
                 Util.toAnotherActivity(getActivity(), TextCVActivity.class);
                 break;
             case R.id.person_userinfo_rl:
+                mMyApplication.setHandler(handler);
                 Util.toAnotherActivity(getActivity(), UserDetailActivity.class);
                 break;
         }
@@ -160,11 +168,13 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
     public void onResume() {
         super.onResume();
         Log.i("personfragment", "on resume");
-        onRefreshHead();
+//        onRefreshHead();
     }
 
     private void onRefreshHead() {
+        mCircleImageView.setImageResource(R.mipmap.default_78px);
         PersonBean personBean = MyApplication.getmPersonBean();
-        ImageLoadUtils.display(getActivity(), mCircleImageView, personBean.getHead());
+        Log.i("onRefreshHead", personBean.getHead());
+        ImageLoadUtils.display(getActivity(), mCircleImageView, personBean.getHead(), 0);
     }
 }

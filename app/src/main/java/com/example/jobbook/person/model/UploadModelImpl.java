@@ -20,6 +20,9 @@ import okhttp3.Call;
  */
 public class UploadModelImpl implements UploadModel {
 
+    public static final String SUCCESS = "success!";
+    public static final int PHOTO = Log.i("photo", "result:success");
+
     @Override
     public void uploadImage(final Bitmap bm, final OnUploadImageListener listener) {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
@@ -28,10 +31,12 @@ public class UploadModelImpl implements UploadModel {
         String img = new String(Base64.encodeToString(bytes, Base64.DEFAULT));
         Log.i("img", "img:" + img);
         if (!TextUtils.isEmpty(MyApplication.getmPersonBean().getAccount())) {
-            OkHttpUtils.postString().content(img).url(Urls.UPLOAD_IMAGE_URL + "account/" + MyApplication.getmPersonBean().getAccount()).build().execute(new StringCallback() {
+            OkHttpUtils.postString().content(img).url(Urls.UPLOAD_IMAGE_URL + "account/" +
+                    MyApplication.getmPersonBean().getAccount()).build().execute(new StringCallback() {
                 @Override
                 public void onError(Call call, Exception e, int id) {
                     Log.i("uploadmodelimpl", e.getMessage() + "network error");
+                    Log.i("photo", "onError");
                     listener.onFailure("network error", e);
                 }
 
@@ -42,6 +47,7 @@ public class UploadModelImpl implements UploadModel {
                         listener.onSuccess(bm);
                     } else {
                         listener.onFailure("response:" + response, null);
+                        Log.i("photo", "result:failure");
                     }
                 }
             });

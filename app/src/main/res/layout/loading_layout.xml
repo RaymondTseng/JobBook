@@ -15,6 +15,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="50dp"
         app:mlpb_progress_color="@color/colorBlue"
-        app:mlpb_progress_stoke_width="2dp" />
+        app:mlpb_progress_stoke_width="2dp"
+        />
 
 </LinearLayout>

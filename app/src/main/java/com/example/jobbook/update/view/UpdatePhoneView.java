@@ -22,7 +22,7 @@ public interface UpdatePhoneView {
 
     void networkError();
 
-    void showProgress();
-
     void hideProgress();
+
+    void showProgress();
 }

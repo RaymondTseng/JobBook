@@ -3,6 +3,7 @@ package com.example.jobbook.update.widget;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -27,6 +28,7 @@ public class UpdateUsernameActivity extends Activity implements View.OnClickList
     private TextView mCompleteTextView;
     private UpdateUsernamePresenter presenter;
     private LinearLayout mLoadingLinearLayout;
+    private MyApplication mMyApplication;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +50,7 @@ public class UpdateUsernameActivity extends Activity implements View.OnClickList
         mBackImageButton.setOnClickListener(this);
         mCompleteTextView.setOnClickListener(this);
         presenter = new UpdateUsernamePresenterImpl(this);
+        mMyApplication = (MyApplication) getApplication();
         mLoadingLinearLayout.setVisibility(View.GONE);
     }
 
@@ -66,6 +69,8 @@ public class UpdateUsernameActivity extends Activity implements View.OnClickList
     @Override
     public void close() {
         Util.toAnotherActivity(this, UserDetailActivity.class);
+        mMyApplication.getHandler().sendEmptyMessage(1);
+        Log.i("updateusername", MyApplication.getmPersonBean().getUsername());
         finish();
     }
 
