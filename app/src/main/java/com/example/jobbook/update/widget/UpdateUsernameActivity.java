@@ -76,7 +76,7 @@ public class UpdateUsernameActivity extends Activity implements View.OnClickList
 
     @Override
     public void complete() {
-        presenter.update(MyApplication.getmPersonBean().getAccount(), mUserNameEditText.getText().toString());
+        presenter.update(this, MyApplication.getAccount(), mUserNameEditText.getText().toString());
     }
 
     @Override

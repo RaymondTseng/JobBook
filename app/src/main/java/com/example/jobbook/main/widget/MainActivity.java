@@ -1,13 +1,9 @@
 package com.example.jobbook.main.widget;
 
-import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
@@ -15,16 +11,14 @@ import android.widget.RadioGroup;
 import com.example.jobbook.MyApplication;
 import com.example.jobbook.R;
 import com.example.jobbook.article.widget.ArticleFragment;
-import com.example.jobbook.bean.PersonBean;
 import com.example.jobbook.job.widget.JobFragment;
+import com.example.jobbook.login.widget.LoginActivity;
 import com.example.jobbook.main.MainFragmentPagerAdapter;
 import com.example.jobbook.main.presenter.MainPresenter;
 import com.example.jobbook.main.presenter.MainPresenterImpl;
 import com.example.jobbook.main.view.MainView;
-import com.example.jobbook.login.widget.LoginFragment;
 import com.example.jobbook.person.widget.PersonFragment;
 import com.example.jobbook.question.widget.QuestionFragment;
-import com.example.jobbook.register.widget.RegisterFragment;
 import com.example.jobbook.util.Util;
 
 import java.util.ArrayList;
@@ -42,7 +36,6 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     private MainFragmentPagerAdapter mFragmentPagerAdapter;
     private List<Fragment> mFragments;
     private MainPresenter mMainPresenter;
-    private int mShowFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +44,6 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         initViews();
         initList();
         initEvent();
-
         switch2Job();
     }
 
@@ -70,8 +62,8 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         mFragments.add(new JobFragment());
         mFragments.add(new ArticleFragment());
         mFragments.add(new QuestionFragment());
-//        mFragments.add(new LoginFragment());
-        mFragments.add(new ContainerFragment());
+//        mFragments.add(new ContainerFragment());
+        mFragments.add(new PersonFragment());
     }
 
     private void initEvent() {
@@ -80,11 +72,8 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         mFragmentContainer.setAdapter(mFragmentPagerAdapter);
         mRadioGroup.setOnCheckedChangeListener(this);
         mFragmentContainer.addOnPageChangeListener(this);
-        mShowFragment = 0;
-        MyApplication.setmPersonBean(mMainPresenter.loadPersonBean(this));
+//        MyApplication.setmPersonBean(mMainPresenter.loadPersonBean(this));
     }
-
-
 
     /**
      * 处理底部导航栏的fragment事务
@@ -123,12 +112,6 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
 
     }
 
-//    @Override
-//    public void changeViewPager() {
-//        Log.i("TAG", "4");
-//        mFragmentPagerAdapter.toPersonFragment();
-//    }
-
     @Override
     public void switch2Job() {
         mFragmentContainer.setCurrentItem(0);
@@ -146,7 +129,13 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
 
     @Override
     public void switch2Container() {
-        mFragmentContainer.setCurrentItem(3);
+//        mFragmentContainer.setCurrentItem(3);
+        if (MyApplication.getmLoginStatus() == 0) {
+            Util.toAnotherActivity(MainActivity.this, LoginActivity.class);
+            finish();
+        } else {
+            mFragmentContainer.setCurrentItem(3);
+        }
     }
 
 }

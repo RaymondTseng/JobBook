@@ -183,7 +183,7 @@ public class QuestionDetailActivity extends Activity implements QuestionDetailVi
             noLoginError();
         }else{
             QuestionCommentBean questionCommentBean = new QuestionCommentBean();
-            questionCommentBean.setApplier(MyApplication.getmPersonBean());
+            questionCommentBean.setApplier(MyApplication.getmPersonBean(this));
             questionCommentBean.setContent(comment);
             Log.i("question_detail", questionBean.getId() + "");
             questionCommentBean.setQ_id(questionBean.getId());

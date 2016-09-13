@@ -154,7 +154,7 @@ public class NewQuestionActivity extends Activity implements NewQuestionView, Vi
                     publishNoLoginError();
                 } else {
                     mNewQuestionReleaseTextView.setTextColor(Color.parseColor("#61ffffff"));
-                    questionBean.setAuthor(MyApplication.getmPersonBean());
+                    questionBean.setAuthor(MyApplication.getmPersonBean(this));
                     questionBean.setTitle(mNewQuestionTitleEditText.getText().toString());
                     questionBean.setContent(mNewQuestionContentEditText.getText().toString());
                     mNewQuestionPresenter.newquestion(questionBean);

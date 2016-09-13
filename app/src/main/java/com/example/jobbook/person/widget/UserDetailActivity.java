@@ -49,7 +49,7 @@ public class UserDetailActivity extends Activity implements View.OnClickListener
 //    private Button mChangePhoneButton;
     private Button mChangePwdButton;
     private UploadPopupWindow mPopupWindow;
-    private PersonBean mPersonBean = MyApplication.getmPersonBean();
+    private PersonBean mPersonBean = MyApplication.getmPersonBean(this);
     private UploadPresenter presenter;
     private LinearLayout mLoadingLinearLayout;
     private MyApplication mMyApplication;

@@ -1,6 +1,7 @@
 package com.example.jobbook.person.widget;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -11,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -22,7 +24,9 @@ import com.example.jobbook.R;
 import com.example.jobbook.bean.PersonBean;
 import com.example.jobbook.cv.widget.TextCVActivity;
 import com.example.jobbook.feedback.widget.FeedBackActivity;
+import com.example.jobbook.login.widget.LoginActivity;
 import com.example.jobbook.person.view.PersonView;
+import com.example.jobbook.util.DataCleanManager;
 import com.example.jobbook.util.ImageLoadUtils;
 import com.example.jobbook.util.Util;
 
@@ -38,7 +42,7 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
     private static int REFRESH_HEAD = 2;
     private ListView mListView;
     private ImageButton mSettingImageButton;
-    private IPersonChanged mIPersonChanged;
+//    private IPersonChanged mIPersonChanged;
     private Button mSwitchPerson2LoginButton;
     private Button mSwitch2FeedBackButton;
     private Button mFavouriteButton;
@@ -47,7 +51,7 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
     private RelativeLayout mUserDetailRelativeLayout;
     private CircleImageView mCircleImageView;
     private MyApplication mMyApplication;
-
+    private PersonBean personBean;
 
     final Handler handler = new Handler() {
         @Override
@@ -55,7 +59,7 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
             if (msg.what == REFRESH) {
                 showSnackbar("保存成功！");
             }else if(msg.what == REFRESH_NAME){
-                mNameTextView.setText(MyApplication.getmPersonBean().getUsername());
+                mNameTextView.setText(MyApplication.getmPersonBean(getActivity()).getUsername());
             }else if(msg.what == REFRESH_HEAD){
                 onRefreshHead();
             }
@@ -72,18 +76,18 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
         return view;
     }
 
-    @Override
-    public void onAttach(Activity activity) {
-        // TODO Auto-generated method stub
-        super.onAttach(activity);
-        try {
-//            mIPersonChanged = (IPersonChanged) activity;
-            mIPersonChanged = (IPersonChanged) getParentFragment();
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + "must implement OnGridViewSelectedListener");
-        }
-    }
+//    @Override
+//    public void onAttach(Activity activity) {
+//        // TODO Auto-generated method stub
+//        super.onAttach(activity);
+//        try {
+////            mIPersonChanged = (IPersonChanged) activity;
+//            mIPersonChanged = (IPersonChanged) getParentFragment();
+//        } catch (ClassCastException e) {
+//            throw new ClassCastException(activity.toString()
+//                    + "must implement OnGridViewSelectedListener");
+//        }
+//    }
 
     private void initViews(View view) {
         mSwitchPerson2LoginButton = (Button) view.findViewById(R.id.person_switch2login_bt);
@@ -111,16 +115,18 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
     public void showPersonData() {
 //        Bundle bundle = (Bundle) getArguments();
 //        PersonBean personBean = (PersonBean) bundle.getSerializable("PersonBean");
-        PersonBean personBean = MyApplication.getmPersonBean();
-        mNameTextView.setText(personBean.getUsername());
-        ImageLoadUtils.display(getActivity(), mCircleImageView, personBean.getHead(), 0);
+        personBean = MyApplication.getmPersonBean(getActivity());
+        if (personBean != null) {
+            mNameTextView.setText(personBean.getUsername());
+            ImageLoadUtils.display(getActivity(), mCircleImageView, personBean.getHead(), 0);
+        }
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.person_switch2login_bt:
-                switchPerson2Login();
+                createLogoutDialog();
                 break;
             case R.id.person_feedback_bt:
                 Util.toAnotherActivity(getActivity(), FeedBackActivity.class);
@@ -142,14 +148,9 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
         }
     }
 
-    @Override
-    public void switchPerson2Login() {
-        mIPersonChanged.switchPerson2Login();
-    }
-
-    public interface IPersonChanged {
-        void switchPerson2Login();
-    }
+//    public interface IPersonChanged {
+//        void switchPerson2Login();
+//    }
 
     private void showSnackbar(String content){
         View view = getActivity().findViewById(R.id.main_layout);
@@ -173,8 +174,34 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
 
     private void onRefreshHead() {
         mCircleImageView.setImageResource(R.mipmap.default_78px);
-        PersonBean personBean = MyApplication.getmPersonBean();
         Log.i("onRefreshHead", personBean.getHead());
         ImageLoadUtils.display(getActivity(), mCircleImageView, personBean.getHead(), 0);
     }
+
+    private void createLogoutDialog() {
+        final AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
+        alertDialog.show();
+        alertDialog.setCancelable(true);
+        Window window = alertDialog.getWindow();
+        window.setLayout(Util.dip2px(getActivity(), Util.getWidth(getActivity()) * 1 / 4), Util.dip2px(getActivity(), Util.getHeight(getActivity()) * 1 / 13));
+        window.setContentView(R.layout.logout_sure_layout);
+        TextView mSureTextView = (TextView) window.findViewById(R.id.logout_sure_tv);
+        TextView mCancelTextView = (TextView) window.findViewById(R.id.logout_cancel_tv);
+        mSureTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Util.toAnotherActivity(getActivity(), LoginActivity.class);
+                MyApplication.clearmPersonBean(getActivity());
+                getActivity().finish();
+                alertDialog.dismiss();
+            }
+        });
+        mCancelTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+    }
+
 }

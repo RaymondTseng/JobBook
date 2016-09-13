@@ -58,7 +58,7 @@ public class FavouriteActivity extends Activity implements View.OnClickListener,
 
     private void initEvents() {
         mPresenter = new FavouritePresenterImpl(this);
-        mPresenter.loadFavouriteJobs(pageIndex, MyApplication.getmPersonBean().getAccount());
+        mPresenter.loadFavouriteJobs(pageIndex, MyApplication.getAccount());
         mBackImageButton.setOnClickListener(this);
         mAdapter = new FavouriteJobsAdapter(this);
         mAdapter.setOnItemClickListener(mOnItemClickListener);
@@ -140,7 +140,7 @@ public class FavouriteActivity extends Activity implements View.OnClickListener,
                     && lastVisibleItem + 1 == mAdapter.getItemCount()
                     && mAdapter.ismShowFooter()) {
                 //加载更多
-                mPresenter.loadFavouriteJobs(pageIndex, MyApplication.getmPersonBean().getAccount());
+                mPresenter.loadFavouriteJobs(pageIndex, MyApplication.getAccount());
             }
         }
     };
@@ -150,6 +150,6 @@ public class FavouriteActivity extends Activity implements View.OnClickListener,
         if (list != null) {
             list.clear();
         }
-        mPresenter.loadFavouriteJobs(pageIndex, MyApplication.getmPersonBean().getAccount());
+        mPresenter.loadFavouriteJobs(pageIndex, MyApplication.getAccount());
     }
 }

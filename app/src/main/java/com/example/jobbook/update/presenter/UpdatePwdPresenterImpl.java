@@ -1,5 +1,7 @@
 package com.example.jobbook.update.presenter;
 
+import android.content.Context;
+
 import com.example.jobbook.update.model.UpdateModel;
 import com.example.jobbook.update.model.UpdateModelImpl;
 import com.example.jobbook.update.view.UpdatePwdView;
@@ -18,9 +20,9 @@ public class UpdatePwdPresenterImpl implements UpdatePwdPresenter, UpdateModelIm
     }
 
     @Override
-    public void updatePwd(String account, String oPwd, String nPwd, String nPwdConfirm) {
+    public void updatePwd(Context context, String account, String oPwd, String nPwd, String nPwdConfirm) {
         view.showProgress();
-        model.updatePwd(account, oPwd, nPwd, nPwdConfirm, this);
+        model.updatePwd(context, account, oPwd, nPwd, nPwdConfirm, this);
     }
 
     @Override

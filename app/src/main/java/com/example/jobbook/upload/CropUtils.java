@@ -47,7 +47,7 @@ public class CropUtils {
             }
         }
         if (MyApplication.getmLoginStatus() == 1) {
-            String name = MyApplication.getmPersonBean().getAccount() + "_head.jpeg";
+            String name = MyApplication.getAccount() + "_head.jpeg";
             uri = Uri
                     .fromFile(cacheFolder)
                     .buildUpon()

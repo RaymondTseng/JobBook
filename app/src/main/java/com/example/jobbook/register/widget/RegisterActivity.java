@@ -17,13 +17,17 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.jobbook.MyApplication;
 import com.example.jobbook.R;
 import com.example.jobbook.bean.PersonBean;
 import com.example.jobbook.commons.Urls;
+import com.example.jobbook.login.widget.LoginActivity;
+import com.example.jobbook.main.widget.MainActivity;
 import com.example.jobbook.register.presenter.RegisterPresenter;
 import com.example.jobbook.register.presenter.RegisterPresenterImpl;
 import com.example.jobbook.register.view.RegisterView;
 import com.example.jobbook.util.ImageLoadUtils;
+import com.example.jobbook.util.Util;
 import com.jude.smssdk_mob.SMSManager;
 import com.jude.smssdk_mob.TimeListener;
 
@@ -31,9 +35,8 @@ import com.jude.smssdk_mob.TimeListener;
 /**
  * Created by 椰树 on 2016/6/2.
  */
-public class RegisterFragment extends Fragment implements RegisterView, View.OnClickListener, TimeListener {
+public class RegisterActivity extends Activity implements RegisterView, View.OnClickListener, TimeListener {
 
-    private IRegisterChanged mIRegisterChanged;
     private Button mRegisterButton;
     private EditText mAccountEditText;
     private EditText mUserNameEditText;
@@ -44,29 +47,25 @@ public class RegisterFragment extends Fragment implements RegisterView, View.OnC
     private ImageButton mCloseImageButton;
     private LinearLayout mLoadingLinearLayout;
     private RegisterPresenter presenter;
-    private View view;
-
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_register, null);
-        initViews(view);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.fragment_register);
+        initViews();
         initEvents();
-        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-        return view;
     }
 
-    private void initViews(View view) {
-        mRegisterButton = (Button) view.findViewById(R.id.register_register_bt);
-        mAccountEditText = (EditText) view.findViewById(R.id.register_account_et);
-        mUserNameEditText = (EditText) view.findViewById(R.id.register_username_et);
-        mPwdEditText = (EditText) view.findViewById(R.id.register_password_et);
-        mPwdAgainEditText = (EditText) view.findViewById(R.id.register_confirm_password_et);
-        mCodeEditText = (EditText) view.findViewById(R.id.register_code_et);
-        mCloseImageButton = (ImageButton) view.findViewById(R.id.register_close_ib);
-        mGetCodeButton = (Button) view.findViewById(R.id.register_code_bt);
-        mLoadingLinearLayout = (LinearLayout) view.findViewById(R.id.loading_circle_progress_bar_ll);
+    private void initViews() {
+        mRegisterButton = (Button) findViewById(R.id.register_register_bt);
+        mAccountEditText = (EditText) findViewById(R.id.register_account_et);
+        mUserNameEditText = (EditText) findViewById(R.id.register_username_et);
+        mPwdEditText = (EditText) findViewById(R.id.register_password_et);
+        mPwdAgainEditText = (EditText) findViewById(R.id.register_confirm_password_et);
+        mCodeEditText = (EditText) findViewById(R.id.register_code_et);
+        mCloseImageButton = (ImageButton) findViewById(R.id.register_close_ib);
+        mGetCodeButton = (Button) findViewById(R.id.register_code_bt);
+        mLoadingLinearLayout = (LinearLayout) findViewById(R.id.loading_circle_progress_bar_ll);
     }
 
     private void initEvents() {
@@ -79,18 +78,18 @@ public class RegisterFragment extends Fragment implements RegisterView, View.OnC
         mLoadingLinearLayout.setVisibility(View.GONE);
     }
 
-    @Override
-    public void onAttach(Activity activity) {
-        // TODO Auto-generated method stub
-        super.onAttach(activity);
-        try {
-//            mIRegisterChanged = (IRegisterChanged) activity;
-            mIRegisterChanged = (IRegisterChanged) getParentFragment();
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + "must implement OnGridViewSelectedListener");
-        }
-    }
+//    @Override
+//    public void onAttach(Activity activity) {
+//        // TODO Auto-generated method stub
+//        super.onAttach(activity);
+//        try {
+////            mIRegisterChanged = (IRegisterChanged) activity;
+//            mIRegisterChanged = (IRegisterChanged) getParentFragment();
+//        } catch (ClassCastException e) {
+//            throw new ClassCastException(activity.toString()
+//                    + "must implement OnGridViewSelectedListener");
+//        }
+//    }
 
     @Override
     public void success() {
@@ -139,12 +138,15 @@ public class RegisterFragment extends Fragment implements RegisterView, View.OnC
 
     @Override
     public void switch2Person(PersonBean personBean) {
-        mIRegisterChanged.switchRegister2Person(personBean);
+        MyApplication.setmPersonBean(RegisterActivity.this, personBean);
+        Util.toAnotherActivity(RegisterActivity.this, MainActivity.class);
+        finish();
     }
 
     @Override
     public void switch2Login() {
-        mIRegisterChanged.switchRegister2Login();
+        Util.toAnotherActivity(RegisterActivity.this, LoginActivity.class);
+        finish();
     }
 
     @Override
@@ -174,9 +176,7 @@ public class RegisterFragment extends Fragment implements RegisterView, View.OnC
     }
 
     private void showSnackbar(String content) {
-        if (view == null) {
-            view = getActivity().findViewById(R.id.main_layout);
-        }
+        View view = this.findViewById(R.id.main_layout);
         final Snackbar snackbar = Snackbar.make(view, content, Snackbar.LENGTH_LONG);
         snackbar.setAction("dismiss", new View.OnClickListener() {
 
@@ -192,7 +192,7 @@ public class RegisterFragment extends Fragment implements RegisterView, View.OnC
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.register_register_bt:
-                presenter.registerCheck(getActivity(), mAccountEditText.getText().toString(),
+                presenter.registerCheck(RegisterActivity.this, mAccountEditText.getText().toString(),
                         mUserNameEditText.getText().toString(), mPwdEditText.getText().toString(), mPwdAgainEditText.getText().toString(),
                         mCodeEditText.getText().toString());
                 break;
@@ -201,7 +201,7 @@ public class RegisterFragment extends Fragment implements RegisterView, View.OnC
                 break;
             case R.id.register_code_bt:
                 if (!TextUtils.isEmpty(mAccountEditText.getText().toString())) {
-                    SMSManager.getInstance().sendMessage(getActivity(), "86", mAccountEditText.getText().toString());
+                    SMSManager.getInstance().sendMessage(RegisterActivity.this, "86", mAccountEditText.getText().toString());
                 } else {
                     codeBlankError();
                 }
@@ -228,12 +228,6 @@ public class RegisterFragment extends Fragment implements RegisterView, View.OnC
     @Override
     public void onAbleNotify(boolean valuable) {
         mGetCodeButton.setEnabled(valuable);
-    }
-
-    public interface IRegisterChanged {
-        void switchRegister2Person(PersonBean personBean);
-
-        void switchRegister2Login();
     }
 
 }

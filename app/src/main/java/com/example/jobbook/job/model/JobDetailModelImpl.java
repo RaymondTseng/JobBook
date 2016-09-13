@@ -20,7 +20,7 @@ public class JobDetailModelImpl implements JobDetailModel {
     public void loadJobDetail(String jobId, final OnLoadJobListener listener) {
         String account = "";
         if (MyApplication.getmLoginStatus() == 1) {
-            account = MyApplication.getmPersonBean().getAccount();
+            account = MyApplication.getAccount();
         }
         OkHttpUtils.postString().url(Urls.JOB_DETAIL_URL + jobId + "/account/" + account)
                 .content(jobId + "/account/" + account).build().execute(new StringCallback() {
@@ -44,7 +44,7 @@ public class JobDetailModelImpl implements JobDetailModel {
         if (MyApplication.getmLoginStatus() == 0) {
             listener.onLikeJobNoLoginError();
         } else {
-            account = MyApplication.getmPersonBean().getAccount();
+            account = MyApplication.getAccount();
             OkHttpUtils.get().url(Urls.JOB_LIKE_URL + jobId + "/account/" + account).build().execute(new StringCallback() {
                 @Override
                 public void onError(Call call, Exception e, int id) {
@@ -68,7 +68,7 @@ public class JobDetailModelImpl implements JobDetailModel {
         if (MyApplication.getmLoginStatus() == 0) {
             listener.onUnlikeJobNoLoginError();
         } else {
-            account = MyApplication.getmPersonBean().getAccount();
+            account = MyApplication.getAccount();
             OkHttpUtils.get().url(Urls.JOB_UNLIKE_URL + jobId + "/account/" + account).build().execute(new StringCallback() {
                 @Override
                 public void onError(Call call, Exception e, int id) {
@@ -93,7 +93,7 @@ public class JobDetailModelImpl implements JobDetailModel {
         if (MyApplication.getmLoginStatus() == 0) {
             listener.onSendCVNoLoginError();
         } else {
-            account = MyApplication.getmPersonBean().getAccount();
+            account = MyApplication.getAccount();
         }
         OkHttpUtils.get().url(Urls.SEND_CV_URL + "account/" + account + "/com_id/" + companyId).build().execute(new StringCallback() {
             @Override

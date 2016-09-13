@@ -74,7 +74,7 @@ public class UpdatePwdActivity extends Activity implements View.OnClickListener,
 
     @Override
     public void complete() {
-        presenter.updatePwd(MyApplication.getmPersonBean().getAccount(), mOriginalPwdEditText.getText().toString(),
+        presenter.updatePwd(this, MyApplication.getAccount(), mOriginalPwdEditText.getText().toString(),
                 mNewPwdEditText.getText().toString(), mNewPwdConfirmEditText.getText().toString());
     }
 

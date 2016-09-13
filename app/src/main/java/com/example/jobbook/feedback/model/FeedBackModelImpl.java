@@ -22,7 +22,7 @@ public class FeedBackModelImpl implements FeedBackModel {
         FeedBackBean feedBackBean = new FeedBackBean();
         feedBackBean.setEmail(mailAddress);
         feedBackBean.setContent(content);
-        OkHttpUtils.postString().url(Urls.FEED_BACK_URL + MyApplication.getmPersonBean().getAccount()).content(new Gson().toJson(feedBackBean)).build().execute(new StringCallback() {
+        OkHttpUtils.postString().url(Urls.FEED_BACK_URL + MyApplication.getAccount()).content(new Gson().toJson(feedBackBean)).build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
                 Log.i("response:", e.getMessage());

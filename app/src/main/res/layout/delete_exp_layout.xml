@@ -9,7 +9,6 @@
         android:id="@+id/delete_exp_ib"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@mipmap/delete"
         android:layout_marginLeft="16dp"
         android:layout_gravity="center_vertical"
         android:background="@null"/>
