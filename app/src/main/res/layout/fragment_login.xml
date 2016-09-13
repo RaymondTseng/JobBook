@@ -13,6 +13,15 @@
         android:layout_marginRight="16dp"
         android:layout_weight="56">
 
+        <ImageButton
+            android:id="@+id/login_close_ib"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:background="@null"
+            android:src="@mipmap/close" />
+
         <TextView
             android:id="@+id/login_register_tv"
             android:layout_width="wrap_content"
@@ -28,7 +37,7 @@
         layout="@layout/loading_layout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="650"
+        android:layout_weight="542"
         />
 
     <LinearLayout

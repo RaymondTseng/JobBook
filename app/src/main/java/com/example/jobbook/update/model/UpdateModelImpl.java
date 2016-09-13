@@ -24,14 +24,14 @@ import okhttp3.Call;
 public class UpdateModelImpl implements UpdateModel {
 
     @Override
-    public void updatePwd(String account, String oPwd, String nPwd, String nPwdConfirm, final OnUpdatePwdListener listener) {
+    public void updatePwd(final Context context, String account, String oPwd, String nPwd, String nPwdConfirm, final OnUpdatePwdListener listener) {
         if (TextUtils.isEmpty(oPwd)) {
             listener.onOriginalPwdBlankError();
         } else if (TextUtils.isEmpty(nPwd)) {
             listener.onNewPwdBlankError();
         } else if (TextUtils.isEmpty(nPwdConfirm)) {
             listener.onConfirmPwdBlankError();
-        } else if (!Util.getMD5(oPwd).equals(MyApplication.getmPersonBean().getPassword())) {
+        } else if (!Util.getMD5(oPwd).equals(MyApplication.getmPersonBean(context).getPassword())) {
             listener.onOriginalPwdError();
         } else if (!nPwd.equals(nPwdConfirm)) {
             listener.onPwdConfirmError();
@@ -49,7 +49,7 @@ public class UpdateModelImpl implements UpdateModel {
                 public void onResponse(String response, int id) {
                     if (response != null && !response.equals("false")) {
                         PersonBean personBean = new Gson().fromJson(response, PersonBean.class);
-                        MyApplication.setmPersonBean(personBean);
+                        MyApplication.setmPersonBean(context, personBean);
                         listener.onUpdatePwdSuccess();
                     } else {
                         listener.onUpdatePwdFailure();
@@ -60,7 +60,7 @@ public class UpdateModelImpl implements UpdateModel {
     }
 
     @Override
-    public void updatePhone(Context mContext, final String account, final String tel, String code, final OnUpdatePhoneListener listener) {
+    public void updatePhone(final Context mContext, final String account, final String tel, String code, final OnUpdatePhoneListener listener) {
         if (TextUtils.isEmpty(tel)) {
             listener.onNewPhoneBlankError();
         } else if (TextUtils.isEmpty(code)) {
@@ -79,7 +79,7 @@ public class UpdateModelImpl implements UpdateModel {
                         public void onResponse(String response, int id) {
                             if (response != null && !response.equals("false")) {
                                 PersonBean personBean = new Gson().fromJson(response, PersonBean.class);
-                                MyApplication.setmPersonBean(personBean);
+                                MyApplication.setmPersonBean(mContext, personBean);
                                 listener.onUpdatePhoneSuccess();
                             }else {
                                 listener.onUpdatePhoneFailure();
@@ -98,7 +98,7 @@ public class UpdateModelImpl implements UpdateModel {
     }
 
     @Override
-    public void updateUserName(String account, String username, final OnUpdateUserNameListener listener) {
+    public void updateUserName(final Context context, String account, String username, final OnUpdateUserNameListener listener) {
         if (TextUtils.isEmpty(username)) {
             listener.onUserNameBlankError();
         } else {
@@ -112,7 +112,7 @@ public class UpdateModelImpl implements UpdateModel {
                 public void onResponse(String response, int id) {
                     if (response != null && !response.equals("false")) {
                         PersonBean personBean = new Gson().fromJson(response, PersonBean.class);
-                        MyApplication.setmPersonBean(personBean);
+                        MyApplication.setmPersonBean(context, personBean);
                         listener.onUpdateUserNameSuccess();
                     } else {
                         listener.onUpdateUserNameFailure();

@@ -95,7 +95,7 @@ public class UpdatePhoneActivity extends Activity implements View.OnClickListene
 
     @Override
     public void complete(Context mContext) {
-        mPresenter.complete(mContext, MyApplication.getmPersonBean().getAccount(), mNewPhoneEditText.getText().toString(), mCodeEditText.getText().toString());
+        mPresenter.complete(mContext, MyApplication.getAccount(), mNewPhoneEditText.getText().toString(), mCodeEditText.getText().toString());
     }
 
     @Override

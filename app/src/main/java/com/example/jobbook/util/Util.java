@@ -117,17 +117,19 @@ public class Util {
      * 加载已存在的PersonBean
      *
      * @param share
-     * @param personBean
      * @return
      */
-    public static PersonBean loadPersonBean(SharedPreferences share, PersonBean personBean) {
-        personBean = new PersonBean();
-        personBean.setAccount(share.getString("account", ""));
-        personBean.setPassword(share.getString("password", ""));
-        personBean.setTelephone(share.getString("telephone", ""));
-        personBean.setUsername(share.getString("username", ""));
-        personBean.setHead(share.getString("head", ""));
-        return personBean;
+    public static PersonBean loadPersonBean(SharedPreferences share) {
+        PersonBean personBean = new PersonBean();
+        if (share != null && !TextUtils.isEmpty(share.getString("account", ""))) {
+            personBean.setAccount(share.getString("account", ""));
+            personBean.setPassword(share.getString("password", ""));
+            personBean.setTelephone(share.getString("telephone", ""));
+            personBean.setUsername(share.getString("username", ""));
+            personBean.setHead(share.getString("head", ""));
+            return personBean;
+        }
+        return null;
     }
 
     /**
@@ -147,6 +149,17 @@ public class Util {
     }
 
     /**
+     * 清空已保存的PersonBean
+     *
+     * @param share
+     */
+    public static void clearPersonBean(SharedPreferences share) {
+        SharedPreferences.Editor edit = share.edit(); //编辑文件
+        edit.clear();
+        edit.commit();
+    }
+
+    /**
      * 获取屏幕高度
      *
      * @param context
@@ -155,6 +168,17 @@ public class Util {
     public static int getHeight(Context context) {
         DisplayMetrics dm = context.getResources().getDisplayMetrics();
         return dm.heightPixels;
+    }
+
+    /**
+     * 获取屏幕宽度
+     *
+     * @param context
+     * @return
+     */
+    public static int getWidth(Context context) {
+        DisplayMetrics dm = context.getResources().getDisplayMetrics();
+        return dm.widthPixels;
     }
 
     /**

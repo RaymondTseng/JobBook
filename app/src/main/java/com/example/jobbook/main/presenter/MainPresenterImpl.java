@@ -41,18 +41,19 @@ public class MainPresenterImpl implements MainPresenter {
 
     @Override
     public PersonBean loadPersonBean(Context context) {
-        SharedPreferences share = context.getSharedPreferences("test", context.MODE_PRIVATE);
+        SharedPreferences share = context.getSharedPreferences("user", context.MODE_PRIVATE);
         PersonBean personBean = null;
-        if(share != null){
-            Util.loadPersonBean(share, personBean);
+        if (share != null) {
+            personBean = Util.loadPersonBean(share);
         }
         return personBean;
     }
 
     @Override
     public void savePersonBean(Context context, PersonBean personBean) {
-        SharedPreferences share = context.getSharedPreferences("test", context.MODE_PRIVATE);
+        SharedPreferences share = context.getSharedPreferences("user", context.MODE_PRIVATE);
         Util.savePersonBean(share, personBean);
+        MyApplication.setmPersonBean(context, personBean);
     }
 
 

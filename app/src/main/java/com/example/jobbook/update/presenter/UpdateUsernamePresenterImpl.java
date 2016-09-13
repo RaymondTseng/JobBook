@@ -1,5 +1,7 @@
 package com.example.jobbook.update.presenter;
 
+import android.content.Context;
+
 import com.example.jobbook.update.model.UpdateModel;
 import com.example.jobbook.update.model.UpdateModelImpl;
 import com.example.jobbook.update.view.UpdateUsernameView;
@@ -18,9 +20,9 @@ public class UpdateUsernamePresenterImpl implements UpdateUsernamePresenter, Upd
     }
 
     @Override
-    public void update(String account, String username) {
+    public void update(Context context, String account, String username) {
         view.showProgress();
-        model.updateUserName(account, username, this);
+        model.updateUserName(context, account, username, this);
     }
 
     @Override

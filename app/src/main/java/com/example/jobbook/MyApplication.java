@@ -2,10 +2,12 @@ package com.example.jobbook;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.util.Log;
 
 import com.example.jobbook.bean.PersonBean;
+import com.example.jobbook.util.Util;
 import com.zhy.http.okhttp.OkHttpUtils;
 
 import java.util.LinkedList;
@@ -22,18 +24,53 @@ public class MyApplication extends Application {
 
     private static int mLoginStatus = 0;
 
+    private static String account;
 
     private Handler handler = null;
 
-    public static PersonBean getmPersonBean() {
-        return mPersonBean;
+    public static PersonBean getmPersonBean(Context context) {
+        if (mPersonBean != null) {
+            return mPersonBean;
+        } else {
+            SharedPreferences sharedPreferences = context.getSharedPreferences("user", MODE_PRIVATE);
+            return Util.loadPersonBean(sharedPreferences);
+        }
     }
 
-    public static void setmPersonBean(PersonBean personBean) {
+    public static PersonBean getmPersonBean() {
+        if (mPersonBean != null) {
+            return mPersonBean;
+        }
+        return null;
+    }
+
+    public static void setmPersonBean(Context context, PersonBean personBean) {
         if (personBean != null) {
             mPersonBean = personBean;
             mLoginStatus = 1;
+            SharedPreferences sharedPreferences = context.getSharedPreferences("user", MODE_PRIVATE);
+            Util.savePersonBean(sharedPreferences, personBean);
+            setAccount(mPersonBean.getAccount());
         }
+    }
+
+    public static void clearmPersonBean(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("user", MODE_PRIVATE);
+        Util.clearPersonBean(sharedPreferences);
+        mPersonBean = null;
+        setmNoLoginStatus();
+        setAccount(null);
+    }
+
+    public static String getAccount() {
+        if (account != null) {
+            return account;
+        }
+        return null;
+    }
+
+    private static void setAccount(String account) {
+        MyApplication.account = account;
     }
 
 //    public static LinkedList<String> getmSearchRecordList() {

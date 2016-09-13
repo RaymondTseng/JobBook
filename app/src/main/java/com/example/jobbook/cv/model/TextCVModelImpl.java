@@ -86,7 +86,7 @@ public class TextCVModelImpl implements TextCVModel {
                 }
             }
             Log.i("loadCV", textCVBean.getName());
-            OkHttpUtils.postString().url(Urls.POST_TEXT_CV_URL + MyApplication.getmPersonBean().getAccount())
+            OkHttpUtils.postString().url(Urls.POST_TEXT_CV_URL + MyApplication.getAccount())
                     .content(new Gson().toJson(textCVBean)).build().execute(new StringCallback() {
                 @Override
                 public void onError(Call call, Exception e, int id) {
@@ -110,7 +110,7 @@ public class TextCVModelImpl implements TextCVModel {
 
     @Override
     public void load(final OnLoadTextCVListener listener) {
-        OkHttpUtils.get().url(Urls.LOAD_TEXT_CV_URL + MyApplication.getmPersonBean().getAccount())
+        OkHttpUtils.get().url(Urls.LOAD_TEXT_CV_URL + MyApplication.getAccount())
                 .addParams("","").build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
