@@ -1,10 +1,12 @@
 package com.example.jobbook.job.model;
 
-import android.util.Log;
+import com.example.jobbook.util.L;
 
 import com.example.jobbook.MyApplication;
 import com.example.jobbook.bean.JobDetailBean;
+import com.example.jobbook.bean.ResultBean;
 import com.example.jobbook.commons.Urls;
+import com.example.jobbook.util.L;
 import com.google.gson.Gson;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
@@ -26,14 +28,20 @@ public class JobDetailModelImpl implements JobDetailModel {
                 .content(jobId + "/account/" + account).build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
+                L.i("job detail response", e.getMessage());
                 listener.onLoadJobFailure("network error", e);
             }
 
             @Override
             public void onResponse(String response, int id) {
-                Log.i("job_detail_response", response);
-                JobDetailBean jobDetailBean = new Gson().fromJson(response, JobDetailBean.class);
-                listener.onSuccess(jobDetailBean);
+                L.i("job detail response", "result:" + response);
+                ResultBean resultBean = new Gson().fromJson(response, ResultBean.class);
+                if (resultBean.getStatus().equals("true")) {
+                    JobDetailBean jobDetailBean = new Gson().fromJson(resultBean.getResponse(), JobDetailBean.class);
+                    listener.onSuccess(jobDetailBean);
+                } else {
+                    listener.onLoadJobFailure(resultBean.getResponse(), null);
+                }
             }
         });
     }
@@ -53,9 +61,12 @@ public class JobDetailModelImpl implements JobDetailModel {
 
                 @Override
                 public void onResponse(String response, int id) {
-                    if (response != null) {
-                        Log.i("job_detail_like", response);
+                    ResultBean resultBean = new Gson().fromJson(response, ResultBean.class);
+                    if (resultBean.getStatus().equals("true")) {
+                        L.i("job_detail_like", response);
                         listener.onLikeSuccess();
+                    } else {
+                        listener.onLikeJobFailure(resultBean.getResponse(), null);
                     }
                 }
             });
@@ -77,9 +88,12 @@ public class JobDetailModelImpl implements JobDetailModel {
 
                 @Override
                 public void onResponse(String response, int id) {
-                    if (response != null) {
-                        Log.i("job_detail_unlike", response);
+                    ResultBean resultBean = new Gson().fromJson(response, ResultBean.class);
+                    if (resultBean.getStatus().equals("true")) {
+                        L.i("job_detail_unlike", response);
                         listener.onUnlikeSuccess();
+                    } else {
+                        listener.onUnlikeJobFailure(resultBean.getResponse(), null);
                     }
                 }
             });
@@ -103,20 +117,21 @@ public class JobDetailModelImpl implements JobDetailModel {
 
             @Override
             public void onResponse(String response, int id) {
-                Log.i("jobdetail", "result:" + response);
-                if (response != null) {
-                    if (response.equals("email failed")) {
-                        listener.onSendCVEmailFailed();
-                    } else if (response.equals("No destination")) {
-                        listener.onSendCVNoDestination();
-                    } else if (response.equals("have sent")) {
-                        listener.onSendCVRepeated();
-                    } else if (response.equals("success")) {
-                        Log.i("jobdetail", response);
-                        listener.onSendCVSuccess();
-                    }
+                L.i("jobdetail", "result:" + response);
+                ResultBean resultBean = new Gson().fromJson(response, ResultBean.class);
+                if (resultBean.getStatus().equals("true")) {
+                    L.i("jobdetail", response);
+                    listener.onSendCVSuccess();
                 } else {
-                    listener.onSendCVFailure("job_detail_null", new Exception());
+                    if (resultBean.getResponse().equals("email failed")) {
+                        listener.onSendCVEmailFailed();
+                    } else if (resultBean.getResponse().equals("No destination")) {
+                        listener.onSendCVNoDestination();
+                    } else if (resultBean.getResponse().equals("have sent")) {
+                        listener.onSendCVRepeated();
+                    } else {
+                        listener.onSendCVFailure("job_detail_null", new Exception());
+                    }
                 }
             }
         });

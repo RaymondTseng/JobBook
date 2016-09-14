@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import com.example.jobbook.util.L;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -114,7 +114,7 @@ public class SearchActivity extends Activity implements View.OnClickListener, Se
             }
             adapter.notifyDataSetChanged();
         }
-        Log.i("pageIndex", pageIndex + "");
+        L.i("pageIndex", pageIndex + "");
         pageIndex += Urls.PAZE_SIZE;
     }
 
@@ -150,7 +150,7 @@ public class SearchActivity extends Activity implements View.OnClickListener, Se
                     && lastVisibleItem + 1 == adapter.getItemCount()
                     && adapter.ismShowFooter()) {
                 //加载更多
-                Log.i("search", "loading more data");
+                L.i("search", "loading more data");
                 presenter.search(mSearchContent, pageIndex);
             }
         }

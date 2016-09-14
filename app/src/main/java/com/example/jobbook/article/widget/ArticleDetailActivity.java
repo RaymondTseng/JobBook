@@ -3,7 +3,7 @@ package com.example.jobbook.article.widget;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
-import android.util.Log;
+import com.example.jobbook.util.L;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -56,7 +56,7 @@ public class ArticleDetailActivity extends Activity implements ArticleDetailView
         mBackImageButton.setOnClickListener(this);
         mPresenter = new ArticleDetailPresenterImpl(this);
         mArticleBean = (ArticleBean) getIntent().getExtras().getSerializable("article_detail");
-        Log.i("article_bean_activity", "123:" + mArticleBean.getArticle_id());
+        L.i("article_bean_activity", "123:" + mArticleBean.getArticle_id());
         mPresenter.loadArticle(mArticleBean.getArticle_id());
         view = getWindow().getDecorView();
     }

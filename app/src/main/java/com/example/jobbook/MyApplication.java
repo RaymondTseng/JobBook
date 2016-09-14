@@ -4,7 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Handler;
-import android.util.Log;
+import com.example.jobbook.util.L;
 
 import com.example.jobbook.bean.PersonBean;
 import com.example.jobbook.util.Util;

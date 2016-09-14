@@ -3,7 +3,7 @@ package com.example.jobbook.update.widget;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
-import android.util.Log;
+import com.example.jobbook.util.L;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -70,7 +70,7 @@ public class UpdateUsernameActivity extends Activity implements View.OnClickList
     public void close() {
         Util.toAnotherActivity(this, UserDetailActivity.class);
         mMyApplication.getHandler().sendEmptyMessage(1);
-        Log.i("updateusername", MyApplication.getmPersonBean().getUsername());
+        L.i("updateusername", MyApplication.getmPersonBean().getUsername());
         finish();
     }
 

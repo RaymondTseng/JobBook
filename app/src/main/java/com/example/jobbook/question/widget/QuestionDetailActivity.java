@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.text.TextUtils;
-import android.util.Log;
+import com.example.jobbook.util.L;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -84,7 +84,7 @@ public class QuestionDetailActivity extends Activity implements QuestionDetailVi
 
     private void initEvents(){
         questionBean = (QuestionBean) getIntent().getExtras().getSerializable("question_detail");
-        Log.i("questiondetail_activity", "123:" + questionBean.getId());
+        L.i("questiondetail_activity", "123:" + questionBean.getId());
         mScreenHeight = Util.getHeight(this);
         mKeyBoardHeight = mScreenHeight / 3;
         mTitleBarHeight = ((float)mScreenHeight / 568) * 56;
@@ -185,7 +185,7 @@ public class QuestionDetailActivity extends Activity implements QuestionDetailVi
             QuestionCommentBean questionCommentBean = new QuestionCommentBean();
             questionCommentBean.setApplier(MyApplication.getmPersonBean(this));
             questionCommentBean.setContent(comment);
-            Log.i("question_detail", questionBean.getId() + "");
+            L.i("question_detail", questionBean.getId() + "");
             questionCommentBean.setQ_id(questionBean.getId());
             mPresenter.sendComment(questionCommentBean);
         }
@@ -212,20 +212,20 @@ public class QuestionDetailActivity extends Activity implements QuestionDetailVi
         if(oldBottom != 0 && bottom != 0 &&(oldBottom - bottom > mKeyBoardHeight)){
             int dValue = oldBottom - bottom;
             int newHeight = mScreenHeight - dValue;
-            Log.i("question_detail", "newHeight:" + newHeight + "Height:" + mScreenHeight + "mTitleBarHeight:" + mTitleBarHeight);
+            L.i("question_detail", "newHeight:" + newHeight + "Height:" + mScreenHeight + "mTitleBarHeight:" + mTitleBarHeight);
             mTitleBarLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.
                     MATCH_PARENT, 0, (mTitleBarHeight / newHeight) * 568));
             mInputLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.
                     MATCH_PARENT, 0, (mInputLayoutHeight / newHeight) * 568));
             mListView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.
                     MATCH_PARENT, 0, ((float)(newHeight - 2 * mTitleBarHeight) / newHeight) * 568));
-            Log.i("question_detail", "软键盘弹起");
+            L.i("question_detail", "软键盘弹起");
 
         }else if(oldBottom != 0 && bottom != 0 &&(bottom - oldBottom > mKeyBoardHeight)){
             mTitleBarLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, 56));
             mInputLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, 56));
             mListView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, 456));
-            Log.i("question_detail", "软键盘关闭");
+            L.i("question_detail", "软键盘关闭");
 
         }
     }

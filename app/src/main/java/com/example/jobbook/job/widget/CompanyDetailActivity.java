@@ -6,7 +6,7 @@ import android.graphics.ColorFilter;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
+import com.example.jobbook.util.L;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;

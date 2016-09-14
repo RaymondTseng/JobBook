@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
-import android.util.Log;
+import com.example.jobbook.util.L;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -73,7 +73,7 @@ public class RegisterActivity extends Activity implements RegisterView, View.OnC
         mRegisterButton.setOnClickListener(this);
         mCloseImageButton.setOnClickListener(this);
         mGetCodeButton.setOnClickListener(this);
-        Log.i("registerfragment", "load code:" + Urls.GET_CODE_URL);
+        L.i("registerfragment", "load code:" + Urls.GET_CODE_URL);
         SMSManager.getInstance().registerTimeListener(this);
         mLoadingLinearLayout.setVisibility(View.GONE);
     }
@@ -108,7 +108,7 @@ public class RegisterActivity extends Activity implements RegisterView, View.OnC
 
     @Override
     public void networkError() {
-        Log.i("registerfragment", "error");
+        L.i("registerfragment", "error");
     }
 
     @Override

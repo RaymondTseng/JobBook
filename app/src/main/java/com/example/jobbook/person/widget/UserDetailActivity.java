@@ -6,7 +6,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
-import android.util.Log;
+import com.example.jobbook.util.L;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -154,7 +154,7 @@ public class UserDetailActivity extends Activity implements View.OnClickListener
     }
 
     private void sendImage(Bitmap bm) {
-        Log.i("photo", "sendImage");
+        L.i("photo", "sendImage");
         presenter.uploadImage(bm);
     }
 
@@ -180,7 +180,7 @@ public class UserDetailActivity extends Activity implements View.OnClickListener
 
     @Override
     public void loadHead(Bitmap bm) {
-        Log.i("photo", "loadHead1");
+        L.i("photo", "loadHead1");
         mMyApplication.getHandler().sendEmptyMessage(2);
 //        mUserHeadImageView.setImageBitmap(bm);
 
@@ -202,25 +202,25 @@ public class UserDetailActivity extends Activity implements View.OnClickListener
 
     @Override
     protected void onPause(){
-        Log.i("photo", "onPause");
+        L.i("photo", "onPause");
         super.onPause();
     }
 
     @Override
     protected void onStop(){
-        Log.i("photo", "onStop");
+        L.i("photo", "onStop");
         super.onStop();
     }
 
     @Override
     protected void onStart(){
-        Log.i("photo", "onStart");
+        L.i("photo", "onStart");
         super.onStart();
     }
 
     @Override
     protected void onResume(){
-        Log.i("photo", "onResume");
+        L.i("photo", "onResume");
         super.onResume();
     }
 }

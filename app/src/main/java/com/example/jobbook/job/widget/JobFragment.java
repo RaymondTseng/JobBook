@@ -9,7 +9,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import com.example.jobbook.util.L;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -103,7 +103,7 @@ public class JobFragment extends Fragment implements JobView, View.OnFocusChange
                     && lastVisibleItem + 1 == mAdapter.getItemCount()
                     && mAdapter.ismShowFooter()) {
                 //加载更多
-                Log.i("job_fragment", "loading more data");
+                L.i("job_fragment", "loading more data");
                 mJobPresenter.loadJobs(pageIndex);
             }
         }
@@ -129,7 +129,7 @@ public class JobFragment extends Fragment implements JobView, View.OnFocusChange
             }
             mAdapter.notifyDataSetChanged();
         }
-        Log.i("pageIndex", pageIndex + "");
+        L.i("pageIndex", pageIndex + "");
         pageIndex += Urls.PAZE_SIZE;
     }
 
@@ -160,14 +160,14 @@ public class JobFragment extends Fragment implements JobView, View.OnFocusChange
     public void search() {
         SearchDialogFragment fragment = new SearchDialogFragment();
         fragment.show(getActivity().getFragmentManager(), "search_dialog");
-        Log.i("jobfragment", "createSearchDialog");
+        L.i("jobfragment", "createSearchDialog");
     }
 
     @Override
     public void onFocusChange(View v, boolean hasFocus) {
         switch (v.getId()) {
             case R.id.job_et:
-                Log.i("jobfragment", "123");
+                L.i("jobfragment", "123");
                 break;
 
         }
@@ -190,7 +190,7 @@ public class JobFragment extends Fragment implements JobView, View.OnFocusChange
 
     @Override
     public void onRefresh() {
-        Log.i("TAG", "onRefresh");
+        L.i("TAG", "onRefresh");
         pageIndex = 0;
         if(list != null){
             list.clear();

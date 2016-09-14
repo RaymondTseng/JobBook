@@ -1,9 +1,11 @@
 package com.example.jobbook.question.model;
 
-import android.util.Log;
+import com.example.jobbook.util.L;
 
 import com.example.jobbook.bean.QuestionBean;
+import com.example.jobbook.bean.ResultBean;
 import com.example.jobbook.commons.Urls;
+import com.example.jobbook.util.L;
 import com.google.gson.Gson;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
@@ -19,14 +21,19 @@ public class NewQuestionModelImpl implements NewQuestionModel {
         OkHttpUtils.postString().url(Urls.NEW_QUESTION_URL).content(new Gson().toJson(questionBean)).build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
-                Log.i("new_question", "network error");
+                L.i("new_question", "network error");
                 listener.onFailure();
             }
 
             @Override
             public void onResponse(String response, int id) {
-                Log.i("new_question", response);
-                listener.onSuccess();
+                L.i("new_question", response);
+                ResultBean resultBean = new Gson().fromJson(response, ResultBean.class);
+                if (resultBean.getStatus().equals("true")) {
+                    listener.onSuccess();
+                } else {
+                    listener.onFailure();
+                }
             }
         });
     }

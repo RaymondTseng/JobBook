@@ -1,12 +1,14 @@
 package com.example.jobbook.question.model;
 
-import android.util.Log;
+import com.example.jobbook.util.L;
 
 import com.example.jobbook.MyApplication;
 import com.example.jobbook.bean.QuestionBean;
 import com.example.jobbook.bean.QuestionCommentBean;
 import com.example.jobbook.bean.QuestionDetailBean;
+import com.example.jobbook.bean.ResultBean;
 import com.example.jobbook.commons.Urls;
+import com.example.jobbook.util.L;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -36,9 +38,14 @@ public class QuestionDetailModelImpl implements QuestionDetailModel{
 
             @Override
             public void onResponse(String response, int id) {
-                Log.i("questiondetail_response", response);
-                List<QuestionCommentBean> list = new Gson().fromJson(response, new TypeToken<List<QuestionCommentBean>>(){}.getType());
-                mListener.onSuccess(list);
+                L.i("questiondetail_response", response);
+                ResultBean resultBean = new Gson().fromJson(response, ResultBean.class);
+                if (resultBean.getStatus().equals("true")) {
+                    List<QuestionCommentBean> list = new Gson().fromJson(resultBean.getResponse(), new TypeToken<List<QuestionCommentBean>>(){}.getType());
+                    mListener.onSuccess(list);
+                } else {
+                    mListener.onFailure(resultBean.getResponse(), new Exception(), id);
+                }
             }
         });
     }
@@ -59,16 +66,16 @@ public class QuestionDetailModelImpl implements QuestionDetailModel{
             @Override
             public void onError(Call call, Exception e, int id) {
                 mListener.onFailure("network error", e, SEND_COMMENT_ERROR);
-
             }
 
             @Override
             public void onResponse(String response, int id) {
-                Log.i("question_send_comment", response);
-                if(response.equals("true")){
+                L.i("question_send_comment", response);
+                ResultBean resultBean = new Gson().fromJson(response, ResultBean.class);
+                if(resultBean.getStatus().equals("true")){
                     mListener.onSuccess();
                 }else{
-                    mListener.onFailure("network error", new Exception(), SEND_COMMENT_ERROR);
+                    mListener.onFailure(resultBean.getResponse(), new Exception(), SEND_COMMENT_ERROR);
                 }
             }
         });

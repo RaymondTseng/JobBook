@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
+import com.example.jobbook.util.L;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -81,7 +81,7 @@ public class JobDetailActivity extends Activity implements View.OnClickListener,
 
     private void initEvents() {
         jobBean = (JobBean) getIntent().getExtras().getSerializable("job_detail");
-        Log.i("article_bean_activity", "123:" + jobBean.getId());
+        L.i("article_bean_activity", "123:" + jobBean.getId());
         mPresenter = new JobDetailPresenterImpl(this);
         mPresenter.loadJob(jobBean.getId());
         mToCompanyDetailImageButton.setOnClickListener(this);
@@ -104,12 +104,12 @@ public class JobDetailActivity extends Activity implements View.OnClickListener,
             case R.id.job_detail_like_ib:
 
                 if (jobDetailBean.isIfLike() == 0) {
-                    Log.i("like_ib_click", "click like");
+                    L.i("like_ib_click", "click like");
                     mLikeImageButton.setImageResource(R.mipmap.favourite_tapped);
                     like(jobBean.getId());
 
                 } else {
-                    Log.i("like_ib_click", "click unlike");
+                    L.i("like_ib_click", "click unlike");
                     mLikeImageButton.setImageResource(R.mipmap.favourite_white);
                     unlike(jobBean.getId());
                 }
@@ -139,7 +139,7 @@ public class JobDetailActivity extends Activity implements View.OnClickListener,
     @Override
     public void addJob(JobDetailBean jobDetailBean) {
         this.jobDetailBean = jobDetailBean;
-        Log.i("addjob", "success");
+        L.i("addjob", "success");
         ImageLoadUtils.display(this, mCompanyImageView, jobDetailBean.getCompany().getLogo());
         mJobNameTextView.setText(jobDetailBean.getName());
         mJobLocationTextView.setText(jobDetailBean.getLocation());
@@ -160,7 +160,7 @@ public class JobDetailActivity extends Activity implements View.OnClickListener,
             mBenefitLayout.addView(textView);
         }
         if (MyApplication.getmLoginStatus() == 1) {
-            Log.i("like_status", jobDetailBean.isIfLike() + "");
+            L.i("like_status", jobDetailBean.isIfLike() + "");
             if (jobDetailBean.isIfLike() == 0) {
                 mLikeImageButton.setImageResource(R.mipmap.favourite_white);
             } else {
@@ -171,7 +171,7 @@ public class JobDetailActivity extends Activity implements View.OnClickListener,
 
     @Override
     public void hideProgress() {
-        Log.i("jobdetail", "hideprogress");
+        L.i("jobdetail", "hideprogress");
         mLoadingLinearLayout.setVisibility(View.GONE);
     }
 
@@ -197,7 +197,7 @@ public class JobDetailActivity extends Activity implements View.OnClickListener,
 
     @Override
     public void showProgress() {
-        Log.i("jobdetail", "showprogress");
+        L.i("jobdetail", "showprogress");
         mLoadingLinearLayout.setVisibility(View.VISIBLE);
     }
 

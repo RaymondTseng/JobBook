@@ -2,7 +2,7 @@ package com.example.jobbook.main.presenter;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
+import com.example.jobbook.util.L;
 
 import com.example.jobbook.MyApplication;
 import com.example.jobbook.R;

@@ -2,7 +2,7 @@ package com.example.jobbook.search;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import com.example.jobbook.util.L;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,7 +56,7 @@ public class SearchJobsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             if (job == null) {
                 return;
             }
-            Log.i("search_job", job.getLogo());
+            L.i("search_job", job.getLogo());
             ImageLoadUtils.display(mContext, ((ItemViewHolder) holder).mCompanyLogo, job.getLogo());
             ((ItemViewHolder) holder).mCompanyName.setText(job.getCompanyName());
             ((ItemViewHolder) holder).mJobName.setText(job.getName());

@@ -7,6 +7,8 @@ import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.ColorInt;
+import com.example.jobbook.util.L;
+
 import android.util.Log;
 import android.widget.Toast;
 
@@ -53,7 +55,7 @@ public class CropUtils {
                     .buildUpon()
                     .appendPath(name)
                     .build();
-            Log.e("crop", uri.toString());
+            L.e("crop", uri.toString());
         }
         return uri;
     }
