@@ -1,6 +1,6 @@
 package com.example.jobbook.cv.presenter;
 
-import android.util.Log;
+import com.example.jobbook.util.L;
 import android.view.View;
 import android.widget.EditText;
 

@@ -15,7 +15,7 @@ import android.provider.ContactsContract;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import com.example.jobbook.util.L;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -373,7 +373,7 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
 
     @Override
     public void eduExpAdmissionError(int id) {
-        Log.i("TextCV", "eduExpAdmissionError/" + id);
+        L.i("TextCV", "eduExpAdmissionError/" + id);
         View view = mEduContainerLayout.getChildAt(id);
         mEduDivider = (TextView) view.findViewById(R.id.edu_exp_divider);
         mEduDivider.setBackgroundColor(ContextCompat.getColor(this, R.color.colorPink));
@@ -545,7 +545,7 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
 
     private void setBackgroundRed(final EditText editText, final TextView textView) {
         if (editText == null) {
-            Log.i("TextCV", "arguments error!");
+            L.i("TextCV", "arguments error!");
         } else {
 //            editText.setBackground(ContextCompat.getDrawable(this, R.drawable.text_cv_et_red_bg));
             editText.setBackgroundResource(R.drawable.text_cv_et_red_bg);

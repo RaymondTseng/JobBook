@@ -5,7 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.util.Log;
+import com.example.jobbook.util.L;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -96,7 +96,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, Log
 
     @Override
     public void setNetworkError() {
-        Log.i("loginfragment", "error");
+        L.i("loginfragment", "error");
     }
 
     @Override

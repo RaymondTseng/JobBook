@@ -7,7 +7,7 @@ import android.os.Message;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import com.example.jobbook.util.L;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;

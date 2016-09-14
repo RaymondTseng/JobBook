@@ -11,7 +11,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
-import android.util.Log;
+import com.example.jobbook.util.L;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -111,7 +111,7 @@ public class SearchDialogFragment extends DialogFragment implements View.OnClick
             case R.id.job_search_bar_dialog_search_ib:
                 if (!TextUtils.isEmpty(mEditText.getText().toString())) {
                     list.add(mEditText.getText().toString());
-                    Log.i("search_dialog", "size=" + list.size() + ",add data:" + mEditText.getText().toString());
+                    L.i("search_dialog", "size=" + list.size() + ",add data:" + mEditText.getText().toString());
                     Util.setSearchList(sharedPreferences, list);
                 }
                 Intent intent = new Intent(getActivity(), SearchActivity.class);

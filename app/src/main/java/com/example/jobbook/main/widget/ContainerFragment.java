@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
+import com.example.jobbook.util.L;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,7 +39,7 @@ public class ContainerFragment extends Fragment implements ContainerView {
         View view = inflater.inflate(R.layout.fragment_container, null);
         initViews(view);
         initEvents();
-        Log.i("container", "createview");
+        L.i("container", "createview");
         return view;
     }
 

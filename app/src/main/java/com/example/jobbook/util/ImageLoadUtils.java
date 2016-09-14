@@ -3,7 +3,7 @@ package com.example.jobbook.util;
 import android.content.Context;
 import android.net.Uri;
 import android.support.v4.app.Fragment;
-import android.util.Log;
+import com.example.jobbook.util.L;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;

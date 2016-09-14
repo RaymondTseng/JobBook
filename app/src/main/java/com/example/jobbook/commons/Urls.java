@@ -15,19 +15,19 @@ public class Urls {
 
     public static final String JOB_URL = IP + "/jobBook/Home/job/getAll";
 
-    public static final String JOB_DETAIL_URL = IP + "/jobBook/Home/job/getDetail/job_IP/";
+    public static final String JOB_DETAIL_URL = IP + "/jobBook/Home/job/getDetail/job_id/";
 
-    public static final String JOB_LIKE_URL = IP + "/jobBook/Home/job/liked/job_IP/";
+    public static final String JOB_LIKE_URL = IP + "/jobBook/Home/job/liked/job_id/";
 
-    public static final String JOB_UNLIKE_URL = IP + "/jobBook/Home/job/unliked/job_IP/";
+    public static final String JOB_UNLIKE_URL = IP + "/jobBook/Home/job/unliked/job_id/";
 
     public static final String ARTICLE_URL = IP + "/jobBook/Home/article/allArticle/type/";
 
-    public static final String ARTICLE_DETAIL_URL = IP + "/jobBook/Home/article/getArticle/a_IP/";
+    public static final String ARTICLE_DETAIL_URL = IP + "/jobBook/Home/article/getArticle/a_id/";
 
     public static final String QUESTION_URL = IP + "/jobBook/Home/question/allQuestions";
 
-    public static final String QUESTION_DETAIL_URL = IP + "/jobBook/Home/question/getQuestion/q_IP/";
+    public static final String QUESTION_DETAIL_URL = IP + "/jobBook/Home/question/getQuestion/q_id/";
 
     public static final String NEW_QUESTION_URL = IP + "/jobBook/Home/question/releaseQuestion";
 

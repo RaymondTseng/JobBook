@@ -2,11 +2,12 @@ package com.example.jobbook.update.model;
 
 import android.content.Context;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.example.jobbook.MyApplication;
 import com.example.jobbook.bean.PersonBean;
+import com.example.jobbook.bean.ResultBean;
 import com.example.jobbook.commons.Urls;
+import com.example.jobbook.util.L;
 import com.example.jobbook.util.Util;
 import com.google.gson.Gson;
 import com.jude.smssdk_mob.Callback;
@@ -41,14 +42,15 @@ public class UpdateModelImpl implements UpdateModel {
             OkHttpUtils.get().url(Urls.UPDATE_PWD_URL + "account/" + account + "/oldpsw/" + Util.getMD5(oPwd) + "/newpsw/" + Util.getMD5(nPwd)).build().execute(new StringCallback() {
                 @Override
                 public void onError(Call call, Exception e, int id) {
-                    Log.i("response", e.getMessage());
+                    L.i("response", e.getMessage());
                     listener.onUpdatePwdFailure();
                 }
 
                 @Override
                 public void onResponse(String response, int id) {
-                    if (response != null && !response.equals("false")) {
-                        PersonBean personBean = new Gson().fromJson(response, PersonBean.class);
+                    ResultBean resultBean = new Gson().fromJson(response, ResultBean.class);
+                    if (resultBean.getStatus().equals("true")) {
+                        PersonBean personBean = new Gson().fromJson(resultBean.getResponse(), PersonBean.class);
                         MyApplication.setmPersonBean(context, personBean);
                         listener.onUpdatePwdSuccess();
                     } else {
@@ -77,8 +79,9 @@ public class UpdateModelImpl implements UpdateModel {
 
                         @Override
                         public void onResponse(String response, int id) {
-                            if (response != null && !response.equals("false")) {
-                                PersonBean personBean = new Gson().fromJson(response, PersonBean.class);
+                            ResultBean resultBean = new Gson().fromJson(response, ResultBean.class);
+                            if (resultBean.getStatus().equals("true")) {
+                                PersonBean personBean = new Gson().fromJson(resultBean.getResponse(), PersonBean.class);
                                 MyApplication.setmPersonBean(mContext, personBean);
                                 listener.onUpdatePhoneSuccess();
                             }else {
@@ -110,8 +113,9 @@ public class UpdateModelImpl implements UpdateModel {
 
                 @Override
                 public void onResponse(String response, int id) {
-                    if (response != null && !response.equals("false")) {
-                        PersonBean personBean = new Gson().fromJson(response, PersonBean.class);
+                    ResultBean resultBean = new Gson().fromJson(response, ResultBean.class);
+                    if (resultBean.getStatus().equals("true")) {
+                        PersonBean personBean = new Gson().fromJson(resultBean.getResponse(), PersonBean.class);
                         MyApplication.setmPersonBean(context, personBean);
                         listener.onUpdateUserNameSuccess();
                     } else {

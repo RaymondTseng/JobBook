@@ -1,10 +1,12 @@
 package com.example.jobbook.feedback.model;
 
-import android.util.Log;
+import com.example.jobbook.util.L;
 
 import com.example.jobbook.MyApplication;
 import com.example.jobbook.bean.FeedBackBean;
+import com.example.jobbook.bean.ResultBean;
 import com.example.jobbook.commons.Urls;
+import com.example.jobbook.util.L;
 import com.google.gson.Gson;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
@@ -18,25 +20,26 @@ public class FeedBackModelImpl implements FeedBackModel {
 
     @Override
     public void feedBack(String mailAddress, String content, final OnFeedBackListener listener) {
-        Log.i("response:", "feedback_modelimpl");
+        L.i("response:", "feedback_modelimpl");
         FeedBackBean feedBackBean = new FeedBackBean();
         feedBackBean.setEmail(mailAddress);
         feedBackBean.setContent(content);
         OkHttpUtils.postString().url(Urls.FEED_BACK_URL + MyApplication.getAccount()).content(new Gson().toJson(feedBackBean)).build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
-                Log.i("response:", e.getMessage());
+                L.i("response:", e.getMessage());
                 listener.onFailure();
             }
 
             @Override
             public void onResponse(String response, int id) {
-                Log.i("response:", "response:" + response);
-                if (response != null) {
-                    if (response.equals("email failed")) {
+                L.i("response:", "response:" + response);
+                ResultBean resultBean = new Gson().fromJson(response, ResultBean.class);
+                if (resultBean.getStatus().equals("true")) {
+                    listener.onSuccess();
+                } else {
+                    if (resultBean.getResponse().equals("email failed")) {
                         listener.onEmailError();
-                    }else {
-                        listener.onSuccess();
                     }
                 }
             }

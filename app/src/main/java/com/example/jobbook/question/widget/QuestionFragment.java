@@ -13,7 +13,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import com.example.jobbook.util.L;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,7 +69,7 @@ public class QuestionFragment extends Fragment implements QuestionView,
         view = inflater.inflate(R.layout.fragment_question, container, false);
         initViews(view);
         initEvents();
-        Log.i("questionfragment", "create");
+        L.i("questionfragment", "create");
         return view;
     }
 
@@ -125,7 +125,7 @@ public class QuestionFragment extends Fragment implements QuestionView,
                     && lastVisibleItem + 1 == mAdapter.getItemCount()
                     && mAdapter.ismShowFooter()) {
                 //加载更多
-                Log.i("question_fragment", "loading more data");
+                L.i("question_fragment", "loading more data");
                 mQuestionPresenter.loadQuestion(pageIndex);
             }
         }
@@ -190,7 +190,7 @@ public class QuestionFragment extends Fragment implements QuestionView,
 
     @Override
     public void onRefresh() {
-        Log.i("TAG", "onRefresh");
+        L.i("TAG", "onRefresh");
         pageIndex = 0;
         if (mData != null) {
             mData.clear();

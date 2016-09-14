@@ -1,10 +1,10 @@
 package com.example.jobbook.article.model;
 
-import android.util.Log;
-
 import com.example.jobbook.bean.ArticleBean;
 import com.example.jobbook.bean.ArticleCommentBean;
+import com.example.jobbook.bean.ResultBean;
 import com.example.jobbook.commons.Urls;
+import com.example.jobbook.util.L;
 import com.google.gson.Gson;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
@@ -29,8 +29,14 @@ public class ArticleDetailModelImpl implements ArticleDetailModel {
 
             @Override
             public void onResponse(String response, int id) {
-                ArticleBean articleBean = new Gson().fromJson(response, ArticleBean.class);
-                listener.onSuccess(articleBean);
+                L.i("article detail response", "result:" + response);
+                ResultBean resultBean = new Gson().fromJson(response, ResultBean.class);
+                if (resultBean.getStatus().equals("true")) {
+                    ArticleBean articleBean = new Gson().fromJson(resultBean.getResponse(), ArticleBean.class);
+                    listener.onSuccess(articleBean);
+                } else {
+                    listener.onFailure(resultBean.getResponse(), null);
+                }
             }
         });
     }

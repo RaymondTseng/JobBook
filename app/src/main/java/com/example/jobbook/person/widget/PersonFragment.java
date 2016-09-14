@@ -8,7 +8,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.util.Log;
+import com.example.jobbook.util.L;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -72,7 +72,7 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
         View view = inflater.inflate(R.layout.fragment_person, container, false);
         initViews(view);
         initEvents();
-        Log.i("person", "createview");
+        L.i("person", "createview");
         return view;
     }
 
@@ -168,13 +168,13 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
     @Override
     public void onResume() {
         super.onResume();
-        Log.i("personfragment", "on resume");
+        L.i("personfragment", "on resume");
 //        onRefreshHead();
     }
 
     private void onRefreshHead() {
         mCircleImageView.setImageResource(R.mipmap.default_78px);
-        Log.i("onRefreshHead", personBean.getHead());
+        L.i("onRefreshHead", personBean.getHead());
         ImageLoadUtils.display(getActivity(), mCircleImageView, personBean.getHead(), 0);
     }
 

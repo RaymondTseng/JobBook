@@ -1,7 +1,7 @@
 package com.example.jobbook.login.presenter;
 
 import android.text.TextUtils;
-import android.util.Log;
+import com.example.jobbook.util.L;
 
 import com.example.jobbook.bean.PersonBean;
 import com.example.jobbook.login.model.LoginModel;

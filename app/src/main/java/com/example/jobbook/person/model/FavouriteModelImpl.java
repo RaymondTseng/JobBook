@@ -1,9 +1,11 @@
 package com.example.jobbook.person.model;
 
-import android.util.Log;
+import com.example.jobbook.util.L;
 
 import com.example.jobbook.bean.JobBean;
+import com.example.jobbook.bean.ResultBean;
 import com.example.jobbook.commons.Urls;
+import com.example.jobbook.util.L;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -21,7 +23,7 @@ public class FavouriteModelImpl implements FavouriteModel {
 
     @Override
     public void loadFavouriteJobs(int pageIndex, String accountName, final OnLoadJobsListener listener) {
-        Log.i("loadfavourite", "load");
+        L.i("loadfavourite", "load");
         OkHttpUtils.postString().url(Urls.FAVOURITE_URL + accountName).content(String.valueOf(pageIndex)).build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
@@ -30,12 +32,14 @@ public class FavouriteModelImpl implements FavouriteModel {
 
             @Override
             public void onResponse(String response, int id) {
-                Log.i("loadfavourite", "result:" + response);
-                if (response != null) {
-                    Log.i("loadfavourite", "result:" + response);
-                    List<JobBean> list = new Gson().fromJson(response, new TypeToken<List<JobBean>>() {
+                L.i("loadfavourite", "result:" + response);
+                ResultBean resultBean = new Gson().fromJson(response, ResultBean.class);
+                if (resultBean.getStatus().equals("true")) {
+                    List<JobBean> list = new Gson().fromJson(resultBean.getResponse(), new TypeToken<List<JobBean>>() {
                     }.getType());
                     listener.onSuccess(list);
+                } else {
+                    listener.onFailure(resultBean.getResponse(), new Exception());
                 }
             }
         });

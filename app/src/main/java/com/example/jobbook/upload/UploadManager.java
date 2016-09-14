@@ -8,7 +8,7 @@ import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Base64;
-import android.util.Log;
+import com.example.jobbook.util.L;
 
 import com.example.jobbook.MyApplication;
 import com.example.jobbook.util.Util;
@@ -113,8 +113,8 @@ public class UploadManager {
                     context.getContentResolver(), uri);
             return bitmap;
         } catch (Exception e) {
-            Log.e("[Android]", e.getMessage());
-            Log.e("[Android]", "目录为：" + uri);
+            L.e("[Android]", e.getMessage());
+            L.e("[Android]", "目录为：" + uri);
             e.printStackTrace();
             return null;
         }

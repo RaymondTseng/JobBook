@@ -1,10 +1,12 @@
 package com.example.jobbook.login.model;
 
 import android.text.TextUtils;
-import android.util.Log;
+import com.example.jobbook.util.L;
 
 import com.example.jobbook.bean.PersonBean;
+import com.example.jobbook.bean.ResultBean;
 import com.example.jobbook.commons.Urls;
+import com.example.jobbook.util.L;
 import com.google.gson.Gson;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
@@ -29,27 +31,23 @@ public class LoginModelImpl implements LoginModel {
             OkHttpUtils.postString().url(Urls.LOGIN_URL).content(new Gson().toJson(personBean)).build().execute(new StringCallback() {
                 @Override
                 public void onError(Call call, Exception e, int id) {
-                    Log.i("response", e.toString());
+                    L.i("response", e.toString());
                     listener.onNetWorkError();
                 }
 
                 @Override
                 public void onResponse(String response, int id) {
-                    if(!TextUtils.isEmpty(response)){
-                        Log.i("login_response", response.toString());
-                        PersonBean personBean = new Gson().fromJson(response, PersonBean.class);
-                        if(personBean != null){
-                            if(personBean.getAccount().equals("Error!")){
-                                listener.onUserError();
-                            }else{
-                                Log.i("response", "login successful");
-                                listener.onSuccess(personBean);
-                            }
-                        }else{
+                    L.i("response", response);
+                    ResultBean resultBean = new Gson().fromJson(response, ResultBean.class);
+                    if(resultBean.getStatus().equals("true")){
+                        PersonBean personBean = new Gson().fromJson(resultBean.getResponse(), PersonBean.class);
+                        listener.onSuccess(personBean);
+                    }else{
+                        if (resultBean.getResponse().equals("Error!")) {
+                            listener.onUserError();
+                        } else {
                             listener.onNetWorkError();
                         }
-                    }else{
-
                     }
                 }
             });

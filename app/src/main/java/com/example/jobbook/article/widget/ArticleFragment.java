@@ -11,7 +11,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
-import android.util.Log;
+import com.example.jobbook.util.L;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -215,28 +215,28 @@ public class ArticleFragment extends Fragment implements ArticleView, View.OnCli
 //                presenter.loadArticles(pageIndex, Constants.INDEX_ARTICLE_ALL);
                 currentType = Constants.INDEX_ARTICLE_ALL;
                 onRefresh();
-                Log.i("all", "change");
+                L.i("all", "change");
                 break;
             case R.id.article_title_engagement_rb:
                 mTitleTextView.setText(Constants.ARTICLE_ENGAGEMENT);
 //                presenter.loadArticles(pageIndex, Constants.INDEX_ARTICLE_ENGAGEMENT);
                 currentType = Constants.INDEX_ARTICLE_ENGAGEMENT;
                 onRefresh();
-                Log.i("engagement", "change");
+                L.i("engagement", "change");
                 break;
             case R.id.article_title_politic_rb:
                 mTitleTextView.setText(Constants.ARTICLE_POLITIC);
 //                presenter.loadArticles(pageIndex, Constants.INDEX_ARTICLE_POLITIC);
                 currentType = Constants.INDEX_ARTICLE_POLITIC;
                 onRefresh();
-                Log.i("politic", "change");
+                L.i("politic", "change");
                 break;
             case R.id.article_title_life_rb:
                 mTitleTextView.setText(Constants.ARTICLE_LIFE);
 //                presenter.loadArticles(pageIndex, Constants.INDEX_ARTICLE_LIFE);
                 currentType = Constants.INDEX_ARTICLE_LIFE;
                 onRefresh();
-                Log.i("life", "change");
+                L.i("life", "change");
                 break;
         }
     }
@@ -253,7 +253,7 @@ public class ArticleFragment extends Fragment implements ArticleView, View.OnCli
                     && lastVisiableItem + 1 == adapter.getItemCount()
                     && adapter.ismShowFooter()) {
                 //加载更多
-                Log.i("article_fragment", "loading more data");
+                L.i("article_fragment", "loading more data");
                 presenter.loadArticles(pageIndex, Constants.INDEX_ARTICLE_ALL);
             }
         }
@@ -277,7 +277,7 @@ public class ArticleFragment extends Fragment implements ArticleView, View.OnCli
 
     @Override
     public void onRefresh() {
-        Log.i("TAG", "onRefresh");
+        L.i("TAG", "onRefresh");
         pageIndex = 0;
         if (list != null) {
             list.clear();

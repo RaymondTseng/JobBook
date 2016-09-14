@@ -1,9 +1,11 @@
 package com.example.jobbook.search.model;
 
-import android.util.Log;
+import com.example.jobbook.util.L;
 
 import com.example.jobbook.bean.JobBean;
+import com.example.jobbook.bean.ResultBean;
 import com.example.jobbook.commons.Urls;
+import com.example.jobbook.util.L;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -20,7 +22,7 @@ public class SearchModelImpl implements SearchModel {
 
     @Override
     public void search(String content, int pageIndex, final OnSearchListener listener) {
-        Log.i("search:", content + "," + pageIndex);
+        L.i("search:", content + "," + pageIndex);
         OkHttpUtils.postString().content(String.valueOf(pageIndex)).url(Urls.SEARCH_URL + content).build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
@@ -29,11 +31,14 @@ public class SearchModelImpl implements SearchModel {
 
             @Override
             public void onResponse(String response, int id) {
-                Log.i("response:", "result:" + response);
-                if (response != null) {
-                    List<JobBean> list = new Gson().fromJson(response, new TypeToken<List<JobBean>>() {
+                L.i("response:", "result:" + response);
+                ResultBean resultBean = new Gson().fromJson(response, ResultBean.class);
+                if (resultBean.getStatus().equals("true")) {
+                    List<JobBean> list = new Gson().fromJson(resultBean.getResponse(), new TypeToken<List<JobBean>>() {
                     }.getType());
                     listener.onSuccess(list);
+                } else {
+                    listener.onFaliure(resultBean.getResponse(), new Exception());
                 }
             }
         });

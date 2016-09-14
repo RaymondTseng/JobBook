@@ -2,11 +2,12 @@ package com.example.jobbook.register.model;
 
 import android.content.Context;
 import android.text.TextUtils;
-import android.util.Log;
+import com.example.jobbook.util.L;
 
 import com.example.jobbook.bean.PersonBean;
 import com.example.jobbook.bean.ResultBean;
 import com.example.jobbook.commons.Urls;
+import com.example.jobbook.util.L;
 import com.example.jobbook.util.Util;
 import com.google.gson.Gson;
 import com.jude.smssdk_mob.Callback;
@@ -47,31 +48,28 @@ public class RegisterModelImpl implements RegisterModel {
                     personBean.setPassword(password);
                     personBean.setUsername(userName);
                     personBean.setTelephone(null);
-                    Log.i("registermodelimpl", Urls.REGISTER_URL);
+                    L.i("registermodelimpl", Urls.REGISTER_URL);
                     OkHttpUtils.postString().url(Urls.REGISTER_URL).content(new Gson().
                             toJson(personBean)).build().execute(new StringCallback() {
                         @Override
                         public void onError(Call call, Exception e, int id) {
-                            Log.i("response", e.toString());
+                            L.i("response", e.toString());
                             listener.onNetworkError();
                         }
 
                         @Override
                         public void onResponse(String response, int id) {
-                            if (!TextUtils.isEmpty(response)) {
-                                Log.i("TAG", response.toString());
-                                PersonBean personBean = new Gson().fromJson(response, PersonBean.class);
-                                if (TextUtils.isEmpty(personBean.getPassword())) {
-                                    Log.i("receive", "response is null");
-                                    if (personBean.getAccount().equals("Have Registered!")) {
-                                        listener.onAccountExistError();
-                                    } else if (personBean.getAccount().equals("Verify Wrong!")) {
-                                        listener.onCodeError();
-                                    } else {
-                                        listener.onNetworkError();
-                                    }
+                            ResultBean resultBean = new Gson().fromJson(response, ResultBean.class);
+                            if (resultBean.getStatus().equals("true")) {
+                                PersonBean personBean = new Gson().fromJson(resultBean.getResponse(), PersonBean.class);
+                                listener.onSuccess(personBean);
+                            } else {
+                                if (resultBean.getResponse().equals("Have Registered!")) {
+                                    listener.onAccountExistError();
+                                } else if (resultBean.getResponse().equals("Verify Wrong!")) {
+                                    listener.onCodeError();
                                 } else {
-                                    listener.onSuccess(personBean);
+                                    listener.onNetworkError();
                                 }
                             }
 
@@ -81,7 +79,7 @@ public class RegisterModelImpl implements RegisterModel {
 
                 @Override
                 public void error(Throwable error) {
-                    Log.i("register", "code error");
+                    L.i("register", "code error");
                     listener.onCodeError();
                 }
             });

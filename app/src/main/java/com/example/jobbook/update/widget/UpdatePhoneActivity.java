@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
-import android.util.Log;
+import com.example.jobbook.util.L;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -59,7 +59,7 @@ public class UpdatePhoneActivity extends Activity implements View.OnClickListene
         mGetCodeButton.setOnClickListener(this);
         mCompleteTextView.setOnClickListener(this);
         personBean = MyApplication.getmPersonBean();
-        Log.i("phone", "result:" + personBean.getAccount());
+        L.i("phone", "result:" + personBean.getAccount());
         mOriginalPhoneTextView.setText(personBean.getAccount());
         SMSManager.getInstance().setDefaultDelay(60);
         SMSManager.getInstance().registerTimeListener(this);
