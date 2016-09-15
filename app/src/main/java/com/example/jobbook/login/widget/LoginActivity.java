@@ -38,6 +38,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, Log
     private EditText mAccountEditText;
     private EditText mPasswordEditText;
     private LinearLayout mLoadingLinearLayout;
+    private TextView mForgetPwdTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +58,9 @@ public class LoginActivity extends Activity implements View.OnClickListener, Log
         mAccountEditText = (EditText) findViewById(R.id.login_account_et);
         mPasswordEditText = (EditText) findViewById(R.id.login_password_et);
         mLoadingLinearLayout = (LinearLayout) findViewById(R.id.loading_circle_progress_bar_ll);
+        mForgetPwdTextView = (TextView) findViewById(R.id.login_forget_tv);
         mRegisterTextView.setOnClickListener(this);
+        mForgetPwdTextView.setOnClickListener(this);
     }
 
     @Override
@@ -79,6 +82,10 @@ public class LoginActivity extends Activity implements View.OnClickListener, Log
 
             case R.id.login_close_ib:
                 Util.toAnotherActivity(LoginActivity.this, MainActivity.class);
+                finish();
+                break;
+            case R.id.login_forget_tv:
+                Util.toAnotherActivity(LoginActivity.this, ForgetPwdFirstActivity.class);
                 finish();
                 break;
         }

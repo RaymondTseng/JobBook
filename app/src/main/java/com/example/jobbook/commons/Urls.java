@@ -55,4 +55,8 @@ public class Urls {
 
     public static final String SEND_CV_URL = IP + "/jobBook/Home/mail/check/";
 
+    public static final String CHECK_ACCOUNT_URL = IP + "/jobBook/index.php/Home/enter/checkforget/account/";
+
+    public static final String CHANGE_PWD_URL = IP + "/jobBook/index.php/Home/enter/forgetpsw/account/";
+
 }

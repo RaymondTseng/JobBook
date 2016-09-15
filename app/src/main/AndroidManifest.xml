@@ -82,6 +82,8 @@
         <activity android:name=".update.widget.UpdatePhoneActivity" />
         <activity android:name=".update.widget.UpdatePwdActivity" />
         <activity android:name=".update.widget.UpdateUsernameActivity" />
+        <activity android:name=".login.widget.ForgetPwdFirstActivity"/>
+        <activity android:name=".login.widget.ForgetPwdSecondActivity"/>
 
     </application>
 

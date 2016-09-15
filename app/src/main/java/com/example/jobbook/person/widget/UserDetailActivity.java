@@ -7,6 +7,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import com.example.jobbook.util.L;
+
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -53,6 +55,7 @@ public class UserDetailActivity extends Activity implements View.OnClickListener
     private UploadPresenter presenter;
     private LinearLayout mLoadingLinearLayout;
     private MyApplication mMyApplication;
+    private Uri mUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +85,7 @@ public class UserDetailActivity extends Activity implements View.OnClickListener
         ImageLoadUtils.display(this, mUserHeadImageView, mPersonBean.getHead(), 0);
         mUserNameTextView.setText(mPersonBean.getUsername());
         mMyApplication = (MyApplication) getApplication();
+        mUri = null;
         presenter = new UploadPresenterImpl(this);
     }
 
@@ -139,7 +143,8 @@ public class UserDetailActivity extends Activity implements View.OnClickListener
         @Override
         public void handleCropResult(Uri uri, int tag) {
             sendImage(UploadManager.getBitmapFromUri(getApplicationContext(), uri));
-            ImageLoadUtils.display(UserDetailActivity.this , mUserHeadImageView, uri);
+            mUri = uri;
+//            ImageLoadUtils.display(UserDetailActivity.this , mUserHeadImageView, uri);
         }
 
         @Override
@@ -182,7 +187,7 @@ public class UserDetailActivity extends Activity implements View.OnClickListener
     public void loadHead(Bitmap bm) {
         L.i("photo", "loadHead1");
         mMyApplication.getHandler().sendEmptyMessage(2);
-//        mUserHeadImageView.setImageBitmap(bm);
+        mUserHeadImageView.setImageBitmap(bm);
 
 //        this.onCreate(null);
     }
@@ -220,6 +225,10 @@ public class UserDetailActivity extends Activity implements View.OnClickListener
 
     @Override
     protected void onResume(){
+        if(mUserHeadImageView != null && mUri != null){
+            mUserHeadImageView.setImageURI(mUri);
+            Log.i("photo", "uri:" + mUri.toString());
+        }
         L.i("photo", "onResume");
         super.onResume();
     }
