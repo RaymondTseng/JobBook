@@ -1,70 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorSettingsBackgroundGray"
-    android:orientation="vertical"
-    android:weightSum="568">
-
-    <RelativeLayout
+    android:weightSum="568"
+    android:background="@color/colorBackgroundGray">
+        <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="56"
         android:background="@color/colorBlue">
-
         <ImageButton
-            android:id="@+id/person_change_phone_back_ib"
+            android:id="@+id/forget_pwd_first_back_ib"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="16dp"
+            android:src="@mipmap/left_white"
             android:background="@null"
-            android:src="@mipmap/left_white" />
-
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="16dp"/>
         <TextView
             style="@style/White20sptv"
-            android:layout_centerVertical="true"
+            android:text="忘记密码"
+            android:layout_toRightOf="@id/forget_pwd_first_back_ib"
             android:layout_marginLeft="32dp"
-            android:layout_toRightOf="@id/person_change_phone_back_ib"
-            android:text="修改手机号" />
+            android:layout_centerVertical="true"/>
         <TextView
+            style="@style/White16sptv"
+            android:text="下一步"
+            android:id="@+id/forget_pwd_first_next_tv"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:id="@+id/person_change_phone_complete_tv"
-            android:text="完成"
             android:layout_marginRight="16dp"
-            style="@style/White16sptv"/>
+            android:layout_centerVertical="true"/>
     </RelativeLayout>
-
-
+    <include
+        layout="@layout/loading_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="600"/>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="48"
+        android:layout_marginTop="16dp"
         android:background="@color/colorWhite">
 
         <TextView
-            android:id="@+id/texttview1"
+            android:id="@+id/texttview3"
             style="@style/Black16sptv"
             android:layout_centerVertical="true"
             android:paddingLeft="16dp"
-            android:text="原手机号码" />
+            android:text="手机号"
+            android:gravity="center"
+            android:drawableRight="@drawable/text_cv_vertical_gray_line"
+            android:drawablePadding="8dp"/>
 
-        <TextView
-            android:id="@+id/person_change_phone_original_phone_tv"
-            style="@style/Black16sptv"
+
+        <EditText
+            android:id="@+id/forget_pwd_first_phone_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_centerVertical="true"
+            android:paddingTop="8dp"
+            android:layout_marginRight="8dp"
             android:layout_marginLeft="8dp"
-            android:layout_toEndOf="@+id/texttview1"
-            android:layout_toRightOf="@+id/texttview1"
-            android:text="12333" />
+            android:background="@drawable/text_cv_et_bg"
+            android:layout_toRightOf="@id/texttview3" />
 
     </RelativeLayout>
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="16dp"
         android:layout_weight="48"
         android:background="@color/colorWhite">
 
@@ -79,7 +83,7 @@
             android:drawableRight="@drawable/text_cv_vertical_gray_line"/>
 
         <Button
-            android:id="@+id/person_change_phone_code_bt"
+            android:id="@+id/forget_pwd_first_code_bt"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:paddingLeft="22dp"
@@ -97,7 +101,7 @@
             />
 
         <EditText
-            android:id="@+id/person_change_phone_code_et"
+            android:id="@+id/forget_pwd_first_code_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="8dp"
@@ -105,40 +109,9 @@
             android:layout_marginLeft="8dp"
             android:layout_centerVertical="true"
             android:background="@drawable/text_cv_et_bg"
-            android:layout_toLeftOf="@id/person_change_phone_code_bt"
+            android:layout_toLeftOf="@id/forget_pwd_first_code_bt"
             android:layout_toRightOf="@id/texttview2"/>
 
     </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="48"
-        android:background="@color/colorWhite">
-
-        <TextView
-            android:id="@+id/texttview3"
-            style="@style/Black16sptv"
-            android:layout_centerVertical="true"
-            android:paddingLeft="16dp"
-            android:text="新手机号码"
-            android:gravity="center"
-            android:drawableRight="@drawable/text_cv_vertical_gray_line"
-            android:drawablePadding="8dp"/>
-
-
-        <EditText
-            android:id="@+id/person_change_phone_new_phone_et"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:paddingTop="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginLeft="8dp"
-            android:background="@drawable/text_cv_et_bg"
-            android:layout_toRightOf="@id/texttview3" />
-
-    </RelativeLayout>
-
 
 </LinearLayout>

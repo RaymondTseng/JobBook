@@ -53,7 +53,7 @@ public class ImageLoadUtils {
 //                .error(R.drawable.ic_image_loadfail).crossFade().into(imageView);
 //        Log.i("image_url", url);
 //        Glide.with(context).load(url).diskCacheStrategy(DiskCacheStrategy.ALL).skipMemoryCache(true).crossFade(100).into(imageView);
-        Glide.with(context).load(url).diskCacheStrategy(DiskCacheStrategy.NONE).skipMemoryCache(false).into(imageView);
+        Glide.with(context).load(url).diskCacheStrategy(DiskCacheStrategy.NONE).skipMemoryCache(true).into(imageView);
     }
 
 }
