@@ -68,7 +68,7 @@ public class QuestionDetailListViewAdapter extends BaseAdapter{
             mViewHolder = (ViewHolder) view.getTag();
         }
         mViewHolder.mContent.setText(questionComment.getContent());
-        mViewHolder.mFloor.setText(position + "");
+        mViewHolder.mFloor.setText(position + 1  + "");
         mViewHolder.mLike.setText(questionComment.getGood() + "");
 //        mViewHolder.mLogo
         mViewHolder.mName.setText(questionComment.getApplier().getUsername());
