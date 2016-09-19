@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class QuestionDetailPresenterImpl implements QuestionDetailPresenter,
         QuestionDetailModelImpl.OnLoadQuestionCommentsListener, QuestionDetailModelImpl.OnLoadQuestionListener,
-    QuestionDetailModelImpl.OnSendQuestionCommentListener{
+    QuestionDetailModelImpl.OnSendQuestionCommentListener, QuestionDetailModelImpl.OnLikeListener, QuestionDetailModelImpl.OnUnlikeListener{
     private QuestionDetailView mView;
     private QuestionDetailModel mModel;
 
@@ -40,6 +40,7 @@ public class QuestionDetailPresenterImpl implements QuestionDetailPresenter,
         mView.sendSuccess();
     }
 
+
     @Override
     public void onFailure(String msg, Exception e, int error) {
         mView.hideProgress();
@@ -63,5 +64,41 @@ public class QuestionDetailPresenterImpl implements QuestionDetailPresenter,
     public void sendComment(QuestionCommentBean questionCommentBean) {
         mView.showProgress();
         mModel.sendComment(questionCommentBean, this);
+    }
+
+    @Override
+    public void commentLike(int com_id, String account) {
+        mView.showProgress();
+        mModel.commentLike(com_id, account, this);
+    }
+
+    @Override
+    public void commentUnlike(int com_id, String account) {
+        mView.showProgress();
+        mModel.commentUnlike(com_id, account, this);
+    }
+
+    @Override
+    public void onLikeSuccess(int num_like, int num_unlike) {
+        mView.hideProgress();
+        mView.commentLikeSuccess(num_like, num_unlike);
+    }
+
+    @Override
+    public void onLikeFailure(String msg, Exception e, int error) {
+        mView.hideProgress();
+        mView.commentLikeFailure(msg);
+    }
+
+    @Override
+    public void onUnlikeSuccess(int num_like, int num_unlike) {
+        mView.hideProgress();
+        mView.commentUnlikeSuccess(num_like, num_unlike);
+    }
+
+    @Override
+    public void onUnlikeFailure(String msg, Exception e, int error) {
+        mView.hideProgress();
+        mView.commentUnlikeFailure(msg);
     }
 }

@@ -56,6 +56,7 @@ public class UploadModelImpl implements UploadModel {
                 }
             });
         }
+        bm.recycle();
 
     }
 

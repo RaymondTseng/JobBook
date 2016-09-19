@@ -29,4 +29,12 @@ public interface QuestionDetailView {
     void noLoginError();
 
     void sendComment(String comment);
+
+    void commentLikeSuccess(int num_like, int num_unlike);
+
+    void commentLikeFailure(String msg);
+
+    void commentUnlikeSuccess(int num_like, int num_unlike);
+
+    void commentUnlikeFailure(String msg);
 }

@@ -7,7 +7,7 @@ public class Urls {
 
     public static final int PAZE_SIZE = 10;
 
-    public static final String IP = "http://192.168.203.217";
+    public static final String IP = "http://192.168.203.205";
 
     public static final String REGISTER_URL = IP + "/jobBook/Home/enter/doRegister/";
 
@@ -58,5 +58,7 @@ public class Urls {
     public static final String CHECK_ACCOUNT_URL = IP + "/jobBook/index.php/Home/enter/checkforget/account/";
 
     public static final String CHANGE_PWD_URL = IP + "/jobBook/index.php/Home/enter/forgetpsw/account/";
+
+    public static final String COMMENT_LIKE_AND_UNLIKE = IP + "/jobBook/Home/question/deal/";
 
 }

@@ -3,19 +3,14 @@ package com.example.jobbook.register.widget;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import com.example.jobbook.util.L;
-import android.view.LayoutInflater;
+
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.example.jobbook.MyApplication;
 import com.example.jobbook.R;
@@ -26,7 +21,6 @@ import com.example.jobbook.main.widget.MainActivity;
 import com.example.jobbook.register.presenter.RegisterPresenter;
 import com.example.jobbook.register.presenter.RegisterPresenterImpl;
 import com.example.jobbook.register.view.RegisterView;
-import com.example.jobbook.util.ImageLoadUtils;
 import com.example.jobbook.util.Util;
 import com.jude.smssdk_mob.SMSManager;
 import com.jude.smssdk_mob.TimeListener;
@@ -51,7 +45,7 @@ public class RegisterActivity extends Activity implements RegisterView, View.OnC
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_register);
+        setContentView(R.layout.activity_register);
         initViews();
         initEvents();
     }
@@ -176,7 +170,7 @@ public class RegisterActivity extends Activity implements RegisterView, View.OnC
     }
 
     private void showSnackbar(String content) {
-        View view = this.findViewById(R.id.main_layout);
+        View view = this.findViewById(R.id.activity_register_layout);
         final Snackbar snackbar = Snackbar.make(view, content, Snackbar.LENGTH_LONG);
         snackbar.setAction("dismiss", new View.OnClickListener() {
 

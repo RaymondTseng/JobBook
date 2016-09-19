@@ -105,12 +105,12 @@ public class JobDetailActivity extends Activity implements View.OnClickListener,
 
                 if (jobDetailBean.isIfLike() == 0) {
                     L.i("like_ib_click", "click like");
-                    mLikeImageButton.setImageResource(R.mipmap.favourite_tapped);
+//                    mLikeImageButton.setImageResource(R.mipmap.favourite_tapped);
                     like(jobBean.getId());
 
                 } else {
                     L.i("like_ib_click", "click unlike");
-                    mLikeImageButton.setImageResource(R.mipmap.favourite_white);
+//                    mLikeImageButton.setImageResource(R.mipmap.favourite_white);
                     unlike(jobBean.getId());
                 }
                 refresh();
@@ -208,11 +208,14 @@ public class JobDetailActivity extends Activity implements View.OnClickListener,
 
     @Override
     public void likeSuccess() {
+        // Todo 点赞功能
+        mLikeImageButton.setImageResource(R.mipmap.favourite_tapped);
         showSnackbar("收藏成功！");
     }
 
     @Override
     public void unlikeSuccess() {
+        mLikeImageButton.setImageResource(R.mipmap.favourite_white);
         showSnackbar("取消收藏成功！");
     }
 
@@ -258,7 +261,7 @@ public class JobDetailActivity extends Activity implements View.OnClickListener,
 
     private void refresh() {
         try {
-            Thread.sleep(1000);
+            Thread.sleep(500);
         } catch (Exception e) {
             e.printStackTrace();
         }

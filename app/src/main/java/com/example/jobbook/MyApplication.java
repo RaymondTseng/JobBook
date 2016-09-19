@@ -8,6 +8,7 @@ import com.example.jobbook.util.L;
 
 import com.example.jobbook.bean.PersonBean;
 import com.example.jobbook.util.Util;
+import com.squareup.leakcanary.LeakCanary;
 import com.zhy.http.okhttp.OkHttpUtils;
 
 import java.util.LinkedList;
@@ -119,6 +120,9 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        // 内存泄漏检测工具
+        LeakCanary.install(this);
 
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
 //                .addInterceptor(new LoggerInterceptor("TAG"))

@@ -43,7 +43,7 @@ public class LoginModelImpl implements LoginModel {
                         PersonBean personBean = new Gson().fromJson(resultBean.getResponse(), PersonBean.class);
                         listener.onSuccess(personBean);
                     }else{
-                        if (resultBean.getResponse().equals("Error!")) {
+                        if (resultBean.getResponse().equals("Login Error!")) {
                             listener.onUserError();
                         } else {
                             listener.onNetWorkError();

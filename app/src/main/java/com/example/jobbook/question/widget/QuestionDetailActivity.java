@@ -4,6 +4,10 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.text.TextUtils;
+
+import com.example.jobbook.main.widget.MainActivity;
+import com.example.jobbook.question.QuestionDetailListViewAdapter;
+import com.example.jobbook.util.ImageLoadUtils;
 import com.example.jobbook.util.L;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +20,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.jobbook.MyApplication;
 import com.example.jobbook.R;
@@ -23,7 +28,8 @@ import com.example.jobbook.bean.QuestionBean;
 import com.example.jobbook.bean.QuestionCommentBean;
 import com.example.jobbook.bean.QuestionDetailBean;
 import com.example.jobbook.question.ExpandListView;
-import com.example.jobbook.question.QuestionDetailListViewAdapter;
+import com.example.jobbook.question.QuestionDetailListViewAdapter.OnUnlikeClickListener;
+import com.example.jobbook.question.QuestionDetailListViewAdapter.OnLikeClickListener;
 import com.example.jobbook.question.presenter.QuestionDetailPresenter;
 import com.example.jobbook.question.presenter.QuestionDetailPresenterImpl;
 import com.example.jobbook.question.view.QuestionDetailView;
@@ -76,7 +82,7 @@ public class QuestionDetailActivity extends Activity implements QuestionDetailVi
         mQuestionUserNameTextView = (TextView) mHeadView.findViewById(R.id.question_detail_user_name_tv);
         mQuestionTimeTextView = (TextView) mHeadView.findViewById(R.id.question_detail_time_tv);
         mQuestionUserLogoImageView = (ImageView) findViewById(R.id.question_detail_user_logo_iv);
-        mRootView = (View) findViewById(R.id.question_detail_root_ll);
+        mRootView = findViewById(R.id.question_detail_root_ll);
         mTitleBarLayout = (RelativeLayout) findViewById(R.id.question_detail_title_bar);
         mInputLayout = (LinearLayout) findViewById(R.id.question_detail_input_ll);
         mLoadingLinearLayout = (LinearLayout) findViewById(R.id.loading_circle_progress_bar_ll);
@@ -97,6 +103,27 @@ public class QuestionDetailActivity extends Activity implements QuestionDetailVi
         mSendImageButton.setOnClickListener(this);
         mRootView.addOnLayoutChangeListener(this);
         mListView.setAdapter(mAdapter);
+        mAdapter.setOnLikeClickListener(new OnLikeClickListener() {
+            @Override
+            public void onLikeClickListener(int com_id) {
+                if (MyApplication.getmLoginStatus() == 0) {
+                    Toast.makeText(QuestionDetailActivity.this, "请先登录！", Toast.LENGTH_LONG).show();
+                }else {
+                    mPresenter.commentLike(com_id, MyApplication.getAccount());
+                }
+            }
+        });
+        mAdapter.setOnUnlikeClickListener(new OnUnlikeClickListener() {
+            @Override
+            public void onUnlikeClickListener(int com_id) {
+                if (MyApplication.getmLoginStatus() == 0) {
+                    Toast.makeText(QuestionDetailActivity.this, "请先登录！", Toast.LENGTH_LONG).show();
+                }else {
+//                    L.i("questiondetail", "comment unlike" + com_id);
+                    mPresenter.commentUnlike(com_id, MyApplication.getAccount());
+                }
+            }
+        });
     }
 
     @Override
@@ -110,7 +137,7 @@ public class QuestionDetailActivity extends Activity implements QuestionDetailVi
         mQuestionContentTextView.setText(mQuestion.getContent());
         mQuestionUserNameTextView.setText(mQuestion.getAuthor().getUsername());
         mQuestionTimeTextView.setText(mQuestion.getDate());
-//        mQuestionUserLogoImageView
+//        ImageLoadUtils.display(this, mQuestionUserLogoImageView, mQuestion.getAuthor().getHead());
     }
 
     @Override
@@ -189,6 +216,30 @@ public class QuestionDetailActivity extends Activity implements QuestionDetailVi
             questionCommentBean.setQ_id(questionBean.getId());
             mPresenter.sendComment(questionCommentBean);
         }
+    }
+
+    @Override
+    public void commentLikeSuccess(int num_like, int num_unlike) {
+        Toast.makeText(QuestionDetailActivity.this, "评论点赞成功！", Toast.LENGTH_LONG).show();
+        mPresenter.loadQuestionComments(questionBean.getId());
+        L.i("comment_like_success", "good:" + num_like + "bad:" + num_unlike);
+    }
+
+    @Override
+    public void commentLikeFailure(String msg) {
+        Toast.makeText(QuestionDetailActivity.this, "您已经点过啦！", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void commentUnlikeSuccess(int num_like, int num_unlike) {
+        Toast.makeText(QuestionDetailActivity.this, "评论踩成功！", Toast.LENGTH_LONG).show();
+        mPresenter.loadQuestionComments(questionBean.getId());
+        L.i("comment_like_success", "good:" + num_like + "bad:" + num_unlike);
+    }
+
+    @Override
+    public void commentUnlikeFailure(String msg) {
+        Toast.makeText(QuestionDetailActivity.this, "您已经点过啦！", Toast.LENGTH_LONG).show();
     }
 
     @Override

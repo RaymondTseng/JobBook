@@ -188,7 +188,7 @@ public class UserDetailActivity extends Activity implements View.OnClickListener
         L.i("photo", "loadHead1");
         mMyApplication.getHandler().sendEmptyMessage(2);
         mUserHeadImageView.setImageBitmap(bm);
-
+        bm.recycle();
 //        this.onCreate(null);
     }
 

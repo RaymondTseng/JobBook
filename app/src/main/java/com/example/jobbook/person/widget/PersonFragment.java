@@ -9,10 +9,14 @@ import android.os.Message;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import com.example.jobbook.util.L;
+
+import android.view.Display;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -181,9 +185,14 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
     private void createLogoutDialog() {
         final AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
         alertDialog.show();
-        alertDialog.setCancelable(true);
+        alertDialog.setCanceledOnTouchOutside(true);
         Window window = alertDialog.getWindow();
-        window.setLayout(Util.dip2px(getActivity(), Util.getWidth(getActivity()) * 1 / 4), Util.dip2px(getActivity(), Util.getHeight(getActivity()) * 1 / 13));
+        window.setGravity(Gravity.CENTER);
+        WindowManager.LayoutParams p = window.getAttributes(); // 获取对话框当前的参数值
+        p.width = Util.dip2px(getActivity(), 280);
+        p.height = Util.dip2px(getActivity(), 109);
+//        window.setLayout(Util.dip2px(getActivity(), Util.getWidth(getActivity()) * 1 / 4), Util.dip2px(getActivity(), Util.getHeight(getActivity()) * 1 / 13));
+        window.setAttributes(p);
         window.setContentView(R.layout.logout_sure_layout);
         TextView mSureTextView = (TextView) window.findViewById(R.id.logout_sure_tv);
         TextView mCancelTextView = (TextView) window.findViewById(R.id.logout_cancel_tv);

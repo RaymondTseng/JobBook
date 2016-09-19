@@ -12,4 +12,9 @@ public interface QuestionDetailModel {
     void loadQuestion(QuestionBean questionBean, QuestionDetailModelImpl.OnLoadQuestionListener mListener);
 
     void sendComment(QuestionCommentBean questionCommentBean, QuestionDetailModelImpl.OnSendQuestionCommentListener mListener);
+
+    void commentLike(int com_id, String account, QuestionDetailModelImpl.OnLikeListener listener);
+
+    void commentUnlike(int com_id, String account, QuestionDetailModelImpl.OnUnlikeListener listener);
+
 }
