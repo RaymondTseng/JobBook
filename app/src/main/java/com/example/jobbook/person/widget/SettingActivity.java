@@ -3,8 +3,10 @@ package com.example.jobbook.person.widget;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -68,11 +70,16 @@ public class SettingActivity extends Activity implements View.OnClickListener {
     }
 
     private void createCacheDialog() {
-        final AlertDialog alertDialog = new AlertDialog.Builder(SettingActivity.this).create();
+        final AlertDialog alertDialog = new AlertDialog.Builder(this).create();
         alertDialog.show();
-        alertDialog.setCancelable(true);
+        alertDialog.setCanceledOnTouchOutside(true);
         Window window = alertDialog.getWindow();
-        window.setLayout(Util.dip2px(SettingActivity.this, 315), Util.dip2px(SettingActivity.this, 137));
+        window.setGravity(Gravity.CENTER);
+        WindowManager.LayoutParams p = window.getAttributes(); // 获取对话框当前的参数值
+        p.width = Util.dip2px(this, 280);
+        p.height = Util.dip2px(this, 109);
+//        window.setLayout(Util.dip2px(this, Util.getWidth(this) * 1 / 4), Util.dip2px(this, Util.getHeight(this) * 1 / 13));
+        window.setAttributes(p);
         window.setContentView(R.layout.clear_cache_layout);
         TextView mSureTextView = (TextView) window.findViewById(R.id.clear_cache_sure_tv);
         TextView mCancelTextView = (TextView) window.findViewById(R.id.clear_cache_cancel_tv);

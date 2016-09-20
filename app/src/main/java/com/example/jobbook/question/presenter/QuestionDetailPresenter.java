@@ -12,4 +12,9 @@ public interface QuestionDetailPresenter {
     void loadQuestionComments(int id);
 
     void sendComment(QuestionCommentBean questionCommentBean);
+
+    void commentLike(int com_id, String account);
+
+    void commentUnlike(int com_id, String account);
+
 }

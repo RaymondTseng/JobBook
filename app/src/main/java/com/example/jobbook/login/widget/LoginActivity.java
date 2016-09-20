@@ -1,15 +1,12 @@
 package com.example.jobbook.login.widget;
 
 import android.app.Activity;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
+
 import com.example.jobbook.util.L;
-import android.view.LayoutInflater;
+
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -43,7 +40,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, Log
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_login);
+        setContentView(R.layout.activity_login);
         initView();
         presenter = new LoginPresenterImpl(this);
         mLoadingLinearLayout.setVisibility(View.GONE);
@@ -135,7 +132,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, Log
     }
 
     private void showSnackbar(String content) {
-        View view = this.findViewById(R.id.main_layout);
+        View view = this.findViewById(R.id.activity_login_layout);
         final Snackbar snackbar = Snackbar.make(view, content, Snackbar.LENGTH_LONG);
         snackbar.setAction("dismiss", new View.OnClickListener() {
 

@@ -1,7 +1,10 @@
 package com.example.jobbook.question;
 
 import android.content.Context;
+
+import com.example.jobbook.util.ImageLoadUtils;
 import com.example.jobbook.util.L;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,19 +22,22 @@ import java.util.List;
 /**
  * Created by 椰树 on 2016/7/15.
  */
-public class QuestionDetailListViewAdapter extends BaseAdapter{
+public class QuestionDetailListViewAdapter extends BaseAdapter {
     private Context mContext;
     private List<QuestionCommentBean> mData;
 
-    private OnItemClickListener onItemClickListener;
-    public QuestionDetailListViewAdapter(Context mContext){
+    private OnLikeClickListener onLikeClickListener;
+    private OnUnlikeClickListener onUnlikeClickListener;
+
+    public QuestionDetailListViewAdapter(Context mContext) {
         this.mContext = mContext;
     }
 
-    public void updateData(List<QuestionCommentBean> mData){
+    public void updateData(List<QuestionCommentBean> mData) {
         this.mData = mData;
         this.notifyDataSetChanged();
     }
+
     @Override
     public int getCount() {
         return mData == null ? 0 : mData.size();
@@ -51,8 +57,8 @@ public class QuestionDetailListViewAdapter extends BaseAdapter{
     public View getView(int position, View convertView, ViewGroup parent) {
         View view;
         ViewHolder mViewHolder;
-        QuestionCommentBean questionComment = mData.get(position);
-        if(convertView == null){
+        final QuestionCommentBean questionComment = mData.get(position);
+        if (convertView == null) {
             view = LayoutInflater.from(mContext).inflate(R.layout.question_detail_listview_item, null);
             mViewHolder = new ViewHolder();
             mViewHolder.mContent = (TextView) view.findViewById(R.id.question_detail_lv_content_tv);
@@ -63,29 +69,49 @@ public class QuestionDetailListViewAdapter extends BaseAdapter{
             mViewHolder.mTime = (TextView) view.findViewById(R.id.question_detail_lv_time_tv);
             mViewHolder.mUnlike = (TextView) view.findViewById(R.id.question_detail_lv_unlike_tv);
             view.setTag(mViewHolder);
-        }else{
+        } else {
             view = convertView;
             mViewHolder = (ViewHolder) view.getTag();
         }
         mViewHolder.mContent.setText(questionComment.getContent());
         mViewHolder.mFloor.setText(position + 1  + "");
         mViewHolder.mLike.setText(questionComment.getGood() + "");
-//        mViewHolder.mLogo
+        ImageLoadUtils.display(mContext, mViewHolder.mLogo, questionComment.getApplier().getHead());
         mViewHolder.mName.setText(questionComment.getApplier().getUsername());
         mViewHolder.mTime.setText(questionComment.getAsk_time());
         mViewHolder.mUnlike.setText(questionComment.getBad() + "");
+        mViewHolder.mLike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onLikeClickListener.onLikeClickListener(questionComment.getComment_id());
+            }
+        });
+        mViewHolder.mUnlike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onUnlikeClickListener.onUnlikeClickListener(questionComment.getComment_id());
+            }
+        });
         return view;
     }
 
-    public interface OnItemClickListener{
-        void onItemClickListener(int position);
+    public interface OnLikeClickListener {
+        void onLikeClickListener(int com_id);
     }
 
-    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
-        this.onItemClickListener = onItemClickListener;
+    public interface OnUnlikeClickListener {
+        void onUnlikeClickListener(int com_id);
     }
 
-    class ViewHolder{
+    public void setOnLikeClickListener(OnLikeClickListener onLikeClickListener) {
+        this.onLikeClickListener = onLikeClickListener;
+    }
+
+    public void setOnUnlikeClickListener(OnUnlikeClickListener onUnlikeClickListener) {
+        this.onUnlikeClickListener = onUnlikeClickListener;
+    }
+
+    class ViewHolder {
         ImageView mLogo;
         TextView mName;
         TextView mContent;
@@ -93,8 +119,5 @@ public class QuestionDetailListViewAdapter extends BaseAdapter{
         TextView mFloor;
         TextView mLike;
         TextView mUnlike;
-        int position;
-
-
     }
 }

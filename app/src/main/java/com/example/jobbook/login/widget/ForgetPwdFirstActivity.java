@@ -15,7 +15,6 @@ import com.example.jobbook.R;
 import com.example.jobbook.login.presenter.ForgetPwdFirstPresenter;
 import com.example.jobbook.login.presenter.ForgetPwdFirstPresenterImpl;
 import com.example.jobbook.login.view.ForgetPwdFirstView;
-import com.example.jobbook.main.widget.ContainerFragment;
 import com.example.jobbook.util.Util;
 import com.jude.smssdk_mob.SMSManager;
 import com.jude.smssdk_mob.TimeListener;
