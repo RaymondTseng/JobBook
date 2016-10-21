@@ -4,14 +4,11 @@ import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Handler;
-import com.example.jobbook.util.L;
 
 import com.example.jobbook.bean.PersonBean;
 import com.example.jobbook.util.Util;
-import com.squareup.leakcanary.LeakCanary;
 import com.zhy.http.okhttp.OkHttpUtils;
 
-import java.util.LinkedList;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
@@ -122,7 +119,7 @@ public class MyApplication extends Application {
         super.onCreate();
 
         // 内存泄漏检测工具
-        LeakCanary.install(this);
+//        LeakCanary.install(this);
 
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
 //                .addInterceptor(new LoggerInterceptor("TAG"))

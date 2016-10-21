@@ -67,7 +67,7 @@
 
         <TextView
             style="@style/Black12sptv"
-            android:text="用户名" />
+            android:text="账号/手机号" />
         />
 
         <EditText

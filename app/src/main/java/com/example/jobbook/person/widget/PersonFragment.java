@@ -1,16 +1,11 @@
 package com.example.jobbook.person.widget;
 
-import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import com.example.jobbook.util.L;
-
-import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,8 +25,8 @@ import com.example.jobbook.cv.widget.TextCVActivity;
 import com.example.jobbook.feedback.widget.FeedBackActivity;
 import com.example.jobbook.login.widget.LoginActivity;
 import com.example.jobbook.person.view.PersonView;
-import com.example.jobbook.util.DataCleanManager;
 import com.example.jobbook.util.ImageLoadUtils;
+import com.example.jobbook.util.L;
 import com.example.jobbook.util.Util;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -46,7 +41,7 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
     private static int REFRESH_HEAD = 2;
     private ListView mListView;
     private ImageButton mSettingImageButton;
-//    private IPersonChanged mIPersonChanged;
+    //    private IPersonChanged mIPersonChanged;
     private Button mSwitchPerson2LoginButton;
     private Button mSwitch2FeedBackButton;
     private Button mFavouriteButton;
@@ -62,9 +57,9 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
         public void handleMessage(Message msg) {
             if (msg.what == REFRESH) {
                 showSnackbar("保存成功！");
-            }else if(msg.what == REFRESH_NAME){
+            } else if (msg.what == REFRESH_NAME) {
                 mNameTextView.setText(MyApplication.getmPersonBean(getActivity()).getUsername());
-            }else if(msg.what == REFRESH_HEAD){
+            } else if (msg.what == REFRESH_HEAD) {
                 onRefreshHead();
             }
         }
@@ -120,10 +115,8 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
 //        Bundle bundle = (Bundle) getArguments();
 //        PersonBean personBean = (PersonBean) bundle.getSerializable("PersonBean");
         personBean = MyApplication.getmPersonBean(getActivity());
-        if (personBean != null) {
-            mNameTextView.setText(personBean.getUsername());
-            ImageLoadUtils.display(getActivity(), mCircleImageView, personBean.getHead(), 0);
-        }
+        mNameTextView.setText(personBean.getUsername());
+        ImageLoadUtils.display(getActivity(), mCircleImageView, personBean.getHead(), 0);
     }
 
     @Override
@@ -156,7 +149,7 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
 //        void switchPerson2Login();
 //    }
 
-    private void showSnackbar(String content){
+    private void showSnackbar(String content) {
         View view = getActivity().findViewById(R.id.main_layout);
         final Snackbar snackbar = Snackbar.make(view, content, Snackbar.LENGTH_LONG);
         snackbar.setAction("dismiss", new View.OnClickListener() {
