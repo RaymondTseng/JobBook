@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import com.example.jobbook.util.L;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -16,7 +15,6 @@ import android.widget.Toast;
 import com.example.jobbook.R;
 import com.example.jobbook.bean.JobBean;
 import com.example.jobbook.commons.Urls;
-import com.example.jobbook.job.JobsAdapter;
 import com.example.jobbook.job.widget.JobDetailActivity;
 import com.example.jobbook.main.widget.MainActivity;
 import com.example.jobbook.search.SearchJobsAdapter;
@@ -24,6 +22,7 @@ import com.example.jobbook.search.presenter.SearchPresenter;
 import com.example.jobbook.search.presenter.SearchPresenterImpl;
 import com.example.jobbook.search.view.SearchView;
 import com.example.jobbook.util.DividerItemDecoration;
+import com.example.jobbook.util.L;
 import com.example.jobbook.util.Util;
 
 import java.util.ArrayList;
@@ -104,7 +103,7 @@ public class SearchActivity extends Activity implements View.OnClickListener, Se
         if(list == null){
             list = new ArrayList<>();
         }
-        list.addAll(jobList);
+        list = jobList;
         if(pageIndex == 0) {
             adapter.updateData(list);
         } else {
@@ -120,7 +119,12 @@ public class SearchActivity extends Activity implements View.OnClickListener, Se
 
     @Override
     public void getSearchError() {
+        Toast.makeText(SearchActivity.this, "搜索错误！", Toast.LENGTH_LONG).show();
+    }
 
+    @Override
+    public void getSearchEmpty() {
+        Toast.makeText(SearchActivity.this, "无结果！", Toast.LENGTH_LONG).show();
     }
 
     private SearchJobsAdapter.OnItemClickListener mOnItemClickListener = new SearchJobsAdapter.OnItemClickListener() {
@@ -140,7 +144,6 @@ public class SearchActivity extends Activity implements View.OnClickListener, Se
         public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
             super.onScrolled(recyclerView, dx, dy);
             lastVisibleItem = mLayoutManager.findLastVisibleItemPosition();
-            presenter.search(mSearchContent, pageIndex);
         }
 
         @Override
