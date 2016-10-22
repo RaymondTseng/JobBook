@@ -1,7 +1,5 @@
 package com.example.jobbook.search.model;
 
-import com.example.jobbook.util.L;
-
 import com.example.jobbook.bean.JobBean;
 import com.example.jobbook.bean.ResultBean;
 import com.example.jobbook.commons.Urls;
@@ -26,7 +24,7 @@ public class SearchModelImpl implements SearchModel {
         OkHttpUtils.postString().content(String.valueOf(pageIndex)).url(Urls.SEARCH_URL + content).build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
-                listener.onFaliure("network error", e);
+                listener.onSearchFaliure("network error", e);
             }
 
             @Override
@@ -34,11 +32,15 @@ public class SearchModelImpl implements SearchModel {
                 L.i("response:", "result:" + response);
                 ResultBean resultBean = new Gson().fromJson(response, ResultBean.class);
                 if (resultBean.getStatus().equals("true")) {
-                    List<JobBean> list = new Gson().fromJson(resultBean.getResponse(), new TypeToken<List<JobBean>>() {
-                    }.getType());
-                    listener.onSuccess(list);
+                    if (resultBean.getResponse() != null) {
+                        List<JobBean> list = new Gson().fromJson(resultBean.getResponse(), new TypeToken<List<JobBean>>() {
+                        }.getType());
+                        listener.onSuccess(list);
+                    } else {
+                        listener.onSearchEmpty("", new Exception());
+                    }
                 } else {
-                    listener.onFaliure(resultBean.getResponse(), new Exception());
+                    listener.onSearchFaliure(resultBean.getResponse(), new Exception());
                 }
             }
         });
@@ -47,6 +49,8 @@ public class SearchModelImpl implements SearchModel {
     public interface OnSearchListener {
         void onSuccess(List<JobBean> list);
 
-        void onFaliure(String msg, Exception e);
+        void onSearchFaliure(String msg, Exception e);
+
+        void onSearchEmpty(String msg, Exception e);
     }
 }

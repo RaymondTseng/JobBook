@@ -17,4 +17,6 @@ public interface SearchView {
 
     void getSearchError();
 
+    void getSearchEmpty();
+
 }
