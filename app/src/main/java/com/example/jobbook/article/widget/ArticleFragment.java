@@ -166,7 +166,7 @@ public class ArticleFragment extends Fragment implements ArticleView, View.OnCli
             adapter.setmShowFooter(false);
             adapter.notifyDataSetChanged();
         }
-        view = view == null ? mRecyclerView.getRootView() : getActivity().findViewById(R.id.main_layout);
+        view = (view == null ? mRecyclerView.getRootView() : getActivity().findViewById(R.id.main_layout));
         final Snackbar snackbar = Snackbar.make(view, "干货读取错误，请重试！", Snackbar.LENGTH_LONG);
         snackbar.setAction("dismiss", new View.OnClickListener() {
 

@@ -26,14 +26,14 @@ public class MyApplication extends Application {
 
     private Handler handler = null;
 
-    public static PersonBean getmPersonBean(Context context) {
-        if (mPersonBean != null) {
-            return mPersonBean;
-        } else {
-            SharedPreferences sharedPreferences = context.getSharedPreferences("user", MODE_PRIVATE);
-            return Util.loadPersonBean(sharedPreferences);
-        }
-    }
+//    public static PersonBean getmPersonBean(Context context) {
+//        if (mPersonBean != null) {
+//            return mPersonBean;
+//        } else {
+//            SharedPreferences sharedPreferences = context.getSharedPreferences("user", MODE_PRIVATE);
+//            return Util.loadPersonBean(sharedPreferences);
+//        }
+//    }
 
     public static PersonBean getmPersonBean() {
         if (mPersonBean != null) {
@@ -42,6 +42,11 @@ public class MyApplication extends Application {
         return null;
     }
 
+    /**
+     * set mPersonBean,save LoginStatus
+     * @param context
+     * @param personBean
+     */
     public static void setmPersonBean(Context context, PersonBean personBean) {
         if (personBean != null) {
             mPersonBean = personBean;
@@ -129,6 +134,8 @@ public class MyApplication extends Application {
                 .build();
 
         OkHttpUtils.initClient(okHttpClient);
-
+        Context context = this.getApplicationContext();
+        SharedPreferences sharedPreferences = context.getSharedPreferences("user", MODE_PRIVATE);
+        MyApplication.setmPersonBean(context, Util.loadPersonBean(sharedPreferences));
     }
 }

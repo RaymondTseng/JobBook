@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -58,7 +59,7 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
             if (msg.what == REFRESH) {
                 showSnackbar("保存成功！");
             } else if (msg.what == REFRESH_NAME) {
-                mNameTextView.setText(MyApplication.getmPersonBean(getActivity()).getUsername());
+                mNameTextView.setText(MyApplication.getmPersonBean().getUsername());
             } else if (msg.what == REFRESH_HEAD) {
                 onRefreshHead();
             }
@@ -114,9 +115,11 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
     public void showPersonData() {
 //        Bundle bundle = (Bundle) getArguments();
 //        PersonBean personBean = (PersonBean) bundle.getSerializable("PersonBean");
-        personBean = MyApplication.getmPersonBean(getActivity());
-        mNameTextView.setText(personBean.getUsername());
-        ImageLoadUtils.display(getActivity(), mCircleImageView, personBean.getHead(), 0);
+        if(MyApplication.getmLoginStatus() != 0){
+            personBean = MyApplication.getmPersonBean();
+            mNameTextView.setText(personBean.getUsername());
+            ImageLoadUtils.display(getActivity(), mCircleImageView, personBean.getHead(), 0);
+        }
     }
 
     @Override

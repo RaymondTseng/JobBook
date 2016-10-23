@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.design.widget.Snackbar;
 import com.example.jobbook.util.L;
 
@@ -33,6 +34,7 @@ import com.example.jobbook.upload.UploadPopupWindow;
 import com.example.jobbook.util.ImageLoadUtils;
 import com.example.jobbook.util.Util;
 
+import java.io.IOException;
 import java.net.URI;
 import java.net.URL;
 
@@ -51,7 +53,7 @@ public class UserDetailActivity extends Activity implements View.OnClickListener
 //    private Button mChangePhoneButton;
     private Button mChangePwdButton;
     private UploadPopupWindow mPopupWindow;
-    private PersonBean mPersonBean = MyApplication.getmPersonBean(this);
+    private PersonBean mPersonBean = MyApplication.getmPersonBean();
     private UploadPresenter presenter;
     private LinearLayout mLoadingLinearLayout;
     private MyApplication mMyApplication;
@@ -87,6 +89,7 @@ public class UserDetailActivity extends Activity implements View.OnClickListener
         mMyApplication = (MyApplication) getApplication();
         mUri = null;
         presenter = new UploadPresenterImpl(this);
+
     }
 
     @Override
@@ -142,6 +145,7 @@ public class UserDetailActivity extends Activity implements View.OnClickListener
     private CropUtils.CropHandler handler = new CropUtils.CropHandler() {
         @Override
         public void handleCropResult(Uri uri, int tag) {
+            //send Image to Server
             sendImage(UploadManager.getBitmapFromUri(getApplicationContext(), uri));
             mUri = uri;
 //            ImageLoadUtils.display(UserDetailActivity.this , mUserHeadImageView, uri);
@@ -185,9 +189,10 @@ public class UserDetailActivity extends Activity implements View.OnClickListener
 
     @Override
     public void loadHead(Bitmap bm) {
-        L.i("photo", "loadHead1");
+        L.i("photo", "loadHead1:" + mUri.toString());
         mMyApplication.getHandler().sendEmptyMessage(2);
-        mUserHeadImageView.setImageBitmap(bm);
+//        mUserHeadImageView.setImageBitmap(bm);
+        mUserHeadImageView.setImageURI(mUri);
         bm.recycle();
 //        this.onCreate(null);
     }
