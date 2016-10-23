@@ -32,7 +32,7 @@ public class UpdateModelImpl implements UpdateModel {
             listener.onNewPwdBlankError();
         } else if (TextUtils.isEmpty(nPwdConfirm)) {
             listener.onConfirmPwdBlankError();
-        } else if (!Util.getMD5(oPwd).equals(MyApplication.getmPersonBean(context).getPassword())) {
+        } else if (!Util.getMD5(oPwd).equals(MyApplication.getmPersonBean().getPassword())) {
             listener.onOriginalPwdError();
         } else if (!nPwd.equals(nPwdConfirm)) {
             listener.onPwdConfirmError();
