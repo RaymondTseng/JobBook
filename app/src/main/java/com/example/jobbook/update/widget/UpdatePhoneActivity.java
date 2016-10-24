@@ -3,8 +3,6 @@ package com.example.jobbook.update.widget;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
-import com.example.jobbook.util.L;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,6 +16,7 @@ import com.example.jobbook.person.widget.UserDetailActivity;
 import com.example.jobbook.update.presenter.UpdatePhonePresenter;
 import com.example.jobbook.update.presenter.UpdatePhonePresenterImpl;
 import com.example.jobbook.update.view.UpdatePhoneView;
+import com.example.jobbook.util.L;
 import com.example.jobbook.util.Util;
 import com.jude.smssdk_mob.SMSManager;
 import com.jude.smssdk_mob.TimeListener;
@@ -54,7 +53,7 @@ public class UpdatePhoneActivity extends Activity implements View.OnClickListene
     }
 
     private void initEvents() {
-        mPresenter =  new UpdatePhonePresenterImpl(this);
+        mPresenter = new UpdatePhonePresenterImpl(this);
         mBackImageButton.setOnClickListener(this);
         mGetCodeButton.setOnClickListener(this);
         mCompleteTextView.setOnClickListener(this);
@@ -100,27 +99,27 @@ public class UpdatePhoneActivity extends Activity implements View.OnClickListene
 
     @Override
     public void codeBlankError() {
-        showSnackbar("验证码为空！");
+        Util.showSnackBar(this, "验证码为空！");
     }
 
     @Override
     public void codeError() {
-        showSnackbar("手机验证码错误");
+        Util.showSnackBar(this, "手机验证码错误");
     }
 
     @Override
     public void newPhoneBlankError() {
-        showSnackbar("新手机号码为空");
+        Util.showSnackBar(this, "新手机号码为空");
     }
 
     @Override
     public void success() {
-        showSnackbar("保存成功！");
+        Util.showSnackBar(this, "保存成功！");
     }
 
     @Override
     public void networkError() {
-        showSnackbar("网络错误！");
+        Util.showSnackBar(this, "网络错误！");
     }
 
     @Override
@@ -133,30 +132,17 @@ public class UpdatePhoneActivity extends Activity implements View.OnClickListene
 
     }
 
-    private void showSnackbar(String content) {
-        View view = getWindow().getDecorView();
-        final Snackbar snackbar = Snackbar.make(view, content, Snackbar.LENGTH_LONG);
-        snackbar.setAction("dismiss", new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                snackbar.dismiss();
-            }
-        });
-        snackbar.show();
-    }
-
     @Override
-    protected void onDestroy(){
+    protected void onDestroy() {
         SMSManager.getInstance().unRegisterTimeListener(this);
         super.onDestroy();
     }
 
     @Override
     public void onLastTimeNotify(int lastSecond) {
-        if(lastSecond > 0){
+        if (lastSecond > 0) {
             mGetCodeButton.setText(lastSecond);
-        }else{
+        } else {
             mGetCodeButton.setText("发送验证码");
         }
     }

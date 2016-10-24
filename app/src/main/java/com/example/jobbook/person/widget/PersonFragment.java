@@ -4,9 +4,7 @@ import android.app.AlertDialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -57,7 +55,7 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
         @Override
         public void handleMessage(Message msg) {
             if (msg.what == REFRESH) {
-                showSnackbar("保存成功！");
+                Util.showSnackBar(getActivity(), "保存成功！");
             } else if (msg.what == REFRESH_NAME) {
                 mNameTextView.setText(MyApplication.getmPersonBean().getUsername());
             } else if (msg.what == REFRESH_HEAD) {
@@ -151,19 +149,6 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
 //    public interface IPersonChanged {
 //        void switchPerson2Login();
 //    }
-
-    private void showSnackbar(String content) {
-        View view = getActivity().findViewById(R.id.main_layout);
-        final Snackbar snackbar = Snackbar.make(view, content, Snackbar.LENGTH_LONG);
-        snackbar.setAction("dismiss", new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                snackbar.dismiss();
-            }
-        });
-        snackbar.show();
-    }
 
     @Override
     public void onResume() {

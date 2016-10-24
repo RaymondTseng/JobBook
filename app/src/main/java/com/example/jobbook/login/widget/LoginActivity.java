@@ -2,10 +2,6 @@ package com.example.jobbook.login.widget;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
-
-import com.example.jobbook.util.L;
-
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,6 +17,7 @@ import com.example.jobbook.login.presenter.LoginPresenterImpl;
 import com.example.jobbook.login.view.LoginView;
 import com.example.jobbook.main.widget.MainActivity;
 import com.example.jobbook.register.widget.RegisterActivity;
+import com.example.jobbook.util.L;
 import com.example.jobbook.util.Util;
 
 /**
@@ -105,17 +102,17 @@ public class LoginActivity extends Activity implements View.OnClickListener, Log
 
     @Override
     public void setUserError() {
-        showSnackbar("账号或密码错误");
+        Util.showSnackBar(this, "账号或密码错误");
     }
 
     @Override
     public void setAccountError() {
-        showSnackbar("账号不能为空");
+        Util.showSnackBar(this, "账号不能为空");
     }
 
     @Override
     public void setPasswordError() {
-        showSnackbar("密码不能为空");
+        Util.showSnackBar(this, "密码不能为空");
     }
 
 
@@ -131,16 +128,4 @@ public class LoginActivity extends Activity implements View.OnClickListener, Log
         Util.toAnotherActivity(LoginActivity.this, RegisterActivity.class);
     }
 
-    private void showSnackbar(String content) {
-        View view = this.findViewById(R.id.activity_login_layout);
-        final Snackbar snackbar = Snackbar.make(view, content, Snackbar.LENGTH_LONG);
-        snackbar.setAction("dismiss", new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                snackbar.dismiss();
-            }
-        });
-        snackbar.show();
-    }
 }

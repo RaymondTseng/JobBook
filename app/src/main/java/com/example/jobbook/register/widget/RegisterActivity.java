@@ -2,10 +2,7 @@ package com.example.jobbook.register.widget;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.text.TextUtils;
-import com.example.jobbook.util.L;
-
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,6 +18,7 @@ import com.example.jobbook.main.widget.MainActivity;
 import com.example.jobbook.register.presenter.RegisterPresenter;
 import com.example.jobbook.register.presenter.RegisterPresenterImpl;
 import com.example.jobbook.register.view.RegisterView;
+import com.example.jobbook.util.L;
 import com.example.jobbook.util.Util;
 import com.jude.smssdk_mob.SMSManager;
 import com.jude.smssdk_mob.TimeListener;
@@ -87,7 +85,7 @@ public class RegisterActivity extends Activity implements RegisterView, View.OnC
 
     @Override
     public void success() {
-        showSnackbar("连接成功");
+        Util.showSnackBar(this, "连接成功");
     }
 
     @Override
@@ -107,27 +105,27 @@ public class RegisterActivity extends Activity implements RegisterView, View.OnC
 
     @Override
     public void accountBlankError() {
-        showSnackbar("用户名为空");
+        Util.showSnackBar(this, "用户名为空");
     }
 
     @Override
     public void pwdBlankError() {
-        showSnackbar("密码为空");
+        Util.showSnackBar(this, "密码为空");
     }
 
     @Override
     public void pwdConfirmBlankError() {
-        showSnackbar("确认密码为空");
+        Util.showSnackBar(this, "确认密码为空");
     }
 
     @Override
     public void pwdNotEqualError() {
-        showSnackbar("密码与确认密码不一致");
+        Util.showSnackBar(this, "密码与确认密码不一致");
     }
 
     @Override
     public void accountExistError() {
-        showSnackbar("用户名已存在");
+        Util.showSnackBar(this, "用户名已存在");
     }
 
     @Override
@@ -145,41 +143,28 @@ public class RegisterActivity extends Activity implements RegisterView, View.OnC
 
     @Override
     public void accountIllegalError() {
-        showSnackbar("账号存在非法字符");
+        Util.showSnackBar(this, "账号存在非法字符");
     }
 
     @Override
     public void userNameBlankError() {
-        showSnackbar("昵称为空");
+        Util.showSnackBar(this, "昵称为空");
     }
 
     @Override
     public void telephoneBlankError() {
-        showSnackbar("手机号码为空");
+        Util.showSnackBar(this, "手机号码为空");
     }
 
     @Override
     public void codeBlankError() {
-        showSnackbar("验证码为空");
+        Util.showSnackBar(this, "验证码为空");
     }
 
     @Override
     public void codeError() {
-        showSnackbar("验证码错误");
+        Util.showSnackBar(this, "验证码错误");
 //        refreshCode();
-    }
-
-    private void showSnackbar(String content) {
-        View view = this.findViewById(R.id.activity_register_layout);
-        final Snackbar snackbar = Snackbar.make(view, content, Snackbar.LENGTH_LONG);
-        snackbar.setAction("dismiss", new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                snackbar.dismiss();
-            }
-        });
-        snackbar.show();
     }
 
     @Override

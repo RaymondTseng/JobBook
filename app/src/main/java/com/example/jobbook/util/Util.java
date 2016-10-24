@@ -1,29 +1,30 @@
 package com.example.jobbook.util;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.design.widget.Snackbar;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.jobbook.MyApplication;
+import com.example.jobbook.R;
 import com.example.jobbook.bean.PersonBean;
-import com.example.jobbook.bean.ResultBean;
 import com.example.jobbook.commons.Constants;
-import com.google.gson.Gson;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.LinkedList;
-import java.util.Queue;
 
 /**
  * Created by 椰树 on 2016/7/15.
@@ -279,6 +280,46 @@ public class Util {
             hex.append(Integer.toHexString(b & 0xFF));
         }
         return hex.toString();
+    }
+
+    /**
+     * 显示弹出窗口
+     * @param activity
+     * @param content
+     */
+    public static void showSnackBar(Activity activity, String content) {
+        View view = activity.getWindow().getDecorView();
+        final Snackbar snackbar = Snackbar.make(view, content, Snackbar.LENGTH_SHORT);
+        View demo = snackbar.getView();
+        ((TextView)demo.findViewById(R.id.snackbar_text)).setTextColor(Color.WHITE);
+//        snackbar.setAction("dismiss", new View.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View v) {
+//                snackbar.dismiss();
+//            }
+//        });
+        snackbar.show();
+    }
+
+    /**
+     * 显示弹出窗口
+     * @param activity
+     * @param content
+     */
+    public static void showSnackBar(Activity activity, String content, String buttonText) {
+        View view = activity.getWindow().getDecorView();
+        final Snackbar snackbar = Snackbar.make(view, content, Snackbar.LENGTH_SHORT);
+        View demo = snackbar.getView();
+        ((TextView)demo.findViewById(R.id.snackbar_text)).setTextColor(Color.WHITE);
+        snackbar.setAction(buttonText, new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                snackbar.dismiss();
+            }
+        });
+        snackbar.show();
     }
 
 }

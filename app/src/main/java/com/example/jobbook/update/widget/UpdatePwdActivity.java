@@ -2,7 +2,6 @@ package com.example.jobbook.update.widget;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -80,42 +79,42 @@ public class UpdatePwdActivity extends Activity implements View.OnClickListener,
 
     @Override
     public void oPwdBlankError() {
-        showSnackbar("原密码为空");
+        Util.showSnackBar(this,"原密码为空");
     }
 
     @Override
     public void nPwdBlankError() {
-        showSnackbar("新密码为空");
+        Util.showSnackBar(this,"新密码为空");
     }
 
     @Override
     public void nPwdConfirmBlankError() {
-        showSnackbar("确认密码为空");
+        Util.showSnackBar(this,"确认密码为空");
     }
 
     @Override
     public void pwdConfirmError() {
-        showSnackbar("新密码与确认密码不一致");
+        Util.showSnackBar(this,"新密码与确认密码不一致");
     }
 
     @Override
     public void success() {
-        showSnackbar("修改密码成功");
+        Util.showSnackBar(this,"修改密码成功");
     }
 
     @Override
     public void networkError() {
-        showSnackbar("网络错误！");
+        Util.showSnackBar(this,"网络错误！");
     }
 
     @Override
     public void oPwdError() {
-        showSnackbar("原密码错误！");
+        Util.showSnackBar(this,"原密码错误！");
     }
 
     @Override
     public void oPwdEqualnPwdError() {
-        showSnackbar("原密码与新密码一致！");
+        Util.showSnackBar(this,"原密码与新密码一致！");
     }
 
     @Override
@@ -128,16 +127,4 @@ public class UpdatePwdActivity extends Activity implements View.OnClickListener,
         mLoadingLinearLayout.setVisibility(View.GONE);
     }
 
-    private void showSnackbar(String content) {
-        View view = getWindow().getDecorView();
-        final Snackbar snackbar = Snackbar.make(view, content, Snackbar.LENGTH_LONG);
-        snackbar.setAction("dismiss", new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                snackbar.dismiss();
-            }
-        });
-        snackbar.show();
-    }
 }

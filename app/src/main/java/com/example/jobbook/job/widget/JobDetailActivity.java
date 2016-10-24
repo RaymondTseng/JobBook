@@ -1,11 +1,13 @@
 package com.example.jobbook.job.widget;
 
 import android.app.Activity;
-import android.graphics.Color;
+import android.app.AlertDialog;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
+import android.view.Gravity;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -114,7 +116,7 @@ public class JobDetailActivity extends Activity implements View.OnClickListener,
                 refresh();
                 break;
             case R.id.job_detail_send_cv_ll:
-                sendCV(jobDetailBean.getCompany().getId());
+                sendCVCheckDialog();
                 break;
         }
     }
@@ -169,64 +171,44 @@ public class JobDetailActivity extends Activity implements View.OnClickListener,
 
     @Override
     public void hideProgress() {
-        L.i("jobdetail", "hideprogress");
         mLoadingLinearLayout.setVisibility(View.GONE);
-    }
-
-    private void showSnackbar(String content){
-        if(view == null){
-            view = getWindow().getDecorView();
-        }
-        final Snackbar snackbar = Snackbar.make(view, content, Snackbar.LENGTH_LONG);
-        View demo = snackbar.getView();
-        ((TextView)demo.findViewById(R.id.snackbar_text)).setTextColor(Color.WHITE);
-        snackbar.setAction("dismiss", new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                snackbar.dismiss();
-            }
-        });
-        snackbar.show();
     }
 
     @Override
     public void showLoadFailMsg() {
-        showSnackbar("岗位详情读取错误，请重试！");
+        Util.showSnackBar(this, "岗位详情读取错误，请重试！");
     }
 
     @Override
     public void showProgress() {
-        L.i("jobdetail", "showprogress");
         mLoadingLinearLayout.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void NoLoginError() {
-        showSnackbar("请先登录");
+        Util.showSnackBar(this, "请先登录");
     }
 
     @Override
     public void likeSuccess() {
-        // Todo 点赞功能
         mLikeImageButton.setImageResource(R.mipmap.favourite_tapped);
-        showSnackbar("收藏成功！");
+        Util.showSnackBar(this, "收藏成功！");
     }
 
     @Override
     public void unlikeSuccess() {
         mLikeImageButton.setImageResource(R.mipmap.favourite_white);
-        showSnackbar("取消收藏成功！");
+        Util.showSnackBar(this, "取消收藏成功！");
     }
 
     @Override
     public void likeError() {
-        showSnackbar("收藏失败，请重试！");
+        Util.showSnackBar(this, "收藏失败，请重试！");
     }
 
     @Override
     public void unlikeError() {
-        showSnackbar("取消收藏失败，请重试！");
+        Util.showSnackBar(this, "取消收藏失败，请重试！");
     }
 
     @Override
@@ -236,27 +218,27 @@ public class JobDetailActivity extends Activity implements View.OnClickListener,
 
     @Override
     public void sendCVSuccess() {
-        showSnackbar("提交成功！");
+        Util.showSnackBar(this, "提交成功！");
     }
 
     @Override
     public void sendCVFailure() {
-        showSnackbar("提交失败！");
+        Util.showSnackBar(this, "提交失败！");
     }
 
     @Override
     public void sendCVEmailFailed() {
-        showSnackbar("邮箱发送失败");
+        Util.showSnackBar(this, "邮箱发送失败");
     }
 
     @Override
     public void sendCVNoDestination() {
-        showSnackbar("该公司没有官方邮箱，请重试！");
+        Util.showSnackBar(this, "该公司没有官方邮箱，请重试！");
     }
 
     @Override
     public void sendCVRepeated() {
-        showSnackbar("您之前已经发送过！");
+        Util.showSnackBar(this, "您之前已经发送过！");
     }
 
     private void refresh() {
@@ -266,5 +248,35 @@ public class JobDetailActivity extends Activity implements View.OnClickListener,
             e.printStackTrace();
         }
         onCreate(null);
+    }
+
+    private void sendCVCheckDialog() {
+        final AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+        alertDialog.show();
+        alertDialog.setCanceledOnTouchOutside(true);
+        Window window = alertDialog.getWindow();
+        window.setGravity(Gravity.CENTER);
+        WindowManager.LayoutParams p = window.getAttributes(); // 获取对话框当前的参数值
+//        p.width = Util.dip2px(this, 280);
+//        p.height = Util.dip2px(this, 109);
+        p.width = Util.dip2px(this, 300);
+        p.height = Util.dip2px(this, 140);
+        window.setAttributes(p);
+        window.setContentView(R.layout.send_cv_check_layout);
+        TextView mSureTextView = (TextView) window.findViewById(R.id.send_cv_sure_tv);
+        TextView mCancelTextView = (TextView) window.findViewById(R.id.send_cv_cancel_tv);
+        mSureTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendCV(jobDetailBean.getCompany().getId());
+                alertDialog.dismiss();
+            }
+        });
+        mCancelTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
     }
 }

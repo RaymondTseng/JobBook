@@ -2,7 +2,6 @@ package com.example.jobbook.login.widget;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
@@ -60,47 +59,34 @@ public class ForgetPwdSecondActivity extends Activity implements ForgetPwdSecond
 
     @Override
     public void phoneBlankError() {
-        showSnackBar("密码不能为空！");
+        Util.showSnackBar(this, "密码不能为空！");
     }
 
     @Override
     public void confirmPhoneBlankError() {
-        showSnackBar("确认密码不能为空！");
+        Util.showSnackBar(this, "确认密码不能为空！");
     }
 
     @Override
     public void differentError() {
-        showSnackBar("两次密码不一致！");
+        Util.showSnackBar(this, "两次密码不一致！");
     }
 
     @Override
     public void success() {
-        showSnackBar("保存成功！");
+        Util.showSnackBar(this, "保存成功！");
         Util.toAnotherActivity(ForgetPwdSecondActivity.this, LoginActivity.class);
         finish();
     }
 
     @Override
     public void failure() {
-        showSnackBar("保存失败！");
+        Util.showSnackBar(this, "保存失败！");
     }
 
     @Override
     public void complete() {
         mPresenter.complete(account, mNewPwdEditText.getText().toString(), mConfirmEditText.getText().toString());
-    }
-
-    private void showSnackBar(String content){
-        View view = getWindow().getDecorView();
-        final Snackbar snackbar = Snackbar.make(view, content, Snackbar.LENGTH_LONG);
-        snackbar.setAction("dismiss", new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                snackbar.dismiss();
-            }
-        });
-        snackbar.show();
     }
 
     @Override
