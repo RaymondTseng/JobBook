@@ -1,12 +1,8 @@
 package com.example.jobbook.job.widget;
 
 import android.app.Activity;
-import android.graphics.Canvas;
-import android.graphics.ColorFilter;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
-import com.example.jobbook.util.L;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -17,12 +13,12 @@ import android.widget.TextView;
 import com.example.jobbook.R;
 import com.example.jobbook.bean.CompanyBean;
 import com.example.jobbook.bean.CompanyCommentBean;
-import com.example.jobbook.commons.Constants;
 import com.example.jobbook.job.CompanyCommentListViewAdapter;
 import com.example.jobbook.job.presenter.CompanyPresenter;
 import com.example.jobbook.job.presenter.CompanyPresenterImpl;
 import com.example.jobbook.job.view.CompanyView;
 import com.example.jobbook.util.ImageLoadUtils;
+import com.example.jobbook.util.Util;
 import com.google.android.flexbox.FlexboxLayout;
 
 import java.util.ArrayList;
@@ -122,7 +118,7 @@ public class CompanyDetailActivity extends Activity implements CompanyView, View
 
     @Override
     public void showLoadFailMsg() {
-
+        Util.showSnackBar(this, "读取错误！");
     }
 
     @Override

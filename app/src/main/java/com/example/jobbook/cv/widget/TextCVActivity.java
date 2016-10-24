@@ -1,39 +1,29 @@
 package com.example.jobbook.cv.widget;
 
+import android.os.Bundle;
+import android.os.Handler;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.Spinner;
+import android.widget.TextView;
+
 import com.example.jobbook.MyApplication;
+import com.example.jobbook.R;
 import com.example.jobbook.bean.EducationExpBean;
 import com.example.jobbook.bean.JobExpBean;
 import com.example.jobbook.bean.TextCVBean;
 import com.example.jobbook.cv.presenter.TextCVPresenter;
 import com.example.jobbook.cv.presenter.TextCVPresenterImpl;
 import com.example.jobbook.cv.view.TextCVView;
-
-import android.graphics.drawable.Drawable;
-import android.os.Bundle;
-import android.os.Handler;
-import android.provider.ContactsContract;
-import android.support.design.widget.Snackbar;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import com.example.jobbook.util.L;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
-import android.widget.TextView;
-import android.widget.TimePicker;
-
-import com.example.jobbook.R;
 import com.example.jobbook.util.Util;
 import com.jzxiang.pickerview.TimePickerDialog;
 import com.jzxiang.pickerview.data.Type;
 import com.jzxiang.pickerview.listener.OnDateSetListener;
-
-import org.w3c.dom.Text;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -302,16 +292,7 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
 
     @Override
     public void networkError() {
-        View view = getWindow().getDecorView();
-        final Snackbar snackbar = Snackbar.make(view, "网络错误！", Snackbar.LENGTH_LONG);
-        snackbar.setAction("dismiss", new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                snackbar.dismiss();
-            }
-        });
-        snackbar.show();
+        Util.showSnackBar(this, "网络错误！");
     }
 
     @Override

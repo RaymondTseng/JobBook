@@ -5,7 +5,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.design.widget.Snackbar;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -14,12 +13,10 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.jobbook.MyApplication;
 import com.example.jobbook.R;
 import com.example.jobbook.bean.QuestionBean;
-import com.example.jobbook.main.widget.MainActivity;
 import com.example.jobbook.question.presenter.NewQuestionPresenter;
 import com.example.jobbook.question.presenter.NewQuestionPresenterImpl;
 import com.example.jobbook.question.view.NewQuestionView;
@@ -83,44 +80,17 @@ public class NewQuestionActivity extends Activity implements NewQuestionView, Vi
 
     @Override
     public void showError() {
-        View view = getWindow().getDecorView();
-        final Snackbar snackbar = Snackbar.make(view, "发表失败,请重试！", Snackbar.LENGTH_LONG);
-        snackbar.setAction("dismiss", new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                snackbar.dismiss();
-            }
-        });
-        snackbar.show();
+        Util.showSnackBar(this, "发表失败,请重试！");
     }
 
     @Override
     public void showSuccess() {
-        View view = getWindow().getDecorView();
-        final Snackbar snackbar = Snackbar.make(view, "发表成功!", Snackbar.LENGTH_LONG);
-        snackbar.setAction("dismiss", new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                snackbar.dismiss();
-            }
-        });
-        snackbar.show();
+        Util.showSnackBar(this, "发表成功!");
     }
 
     @Override
     public void publishNoLoginError() {
-        View view = getWindow().getDecorView();
-        final Snackbar snackbar = Snackbar.make(view, "请先登录！", Snackbar.LENGTH_LONG);
-        snackbar.setAction("dismiss", new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                snackbar.dismiss();
-            }
-        });
-        snackbar.show();
+        Util.showSnackBar(this, "请先登录！");
     }
 
 
