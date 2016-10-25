@@ -5,7 +5,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.design.widget.Snackbar;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -19,6 +18,7 @@ import com.example.jobbook.R;
 import com.example.jobbook.feedback.presenter.FeedBackPresenter;
 import com.example.jobbook.feedback.presenter.FeedBackPresenterImpl;
 import com.example.jobbook.feedback.view.FeedBackView;
+import com.example.jobbook.util.Util;
 
 /**
  * Created by Xu on 2016/7/17.
@@ -77,30 +77,17 @@ public class FeedBackActivity extends Activity implements FeedBackView, View.OnC
 
     @Override
     public void showError() {
-        showSnackbar("提交失败!");
+        Util.showSnackBar(this, "提交失败!");
     }
 
     @Override
     public void emailError() {
-        showSnackbar("邮箱格式错误！");
+        Util.showSnackBar(this, "邮箱格式错误！");
     }
 
     @Override
     public void showSuccess() {
-        showSnackbar("提交成功！");
-    }
-
-    private void showSnackbar(String content) {
-        View view = getWindow().getDecorView();
-        final Snackbar snackbar = Snackbar.make(view, content, Snackbar.LENGTH_LONG);
-        snackbar.setAction("dismiss", new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                snackbar.dismiss();
-            }
-        });
-        snackbar.show();
+        Util.showSnackBar(this, "提交成功！");
     }
 
     @Override

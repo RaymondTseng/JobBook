@@ -4,25 +4,19 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.DisplayMetrics;
-import com.example.jobbook.util.L;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.PopupWindow;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -32,12 +26,10 @@ import com.example.jobbook.article.presenter.ArticlePresenter;
 import com.example.jobbook.article.presenter.ArticlePresenterImpl;
 import com.example.jobbook.article.view.ArticleView;
 import com.example.jobbook.bean.ArticleBean;
-import com.example.jobbook.bean.JobBean;
 import com.example.jobbook.commons.Constants;
 import com.example.jobbook.commons.Urls;
-import com.example.jobbook.job.JobsAdapter;
-import com.example.jobbook.job.widget.JobDetailActivity;
 import com.example.jobbook.util.DividerItemDecoration;
+import com.example.jobbook.util.L;
 import com.example.jobbook.util.Util;
 
 import java.util.ArrayList;
@@ -166,16 +158,7 @@ public class ArticleFragment extends Fragment implements ArticleView, View.OnCli
             adapter.setmShowFooter(false);
             adapter.notifyDataSetChanged();
         }
-        view = (view == null ? mRecyclerView.getRootView() : getActivity().findViewById(R.id.main_layout));
-        final Snackbar snackbar = Snackbar.make(view, "干货读取错误，请重试！", Snackbar.LENGTH_LONG);
-        snackbar.setAction("dismiss", new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                snackbar.dismiss();
-            }
-        });
-        snackbar.show();
+        Util.showSnackBar(getActivity(), "网络无法连接！", "重试");
     }
 
 

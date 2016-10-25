@@ -2,8 +2,6 @@ package com.example.jobbook.article.widget;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
-import com.example.jobbook.util.L;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -16,6 +14,7 @@ import com.example.jobbook.article.presenter.ArticleDetailPresenterImpl;
 import com.example.jobbook.article.view.ArticleDetailView;
 import com.example.jobbook.bean.ArticleBean;
 import com.example.jobbook.bean.ArticleCommentBean;
+import com.example.jobbook.util.L;
 import com.example.jobbook.util.Util;
 
 import java.util.List;
@@ -32,7 +31,6 @@ public class ArticleDetailActivity extends Activity implements ArticleDetailView
     private TextView mArticleTitleTextView;
     private TextView mArticleContentTextView;
     private LinearLayout mLoadingLinearLayout;
-    private View view;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +56,6 @@ public class ArticleDetailActivity extends Activity implements ArticleDetailView
         mArticleBean = (ArticleBean) getIntent().getExtras().getSerializable("article_detail");
         L.i("article_bean_activity", "123:" + mArticleBean.getArticle_id());
         mPresenter.loadArticle(mArticleBean.getArticle_id());
-        view = getWindow().getDecorView();
     }
 
     @Override
@@ -85,15 +82,7 @@ public class ArticleDetailActivity extends Activity implements ArticleDetailView
 
     @Override
     public void showLoadFailMsg() {
-        final Snackbar snackbar = Snackbar.make(view, "干货读取错误，请重试！", Snackbar.LENGTH_LONG);
-        snackbar.setAction("dismiss", new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                snackbar.dismiss();
-            }
-        });
-        snackbar.show();
+        Util.showSnackBar(this, "干货读取错误，请重试！");
     }
 
     @Override

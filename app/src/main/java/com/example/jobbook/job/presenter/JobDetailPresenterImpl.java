@@ -37,6 +37,7 @@ public class JobDetailPresenterImpl implements JobDetailPresenter, JobDetailMode
 
     @Override
     public void sendCV(String companyId) {
+        mJobDetailView.showProgress();
         mJobDetailModel.sendCV(companyId, this);
     }
 
@@ -81,36 +82,43 @@ public class JobDetailPresenterImpl implements JobDetailPresenter, JobDetailMode
 
     @Override
     public void onLikeJobNoLoginError() {
+        mJobDetailView.hideProgress();
         mJobDetailView.NoLoginError();
     }
 
     @Override
     public void onSendCVSuccess() {
+        mJobDetailView.hideProgress();
         mJobDetailView.sendCVSuccess();
     }
 
     @Override
     public void onSendCVFailure(String msg, Exception e) {
+        mJobDetailView.hideProgress();
         mJobDetailView.sendCVFailure();
     }
 
     @Override
     public void onSendCVNoLoginError() {
+        mJobDetailView.hideProgress();
         mJobDetailView.NoLoginError();
     }
 
     @Override
     public void onSendCVEmailFailed() {
+        mJobDetailView.hideProgress();
         mJobDetailView.sendCVEmailFailed();
     }
 
     @Override
     public void onSendCVNoDestination() {
+        mJobDetailView.hideProgress();
         mJobDetailView.sendCVNoDestination();
     }
 
     @Override
     public void onSendCVRepeated() {
+        mJobDetailView.hideProgress();
         mJobDetailView.sendCVRepeated();
     }
 }
