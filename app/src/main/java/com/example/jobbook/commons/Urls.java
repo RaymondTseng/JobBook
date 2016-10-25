@@ -61,4 +61,6 @@ public class Urls {
 
     public static final String COMMENT_LIKE_AND_UNLIKE = IP + "/jobBook/index.php/Home/question/deal/";
 
+    public static final String LOGIN_CHECK_URL = IP + "/jobBook/Home/enter/checkLogin/account/";
+
 }
