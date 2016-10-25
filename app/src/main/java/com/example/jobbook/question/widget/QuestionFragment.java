@@ -1,23 +1,18 @@
 package com.example.jobbook.question.widget;
 
-import android.app.Application;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import com.example.jobbook.util.L;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.jobbook.MyApplication;
@@ -29,6 +24,7 @@ import com.example.jobbook.question.presenter.QuestionPresenter;
 import com.example.jobbook.question.presenter.QuestionPresenterImpl;
 import com.example.jobbook.question.view.QuestionView;
 import com.example.jobbook.util.DividerItemDecoration;
+import com.example.jobbook.util.L;
 import com.example.jobbook.util.Util;
 
 import java.util.ArrayList;
@@ -176,16 +172,7 @@ public class QuestionFragment extends Fragment implements QuestionView,
             mAdapter.setmShowFooter(false);
             mAdapter.notifyDataSetChanged();
         }
-        view = view == null ? mRecyclerView.getRootView() : getActivity().findViewById(R.id.main_layout);
-        final Snackbar snackbar = Snackbar.make(view, "问问读取错误，请重试！", Snackbar.LENGTH_LONG);
-        snackbar.setAction("dismiss", new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                snackbar.dismiss();
-            }
-        });
-        snackbar.show();
+        Util.showSnackBar(getActivity(), "网络无法连接！", "重试");
     }
 
     @Override

@@ -2,8 +2,6 @@ package com.example.jobbook.update.widget;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
-import com.example.jobbook.util.L;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -16,6 +14,7 @@ import com.example.jobbook.person.widget.UserDetailActivity;
 import com.example.jobbook.update.presenter.UpdateUsernamePresenter;
 import com.example.jobbook.update.presenter.UpdateUsernamePresenterImpl;
 import com.example.jobbook.update.view.UpdateUsernameView;
+import com.example.jobbook.util.L;
 import com.example.jobbook.util.Util;
 
 /**
@@ -81,17 +80,17 @@ public class UpdateUsernameActivity extends Activity implements View.OnClickList
 
     @Override
     public void usernameBlankError() {
-        showSnackbar("新昵称为空");
+        Util.showSnackBar(this,"新昵称为空");
     }
 
     @Override
     public void success() {
-        showSnackbar("修改昵称成功");
+        Util.showSnackBar(this,"修改昵称成功");
     }
 
     @Override
     public void networkError() {
-        showSnackbar("网络错误！");
+        Util.showSnackBar(this,"网络错误！");
     }
 
     @Override
@@ -104,16 +103,4 @@ public class UpdateUsernameActivity extends Activity implements View.OnClickList
         mLoadingLinearLayout.setVisibility(View.GONE);
     }
 
-    private void showSnackbar(String content) {
-        View view = getWindow().getDecorView();
-        final Snackbar snackbar = Snackbar.make(view, content, Snackbar.LENGTH_LONG);
-        snackbar.setAction("dismiss", new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                snackbar.dismiss();
-            }
-        });
-        snackbar.show();
-    }
 }

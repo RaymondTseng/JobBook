@@ -5,10 +5,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.support.design.widget.Snackbar;
-import com.example.jobbook.util.L;
-
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -21,22 +17,17 @@ import android.widget.TextView;
 import com.example.jobbook.MyApplication;
 import com.example.jobbook.R;
 import com.example.jobbook.bean.PersonBean;
-import com.example.jobbook.main.widget.MainActivity;
 import com.example.jobbook.person.presenter.UploadPresenter;
 import com.example.jobbook.person.presenter.UploadPresenterImpl;
 import com.example.jobbook.person.view.UploadView;
-import com.example.jobbook.update.widget.UpdatePhoneActivity;
 import com.example.jobbook.update.widget.UpdatePwdActivity;
 import com.example.jobbook.update.widget.UpdateUsernameActivity;
-import com.example.jobbook.upload.UploadManager;
 import com.example.jobbook.upload.CropUtils;
+import com.example.jobbook.upload.UploadManager;
 import com.example.jobbook.upload.UploadPopupWindow;
 import com.example.jobbook.util.ImageLoadUtils;
+import com.example.jobbook.util.L;
 import com.example.jobbook.util.Util;
-
-import java.io.IOException;
-import java.net.URI;
-import java.net.URL;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -179,12 +170,12 @@ public class UserDetailActivity extends Activity implements View.OnClickListener
 
     @Override
     public void uploadSuccess() {
-//        showSnackbar("上传成功！");
+        Util.showSnackBar(this, "上传成功！");
     }
 
     @Override
     public void uploadFailure() {
-//        showSnackbar("上传失败，请重试！");
+        Util.showSnackBar(this, "上传失败，请重试！");
     }
 
     @Override
@@ -195,19 +186,6 @@ public class UserDetailActivity extends Activity implements View.OnClickListener
         mUserHeadImageView.setImageURI(mUri);
         bm.recycle();
 //        this.onCreate(null);
-    }
-
-    private void showSnackbar(String content) {
-        View view = findViewById(R.id.main_layout);
-        final Snackbar snackbar = Snackbar.make(view, content, Snackbar.LENGTH_LONG);
-        snackbar.setAction("dismiss", new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                snackbar.dismiss();
-            }
-        });
-        snackbar.show();
     }
 
     @Override

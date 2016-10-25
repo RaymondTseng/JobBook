@@ -1,12 +1,11 @@
 package com.example.jobbook.login.widget;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
-
-import com.example.jobbook.util.L;
-
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -42,8 +41,37 @@ public class LoginActivity extends Activity implements View.OnClickListener, Log
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         initView();
+        initEvents();
         presenter = new LoginPresenterImpl(this);
         mLoadingLinearLayout.setVisibility(View.GONE);
+    }
+
+    private void initEvents() {
+        mAccountEditText.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_ENTER) {
+                    mPasswordEditText.requestFocus();
+                    return true;
+                }
+                return false;
+            }
+        });
+        mPasswordEditText.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                InputMethodManager imm = (InputMethodManager) v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+//                imm.toggleSoftInput(0, InputMethodManager.SHOW_FORCED);
+                if (keyCode == KeyEvent.KEYCODE_ENTER) {
+                    if (imm.isActive()) {
+                        imm.hideSoftInputFromWindow(v.getApplicationWindowToken(), 0);
+                    }
+                    presenter.loginCheck(mAccountEditText.getText().toString(), mPasswordEditText.getText().toString());
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 
     private void initView() {
@@ -100,22 +128,22 @@ public class LoginActivity extends Activity implements View.OnClickListener, Log
 
     @Override
     public void setNetworkError() {
-        L.i("loginfragment", "error");
+        Util.showSnackBar(this, "网络连接错误！", "重试");
     }
 
     @Override
     public void setUserError() {
-        showSnackbar("账号或密码错误");
+        Util.showSnackBar(this, "账号或密码错误");
     }
 
     @Override
     public void setAccountError() {
-        showSnackbar("账号不能为空");
+        Util.showSnackBar(this, "账号不能为空");
     }
 
     @Override
     public void setPasswordError() {
-        showSnackbar("密码不能为空");
+        Util.showSnackBar(this, "密码不能为空");
     }
 
 
@@ -131,16 +159,4 @@ public class LoginActivity extends Activity implements View.OnClickListener, Log
         Util.toAnotherActivity(LoginActivity.this, RegisterActivity.class);
     }
 
-    private void showSnackbar(String content) {
-        View view = this.findViewById(R.id.activity_login_layout);
-        final Snackbar snackbar = Snackbar.make(view, content, Snackbar.LENGTH_LONG);
-        snackbar.setAction("dismiss", new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                snackbar.dismiss();
-            }
-        });
-        snackbar.show();
-    }
 }

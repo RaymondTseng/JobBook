@@ -2,23 +2,14 @@ package com.example.jobbook.question.widget;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.text.TextUtils;
-
-import com.example.jobbook.main.widget.MainActivity;
-import com.example.jobbook.question.QuestionDetailListViewAdapter;
-import com.example.jobbook.util.ImageLoadUtils;
-import com.example.jobbook.util.L;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,13 +17,13 @@ import com.example.jobbook.MyApplication;
 import com.example.jobbook.R;
 import com.example.jobbook.bean.QuestionBean;
 import com.example.jobbook.bean.QuestionCommentBean;
-import com.example.jobbook.bean.QuestionDetailBean;
-import com.example.jobbook.question.ExpandListView;
-import com.example.jobbook.question.QuestionDetailListViewAdapter.OnUnlikeClickListener;
+import com.example.jobbook.question.QuestionDetailListViewAdapter;
 import com.example.jobbook.question.QuestionDetailListViewAdapter.OnLikeClickListener;
+import com.example.jobbook.question.QuestionDetailListViewAdapter.OnUnlikeClickListener;
 import com.example.jobbook.question.presenter.QuestionDetailPresenter;
 import com.example.jobbook.question.presenter.QuestionDetailPresenterImpl;
 import com.example.jobbook.question.view.QuestionDetailView;
+import com.example.jobbook.util.L;
 import com.example.jobbook.util.Util;
 
 import java.util.List;
@@ -153,7 +144,7 @@ public class QuestionDetailActivity extends Activity implements QuestionDetailVi
     public void sendSuccess() {
         mPresenter.loadQuestionComments(questionBean.getId());
         mEditText.setText("");
-        showSnackbar("评论成功!");
+        Util.showSnackBar(this,"评论成功!");
     }
 
     @Override
@@ -165,29 +156,16 @@ public class QuestionDetailActivity extends Activity implements QuestionDetailVi
     public void showLoadFailMsg(int error) {
         switch (error){
             case 0:
-                showSnackbar("问问加载错误,请重试!");
+                Util.showSnackBar(this,"问问加载错误,请重试!");
                 break;
             case 1:
-                showSnackbar("评论加载错误,请重试！");
+                Util.showSnackBar(this,"评论加载错误,请重试！");
                 break;
             case 2:
-                showSnackbar("发表评论失败！");
+                Util.showSnackBar(this,"发表评论失败！");
                 break;
         }
     }
-
-    private void showSnackbar(String content){
-        View view = getWindow().getDecorView();
-        final Snackbar snackbar = Snackbar.make(view, content, Snackbar.LENGTH_LONG);
-        snackbar.setAction("dismiss", new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                snackbar.dismiss();
-            }
-        });
-        snackbar.show();
-    }
-
 
     @Override
     public String getComment() {
@@ -196,12 +174,12 @@ public class QuestionDetailActivity extends Activity implements QuestionDetailVi
 
     @Override
     public void editTextBlankError() {
-        showSnackbar("评论不能为空！");
+        Util.showSnackBar(this,"评论不能为空！");
     }
 
     @Override
     public void noLoginError() {
-        showSnackbar("请先登录!");
+        Util.showSnackBar(this,"请先登录!");
     }
 
     @Override

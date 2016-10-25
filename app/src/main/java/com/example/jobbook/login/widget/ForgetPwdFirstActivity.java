@@ -3,7 +3,6 @@ package com.example.jobbook.login.widget;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,9 +17,6 @@ import com.example.jobbook.login.view.ForgetPwdFirstView;
 import com.example.jobbook.util.Util;
 import com.jude.smssdk_mob.SMSManager;
 import com.jude.smssdk_mob.TimeListener;
-
-import cn.smssdk.SMSSDK;
-import cn.smssdk.SMSSDK.VerifyCodeReadListener;
 
 /**
  * Created by 椰树 on 2016/9/14.
@@ -73,12 +69,12 @@ public class ForgetPwdFirstActivity extends Activity implements ForgetPwdFirstVi
 
     @Override
     public void phoneBlankError() {
-        showSnackBar("手机号码不能为空！");
+        Util.showSnackBar(this, "手机号码不能为空！");
     }
 
     @Override
     public void codeBlankError() {
-        showSnackBar("验证码不能为空！");
+        Util.showSnackBar(this, "验证码不能为空！");
     }
 
     @Override
@@ -90,10 +86,10 @@ public class ForgetPwdFirstActivity extends Activity implements ForgetPwdFirstVi
     public void checkFailure(int error) {
         switch (error){
             case 0:
-                showSnackBar("网络错误！");
+                Util.showSnackBar(this, "网络错误！");
                 break;
             case 1:
-                showSnackBar("该手机号未注册！");
+                Util.showSnackBar(this, "该手机号未注册！");
                 break;
         }
     }
@@ -107,7 +103,7 @@ public class ForgetPwdFirstActivity extends Activity implements ForgetPwdFirstVi
 
     @Override
     public void codeFailure() {
-        showSnackBar("验证码错误!");
+        Util.showSnackBar(this, "验证码错误!");
     }
 
 
@@ -119,19 +115,6 @@ public class ForgetPwdFirstActivity extends Activity implements ForgetPwdFirstVi
     @Override
     public void next(Context mContext) {
         mPresenter.next(mContext, mCodeEditText.getText().toString(), mPhoneEditText.getText().toString());
-    }
-
-    private void showSnackBar(String content){
-        View view = getWindow().getDecorView();
-        final Snackbar snackbar = Snackbar.make(view, content, Snackbar.LENGTH_LONG);
-        snackbar.setAction("dismiss", new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                snackbar.dismiss();
-            }
-        });
-        snackbar.show();
     }
 
     @Override
