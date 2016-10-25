@@ -5,6 +5,8 @@ import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -56,8 +58,8 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
     private Spinner mSexSpinner;
     private EditText mQualificationEditText;
     private EditText mCityEditText;
-    private EditText mTypeEditText;
-    private EditText mLevelEditText;
+    private Spinner mTypeSpinner;
+    private Spinner mLevelSpinner;
     private Spinner mCertificationSpinner;
     private EditText mTelEditText;
     private EditText mEmailEditText;
@@ -85,8 +87,8 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
         mSexSpinner = (Spinner) findViewById(R.id.text_cv_sex_spinner);
         mQualificationEditText = (EditText) findViewById(R.id.text_cv_qualification_et);
         mCityEditText = (EditText) findViewById(R.id.text_cv_location_et);
-        mTypeEditText = (EditText) findViewById(R.id.text_cv_type_et);
-        mLevelEditText = (EditText) findViewById(R.id.text_cv_level_et);
+        mTypeSpinner = (Spinner) findViewById(R.id.text_cv_type_spinner);
+        mLevelSpinner = (Spinner) findViewById(R.id.text_cv_level_spinner);
         mCertificationSpinner = (Spinner) findViewById(R.id.text_cv_certificate_spinner);
         mTelEditText = (EditText) findViewById(R.id.text_cv_tel_et);
         mEmailEditText = (EditText) findViewById(R.id.text_cv_email_et);
@@ -108,6 +110,7 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
         mLoadingLayout = (LinearLayout) findViewById(R.id.loading_circle_progress_bar_ll);
     }
 
+    @SuppressWarnings("ResourceType")
     private void initEvents() {
         mPresenter = new TextCVPresenterImpl(this);
         mPresenter.load();
@@ -330,14 +333,14 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
 
     @Override
     public void levelBlankError() {
-        TextView textView = (TextView) findViewById(R.id.text_cv_level_tv);
-        setBackgroundRed(mLevelEditText, textView);
+//        TextView textView = (TextView) findViewById(R.id.text_cv_level_tv);
+//        setBackgroundRed(mLevelEditText, textView);
     }
 
     @Override
     public void typeBlankError() {
-        TextView textView = (TextView) findViewById(R.id.text_cv_type_tv);
-        setBackgroundRed(mTypeEditText, textView);
+//        TextView textView = (TextView) findViewById(R.id.text_cv_type_tv);
+//        setBackgroundRed(mTypeEditText, textView);
     }
 
     @Override
@@ -436,8 +439,8 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
     @Override
     public void save() {
         mPresenter.basedInformationCheck("aaa", mNameEditText.getText().toString(), mSexSpinner.getSelectedItem().toString(),
-                mQualificationEditText.getText().toString(), mCityEditText.getText().toString(), mTypeEditText.getText().toString(),
-                mLevelEditText.getText().toString(), mCertificationSpinner.getSelectedItem().toString(),
+                mQualificationEditText.getText().toString(), mCityEditText.getText().toString(), mTypeSpinner.getSelectedItem().toString(),
+                mLevelSpinner.getSelectedItem().toString(), mCertificationSpinner.getSelectedItem().toString(),
                 mTelEditText.getText().toString(), mEmailEditText.getText().toString(), mExpectJobEditText.getText().toString(),
                 mExpectSalaryEditText.getText().toString(), mExpectLocationEditText.getText().toString());
         List<EducationExpBean> educationExpBeanList = new ArrayList<>();
@@ -472,29 +475,29 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
         mPresenter.jobExpCheck(jobExpBeanList);
     }
 
+    private void setSelection(Spinner mSpinner, String[] array, String content){
+        for (int i = 0; i < array.length; i++) {
+            String str = array[i];
+            if (content.equals(str)) {
+                mSpinner.setSelection(i);
+                break;
+            }
+        }
+    }
+
     @Override
     public void load(TextCVBean textCVBean) {
         mNameEditText.setText(textCVBean.getName());
         String[] sex = getResources().getStringArray(R.array.sex);
-        for (int i = 0; i < sex.length; i++) {
-            String str = sex[i];
-            if (textCVBean.getSex().equals(str)) {
-                mSexSpinner.setSelection(i);
-                break;
-            }
-        }
+        setSelection(mSexSpinner, sex, textCVBean.getSex());
         mQualificationEditText.setText(textCVBean.getQualification());
         mCityEditText.setText(textCVBean.getCity());
-        mTypeEditText.setText(textCVBean.getDisabilityType());
-        mLevelEditText.setText(textCVBean.getDisabilityLevel());
+        String[] type = getResources().getStringArray(R.array.type);
+        setSelection(mTypeSpinner, type, textCVBean.getDisabilityType());
+        String[] level = getResources().getStringArray(R.array.level);
+        setSelection(mLevelSpinner, level, textCVBean.getDisabilityLevel());
         String[] ifHave = getResources().getStringArray(R.array.ifhave);
-        for (int i = 0; i < ifHave.length; i++) {
-            String str = ifHave[i];
-            if (textCVBean.isHaveDisabilityCard().equals(str)) {
-                mCertificationSpinner.setSelection(i);
-                break;
-            }
-        }
+        setSelection(mCertificationSpinner, ifHave, textCVBean.isHaveDisabilityCard());
         mTelEditText.setText(textCVBean.getTelephone());
         mEmailEditText.setText(textCVBean.getEmail());
         mExpectJobEditText.setText(textCVBean.getExpectPosition());

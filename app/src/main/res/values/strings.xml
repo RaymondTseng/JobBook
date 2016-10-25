@@ -9,4 +9,21 @@
         <item>有</item>
         <item>无</item>
     </array>
+    
+    <array name="type">
+        <item>视力残疾</item>
+        <item>听力残疾</item>
+        <item>言语残疾</item>
+        <item>肢体残疾</item>
+        <item>智力残疾</item>
+        <item>精神残疾</item>
+        <item>多重残疾</item>
+    </array>
+
+    <array name="level">
+        <item>一级</item>
+        <item>二级</item>
+        <item>三级</item>
+        <item>四级</item>
+    </array>
 </resources>

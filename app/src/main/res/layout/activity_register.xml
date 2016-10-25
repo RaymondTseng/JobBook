@@ -28,7 +28,8 @@
         layout="@layout/loading_layout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="650" />
+        android:layout_weight="650"
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -53,6 +54,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:paddingLeft="16dp"
+            android:maxLines="1"
             android:textCursorDrawable="@drawable/edtitext_cursor"
             android:textSize="16sp" />
     </RelativeLayout>
@@ -87,6 +89,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:paddingLeft="16dp"
+                android:maxLines="1"
                 android:textCursorDrawable="@drawable/edtitext_cursor"
                 android:textSize="16sp" />
 
@@ -140,6 +143,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:paddingLeft="16dp"
+            android:maxLines="1"
             android:textCursorDrawable="@drawable/edtitext_cursor"
             android:textSize="16sp" />
     </RelativeLayout>
@@ -186,6 +190,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:paddingLeft="16dp"
+            android:maxLines="1"
             android:textCursorDrawable="@drawable/edtitext_cursor"
             android:textSize="16sp" />
     </RelativeLayout>
@@ -213,6 +218,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:paddingLeft="16dp"
+            android:maxLines="1"
             android:textCursorDrawable="@drawable/edtitext_cursor"
             android:textSize="16sp" />
     </RelativeLayout>
