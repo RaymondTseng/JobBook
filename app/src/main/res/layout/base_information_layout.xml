@@ -41,8 +41,9 @@
             android:layout_height="1dp"
             android:background="@color/colorBackgroundGray"
             android:layout_below="@id/text_cv_name_tv"
-            android:layout_marginTop="2dp"/>
+            android:layout_marginTop="4dp"/>
     </RelativeLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -73,6 +74,7 @@
             />
 
     </RelativeLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -105,56 +107,66 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="12dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
         >
-        <EditText
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:id="@+id/text_cv_type_et"
+        <TextView
+            android:id="@+id/text_cv_type_tv"
+            android:text="残疾类型"
+            style="@style/Black16sptv"
+            android:gravity="center"
+            android:drawablePadding="8dp"
+            android:drawableRight="@drawable/text_cv_vertical_gray_line"
+            />
+        <Spinner
+            android:id="@+id/text_cv_type_spinner"
+            android:popupBackground="@color/colorWhite"
+            android:layout_alignBaseline="@id/text_cv_type_tv"
+            android:layout_toRightOf="@id/text_cv_type_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="72dp"
-            android:paddingBottom="8dp"
-            android:background="@drawable/text_cv_et_bg"
-            android:textCursorDrawable="@drawable/edtitext_cursor"
-            />
+            android:entries="@array/type"
+            android:spinnerMode="dropdown"
+            ></Spinner>
         <TextView
-            android:text="残疾类型"
-            android:id="@+id/text_cv_type_tv"
-            android:layout_marginLeft="16dp"
-            style="@style/Black16sptv"
-            android:drawableRight="@drawable/text_cv_vertical_gray_line"
-            android:gravity="center"
-            android:drawablePadding="6dp"
-            android:layout_alignBaseline="@id/text_cv_type_et"
-            />
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorBackgroundGray"
+            android:layout_below="@id/text_cv_type_tv"
+            android:layout_marginTop="4dp"/>
 
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="12dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
         >
-        <EditText
-            android:id="@+id/text_cv_level_et"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="72dp"
-            android:background="@drawable/text_cv_et_bg"
-            android:paddingBottom="8dp"
-            android:textCursorDrawable="@drawable/edtitext_cursor"
-            />
         <TextView
+            android:id="@+id/text_cv_level_tv"
             android:text="残疾等级"
             style="@style/Black16sptv"
-            android:id="@+id/text_cv_level_tv"
-            android:drawableRight="@drawable/text_cv_vertical_gray_line"
             android:gravity="center"
-            android:drawablePadding="6dp"
-            android:layout_marginLeft="16dp"
-            android:layout_alignBaseline="@id/text_cv_level_et"
+            android:drawablePadding="8dp"
+            android:drawableRight="@drawable/text_cv_vertical_gray_line"
             />
+        <Spinner
+            android:id="@+id/text_cv_level_spinner"
+            android:popupBackground="@color/colorWhite"
+            android:layout_alignBaseline="@id/text_cv_level_tv"
+            android:layout_toRightOf="@id/text_cv_level_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/level"
+            android:spinnerMode="dropdown"
+            ></Spinner>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorBackgroundGray"
+            android:layout_below="@id/text_cv_level_tv"
+            android:layout_marginTop="4dp"/>
 
     </RelativeLayout>
     <RelativeLayout
@@ -189,7 +201,7 @@
             android:layout_marginLeft="16dp"
             android:background="@color/colorBackgroundGray"
             android:layout_below="@id/text_cv_certificate_tv"
-            android:layout_marginTop="2dp"/>
+            android:layout_marginTop="4dp"/>
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="match_parent"
