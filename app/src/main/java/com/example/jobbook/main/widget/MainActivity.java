@@ -12,6 +12,7 @@ import android.widget.RadioGroup;
 import com.example.jobbook.MyApplication;
 import com.example.jobbook.R;
 import com.example.jobbook.article.widget.ArticleFragment;
+import com.example.jobbook.bean.PersonBean;
 import com.example.jobbook.job.widget.JobFragment;
 import com.example.jobbook.login.widget.LoginActivity;
 import com.example.jobbook.main.MainFragmentPagerAdapter;
@@ -73,6 +74,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         mFragmentContainer.setAdapter(mFragmentPagerAdapter);
         mRadioGroup.setOnCheckedChangeListener(this);
         mFragmentContainer.addOnPageChangeListener(this);
+        mMainPresenter.loginCheck(this);
 //        MyApplication.setmPersonBean(mMainPresenter.loadPersonBean(this));
     }
 
@@ -137,6 +139,16 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         } else {
             mFragmentContainer.setCurrentItem(3);
         }
+    }
+
+    @Override
+    public void loginCheckSuccess(PersonBean personBean) {
+        MyApplication.setmPersonBean(this, personBean);
+    }
+
+    @Override
+    public void loginCheckTimeOut() {
+        Log.i("logincheck", "timeout");
     }
 
     @Override

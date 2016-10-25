@@ -11,8 +11,10 @@ public interface MainPresenter {
 
     void switchNavigation(int id);
 
-    PersonBean loadPersonBean(Context context);
+//    PersonBean loadPersonBean(Context context);
+//
+//    void savePersonBean(Context context, PersonBean personBean);
 
-    void savePersonBean(Context context, PersonBean personBean);
+    void loginCheck(Context context);
 
 }

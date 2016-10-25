@@ -134,8 +134,8 @@ public class MyApplication extends Application {
                 .build();
 
         OkHttpUtils.initClient(okHttpClient);
-        Context context = this.getApplicationContext();
-        SharedPreferences sharedPreferences = context.getSharedPreferences("user", MODE_PRIVATE);
-        MyApplication.setmPersonBean(context, Util.loadPersonBean(sharedPreferences));
+//        Context context = this.getApplicationContext();
+//        SharedPreferences sharedPreferences = context.getSharedPreferences("user", MODE_PRIVATE);
+//        MyApplication.setmPersonBean(context, Util.loadPersonBean(sharedPreferences));
     }
 }

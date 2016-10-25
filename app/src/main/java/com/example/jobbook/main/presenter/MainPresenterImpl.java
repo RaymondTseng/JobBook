@@ -2,6 +2,9 @@ package com.example.jobbook.main.presenter;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+
+import com.example.jobbook.main.model.MainModel;
+import com.example.jobbook.main.model.MainModelImpl;
 import com.example.jobbook.util.L;
 
 import com.example.jobbook.MyApplication;
@@ -13,12 +16,15 @@ import com.example.jobbook.util.Util;
 /**
  * Created by Xu on 2016/7/5.
  */
-public class MainPresenterImpl implements MainPresenter {
+public class MainPresenterImpl implements MainPresenter, MainModelImpl.OnLoginCheckListener {
 
     private MainView mMainView;
 
+    private MainModel mModel;
+
     public MainPresenterImpl(MainView view) {
         mMainView = view;
+        mModel = new MainModelImpl();
     }
 
     @Override
@@ -39,22 +45,48 @@ public class MainPresenterImpl implements MainPresenter {
         }
     }
 
+//    @Override
+//    public PersonBean loadPersonBean(Context context) {
+//        SharedPreferences share = context.getSharedPreferences("user", context.MODE_PRIVATE);
+//        PersonBean personBean = null;
+//        if (share != null) {
+//            personBean = Util.loadPersonBean(share);
+//        }
+//        return personBean;
+//    }
+//
+//    @Override
+//    public void savePersonBean(Context context, PersonBean personBean) {
+//        SharedPreferences share = context.getSharedPreferences("user", context.MODE_PRIVATE);
+//        Util.savePersonBean(share, personBean);
+//        MyApplication.setmPersonBean(context, personBean);
+//    }
+
     @Override
-    public PersonBean loadPersonBean(Context context) {
+    public void loginCheck(Context context) {
         SharedPreferences share = context.getSharedPreferences("user", context.MODE_PRIVATE);
         PersonBean personBean = null;
-        if (share != null) {
+        if(share != null){
             personBean = Util.loadPersonBean(share);
+            if(personBean != null){
+                mModel.loginCheck(personBean, this);
+            }
         }
-        return personBean;
+    }
+
+
+    @Override
+    public void onSuccess(PersonBean personBean) {
+        mMainView.loginCheckSuccess(personBean);
     }
 
     @Override
-    public void savePersonBean(Context context, PersonBean personBean) {
-        SharedPreferences share = context.getSharedPreferences("user", context.MODE_PRIVATE);
-        Util.savePersonBean(share, personBean);
-        MyApplication.setmPersonBean(context, personBean);
+    public void onLoginTimeOut() {
+        mMainView.loginCheckTimeOut();
     }
 
-
+    @Override
+    public void onError() {
+        //没想好做什么
+    }
 }
