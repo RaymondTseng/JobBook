@@ -292,13 +292,6 @@ public class Util {
         final Snackbar snackbar = Snackbar.make(view, content, Snackbar.LENGTH_SHORT);
         View demo = snackbar.getView();
         ((TextView)demo.findViewById(R.id.snackbar_text)).setTextColor(Color.WHITE);
-//        snackbar.setAction("dismiss", new View.OnClickListener() {
-//
-//            @Override
-//            public void onClick(View v) {
-//                snackbar.dismiss();
-//            }
-//        });
         snackbar.show();
     }
 
@@ -312,6 +305,8 @@ public class Util {
         final Snackbar snackbar = Snackbar.make(view, content, Snackbar.LENGTH_SHORT);
         View demo = snackbar.getView();
         ((TextView)demo.findViewById(R.id.snackbar_text)).setTextColor(Color.WHITE);
+        //R.color.colorBlue
+        snackbar.setActionTextColor(Color.parseColor("#457ff4"));
         snackbar.setAction(buttonText, new View.OnClickListener() {
 
             @Override
@@ -319,6 +314,22 @@ public class Util {
                 snackbar.dismiss();
             }
         });
+        snackbar.show();
+    }
+
+    /**
+     * 显示弹出窗口
+     * @param activity
+     * @param content
+     */
+    public static void showSnackBar(Activity activity, String content, String buttonText, View.OnClickListener listener) {
+        View view = activity.getWindow().getDecorView();
+        final Snackbar snackbar = Snackbar.make(view, content, Snackbar.LENGTH_SHORT);
+        View demo = snackbar.getView();
+        ((TextView)demo.findViewById(R.id.snackbar_text)).setTextColor(Color.WHITE);
+        //R.color.colorBlue
+        snackbar.setActionTextColor(Color.parseColor("#457ff4"));
+        snackbar.setAction(buttonText, listener);
         snackbar.show();
     }
 

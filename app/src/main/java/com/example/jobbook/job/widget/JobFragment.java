@@ -141,7 +141,7 @@ public class JobFragment extends Fragment implements JobView, View.OnFocusChange
             mAdapter.setmShowFooter(false);
             mAdapter.notifyDataSetChanged();
         }
-        Util.showSnackBar(getActivity(), "岗位读取错误，请重试！");
+        Util.showSnackBar(getActivity(), "网络无法连接！", "重试");
     }
 
     @Override

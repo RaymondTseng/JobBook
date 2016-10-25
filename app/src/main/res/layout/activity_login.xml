@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_login_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorWhite"
-    android:id="@+id/activity_login_layout"
     android:orientation="vertical"
     android:weightSum="568">
 
@@ -38,8 +38,7 @@
         layout="@layout/loading_layout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="542"
-        />
+        android:layout_weight="542" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -75,6 +74,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
+            android:singleLine="true"
+            android:imeOptions="actionNext"
             android:paddingLeft="16dp"
             android:textCursorDrawable="@drawable/edtitext_cursor"
             android:textSize="16sp" />
@@ -102,6 +103,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:inputType="textPassword"
+            android:singleLine="true"
             android:paddingLeft="16dp"
             android:textCursorDrawable="@drawable/edtitext_cursor"
             android:textSize="16sp" />

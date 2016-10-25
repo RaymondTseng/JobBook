@@ -158,7 +158,7 @@ public class ArticleFragment extends Fragment implements ArticleView, View.OnCli
             adapter.setmShowFooter(false);
             adapter.notifyDataSetChanged();
         }
-        Util.showSnackBar(getActivity(), "干货读取错误，请重试！");
+        Util.showSnackBar(getActivity(), "网络无法连接！", "重试");
     }
 
 

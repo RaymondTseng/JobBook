@@ -1,8 +1,11 @@
 package com.example.jobbook.login.widget;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -17,7 +20,6 @@ import com.example.jobbook.login.presenter.LoginPresenterImpl;
 import com.example.jobbook.login.view.LoginView;
 import com.example.jobbook.main.widget.MainActivity;
 import com.example.jobbook.register.widget.RegisterActivity;
-import com.example.jobbook.util.L;
 import com.example.jobbook.util.Util;
 
 /**
@@ -39,8 +41,37 @@ public class LoginActivity extends Activity implements View.OnClickListener, Log
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         initView();
+        initEvents();
         presenter = new LoginPresenterImpl(this);
         mLoadingLinearLayout.setVisibility(View.GONE);
+    }
+
+    private void initEvents() {
+        mAccountEditText.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_ENTER) {
+                    mPasswordEditText.requestFocus();
+                    return true;
+                }
+                return false;
+            }
+        });
+        mPasswordEditText.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                InputMethodManager imm = (InputMethodManager) v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+//                imm.toggleSoftInput(0, InputMethodManager.SHOW_FORCED);
+                if (keyCode == KeyEvent.KEYCODE_ENTER) {
+                    if (imm.isActive()) {
+                        imm.hideSoftInputFromWindow(v.getApplicationWindowToken(), 0);
+                    }
+                    presenter.loginCheck(mAccountEditText.getText().toString(), mPasswordEditText.getText().toString());
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 
     private void initView() {
@@ -97,7 +128,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, Log
 
     @Override
     public void setNetworkError() {
-        L.i("loginfragment", "error");
+        Util.showSnackBar(this, "网络连接错误！", "重试");
     }
 
     @Override
