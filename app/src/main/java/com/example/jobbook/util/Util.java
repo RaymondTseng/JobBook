@@ -1,6 +1,5 @@
 package com.example.jobbook.util;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -284,11 +283,11 @@ public class Util {
 
     /**
      * 显示弹出窗口
-     * @param activity
+     * @param view
      * @param content
      */
-    public static void showSnackBar(Activity activity, String content) {
-        View view = activity.getWindow().getDecorView();
+    public static void showSnackBar(View view, String content) {
+//        View view = activity.getWindow().getDecorView();
         final Snackbar snackbar = Snackbar.make(view, content, Snackbar.LENGTH_SHORT);
         View demo = snackbar.getView();
         ((TextView)demo.findViewById(R.id.snackbar_text)).setTextColor(Color.WHITE);
@@ -297,11 +296,11 @@ public class Util {
 
     /**
      * 显示弹出窗口
-     * @param activity
+     * @param view
      * @param content
      */
-    public static void showSnackBar(Activity activity, String content, String buttonText) {
-        View view = activity.getWindow().getDecorView();
+    public static void showSnackBar(View view, String content, String buttonText) {
+//        View view = activity.getWindow().getDecorView();
         final Snackbar snackbar = Snackbar.make(view, content, Snackbar.LENGTH_SHORT);
         View demo = snackbar.getView();
         ((TextView)demo.findViewById(R.id.snackbar_text)).setTextColor(Color.WHITE);
@@ -319,11 +318,11 @@ public class Util {
 
     /**
      * 显示弹出窗口
-     * @param activity
+     * @param view
      * @param content
      */
-    public static void showSnackBar(Activity activity, String content, String buttonText, View.OnClickListener listener) {
-        View view = activity.getWindow().getDecorView();
+    public static void showSnackBar(View view, String content, String buttonText, View.OnClickListener listener) {
+//        View view = activity.getWindow().getDecorView();
         final Snackbar snackbar = Snackbar.make(view, content, Snackbar.LENGTH_SHORT);
         View demo = snackbar.getView();
         ((TextView)demo.findViewById(R.id.snackbar_text)).setTextColor(Color.WHITE);

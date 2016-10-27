@@ -49,7 +49,7 @@ public class ArticleDetailActivity extends Activity implements ArticleDetailView
         mLoadingLinearLayout = (LinearLayout) findViewById(R.id.loading_circle_progress_bar_ll);
     }
 
-    private void initEvents(){
+    private void initEvents() {
         Util.setListViewHeightBasedOnChildren(mListView);
         mBackImageButton.setOnClickListener(this);
         mPresenter = new ArticleDetailPresenterImpl(this);
@@ -82,7 +82,7 @@ public class ArticleDetailActivity extends Activity implements ArticleDetailView
 
     @Override
     public void showLoadFailMsg() {
-        Util.showSnackBar(this, "干货读取错误，请重试！");
+        Util.showSnackBar(findViewById(R.id.activity_article_detail), "干货读取错误，请重试！");
     }
 
     @Override

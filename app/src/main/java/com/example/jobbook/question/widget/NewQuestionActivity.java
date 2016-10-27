@@ -20,6 +20,7 @@ import com.example.jobbook.bean.QuestionBean;
 import com.example.jobbook.question.presenter.NewQuestionPresenter;
 import com.example.jobbook.question.presenter.NewQuestionPresenterImpl;
 import com.example.jobbook.question.view.NewQuestionView;
+import com.example.jobbook.util.AffectUtil;
 import com.example.jobbook.util.Util;
 
 /**
@@ -38,6 +39,7 @@ public class NewQuestionActivity extends Activity implements NewQuestionView, Vi
     private LinearLayout mLoadingLinearLayout;
 
     private MyApplication myApplication;
+    private View view;
 
     private Handler handler = new Handler() {
         @Override
@@ -57,6 +59,7 @@ public class NewQuestionActivity extends Activity implements NewQuestionView, Vi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_publish);
         mNewQuestionPresenter = new NewQuestionPresenterImpl(this);
+        view = getWindow().getDecorView();
         initViews();
         initEvents();
     }
@@ -76,21 +79,23 @@ public class NewQuestionActivity extends Activity implements NewQuestionView, Vi
         mNewQuestionReleaseTextView.setOnClickListener(this);
         mLoadingLinearLayout.setVisibility(View.GONE);
         mNewQuestionReleaseTextView.setTextColor(Color.WHITE);
+        mNewQuestionTitleEditText.setOnFocusChangeListener(AffectUtil.changeHintColorListener(mNewQuestionTitleEditText));
+        mNewQuestionContentEditText.setOnFocusChangeListener(AffectUtil.changeHintColorListener(mNewQuestionContentEditText));
     }
 
     @Override
     public void showError() {
-        Util.showSnackBar(this, "发表失败,请重试！");
+        Util.showSnackBar(view, "发表失败,请重试！");
     }
 
     @Override
     public void showSuccess() {
-        Util.showSnackBar(this, "发表成功!");
+        Util.showSnackBar(view, "发表成功!");
     }
 
     @Override
     public void publishNoLoginError() {
-        Util.showSnackBar(this, "请先登录！");
+        Util.showSnackBar(view, "请先登录！");
     }
 
 

@@ -50,12 +50,13 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
     private CircleImageView mCircleImageView;
     private MyApplication mMyApplication;
     private PersonBean personBean;
+    private View view;
 
     final Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             if (msg.what == REFRESH) {
-                Util.showSnackBar(getActivity(), "保存成功！");
+                Util.showSnackBar(view, "保存成功！");
             } else if (msg.what == REFRESH_NAME) {
                 mNameTextView.setText(MyApplication.getmPersonBean().getUsername());
             } else if (msg.what == REFRESH_HEAD) {
@@ -67,7 +68,7 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_person, container, false);
+        view = inflater.inflate(R.layout.fragment_person, container, false);
         initViews(view);
         initEvents();
         L.i("person", "createview");
@@ -170,8 +171,10 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
         Window window = alertDialog.getWindow();
         window.setGravity(Gravity.CENTER);
         WindowManager.LayoutParams p = window.getAttributes(); // 获取对话框当前的参数值
-        p.width = Util.dip2px(getActivity(), 280);
-        p.height = Util.dip2px(getActivity(), 109);
+//        p.width = Util.dip2px(this, 280);
+//        p.height = Util.dip2px(this, 109);
+        p.width = Util.dip2px(getActivity(), 300);
+        p.height = Util.dip2px(getActivity(), 140);
 //        window.setLayout(Util.dip2px(getActivity(), Util.getWidth(getActivity()) * 1 / 4), Util.dip2px(getActivity(), Util.getHeight(getActivity()) * 1 / 13));
         window.setAttributes(p);
         window.setContentView(R.layout.logout_sure_layout);

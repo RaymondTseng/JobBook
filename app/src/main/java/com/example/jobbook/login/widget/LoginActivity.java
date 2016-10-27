@@ -36,10 +36,13 @@ public class LoginActivity extends Activity implements View.OnClickListener, Log
     private LinearLayout mLoadingLinearLayout;
     private TextView mForgetPwdTextView;
 
+    private View view;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        view = getWindow().getDecorView();
         initView();
         initEvents();
         presenter = new LoginPresenterImpl(this);
@@ -106,7 +109,9 @@ public class LoginActivity extends Activity implements View.OnClickListener, Log
                 break;
 
             case R.id.login_close_ib:
-                Util.toAnotherActivity(LoginActivity.this, MainActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("CHANGE_TO", "JOB");
+                Util.toAnotherActivity(LoginActivity.this, MainActivity.class, bundle);
                 finish();
                 break;
             case R.id.login_forget_tv:
@@ -128,22 +133,22 @@ public class LoginActivity extends Activity implements View.OnClickListener, Log
 
     @Override
     public void setNetworkError() {
-        Util.showSnackBar(this, "网络连接错误！", "重试");
+        Util.showSnackBar(view, "网络连接错误！", "重试");
     }
 
     @Override
     public void setUserError() {
-        Util.showSnackBar(this, "账号或密码错误");
+        Util.showSnackBar(view, "账号或密码错误");
     }
 
     @Override
     public void setAccountError() {
-        Util.showSnackBar(this, "账号不能为空");
+        Util.showSnackBar(view, "账号不能为空");
     }
 
     @Override
     public void setPasswordError() {
-        Util.showSnackBar(this, "密码不能为空");
+        Util.showSnackBar(view, "密码不能为空");
     }
 
 

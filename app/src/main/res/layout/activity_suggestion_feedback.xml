@@ -100,6 +100,7 @@
         android:background="@null"
         android:gravity="top|left"
         android:hint="在这里你可以疯狂吐槽职谱，也可以描述你喜欢的功能"
+        android:textColorHint="@color/colorTextGray"
         android:textCursorDrawable="@drawable/edtitext_cursor" />
 
 </LinearLayout>

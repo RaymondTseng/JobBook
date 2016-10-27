@@ -18,6 +18,7 @@ import com.example.jobbook.R;
 import com.example.jobbook.feedback.presenter.FeedBackPresenter;
 import com.example.jobbook.feedback.presenter.FeedBackPresenterImpl;
 import com.example.jobbook.feedback.view.FeedBackView;
+import com.example.jobbook.util.AffectUtil;
 import com.example.jobbook.util.Util;
 
 /**
@@ -73,30 +74,31 @@ public class FeedBackActivity extends Activity implements FeedBackView, View.OnC
         mBackImageButton.setOnClickListener(this);
         mFeedBackMailEditText.addTextChangedListener(this);
         mFeedBackContentEditText.addTextChangedListener(this);
+        mFeedBackContentEditText.setOnFocusChangeListener(AffectUtil.changeHintColorListener(mFeedBackContentEditText));
     }
 
     @Override
     public void showError() {
-        Util.showSnackBar(this, "提交失败!");
+        Util.showSnackBar(getWindow().getDecorView(), "提交失败!");
     }
 
     @Override
     public void emailError() {
-        Util.showSnackBar(this, "邮箱格式错误！");
+        Util.showSnackBar(getWindow().getDecorView(), "邮箱格式错误！");
     }
 
     @Override
     public void showSuccess() {
-        Util.showSnackBar(this, "提交成功！");
+        Util.showSnackBar(getWindow().getDecorView(), "提交成功！");
     }
 
     @Override
     public void back() {
-        try {
-            Thread.sleep(1500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            Thread.sleep(1500);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
         this.finish();
     }
 

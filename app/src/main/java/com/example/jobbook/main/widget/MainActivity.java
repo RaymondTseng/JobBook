@@ -1,13 +1,12 @@
 package com.example.jobbook.main.widget;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-
 
 import com.example.jobbook.MyApplication;
 import com.example.jobbook.R;
@@ -49,6 +48,14 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         switch2Job();
     }
 
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//        L.i("main", "onStart");
+//        mJobRadioButton.setChecked(true);
+//        mFragmentContainer.setCurrentItem(0);
+//    }
+
     private void initViews() {
         mFragmentContainer = (ViewPager) findViewById(R.id.fragment_container);
         mJobRadioButton = (RadioButton) findViewById(R.id.job_rb);
@@ -76,6 +83,17 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         mFragmentContainer.addOnPageChangeListener(this);
         mMainPresenter.loginCheck(this);
 //        MyApplication.setmPersonBean(mMainPresenter.loadPersonBean(this));
+        if (getIntent().getExtras() != null) {
+            String change_to = (String) getIntent().getExtras().get("CHANGE_TO");
+            switch (change_to) {
+                case "JOB":
+                    mJobRadioButton.setChecked(true);
+                    mFragmentContainer.setCurrentItem(0);
+                    break;
+                case "ARTICLE":
+                    break;
+            }
+        }
     }
 
     /**

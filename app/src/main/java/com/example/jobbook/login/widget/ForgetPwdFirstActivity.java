@@ -29,10 +29,13 @@ public class ForgetPwdFirstActivity extends Activity implements ForgetPwdFirstVi
     private Button mGetCodeButton;
     private LinearLayout mLoadingLayout;
     private ForgetPwdFirstPresenter mPresenter;
+    private View view;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forget_pwd_first);
+        view = getWindow().getDecorView();
         initViews();
         initEvents();
     }
@@ -69,12 +72,12 @@ public class ForgetPwdFirstActivity extends Activity implements ForgetPwdFirstVi
 
     @Override
     public void phoneBlankError() {
-        Util.showSnackBar(this, "手机号码不能为空！");
+        Util.showSnackBar(view, "手机号码不能为空！");
     }
 
     @Override
     public void codeBlankError() {
-        Util.showSnackBar(this, "验证码不能为空！");
+        Util.showSnackBar(view, "验证码不能为空！");
     }
 
     @Override
@@ -86,10 +89,10 @@ public class ForgetPwdFirstActivity extends Activity implements ForgetPwdFirstVi
     public void checkFailure(int error) {
         switch (error){
             case 0:
-                Util.showSnackBar(this, "网络错误！");
+                Util.showSnackBar(view, "网络错误！");
                 break;
             case 1:
-                Util.showSnackBar(this, "该手机号未注册！");
+                Util.showSnackBar(view, "该手机号未注册！");
                 break;
         }
     }
@@ -103,7 +106,7 @@ public class ForgetPwdFirstActivity extends Activity implements ForgetPwdFirstVi
 
     @Override
     public void codeFailure() {
-        Util.showSnackBar(this, "验证码错误!");
+        Util.showSnackBar(view, "验证码错误!");
     }
 
 

@@ -20,6 +20,8 @@
 
     <color name="colorTextGray">#61000000</color>
 
+    <color name="colorTextGrayChecked">#18000000</color>
+
     <color name="colorPink">#f97979</color>
 
     <color name="colorYellow">#f9cb79</color>

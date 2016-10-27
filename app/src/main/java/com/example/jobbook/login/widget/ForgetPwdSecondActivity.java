@@ -24,11 +24,13 @@ public class ForgetPwdSecondActivity extends Activity implements ForgetPwdSecond
     private LinearLayout mLoadingLayout;
     private String account;
     private ForgetPwdSecondPresenter mPresenter;
+    private View view;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forget_pwd_second);
+        view = getWindow().getDecorView();
         initViews();
         initEvents();
     }
@@ -59,29 +61,29 @@ public class ForgetPwdSecondActivity extends Activity implements ForgetPwdSecond
 
     @Override
     public void phoneBlankError() {
-        Util.showSnackBar(this, "密码不能为空！");
+        Util.showSnackBar(view, "密码不能为空！");
     }
 
     @Override
     public void confirmPhoneBlankError() {
-        Util.showSnackBar(this, "确认密码不能为空！");
+        Util.showSnackBar(view, "确认密码不能为空！");
     }
 
     @Override
     public void differentError() {
-        Util.showSnackBar(this, "两次密码不一致！");
+        Util.showSnackBar(view, "两次密码不一致！");
     }
 
     @Override
     public void success() {
-        Util.showSnackBar(this, "保存成功！");
+        Util.showSnackBar(view, "保存成功！");
         Util.toAnotherActivity(ForgetPwdSecondActivity.this, LoginActivity.class);
         finish();
     }
 
     @Override
     public void failure() {
-        Util.showSnackBar(this, "保存失败！");
+        Util.showSnackBar(view, "保存失败！");
     }
 
     @Override

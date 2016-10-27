@@ -49,6 +49,7 @@ public class UserDetailActivity extends Activity implements View.OnClickListener
     private LinearLayout mLoadingLinearLayout;
     private MyApplication mMyApplication;
     private Uri mUri;
+    private View view;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -170,12 +171,12 @@ public class UserDetailActivity extends Activity implements View.OnClickListener
 
     @Override
     public void uploadSuccess() {
-        Util.showSnackBar(this, "上传成功！");
+        Util.showSnackBar(view, "上传成功！");
     }
 
     @Override
     public void uploadFailure() {
-        Util.showSnackBar(this, "上传失败，请重试！");
+        Util.showSnackBar(view, "上传失败，请重试！");
     }
 
     @Override

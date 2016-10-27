@@ -29,10 +29,13 @@ public class UpdateUsernameActivity extends Activity implements View.OnClickList
     private LinearLayout mLoadingLinearLayout;
     private MyApplication mMyApplication;
 
+    private View view;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_person_change_username);
+        view = getWindow().getDecorView();
         initViews();
         initEvents();
     }
@@ -80,17 +83,17 @@ public class UpdateUsernameActivity extends Activity implements View.OnClickList
 
     @Override
     public void usernameBlankError() {
-        Util.showSnackBar(this,"新昵称为空");
+        Util.showSnackBar(view, "新昵称为空");
     }
 
     @Override
     public void success() {
-        Util.showSnackBar(this,"修改昵称成功");
+        Util.showSnackBar(view, "修改昵称成功");
     }
 
     @Override
     public void networkError() {
-        Util.showSnackBar(this,"网络错误！");
+        Util.showSnackBar(view, "网络错误！");
     }
 
     @Override
