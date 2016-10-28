@@ -12,19 +12,16 @@
             android:id="@+id/article_title_tv"
             android:text="全部板块"
             style="@style/White20sptv"
-            android:gravity="center"/>
+            android:layout_gravity="center"/>
         <ImageButton
             android:id="@+id/article_title_drop_ib"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/article_title_tv"
-            android:layout_centerVertical="true"
             android:src="@mipmap/down_white"
             android:scaleType="centerInside"
             android:background="@null"
-            android:clickable="false"
-            />
-
+            android:clickable="false" />
     </LinearLayout>
+
 
 </RelativeLayout>

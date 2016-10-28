@@ -11,18 +11,25 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="56" />
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="16"></LinearLayout>
     <include
         layout="@layout/person_userinfo_ll"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="16dp"
         android:layout_weight="110" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="16dp"
+        android:layout_weight="16"></LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+
         android:layout_weight="192"
         android:background="@color/colorWhite"
         android:orientation="vertical"
@@ -54,11 +61,15 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="16"></LinearLayout>
+
     <Button
         android:id="@+id/person_switch2login_bt"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="16dp"
         android:layout_weight="48"
         android:background="@color/colorWhite"
         android:text="注销"
