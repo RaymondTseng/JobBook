@@ -35,10 +35,13 @@ public class UpdatePhoneActivity extends Activity implements View.OnClickListene
     private PersonBean personBean;
     private UpdatePhonePresenter mPresenter;
 
+    private View view;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_person_change_phone);
+        view = getWindow().getDecorView();
         initViews();
         initEvents();
     }
@@ -99,27 +102,27 @@ public class UpdatePhoneActivity extends Activity implements View.OnClickListene
 
     @Override
     public void codeBlankError() {
-        Util.showSnackBar(this, "验证码为空！");
+        Util.showSnackBar(view, "验证码为空！");
     }
 
     @Override
     public void codeError() {
-        Util.showSnackBar(this, "手机验证码错误");
+        Util.showSnackBar(view, "手机验证码错误");
     }
 
     @Override
     public void newPhoneBlankError() {
-        Util.showSnackBar(this, "新手机号码为空");
+        Util.showSnackBar(view, "新手机号码为空");
     }
 
     @Override
     public void success() {
-        Util.showSnackBar(this, "保存成功！");
+        Util.showSnackBar(view, "保存成功！");
     }
 
     @Override
     public void networkError() {
-        Util.showSnackBar(this, "网络错误！");
+        Util.showSnackBar(view, "网络错误！");
     }
 
     @Override

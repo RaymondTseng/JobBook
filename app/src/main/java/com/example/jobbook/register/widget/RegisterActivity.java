@@ -40,10 +40,13 @@ public class RegisterActivity extends Activity implements RegisterView, View.OnC
     private LinearLayout mLoadingLinearLayout;
     private RegisterPresenter presenter;
 
+    private View view;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        view = getWindow().getDecorView();
         initViews();
         initEvents();
     }
@@ -85,7 +88,7 @@ public class RegisterActivity extends Activity implements RegisterView, View.OnC
 
     @Override
     public void success() {
-        Util.showSnackBar(this, "连接成功");
+        Util.showSnackBar(view, "连接成功");
     }
 
     @Override
@@ -105,27 +108,27 @@ public class RegisterActivity extends Activity implements RegisterView, View.OnC
 
     @Override
     public void accountBlankError() {
-        Util.showSnackBar(this, "用户名为空");
+        Util.showSnackBar(view, "用户名为空");
     }
 
     @Override
     public void pwdBlankError() {
-        Util.showSnackBar(this, "密码为空");
+        Util.showSnackBar(view, "密码为空");
     }
 
     @Override
     public void pwdConfirmBlankError() {
-        Util.showSnackBar(this, "确认密码为空");
+        Util.showSnackBar(view, "确认密码为空");
     }
 
     @Override
     public void pwdNotEqualError() {
-        Util.showSnackBar(this, "密码与确认密码不一致");
+        Util.showSnackBar(view, "密码与确认密码不一致");
     }
 
     @Override
     public void accountExistError() {
-        Util.showSnackBar(this, "用户名已存在");
+        Util.showSnackBar(view, "用户名已存在");
     }
 
     @Override
@@ -143,27 +146,27 @@ public class RegisterActivity extends Activity implements RegisterView, View.OnC
 
     @Override
     public void accountIllegalError() {
-        Util.showSnackBar(this, "账号存在非法字符");
+        Util.showSnackBar(view, "账号存在非法字符");
     }
 
     @Override
     public void userNameBlankError() {
-        Util.showSnackBar(this, "昵称为空");
+        Util.showSnackBar(view, "昵称为空");
     }
 
     @Override
     public void telephoneBlankError() {
-        Util.showSnackBar(this, "手机号码为空");
+        Util.showSnackBar(view, "手机号码为空");
     }
 
     @Override
     public void codeBlankError() {
-        Util.showSnackBar(this, "验证码为空");
+        Util.showSnackBar(view, "验证码为空");
     }
 
     @Override
     public void codeError() {
-        Util.showSnackBar(this, "验证码错误");
+        Util.showSnackBar(view, "验证码错误");
 //        refreshCode();
     }
 

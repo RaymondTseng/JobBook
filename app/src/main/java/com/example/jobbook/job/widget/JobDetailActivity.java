@@ -176,7 +176,7 @@ public class JobDetailActivity extends Activity implements View.OnClickListener,
 
     @Override
     public void showLoadFailMsg() {
-        Util.showSnackBar(this, "岗位详情读取错误，请重试！");
+        Util.showSnackBar(view, "岗位详情读取错误，请重试！");
     }
 
     @Override
@@ -186,29 +186,29 @@ public class JobDetailActivity extends Activity implements View.OnClickListener,
 
     @Override
     public void NoLoginError() {
-        Util.showSnackBar(this, "请先登录");
+        Util.showSnackBar(view, "请先登录");
     }
 
     @Override
     public void likeSuccess() {
         mLikeImageButton.setImageResource(R.mipmap.favourite_tapped);
-        Util.showSnackBar(this, "收藏成功！");
+        Util.showSnackBar(view, "收藏成功！");
     }
 
     @Override
     public void unlikeSuccess() {
         mLikeImageButton.setImageResource(R.mipmap.favourite_white);
-        Util.showSnackBar(this, "取消收藏成功！");
+        Util.showSnackBar(view, "取消收藏成功！");
     }
 
     @Override
     public void likeError() {
-        Util.showSnackBar(this, "收藏失败，请重试！");
+        Util.showSnackBar(view, "收藏失败，请重试！");
     }
 
     @Override
     public void unlikeError() {
-        Util.showSnackBar(this, "取消收藏失败，请重试！");
+        Util.showSnackBar(view, "取消收藏失败，请重试！");
     }
 
     @Override
@@ -218,27 +218,27 @@ public class JobDetailActivity extends Activity implements View.OnClickListener,
 
     @Override
     public void sendCVSuccess() {
-        Util.showSnackBar(this, "提交成功！");
+        Util.showSnackBar(view, "提交成功！");
     }
 
     @Override
     public void sendCVFailure() {
-        Util.showSnackBar(this, "提交失败！");
+        Util.showSnackBar(view, "提交失败！");
     }
 
     @Override
     public void sendCVEmailFailed() {
-        Util.showSnackBar(this, "邮箱发送失败");
+        Util.showSnackBar(view, "邮箱发送失败");
     }
 
     @Override
     public void sendCVNoDestination() {
-        Util.showSnackBar(this, "该公司没有官方邮箱，请重试！");
+        Util.showSnackBar(view, "该公司没有官方邮箱，请重试！");
     }
 
     @Override
     public void sendCVRepeated() {
-        Util.showSnackBar(this, "您之前已经发送过！");
+        Util.showSnackBar(view, "您之前已经发送过！");
     }
 
     private void refresh() {

@@ -118,7 +118,7 @@ public class CompanyDetailActivity extends Activity implements CompanyView, View
 
     @Override
     public void showLoadFailMsg() {
-        Util.showSnackBar(this, "读取错误！");
+        Util.showSnackBar(getWindow().getDecorView(), "读取错误！");
     }
 
     @Override

@@ -54,10 +54,13 @@ public class QuestionDetailActivity extends Activity implements QuestionDetailVi
     private float mTitleBarHeight;
     private float mInputLayoutHeight;
 
+    private View view;
+
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question_detail);
+        view = getWindow().getDecorView();
         initViews();
         initEvents();
 
@@ -144,7 +147,7 @@ public class QuestionDetailActivity extends Activity implements QuestionDetailVi
     public void sendSuccess() {
         mPresenter.loadQuestionComments(questionBean.getId());
         mEditText.setText("");
-        Util.showSnackBar(this,"评论成功!");
+        Util.showSnackBar(view,"评论成功!");
     }
 
     @Override
@@ -156,13 +159,13 @@ public class QuestionDetailActivity extends Activity implements QuestionDetailVi
     public void showLoadFailMsg(int error) {
         switch (error){
             case 0:
-                Util.showSnackBar(this,"问问加载错误,请重试!");
+                Util.showSnackBar(view,"问问加载错误,请重试!");
                 break;
             case 1:
-                Util.showSnackBar(this,"评论加载错误,请重试！");
+                Util.showSnackBar(view,"评论加载错误,请重试！");
                 break;
             case 2:
-                Util.showSnackBar(this,"发表评论失败！");
+                Util.showSnackBar(view,"发表评论失败！");
                 break;
         }
     }
@@ -174,12 +177,12 @@ public class QuestionDetailActivity extends Activity implements QuestionDetailVi
 
     @Override
     public void editTextBlankError() {
-        Util.showSnackBar(this,"评论不能为空！");
+        Util.showSnackBar(view,"评论不能为空！");
     }
 
     @Override
     public void noLoginError() {
-        Util.showSnackBar(this,"请先登录!");
+        Util.showSnackBar(view,"请先登录!");
     }
 
     @Override

@@ -29,10 +29,13 @@ public class UpdatePwdActivity extends Activity implements View.OnClickListener,
     private UpdatePwdPresenter presenter;
     private LinearLayout mLoadingLinearLayout;
 
+    private View view;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_person_change_pwd);
+        view = getWindow().getDecorView();
         initViews();
         initEvents();
     }
@@ -79,42 +82,42 @@ public class UpdatePwdActivity extends Activity implements View.OnClickListener,
 
     @Override
     public void oPwdBlankError() {
-        Util.showSnackBar(this,"原密码为空");
+        Util.showSnackBar(view, "原密码为空");
     }
 
     @Override
     public void nPwdBlankError() {
-        Util.showSnackBar(this,"新密码为空");
+        Util.showSnackBar(view, "新密码为空");
     }
 
     @Override
     public void nPwdConfirmBlankError() {
-        Util.showSnackBar(this,"确认密码为空");
+        Util.showSnackBar(view, "确认密码为空");
     }
 
     @Override
     public void pwdConfirmError() {
-        Util.showSnackBar(this,"新密码与确认密码不一致");
+        Util.showSnackBar(view, "新密码与确认密码不一致");
     }
 
     @Override
     public void success() {
-        Util.showSnackBar(this,"修改密码成功");
+        Util.showSnackBar(view, "修改密码成功");
     }
 
     @Override
     public void networkError() {
-        Util.showSnackBar(this,"网络错误！");
+        Util.showSnackBar(view, "网络错误！");
     }
 
     @Override
     public void oPwdError() {
-        Util.showSnackBar(this,"原密码错误！");
+        Util.showSnackBar(view, "原密码错误！");
     }
 
     @Override
     public void oPwdEqualnPwdError() {
-        Util.showSnackBar(this,"原密码与新密码一致！");
+        Util.showSnackBar(view, "原密码与新密码一致！");
     }
 
     @Override
