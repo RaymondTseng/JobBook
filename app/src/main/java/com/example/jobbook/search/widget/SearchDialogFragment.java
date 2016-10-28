@@ -11,12 +11,13 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
-import com.example.jobbook.util.L;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -25,10 +26,10 @@ import android.widget.TextView;
 
 import com.example.jobbook.R;
 import com.example.jobbook.search.SearchRecordListViewAdapter;
+import com.example.jobbook.util.L;
 import com.example.jobbook.util.Util;
 
 import java.util.LinkedList;
-import java.util.List;
 
 /**
  * Created by Xu on 2016/8/24.
@@ -90,6 +91,22 @@ public class SearchDialogFragment extends DialogFragment implements View.OnClick
         mBackImageButton = (ImageButton) view.findViewById(R.id.job_search_bar_dialog_back_ib);
         mEditText = (EditText) view.findViewById(R.id.job_search_bar_dialog_et);
         mSearchImageButton = (ImageButton) view.findViewById(R.id.job_search_bar_dialog_search_ib);
+
+        mEditText.setOnKeyListener(new View.OnKeyListener() {
+
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                InputMethodManager imm = (InputMethodManager) v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                if (keyCode == KeyEvent.KEYCODE_ENTER) {
+                    if (imm.isActive()) {
+                        imm.hideSoftInputFromWindow(v.getApplicationWindowToken(), 0);
+                    }
+                    toSearchActivity();
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 
     @Override
@@ -109,17 +126,7 @@ public class SearchDialogFragment extends DialogFragment implements View.OnClick
                 break;
 
             case R.id.job_search_bar_dialog_search_ib:
-                if (!TextUtils.isEmpty(mEditText.getText().toString())) {
-                    list.add(mEditText.getText().toString());
-                    L.i("search_dialog", "size=" + list.size() + ",add data:" + mEditText.getText().toString());
-                    Util.setSearchList(sharedPreferences, list);
-                }
-                Intent intent = new Intent(getActivity(), SearchActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("content", mEditText.getText().toString());
-                intent.putExtras(bundle);
-                startActivity(intent);
-                dismiss();
+                toSearchActivity();
                 break;
 
             case R.id.job_search_remove_record_tv:
@@ -129,5 +136,19 @@ public class SearchDialogFragment extends DialogFragment implements View.OnClick
                 break;
 
         }
+    }
+
+    private void toSearchActivity() {
+        if (!TextUtils.isEmpty(mEditText.getText().toString())) {
+            list.add(mEditText.getText().toString());
+            L.i("search_dialog", "size=" + list.size() + ",add data:" + mEditText.getText().toString());
+            Util.setSearchList(sharedPreferences, list);
+        }
+        Intent intent = new Intent(getActivity(), SearchActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("content", mEditText.getText().toString());
+        intent.putExtras(bundle);
+        startActivity(intent);
+        dismiss();
     }
 }
