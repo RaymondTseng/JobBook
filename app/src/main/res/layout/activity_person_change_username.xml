@@ -44,18 +44,23 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="512"
+        android:visibility="gone"
         />
-
-    <EditText
-        android:id="@+id/person_change_username_et"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="16dp"
         android:layout_weight="48"
-        android:paddingBottom="11dp"
-        android:paddingTop="11dp"
-        android:hint="您的新昵称" />
+        android:layout_marginTop="16dp"
+        android:background="@color/colorWhite">
+        <EditText
+            android:id="@+id/person_change_username_et"
+            android:background="@null"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:hint="您的新昵称" />
+    </LinearLayout>
+
 
 </LinearLayout>

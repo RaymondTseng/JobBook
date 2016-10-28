@@ -1,12 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorWhite"
-    tools:context=".main.widget.MainActivity">
+    tools:context=".main.widget.MainActivity"
+    android:weightSum="512"
+    android:orientation="vertical">
 
+    <android.support.v4.view.ViewPager
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="468"
+        android:layout_centerInParent="true"></android.support.v4.view.ViewPager>
     <include
         android:id="@+id/bottom_navigation_bar"
         layout="@layout/bottom_navigation_bar"
@@ -15,10 +23,4 @@
         android:layout_alignParentBottom="true"
         />
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/fragment_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@id/bottom_navigation_bar"
-        android:layout_centerInParent="true"></android.support.v4.view.ViewPager>
-</RelativeLayout>
+</LinearLayout>
