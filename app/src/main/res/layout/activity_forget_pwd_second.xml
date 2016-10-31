@@ -1,49 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:weightSum="568"
-    android:background="@color/colorBackgroundGray">
+    android:background="@color/colorBackgroundGray"
+    android:orientation="vertical"
+    android:weightSum="568">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="56"
         android:background="@color/colorBlue">
+
         <TextView
             style="@style/White20sptv"
-            android:text="忘记密码"
-            android:layout_toRightOf="@id/forget_pwd_first_back_ib"
+            android:layout_centerVertical="true"
             android:layout_marginLeft="72dp"
-            android:layout_centerVertical="true"/>
+            android:layout_toRightOf="@id/forget_pwd_first_back_ib"
+            android:text="忘记密码" />
+
         <TextView
-            style="@style/White16sptv"
-            android:text="完成"
             android:id="@+id/forget_pwd_second_finish_tv"
+            style="@style/White16sptv"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:layout_marginRight="16dp"
-            android:layout_centerVertical="true"/>
+            android:text="完成" />
     </RelativeLayout>
-    <include
-        layout="@layout/loading_layout"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="600"/>
+
+    <!--<include-->
+        <!--layout="@layout/loading_layout"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:layout_weight="600" />-->
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="48"
         android:layout_marginTop="16dp"
+        android:layout_weight="48"
         android:background="@color/colorWhite">
 
         <TextView
             android:id="@+id/texttview1"
             style="@style/Black16sptv"
             android:layout_centerVertical="true"
-            android:paddingLeft="16dp"
-            android:text="新密码"
-            android:gravity="center"
+            android:drawablePadding="8dp"
             android:drawableRight="@drawable/text_cv_vertical_gray_line"
-            android:drawablePadding="8dp"/>
+            android:gravity="center"
+            android:paddingLeft="16dp"
+            android:text="新密码" />
 
 
         <EditText
@@ -51,28 +57,31 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:paddingTop="8dp"
-            android:layout_marginRight="8dp"
             android:layout_marginLeft="8dp"
-            android:background="@drawable/text_cv_et_bg"
-            android:layout_toRightOf="@id/texttview1" />
+            android:layout_marginRight="8dp"
+            android:layout_toRightOf="@id/texttview1"
+            android:background="@null"
+            android:paddingTop="8dp"
+            android:singleLine="true" />
 
     </RelativeLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="48"
+        android:layout_marginTop="2dp"
         android:background="@color/colorWhite">
 
         <TextView
             android:id="@+id/texttview2"
             style="@style/Black16sptv"
             android:layout_centerVertical="true"
-            android:paddingLeft="16dp"
-            android:text="确认密码"
-            android:gravity="center"
+            android:drawablePadding="8dp"
             android:drawableRight="@drawable/text_cv_vertical_gray_line"
-            android:drawablePadding="8dp"/>
+            android:gravity="center"
+            android:paddingLeft="16dp"
+            android:text="确认密码" />
 
 
         <EditText
@@ -80,11 +89,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:paddingTop="8dp"
-            android:layout_marginRight="8dp"
             android:layout_marginLeft="8dp"
-            android:background="@drawable/text_cv_et_bg"
-            android:layout_toRightOf="@id/texttview2" />
+            android:layout_marginRight="8dp"
+            android:layout_toRightOf="@id/texttview2"
+            android:background="@null"
+            android:paddingTop="8dp"
+            android:singleLine="true" />
 
     </RelativeLayout>
 

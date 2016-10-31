@@ -1,12 +1,16 @@
 package com.example.jobbook.search.widget;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -34,6 +38,7 @@ import java.util.List;
 public class SearchActivity extends Activity implements View.OnClickListener, SearchView {
 
     private ImageButton mBackImageButton;
+    private ImageButton mSearchImageButton;
     private EditText mSearchEditText;
     private SearchPresenter presenter;
     private LinearLayoutManager mLayoutManager;
@@ -55,7 +60,9 @@ public class SearchActivity extends Activity implements View.OnClickListener, Se
 
     private void initViews() {
         mBackImageButton = (ImageButton) findViewById(R.id.job_search_activity_back_ib);
+        mSearchImageButton = (ImageButton) findViewById(R.id.job_search_activity_search_ib);
         mBackImageButton.setOnClickListener(this);
+        mSearchImageButton.setOnClickListener(this);
         mSearchEditText = (EditText) findViewById(R.id.job_search_activity_et);
         mRecyclerView = (RecyclerView) findViewById(R.id.job_search_activity_rv);
         mLoadingLinearLayout = (LinearLayout) findViewById(R.id.loading_circle_progress_bar_ll);
@@ -78,13 +85,42 @@ public class SearchActivity extends Activity implements View.OnClickListener, Se
         presenter = new SearchPresenterImpl(this);
         mSearchContent = bundle.getString("content");
         presenter.search(mSearchContent, pageIndex);
+
+        mSearchEditText.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                InputMethodManager imm = (InputMethodManager) v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                if (keyCode == KeyEvent.KEYCODE_ENTER) {
+                    if (imm.isActive()) {
+                        imm.hideSoftInputFromWindow(v.getApplicationWindowToken(), 0);
+                    }
+                    if (!TextUtils.isEmpty(mSearchEditText.getText())) {
+                        presenter.search(mSearchEditText.getText().toString(), pageIndex = 0);
+                    } else {
+                        Toast.makeText(SearchActivity.this, "搜索内容不能为空！", Toast.LENGTH_SHORT).show();
+                    }
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 
     @Override
     public void onClick(View v) {
-        Intent intent = new Intent(SearchActivity.this, MainActivity.class);
-        startActivity(intent);
-        finish();
+        switch (v.getId()) {
+            case R.id.job_search_activity_back_ib:
+                Intent intent = new Intent(SearchActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+                break;
+
+            case R.id.job_search_activity_search_ib:
+                if (!TextUtils.isEmpty(mSearchEditText.getText())) {
+                    presenter.search(mSearchEditText.getText().toString(), pageIndex = 0);
+                }
+                break;
+        }
     }
 
     @Override

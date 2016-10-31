@@ -34,9 +34,11 @@
                 android:layout_height="56dp"
                 android:layout_weight="5"
                 android:background="@null"
-                android:hint="搜索一些感兴趣的..." />
+                android:hint="搜索一些感兴趣的..."
+                android:singleLine="true"/>
 
             <ImageButton
+                android:id="@+id/job_search_activity_search_ib"
                 android:layout_width="0dp"
                 android:layout_height="56dp"
                 android:layout_weight="1"

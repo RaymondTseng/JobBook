@@ -39,7 +39,8 @@ public class ForgetPwdFirstActivity extends Activity implements ForgetPwdFirstVi
         initViews();
         initEvents();
     }
-    private void initViews(){
+
+    private void initViews() {
         mBackImageButton = (ImageButton) findViewById(R.id.forget_pwd_first_back_ib);
         mNextTextView = (TextView) findViewById(R.id.forget_pwd_first_next_tv);
         mPhoneEditText = (EditText) findViewById(R.id.forget_pwd_first_phone_et);
@@ -47,12 +48,14 @@ public class ForgetPwdFirstActivity extends Activity implements ForgetPwdFirstVi
         mGetCodeButton = (Button) findViewById(R.id.forget_pwd_first_code_bt);
         mLoadingLayout = (LinearLayout) findViewById(R.id.loading_circle_progress_bar_ll);
     }
-    private void initEvents(){
+
+    private void initEvents() {
         hideProgress();
         mPresenter = new ForgetPwdFirstPresenterImpl(this);
         SMSManager.getInstance().registerTimeListener(this);
         mNextTextView.setOnClickListener(this);
         mGetCodeButton.setOnClickListener(this);
+        mBackImageButton.setOnClickListener(this);
     }
 
     @Override
@@ -87,7 +90,7 @@ public class ForgetPwdFirstActivity extends Activity implements ForgetPwdFirstVi
 
     @Override
     public void checkFailure(int error) {
-        switch (error){
+        switch (error) {
             case 0:
                 Util.showSnackBar(view, "网络错误！");
                 break;
@@ -111,7 +114,7 @@ public class ForgetPwdFirstActivity extends Activity implements ForgetPwdFirstVi
 
 
     @Override
-    public void checkAccount(){
+    public void checkAccount() {
         mPresenter.checkAccount(mPhoneEditText.getText().toString());
     }
 
@@ -122,21 +125,25 @@ public class ForgetPwdFirstActivity extends Activity implements ForgetPwdFirstVi
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.forget_pwd_first_code_bt:
                 checkAccount();
                 break;
             case R.id.forget_pwd_first_next_tv:
                 next(this);
                 break;
+            case R.id.forget_pwd_first_back_ib:
+                Util.toAnotherActivity(ForgetPwdFirstActivity.this, LoginActivity.class);
+                close();
+                break;
         }
     }
 
     @Override
     public void onLastTimeNotify(int lastSecond) {
-        if(lastSecond > 0){
+        if (lastSecond > 0) {
             mGetCodeButton.setText(lastSecond + "");
-        }else{
+        } else {
             mGetCodeButton.setText("获取验证码");
         }
     }
@@ -147,7 +154,7 @@ public class ForgetPwdFirstActivity extends Activity implements ForgetPwdFirstVi
     }
 
     @Override
-    public void onDestroy(){
+    public void onDestroy() {
         SMSManager.getInstance().unRegisterTimeListener(this);
         super.onDestroy();
     }
