@@ -122,6 +122,17 @@ public class LoginActivity extends Activity implements View.OnClickListener, Log
     }
 
     @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            Bundle bundle = new Bundle();
+            bundle.putString("CHANGE_TO", "JOB");
+            Util.toAnotherActivity(LoginActivity.this, MainActivity.class, bundle);
+            finish();
+        }
+        return false;
+    }
+
+    @Override
     public void showProgress() {
         mLoadingLinearLayout.setVisibility(View.VISIBLE);
     }

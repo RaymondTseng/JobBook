@@ -2,173 +2,223 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <RelativeLayout
+        android:id="@+id/job_detail_name_ll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:layout_marginTop="16dp"
-        android:id="@+id/job_detail_name_ll">
-        <TextView
-            android:id="@+id/job_detail_name_tv"
-            android:text="平面设计师"
-            style="@style/Black20sptv"/>
-        <TextView
-            android:id="@+id/job_detail_salary_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="1.5K~2.5K"
-            android:textSize="16sp"
-            android:textColor="@color/colorBlue"
-            android:layout_below="@id/job_detail_name_tv"
-            android:layout_alignParentRight="true"
-            />
+        android:layout_marginTop="22dp">
+
         <LinearLayout
-            android:id="@+id/job_detail_location_ll"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/job_detail_name_tv"
-            android:layout_toLeftOf="@id/job_detail_salary_tv"
-            android:layout_alignParentLeft="true"
-            android:layout_marginRight="16dp">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/location_gray"
-                android:layout_gravity="center_vertical"
-                />
-            <TextView
-                android:id="@+id/job_detail_location_tv"
-                android:text="广州"
-                style="@style/TextGray16sptv"
-                />
-        </LinearLayout>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="@color/colorBackgroundGray"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_below="@id/job_detail_location_ll"/>
-    </RelativeLayout>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_below="@id/job_detail_name_ll"
-        android:id="@+id/job_detail_company_ll">
-        <ImageView
-            android:id="@+id/job_detail_company_logo_iv"
-            android:layout_width="78dp"
-            android:layout_height="78dp"
-            />
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/right_blue"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:background="@null"
-            android:id="@+id/job_detail_tocompany_ib" />
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/job_detail_company_logo_iv"
-            android:layout_toLeftOf="@id/job_detail_tocompany_ib"
             android:layout_marginRight="16dp"
-            android:layout_marginLeft="16dp"
-            android:id="@+id/job_detail_company_description_ll">
-            <TextView
-                android:id="@+id/job_detail_authenticate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="认证"
-                android:textSize="14sp"
-                android:textColor="@color/colorYellow"
-                />
-            <TextView
-                android:id="@+id/job_detail_company_name_tv"
-                android:text="苹果公司"
-                style="@style/Black16sptv"
-                android:layout_toRightOf="@id/job_detail_authenticate"
-                android:layout_marginLeft="16dp"/>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/job_detail_company_name_tv"
-                android:id="@+id/job_detail_company_location_ll"
-                android:layout_marginTop="4dp">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/location_gray"
-                    android:layout_gravity="center_vertical"/>
-                <TextView
-                    android:id="@+id/job_detail_company_location_tv"
-                    android:text="位于美国洛杉矶中国"
-                    style="@style/TextGray16sptv"/>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/job_detail_company_location_ll"
-                android:layout_marginTop="4dp">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/company"
-                    android:layout_gravity="center_vertical"/>
-                <TextView
-                    android:id="@+id/job_detail_company_description_tv"
-                    android:text="公司规模巨大"
-                    style="@style/TextGray16sptv"/>
-            </LinearLayout>
-        </RelativeLayout>
-        <com.google.android.flexbox.FlexboxLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/job_detail_company_description_ll"
-            android:id="@+id/job_detail_benefit_ll"
-            android:layout_marginTop="15dp"
-            app:flexWrap="wrap"
-            app:alignItems="flex_start"
-            app:alignContent="stretch"
-            app:justifyContent="flex_start"
-            app:dividerDrawable="@drawable/company_detail_welfare_divider"
-            app:showDivider="middle"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            >
-        </com.google.android.flexbox.FlexboxLayout>
-        <!--<RelativeLayout-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_below="@id/job_detail_company_description_ll"-->
-            <!--android:id="@+id/job_detail_benefit_ll"-->
-            <!--android:layout_marginTop="15dp"-->
-            <!--&gt;-->
-            <!--<TextView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="五险一金"-->
-                <!--android:textColor="@color/colorBlue"-->
-                <!--android:textSize="12sp"-->
-                <!--android:background="@drawable/job_detail_benefit_bg"-->
-                <!--android:padding="5dp"-->
-                <!--/>-->
+            android:orientation="horizontal">
 
-        <!--</RelativeLayout>-->
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:src="@mipmap/time" />
+
+            <TextView
+                android:id="@+id/job_detail_time_tv"
+                style="@style/TextGray12sptv"
+                android:text="2016.04.15" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/job_detail_name_tv"
+            style="@style/Black20sptv"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:text="平面设计师" />
+
     </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/job_detail_name_ll"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="9dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/TextGray12sptv"
+            android:text="薪资" />
+
+        <TextView
+            android:id="@+id/job_detail_salary_tv"
+            style="@style/TextBlue14sptv"
+            android:layout_marginLeft="8dp"
+            android:text="3000元-4000元/月" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/job_detail_location_ll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/job_detail_name_ll"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="37dp"
+        android:gravity="top"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/TextGray12sptv"
+            android:text="工作地址" />
+
+        <TextView
+            android:id="@+id/job_detail_location_tv"
+            style="@style/TextBlackb314sptv"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="32dp"
+            android:text="广东省广东省广东省广东省广东省广东省广东省广东省广东省广东省" />
+
+    </LinearLayout>
+
     <TextView
+        android:id="@+id/job_detail_divider"
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:background="@color/colorBackgroundGray"
-        android:layout_below="@id/job_detail_company_ll"
-        android:layout_marginTop="15dp"/>
+        android:layout_below="@id/job_detail_location_ll"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/colorBackgroundGray" />
+
+    <TextView
+        android:id="@+id/job_detail_company_name_tv"
+        style="@style/TextBlackb316sptv"
+        android:layout_below="@+id/job_detail_divider"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"
+        android:text="广东广州润宝公司" />
+
+    <RelativeLayout
+        android:id="@+id/job_detail_location_parent_ll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/job_detail_company_name_tv"
+        android:layout_marginTop="9dp">
+
+        <LinearLayout
+            android:id="@+id/job_detail_company_location_ll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="32dp"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/TextGray12sptv"
+                android:text="地址" />
+
+            <TextView
+                android:id="@+id/job_detail_company_location_tv"
+                style="@style/TextBlackb314sptv"
+                android:layout_width="120dp"
+                android:layout_marginLeft="8dp"
+                android:text="广东省广州市" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="16dp"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/TextGray12sptv"
+                android:text="规模" />
+
+            <TextView
+                android:id="@+id/job_detail_company_description_tv"
+                style="@style/TextBlackb314sptv"
+                android:layout_width="112dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="16dp"
+                android:text="3000-4000人" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/job_detail_benefit_ll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/job_detail_location_parent_ll"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="9dp"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/TextGray12sptv"
+            android:text="公司福利" />
+
+        <TextView
+            android:id="@+id/job_detail_benefit_tv"
+            style="@style/TextBlue14sptv"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="22dp"
+            android:text="五险一金 • 双休五险一金*双休五险一金*双休五险一金*双休五险一金*双休五险一金*双休五险一金*双休" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/job_detail_tocompany_tv"
+        style="@style/TextGray14sptv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/job_detail_benefit_ll"
+        android:layout_marginBottom="16dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginTop="8dp"
+        android:text="查看公司详情" />
+
+    <!--<com.google.android.flexbox.FlexboxLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+    <!--android:id="@+id/job_detail_benefit_ll"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_below="@id/job_detail_company_description_ll"-->
+    <!--android:layout_marginLeft="16dp"-->
+    <!--android:layout_marginRight="16dp"-->
+    <!--android:layout_marginTop="15dp"-->
+    <!--app:alignContent="stretch"-->
+    <!--app:alignItems="flex_start"-->
+    <!--app:dividerDrawable="@drawable/company_detail_welfare_divider"-->
+    <!--app:flexWrap="wrap"-->
+    <!--app:justifyContent="flex_start"-->
+    <!--app:showDivider="middle"></com.google.android.flexbox.FlexboxLayout>-->
+    <!--<RelativeLayout-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_below="@id/job_detail_company_description_ll"-->
+    <!--android:id="@+id/job_detail_benefit_ll"-->
+    <!--android:layout_marginTop="15dp"-->
+    <!--&gt;-->
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="五险一金"-->
+    <!--android:textColor="@color/colorBlue"-->
+    <!--android:textSize="12sp"-->
+    <!--android:background="@drawable/job_detail_benefit_bg"-->
+    <!--android:padding="5dp"-->
+    <!--/>-->
+
+    <!--</RelativeLayout>-->
 
 </RelativeLayout>

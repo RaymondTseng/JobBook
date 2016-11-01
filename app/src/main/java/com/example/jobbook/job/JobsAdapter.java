@@ -1,9 +1,7 @@
 package com.example.jobbook.job;
 
 import android.content.Context;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
-import com.example.jobbook.util.L;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +10,6 @@ import android.widget.TextView;
 
 import com.example.jobbook.R;
 import com.example.jobbook.bean.JobBean;
-import com.example.jobbook.commons.Constants;
 import com.example.jobbook.util.ImageLoadUtils;
 
 import java.util.List;
@@ -64,7 +61,9 @@ public class JobsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             ImageLoadUtils.display(mContext, ((ItemViewHolder)holder).mCompanyLogo, job.getLogo());
             ((ItemViewHolder) holder).mCompanyName.setText(job.getCompanyName());
             ((ItemViewHolder) holder).mJobName.setText(job.getName());
-            ((ItemViewHolder) holder).mLocation.setText(job.getCompanyLocation());
+            if (job.getCompanyLocation().length() >= 7) {
+                ((ItemViewHolder) holder).mLocation.setText(job.getCompanyLocation().substring(0, 6));
+            }
             ((ItemViewHolder) holder).mSalary.setText(job.getSalary());
             ((ItemViewHolder) holder).mTime.setText(job.getTime());
         }

@@ -35,6 +35,7 @@ public class MyApplication extends Application {
 //        }
 //    }
 
+
     public static PersonBean getmPersonBean() {
         if (mPersonBean != null) {
             return mPersonBean;
@@ -122,6 +123,8 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
+
 
         // 内存泄漏检测工具
 //        LeakCanary.install(this);
