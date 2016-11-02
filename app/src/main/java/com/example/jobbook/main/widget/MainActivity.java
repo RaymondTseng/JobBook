@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -85,13 +86,15 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
 //        MyApplication.setmPersonBean(mMainPresenter.loadPersonBean(this));
         if (getIntent().getExtras() != null) {
             String change_to = (String) getIntent().getExtras().get("CHANGE_TO");
-            switch (change_to) {
-                case "JOB":
-                    mJobRadioButton.setChecked(true);
-                    mFragmentContainer.setCurrentItem(0);
-                    break;
-                case "ARTICLE":
-                    break;
+            if (!TextUtils.isEmpty(change_to)) {
+                switch (change_to) {
+                    case "JOB":
+                        mJobRadioButton.setChecked(true);
+                        mFragmentContainer.setCurrentItem(0);
+                        break;
+                    case "ARTICLE":
+                        break;
+                }
             }
         }
     }

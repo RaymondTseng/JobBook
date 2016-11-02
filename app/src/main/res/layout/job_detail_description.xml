@@ -2,84 +2,70 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/colorWhite">
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp">
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            >
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/engagement_24px_blue"/>
-            <TextView
-                android:text="职位描述"
-                style="@style/Black20sptv"/>
-        </LinearLayout>
-    </RelativeLayout>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="@color/colorBackgroundGray"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"/>
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:id="@+id/job_detail_description_duty_ll">
-            <TextView
-                android:text="岗位职责"
-                style="@style/Black16sptv"
-                android:id="@+id/job_deatail_description_duty_tv"
-                />
-            <TextView
-                android:id="@+id/job_detail_description_duty_content_tv"
-                android:layout_marginLeft="16dp"
-                android:layout_toRightOf="@id/job_deatail_description_duty_tv"
-                style="@style/Black14sptv"
-                android:singleLine="false"
-                android:text="1.负责apple产品UI的视觉创意和风格设计；\n2.与产品经理配合，积极寻求更好的产品界面视觉方案；\n3.与开发人员合作，根据产品需求，提交开发所需的UI交互设计细节；"/>
-        </RelativeLayout>
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/job_detail_description_duty_ll"
-            android:layout_marginTop="16dp"
-            android:id="@+id/job_detail_description_require_ll">
-            <TextView
-                android:text="任职要求"
-                style="@style/Black16sptv"
-                android:id="@+id/job_deatail_description_require_tv"
-                />
-            <TextView
-                android:id="@+id/job_detail_description_require_content_tv"
-                android:layout_marginLeft="16dp"
-                android:layout_toRightOf="@id/job_deatail_description_require_tv"
-                style="@style/Black14sptv"
-                android:text="1.设计相关专业，2年以上工作经验；\n2.对设计流行趋势的洞察力，对视觉和交互的独到见解，注重细节的处理；\n3.熟悉移动客户端的相关设计规范及实现，能够快速把握用户操作流程及用户需求；\n4.精通使用Photoshop、Illustrator等常用设计软件；\n5.良好的沟通能力与团队意识，有激情，创造力和责任感，能够适应快节奏的工作模式；\n6.有完整的APP界面、网页界面、ICON整套案例的优先；"/>
-        </RelativeLayout>
-    </RelativeLayout>
+    android:background="@color/colorWhite"
+    android:orientation="vertical">
 
-    <ImageButton
-        android:id="@+id/job_detail_bottom_bt"
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@mipmap/up_white"
-        android:background="@color/colorBlue"
-        android:layout_marginTop="20dp"
-        android:visibility="gone"/>
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="12dp">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@mipmap/engagement_24px_gray" />
+
+        <TextView
+            style="@style/TextBlackde20sptv"
+            android:text="职位描述" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@id/job_detail_location_ll"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginTop="7dp"
+        android:background="@color/colorBackgroundGray" />
+
+    <TextView
+        style="@style/TextBlackde16sptv"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="8dp"
+        android:text="岗位职责" />
+
+    <TextView
+        android:id="@+id/job_detail_description_duty_content_tv"
+        style="@style/TextBlackb314sptv"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="8dp"
+        android:text="1.负责apple产品UI的视觉创意和风格设计；\n2.与产品经理配合，积极寻求更好的产品界面视觉方案；\n3.与开发人员合作，根据产品需求，提交开发所需的UI交互设计细节；" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@id/job_detail_location_ll"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/colorBackgroundGray" />
+
+    <TextView
+        style="@style/TextBlackde16sptv"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="8dp"
+        android:text="任职要求" />
+
+    <TextView
+        android:id="@+id/job_detail_description_require_content_tv"
+        style="@style/TextBlackb314sptv"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="8dp"
+        android:text="1.负责apple产品UI的视觉创意和风格设计；2.与产品经理配合，积极寻求更好的产品界面视觉方案；\n3.与开发人员合作，根据产品需求，提交开发所需的UI交互设计细节；" />
 
 </LinearLayout>
