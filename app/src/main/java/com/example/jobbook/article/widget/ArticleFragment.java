@@ -100,7 +100,8 @@ public class ArticleFragment extends Fragment implements ArticleView, View.OnCli
         mSwipeRefreshLayout.setColorSchemeResources(R.color.colorBlue);
         mSwipeRefreshLayout.setOnRefreshListener(this);
         mLayoutManager = new LinearLayoutManager(getActivity());
-        mRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST));
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(),
+                DividerItemDecoration.VERTICAL_LIST));
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());

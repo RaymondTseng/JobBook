@@ -56,7 +56,7 @@ public class ArticlesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             if(article == null){
                 return;
             }
-            ((ItemViewHolder) holder).mContent.setText(Util.subContent(article.getContent()));
+            ((ItemViewHolder) holder).mContent.setText(Util.subContent(article.getContent(), 40));
             switch (article.getType()) {
                 case Constants.INDEX_ARTICLE_ENGAGEMENT:
                     ((ItemViewHolder) holder).mLabel.setImageResource(R.mipmap.engagement_24px_blue);
@@ -70,7 +70,7 @@ public class ArticlesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             }
             ImageLoadUtils.display(mContext, ((ItemViewHolder)holder).mLogo, article.getImage());
             ((ItemViewHolder) holder).mTime.setText(article.getDate());
-            ((ItemViewHolder) holder).mTitle.setText(article.getTitle());
+            ((ItemViewHolder) holder).mTitle.setText(Util.subContent(article.getTitle(), 15));
         }
     }
 

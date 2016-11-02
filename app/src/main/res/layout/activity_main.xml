@@ -6,20 +6,21 @@
     android:layout_height="match_parent"
     android:background="@color/colorWhite"
     tools:context=".main.widget.MainActivity"
-    android:weightSum="512"
+    android:weightSum="568"
     android:orientation="vertical">
 
     <android.support.v4.view.ViewPager
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="468"
+        android:layout_height="0dp"
+        android:layout_weight="512"
         android:layout_centerInParent="true"></android.support.v4.view.ViewPager>
     <include
         android:id="@+id/bottom_navigation_bar"
         layout="@layout/bottom_navigation_bar"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
+        android:layout_height="0dp"
+        android:layout_weight="56"
         android:layout_alignParentBottom="true"
         />
 
