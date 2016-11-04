@@ -11,9 +11,11 @@ import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.jobbook.R;
@@ -46,6 +48,7 @@ public class SearchActivity extends Activity implements View.OnClickListener, Se
     private SearchJobsAdapter adapter;
     private String mSearchContent;
     private List<JobBean> list;
+    private Spinner mSpinner;
     private LinearLayout mLoadingLinearLayout;
 
     private int pageIndex = 0;
@@ -61,6 +64,7 @@ public class SearchActivity extends Activity implements View.OnClickListener, Se
     private void initViews() {
         mBackImageButton = (ImageButton) findViewById(R.id.job_search_activity_back_ib);
         mSearchImageButton = (ImageButton) findViewById(R.id.job_search_activity_search_ib);
+        mSpinner = (Spinner) findViewById(R.id.job_search_spinner);
         mBackImageButton.setOnClickListener(this);
         mSearchImageButton.setOnClickListener(this);
         mSearchEditText = (EditText) findViewById(R.id.job_search_activity_et);
@@ -70,6 +74,8 @@ public class SearchActivity extends Activity implements View.OnClickListener, Se
         mRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        ArrayAdapter<String> mSpinnerAdapter = new ArrayAdapter<String>(this, R.layout.search_spinner);
+        mSpinner.setAdapter(mSpinnerAdapter);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.addOnScrollListener(mOnScrollListener);
     }

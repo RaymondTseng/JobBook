@@ -42,6 +42,7 @@
             android:src="@mipmap/time"/>
         <TextView
             style="@style/TextGray12sptv"
+            android:id="@+id/article_lv_time_tv"
             android:layout_marginLeft="4dp"
             android:text="4分钟前"/>
     </LinearLayout>
@@ -56,6 +57,7 @@
         android:src="@mipmap/suit"/>
     <TextView
         style="@style/TextGray12sptv"
+        android:id="@+id/article_lv_content_tv"
         android:layout_alignLeft="@id/article_lv_title_ll"
         android:layout_marginLeft="16dp"
         android:layout_below="@id/article_lv_ll_1"

@@ -26,4 +26,9 @@
         <item>三级</item>
         <item>四级</item>
     </array>
+
+    <array name="search">
+        <item>地区</item>
+        <item>行业</item>
+    </array>
 </resources>
