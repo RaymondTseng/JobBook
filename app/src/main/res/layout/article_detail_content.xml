@@ -20,7 +20,32 @@
             style="@style/Black16sptv"
             android:layout_below="@id/article_detail_title_tv"
             android:layout_marginTop="16dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:lineSpacingExtra="4dp"
             android:text="内容加载中" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/article_detail_content_tv"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginLeft="8dp"
+            android:orientation="horizontal">
+            <TextView
+                style="@style/TextGray12sptv"
+                android:text="阅读"/>
+            <TextView
+                android:id="@+id/article_detail_content_reading_tv"
+                android:layout_marginLeft="4dp"
+                style="@style/TextGray12sptv"
+                android:text="99999"/>
+            <TextView
+                android:id="@+id/article_detail_content_time_tv"
+                style="@style/TextGray12sptv"
+                android:layout_marginLeft="8dp"
+                android:text="10月27日"/>
+        </LinearLayout>
     </RelativeLayout>
 
     <!--<TextView-->

@@ -29,6 +29,7 @@ public class ArticleDetailActivity extends Activity implements ArticleDetailView
     private ArticleBean mArticleBean;
     private TextView mReadingQuantityTextView;
     private TextView mArticleTitleTextView;
+    private TextView mTimeTextView;
     private TextView mArticleContentTextView;
     private LinearLayout mLoadingLinearLayout;
 
@@ -43,9 +44,10 @@ public class ArticleDetailActivity extends Activity implements ArticleDetailView
     private void initViews() {
         mBackImageButton = (ImageButton) findViewById(R.id.article_detail_back_ib);
         mListView = (ListView) findViewById(R.id.article_detail_lv);
-        mReadingQuantityTextView = (TextView) findViewById(R.id.article_detail_readingquanity_tv);
+        mReadingQuantityTextView = (TextView) findViewById(R.id.article_detail_content_reading_tv);
         mArticleTitleTextView = (TextView) findViewById(R.id.article_detail_title_tv);
         mArticleContentTextView = (TextView) findViewById(R.id.article_detail_content_tv);
+        mTimeTextView = (TextView) findViewById(R.id.article_detail_content_time_tv);
         mLoadingLinearLayout = (LinearLayout) findViewById(R.id.loading_circle_progress_bar_ll);
     }
 
@@ -73,6 +75,7 @@ public class ArticleDetailActivity extends Activity implements ArticleDetailView
         mReadingQuantityTextView.setText(mArticle.getReadingquantity() + "跟帖");
         mArticleTitleTextView.setText(mArticle.getTitle());
         mArticleContentTextView.setText(mArticle.getContent());
+        mTimeTextView.setText(mArticle.getDate());
     }
 
     @Override

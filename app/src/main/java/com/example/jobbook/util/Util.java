@@ -189,11 +189,11 @@ public class Util {
      * @param content
      * @return
      */
-    public static String subContent(String content) {
-        if (content.length() < 100) {
+    public static String subContent(String content, int size) {
+        if (content.length() < size) {
             return content;
         }
-        String result = content.substring(0, 100);
+        String result = content.substring(0, size);
         result = result + "...";
         return result;
     }

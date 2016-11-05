@@ -5,7 +5,7 @@
     <RadioGroup
         android:background="@color/colorWhite"
         android:layout_width="match_parent"
-        android:layout_height="52dp"
+        android:layout_height="match_parent"
         android:orientation="horizontal"
         android:id="@+id/bottom_bar_rg"
         >

@@ -13,6 +13,15 @@
         android:layout_height="0dp"
         android:layout_weight="56" />
 
+    <include
+        android:id="@+id/article_group"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="192"
+        layout="@layout/article_title_bar_rg"
+        android:visibility="gone"
+        />
+
     <LinearLayout
         android:id="@+id/article_blank_ll"
         android:layout_width="match_parent"

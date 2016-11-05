@@ -15,6 +15,8 @@ import com.example.jobbook.commons.Constants;
 import com.example.jobbook.util.ImageLoadUtils;
 import com.example.jobbook.util.Util;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 
 /**
@@ -56,21 +58,21 @@ public class ArticlesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             if(article == null){
                 return;
             }
-            ((ItemViewHolder) holder).mContent.setText(Util.subContent(article.getContent()));
+            ((ItemViewHolder) holder).mContent.setText(Util.subContent(article.getContent(), 40));
             switch (article.getType()) {
                 case Constants.INDEX_ARTICLE_ENGAGEMENT:
-                    ((ItemViewHolder) holder).mLabel.setImageResource(R.mipmap.engagement_24px_blue);
+                    ((ItemViewHolder) holder).mLabel.setText("就业技巧");
                     break;
                 case Constants.INDEX_ARTICLE_POLITIC:
-                    ((ItemViewHolder) holder).mLabel.setImageResource(R.mipmap.politic_blue);
+                    ((ItemViewHolder) holder).mLabel.setText("政策解读");
                     break;
                 case Constants.INDEX_ARTICLE_LIFE:
-                    ((ItemViewHolder) holder).mLabel.setImageResource(R.mipmap.life_blue);
+                    ((ItemViewHolder) holder).mLabel.setText("生活资讯");
                     break;
             }
             ImageLoadUtils.display(mContext, ((ItemViewHolder)holder).mLogo, article.getImage());
             ((ItemViewHolder) holder).mTime.setText(article.getDate());
-            ((ItemViewHolder) holder).mTitle.setText(article.getTitle());
+            ((ItemViewHolder) holder).mTitle.setText(Util.subContent(article.getTitle(), 15));
         }
     }
 
@@ -110,7 +112,7 @@ public class ArticlesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     public class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        ImageView mLabel;
+        TextView mLabel;
         TextView mTitle;
         TextView mContent;
         TextView mTime;
@@ -118,7 +120,7 @@ public class ArticlesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         public ItemViewHolder(View view) {
             super(view);
             mContent = (TextView) view.findViewById(R.id.article_lv_content_tv);
-            mLabel = (ImageView) view.findViewById(R.id.article_lv_label_iv);
+            mLabel = (TextView) view.findViewById(R.id.article_lv_label_tv);
             mLogo = (ImageView) view.findViewById(R.id.article_lv_iv);
             mTime = (TextView) view.findViewById(R.id.article_lv_time_tv);
             mTitle = (TextView) view.findViewById(R.id.article_lv_title_tv);

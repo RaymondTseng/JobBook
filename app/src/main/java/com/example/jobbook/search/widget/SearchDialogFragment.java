@@ -19,9 +19,11 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.jobbook.R;
@@ -44,6 +46,7 @@ public class SearchDialogFragment extends DialogFragment implements View.OnClick
     private View view;
     private SearchRecordListViewAdapter adapter;
     private LinkedList<String> list;
+    private Spinner mSpinner;
     private SharedPreferences sharedPreferences;
 
     @Nullable
@@ -63,6 +66,13 @@ public class SearchDialogFragment extends DialogFragment implements View.OnClick
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity()).setView(view);
         mBackImageButton.setOnClickListener(this);
         list = new LinkedList<>();
+        ArrayAdapter<String> mSpinnerAdapter = new ArrayAdapter<String>(getActivity(),
+                R.layout.search_spinner, 0, getResources().getStringArray(R.array.search));
+        mSpinnerAdapter.setDropDownViewResource(R.layout.search_spinner);
+        mSpinner.setAdapter(mSpinnerAdapter);
+        mSpinner.setDropDownVerticalOffset(50);
+        mSpinner.setSelection(0);
+
         sharedPreferences = getActivity().getSharedPreferences("search", Context.MODE_PRIVATE);
         if (Util.getSearchList(sharedPreferences).size() != 0) {
             list = Util.getSearchList(sharedPreferences);
@@ -91,7 +101,7 @@ public class SearchDialogFragment extends DialogFragment implements View.OnClick
         mBackImageButton = (ImageButton) view.findViewById(R.id.job_search_bar_dialog_back_ib);
         mEditText = (EditText) view.findViewById(R.id.job_search_bar_dialog_et);
         mSearchImageButton = (ImageButton) view.findViewById(R.id.job_search_bar_dialog_search_ib);
-
+        mSpinner = (Spinner) view.findViewById(R.id.job_search_bar_spinner) ;
         mEditText.setOnKeyListener(new View.OnKeyListener() {
 
             @Override
