@@ -11,18 +11,17 @@
         android:background="@color/colorBlue">
         <ImageButton
             android:id="@+id/favourite_back_ib"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
             android:src="@mipmap/left_white"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="16dp"
             android:background="@null"/>
         <TextView
             android:text="我的收藏"
             style="@style/White20sptv"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@id/favourite_back_ib"
-            android:layout_marginLeft="32dp"/>
+            android:layout_marginLeft="16dp"/>
     </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView

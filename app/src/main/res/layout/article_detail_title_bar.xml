@@ -6,10 +6,9 @@
 
     <ImageButton
         android:id="@+id/article_detail_back_ib"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="16dp"
         android:background="@null"
         android:src="@mipmap/left_white" />
 
@@ -25,8 +24,8 @@
 
     <ImageButton
         android:id="@+id/article_detail_like_iv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
         android:src="@mipmap/favourite_white"
         android:background="@null"
         android:layout_centerVertical="true"

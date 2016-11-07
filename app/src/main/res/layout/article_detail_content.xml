@@ -15,7 +15,7 @@
             style="@style/Black20sptv"
             android:text="标题加载中" />
 
-        <TextView
+        <org.sufficientlysecure.htmltextview.HtmlTextView
             android:id="@+id/article_detail_content_tv"
             style="@style/Black16sptv"
             android:layout_below="@id/article_detail_title_tv"
@@ -24,6 +24,7 @@
             android:layout_marginRight="8dp"
             android:lineSpacingExtra="4dp"
             android:text="内容加载中" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

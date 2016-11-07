@@ -14,10 +14,9 @@
 
         <ImageButton
             android:id="@+id/activity_publish_close_ib"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="16dp"
             android:background="@null"
             android:src="@mipmap/close_white" />
 
