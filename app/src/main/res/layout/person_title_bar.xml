@@ -3,27 +3,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBlue">
+
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@mipmap/message"
-        android:layout_marginLeft="16dp"
-        android:layout_centerVertical="true"/>
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_centerVertical="true"
+        android:src="@mipmap/message" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:text="个人中心"
         android:layout_marginLeft="72dp"
-        android:textSize="20sp"
         android:gravity="center_vertical"
-        android:textColor="@color/colorWhite" />
+        android:text="个人中心"
+        android:textColor="@color/colorWhite"
+        android:textSize="20sp" />
+
     <ImageButton
         android:id="@+id/person_setting_ib"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@mipmap/setting"
-        android:layout_marginRight="16dp"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:background="@null"/>
+        android:background="@null"
+        android:src="@mipmap/setting" />
 </RelativeLayout>

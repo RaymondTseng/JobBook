@@ -15,17 +15,16 @@
 
         <ImageButton
             android:id="@+id/person_userinfo_back_ib"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="16dp"
             android:background="@null"
             android:src="@mipmap/left_white" />
 
         <TextView
             style="@style/White20sptv"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="32dp"
+            android:layout_marginLeft="16dp"
             android:layout_toRightOf="@id/person_userinfo_back_ib"
             android:text="详细信息" />
     </RelativeLayout>
@@ -34,6 +33,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="600"
+        android:visibility="gone"
         />
 
     <RelativeLayout

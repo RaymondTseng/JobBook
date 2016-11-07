@@ -11,10 +11,12 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="56" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="16"></LinearLayout>
+
     <include
         layout="@layout/person_userinfo_ll"
         android:layout_width="match_parent"
@@ -37,27 +39,23 @@
 
         <Button
             android:id="@+id/person_textcv_bt"
-            android:text="文字简历"
             style="@style/person_content_big_button_style"
-            />
+            android:text="文字简历" />
 
         <Button
             android:id="@+id/person_videocv_bt"
-            android:text="视频简历"
             style="@style/person_content_big_button_style"
-            />
+            android:text="视频简历" />
 
         <Button
             android:id="@+id/person_favourite_bt"
-            android:text="收藏"
             style="@style/person_content_big_button_style"
-            />
+            android:text="收藏" />
 
         <Button
             android:id="@+id/person_feedback_bt"
-            android:text="意见反馈"
             style="@style/person_content_big_button_style"
-            />
+            android:text="意见反馈" />
 
     </LinearLayout>
 

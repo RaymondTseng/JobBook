@@ -17,6 +17,9 @@ import com.example.jobbook.bean.ArticleCommentBean;
 import com.example.jobbook.util.L;
 import com.example.jobbook.util.Util;
 
+import org.sufficientlysecure.htmltextview.HtmlHttpImageGetter;
+import org.sufficientlysecure.htmltextview.HtmlTextView;
+
 import java.util.List;
 
 /**
@@ -30,7 +33,7 @@ public class ArticleDetailActivity extends Activity implements ArticleDetailView
     private TextView mReadingQuantityTextView;
     private TextView mArticleTitleTextView;
     private TextView mTimeTextView;
-    private TextView mArticleContentTextView;
+    private HtmlTextView mArticleContentTextView;
     private LinearLayout mLoadingLinearLayout;
 
     @Override
@@ -46,7 +49,7 @@ public class ArticleDetailActivity extends Activity implements ArticleDetailView
         mListView = (ListView) findViewById(R.id.article_detail_lv);
         mReadingQuantityTextView = (TextView) findViewById(R.id.article_detail_content_reading_tv);
         mArticleTitleTextView = (TextView) findViewById(R.id.article_detail_title_tv);
-        mArticleContentTextView = (TextView) findViewById(R.id.article_detail_content_tv);
+        mArticleContentTextView = (HtmlTextView) findViewById(R.id.article_detail_content_tv);
         mTimeTextView = (TextView) findViewById(R.id.article_detail_content_time_tv);
         mLoadingLinearLayout = (LinearLayout) findViewById(R.id.loading_circle_progress_bar_ll);
     }
@@ -74,7 +77,8 @@ public class ArticleDetailActivity extends Activity implements ArticleDetailView
     public void addArticle(ArticleBean mArticle) {
         mReadingQuantityTextView.setText(mArticle.getReadingquantity() + "跟帖");
         mArticleTitleTextView.setText(mArticle.getTitle());
-        mArticleContentTextView.setText(mArticle.getContent());
+//        mArticleContentTextView.setText(mArticle.getContent());
+        mArticleContentTextView.setHtml(mArticle.getContent(), new HtmlHttpImageGetter(mArticleContentTextView));
         mTimeTextView.setText(mArticle.getDate());
     }
 

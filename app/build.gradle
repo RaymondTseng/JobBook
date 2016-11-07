@@ -27,6 +27,7 @@ repositories {
     flatDir {
         dirs 'libs'
     }
+    jcenter()
 }
 
 dependencies {
@@ -52,6 +53,8 @@ dependencies {
 //    releaseCompile 'com.squareup.leakcanary:leakcanary-androd-no-op:1.3'
 //    debugCompile(name: 'leakcanary-android-1.3', ext: 'aar')
 //    releaseCompile(name: 'leakcanary-android-no-op-1.3', ext: 'aar')
+
+    compile 'org.sufficientlysecure:html-textview:2.0'
 
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.4'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4'

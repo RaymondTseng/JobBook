@@ -64,7 +64,7 @@ public class SearchActivity extends Activity implements View.OnClickListener, Se
     private void initViews() {
         mBackImageButton = (ImageButton) findViewById(R.id.job_search_activity_back_ib);
         mSearchImageButton = (ImageButton) findViewById(R.id.job_search_activity_search_ib);
-        mSpinner = (Spinner) findViewById(R.id.job_search_spinner);
+        mSpinner = (Spinner) findViewById(R.id.job_search_bar_spinner);
         mBackImageButton.setOnClickListener(this);
         mSearchImageButton.setOnClickListener(this);
         mSearchEditText = (EditText) findViewById(R.id.job_search_activity_et);

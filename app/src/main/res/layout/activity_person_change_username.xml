@@ -14,17 +14,16 @@
 
         <ImageButton
             android:id="@+id/person_change_username_back_ib"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="16dp"
             android:background="@null"
             android:src="@mipmap/left_white" />
 
         <TextView
             style="@style/White20sptv"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="32dp"
+            android:layout_marginLeft="16dp"
             android:layout_toRightOf="@id/person_change_username_back_ib"
             android:text="修改昵称" />
 

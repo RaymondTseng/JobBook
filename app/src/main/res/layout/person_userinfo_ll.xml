@@ -36,10 +36,9 @@
     <!--android:layout_alignLeft="@id/person_status_tv"-->
     <!--style="@style/TextGray14sptv"/>-->
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:layout_marginRight="16dp"
         android:src="@mipmap/right_blue" />
 </RelativeLayout>
