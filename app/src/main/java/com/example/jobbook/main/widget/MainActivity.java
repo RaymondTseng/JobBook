@@ -20,7 +20,7 @@ import com.example.jobbook.main.presenter.MainPresenter;
 import com.example.jobbook.main.presenter.MainPresenterImpl;
 import com.example.jobbook.main.view.MainView;
 import com.example.jobbook.person.widget.PersonFragment;
-import com.example.jobbook.question.widget.QuestionFragment;
+import com.example.jobbook.moment.widget.MomentFragment;
 import com.example.jobbook.util.Util;
 
 import java.util.ArrayList;
@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         mFragments = new ArrayList<>();
         mFragments.add(new JobFragment());
         mFragments.add(new ArticleFragment());
-        mFragments.add(new QuestionFragment());
+        mFragments.add(new MomentFragment());
 //        mFragments.add(new ContainerFragment());
         mFragments.add(new PersonFragment());
     }
