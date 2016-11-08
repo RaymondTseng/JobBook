@@ -9,6 +9,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -90,7 +91,7 @@ public class ArticleFragment extends Fragment implements ArticleView, View.OnCli
         presenter = new ArticlePresenterImpl(this);
         mTitleTextView.setText(Constants.ARTICLE_ALL);
         mMenuPopupWindow = new PopupWindow(mMenuView, ViewGroup.LayoutParams.MATCH_PARENT,
-                (Util.getHeight(getActivity()) / 556) * 192, true);
+                (int)((Util.getHeight(getActivity()) / (double)556) * 192), true);
         mMenuPopupWindow.setBackgroundDrawable(new BitmapDrawable(getResources(),
                 Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888)));
         mMenuPopupWindow.setOutsideTouchable(true);
@@ -174,7 +175,8 @@ public class ArticleFragment extends Fragment implements ArticleView, View.OnCli
                 } else {
                     mDropImageButton.startAnimation(mDropImageButtonAnimation);
                     mRecyclerView.startAnimation(mListViewShowAnimation);
-                    mMenuPopupWindow.showAsDropDown(v, 0, (Util.getHeight(getActivity()) / 720) * 20);
+                    mMenuPopupWindow.showAsDropDown(v, 0, 0);
+//                    mMenuPopupWindow.showAsDropDown(v, 0, (Util.getHeight(getActivity()) / 720) * 20);
                     mBlankLayout.startAnimation(mBlankLayoutShowAnimation);
                     mBlankLayout.setVisibility(View.VISIBLE);
                     mDropImageButton.setImageResource(R.mipmap.down_white);
