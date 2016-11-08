@@ -60,7 +60,7 @@
             android:name=".person.widget.FavouriteActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".question.widget.QuestionDetailActivity"
+            android:name=".moment.widget.MomentDetailActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
@@ -73,7 +73,7 @@
             android:name=".job.widget.CompanyDetailActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".question.widget.NewQuestionActivity"
+            android:name=".moment.widget.NewMomentActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".search.widget.SearchActivity"
