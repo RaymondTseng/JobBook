@@ -17,6 +17,6 @@
         android:layout_centerVertical="true"
         android:layout_marginLeft="16dp"
         android:layout_toRightOf="@id/question_detail_back_ib"
-        android:text="问题详情" />
+        android:text="详情" />
 
 </RelativeLayout>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginTop="8dp">
+
+    <TextView
+        style="@style/TextGray14sptv"
+        android:layout_gravity="right"
+        android:layout_marginRight="32dp"
+        android:text="5分钟前" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:gravity="right"
+        android:layout_marginBottom="24dp"
+        android:layout_marginRight="32dp">
+
+        <LinearLayout
+            android:id="@+id/favourite_ll"
+            android:layout_width="80dp"
+            android:layout_height="32dp"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:scaleType="center"
+                android:src="@mipmap/favourite_gray" />
+
+            <TextView
+                android:id="@+id/moment_lv_favourite_tv"
+                style="@style/TextGray14sptv"
+                android:text="(2300)" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="80dp"
+            android:layout_height="32dp"
+            android:layout_toRightOf="@+id/favourite_ll"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:scaleType="center"
+                android:src="@mipmap/comment" />
+
+            <TextView
+                android:id="@+id/moment_lv_comment_tv"
+                style="@style/TextGray14sptv"
+                android:text="(2300)" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>

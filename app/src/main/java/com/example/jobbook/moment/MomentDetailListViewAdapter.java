@@ -56,7 +56,7 @@ public class MomentDetailListViewAdapter extends BaseAdapter {
         ViewHolder mViewHolder;
         final MomentCommentBean questionComment = mData.get(position);
         if (convertView == null) {
-            view = LayoutInflater.from(mContext).inflate(R.layout.question_detail_listview_item, null);
+            view = LayoutInflater.from(mContext).inflate(R.layout.moment_detail_listview_item, null);
             mViewHolder = new ViewHolder();
             mViewHolder.mContent = (TextView) view.findViewById(R.id.question_detail_lv_content_tv);
             mViewHolder.mFloor = (TextView) view.findViewById(R.id.question_detail_lv_floor_tv);

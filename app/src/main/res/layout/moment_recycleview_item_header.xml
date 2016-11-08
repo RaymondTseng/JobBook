@@ -3,9 +3,22 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <RelativeLayout
+    <TextView
+        android:layout_below="@+id/moment_rl"
         android:layout_width="match_parent"
-        android:layout_height="56dp">
+        android:layout_height="2dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
+        android:background="@color/colorSettingsBackgroundGray" />
+
+    <RelativeLayout
+        android:id="@+id/moment_rl"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
         <ImageView
             android:id="@+id/moment_rv_head_iv"
@@ -39,15 +52,6 @@
             android:layout_alignParentRight="true"
             android:background="@mipmap/close_gray" />
 
-
     </RelativeLayout>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="32dp"
-        android:layout_marginRight="32dp"
-        android:background="@color/colorSettingsBackgroundGray" />
 
 </RelativeLayout>
