@@ -59,14 +59,14 @@ public class MomentDetailActivity extends Activity implements MomentDetailView, 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_question_detail);
+        setContentView(R.layout.activity_moment_detail);
         view = getWindow().getDecorView();
         initViews();
         initEvents();
 
     }
     private void initViews(){
-        mHeadView = (LinearLayout) getLayoutInflater().inflate(R.layout.question_detail_description, null);
+        mHeadView = (LinearLayout) getLayoutInflater().inflate(R.layout.moment_detail_description, null);
         mListView = (ListView) findViewById(R.id.question_detail_lv);
         mEditText = (EditText) findViewById(R.id.question_detail_et);
         mSendImageButton = (ImageButton) findViewById(R.id.question_detail_send_ib);

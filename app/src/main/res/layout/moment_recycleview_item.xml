@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <include layout="@layout/moment_recycleview_item_header" />
+
+    <TextView
+        style="@style/TextBlackb316sptv"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginTop="8dp"
+        android:text="       这里是一大段文字，我今天真的非常不想上班，但是老板又强制要求我上班，所以我辞职了" />
+
+    <include
+        layout="@layout/moment_recycleview_item_footer"
+        />
+
+</LinearLayout>

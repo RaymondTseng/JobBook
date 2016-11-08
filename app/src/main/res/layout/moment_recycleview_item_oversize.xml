@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <include layout="@layout/moment_recycleview_item_header" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginTop="8dp">
+
+        <TextView
+            style="@style/TextBlackb316sptv"
+            android:text="       	红黑树是一种特定类型的二叉树，它是在计算机科学中用来组织数据比如数字的块的一种结构。所有数据块都存储在节点中。这些节点中的某一个节点总是这里只能有七十五个字…" />
+
+        <TextView
+            style="@style/TextBlue16sptv"
+            android:layout_gravity="right|bottom"
+            android:layout_marginRight="16dp"
+            android:text="点开全文" />
+    </FrameLayout>
+
+    <include layout="@layout/moment_recycleview_item_footer" />
+
+</LinearLayout>

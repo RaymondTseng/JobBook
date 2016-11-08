@@ -19,7 +19,8 @@ import java.util.List;
  */
 public class MomentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int TYPE_ITEM = 0;
-    private static final int TYPE_FOOTER = 1;
+    private static final int TYPE_ITEM_OVER = 1;
+    private static final int TYPE_FOOTER = 2;
 
     private List<MomentBean> mData;
     private boolean mShowFooter = true;
@@ -27,14 +28,20 @@ public class MomentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     private OnItemClickListener mOnItemClickListener;
 
-    public MomentAdapter(Context mContext){
+    public MomentAdapter(Context mContext) {
         this.mContext = mContext;
     }
+
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        if(viewType == TYPE_ITEM) {
+        if (viewType == TYPE_ITEM) {
             View v = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.moment_listview_item, parent, false);
+                    .inflate(R.layout.moment_recycleview_item, parent, false);
+            ItemViewHolder vh = new ItemViewHolder(v);
+            return vh;
+        } else if (viewType == TYPE_ITEM_OVER) {
+            View v = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.moment_recycleview_item_oversize, parent, false);
             ItemViewHolder vh = new ItemViewHolder(v);
             return vh;
         } else {
@@ -48,9 +55,9 @@ public class MomentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        if(holder instanceof ItemViewHolder){
+        if (holder instanceof ItemViewHolder) {
             MomentBean moment = mData.get(position);
-            if(moment == null){
+            if (moment == null) {
                 return;
             }
             ((ItemViewHolder) holder).mTitle.setText(moment.getTitle());
@@ -63,8 +70,8 @@ public class MomentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     @Override
     public int getItemCount() {
-        int begin = mShowFooter?1:0;
-        if(mData == null) {
+        int begin = mShowFooter ? 1 : 0;
+        if (mData == null) {
             return begin;
         }
         return mData.size() + begin;
@@ -73,7 +80,7 @@ public class MomentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     @Override
     public int getItemViewType(int position) {
         // 最后一个item设置为footerView
-        if(!mShowFooter) {
+        if (!mShowFooter) {
             return TYPE_ITEM;
         }
         if (position + 1 == getItemCount()) {
@@ -83,13 +90,14 @@ public class MomentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         }
     }
 
-    public class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView mTitle;
         TextView mContent;
         ImageView mUserHead;
         TextView mUserName;
         TextView mCommentNumbers;
         TextView mTime;
+
         public ItemViewHolder(View view) {
             super(view);
             mTitle = (TextView) view.findViewById(R.id.moment_lv_title_tv);
@@ -103,19 +111,20 @@ public class MomentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         @Override
         public void onClick(View v) {
-            if(mOnItemClickListener != null) {
+            if (mOnItemClickListener != null) {
                 mOnItemClickListener.onItemClick(v, this.getPosition());
             }
         }
     }
 
-    public void updateData(List<MomentBean> mData){
+    public void updateData(List<MomentBean> mData) {
         this.mData = mData;
-        if(mData.size() % Urls.PAZE_SIZE != 0){
+        if (mData.size() % Urls.PAZE_SIZE != 0) {
             this.setmShowFooter(false);
         }
         this.notifyDataSetChanged();
     }
+
     public interface OnItemClickListener {
         public void onItemClick(View view, int position);
     }
@@ -124,7 +133,7 @@ public class MomentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         this.mOnItemClickListener = onItemClickListener;
     }
 
-    public MomentBean getItem(int position){
+    public MomentBean getItem(int position) {
         return mData == null ? null : mData.get(position);
     }
 

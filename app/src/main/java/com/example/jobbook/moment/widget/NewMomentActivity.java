@@ -132,7 +132,7 @@ public class NewMomentActivity extends Activity implements NewMomentView, View.O
                     momentBean.setAuthor(MyApplication.getmPersonBean());
 //                    momentBean.setTitle(mNewMomentTitleEditText.getText().toString());
                     momentBean.setContent(mNewMomentContentEditText.getText().toString());
-                    mNewMomentPresenter.newquestion(momentBean);
+                    mNewMomentPresenter.newmoment(momentBean);
                 }
                 break;
         }
