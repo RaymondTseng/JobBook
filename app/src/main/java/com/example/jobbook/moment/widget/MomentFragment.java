@@ -6,6 +6,7 @@ import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -40,7 +41,6 @@ public class MomentFragment extends Fragment implements MomentView,
 
     private RecyclerView mRecyclerView;
     private SwipeRefreshLayout mSwipeRefreshLayout;
-    private FloatingActionButton mNewQuestionFAB;
     private MomentPresenter mMomentPresenter;
     private List<MomentBean> mData;
     private View view;
@@ -48,9 +48,10 @@ public class MomentFragment extends Fragment implements MomentView,
     private LinearLayoutManager mLayoutManager;
     private MyApplication myApplication;
 
+
     private int pageIndex = 0;
 
-    final Handler handler = new Handler() {
+    public final Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             if (msg.what == REFRESH) {
@@ -71,7 +72,6 @@ public class MomentFragment extends Fragment implements MomentView,
 
     public void initViews(View view) {
         mRecyclerView = (RecyclerView) view.findViewById(R.id.question_rv);
-        mNewQuestionFAB = (FloatingActionButton) view.findViewById(R.id.question_add_fab);
         mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.question_swipe_container);
     }
 
@@ -89,18 +89,6 @@ public class MomentFragment extends Fragment implements MomentView,
         mAdapter.setOnItemClickListener(mOnItemClickListener);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.addOnScrollListener(mOnScrollListener);
-        mNewQuestionFAB.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                myApplication = (MyApplication) getActivity().getApplication();
-                myApplication.setHandler(handler);
-                if (MyApplication.getmLoginStatus() == 1) {
-                    Util.toAnotherActivity(getActivity(), NewMomentActivity.class);
-                } else {
-                    Toast.makeText(getActivity(), "请先登录！", Toast.LENGTH_LONG).show();
-                }
-            }
-        });
         onRefresh();
     }
 
@@ -184,4 +172,7 @@ public class MomentFragment extends Fragment implements MomentView,
         }
         mMomentPresenter.loadQuestion(pageIndex);
     }
+
+
+
 }

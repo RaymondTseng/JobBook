@@ -60,11 +60,11 @@ public class MomentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             if (moment == null) {
                 return;
             }
-            ((ItemViewHolder) holder).mTitle.setText(moment.getTitle());
-            ((ItemViewHolder) holder).mContent.setText(moment.getContent());
-            ((ItemViewHolder) holder).mUserName.setText(moment.getAuthor().getUsername());
-            ((ItemViewHolder) holder).mCommentNumbers.setText(moment.getCommentnum() + "");
-            ((ItemViewHolder) holder).mTime.setText(moment.getDate());
+//            ((ItemViewHolder) holder).mTitle.setText(moment.getTitle());
+//            ((ItemViewHolder) holder).mContent.setText(moment.getContent());
+//            ((ItemViewHolder) holder).mUserName.setText(moment.getAuthor().getUsername());
+//            ((ItemViewHolder) holder).mCommentNumbers.setText(moment.getCommentnum() + "");
+//            ((ItemViewHolder) holder).mTime.setText(moment.getDate());
         }
     }
 
@@ -100,12 +100,12 @@ public class MomentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         public ItemViewHolder(View view) {
             super(view);
-            mTitle = (TextView) view.findViewById(R.id.moment_lv_title_tv);
-            mContent = (TextView) view.findViewById(R.id.moment_lv_content_tv);
-            mUserHead = (ImageView) view.findViewById(R.id.moment_lv_user_head_iv);
-            mUserName = (TextView) view.findViewById(R.id.moment_lv_user_name_tv);
-            mCommentNumbers = (TextView) view.findViewById(R.id.moment_lv_comment_tv);
-            mTime = (TextView) view.findViewById(R.id.moment_lv_time_tv);
+//            mTitle = (TextView) view.findViewById(R.id.moment_lv_title_tv);
+//            mContent = (TextView) view.findViewById(R.id.moment_lv_content_tv);
+//            mUserHead = (ImageView) view.findViewById(R.id.moment_lv_user_head_iv);
+//            mUserName = (TextView) view.findViewById(R.id.moment_lv_user_name_tv);
+//            mCommentNumbers = (TextView) view.findViewById(R.id.moment_lv_comment_tv);
+//            mTime = (TextView) view.findViewById(R.id.moment_lv_time_tv);
             itemView.setOnClickListener(this);
         }
 

@@ -71,11 +71,11 @@ public class MomentDetailActivity extends Activity implements MomentDetailView, 
         mEditText = (EditText) findViewById(R.id.question_detail_et);
         mSendImageButton = (ImageButton) findViewById(R.id.question_detail_send_ib);
         mBackImageButton = (ImageButton) findViewById(R.id.question_detail_back_ib);
-        mQuestionTitleTextView = (TextView) mHeadView.findViewById(R.id.question_detail_title_tv);
-        mQuestionContentTextView = (TextView) mHeadView.findViewById(R.id.question_detail_content_tv);
-        mQuestionUserNameTextView = (TextView) mHeadView.findViewById(R.id.question_detail_user_name_tv);
-        mQuestionTimeTextView = (TextView) mHeadView.findViewById(R.id.question_detail_time_tv);
-        mQuestionUserLogoImageView = (ImageView) findViewById(R.id.question_detail_user_logo_iv);
+//        mQuestionTitleTextView = (TextView) mHeadView.findViewById(R.id.question_detail_title_tv);
+//        mQuestionContentTextView = (TextView) mHeadView.findViewById(R.id.question_detail_content_tv);
+//        mQuestionUserNameTextView = (TextView) mHeadView.findViewById(R.id.question_detail_user_name_tv);
+//        mQuestionTimeTextView = (TextView) mHeadView.findViewById(R.id.question_detail_time_tv);
+//        mQuestionUserLogoImageView = (ImageView) findViewById(R.id.question_detail_user_logo_iv);
         mRootView = findViewById(R.id.question_detail_root_ll);
         mTitleBarLayout = (RelativeLayout) findViewById(R.id.question_detail_title_bar);
         mInputLayout = (LinearLayout) findViewById(R.id.question_detail_input_ll);

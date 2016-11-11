@@ -56,10 +56,8 @@
 
         <TextView
             style="@style/Black16sptv"
-            android:layout_alignBottom="@+id/imageView"
             android:layout_centerVertical="true"
             android:layout_marginLeft="16dp"
-            android:layout_toEndOf="@+id/person_userinfo_logo_iv"
             android:layout_toRightOf="@+id/person_userinfo_logo_iv"
             android:text="修改头像"
             android:textStyle="bold" />
