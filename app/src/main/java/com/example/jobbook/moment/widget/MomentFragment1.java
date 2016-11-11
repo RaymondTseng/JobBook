@@ -3,6 +3,8 @@ package com.example.jobbook.moment.widget;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -18,9 +20,11 @@ import android.widget.ImageView;
 import android.widget.TabWidget;
 import android.widget.TextView;
 
+import com.example.jobbook.MyApplication;
 import com.example.jobbook.R;
 import com.example.jobbook.moment.MomentPagerAdapter;
 import com.example.jobbook.util.L;
+import com.example.jobbook.util.Util;
 
 
 import java.util.ArrayList;
@@ -31,6 +35,9 @@ import java.util.List;
  */
 
 public class MomentFragment1 extends Fragment implements View.OnClickListener, ViewPager.OnPageChangeListener{
+
+    private static int REFRESH = 1;
+
     private ViewPager mViewPager;
     private TabWidget mTabWidget;
     private MomentPagerAdapter mPagerAdapter;
@@ -39,9 +46,13 @@ public class MomentFragment1 extends Fragment implements View.OnClickListener, V
     private TextView[] mTextTabs = new TextView[addresses.length];
     private List<Fragment> mFragemnts = new ArrayList<>();
     private ImageView mCursorImageView;
+    private TextView mPublishTextView;
+    private MyApplication myApplication;
     private int mCursorWidth;
     private int initPosition;
     private int mCurrentIndex = 0;
+
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -56,6 +67,7 @@ public class MomentFragment1 extends Fragment implements View.OnClickListener, V
         mViewPager = (ViewPager) view.findViewById(R.id.moment_vp);
         mTabWidget = (TabWidget) view.findViewById(R.id.moment_tab);
         mCursorImageView = (ImageView) view.findViewById(R.id.moment_cursor);
+        mPublishTextView = (TextView) view.findViewById(R.id.moment_publish_tv);
     }
 
     private void initCursor(){
@@ -68,6 +80,7 @@ public class MomentFragment1 extends Fragment implements View.OnClickListener, V
         Matrix matrix = new Matrix();
         matrix.postTranslate(initPosition, 0);
         mCursorImageView.setImageMatrix(matrix);
+        myApplication = (MyApplication) getActivity().getApplication();
     }
 
     private void initEvents(){
@@ -75,6 +88,7 @@ public class MomentFragment1 extends Fragment implements View.OnClickListener, V
         for(int i = 0; i < mTextTabs.length; i++){
             mTextTabs[i] = new TextView(getActivity());
             mTextTabs[i].setTag(i);
+            mTextTabs[i].setId(i);
             mTextTabs[i].setFocusable(true);
             mTextTabs[i].setText(addresses[i]);
             mTextTabs[i].setTextSize(16);
@@ -85,7 +99,7 @@ public class MomentFragment1 extends Fragment implements View.OnClickListener, V
             mTextTabs[i].setOnClickListener(this);
             mFragemnts.add(new MomentFragment());
         }
-
+        mPublishTextView.setOnClickListener(this);
         mPagerAdapter = new MomentPagerAdapter(getChildFragmentManager(), mFragemnts);
         mViewPager.setAdapter(mPagerAdapter);
         initCursor();
@@ -97,12 +111,20 @@ public class MomentFragment1 extends Fragment implements View.OnClickListener, V
 
     @Override
     public void onClick(View v) {
-        switch ((int)v.getTag()){
+        switch (v.getId()){
             case 0:
                 mViewPager.setCurrentItem(0);
                 break;
             case 1:
                 mViewPager.setCurrentItem(1);
+                break;
+            case R.id.moment_publish_tv:
+                if(MyApplication.getmLoginStatus() == 1){
+                    Util.toAnotherActivity(getActivity(), NewMomentActivity.class);
+                    myApplication.setHandler(((MomentFragment)mFragemnts.get(0)).handler);
+                }else{
+                    Util.showSnackBar(view, "请先登录");
+                }
                 break;
         }
     }

@@ -40,6 +40,8 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/moment_publish_tv"
+            android:tag="moment_publish_tv"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="56"
