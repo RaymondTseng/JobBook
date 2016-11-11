@@ -41,7 +41,6 @@ public class MomentFragment extends Fragment implements MomentView,
 
     private RecyclerView mRecyclerView;
     private SwipeRefreshLayout mSwipeRefreshLayout;
-    private FloatingActionButton mNewQuestionFAB;
     private MomentPresenter mMomentPresenter;
     private List<MomentBean> mData;
     private View view;
@@ -73,7 +72,6 @@ public class MomentFragment extends Fragment implements MomentView,
 
     public void initViews(View view) {
         mRecyclerView = (RecyclerView) view.findViewById(R.id.question_rv);
-        mNewQuestionFAB = (FloatingActionButton) view.findViewById(R.id.question_add_fab);
         mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.question_swipe_container);
     }
 
@@ -91,18 +89,6 @@ public class MomentFragment extends Fragment implements MomentView,
         mAdapter.setOnItemClickListener(mOnItemClickListener);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.addOnScrollListener(mOnScrollListener);
-        mNewQuestionFAB.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                myApplication = (MyApplication) getActivity().getApplication();
-                myApplication.setHandler(handler);
-                if (MyApplication.getmLoginStatus() == 1) {
-                    Util.toAnotherActivity(getActivity(), NewMomentActivity.class);
-                } else {
-                    Toast.makeText(getActivity(), "请先登录！", Toast.LENGTH_LONG).show();
-                }
-            }
-        });
         onRefresh();
     }
 

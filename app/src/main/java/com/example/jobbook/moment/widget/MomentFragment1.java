@@ -74,7 +74,7 @@ public class MomentFragment1 extends Fragment implements View.OnClickListener, V
         mTabWidget.setStripEnabled(false);
         for(int i = 0; i < mTextTabs.length; i++){
             mTextTabs[i] = new TextView(getActivity());
-            mTextTabs[i].setTag(1);
+            mTextTabs[i].setTag(i);
             mTextTabs[i].setFocusable(true);
             mTextTabs[i].setText(addresses[i]);
             mTextTabs[i].setTextSize(16);

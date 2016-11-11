@@ -58,13 +58,13 @@ public class MomentDetailListViewAdapter extends BaseAdapter {
         if (convertView == null) {
             view = LayoutInflater.from(mContext).inflate(R.layout.moment_detail_listview_item, null);
             mViewHolder = new ViewHolder();
-            mViewHolder.mContent = (TextView) view.findViewById(R.id.question_detail_lv_content_tv);
-            mViewHolder.mFloor = (TextView) view.findViewById(R.id.question_detail_lv_floor_tv);
-            mViewHolder.mLike = (TextView) view.findViewById(R.id.question_detail_lv_like_tv);
-            mViewHolder.mLogo = (ImageView) view.findViewById(R.id.question_detail_lv_user_logo_iv);
-            mViewHolder.mName = (TextView) view.findViewById(R.id.question_detail_lv_user_name_tv);
-            mViewHolder.mTime = (TextView) view.findViewById(R.id.question_detail_lv_time_tv);
-            mViewHolder.mUnlike = (TextView) view.findViewById(R.id.question_detail_lv_unlike_tv);
+//            mViewHolder.mContent = (TextView) view.findViewById(R.id.question_detail_lv_content_tv);
+//            mViewHolder.mFloor = (TextView) view.findViewById(R.id.question_detail_lv_floor_tv);
+//            mViewHolder.mLike = (TextView) view.findViewById(R.id.question_detail_lv_like_tv);
+//            mViewHolder.mLogo = (ImageView) view.findViewById(R.id.question_detail_lv_user_logo_iv);
+//            mViewHolder.mName = (TextView) view.findViewById(R.id.question_detail_lv_user_name_tv);
+//            mViewHolder.mTime = (TextView) view.findViewById(R.id.question_detail_lv_time_tv);
+//            mViewHolder.mUnlike = (TextView) view.findViewById(R.id.question_detail_lv_unlike_tv);
             view.setTag(mViewHolder);
         } else {
             view = convertView;
