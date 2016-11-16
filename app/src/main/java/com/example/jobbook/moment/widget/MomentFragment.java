@@ -1,178 +1,165 @@
 package com.example.jobbook.moment.widget;
 
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
+import android.widget.ImageView;
+import android.widget.TabWidget;
+import android.widget.TextView;
 
 import com.example.jobbook.MyApplication;
 import com.example.jobbook.R;
-import com.example.jobbook.bean.MomentBean;
-import com.example.jobbook.commons.Urls;
-import com.example.jobbook.moment.MomentAdapter;
-import com.example.jobbook.moment.presenter.MomentPresenter;
-import com.example.jobbook.moment.presenter.MomentPresenterImpl;
-import com.example.jobbook.moment.view.MomentView;
-import com.example.jobbook.util.DividerItemDecoration;
+import com.example.jobbook.moment.MomentPagerAdapter;
+import com.example.jobbook.square.widget.SquareFragment;
 import com.example.jobbook.util.L;
 import com.example.jobbook.util.Util;
+
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Xu on 2016/7/5.
+ * Created by root on 16-11-8.
  */
-public class MomentFragment extends Fragment implements MomentView,
-        SwipeRefreshLayout.OnRefreshListener {
+
+public class MomentFragment extends Fragment implements View.OnClickListener, ViewPager.OnPageChangeListener{
 
     private static int REFRESH = 1;
 
-    private RecyclerView mRecyclerView;
-    private SwipeRefreshLayout mSwipeRefreshLayout;
-    private MomentPresenter mMomentPresenter;
-    private List<MomentBean> mData;
+    private ViewPager mViewPager;
+    private TabWidget mTabWidget;
+    private MomentPagerAdapter mPagerAdapter;
     private View view;
-    private MomentAdapter mAdapter;
-    private LinearLayoutManager mLayoutManager;
+    private String[] addresses = { "广场", "关注"};
+    private TextView[] mTextTabs = new TextView[addresses.length];
+    private List<Fragment> mFragemnts = new ArrayList<>();
+    private ImageView mCursorImageView;
+    private TextView mPublishTextView;
     private MyApplication myApplication;
+    private int mCursorWidth;
+    private int initPosition;
+    private int mCurrentIndex = 0;
 
-
-    private int pageIndex = 0;
-
-    public final Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            if (msg.what == REFRESH) {
-                onRefresh();
-            }
-        }
-    };
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_question, container, false);
+        view = inflater.inflate(R.layout.fragment_moment, container, false);
         initViews(view);
         initEvents();
-        L.i("questionfragment", "create");
+        L.i("momentfragment", "create");
         return view;
     }
 
-    public void initViews(View view) {
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.question_rv);
-        mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.question_swipe_container);
+    private void initViews(View view){
+        mViewPager = (ViewPager) view.findViewById(R.id.moment_vp);
+        mTabWidget = (TabWidget) view.findViewById(R.id.moment_tab);
+        mCursorImageView = (ImageView) view.findViewById(R.id.moment_cursor);
+        mPublishTextView = (TextView) view.findViewById(R.id.moment_publish_tv);
     }
 
-    private void initEvents() {
-        mSwipeRefreshLayout.setOnRefreshListener(this);
-        mMomentPresenter = new MomentPresenterImpl(this);
-        mLayoutManager = new LinearLayoutManager(getActivity());
-        mSwipeRefreshLayout.setProgressViewOffset(false, 0, Util.getHeight(getActivity()) / 4);
-        mSwipeRefreshLayout.setColorSchemeResources(R.color.colorBlue);
-        mAdapter = new MomentAdapter(getActivity().getApplicationContext());
-        mRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST));
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        mAdapter.setOnItemClickListener(mOnItemClickListener);
-        mRecyclerView.setAdapter(mAdapter);
-        mRecyclerView.addOnScrollListener(mOnScrollListener);
-        onRefresh();
+    private void initCursor(){
+        mCursorWidth = BitmapFactory.decodeResource(getResources(),
+                R.mipmap.line).getWidth();
+        DisplayMetrics dm = new DisplayMetrics();
+        getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
+        int screenW = dm.widthPixels;
+        initPosition = (int)(((((double)screenW / 360) * 248) / 4) - ((double)mCursorWidth / 2));
+        Matrix matrix = new Matrix();
+        matrix.postTranslate(initPosition, 0);
+        mCursorImageView.setImageMatrix(matrix);
+        myApplication = (MyApplication) getActivity().getApplication();
     }
 
-    private RecyclerView.OnScrollListener mOnScrollListener = new RecyclerView.OnScrollListener() {
-
-        private int lastVisibleItem;
-
-        @Override
-        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-            super.onScrolled(recyclerView, dx, dy);
-            lastVisibleItem = mLayoutManager.findLastVisibleItemPosition();
+    private void initEvents(){
+        mTabWidget.setStripEnabled(false);
+        for(int i = 0; i < mTextTabs.length; i++){
+            mTextTabs[i] = new TextView(getActivity());
+            mTextTabs[i].setTag(i);
+            mTextTabs[i].setId(i);
+            mTextTabs[i].setFocusable(true);
+            mTextTabs[i].setText(addresses[i]);
+            mTextTabs[i].setTextSize(16);
+            mTextTabs[i].setBackgroundColor(getResources().getColor(R.color.colorBlue));
+            mTextTabs[i].setGravity(Gravity.CENTER);
+            mTextTabs[i].setTextColor(getResources().getColorStateList(R.color.colorWhite));
+            mTabWidget.addView(mTextTabs[i]);
+            mTextTabs[i].setOnClickListener(this);
+            mFragemnts.add(new SquareFragment());
         }
+        mPublishTextView.setOnClickListener(this);
+        mPagerAdapter = new MomentPagerAdapter(getChildFragmentManager(), mFragemnts);
+        mViewPager.setAdapter(mPagerAdapter);
+        initCursor();
+        mViewPager.setOnPageChangeListener(this);
+        mTabWidget.setCurrentTab(0);
 
-        @Override
-        public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-            super.onScrollStateChanged(recyclerView, newState);
-            if (newState == RecyclerView.SCROLL_STATE_IDLE
-                    && lastVisibleItem + 1 == mAdapter.getItemCount()
-                    && mAdapter.ismShowFooter()) {
-                //加载更多
-                L.i("question_fragment", "loading more data");
-                mMomentPresenter.loadQuestion(pageIndex);
-            }
-        }
-    };
 
-    private MomentAdapter.OnItemClickListener mOnItemClickListener = new MomentAdapter.OnItemClickListener() {
-        @Override
-        public void onItemClick(View view, int position) {
-            MomentBean question = mAdapter.getItem(position);
-            Bundle bundle = new Bundle();
-            bundle.putSerializable("question_detail", question);
-            Util.toAnotherActivity(getActivity(), MomentDetailActivity.class, bundle);
-        }
-    };
-
-    @Override
-    public void showProgress() {
-        mSwipeRefreshLayout.setRefreshing(true);
     }
 
     @Override
-    public void addQuestions(List<MomentBean> questionList) {
-        mAdapter.setmShowFooter(true);
-        if (mData == null) {
-            mData = new ArrayList<>();
+    public void onClick(View v) {
+        switch (v.getId()){
+            case 0:
+                mViewPager.setCurrentItem(0);
+                break;
+            case 1:
+                mViewPager.setCurrentItem(1);
+                break;
+            case R.id.moment_publish_tv:
+                if(MyApplication.getmLoginStatus() == 1){
+                    Util.toAnotherActivity(getActivity(), NewMomentActivity.class);
+                    myApplication.setHandler(((SquareFragment)mFragemnts.get(0)).handler);
+                }else{
+                    Util.showSnackBar(view, "请先登录");
+                }
+                break;
         }
-        mData.addAll(questionList);
-        if (pageIndex == 0) {
-            mAdapter.updateData(mData);
-        } else {
-            //如果没有更多数据了,则隐藏footer布局
-            if (questionList == null || questionList.size() == 0) {
-                mAdapter.setmShowFooter(false);
-            }
-            mAdapter.notifyDataSetChanged();
-        }
-        pageIndex += Urls.PAZE_SIZE;
     }
 
     @Override
-    public void hideProgress() {
-        mSwipeRefreshLayout.setRefreshing(false);
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
     }
 
     @Override
-    public void showLoadFailMsg() {
-        if (pageIndex == 0) {
-            mAdapter.setmShowFooter(false);
-            mAdapter.notifyDataSetChanged();
+    public void onPageSelected(int position) {
+        int offset = (initPosition + (mCursorWidth / 2)) * 2;
+        Animation animation = null;
+        switch (position){
+            case 0:
+                if(mCurrentIndex == 1){
+                    animation = new TranslateAnimation(offset, 0, 0, 0);
+                }
+                break;
+            case 1:
+                if(mCurrentIndex == 0){
+                    animation = new TranslateAnimation(0, offset, 0, 0);
+                }
+                break;
         }
-        Util.showSnackBar(view, "网络无法连接！", "重试");
+
+        mTabWidget.setCurrentTab(position);
+        mCurrentIndex = position;
+        animation.setFillAfter(true);
+        animation.setDuration(200);
+        mCursorImageView.startAnimation(animation);
     }
 
     @Override
-    public void onRefresh() {
-        L.i("TAG", "onRefresh");
-        pageIndex = 0;
-        if (mData != null) {
-            mData.clear();
-        }
-        mMomentPresenter.loadQuestion(pageIndex);
-    }
+    public void onPageScrollStateChanged(int state) {
 
+    }
 
 
 }

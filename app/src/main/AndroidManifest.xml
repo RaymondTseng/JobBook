@@ -60,7 +60,7 @@
             android:name=".person.widget.FavouriteActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".moment.widget.MomentDetailActivity"
+            android:name=".square.widget.SquareDetailActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity

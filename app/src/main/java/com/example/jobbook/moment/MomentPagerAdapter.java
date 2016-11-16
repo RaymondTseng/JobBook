@@ -5,7 +5,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-
 import java.util.List;
 
 /**
@@ -22,7 +21,7 @@ public class MomentPagerAdapter extends FragmentStatePagerAdapter {
     }
 
     @Override
-    public android.support.v4.app.Fragment getItem(int position) {
+    public Fragment getItem(int position) {
         return mFragments.get(position);
     }
 

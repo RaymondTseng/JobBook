@@ -1,4 +1,4 @@
-package com.example.jobbook.moment.presenter;
+package com.example.jobbook.square.presenter;
 
 import com.example.jobbook.bean.MomentBean;
 import com.example.jobbook.bean.MomentCommentBean;
@@ -6,7 +6,7 @@ import com.example.jobbook.bean.MomentCommentBean;
 /**
  * Created by 椰树 on 2016/7/16.
  */
-public interface MomentDetailPresenter {
+public interface SquareDetailPresenter {
     void loadQuestion(MomentBean momentBean);
 
     void loadQuestionComments(int id);

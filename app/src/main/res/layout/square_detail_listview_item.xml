@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorWhite">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:orientation="horizontal">
+        <ImageView
+            android:id="@+id/square_detail_lv_head_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/default_32px"/>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp">
+            <TextView
+                style="@style/TextBlue14sptv"
+                android:text="曾梓航:"
+                android:id="@+id/square_detail_lv_name_tv"/>
+            <TextView
+                style="@style/Black14sptv"
+                android:text="                你这样做有想过你的家里人吗。不想家里人你有想过老板的感受吗，就算不想老板的..."/>
+        </FrameLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>

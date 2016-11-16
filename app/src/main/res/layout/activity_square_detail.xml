@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/question_detail_root_ll"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="568">
+
+    <include
+        android:id="@+id/question_detail_title_bar"
+        layout="@layout/moment_detail_title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="56" />
+
+    <include
+        layout="@layout/loading_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="512"
+        android:visibility="gone"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="456"
+        android:orientation="vertical"
+        android:background="@color/colorWhite">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorWhite"
+            android:orientation="vertical"
+            android:paddingBottom="20dp">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:background="@color/colorWhite">
+                <ImageView
+                    android:id="@+id/square_detail_head_iv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/default_32px"
+                    android:layout_marginTop="12dp"/>
+                <TextView
+                    android:text="张朝旭"
+                    android:id="@+id/square_detail_name_tv"
+                    style="@style/Black14sptv"
+                    android:layout_toRightOf="@id/square_detail_head_iv"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="12dp"/>
+                <TextView
+                    android:id="@+id/square_detail_position_tv"
+                    style="@style/TextBlue12sptv"
+                    android:text="职谱 扫地僧"
+                    android:layout_marginLeft="16dp"
+                    android:layout_below="@id/square_detail_name_tv"
+                    android:layout_toRightOf="@id/square_detail_head_iv"/>
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/close_gray"
+                    android:layout_alignParentRight="true"
+                    android:background="@null"
+                    android:id="@+id/square_detail_close_bt"/>
+            </RelativeLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/colorSettingsBackgroundGray"
+                android:layout_marginLeft="32dp"
+                android:layout_marginRight="32dp"/>
+            <TextView
+                style="@style/Black16sptv"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="32dp"
+                android:layout_marginRight="32dp"
+                android:text="    这里是一大段文字，我今天真的非常不想上班，但是老板又强制要求我上班，所以我辞职了"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="32dp"
+                android:layout_marginRight="32dp"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/favourite_gray_32px"
+                    android:background="@null"
+                    />
+                <TextView
+                    android:id="@+id/square_detail_favourite_tv"
+                    style="@style/TextGray14sptv"
+                    android:text="(2300)"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/comment"
+                    android:layout_marginLeft="16dp"
+                    android:background="@null"
+                    />
+                <TextView
+                    android:id="@+id/square_detail_comment_tv"
+                    style="@style/TextGray14sptv"
+                    android:text="(2100)"/>
+                <TextView
+                    style="@style/TextGray14sptv"
+                    android:id="@+id/square_detail_time_tv"
+                    android:text="5分钟前"
+                    android:gravity="right"
+                    android:layout_width="match_parent" />
+            </LinearLayout>
+        </LinearLayout>
+        <ListView
+            android:id="@+id/square_detail_lv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:background="@color/colorWhite"
+            android:divider="@drawable/listview_short_divider"
+            android:dividerHeight="2dp"
+            android:transcriptMode="normal">
+
+        </ListView>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/square_detail_input_ll"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="56"
+        android:background="@color/colorWhite"
+        android:orientation="horizontal"
+        android:weightSum="360">
+
+        <ImageButton
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_gravity="center"
+            android:src="@mipmap/favourite_white" />
+
+        <EditText
+            android:id="@+id/square_detail_et"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="360"
+            android:background="@null"
+            android:gravity="left|center_vertical"
+            android:hint="先打个招呼吧..."
+            android:paddingLeft="16dp"
+            android:textCursorDrawable="@drawable/edtitext_cursor"
+            android:textSize="20sp" />
+
+        <ImageButton
+            android:id="@+id/square_detail_send_ib"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_gravity="center"
+            android:background="@null"
+            android:src="@mipmap/right_blue" />
+    </LinearLayout>
+</LinearLayout>
