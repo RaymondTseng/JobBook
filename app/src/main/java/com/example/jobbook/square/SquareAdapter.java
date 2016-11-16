@@ -1,4 +1,4 @@
-package com.example.jobbook.moment;
+package com.example.jobbook.square;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * Created by 椰树 on 2016/8/30.
  */
-public class MomentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class SquareAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int TYPE_ITEM = 0;
     private static final int TYPE_ITEM_OVER = 1;
     private static final int TYPE_FOOTER = 2;
@@ -28,7 +28,7 @@ public class MomentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     private OnItemClickListener mOnItemClickListener;
 
-    public MomentAdapter(Context mContext) {
+    public SquareAdapter(Context mContext) {
         this.mContext = mContext;
     }
 

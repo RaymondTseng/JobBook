@@ -1,4 +1,4 @@
-package com.example.jobbook.moment.model;
+package com.example.jobbook.square.model;
 
 
 import com.example.jobbook.bean.MomentBean;
@@ -18,7 +18,7 @@ import okhttp3.Call;
 /**
  * Created by Xu on 2016/7/5.
  */
-public class MomentModelImpl implements MomentModel {
+public class SquareModelImpl implements SquareModel {
 
     @Override
     public void loadQuestions(int pageIndex, final OnLoadQuestionsListListener listener) {

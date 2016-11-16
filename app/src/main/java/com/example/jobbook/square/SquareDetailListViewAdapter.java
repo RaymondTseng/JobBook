@@ -1,4 +1,4 @@
-package com.example.jobbook.moment;
+package com.example.jobbook.square;
 
 import android.content.Context;
 
@@ -19,14 +19,14 @@ import java.util.List;
 /**
  * Created by 椰树 on 2016/7/15.
  */
-public class MomentDetailListViewAdapter extends BaseAdapter {
+public class SquareDetailListViewAdapter extends BaseAdapter {
     private Context mContext;
     private List<MomentCommentBean> mData;
 
     private OnLikeClickListener onLikeClickListener;
     private OnUnlikeClickListener onUnlikeClickListener;
 
-    public MomentDetailListViewAdapter(Context mContext) {
+    public SquareDetailListViewAdapter(Context mContext) {
         this.mContext = mContext;
     }
 
@@ -56,7 +56,7 @@ public class MomentDetailListViewAdapter extends BaseAdapter {
         ViewHolder mViewHolder;
         final MomentCommentBean questionComment = mData.get(position);
         if (convertView == null) {
-            view = LayoutInflater.from(mContext).inflate(R.layout.moment_detail_listview_item, null);
+            view = LayoutInflater.from(mContext).inflate(R.layout.square_detail_listview_item, null);
             mViewHolder = new ViewHolder();
 //            mViewHolder.mContent = (TextView) view.findViewById(R.id.question_detail_lv_content_tv);
 //            mViewHolder.mFloor = (TextView) view.findViewById(R.id.question_detail_lv_floor_tv);

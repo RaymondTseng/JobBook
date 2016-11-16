@@ -1,4 +1,4 @@
-package com.example.jobbook.moment.model;
+package com.example.jobbook.square.model;
 
 import com.example.jobbook.util.L;
 
@@ -18,7 +18,7 @@ import okhttp3.Call;
 /**
  * Created by 椰树 on 2016/7/16.
  */
-public class MomentDetailModelImpl implements MomentDetailModel {
+public class SquareDetailModelImpl implements SquareDetailModel {
     private static int LOAD_QUESTION_ERROR = 0;
     private static int LOAD_QUESTION_COMMENTS_ERROR = 1;
     private static int SEND_COMMENT_ERROR = 2;

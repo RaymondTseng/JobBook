@@ -1,10 +1,10 @@
-package com.example.jobbook.moment.presenter;
+package com.example.jobbook.square.presenter;
 
 import com.example.jobbook.bean.MomentBean;
 import com.example.jobbook.bean.MomentCommentBean;
-import com.example.jobbook.moment.model.MomentDetailModel;
-import com.example.jobbook.moment.model.MomentDetailModelImpl;
-import com.example.jobbook.moment.view.MomentDetailView;
+import com.example.jobbook.square.model.SquareDetailModel;
+import com.example.jobbook.square.model.SquareDetailModelImpl;
+import com.example.jobbook.square.view.SquareDetailView;
 
 
 import java.util.List;
@@ -12,15 +12,15 @@ import java.util.List;
 /**
  * Created by 椰树 on 2016/7/16.
  */
-public class MomentDetailPresenterImpl implements MomentDetailPresenter,
-        MomentDetailModelImpl.OnLoadQuestionCommentsListener, MomentDetailModelImpl.OnLoadQuestionListener,
-    MomentDetailModelImpl.OnSendQuestionCommentListener, MomentDetailModelImpl.OnLikeListener, MomentDetailModelImpl.OnUnlikeListener{
-    private MomentDetailView mView;
-    private MomentDetailModel mModel;
+public class SquareDetailPresenterImpl implements SquareDetailPresenter,
+        SquareDetailModelImpl.OnLoadQuestionCommentsListener, SquareDetailModelImpl.OnLoadQuestionListener,
+    SquareDetailModelImpl.OnSendQuestionCommentListener, SquareDetailModelImpl.OnLikeListener, SquareDetailModelImpl.OnUnlikeListener{
+    private SquareDetailView mView;
+    private SquareDetailModel mModel;
 
-    public MomentDetailPresenterImpl(MomentDetailView mView){
+    public SquareDetailPresenterImpl(SquareDetailView mView){
         this.mView = mView;
-        mModel = new MomentDetailModelImpl();
+        mModel = new SquareDetailModelImpl();
     }
     @Override
     public void onSuccess(List<MomentCommentBean> mComments) {

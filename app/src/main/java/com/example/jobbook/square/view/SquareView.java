@@ -1,4 +1,4 @@
-package com.example.jobbook.moment.view;
+package com.example.jobbook.square.view;
 
 
 import com.example.jobbook.bean.MomentBean;
@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by Xu on 2016/7/5.
  */
-public interface MomentView {
+public interface SquareView {
 
     void showProgress();
 
