@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <include layout="@layout/moment_recycleview_item_header" />
+    <include layout="@layout/follow_recycleview_item_header" />
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -24,6 +24,6 @@
             android:text="点开全文" />
     </FrameLayout>
 
-    <include layout="@layout/moment_recycleview_item_footer" />
+    <include layout="@layout/follow_recycleview_item_footer" />
 
 </LinearLayout>

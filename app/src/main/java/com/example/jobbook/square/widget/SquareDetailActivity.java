@@ -66,7 +66,7 @@ public class SquareDetailActivity extends Activity implements SquareDetailView, 
 
     }
     private void initViews(){
-        mHeadView = (LinearLayout) getLayoutInflater().inflate(R.layout.moment_detail_description, null);
+        mHeadView = (LinearLayout) getLayoutInflater().inflate(R.layout.square_rv_item, null);
         mListView = (ListView) findViewById(R.id.square_detail_lv);
         mEditText = (EditText) findViewById(R.id.square_detail_et);
         mSendImageButton = (ImageButton) findViewById(R.id.square_detail_send_ib);
