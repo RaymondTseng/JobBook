@@ -53,6 +53,13 @@
             </LinearLayout>
 
         </LinearLayout>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/close_gray"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@null"/>
 
     </RelativeLayout>
 
@@ -73,16 +80,18 @@
             android:id="@+id/favourite_ll"
             android:layout_width="80dp"
             android:layout_height="32dp"
-            android:gravity="center">
+            android:layout_centerVertical="true">
 
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:scaleType="center"
+                android:layout_gravity="center_vertical"
                 android:src="@mipmap/favourite_gray" />
 
             <TextView
                 android:id="@+id/moment_lv_favourite_tv"
+                android:layout_gravity="center_vertical"
                 style="@style/TextGray14sptv"
                 android:text="(2300)" />
 
@@ -92,27 +101,38 @@
             android:layout_width="80dp"
             android:layout_height="32dp"
             android:layout_toRightOf="@+id/favourite_ll"
-            android:gravity="center">
+            android:layout_centerVertical="true">
 
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:scaleType="center"
+                android:layout_gravity="center_vertical"
                 android:src="@mipmap/comment" />
 
             <TextView
                 android:id="@+id/moment_lv_comment_tv"
+                android:layout_gravity="center_vertical"
                 style="@style/TextGray14sptv"
                 android:text="(1200)" />
 
         </LinearLayout>
+        <ImageButton
+            android:id="@+id/square_rv_favourite_ib"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/favourite_tapped"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:background="@null"/>
 
         <TextView
             style="@style/TextGray14sptv"
-            android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="32dp"
+            android:id="@+id/square_rv_time_tv"
+            android:layout_toLeftOf="@id/square_rv_favourite_ib"
             android:text="5分钟前" />
+
 
     </RelativeLayout>
 </LinearLayout>

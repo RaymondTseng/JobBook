@@ -8,7 +8,7 @@
 
     <include
         android:id="@+id/question_detail_title_bar"
-        layout="@layout/moment_detail_title_bar"
+        layout="@layout/square_detail_title_bar"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="56" />
@@ -93,7 +93,8 @@
                 <TextView
                     android:id="@+id/square_detail_favourite_tv"
                     style="@style/TextGray14sptv"
-                    android:text="(2300)"/>
+                    android:text="2300"
+                    android:layout_gravity="center_vertical"/>
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -104,12 +105,14 @@
                 <TextView
                     android:id="@+id/square_detail_comment_tv"
                     style="@style/TextGray14sptv"
-                    android:text="(2100)"/>
+                    android:text="2100"
+                    android:layout_gravity="center_vertical"/>
                 <TextView
                     style="@style/TextGray14sptv"
                     android:id="@+id/square_detail_time_tv"
                     android:text="5分钟前"
                     android:gravity="right"
+                    android:layout_gravity="center_vertical"
                     android:layout_width="match_parent" />
             </LinearLayout>
         </LinearLayout>

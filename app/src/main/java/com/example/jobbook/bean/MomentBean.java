@@ -34,6 +34,16 @@ public class MomentBean implements Serializable{
      */
     private int commentnum;
 
+    private int likenum;
+
+    public int getLikenum() {
+        return likenum;
+    }
+
+    public void setLikenum(int likenum) {
+        this.likenum = likenum;
+    }
+
     public int getId() {
         return q_id;
     }
