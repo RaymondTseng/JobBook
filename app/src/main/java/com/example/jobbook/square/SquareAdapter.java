@@ -5,12 +5,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.jobbook.R;
 import com.example.jobbook.bean.MomentBean;
 import com.example.jobbook.commons.Urls;
+import com.example.jobbook.util.ImageLoadUtils;
 
 import java.util.List;
 
@@ -27,6 +29,8 @@ public class SquareAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private Context mContext;
 
     private OnItemClickListener mOnItemClickListener;
+    private OnHeadClickListener mOnHeadClickListener;
+    private OnNoInterestButtonClickListener mOnNoInterestButtonClickListener;
 
     public SquareAdapter(Context mContext) {
         this.mContext = mContext;
@@ -60,11 +64,12 @@ public class SquareAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             if (moment == null) {
                 return;
             }
-//            ((ItemViewHolder) holder).mTitle.setText(moment.getTitle());
-//            ((ItemViewHolder) holder).mContent.setText(moment.getContent());
+            ((ItemViewHolder) holder).mContent.setText(moment.getContent());
+            ImageLoadUtils.display(mContext, ((ItemViewHolder) holder).mUserHead, moment.getAuthor().getHead());
 //            ((ItemViewHolder) holder).mUserName.setText(moment.getAuthor().getUsername());
-//            ((ItemViewHolder) holder).mCommentNumbers.setText(moment.getCommentnum() + "");
-//            ((ItemViewHolder) holder).mTime.setText(moment.getDate());
+            ((ItemViewHolder) holder).mFavouriteNumbers.setText(moment.getFavouritenum() + "");
+            ((ItemViewHolder) holder).mCommentNumbers.setText(moment.getCommentnum() + "");
+            ((ItemViewHolder) holder).mTime.setText(moment.getDate());
         }
     }
 
@@ -81,38 +86,66 @@ public class SquareAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public int getItemViewType(int position) {
         // 最后一个item设置为footerView
         if (!mShowFooter) {
-            return TYPE_ITEM;
+            if (mData.get(position).getContent().length() > 75) {
+                return TYPE_ITEM_OVER;
+            } else {
+                return TYPE_ITEM;
+            }
         }
         if (position + 1 == getItemCount()) {
             return TYPE_FOOTER;
         } else {
-            return TYPE_ITEM;
+            if (mData.get(position).getContent().length() > 75) {
+                return TYPE_ITEM_OVER;
+            } else {
+                return TYPE_ITEM;
+            }
         }
     }
 
     public class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView mTitle;
         TextView mContent;
         ImageView mUserHead;
         TextView mUserName;
+        TextView mFavouriteNumbers;
         TextView mCommentNumbers;
         TextView mTime;
+        ImageButton mNoInterestButton;
 
         public ItemViewHolder(View view) {
             super(view);
-//            mTitle = (TextView) view.findViewById(R.id.moment_lv_title_tv);
-//            mContent = (TextView) view.findViewById(R.id.moment_lv_content_tv);
-//            mUserHead = (ImageView) view.findViewById(R.id.moment_lv_user_head_iv);
+            mContent = (TextView) view.findViewById(R.id.square_rv_content_tv);
+            mUserHead = (ImageView) view.findViewById(R.id.square_rv_head_iv);
 //            mUserName = (TextView) view.findViewById(R.id.moment_lv_user_name_tv);
-//            mCommentNumbers = (TextView) view.findViewById(R.id.moment_lv_comment_tv);
-//            mTime = (TextView) view.findViewById(R.id.moment_lv_time_tv);
-            itemView.setOnClickListener(this);
+            mFavouriteNumbers = (TextView) view.findViewById(R.id.square_rv_favourite_tv);
+            mCommentNumbers = (TextView) view.findViewById(R.id.square_rv_comment_tv);
+            mTime = (TextView) view.findViewById(R.id.square_rv_time_tv);
+            mNoInterestButton = (ImageButton) view.findViewById(R.id.square_rv_no_interest_ib);
+//            itemView.setOnClickListener(this);
+            mNoInterestButton.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
-            if (mOnItemClickListener != null) {
-                mOnItemClickListener.onItemClick(v, this.getPosition());
+            switch (v.getId()) {
+                case R.id.moment_rv_close_ib:
+                    if (mOnNoInterestButtonClickListener != null) {
+                        mOnNoInterestButtonClickListener.onNoInterestButtonClick(v, this.getLayoutPosition());
+                    }
+                    break;
+
+                case R.id.square_rv_head_iv:
+                    if (mOnHeadClickListener != null) {
+                        mOnHeadClickListener.onHeadClick(v, this.getLayoutPosition());
+                    }
+                    break;
+
+                default:
+                    if (mOnItemClickListener != null) {
+                        mOnItemClickListener.onItemClick(v, this.getPosition());
+                    }
+                    break;
+
             }
         }
     }
@@ -126,11 +159,27 @@ public class SquareAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     public interface OnItemClickListener {
-        public void onItemClick(View view, int position);
+        void onItemClick(View view, int position);
+    }
+
+    public interface OnHeadClickListener {
+        void onHeadClick(View view, int position);
+    }
+
+    public interface OnNoInterestButtonClickListener {
+        void onNoInterestButtonClick(View view, int position);
     }
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.mOnItemClickListener = onItemClickListener;
+    }
+
+    public void setOnHeadClickListener(OnHeadClickListener onHeadClickListener) {
+        this.mOnHeadClickListener = onHeadClickListener;
+    }
+
+    public void setOnNoInterestButtonClickListener(OnNoInterestButtonClickListener onNoInterestButtonClickListener) {
+        this.mOnNoInterestButtonClickListener = onNoInterestButtonClickListener;
     }
 
     public MomentBean getItem(int position) {

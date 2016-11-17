@@ -6,12 +6,17 @@ import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.TextView;
 
 import com.example.jobbook.MyApplication;
 import com.example.jobbook.R;
@@ -45,7 +50,6 @@ public class SquareFragment extends Fragment implements SquareView,
     private LinearLayoutManager mLayoutManager;
     private MyApplication myApplication;
 
-
     private int pageIndex = 0;
 
     public final Handler handler = new Handler() {
@@ -60,16 +64,16 @@ public class SquareFragment extends Fragment implements SquareView,
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_question, container, false);
+        view = inflater.inflate(R.layout.fragment_square, container, false);
         initViews(view);
         initEvents();
-        L.i("questionfragment", "create");
+        L.i("squarefragment", "create");
         return view;
     }
 
     public void initViews(View view) {
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.question_rv);
-        mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.question_swipe_container);
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.square_rv);
+        mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.square_swipe_container);
     }
 
     private void initEvents() {
@@ -86,6 +90,18 @@ public class SquareFragment extends Fragment implements SquareView,
         mAdapter.setOnItemClickListener(mOnItemClickListener);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.addOnScrollListener(mOnScrollListener);
+        mAdapter.setOnNoInterestButtonClickListener(new SquareAdapter.OnNoInterestButtonClickListener() {
+            @Override
+            public void onNoInterestButtonClick(View view, int position) {
+                createNoInterestDialog(position);
+            }
+        });
+        mAdapter.setOnHeadClickListener(new SquareAdapter.OnHeadClickListener() {
+            @Override
+            public void onHeadClick(View view, int position) {
+
+            }
+        });
         onRefresh();
     }
 
@@ -106,7 +122,7 @@ public class SquareFragment extends Fragment implements SquareView,
                     && lastVisibleItem + 1 == mAdapter.getItemCount()
                     && mAdapter.ismShowFooter()) {
                 //加载更多
-                L.i("question_fragment", "loading more data");
+                L.i("square_fragment", "loading more data");
                 mSquarePresenter.loadQuestion(pageIndex);
             }
         }
@@ -115,9 +131,9 @@ public class SquareFragment extends Fragment implements SquareView,
     private SquareAdapter.OnItemClickListener mOnItemClickListener = new SquareAdapter.OnItemClickListener() {
         @Override
         public void onItemClick(View view, int position) {
-            MomentBean question = mAdapter.getItem(position);
+            MomentBean square = mAdapter.getItem(position);
             Bundle bundle = new Bundle();
-            bundle.putSerializable("question_detail", question);
+            bundle.putSerializable("square_detail", square);
             Util.toAnotherActivity(getActivity(), SquareDetailActivity.class, bundle);
         }
     };
@@ -128,17 +144,17 @@ public class SquareFragment extends Fragment implements SquareView,
     }
 
     @Override
-    public void addQuestions(List<MomentBean> questionList) {
+    public void addQuestions(List<MomentBean> squareList) {
         mAdapter.setmShowFooter(true);
         if (mData == null) {
             mData = new ArrayList<>();
         }
-        mData.addAll(questionList);
+        mData.addAll(squareList);
         if (pageIndex == 0) {
             mAdapter.updateData(mData);
         } else {
             //如果没有更多数据了,则隐藏footer布局
-            if (questionList == null || questionList.size() == 0) {
+            if (squareList == null || squareList.size() == 0) {
                 mAdapter.setmShowFooter(false);
             }
             mAdapter.notifyDataSetChanged();
@@ -168,6 +184,36 @@ public class SquareFragment extends Fragment implements SquareView,
             mData.clear();
         }
         mSquarePresenter.loadQuestion(pageIndex);
+    }
+
+    private void createNoInterestDialog(int position) {
+        final AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
+        alertDialog.show();
+        alertDialog.setCanceledOnTouchOutside(true);
+        Window window = alertDialog.getWindow();
+        window.setGravity(Gravity.CENTER);
+        WindowManager.LayoutParams p = window.getAttributes(); // 获取对话框当前的参数值
+//        p.width = Util.dip2px(getActivity(), 280);
+//        p.height = Util.dip2px(getActivity(), 109);
+        p.width = Util.dip2px(getActivity(), 300);
+        p.height = Util.dip2px(getActivity(), 140);
+//        window.setLayout(Util.dip2px(getActivity(), Util.getWidth(getActivity()) * 1 / 4), Util.dip2px(getActivity(), Util.getHeight(getActivity()) * 1 / 13));
+        window.setAttributes(p);
+        window.setContentView(R.layout.moment_no_interest_layout);
+        TextView mSureTextView = (TextView) window.findViewById(R.id.moment_no_interest_sure_tv);
+        TextView mCancelTextView = (TextView) window.findViewById(R.id.moment_no_interest_cancel_tv);
+        mSureTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
+        mCancelTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+                onCreate(null);
+            }
+        });
     }
 
 

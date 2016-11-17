@@ -83,8 +83,8 @@ public class SquareDetailActivity extends Activity implements SquareDetailView, 
     }
 
     private void initEvents(){
-        momentBean = (MomentBean) getIntent().getExtras().getSerializable("question_detail");
-        L.i("questiondetail_activity", "123:" + momentBean.getId());
+        momentBean = (MomentBean) getIntent().getExtras().getSerializable("square_detail");
+        L.i("squaredetail_activity", "123:" + momentBean.getId());
         mScreenHeight = Util.getHeight(this);
         mKeyBoardHeight = mScreenHeight / 3;
         mTitleBarHeight = ((float)mScreenHeight / 568) * 56;
@@ -113,7 +113,7 @@ public class SquareDetailActivity extends Activity implements SquareDetailView, 
                 if (MyApplication.getmLoginStatus() == 0) {
                     Toast.makeText(SquareDetailActivity.this, "请先登录！", Toast.LENGTH_LONG).show();
                 }else {
-//                    L.i("questiondetail", "comment unlike" + com_id);
+//                    L.i("squaredetail", "comment unlike" + com_id);
                     mPresenter.commentUnlike(com_id, MyApplication.getAccount());
                 }
             }
@@ -127,7 +127,7 @@ public class SquareDetailActivity extends Activity implements SquareDetailView, 
 
     @Override
     public void addQuestion(MomentBean mQuestion) {
-        mQuestionTitleTextView.setText(mQuestion.getTitle());
+//        mQuestionTitleTextView.setText(mQuestion.getTitle());
         mQuestionContentTextView.setText(mQuestion.getContent());
         mQuestionUserNameTextView.setText(mQuestion.getAuthor().getUsername());
         mQuestionTimeTextView.setText(mQuestion.getDate());
@@ -193,7 +193,7 @@ public class SquareDetailActivity extends Activity implements SquareDetailView, 
             MomentCommentBean momentCommentBean = new MomentCommentBean();
             momentCommentBean.setApplier(MyApplication.getmPersonBean());
             momentCommentBean.setContent(comment);
-            L.i("question_detail", momentBean.getId() + "");
+            L.i("square_detail", momentBean.getId() + "");
             momentCommentBean.setQ_id(momentBean.getId());
             mPresenter.sendComment(momentCommentBean);
         }
@@ -244,20 +244,20 @@ public class SquareDetailActivity extends Activity implements SquareDetailView, 
         if(oldBottom != 0 && bottom != 0 &&(oldBottom - bottom > mKeyBoardHeight)){
             int dValue = oldBottom - bottom;
             int newHeight = mScreenHeight - dValue;
-            L.i("question_detail", "newHeight:" + newHeight + "Height:" + mScreenHeight + "mTitleBarHeight:" + mTitleBarHeight);
+            L.i("square_detail", "newHeight:" + newHeight + "Height:" + mScreenHeight + "mTitleBarHeight:" + mTitleBarHeight);
             mTitleBarLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.
                     MATCH_PARENT, 0, (mTitleBarHeight / newHeight) * 568));
             mInputLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.
                     MATCH_PARENT, 0, (mInputLayoutHeight / newHeight) * 568));
             mListView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.
                     MATCH_PARENT, 0, ((float)(newHeight - 2 * mTitleBarHeight) / newHeight) * 568));
-            L.i("question_detail", "软键盘弹起");
+            L.i("square_detail", "软键盘弹起");
 
         }else if(oldBottom != 0 && bottom != 0 &&(bottom - oldBottom > mKeyBoardHeight)){
             mTitleBarLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, 56));
             mInputLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, 56));
             mListView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, 456));
-            L.i("question_detail", "软键盘关闭");
+            L.i("square_detail", "软键盘关闭");
 
         }
     }

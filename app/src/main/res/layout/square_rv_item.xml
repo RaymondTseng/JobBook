@@ -9,17 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_below="@+id/moment_rl"
-            android:layout_centerHorizontal="true"
-            android:layout_marginLeft="32dp"
-            android:layout_marginRight="32dp"
-            android:background="@color/colorSettingsBackgroundGray" />
-
         <LinearLayout
-            android:id="@+id/moment_rl"
+            android:id="@+id/square_rl"
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:layout_alignParentLeft="true"
@@ -27,7 +18,7 @@
             android:layout_alignParentTop="true">
 
             <ImageView
-                android:id="@+id/moment_rv_head_iv"
+                android:id="@+id/square_rv_head_iv"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_marginLeft="16dp"
@@ -39,10 +30,11 @@
                 android:layout_height="56dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="12dp"
-                android:layout_toRightOf="@+id/moment_rv_head_iv"
+                android:layout_toRightOf="@+id/square_rv_head_iv"
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/square_rv_username_tv"
                     style="@style/TextBlackde14sptv"
                     android:text="张朝旭" />
 
@@ -53,21 +45,24 @@
             </LinearLayout>
 
         </LinearLayout>
-        <ImageView
+
+        <ImageButton
+            android:id="@+id/square_rv_no_interest_ib"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/close_gray"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:background="@null"/>
+            android:background="@null"
+            android:src="@mipmap/close_gray" />
 
     </RelativeLayout>
 
     <TextView
+        android:id="@+id/square_rv_content_tv"
         style="@style/TextBlackb316sptv"
         android:layout_marginLeft="32dp"
         android:layout_marginRight="32dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:text="       这里是一大段文字，我今天真的非常不想上班，但是老板又强制要求我上班，所以我辞职了" />
 
     <RelativeLayout
@@ -85,14 +80,14 @@
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:scaleType="center"
                 android:layout_gravity="center_vertical"
+                android:scaleType="center"
                 android:src="@mipmap/favourite_gray" />
 
             <TextView
-                android:id="@+id/moment_lv_favourite_tv"
-                android:layout_gravity="center_vertical"
+                android:id="@+id/square_rv_favourite_tv"
                 style="@style/TextGray14sptv"
+                android:layout_gravity="center_vertical"
                 android:text="(2300)" />
 
         </LinearLayout>
@@ -100,36 +95,37 @@
         <LinearLayout
             android:layout_width="80dp"
             android:layout_height="32dp"
-            android:layout_toRightOf="@+id/favourite_ll"
-            android:layout_centerVertical="true">
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/favourite_ll">
 
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:scaleType="center"
                 android:layout_gravity="center_vertical"
+                android:scaleType="center"
                 android:src="@mipmap/comment" />
 
             <TextView
-                android:id="@+id/moment_lv_comment_tv"
-                android:layout_gravity="center_vertical"
+                android:id="@+id/square_rv_comment_tv"
                 style="@style/TextGray14sptv"
+                android:layout_gravity="center_vertical"
                 android:text="(1200)" />
 
         </LinearLayout>
+
         <ImageButton
             android:id="@+id/square_rv_favourite_ib"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/favourite_tapped"
-            android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
-            android:background="@null"/>
+            android:layout_centerVertical="true"
+            android:background="@null"
+            android:src="@mipmap/favourite_tapped" />
 
         <TextView
+            android:id="@+id/square_rv_time_tv"
             style="@style/TextGray14sptv"
             android:layout_centerVertical="true"
-            android:id="@+id/square_rv_time_tv"
             android:layout_toLeftOf="@id/square_rv_favourite_ib"
             android:text="5分钟前" />
 
