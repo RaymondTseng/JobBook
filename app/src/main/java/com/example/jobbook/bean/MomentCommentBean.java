@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * Created by 椰树 on 2016/7/16.
  */
-public class MomentCommentBean implements Serializable{
+public class MomentCommentBean implements Serializable {
     private static final long serialVersionUID = 1L;
     /**
      * 评论id

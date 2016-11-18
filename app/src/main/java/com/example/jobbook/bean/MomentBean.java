@@ -1,38 +1,42 @@
 package com.example.jobbook.bean;
 
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * Created by Xu on 2016/7/5.
  * 问题模型类
  */
-public class MomentBean implements Serializable{
+
+public class MomentBean implements Serializable {
     private static final long serialVersionUID = 1L;
     /**
      * id
      */
     private int q_id;
     /**
-     * 问题作者
+     * 工作圈作者
      */
     private PersonBean author;
+//    /**
+//     * 工作圈题目
+//     */
+//    private String title;
     /**
-     * 问题题目
-     */
-    private String title;
-    /**
-     *问题内容
+     * 工作圈内容
      */
     private String content;
     /**
-     *提出日期
+     * 提出日期
      */
     private String date;
     /**
-     *问题阅读量
+     * 工作圈阅读量
      */
     private int commentnum;
+    /**
+     * 工作圈点赞量
+     */
+    private int favouritenum;
 
     private int likenum;
 
@@ -60,12 +64,29 @@ public class MomentBean implements Serializable{
         this.author = author;
     }
 
-    public String getTitle() {
-        return title;
+//    public String getTitle() {
+//        return title;
+//    }
+//
+//    public void setTitle(String title) {
+//        this.title = title;
+//    }
+
+
+    public int getQ_id() {
+        return q_id;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setQ_id(int q_id) {
+        this.q_id = q_id;
+    }
+
+    public int getFavouritenum() {
+        return favouritenum;
+    }
+
+    public void setFavouritenum(int favouritenum) {
+        this.favouritenum = favouritenum;
     }
 
     public String getContent() {

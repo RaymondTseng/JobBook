@@ -47,6 +47,7 @@
         </LinearLayout>
 
         <ImageButton
+            android:id="@+id/moment_rv_close_ib"
             android:layout_width="56dp"
             android:layout_height="56dp"
             android:layout_alignParentRight="true"
