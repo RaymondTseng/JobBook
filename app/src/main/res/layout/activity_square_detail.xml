@@ -7,7 +7,7 @@
     android:weightSum="568">
 
     <include
-        android:id="@+id/question_detail_title_bar"
+        android:id="@+id/square_detail_title_bar"
         layout="@layout/square_detail_title_bar"
         android:layout_width="match_parent"
         android:layout_height="0dp"

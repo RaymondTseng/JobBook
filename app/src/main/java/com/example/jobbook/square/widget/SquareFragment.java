@@ -22,6 +22,7 @@ import com.example.jobbook.MyApplication;
 import com.example.jobbook.R;
 import com.example.jobbook.bean.MomentBean;
 import com.example.jobbook.commons.Urls;
+import com.example.jobbook.moment.widget.MomentFragment;
 import com.example.jobbook.square.SquareAdapter;
 import com.example.jobbook.square.presenter.SquarePresenter;
 import com.example.jobbook.square.presenter.SquarePresenterImpl;
@@ -37,7 +38,7 @@ import java.util.List;
  * Created by Xu on 2016/7/5.
  */
 public class SquareFragment extends Fragment implements SquareView,
-        SwipeRefreshLayout.OnRefreshListener {
+        SwipeRefreshLayout.OnRefreshListener, MomentFragment.OnRefreshDataListener {
 
     private static int REFRESH = 1;
 
@@ -199,9 +200,9 @@ public class SquareFragment extends Fragment implements SquareView,
         p.height = Util.dip2px(getActivity(), 140);
 //        window.setLayout(Util.dip2px(getActivity(), Util.getWidth(getActivity()) * 1 / 4), Util.dip2px(getActivity(), Util.getHeight(getActivity()) * 1 / 13));
         window.setAttributes(p);
-        window.setContentView(R.layout.moment_no_interest_layout);
-        TextView mSureTextView = (TextView) window.findViewById(R.id.moment_no_interest_sure_tv);
-        TextView mCancelTextView = (TextView) window.findViewById(R.id.moment_no_interest_cancel_tv);
+        window.setContentView(R.layout.square_no_interest_layout);
+        TextView mSureTextView = (TextView) window.findViewById(R.id.square_no_interest_sure_tv);
+        TextView mCancelTextView = (TextView) window.findViewById(R.id.square_no_interest_cancel_tv);
         mSureTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -217,5 +218,9 @@ public class SquareFragment extends Fragment implements SquareView,
     }
 
 
-
+    @Override
+    public void refreshData(List<MomentBean> momentBeanList) {
+        mAdapter.updateData(momentBeanList);
+        mAdapter.notifyDataSetChanged();
+    }
 }

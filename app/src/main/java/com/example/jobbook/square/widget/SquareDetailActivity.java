@@ -70,14 +70,14 @@ public class SquareDetailActivity extends Activity implements SquareDetailView, 
         mListView = (ListView) findViewById(R.id.square_detail_lv);
         mEditText = (EditText) findViewById(R.id.square_detail_et);
         mSendImageButton = (ImageButton) findViewById(R.id.square_detail_send_ib);
-        mBackImageButton = (ImageButton) findViewById(R.id.question_detail_back_ib);
+        mBackImageButton = (ImageButton) findViewById(R.id.square_detail_back_ib);
 //        mQuestionTitleTextView = (TextView) mHeadView.findViewById(R.id.question_detail_title_tv);
 //        mQuestionContentTextView = (TextView) mHeadView.findViewById(R.id.question_detail_content_tv);
 //        mQuestionUserNameTextView = (TextView) mHeadView.findViewById(R.id.question_detail_user_name_tv);
 //        mQuestionTimeTextView = (TextView) mHeadView.findViewById(R.id.question_detail_time_tv);
 //        mQuestionUserLogoImageView = (ImageView) findViewById(R.id.question_detail_user_logo_iv);
         mRootView = findViewById(R.id.question_detail_root_ll);
-        mTitleBarLayout = (RelativeLayout) findViewById(R.id.question_detail_title_bar);
+        mTitleBarLayout = (RelativeLayout) findViewById(R.id.square_detail_title_bar);
         mInputLayout = (LinearLayout) findViewById(R.id.square_detail_input_ll);
         mLoadingLinearLayout = (LinearLayout) findViewById(R.id.loading_circle_progress_bar_ll);
     }
@@ -226,7 +226,7 @@ public class SquareDetailActivity extends Activity implements SquareDetailView, 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.question_detail_back_ib:
+            case R.id.square_detail_back_ib:
                 finish();
                 break;
             case R.id.square_detail_send_ib:

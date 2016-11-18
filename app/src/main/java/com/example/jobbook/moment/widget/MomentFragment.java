@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.example.jobbook.MyApplication;
 import com.example.jobbook.R;
+import com.example.jobbook.bean.MomentBean;
 import com.example.jobbook.moment.MomentPagerAdapter;
 import com.example.jobbook.square.widget.SquareFragment;
 import com.example.jobbook.util.L;
@@ -111,6 +112,8 @@ public class MomentFragment extends Fragment implements View.OnClickListener, Vi
     public void onClick(View v) {
         switch (v.getId()){
             case 0:
+//                List<MomentBean> list = new ArrayList<>();
+//                ((SquareFragment)mFragemnts.get(0)).refreshData(list);
                 mViewPager.setCurrentItem(0);
                 break;
             case 1:
@@ -159,6 +162,10 @@ public class MomentFragment extends Fragment implements View.OnClickListener, Vi
     @Override
     public void onPageScrollStateChanged(int state) {
 
+    }
+
+    public interface OnRefreshDataListener{
+        void refreshData(List<MomentBean> momentBeanList);
     }
 
 
