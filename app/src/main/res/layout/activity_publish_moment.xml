@@ -13,7 +13,7 @@
         android:background="@color/colorBlue">
 
         <ImageButton
-            android:id="@+id/activity_publish_close_ib"
+            android:id="@+id/activity_publish_moment_close_ib"
             android:layout_width="56dp"
             android:layout_height="56dp"
             android:layout_centerVertical="true"

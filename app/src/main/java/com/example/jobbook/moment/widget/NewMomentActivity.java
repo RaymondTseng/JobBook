@@ -65,7 +65,7 @@ public class NewMomentActivity extends Activity implements NewMomentView, View.O
     }
 
     private void initViews() {
-        mCloseImageButton = (ImageButton) findViewById(R.id.activity_publish_close_ib);
+        mCloseImageButton = (ImageButton) findViewById(R.id.activity_publish_moment_close_ib);
 //        mNewMomentTitleEditText = (EditText) findViewById(R.id.activity_publish_question_title_et);
         mNewMomentContentEditText = (EditText) findViewById(R.id.activity_publish_moment_content_et);
         mNewMomentReleaseTextView = (TextView) findViewById(R.id.activity_publish_moment_release_tv);
@@ -120,7 +120,7 @@ public class NewMomentActivity extends Activity implements NewMomentView, View.O
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.activity_publish_close_ib:
+            case R.id.activity_publish_moment_close_ib:
                 close();
                 break;
             case R.id.activity_publish_moment_release_tv:
