@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
+        android:orientation="vertical">
+        <TextView
+            style="@style/Black16sptv"
+            android:text="        这里是一大段文字，我今天真的非常不想上班，但是老板又强制要求我上班，所以我辞职了"/>
+        <TextView
+            style="@style/TextGray12sptv"
+            android:text="5分钟前"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="4dp"/>
+    </LinearLayout>
+</LinearLayout>
