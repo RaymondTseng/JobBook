@@ -86,8 +86,8 @@ public class SquareFollowFragment extends Fragment implements SquareFollowView,
         mSwipeRefreshLayout.setColorSchemeResources(R.color.colorBlue);
         mAdapter = new SquareFollowsAdapter(getActivity().getApplicationContext());
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST));
-        mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mAdapter.setOnItemClickListener(mOnItemClickListener);
         mRecyclerView.setAdapter(mAdapter);
