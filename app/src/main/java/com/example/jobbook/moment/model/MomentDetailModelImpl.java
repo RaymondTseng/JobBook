@@ -1,4 +1,4 @@
-package com.example.jobbook.square.model;
+package com.example.jobbook.moment.model;
 
 import com.example.jobbook.util.L;
 
@@ -18,14 +18,14 @@ import okhttp3.Call;
 /**
  * Created by 椰树 on 2016/7/16.
  */
-public class SquareDetailModelImpl implements SquareDetailModel {
+public class MomentDetailModelImpl implements MomentDetailModel {
     private static int LOAD_QUESTION_ERROR = 0;
     private static int LOAD_QUESTION_COMMENTS_ERROR = 1;
     private static int SEND_COMMENT_ERROR = 2;
 
     @Override
-    public void loadQuestionComments(int id, final OnLoadQuestionCommentsListener mListener) {
-        OkHttpUtils.postString().url(Urls.QUESTION_DETAIL_URL + id).
+    public void loadMomentComments(int id, final OnLoadMomentCommentsListener mListener) {
+        OkHttpUtils.postString().url(Urls.SQUARE_DETAIL_URL + id).
                 content(String.valueOf(id)).build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
@@ -48,7 +48,7 @@ public class SquareDetailModelImpl implements SquareDetailModel {
     }
 
     @Override
-    public void loadQuestion(MomentBean momentBean, OnLoadQuestionListener mListener) {
+    public void loadMoment(MomentBean momentBean, OnLoadMomentListener mListener) {
         if (momentBean != null) {
             mListener.onSuccess(momentBean);
         } else {
@@ -57,8 +57,8 @@ public class SquareDetailModelImpl implements SquareDetailModel {
     }
 
     @Override
-    public void sendComment(MomentCommentBean momentCommentBean, final OnSendQuestionCommentListener mListener) {
-        OkHttpUtils.postString().url(Urls.SEND_QUESTION_COMMENT_URL).content(new Gson().
+    public void sendComment(MomentCommentBean momentCommentBean, final OnSendMomentCommentListener mListener) {
+        OkHttpUtils.postString().url(Urls.SEND_SQUARE_COMMENT_URL).content(new Gson().
                 toJson(momentCommentBean)).build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
@@ -124,19 +124,19 @@ public class SquareDetailModelImpl implements SquareDetailModel {
         });
     }
 
-    public interface OnLoadQuestionListener {
-        void onSuccess(MomentBean mQuestion);
+    public interface OnLoadMomentListener {
+        void onSuccess(MomentBean mMoment);
 
         void onFailure(String msg, Exception e, int error);
     }
 
-    public interface OnLoadQuestionCommentsListener {
+    public interface OnLoadMomentCommentsListener {
         void onSuccess(List<MomentCommentBean> mComments);
 
         void onFailure(String msg, Exception e, int error);
     }
 
-    public interface OnSendQuestionCommentListener {
+    public interface OnSendMomentCommentListener {
         void onSuccess();
 
         void onFailure(String msg, Exception e, int error);

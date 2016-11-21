@@ -1,10 +1,10 @@
-package com.example.jobbook.square.presenter;
+package com.example.jobbook.moment.presenter;
 
 import com.example.jobbook.bean.MomentBean;
 import com.example.jobbook.bean.MomentCommentBean;
-import com.example.jobbook.square.model.SquareDetailModel;
-import com.example.jobbook.square.model.SquareDetailModelImpl;
-import com.example.jobbook.square.view.SquareDetailView;
+import com.example.jobbook.moment.model.MomentDetailModel;
+import com.example.jobbook.moment.model.MomentDetailModelImpl;
+import com.example.jobbook.moment.view.MomentDetailView;
 
 
 import java.util.List;
@@ -12,16 +12,17 @@ import java.util.List;
 /**
  * Created by 椰树 on 2016/7/16.
  */
-public class SquareDetailPresenterImpl implements SquareDetailPresenter,
-        SquareDetailModelImpl.OnLoadQuestionCommentsListener, SquareDetailModelImpl.OnLoadQuestionListener,
-    SquareDetailModelImpl.OnSendQuestionCommentListener, SquareDetailModelImpl.OnLikeListener, SquareDetailModelImpl.OnUnlikeListener{
-    private SquareDetailView mView;
-    private SquareDetailModel mModel;
+public class MomentDetailPresenterImpl implements MomentDetailPresenter,
+        MomentDetailModelImpl.OnLoadMomentCommentsListener, MomentDetailModelImpl.OnLoadMomentListener,
+        MomentDetailModelImpl.OnSendMomentCommentListener, MomentDetailModelImpl.OnLikeListener, MomentDetailModelImpl.OnUnlikeListener {
+    private MomentDetailView mView;
+    private MomentDetailModel mModel;
 
-    public SquareDetailPresenterImpl(SquareDetailView mView){
+    public MomentDetailPresenterImpl(MomentDetailView mView) {
         this.mView = mView;
-        mModel = new SquareDetailModelImpl();
+        mModel = new MomentDetailModelImpl();
     }
+
     @Override
     public void onSuccess(List<MomentCommentBean> mComments) {
         mView.hideProgress();
@@ -29,9 +30,9 @@ public class SquareDetailPresenterImpl implements SquareDetailPresenter,
     }
 
     @Override
-    public void onSuccess(MomentBean mQuestion) {
+    public void onSuccess(MomentBean mMoment) {
         mView.hideProgress();
-        mView.addQuestion(mQuestion);
+        mView.addMoment(mMoment);
     }
 
     @Override
@@ -49,15 +50,15 @@ public class SquareDetailPresenterImpl implements SquareDetailPresenter,
 
 
     @Override
-    public void loadQuestion(MomentBean momentBean) {
+    public void loadMoment(MomentBean momentBean) {
         mView.showProgress();
-        mModel.loadQuestion(momentBean, this);
+        mModel.loadMoment(momentBean, this);
     }
 
     @Override
-    public void loadQuestionComments(int id) {
+    public void loadMomentComments(int id) {
         mView.showProgress();
-        mModel.loadQuestionComments(id, this);
+        mModel.loadMomentComments(id, this);
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.example.jobbook.square.widget;
+package com.example.jobbook.follow.widget;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -22,12 +22,12 @@ import com.example.jobbook.MyApplication;
 import com.example.jobbook.R;
 import com.example.jobbook.bean.MomentBean;
 import com.example.jobbook.commons.Urls;
+import com.example.jobbook.follow.SquareFollowsAdapter;
+import com.example.jobbook.follow.presenter.SquareFollowPresenter;
+import com.example.jobbook.follow.presenter.SquareFollowPresenterImpl;
+import com.example.jobbook.follow.view.SquareFollowView;
 import com.example.jobbook.moment.widget.MomentDetailActivity;
 import com.example.jobbook.moment.widget.MomentFragment;
-import com.example.jobbook.square.SquareAdapter;
-import com.example.jobbook.square.presenter.SquarePresenter;
-import com.example.jobbook.square.presenter.SquarePresenterImpl;
-import com.example.jobbook.square.view.SquareView;
 import com.example.jobbook.util.DividerItemDecoration;
 import com.example.jobbook.util.L;
 import com.example.jobbook.util.Util;
@@ -38,17 +38,17 @@ import java.util.List;
 /**
  * Created by Xu on 2016/7/5.
  */
-public class SquareFragment extends Fragment implements SquareView,
+public class SquareFollowFragment extends Fragment implements SquareFollowView,
         SwipeRefreshLayout.OnRefreshListener, MomentFragment.OnRefreshDataListener {
 
     private static int REFRESH = 1;
 
     private RecyclerView mRecyclerView;
     private SwipeRefreshLayout mSwipeRefreshLayout;
-    private SquarePresenter mSquarePresenter;
+    private SquareFollowPresenter mSquareFollowPresenter;
     private List<MomentBean> mData;
     private View view;
-    private SquareAdapter mAdapter;
+    private SquareFollowsAdapter mAdapter;
     private LinearLayoutManager mLayoutManager;
     private MyApplication myApplication;
 
@@ -80,26 +80,25 @@ public class SquareFragment extends Fragment implements SquareView,
 
     private void initEvents() {
         mSwipeRefreshLayout.setOnRefreshListener(this);
-        mSquarePresenter = new SquarePresenterImpl(this);
+        mSquareFollowPresenter = new SquareFollowPresenterImpl(this);
         mLayoutManager = new LinearLayoutManager(getActivity());
         mSwipeRefreshLayout.setProgressViewOffset(false, 0, Util.getHeight(getActivity()) / 4);
         mSwipeRefreshLayout.setColorSchemeResources(R.color.colorBlue);
-        mAdapter = new SquareAdapter(getActivity().getApplicationContext());
+        mAdapter = new SquareFollowsAdapter(getActivity().getApplicationContext());
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST));
-//        mRecyclerView.addItemDecoration(new SpaceItemDecoration(1));
-        mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mAdapter.setOnItemClickListener(mOnItemClickListener);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.addOnScrollListener(mOnScrollListener);
-        mAdapter.setOnNoInterestButtonClickListener(new SquareAdapter.OnNoInterestButtonClickListener() {
-            @Override
-            public void onNoInterestButtonClick(View view, int position) {
-                createNoInterestDialog(position);
-            }
-        });
-        mAdapter.setOnHeadClickListener(new SquareAdapter.OnHeadClickListener() {
+//        mAdapter.setOnNoInterestButtonClickListener(new SquareFollowsAdapter.OnNoInterestButtonClickListener() {
+//            @Override
+//            public void onNoInterestButtonClick(View view, int position) {
+//                createNoInterestDialog(position);
+//            }
+//        });
+        mAdapter.setOnHeadClickListener(new SquareFollowsAdapter.OnHeadClickListener() {
             @Override
             public void onHeadClick(View view, int position) {
 
@@ -126,12 +125,12 @@ public class SquareFragment extends Fragment implements SquareView,
                     && mAdapter.ismShowFooter()) {
                 //加载更多
                 L.i("square_fragment", "loading more data");
-                mSquarePresenter.loadSquare(pageIndex);
+                mSquareFollowPresenter.loadSquareFollows(pageIndex);
             }
         }
     };
 
-    private SquareAdapter.OnItemClickListener mOnItemClickListener = new SquareAdapter.OnItemClickListener() {
+    private SquareFollowsAdapter.OnItemClickListener mOnItemClickListener = new SquareFollowsAdapter.OnItemClickListener() {
         @Override
         public void onItemClick(View view, int position) {
             MomentBean square = mAdapter.getItem(position);
@@ -147,7 +146,7 @@ public class SquareFragment extends Fragment implements SquareView,
     }
 
     @Override
-    public void addSquares(List<MomentBean> squareList) {
+    public void addSquareFollows(List<MomentBean> squareList) {
         mAdapter.setmShowFooter(true);
         if (mData == null) {
             mData = new ArrayList<>();
@@ -186,7 +185,7 @@ public class SquareFragment extends Fragment implements SquareView,
         if (mData != null) {
             mData.clear();
         }
-        mSquarePresenter.loadSquare(pageIndex);
+        mSquareFollowPresenter.loadSquareFollows(pageIndex);
     }
 
     private void createNoInterestDialog(int position) {

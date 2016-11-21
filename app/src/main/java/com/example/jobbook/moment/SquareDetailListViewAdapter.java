@@ -1,9 +1,6 @@
-package com.example.jobbook.square;
+package com.example.jobbook.moment;
 
 import android.content.Context;
-
-import com.example.jobbook.util.ImageLoadUtils;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +10,7 @@ import android.widget.TextView;
 
 import com.example.jobbook.R;
 import com.example.jobbook.bean.MomentCommentBean;
+import com.example.jobbook.util.ImageLoadUtils;
 
 import java.util.List;
 

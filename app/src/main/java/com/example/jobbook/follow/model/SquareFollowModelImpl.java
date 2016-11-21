@@ -1,11 +1,10 @@
-package com.example.jobbook.square.model;
+package com.example.jobbook.follow.model;
 
 
 import com.example.jobbook.bean.MomentBean;
-import com.example.jobbook.util.L;
-
 import com.example.jobbook.bean.ResultBean;
 import com.example.jobbook.commons.Urls;
+import com.example.jobbook.util.L;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -18,10 +17,10 @@ import okhttp3.Call;
 /**
  * Created by Xu on 2016/7/5.
  */
-public class SquareModelImpl implements SquareModel {
+public class SquareFollowModelImpl implements SquareFollowModel {
 
     @Override
-    public void loadSquares(int pageIndex, final OnLoadSquaresListListener listener) {
+    public void loadSquareFollows(int pageIndex, final OnLoadSquareFollowListListener listener) {
         L.i("square_response:", "load");
         OkHttpUtils.postString().url(Urls.SQUARE_URL).content(pageIndex + "").build().execute(new StringCallback() {
             @Override
@@ -44,7 +43,7 @@ public class SquareModelImpl implements SquareModel {
         });
     }
 
-    public interface OnLoadSquaresListListener {
+    public interface OnLoadSquareFollowListListener {
         void onSuccess(List<MomentBean> list);
         void onFailure(String msg, Exception e);
     }
