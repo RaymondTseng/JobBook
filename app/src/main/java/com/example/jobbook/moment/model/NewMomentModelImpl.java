@@ -17,7 +17,7 @@ import okhttp3.Call;
 public class NewMomentModelImpl implements NewMomentModel {
     @Override
     public void newmoment(MomentBean momentBean, final OnNewMomentListener listener) {
-        OkHttpUtils.postString().url(Urls.NEW_QUESTION_URL).content(new Gson().toJson(momentBean)).build().execute(new StringCallback() {
+        OkHttpUtils.postString().url(Urls.NEW_SQUARE_URL).content(new Gson().toJson(momentBean)).build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
                 L.i("new_question", "network error");

@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Created by Xu on 2016/7/5.
  */
-public class SquarePresenterImpl implements SquarePresenter,SquareModelImpl.OnLoadQuestionsListListener {
+public class SquarePresenterImpl implements SquarePresenter,SquareModelImpl.OnLoadSquaresListListener {
 
     private SquareView mSquareView;
     private SquareModel mSquareModel;
@@ -23,16 +23,16 @@ public class SquarePresenterImpl implements SquarePresenter,SquareModelImpl.OnLo
     }
 
     @Override
-    public void loadQuestion(int pageIndex) {
+    public void loadSquare(int pageIndex) {
         mSquareView.showProgress();
-        L.i("question", "showprogress");
-        mSquareModel.loadQuestions(pageIndex, this);
+        L.i("square", "showprogress");
+        mSquareModel.loadSquares(pageIndex, this);
     }
 
     @Override
     public void onSuccess(List<MomentBean> list) {
         mSquareView.hideProgress();
-        mSquareView.addQuestions(list);
+        mSquareView.addSquares(list);
     }
 
     @Override

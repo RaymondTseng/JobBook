@@ -28,16 +28,16 @@ public class JobsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private OnItemClickListener mOnItemClickListener;
 
-    public JobsAdapter(Context mContext){
+    public JobsAdapter(Context mContext) {
         this.mContext = mContext;
     }
 
-//    public FavouriteJobsAdapter(Fragment mFragment) {
+    //    public FavouriteJobsAdapter(Fragment mFragment) {
 //        this.mFragment = mFragment;
 //    }
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        if(viewType == TYPE_ITEM) {
+        if (viewType == TYPE_ITEM) {
             View v = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.job_recyclerview_item, parent, false);
             ItemViewHolder vh = new ItemViewHolder(v);
@@ -53,12 +53,12 @@ public class JobsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        if(holder instanceof ItemViewHolder){
+        if (holder instanceof ItemViewHolder) {
             JobBean job = mData.get(position);
-            if(job == null){
+            if (job == null) {
                 return;
             }
-            ImageLoadUtils.display(mContext, ((ItemViewHolder)holder).mCompanyLogo, job.getLogo());
+            ImageLoadUtils.display(mContext, ((ItemViewHolder) holder).mCompanyLogo, job.getLogo());
             ((ItemViewHolder) holder).mCompanyName.setText(job.getCompanyName());
             ((ItemViewHolder) holder).mJobName.setText(job.getName());
             if (job.getCompanyLocation().length() >= 7) {
@@ -69,15 +69,15 @@ public class JobsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
     }
 
-    public void updateData(List<JobBean> mData){
+    public void updateData(List<JobBean> mData) {
         this.mData = mData;
         this.notifyDataSetChanged();
     }
 
     @Override
     public int getItemCount() {
-        int begin = mShowFooter?1:0;
-        if(mData == null) {
+        int begin = mShowFooter ? 1 : 0;
+        if (mData == null) {
             return begin;
         }
         return mData.size() + begin;
@@ -86,7 +86,7 @@ public class JobsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     @Override
     public int getItemViewType(int position) {
         // 最后一个item设置为footerView
-        if(!mShowFooter) {
+        if (!mShowFooter) {
             return TYPE_ITEM;
         }
         if (position + 1 == getItemCount()) {
@@ -104,13 +104,14 @@ public class JobsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         this.mOnItemClickListener = onItemClickListener;
     }
 
-    public class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         ImageView mCompanyLogo;
         TextView mJobName;
         TextView mCompanyName;
         TextView mLocation;
         TextView mTime;
         TextView mSalary;
+
         public ItemViewHolder(View view) {
             super(view);
             mCompanyLogo = (ImageView) view.findViewById(R.id.job_lv_iv);
@@ -124,13 +125,13 @@ public class JobsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         @Override
         public void onClick(View v) {
-            if(mOnItemClickListener != null) {
+            if (mOnItemClickListener != null) {
                 mOnItemClickListener.onItemClick(v, this.getLayoutPosition());
             }
         }
     }
 
-    public JobBean getItem(int position){
+    public JobBean getItem(int position) {
         return mData == null ? null : mData.get(position);
     }
 

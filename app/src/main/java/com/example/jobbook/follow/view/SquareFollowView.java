@@ -1,4 +1,4 @@
-package com.example.jobbook.square.view;
+package com.example.jobbook.follow.view;
 
 
 import com.example.jobbook.bean.MomentBean;
@@ -8,11 +8,11 @@ import java.util.List;
 /**
  * Created by Xu on 2016/7/5.
  */
-public interface SquareView {
+public interface SquareFollowView {
 
     void showProgress();
 
-    void addSquares(List<MomentBean> squareList);
+    void addSquareFollows(List<MomentBean> squareFollowList);
 
     void hideProgress();
 

@@ -5,5 +5,5 @@ package com.example.jobbook.square.model;
  */
 public interface SquareModel {
 
-    void loadQuestions(int pageIndex, SquareModelImpl.OnLoadQuestionsListListener listener);
+    void loadSquares(int pageIndex, SquareModelImpl.OnLoadSquaresListListener listener);
 }

@@ -1,4 +1,4 @@
-package com.example.jobbook.square.widget;
+package com.example.jobbook.moment.widget;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -17,12 +17,13 @@ import com.example.jobbook.MyApplication;
 import com.example.jobbook.R;
 import com.example.jobbook.bean.MomentBean;
 import com.example.jobbook.bean.MomentCommentBean;
-import com.example.jobbook.square.SquareDetailListViewAdapter;
-import com.example.jobbook.square.SquareDetailListViewAdapter.OnLikeClickListener;
-import com.example.jobbook.square.SquareDetailListViewAdapter.OnUnlikeClickListener;
-import com.example.jobbook.square.presenter.SquareDetailPresenter;
-import com.example.jobbook.square.presenter.SquareDetailPresenterImpl;
-import com.example.jobbook.square.view.SquareDetailView;
+import com.example.jobbook.moment.SquareDetailListViewAdapter;
+import com.example.jobbook.moment.SquareDetailListViewAdapter.OnLikeClickListener;
+import com.example.jobbook.moment.SquareDetailListViewAdapter.OnUnlikeClickListener;
+import com.example.jobbook.moment.presenter.MomentDetailPresenter;
+import com.example.jobbook.moment.presenter.MomentDetailPresenterImpl;
+import com.example.jobbook.moment.view.MomentDetailView;
+import com.example.jobbook.util.ImageLoadUtils;
 import com.example.jobbook.util.L;
 import com.example.jobbook.util.Util;
 
@@ -31,17 +32,16 @@ import java.util.List;
 /**
  * Created by 椰树 on 2016/7/15.
  */
-public class SquareDetailActivity extends Activity implements SquareDetailView, View.OnClickListener, View.OnLayoutChangeListener{
+public class MomentDetailActivity extends Activity implements MomentDetailView, View.OnClickListener, View.OnLayoutChangeListener{
     private ListView mListView;
     private EditText mEditText;
     private ImageButton mSendImageButton;
     private ImageButton mBackImageButton;
-    private SquareDetailPresenter mPresenter;
-    private TextView mQuestionTitleTextView;
-    private TextView mQuestionContentTextView;
-    private TextView mQuestionUserNameTextView;
-    private TextView mQuestionTimeTextView;
-    private ImageView mQuestionUserLogoImageView;
+    private MomentDetailPresenter mPresenter;
+    private TextView mMomentContentTextView;
+    private TextView mMomentUserNameTextView;
+    private TextView mMomentTimeTextView;
+    private ImageView mMomentUserLogoImageView;
     private SquareDetailListViewAdapter mAdapter;
     private MomentBean momentBean;
     private LinearLayout mHeadView;
@@ -66,16 +66,15 @@ public class SquareDetailActivity extends Activity implements SquareDetailView, 
 
     }
     private void initViews(){
-        mHeadView = (LinearLayout) getLayoutInflater().inflate(R.layout.square_rv_item, null);
+        mHeadView = (LinearLayout) getLayoutInflater().inflate(R.layout.activity_square_detail, null);
         mListView = (ListView) findViewById(R.id.square_detail_lv);
         mEditText = (EditText) findViewById(R.id.square_detail_et);
         mSendImageButton = (ImageButton) findViewById(R.id.square_detail_send_ib);
         mBackImageButton = (ImageButton) findViewById(R.id.square_detail_back_ib);
-//        mQuestionTitleTextView = (TextView) mHeadView.findViewById(R.id.question_detail_title_tv);
-//        mQuestionContentTextView = (TextView) mHeadView.findViewById(R.id.question_detail_content_tv);
-//        mQuestionUserNameTextView = (TextView) mHeadView.findViewById(R.id.question_detail_user_name_tv);
-//        mQuestionTimeTextView = (TextView) mHeadView.findViewById(R.id.question_detail_time_tv);
-//        mQuestionUserLogoImageView = (ImageView) findViewById(R.id.question_detail_user_logo_iv);
+        mMomentContentTextView = (TextView) mHeadView.findViewById(R.id.square_detail_content_tv);
+        mMomentUserNameTextView = (TextView) mHeadView.findViewById(R.id.square_detail_name_tv);
+        mMomentTimeTextView = (TextView) mHeadView.findViewById(R.id.square_detail_time_tv);
+        mMomentUserLogoImageView = (ImageView) findViewById(R.id.square_detail_head_iv);
         mRootView = findViewById(R.id.question_detail_root_ll);
         mTitleBarLayout = (RelativeLayout) findViewById(R.id.square_detail_title_bar);
         mInputLayout = (LinearLayout) findViewById(R.id.square_detail_input_ll);
@@ -90,9 +89,9 @@ public class SquareDetailActivity extends Activity implements SquareDetailView, 
         mTitleBarHeight = ((float)mScreenHeight / 568) * 56;
         mInputLayoutHeight = mTitleBarHeight;
         mAdapter = new SquareDetailListViewAdapter(this);
-        mPresenter = new SquareDetailPresenterImpl(this);
-        mPresenter.loadQuestion(momentBean);
-        mPresenter.loadQuestionComments(momentBean.getId());
+        mPresenter = new MomentDetailPresenterImpl(this);
+        mPresenter.loadMoment(momentBean);
+        mPresenter.loadMomentComments(momentBean.getId());
         mBackImageButton.setOnClickListener(this);
         mSendImageButton.setOnClickListener(this);
         mRootView.addOnLayoutChangeListener(this);
@@ -101,7 +100,7 @@ public class SquareDetailActivity extends Activity implements SquareDetailView, 
             @Override
             public void onLikeClickListener(int com_id) {
                 if (MyApplication.getmLoginStatus() == 0) {
-                    Toast.makeText(SquareDetailActivity.this, "请先登录！", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MomentDetailActivity.this, "请先登录！", Toast.LENGTH_LONG).show();
                 }else {
                     mPresenter.commentLike(com_id, MyApplication.getAccount());
                 }
@@ -111,7 +110,7 @@ public class SquareDetailActivity extends Activity implements SquareDetailView, 
             @Override
             public void onUnlikeClickListener(int com_id) {
                 if (MyApplication.getmLoginStatus() == 0) {
-                    Toast.makeText(SquareDetailActivity.this, "请先登录！", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MomentDetailActivity.this, "请先登录！", Toast.LENGTH_LONG).show();
                 }else {
 //                    L.i("squaredetail", "comment unlike" + com_id);
                     mPresenter.commentUnlike(com_id, MyApplication.getAccount());
@@ -126,12 +125,11 @@ public class SquareDetailActivity extends Activity implements SquareDetailView, 
     }
 
     @Override
-    public void addQuestion(MomentBean mQuestion) {
-//        mQuestionTitleTextView.setText(mQuestion.getTitle());
-        mQuestionContentTextView.setText(mQuestion.getContent());
-        mQuestionUserNameTextView.setText(mQuestion.getAuthor().getUsername());
-        mQuestionTimeTextView.setText(mQuestion.getDate());
-//        ImageLoadUtils.display(this, mQuestionUserLogoImageView, mQuestion.getAuthor().getHead());
+    public void addMoment(MomentBean mMoment) {
+        mMomentContentTextView.setText(mMoment.getContent());
+        mMomentUserNameTextView.setText(mMoment.getAuthor().getUsername());
+        mMomentTimeTextView.setText(mMoment.getDate());
+        ImageLoadUtils.display(this, mMomentUserLogoImageView, mMoment.getAuthor().getHead());
     }
 
     @Override
@@ -145,7 +143,7 @@ public class SquareDetailActivity extends Activity implements SquareDetailView, 
 
     @Override
     public void sendSuccess() {
-        mPresenter.loadQuestionComments(momentBean.getId());
+        mPresenter.loadMomentComments(momentBean.getId());
         mEditText.setText("");
         Util.showSnackBar(view,"评论成功!");
     }
@@ -201,26 +199,26 @@ public class SquareDetailActivity extends Activity implements SquareDetailView, 
 
     @Override
     public void commentLikeSuccess(int num_like, int num_unlike) {
-        Toast.makeText(SquareDetailActivity.this, "评论点赞成功！", Toast.LENGTH_LONG).show();
-        mPresenter.loadQuestionComments(momentBean.getId());
+        Toast.makeText(MomentDetailActivity.this, "评论点赞成功！", Toast.LENGTH_LONG).show();
+        mPresenter.loadMomentComments(momentBean.getId());
         L.i("comment_like_success", "good:" + num_like + "bad:" + num_unlike);
     }
 
     @Override
     public void commentLikeFailure(String msg) {
-        Toast.makeText(SquareDetailActivity.this, "您已经点过啦！", Toast.LENGTH_LONG).show();
+        Toast.makeText(MomentDetailActivity.this, "您已经点过啦！", Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void commentUnlikeSuccess(int num_like, int num_unlike) {
-        Toast.makeText(SquareDetailActivity.this, "评论踩成功！", Toast.LENGTH_LONG).show();
-        mPresenter.loadQuestionComments(momentBean.getId());
+        Toast.makeText(MomentDetailActivity.this, "评论踩成功！", Toast.LENGTH_LONG).show();
+        mPresenter.loadMomentComments(momentBean.getId());
         L.i("comment_like_success", "good:" + num_like + "bad:" + num_unlike);
     }
 
     @Override
     public void commentUnlikeFailure(String msg) {
-        Toast.makeText(SquareDetailActivity.this, "您已经点过啦！", Toast.LENGTH_LONG).show();
+        Toast.makeText(MomentDetailActivity.this, "您已经点过啦！", Toast.LENGTH_LONG).show();
     }
 
     @Override

@@ -5,5 +5,5 @@ package com.example.jobbook.square.presenter;
  */
 public interface SquarePresenter {
 
-    void loadQuestion(int pageIndex);
+    void loadSquare(int pageIndex);
 }

@@ -20,11 +20,11 @@ import android.widget.TextView;
 import com.example.jobbook.MyApplication;
 import com.example.jobbook.R;
 import com.example.jobbook.bean.MomentBean;
+import com.example.jobbook.follow.widget.SquareFollowFragment;
 import com.example.jobbook.moment.MomentPagerAdapter;
 import com.example.jobbook.square.widget.SquareFragment;
 import com.example.jobbook.util.L;
 import com.example.jobbook.util.Util;
-
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +50,6 @@ public class MomentFragment extends Fragment implements View.OnClickListener, Vi
     private int mCursorWidth;
     private int initPosition;
     private int mCurrentIndex = 0;
-
 
     @Nullable
     @Override
@@ -96,16 +95,16 @@ public class MomentFragment extends Fragment implements View.OnClickListener, Vi
             mTextTabs[i].setTextColor(getResources().getColorStateList(R.color.colorWhite));
             mTabWidget.addView(mTextTabs[i]);
             mTextTabs[i].setOnClickListener(this);
-            mFragemnts.add(new SquareFragment());
+
         }
+        mFragemnts.add(new SquareFragment());
+        mFragemnts.add(new SquareFollowFragment());
         mPublishTextView.setOnClickListener(this);
         mPagerAdapter = new MomentPagerAdapter(getChildFragmentManager(), mFragemnts);
         mViewPager.setAdapter(mPagerAdapter);
         initCursor();
         mViewPager.setOnPageChangeListener(this);
         mTabWidget.setCurrentTab(0);
-
-
     }
 
     @Override
@@ -113,7 +112,7 @@ public class MomentFragment extends Fragment implements View.OnClickListener, Vi
         switch (v.getId()){
             case 0:
 //                List<MomentBean> list = new ArrayList<>();
-//                ((SquareFragment)mFragemnts.get(0)).refreshData(list);
+//                ((SquareFollowFragment)mFragemnts.get(0)).refreshData(list);
                 mViewPager.setCurrentItem(0);
                 break;
             case 1:
