@@ -31,6 +31,7 @@ public class SquareAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private OnItemClickListener mOnItemClickListener;
     private OnHeadClickListener mOnHeadClickListener;
     private OnNoInterestButtonClickListener mOnNoInterestButtonClickListener;
+    private OnFavouriteButtonClickListener mOnFavouriteButtonClickListener;
 
     public SquareAdapter(Context mContext) {
         this.mContext = mContext;
@@ -111,6 +112,7 @@ public class SquareAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         TextView mCommentNumbers;
         TextView mTime;
         ImageButton mNoInterestButton;
+        ImageButton mFavouriteButton;
 
         public ItemViewHolder(View view) {
             super(view);
@@ -121,8 +123,10 @@ public class SquareAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             mCommentNumbers = (TextView) view.findViewById(R.id.square_rv_comment_tv);
             mTime = (TextView) view.findViewById(R.id.square_rv_time_tv);
             mNoInterestButton = (ImageButton) view.findViewById(R.id.square_rv_no_interest_ib);
-//            itemView.setOnClickListener(this);
+            mFavouriteButton = (ImageButton) view.findViewById(R.id.square_rv_favourite_ib);
+            itemView.setOnClickListener(this);
             mNoInterestButton.setOnClickListener(this);
+            mFavouriteButton.setOnClickListener(this);
         }
 
         @Override
@@ -137,6 +141,12 @@ public class SquareAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 case R.id.square_rv_head_iv:
                     if (mOnHeadClickListener != null) {
                         mOnHeadClickListener.onHeadClick(v, this.getLayoutPosition());
+                    }
+                    break;
+
+                case R.id.square_rv_favourite_ib:
+                    if (mOnFavouriteButtonClickListener != null) {
+                        mOnFavouriteButtonClickListener.onFavouriteButtonClick(v, this.getLayoutPosition());
                     }
                     break;
 
@@ -170,6 +180,10 @@ public class SquareAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         void onNoInterestButtonClick(View view, int position);
     }
 
+    public interface OnFavouriteButtonClickListener {
+        void onFavouriteButtonClick(View view, int position);
+    }
+
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.mOnItemClickListener = onItemClickListener;
     }
@@ -180,6 +194,10 @@ public class SquareAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     public void setOnNoInterestButtonClickListener(OnNoInterestButtonClickListener onNoInterestButtonClickListener) {
         this.mOnNoInterestButtonClickListener = onNoInterestButtonClickListener;
+    }
+
+    public void setOnFavouriteButtonClickListener(OnFavouriteButtonClickListener onFavouriteButtonClickListener) {
+        this.mOnFavouriteButtonClickListener = onFavouriteButtonClickListener;
     }
 
     public MomentBean getItem(int position) {

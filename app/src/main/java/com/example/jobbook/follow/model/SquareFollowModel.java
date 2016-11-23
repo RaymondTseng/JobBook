@@ -5,5 +5,5 @@ package com.example.jobbook.follow.model;
  */
 public interface SquareFollowModel {
 
-    void loadSquareFollows(int pageIndex, SquareFollowModelImpl.OnLoadSquareFollowListListener listener);
+    void loadSquareFollows(int pageIndex, String name, SquareFollowModelImpl.OnLoadSquareFollowListListener listener);
 }

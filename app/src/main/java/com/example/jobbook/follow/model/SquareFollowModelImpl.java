@@ -20,18 +20,18 @@ import okhttp3.Call;
 public class SquareFollowModelImpl implements SquareFollowModel {
 
     @Override
-    public void loadSquareFollows(int pageIndex, final OnLoadSquareFollowListListener listener) {
-        L.i("square_response:", "load");
-        OkHttpUtils.postString().url(Urls.SQUARE_URL).content(pageIndex + "").build().execute(new StringCallback() {
+    public void loadSquareFollows(int pageIndex, String name, final OnLoadSquareFollowListListener listener) {
+        L.i("square_follow_response:", "load");
+        OkHttpUtils.postString().url(Urls.SQUARE_FOLLOW_URL + "/account/" + name).content(pageIndex + "").build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
-                L.i("square_response:", e.getMessage());
+                L.i("square_follow_response:", e.getMessage());
                 listener.onFailure("network error", e);
             }
 
             @Override
             public void onResponse(String response, int id) {
-                L.i("square_response", response);
+                L.i("square_follow_response", response);
                 ResultBean resultBean = new Gson().fromJson(response, ResultBean.class);
                 if (resultBean.getStatus().equals("true")) {
                     List<MomentBean> momentBeanList = new Gson().fromJson(resultBean.getResponse(), new TypeToken<List<MomentBean>>(){}.getType());

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@color/colorWhite"
     android:orientation="vertical">
 
@@ -111,7 +111,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:background="@null"
-            android:src="@mipmap/favourite_tapped" />
+            android:src="@mipmap/favourite" />
 
         <TextView
             android:id="@+id/square_follow_rv_time_tv"

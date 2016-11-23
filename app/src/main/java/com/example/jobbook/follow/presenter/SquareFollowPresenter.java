@@ -5,5 +5,5 @@ package com.example.jobbook.follow.presenter;
  */
 public interface SquareFollowPresenter {
 
-    void loadSquareFollows(int pageIndex);
+    void loadSquareFollows(int pageIndex, String name);
 }

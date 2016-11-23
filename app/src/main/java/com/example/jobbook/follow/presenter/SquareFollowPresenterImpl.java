@@ -22,10 +22,10 @@ public class SquareFollowPresenterImpl implements SquareFollowPresenter,SquareFo
     }
 
     @Override
-    public void loadSquareFollows(int pageIndex) {
+    public void loadSquareFollows(int pageIndex, String name) {
         mSquareFollowView.showProgress();
         L.i("square", "showprogress");
-        mSquareFollowModel.loadSquareFollows(pageIndex, this);
+        mSquareFollowModel.loadSquareFollows(pageIndex, name, this);
     }
 
     @Override
