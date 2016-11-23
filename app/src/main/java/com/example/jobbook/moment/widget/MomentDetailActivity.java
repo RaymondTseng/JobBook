@@ -32,7 +32,7 @@ import java.util.List;
 /**
  * Created by 椰树 on 2016/7/15.
  */
-public class MomentDetailActivity extends Activity implements MomentDetailView, View.OnClickListener, View.OnLayoutChangeListener{
+public class MomentDetailActivity extends Activity implements MomentDetailView, View.OnClickListener, View.OnLayoutChangeListener {
     private ListView mListView;
     private EditText mEditText;
     private ImageButton mSendImageButton;
@@ -42,6 +42,8 @@ public class MomentDetailActivity extends Activity implements MomentDetailView, 
     private TextView mMomentUserNameTextView;
     private TextView mMomentTimeTextView;
     private ImageView mMomentUserLogoImageView;
+    private TextView mMomentFavouriteTextView;
+    private TextView mMomentCommentTextView;
     private SquareDetailListViewAdapter mAdapter;
     private MomentBean momentBean;
     private LinearLayout mHeadView;
@@ -57,36 +59,38 @@ public class MomentDetailActivity extends Activity implements MomentDetailView, 
     private View view;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_square_detail);
         view = getWindow().getDecorView();
         initViews();
         initEvents();
-
     }
-    private void initViews(){
+
+    private void initViews() {
         mHeadView = (LinearLayout) getLayoutInflater().inflate(R.layout.activity_square_detail, null);
         mListView = (ListView) findViewById(R.id.square_detail_lv);
         mEditText = (EditText) findViewById(R.id.square_detail_et);
         mSendImageButton = (ImageButton) findViewById(R.id.square_detail_send_ib);
         mBackImageButton = (ImageButton) findViewById(R.id.square_detail_back_ib);
-        mMomentContentTextView = (TextView) mHeadView.findViewById(R.id.square_detail_content_tv);
-        mMomentUserNameTextView = (TextView) mHeadView.findViewById(R.id.square_detail_name_tv);
-        mMomentTimeTextView = (TextView) mHeadView.findViewById(R.id.square_detail_time_tv);
+        mMomentContentTextView = (TextView) findViewById(R.id.square_detail_content_tv);
+        mMomentUserNameTextView = (TextView) findViewById(R.id.square_detail_name_tv);
+        mMomentTimeTextView = (TextView) findViewById(R.id.square_detail_time_tv);
         mMomentUserLogoImageView = (ImageView) findViewById(R.id.square_detail_head_iv);
+        mMomentFavouriteTextView = (TextView) findViewById(R.id.square_detail_favourite_tv);
+        mMomentCommentTextView = (TextView) findViewById(R.id.square_detail_comment_tv);
         mRootView = findViewById(R.id.question_detail_root_ll);
         mTitleBarLayout = (RelativeLayout) findViewById(R.id.square_detail_title_bar);
         mInputLayout = (LinearLayout) findViewById(R.id.square_detail_input_ll);
         mLoadingLinearLayout = (LinearLayout) findViewById(R.id.loading_circle_progress_bar_ll);
     }
 
-    private void initEvents(){
+    private void initEvents() {
         momentBean = (MomentBean) getIntent().getExtras().getSerializable("square_detail");
         L.i("squaredetail_activity", "123:" + momentBean.getId());
         mScreenHeight = Util.getHeight(this);
         mKeyBoardHeight = mScreenHeight / 3;
-        mTitleBarHeight = ((float)mScreenHeight / 568) * 56;
+        mTitleBarHeight = ((float) mScreenHeight / 568) * 56;
         mInputLayoutHeight = mTitleBarHeight;
         mAdapter = new SquareDetailListViewAdapter(this);
         mPresenter = new MomentDetailPresenterImpl(this);
@@ -101,7 +105,7 @@ public class MomentDetailActivity extends Activity implements MomentDetailView, 
             public void onLikeClickListener(int com_id) {
                 if (MyApplication.getmLoginStatus() == 0) {
                     Toast.makeText(MomentDetailActivity.this, "请先登录！", Toast.LENGTH_LONG).show();
-                }else {
+                } else {
                     mPresenter.commentLike(com_id, MyApplication.getAccount());
                 }
             }
@@ -111,7 +115,7 @@ public class MomentDetailActivity extends Activity implements MomentDetailView, 
             public void onUnlikeClickListener(int com_id) {
                 if (MyApplication.getmLoginStatus() == 0) {
                     Toast.makeText(MomentDetailActivity.this, "请先登录！", Toast.LENGTH_LONG).show();
-                }else {
+                } else {
 //                    L.i("squaredetail", "comment unlike" + com_id);
                     mPresenter.commentUnlike(com_id, MyApplication.getAccount());
                 }
@@ -130,6 +134,8 @@ public class MomentDetailActivity extends Activity implements MomentDetailView, 
         mMomentUserNameTextView.setText(mMoment.getAuthor().getUsername());
         mMomentTimeTextView.setText(mMoment.getDate());
         ImageLoadUtils.display(this, mMomentUserLogoImageView, mMoment.getAuthor().getHead());
+        mMomentFavouriteTextView.setText(mMoment.getLikesNum() + "");
+        mMomentCommentTextView.setText(mMoment.getCommentNum() + "");
     }
 
     @Override
@@ -145,7 +151,7 @@ public class MomentDetailActivity extends Activity implements MomentDetailView, 
     public void sendSuccess() {
         mPresenter.loadMomentComments(momentBean.getId());
         mEditText.setText("");
-        Util.showSnackBar(view,"评论成功!");
+        Util.showSnackBar(view, "评论成功!");
     }
 
     @Override
@@ -155,15 +161,15 @@ public class MomentDetailActivity extends Activity implements MomentDetailView, 
 
     @Override
     public void showLoadFailMsg(int error) {
-        switch (error){
+        switch (error) {
             case 0:
-                Util.showSnackBar(view,"问问加载错误,请重试!");
+                Util.showSnackBar(view, "问问加载错误,请重试!");
                 break;
             case 1:
-                Util.showSnackBar(view,"评论加载错误,请重试！");
+                Util.showSnackBar(view, "评论加载错误,请重试！");
                 break;
             case 2:
-                Util.showSnackBar(view,"发表评论失败！");
+                Util.showSnackBar(view, "发表评论失败！");
                 break;
         }
     }
@@ -175,19 +181,19 @@ public class MomentDetailActivity extends Activity implements MomentDetailView, 
 
     @Override
     public void editTextBlankError() {
-        Util.showSnackBar(view,"评论不能为空！");
+        Util.showSnackBar(view, "评论不能为空！");
     }
 
     @Override
     public void noLoginError() {
-        Util.showSnackBar(view,"请先登录!");
+        Util.showSnackBar(view, "请先登录!");
     }
 
     @Override
     public void sendComment(String comment) {
-        if(MyApplication.getmLoginStatus() == 0){
+        if (MyApplication.getmLoginStatus() == 0) {
             noLoginError();
-        }else{
+        } else {
             MomentCommentBean momentCommentBean = new MomentCommentBean();
             momentCommentBean.setApplier(MyApplication.getmPersonBean());
             momentCommentBean.setContent(comment);
@@ -223,14 +229,14 @@ public class MomentDetailActivity extends Activity implements MomentDetailView, 
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.square_detail_back_ib:
                 finish();
                 break;
             case R.id.square_detail_send_ib:
-                if(TextUtils.isEmpty(getComment())){
+                if (TextUtils.isEmpty(getComment())) {
                     editTextBlankError();
-                }else{
+                } else {
                     sendComment(getComment());
                 }
                 break;
@@ -239,7 +245,7 @@ public class MomentDetailActivity extends Activity implements MomentDetailView, 
 
     @Override
     public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
-        if(oldBottom != 0 && bottom != 0 &&(oldBottom - bottom > mKeyBoardHeight)){
+        if (oldBottom != 0 && bottom != 0 && (oldBottom - bottom > mKeyBoardHeight)) {
             int dValue = oldBottom - bottom;
             int newHeight = mScreenHeight - dValue;
             L.i("square_detail", "newHeight:" + newHeight + "Height:" + mScreenHeight + "mTitleBarHeight:" + mTitleBarHeight);
@@ -248,10 +254,10 @@ public class MomentDetailActivity extends Activity implements MomentDetailView, 
             mInputLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.
                     MATCH_PARENT, 0, (mInputLayoutHeight / newHeight) * 568));
             mListView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.
-                    MATCH_PARENT, 0, ((float)(newHeight - 2 * mTitleBarHeight) / newHeight) * 568));
+                    MATCH_PARENT, 0, ((float) (newHeight - 2 * mTitleBarHeight) / newHeight) * 568));
             L.i("square_detail", "软键盘弹起");
 
-        }else if(oldBottom != 0 && bottom != 0 &&(bottom - oldBottom > mKeyBoardHeight)){
+        } else if (oldBottom != 0 && bottom != 0 && (bottom - oldBottom > mKeyBoardHeight)) {
             mTitleBarLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, 56));
             mInputLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, 56));
             mListView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, 456));

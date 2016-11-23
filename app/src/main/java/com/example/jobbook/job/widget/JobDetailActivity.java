@@ -101,7 +101,7 @@ public class JobDetailActivity extends Activity implements View.OnClickListener,
 
                 if (jobDetailBean.isIfLike() == 0) {
                     L.i("like_ib_click", "click like");
-//                    mLikeImageButton.setImageResource(R.mipmap.favourite_tapped);
+//                    mLikeImageButton.setImageResource(R.mipmap.favourite);
                     like(jobBean.getId());
 
                 } else {
@@ -152,7 +152,7 @@ public class JobDetailActivity extends Activity implements View.OnClickListener,
             if (jobDetailBean.isIfLike() == 0) {
                 mLikeImageButton.setImageResource(R.mipmap.favourite_white);
             } else {
-                mLikeImageButton.setImageResource(R.mipmap.favourite_tapped);
+                mLikeImageButton.setImageResource(R.mipmap.favourite);
             }
         }
     }
@@ -179,7 +179,7 @@ public class JobDetailActivity extends Activity implements View.OnClickListener,
 
     @Override
     public void likeSuccess() {
-        mLikeImageButton.setImageResource(R.mipmap.favourite_tapped);
+        mLikeImageButton.setImageResource(R.mipmap.favourite);
         Util.showSnackBar(view, "收藏成功！");
     }
 

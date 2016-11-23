@@ -87,8 +87,8 @@ public class SquareFragment extends Fragment implements SquareView,
         mAdapter = new SquareAdapter(getActivity().getApplicationContext());
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST));
 //        mRecyclerView.addItemDecoration(new SpaceItemDecoration(1));
-        mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mAdapter.setOnItemClickListener(mOnItemClickListener);
         mRecyclerView.setAdapter(mAdapter);
@@ -105,6 +105,23 @@ public class SquareFragment extends Fragment implements SquareView,
 
             }
         });
+        mAdapter.setOnFavouriteButtonClickListener(new SquareAdapter.OnFavouriteButtonClickListener() {
+            @Override
+            public void onFavouriteButtonClick(View view, int position) {
+//                if (jobDetailBean.isIfLike() == 0) {
+//                    L.i("like_ib_click", "click like");
+//                    mLikeImageButton.setImageResource(R.mipmap.favourite);
+//                    like(jobBean.getId());
+//                } else {
+//                    L.i("like_ib_click", "click unlike");
+//                    mLikeImageButton.setImageResource(R.mipmap.favourite_white);
+//                    unlike(jobBean.getId());
+//                }
+//                refresh();
+                Util.showSnackBar(view, "赞" + position);
+            }
+        });
+        mAdapter.setOnItemClickListener(mOnItemClickListener);
         onRefresh();
     }
 

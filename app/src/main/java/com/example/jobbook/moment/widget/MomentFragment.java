@@ -116,7 +116,11 @@ public class MomentFragment extends Fragment implements View.OnClickListener, Vi
                 mViewPager.setCurrentItem(0);
                 break;
             case 1:
-                mViewPager.setCurrentItem(1);
+                if(MyApplication.getmLoginStatus() == 1){
+                    mViewPager.setCurrentItem(1);
+                }else{
+                    Util.showSnackBar(view, "请先登录");
+                }
                 break;
             case R.id.moment_publish_tv:
                 if(MyApplication.getmLoginStatus() == 1){

@@ -69,7 +69,7 @@ public class SquareFollowFragment extends Fragment implements SquareFollowView,
         view = inflater.inflate(R.layout.fragment_square, container, false);
         initViews(view);
         initEvents();
-        L.i("squarefragment", "create");
+        L.i("squareFollowfragment", "create");
         return view;
     }
 
@@ -125,7 +125,7 @@ public class SquareFollowFragment extends Fragment implements SquareFollowView,
                     && mAdapter.ismShowFooter()) {
                 //加载更多
                 L.i("square_fragment", "loading more data");
-                mSquareFollowPresenter.loadSquareFollows(pageIndex);
+                mSquareFollowPresenter.loadSquareFollows(pageIndex, MyApplication.getAccount());
             }
         }
     };
@@ -185,7 +185,7 @@ public class SquareFollowFragment extends Fragment implements SquareFollowView,
         if (mData != null) {
             mData.clear();
         }
-        mSquareFollowPresenter.loadSquareFollows(pageIndex);
+        mSquareFollowPresenter.loadSquareFollows(pageIndex, MyApplication.getAccount());
     }
 
     private void createNoInterestDialog(int position) {

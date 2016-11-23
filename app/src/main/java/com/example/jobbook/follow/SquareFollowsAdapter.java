@@ -29,7 +29,7 @@ public class SquareFollowsAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     private OnItemClickListener mOnItemClickListener;
     private OnHeadClickListener mOnHeadClickListener;
-//    private OnNoInterestButtonClickListener mOnNoInterestButtonClickListener;
+    private OnFavouriteButtonClickListener mOnFavouriteButtonClickListener;
 
     public SquareFollowsAdapter(Context mContext) {
         this.mContext = mContext;
@@ -120,18 +120,18 @@ public class SquareFollowsAdapter extends RecyclerView.Adapter<RecyclerView.View
             mCommentNumbers = (TextView) view.findViewById(R.id.square_follow_rv_comment_tv);
             mTime = (TextView) view.findViewById(R.id.square_follow_rv_time_tv);
 //            mNoInterestButton = (ImageButton) view.findViewById(R.id.square_follow_rv_no_interest_ib);
-//            itemView.setOnClickListener(this);
+            itemView.setOnClickListener(this);
 //            mNoInterestButton.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
             switch (v.getId()) {
-                case R.id.moment_rv_close_ib:
-//                    if (mOnNoInterestButtonClickListener != null) {
-//                        mOnNoInterestButtonClickListener.onNoInterestButtonClick(v, this.getLayoutPosition());
-//                    }
-//                    break;
+                case R.id.square_follow_rv_favourite_ib:
+                    if (mOnFavouriteButtonClickListener != null) {
+                        mOnFavouriteButtonClickListener.onFavouriteButtonClick(v, this.getLayoutPosition());
+                    }
+                    break;
 
                 case R.id.square_follow_rv_head_iv:
                     if (mOnHeadClickListener != null) {
@@ -165,9 +165,9 @@ public class SquareFollowsAdapter extends RecyclerView.Adapter<RecyclerView.View
         void onHeadClick(View view, int position);
     }
 
-//    public interface OnNoInterestButtonClickListener {
-//        void onNoInterestButtonClick(View view, int position);
-//    }
+    public interface OnFavouriteButtonClickListener {
+        void onFavouriteButtonClick(View view, int position);
+    }
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.mOnItemClickListener = onItemClickListener;
@@ -177,9 +177,9 @@ public class SquareFollowsAdapter extends RecyclerView.Adapter<RecyclerView.View
         this.mOnHeadClickListener = onHeadClickListener;
     }
 
-//  public void setOnNoInterestButtonClickListener(OnNoInterestButtonClickListener onNoInterestButtonClickListener) {
-//      this.mOnNoInterestButtonClickListener = onNoInterestButtonClickListener;
-//  }
+    public void setOnFavouriteButtonClickListener(OnFavouriteButtonClickListener onFavouriteButtonClickListener) {
+        this.mOnFavouriteButtonClickListener = onFavouriteButtonClickListener;
+    }
 
     public MomentBean getItem(int position) {
         return mData == null ? null : mData.get(position);
