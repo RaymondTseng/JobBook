@@ -30,7 +30,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="186"
             android:background="@color/colorWhite"
             android:orientation="vertical"
             android:paddingBottom="20dp">
@@ -93,6 +94,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@null"
+                    android:layout_gravity="center"
                     android:src="@mipmap/favourite_gray_32px" />
 
                 <TextView
@@ -127,7 +129,8 @@
         <ListView
             android:id="@+id/square_detail_lv"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="270"
             android:layout_marginTop="2dp"
             android:background="@color/colorWhite"
             android:divider="@drawable/listview_short_divider"
@@ -148,6 +151,7 @@
         android:weightSum="360">
 
         <ImageButton
+            android:id="@+id/square_detail_favourite_ib"
             android:layout_width="56dp"
             android:layout_height="56dp"
             android:layout_gravity="center"
@@ -155,7 +159,7 @@
             android:background="@null"/>
 
         <EditText
-            android:id="@+id/square_detail_et"
+            android:id="@+id/square_detail_comment_et"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="360"

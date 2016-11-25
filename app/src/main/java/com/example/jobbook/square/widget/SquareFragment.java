@@ -22,7 +22,7 @@ import com.example.jobbook.MyApplication;
 import com.example.jobbook.R;
 import com.example.jobbook.bean.MomentBean;
 import com.example.jobbook.commons.Urls;
-import com.example.jobbook.moment.widget.MomentDetailActivity;
+import com.example.jobbook.square.widget.SquareDetailActivity;
 import com.example.jobbook.moment.widget.MomentFragment;
 import com.example.jobbook.square.SquareAdapter;
 import com.example.jobbook.square.presenter.SquarePresenter;
@@ -154,7 +154,7 @@ public class SquareFragment extends Fragment implements SquareView,
             MomentBean square = mAdapter.getItem(position);
             Bundle bundle = new Bundle();
             bundle.putSerializable("square_detail", square);
-            Util.toAnotherActivity(getActivity(), MomentDetailActivity.class, bundle);
+            Util.toAnotherActivity(getActivity(), SquareDetailActivity.class, bundle);
         }
     };
 

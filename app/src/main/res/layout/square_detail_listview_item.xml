@@ -23,6 +23,7 @@
                 android:text="曾梓航:"
                 android:id="@+id/square_detail_lv_name_tv"/>
             <TextView
+                android:id="@+id/square_detail_lv_content_tv"
                 style="@style/Black14sptv"
                 android:text="                你这样做有想过你的家里人吗。不想家里人你有想过老板的感受吗，就算不想老板的..."/>
         </FrameLayout>

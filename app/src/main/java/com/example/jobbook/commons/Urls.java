@@ -30,7 +30,7 @@ public class Urls {
 
     public static final String SQUARE_FOLLOW_URL = IP + "/jobBook/question/focusQuestion";
 
-    public static final String SQUARE_DETAIL_URL = IP + "/jobBook/question/getQuestion/q_id/";
+    public static final String SQUARE_DETAIL_URL = IP + "/jobBook/question/getComments/q_id/";
 
     public static final String NEW_SQUARE_URL = IP + "/jobBook/question/releaseQuestion";
 
@@ -65,5 +65,6 @@ public class Urls {
     public static final String COMMENT_LIKE_AND_UNLIKE = IP + "/jobBook/question/deal/";
 
     public static final String LOGIN_CHECK_URL = IP + "/jobBook/enter/checkLogin/account/";
+
 
 }

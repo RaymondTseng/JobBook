@@ -33,7 +33,8 @@ public class ArticleModelImpl implements ArticleModel {
                 L.i("article_response:", response);
                 ResultBean resultBean = new Gson().fromJson(response, ResultBean.class);
                 if(resultBean.getStatus().equals("true")){
-                    List<ArticleBean> list = new Gson().fromJson(resultBean.getResponse(), new TypeToken<List<ArticleBean>>() {
+                    List<ArticleBean> list = new Gson().fromJson(resultBean.getResponse(),
+                            new TypeToken<List<ArticleBean>>() {
                     }.getType());
                     listener.onSuccess(list);
                 }else {

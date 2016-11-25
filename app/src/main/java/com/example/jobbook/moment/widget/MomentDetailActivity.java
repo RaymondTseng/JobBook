@@ -70,7 +70,7 @@ public class MomentDetailActivity extends Activity implements MomentDetailView, 
     private void initViews() {
         mHeadView = (LinearLayout) getLayoutInflater().inflate(R.layout.activity_square_detail, null);
         mListView = (ListView) findViewById(R.id.square_detail_lv);
-        mEditText = (EditText) findViewById(R.id.square_detail_et);
+        mEditText = (EditText) findViewById(R.id.square_detail_comment_et);
         mSendImageButton = (ImageButton) findViewById(R.id.square_detail_send_ib);
         mBackImageButton = (ImageButton) findViewById(R.id.square_detail_back_ib);
         mMomentContentTextView = (TextView) findViewById(R.id.square_detail_content_tv);
