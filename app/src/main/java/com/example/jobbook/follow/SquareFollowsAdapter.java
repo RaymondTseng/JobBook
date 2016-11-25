@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -69,6 +70,11 @@ public class SquareFollowsAdapter extends RecyclerView.Adapter<RecyclerView.View
             ((ItemViewHolder) holder).mFavouriteNumbers.setText(moment.getLikesNum() + "");
             ((ItemViewHolder) holder).mCommentNumbers.setText(moment.getCommentNum() + "");
             ((ItemViewHolder) holder).mTime.setText(moment.getDate());
+            if (moment.getIfLike() == 0) {
+                ((ItemViewHolder) holder).mFavouriteButton.setImageResource(R.mipmap.favourite);
+            } else {
+                ((ItemViewHolder) holder).mFavouriteButton.setImageResource(R.mipmap.favourite_tapped);
+            }
         }
     }
 
@@ -109,7 +115,7 @@ public class SquareFollowsAdapter extends RecyclerView.Adapter<RecyclerView.View
         TextView mFavouriteNumbers;
         TextView mCommentNumbers;
         TextView mTime;
-//        ImageButton mNoInterestButton;
+        ImageButton mFavouriteButton;
 
         public ItemViewHolder(View view) {
             super(view);
@@ -119,9 +125,9 @@ public class SquareFollowsAdapter extends RecyclerView.Adapter<RecyclerView.View
             mFavouriteNumbers = (TextView) view.findViewById(R.id.square_follow_rv_favourite_tv);
             mCommentNumbers = (TextView) view.findViewById(R.id.square_follow_rv_comment_tv);
             mTime = (TextView) view.findViewById(R.id.square_follow_rv_time_tv);
-//            mNoInterestButton = (ImageButton) view.findViewById(R.id.square_follow_rv_no_interest_ib);
+            mFavouriteButton = (ImageButton) view.findViewById(R.id.square_follow_rv_favourite_ib);
             itemView.setOnClickListener(this);
-//            mNoInterestButton.setOnClickListener(this);
+            mFavouriteButton.setOnClickListener(this);
         }
 
         @Override
@@ -129,7 +135,8 @@ public class SquareFollowsAdapter extends RecyclerView.Adapter<RecyclerView.View
             switch (v.getId()) {
                 case R.id.square_follow_rv_favourite_ib:
                     if (mOnFavouriteButtonClickListener != null) {
-                        mOnFavouriteButtonClickListener.onFavouriteButtonClick(v, this.getLayoutPosition());
+                        ImageButton ib = (ImageButton) v;
+                        mOnFavouriteButtonClickListener.onFavouriteButtonClick(ib, this.getLayoutPosition());
                     }
                     break;
 
@@ -166,7 +173,7 @@ public class SquareFollowsAdapter extends RecyclerView.Adapter<RecyclerView.View
     }
 
     public interface OnFavouriteButtonClickListener {
-        void onFavouriteButtonClick(View view, int position);
+        void onFavouriteButtonClick(ImageButton ib, int position);
     }
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {

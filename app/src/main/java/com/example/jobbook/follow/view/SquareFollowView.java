@@ -17,4 +17,18 @@ public interface SquareFollowView {
     void hideProgress();
 
     void showLoadFailMsg();
+
+    void like(String squareId);
+
+    void unlike(String squareId);
+
+    void NoLoginError();
+
+    void likeSuccess();
+
+    void unlikeSuccess();
+
+    void likeError();
+
+    void unlikeError();
 }
