@@ -73,16 +73,16 @@
 
         <LinearLayout
             android:id="@+id/favourite_ll"
-            android:layout_width="80dp"
-            android:layout_height="32dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
             android:layout_centerVertical="true">
 
             <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:scaleType="center"
-                android:src="@mipmap/favourite_gray" />
+                android:src="@mipmap/favorite_16px" />
 
             <TextView
                 android:id="@+id/square_rv_favourite_tv"
@@ -93,17 +93,17 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="80dp"
-            android:layout_height="32dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/favourite_ll">
 
             <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:scaleType="center"
-                android:src="@mipmap/comment" />
+                android:src="@mipmap/comment_16px" />
 
             <TextView
                 android:id="@+id/square_rv_comment_tv"

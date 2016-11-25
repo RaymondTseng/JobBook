@@ -95,7 +95,7 @@
                     android:layout_height="wrap_content"
                     android:background="@null"
                     android:layout_gravity="center"
-                    android:src="@mipmap/favourite_gray_32px" />
+                    android:src="@mipmap/favorite_16px" />
 
                 <TextView
                     android:id="@+id/square_detail_favourite_tv"
@@ -108,7 +108,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"
                     android:background="@null"
-                    android:src="@mipmap/comment" />
+                    android:layout_gravity="center"
+                    android:src="@mipmap/comment_16px" />
 
                 <TextView
                     android:id="@+id/square_detail_comment_tv"

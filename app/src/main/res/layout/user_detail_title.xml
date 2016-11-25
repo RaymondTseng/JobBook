@@ -59,6 +59,7 @@
         android:weightSum="3"
         android:layout_marginBottom="8dp">
         <TextView
+            android:id="@+id/user_detail_title_moment_tv"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -66,6 +67,7 @@
             android:gravity="center"
             android:textColor="@color/colorWhite"/>
         <TextView
+            android:id="@+id/user_detail_title_follow_tv"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -73,6 +75,7 @@
             android:gravity="center"
             android:textColor="@color/colorWhite"/>
         <TextView
+            android:id="@+id/user_detail_title_follower_tv"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -81,6 +84,7 @@
             android:textColor="@color/colorWhite"/>
     </LinearLayout>
     <ImageView
+        android:id="@+id/user_detail_cursor_iv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@mipmap/triangle_white"
