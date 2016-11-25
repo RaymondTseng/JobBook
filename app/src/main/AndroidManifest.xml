@@ -99,6 +99,9 @@
         <activity
             android:name=".login.widget.ForgetPwdSecondActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".square.widget.SquareDetailActivity"
+            android:screenOrientation="portrait"/>
 
     </application>
 
