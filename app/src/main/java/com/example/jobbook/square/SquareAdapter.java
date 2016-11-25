@@ -71,6 +71,11 @@ public class SquareAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             ((ItemViewHolder) holder).mFavouriteNumbers.setText(moment.getLikesNum() + "");
             ((ItemViewHolder) holder).mCommentNumbers.setText(moment.getCommentNum() + "");
             ((ItemViewHolder) holder).mTime.setText(moment.getDate());
+            if (moment.getIfLike() == 0) {
+                ((ItemViewHolder) holder).mFavouriteButton.setImageResource(R.mipmap.favourite);
+            } else {
+                ((ItemViewHolder) holder).mFavouriteButton.setImageResource(R.mipmap.favourite_tapped);
+            }
         }
     }
 
@@ -146,7 +151,8 @@ public class SquareAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
                 case R.id.square_rv_favourite_ib:
                     if (mOnFavouriteButtonClickListener != null) {
-                        mOnFavouriteButtonClickListener.onFavouriteButtonClick(v, this.getLayoutPosition());
+                        ImageButton ib = (ImageButton) v;
+                        mOnFavouriteButtonClickListener.onFavouriteButtonClick(ib, this.getLayoutPosition());
                     }
                     break;
 
@@ -181,7 +187,7 @@ public class SquareAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     public interface OnFavouriteButtonClickListener {
-        void onFavouriteButtonClick(View view, int position);
+        void onFavouriteButtonClick(ImageButton ib, int position);
     }
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {

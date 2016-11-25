@@ -6,4 +6,8 @@ package com.example.jobbook.follow.presenter;
 public interface SquareFollowPresenter {
 
     void loadSquareFollows(int pageIndex, String name);
+
+    void like(String squareId, String account);
+
+    void unlike(String squareId, String account);
 }

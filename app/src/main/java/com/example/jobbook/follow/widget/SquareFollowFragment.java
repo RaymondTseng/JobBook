@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.jobbook.MyApplication;
@@ -104,6 +105,21 @@ public class SquareFollowFragment extends Fragment implements SquareFollowView,
 
             }
         });
+        mAdapter.setOnFavouriteButtonClickListener(new SquareFollowsAdapter.OnFavouriteButtonClickListener() {
+            @Override
+            public void onFavouriteButtonClick(ImageButton ib, int position) {
+                if (mData.get(position).getIfLike() == 0) {
+//                    L.i("like_ib_click", "click like");
+                    ib.setImageResource(R.mipmap.favourite_tapped);
+                    like(mData.get(position).getId());
+                } else {
+//                    L.i("like_ib_click", "click unlike");
+                    ib.setImageResource(R.mipmap.favourite);
+                    unlike(mData.get(position).getId());
+                }
+//                refresh();
+            }
+        });
         onRefresh();
     }
 
@@ -176,6 +192,41 @@ public class SquareFollowFragment extends Fragment implements SquareFollowView,
             mAdapter.notifyDataSetChanged();
         }
         Util.showSnackBar(view, "网络无法连接！", "重试");
+    }
+
+    @Override
+    public void like(String squareId) {
+        mSquareFollowPresenter.like(squareId, MyApplication.getAccount());
+    }
+
+    @Override
+    public void unlike(String squareId) {
+        mSquareFollowPresenter.unlike(squareId, MyApplication.getAccount());
+    }
+
+    @Override
+    public void NoLoginError() {
+        Util.showSnackBar(view, "请先登录！");
+    }
+
+    @Override
+    public void likeSuccess() {
+
+    }
+
+    @Override
+    public void unlikeSuccess() {
+
+    }
+
+    @Override
+    public void likeError() {
+        Util.showSnackBar(view, "点赞失败！");
+    }
+
+    @Override
+    public void unlikeError() {
+        Util.showSnackBar(view, "取消点赞失败！");
     }
 
     @Override
