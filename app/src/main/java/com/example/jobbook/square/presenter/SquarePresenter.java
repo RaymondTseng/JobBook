@@ -5,5 +5,9 @@ package com.example.jobbook.square.presenter;
  */
 public interface SquarePresenter {
 
-    void loadSquare(int pageIndex);
+    void loadSquare(int pageIndex, String name);
+
+    void like(String squareId);
+
+    void unlike(String squareId);
 }

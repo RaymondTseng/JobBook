@@ -95,7 +95,7 @@ public class MomentDetailActivity extends Activity implements MomentDetailView, 
         mAdapter = new SquareDetailListViewAdapter(this);
         mPresenter = new MomentDetailPresenterImpl(this);
         mPresenter.loadMoment(momentBean);
-        mPresenter.loadMomentComments(momentBean.getId());
+//        mPresenter.loadMomentComments(momentBean.getId() + "");
         mBackImageButton.setOnClickListener(this);
         mSendImageButton.setOnClickListener(this);
         mRootView.addOnLayoutChangeListener(this);
@@ -149,7 +149,7 @@ public class MomentDetailActivity extends Activity implements MomentDetailView, 
 
     @Override
     public void sendSuccess() {
-        mPresenter.loadMomentComments(momentBean.getId());
+//        mPresenter.loadMomentComments(momentBean.getId());
         mEditText.setText("");
         Util.showSnackBar(view, "评论成功!");
     }
@@ -198,7 +198,7 @@ public class MomentDetailActivity extends Activity implements MomentDetailView, 
             momentCommentBean.setApplier(MyApplication.getmPersonBean());
             momentCommentBean.setContent(comment);
             L.i("square_detail", momentBean.getId() + "");
-            momentCommentBean.setQ_id(momentBean.getId());
+//            momentCommentBean.setQ_id(momentBean.getId());
             mPresenter.sendComment(momentCommentBean);
         }
     }
@@ -206,7 +206,7 @@ public class MomentDetailActivity extends Activity implements MomentDetailView, 
     @Override
     public void commentLikeSuccess(int num_like, int num_unlike) {
         Toast.makeText(MomentDetailActivity.this, "评论点赞成功！", Toast.LENGTH_LONG).show();
-        mPresenter.loadMomentComments(momentBean.getId());
+//        mPresenter.loadMomentComments(momentBean.getId());
         L.i("comment_like_success", "good:" + num_like + "bad:" + num_unlike);
     }
 
@@ -218,7 +218,7 @@ public class MomentDetailActivity extends Activity implements MomentDetailView, 
     @Override
     public void commentUnlikeSuccess(int num_like, int num_unlike) {
         Toast.makeText(MomentDetailActivity.this, "评论踩成功！", Toast.LENGTH_LONG).show();
-        mPresenter.loadMomentComments(momentBean.getId());
+//        mPresenter.loadMomentComments(momentBean.getId());
         L.i("comment_like_success", "good:" + num_like + "bad:" + num_unlike);
     }
 
