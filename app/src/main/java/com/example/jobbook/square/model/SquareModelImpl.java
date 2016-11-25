@@ -1,6 +1,7 @@
 package com.example.jobbook.square.model;
 
 
+import com.example.jobbook.MyApplication;
 import com.example.jobbook.bean.MomentBean;
 import com.example.jobbook.util.L;
 
@@ -21,9 +22,9 @@ import okhttp3.Call;
 public class SquareModelImpl implements SquareModel {
 
     @Override
-    public void loadSquares(int pageIndex, final OnLoadSquaresListListener listener) {
+    public void loadSquares(int pageIndex, String name, final OnLoadSquaresListListener listener) {
         L.i("square_response:", "load");
-        OkHttpUtils.postString().url(Urls.SQUARE_URL).content(pageIndex + "").build().execute(new StringCallback() {
+        OkHttpUtils.postString().url(Urls.SQUARE_URL + "/account/" + name).content(pageIndex + "").build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
                 L.i("square_response:", e.getMessage());
@@ -44,8 +45,73 @@ public class SquareModelImpl implements SquareModel {
         });
     }
 
+    @Override
+    public void like(String squareId, final OnLikeSquareListener listener) {
+        String account = "";
+        if (MyApplication.getmLoginStatus() == 0) {
+            listener.onLikeSquareNoLoginError();
+        } else {
+            account = MyApplication.getAccount();
+        }
+        OkHttpUtils.get().url(Urls.SQUARE_LIKE_URL + squareId + "/account/" + account).build().execute(new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+                listener.onLikeSquareFailure("network error", e);
+            }
+
+            @Override
+            public void onResponse(String response, int id) {
+                ResultBean resultBean = new Gson().fromJson(response, ResultBean.class);
+                if (resultBean.getStatus().equals("true")) {
+                    listener.onLikeSuccess();
+                } else {
+                    listener.onLikeSquareFailure(resultBean.getResponse(), null);
+                }
+            }
+        });
+    }
+
+    @Override
+    public void unlike(String squareId, final OnUnlikeSquareListener listener) {
+        String account = "";
+        if (MyApplication.getmLoginStatus() == 0) {
+            listener.onUnlikeSquareNoLoginError();
+        } else {
+            account = MyApplication.getAccount();
+        }
+        OkHttpUtils.get().url(Urls.SQUARE_UNLIKE_URL + squareId + "/account/" + account).build().execute(new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+                listener.onUnlikeSquareFailure("network error", e);
+            }
+
+            @Override
+            public void onResponse(String response, int id) {
+                L.i("square_unlike", response);
+                ResultBean resultBean = new Gson().fromJson(response, ResultBean.class);
+                if (resultBean.getStatus().equals("true")) {
+                    listener.onUnlikeSuccess();
+                } else {
+                    listener.onUnlikeSquareFailure(resultBean.getResponse(), null);
+                }
+            }
+        });
+    }
+
     public interface OnLoadSquaresListListener {
         void onSuccess(List<MomentBean> list);
         void onFailure(String msg, Exception e);
+    }
+
+    public interface OnLikeSquareListener {
+        void onLikeSuccess();
+        void onLikeSquareFailure(String msg, Exception e);
+        void onLikeSquareNoLoginError();
+    }
+
+    public interface OnUnlikeSquareListener {
+        void onUnlikeSuccess();
+        void onUnlikeSquareFailure(String msg, Exception e);
+        void onUnlikeSquareNoLoginError();
     }
 }

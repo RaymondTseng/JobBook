@@ -12,7 +12,7 @@ public class MomentBean implements Serializable {
     /**
      * id
      */
-    private int q_id;
+    private String q_id;
     /**
      * 工作圈作者
      */
@@ -26,13 +26,17 @@ public class MomentBean implements Serializable {
      */
     private String date;
     /**
-     * 工作圈阅读量
+     * 工作圈评论量
      */
     private int commentNum;
     /**
      * 工作圈点赞量
      */
     private int likesNum;
+    /**
+     * 是否点赞
+     */
+    private int ifLike;
 
     public int getLikesNum() {
         return likesNum;
@@ -42,11 +46,11 @@ public class MomentBean implements Serializable {
         this.likesNum = likesNum;
     }
 
-    public int getId() {
+    public String getId() {
         return q_id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.q_id = id;
     }
 
@@ -66,14 +70,6 @@ public class MomentBean implements Serializable {
 //        this.title = title;
 //    }
 
-
-    public int getQ_id() {
-        return q_id;
-    }
-
-    public void setQ_id(int q_id) {
-        this.q_id = q_id;
-    }
 
     public String getContent() {
         return content;
@@ -99,4 +95,11 @@ public class MomentBean implements Serializable {
         this.commentNum = commentNum;
     }
 
+    public int getIfLike() {
+        return ifLike;
+    }
+
+    public void setIfLike(int ifLike) {
+        this.ifLike = ifLike;
+    }
 }

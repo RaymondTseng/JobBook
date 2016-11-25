@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.jobbook.MyApplication;
@@ -107,18 +108,17 @@ public class SquareFragment extends Fragment implements SquareView,
         });
         mAdapter.setOnFavouriteButtonClickListener(new SquareAdapter.OnFavouriteButtonClickListener() {
             @Override
-            public void onFavouriteButtonClick(View view, int position) {
-//                if (jobDetailBean.isIfLike() == 0) {
+            public void onFavouriteButtonClick(ImageButton ib, int position) {
+                if (mData.get(position).getIfLike() == 0) {
 //                    L.i("like_ib_click", "click like");
-//                    mLikeImageButton.setImageResource(R.mipmap.favourite);
-//                    like(jobBean.getId());
-//                } else {
+                    ib.setImageResource(R.mipmap.favourite_tapped);
+                    like(mData.get(position).getId());
+                } else {
 //                    L.i("like_ib_click", "click unlike");
-//                    mLikeImageButton.setImageResource(R.mipmap.favourite_white);
-//                    unlike(jobBean.getId());
-//                }
+                    ib.setImageResource(R.mipmap.favourite);
+                    unlike(mData.get(position).getId());
+                }
 //                refresh();
-                Util.showSnackBar(view, "赞" + position);
             }
         });
         mAdapter.setOnItemClickListener(mOnItemClickListener);
@@ -143,7 +143,7 @@ public class SquareFragment extends Fragment implements SquareView,
                     && mAdapter.ismShowFooter()) {
                 //加载更多
                 L.i("square_fragment", "loading more data");
-                mSquarePresenter.loadSquare(pageIndex);
+                mSquarePresenter.loadSquare(pageIndex, MyApplication.getAccount());
             }
         }
     };
@@ -197,13 +197,48 @@ public class SquareFragment extends Fragment implements SquareView,
     }
 
     @Override
+    public void like(String squareId) {
+        mSquarePresenter.like(squareId);
+    }
+
+    @Override
+    public void unlike(String squareId) {
+        mSquarePresenter.unlike(squareId);
+    }
+
+    @Override
+    public void NoLoginError() {
+        Util.showSnackBar(view, "请先登录！");
+    }
+
+    @Override
+    public void likeSuccess() {
+
+    }
+
+    @Override
+    public void unlikeSuccess() {
+
+    }
+
+    @Override
+    public void likeError() {
+        Util.showSnackBar(view, "点赞失败！");
+    }
+
+    @Override
+    public void unlikeError() {
+        Util.showSnackBar(view, "取消点赞失败！");
+    }
+
+    @Override
     public void onRefresh() {
         L.i("TAG", "onRefresh");
         pageIndex = 0;
         if (mData != null) {
             mData.clear();
         }
-        mSquarePresenter.loadSquare(pageIndex);
+        mSquarePresenter.loadSquare(pageIndex, MyApplication.getAccount());
     }
 
     private void createNoInterestDialog(int position) {
@@ -236,10 +271,10 @@ public class SquareFragment extends Fragment implements SquareView,
         });
     }
 
-
     @Override
     public void refreshData(List<MomentBean> momentBeanList) {
         mAdapter.updateData(momentBeanList);
         mAdapter.notifyDataSetChanged();
     }
+
 }
