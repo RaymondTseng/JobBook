@@ -1,6 +1,8 @@
 package com.example.jobbook.job.model;
 
 
+import android.text.TextUtils;
+
 import com.example.jobbook.bean.JobBean;
 import com.example.jobbook.bean.ResultBean;
 import com.example.jobbook.commons.Urls;
@@ -20,9 +22,24 @@ import okhttp3.Call;
 public class JobModelImpl implements JobModel{
 
     @Override
-    public void loadJobs(int pageIndex, final OnLoadJobListListener listener) {
-        L.i("job_response:", "load");
-        OkHttpUtils.postString().url(Urls.JOB_URL).content(String.valueOf(pageIndex)).build().execute(new StringCallback() {
+    public void loadJobs(int pageIndex, boolean isRecommend, String type, String location, final OnLoadJobListListener listener) {
+        StringBuilder url = new StringBuilder();
+        if (isRecommend) {
+            url.append(Urls.JOB_URL);
+        } else {
+            url.append(Urls.JOB_HEADER_SEARCH_URL);
+            if (!TextUtils.isEmpty(type) && !TextUtils.isEmpty(location)) {
+                url.append("/type/" + type + "/location/" + location);
+            } else if (!TextUtils.isEmpty(type)) {
+                url.append("/type/" + type);
+            } else if (!TextUtils.isEmpty(location)) {
+                url.append("/location/" + location);
+            }
+        }
+        L.i("job_response:", "isRecommend:" + isRecommend + " type:" + type + " location:" + location);
+        L.i("job_response:", url.toString());
+        L.i("job_response:", "pageIndex:" + pageIndex);
+        OkHttpUtils.postString().url(url.toString()).content(String.valueOf(pageIndex)).build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
                 L.i("job_response:", e.getMessage());

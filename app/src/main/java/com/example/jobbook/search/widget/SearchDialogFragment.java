@@ -17,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -25,6 +26,7 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.jobbook.R;
 import com.example.jobbook.search.SearchRecordListViewAdapter;
@@ -36,13 +38,12 @@ import java.util.LinkedList;
 /**
  * Created by Xu on 2016/8/24.
  */
-public class SearchDialogFragment extends DialogFragment implements View.OnClickListener{
+public class SearchDialogFragment extends DialogFragment implements View.OnClickListener {
 
     private ListView mRecordListView;
     private TextView mRemoveRecordTextView;
     private ImageButton mBackImageButton;
     private EditText mEditText;
-    private ImageButton mSearchImageButton;
     private View view;
     private SearchRecordListViewAdapter adapter;
     private LinkedList<String> list;
@@ -67,8 +68,8 @@ public class SearchDialogFragment extends DialogFragment implements View.OnClick
         mBackImageButton.setOnClickListener(this);
         list = new LinkedList<>();
         ArrayAdapter<String> mSpinnerAdapter = new ArrayAdapter<String>(getActivity(),
-                R.layout.search_spinner, 0, getResources().getStringArray(R.array.search));
-        mSpinnerAdapter.setDropDownViewResource(R.layout.search_spinner);
+                R.layout.search_spinner_select, 0, getResources().getStringArray(R.array.search));
+        mSpinnerAdapter.setDropDownViewResource(R.layout.search_spinner_drop);
         mSpinner.setAdapter(mSpinnerAdapter);
         mSpinner.setDropDownVerticalOffset(50);
         mSpinner.setSelection(0);
@@ -79,7 +80,6 @@ public class SearchDialogFragment extends DialogFragment implements View.OnClick
             adapter = new SearchRecordListViewAdapter(getActivity(), list);
             mRecordListView.setAdapter(adapter);
         }
-        mSearchImageButton.setOnClickListener(this);
         mRemoveRecordTextView.setOnClickListener(this);
         mRecordListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -100,23 +100,25 @@ public class SearchDialogFragment extends DialogFragment implements View.OnClick
         mRemoveRecordTextView = (TextView) view.findViewById(R.id.job_search_remove_record_tv);
         mBackImageButton = (ImageButton) view.findViewById(R.id.job_search_bar_dialog_back_ib);
         mEditText = (EditText) view.findViewById(R.id.job_search_bar_dialog_et);
-        mSearchImageButton = (ImageButton) view.findViewById(R.id.job_search_bar_dialog_search_ib);
-        mSpinner = (Spinner) view.findViewById(R.id.job_search_bar_spinner) ;
-        mEditText.setOnKeyListener(new View.OnKeyListener() {
+        mSpinner = (Spinner) view.findViewById(R.id.job_search_bar_spinner);
 
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                InputMethodManager imm = (InputMethodManager) v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-                if (keyCode == KeyEvent.KEYCODE_ENTER) {
-                    if (imm.isActive()) {
-                        imm.hideSoftInputFromWindow(v.getApplicationWindowToken(), 0);
-                    }
-                    toSearchActivity();
-                    return true;
-                }
-                return false;
-            }
-        });
+//        mEditText.setOnKeyListener(new View.OnKeyListener() {
+//
+//            @Override
+//            public boolean onKey(View v, int keyCode, KeyEvent event) {
+//                InputMethodManager imm = (InputMethodManager) v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+//                if (keyCode == KeyEvent.KEYCODE_ENTER) {
+//                    if (imm.isActive()) {
+//                        imm.hideSoftInputFromWindow(v.getApplicationWindowToken(), 0);
+//                    }
+//                    toSearchActivity();
+//                    return true;
+//                }
+//                return false;
+//            }
+//        });
+
+
     }
 
     @Override
@@ -126,6 +128,31 @@ public class SearchDialogFragment extends DialogFragment implements View.OnClick
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
         getDialog().getWindow().setLayout(dm.widthPixels - Util.dip2px(getActivity(), 6), getDialog().getWindow().getAttributes().height);
         getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(0xff000000));
+
+        mEditText.requestFocus();
+        final InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (!imm.isActive()) {
+            imm.toggleSoftInput(0, InputMethodManager.RESULT_SHOWN);
+            L.i("search", "keyboardup");
+        }
+        mEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    if (imm.isActive()) {
+                        imm.hideSoftInputFromWindow(v.getApplicationWindowToken(), 0);
+                    }
+                    if (!TextUtils.isEmpty(mEditText.getText())) {
+                        toSearchActivity();
+                    } else {
+                        Toast.makeText(getActivity(), "搜索内容不能为空！", Toast.LENGTH_SHORT).show();
+                    }
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 
     @Override
@@ -135,15 +162,15 @@ public class SearchDialogFragment extends DialogFragment implements View.OnClick
                 dismiss();
                 break;
 
-            case R.id.job_search_bar_dialog_search_ib:
-                toSearchActivity();
-                break;
-
             case R.id.job_search_remove_record_tv:
                 Util.clearSearchList(sharedPreferences);
                 adapter.clearData();
                 Util.setSearchList(sharedPreferences, list = new LinkedList<>());
                 break;
+
+//            case R.id.job_search_bar_dialog_search_ib:
+//                toSearchActivity();
+//                break;
 
         }
     }

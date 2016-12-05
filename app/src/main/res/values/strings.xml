@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">JobBook</string>
-    <string name="symbol"> • </string>
     <array name="sex">
         <item>男</item>
         <item>女</item>
@@ -27,8 +26,27 @@
         <item>四级</item>
     </array>
 
+    <array name="category">
+        <item >美工</item>
+        <item >文员</item>
+        <item >普工</item>
+        <item >客服</item>
+        <item >其他</item>
+        <item >不限</item>
+    </array>
+
+    <array name="location">
+        <item >广州</item>
+        <item >深圳</item>
+        <item >东莞</item>
+        <item >佛山</item>
+        <item >不限</item>
+    </array>
+
     <array name="search">
         <item>地区</item>
         <item>行业</item>
     </array>
+
+
 </resources>

@@ -10,12 +10,14 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.jobbook.R;
@@ -40,7 +42,7 @@ import java.util.List;
 public class SearchActivity extends Activity implements View.OnClickListener, SearchView {
 
     private ImageButton mBackImageButton;
-    private ImageButton mSearchImageButton;
+    //    private ImageButton mSearchImageButton;
     private EditText mSearchEditText;
     private SearchPresenter presenter;
     private LinearLayoutManager mLayoutManager;
@@ -63,10 +65,10 @@ public class SearchActivity extends Activity implements View.OnClickListener, Se
 
     private void initViews() {
         mBackImageButton = (ImageButton) findViewById(R.id.job_search_activity_back_ib);
-        mSearchImageButton = (ImageButton) findViewById(R.id.job_search_activity_search_ib);
-        mSpinner = (Spinner) findViewById(R.id.job_search_bar_spinner);
+//        mSearchImageButton = (ImageButton) findViewById(R.id.job_search_activity_search_ib);
+        mSpinner = (Spinner) findViewById(R.id.job_search_activity_spinner);
         mBackImageButton.setOnClickListener(this);
-        mSearchImageButton.setOnClickListener(this);
+//        mSearchImageButton.setOnClickListener(this);
         mSearchEditText = (EditText) findViewById(R.id.job_search_activity_et);
         mRecyclerView = (RecyclerView) findViewById(R.id.job_search_activity_rv);
         mLoadingLinearLayout = (LinearLayout) findViewById(R.id.loading_circle_progress_bar_ll);
@@ -74,10 +76,13 @@ public class SearchActivity extends Activity implements View.OnClickListener, Se
         mRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        ArrayAdapter<String> mSpinnerAdapter = new ArrayAdapter<String>(this, R.layout.search_spinner);
+
+        ArrayAdapter<String> mSpinnerAdapter = new ArrayAdapter<String>(this,
+                R.layout.search_spinner_select, 0, getResources().getStringArray(R.array.search));
+        mSpinnerAdapter.setDropDownViewResource(R.layout.search_spinner_drop);
         mSpinner.setAdapter(mSpinnerAdapter);
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        mRecyclerView.addOnScrollListener(mOnScrollListener);
+        mSpinner.setDropDownVerticalOffset(50);
+        mSpinner.setSelection(0);
     }
 
     private void initEvents() {
@@ -92,11 +97,17 @@ public class SearchActivity extends Activity implements View.OnClickListener, Se
         mSearchContent = bundle.getString("content");
         presenter.search(mSearchContent, pageIndex);
 
-        mSearchEditText.setOnKeyListener(new View.OnKeyListener() {
+        mSearchEditText.requestFocus();
+        final InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (!imm.isActive()) {
+            imm.toggleSoftInput(0, InputMethodManager.RESULT_SHOWN);
+            L.i("search", "keyboardup");
+        }
+        mSearchEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+
             @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                InputMethodManager imm = (InputMethodManager) v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-                if (keyCode == KeyEvent.KEYCODE_ENTER) {
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                     if (imm.isActive()) {
                         imm.hideSoftInputFromWindow(v.getApplicationWindowToken(), 0);
                     }
@@ -121,11 +132,11 @@ public class SearchActivity extends Activity implements View.OnClickListener, Se
                 finish();
                 break;
 
-            case R.id.job_search_activity_search_ib:
-                if (!TextUtils.isEmpty(mSearchEditText.getText())) {
-                    presenter.search(mSearchEditText.getText().toString(), pageIndex = 0);
-                }
-                break;
+//            case R.id.job_search_activity_search_ib:
+//                if (!TextUtils.isEmpty(mSearchEditText.getText())) {
+//                    presenter.search(mSearchEditText.getText().toString(), pageIndex = 0);
+//                }
+//                break;
         }
     }
 
@@ -142,15 +153,15 @@ public class SearchActivity extends Activity implements View.OnClickListener, Se
     @Override
     public void getSearchResult(List<JobBean> jobList) {
         adapter.setmShowFooter(true);
-        if(list == null){
+        if (list == null) {
             list = new ArrayList<>();
         }
         list = jobList;
-        if(pageIndex == 0) {
+        if (pageIndex == 0) {
             adapter.updateData(list);
         } else {
             //如果没有更多数据了,则隐藏footer布局
-            if(jobList == null || jobList.size() == 0) {
+            if (jobList == null || jobList.size() == 0) {
                 adapter.setmShowFooter(false);
             }
             adapter.notifyDataSetChanged();
@@ -179,7 +190,7 @@ public class SearchActivity extends Activity implements View.OnClickListener, Se
         }
     };
 
-    private RecyclerView.OnScrollListener mOnScrollListener = new RecyclerView.OnScrollListener(){
+    private RecyclerView.OnScrollListener mOnScrollListener = new RecyclerView.OnScrollListener() {
         private int lastVisibleItem;
 
         @Override

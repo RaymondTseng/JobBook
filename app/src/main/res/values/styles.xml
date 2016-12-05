@@ -147,6 +147,13 @@
         <item name="android:textSize">20sp</item>
     </style>
 
+    <style name="TextWhite14sptv">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
     <style name="article_title_bar_rb_style">
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">@drawable/article_title_rb_text_color</item>

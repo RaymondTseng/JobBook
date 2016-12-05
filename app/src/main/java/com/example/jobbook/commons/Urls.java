@@ -42,6 +42,8 @@ public class Urls {
 
     public static final String SEARCH_URL = IP + "/jobBook/job/search/keyword/";
 
+    public static final String JOB_HEADER_SEARCH_URL = IP + "/jobBook/job/search";
+
     public static final String GET_CODE_URL = IP + "/jobBook/enter/verify";
 
     public static final String FEED_BACK_URL = IP + "/jobBook/suggestion/postSuggestion/account/";

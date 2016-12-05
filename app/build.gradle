@@ -48,7 +48,8 @@ dependencies {
     compile(name: 'ucrop-2.1.2', ext: 'aar')
 //    compile 'com.lsjwzh:materialloadingprogressbar:0.5.8-RELEASE'
     compile(name: 'materialloadingprogressbar-0.5.8-RELEASE', ext: 'aar')
-
+    compile(name: 'stickylistheaders-2.7.0', ext: 'aar')
+//    compile(name: 'SmartTabLayout-1.6.1', ext: 'aar')
 //    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.3'
 //    releaseCompile 'com.squareup.leakcanary:leakcanary-androd-no-op:1.3'
 //    debugCompile(name: 'leakcanary-android-1.3', ext: 'aar')
