@@ -36,7 +36,8 @@ public class SquareModelImpl implements SquareModel {
                 L.i("square_response", response);
                 ResultBean resultBean = new Gson().fromJson(response, ResultBean.class);
                 if (resultBean.getStatus().equals("true")) {
-                    List<MomentBean> momentBeanList = new Gson().fromJson(resultBean.getResponse(), new TypeToken<List<MomentBean>>(){}.getType());
+                    List<MomentBean> momentBeanList = new Gson().fromJson(resultBean.getResponse(),
+                            new TypeToken<List<MomentBean>>(){}.getType());
                     listener.onSuccess(momentBeanList);
                 } else {
                     listener.onFailure(resultBean.getResponse(), new Exception());

@@ -40,7 +40,7 @@ import java.util.List;
  * Created by Xu on 2016/7/5.
  */
 public class SquareFollowFragment extends Fragment implements SquareFollowView,
-        SwipeRefreshLayout.OnRefreshListener, MomentFragment.OnRefreshDataListener {
+        SwipeRefreshLayout.OnRefreshListener {
 
     private static int REFRESH = 1;
 
@@ -141,7 +141,12 @@ public class SquareFollowFragment extends Fragment implements SquareFollowView,
                     && mAdapter.ismShowFooter()) {
                 //加载更多
                 L.i("square_fragment", "loading more data");
-                mSquareFollowPresenter.loadSquareFollows(pageIndex, MyApplication.getAccount());
+                if(MyApplication.getmLoginStatus() != 0){
+                    mSquareFollowPresenter.loadSquareFollows(pageIndex, MyApplication.getAccount());
+                }else{
+                    NoLoginError();
+                }
+
             }
         }
     };
@@ -206,6 +211,7 @@ public class SquareFollowFragment extends Fragment implements SquareFollowView,
 
     @Override
     public void NoLoginError() {
+        view = getActivity().getWindow().getDecorView();
         Util.showSnackBar(view, "请先登录！");
     }
 
@@ -236,7 +242,11 @@ public class SquareFollowFragment extends Fragment implements SquareFollowView,
         if (mData != null) {
             mData.clear();
         }
-        mSquareFollowPresenter.loadSquareFollows(pageIndex, MyApplication.getAccount());
+        if(MyApplication.getmLoginStatus() != 0){
+            mSquareFollowPresenter.loadSquareFollows(pageIndex, MyApplication.getAccount());
+        }else{
+            NoLoginError();
+        }
     }
 
     private void createNoInterestDialog(int position) {
@@ -270,9 +280,4 @@ public class SquareFollowFragment extends Fragment implements SquareFollowView,
     }
 
 
-    @Override
-    public void refreshData(List<MomentBean> momentBeanList) {
-        mAdapter.updateData(momentBeanList);
-        mAdapter.notifyDataSetChanged();
-    }
 }

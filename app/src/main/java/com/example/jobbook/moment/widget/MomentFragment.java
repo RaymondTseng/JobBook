@@ -78,7 +78,6 @@ public class MomentFragment extends Fragment implements View.OnClickListener, Vi
         Matrix matrix = new Matrix();
         matrix.postTranslate(initPosition, 0);
         mCursorImageView.setImageMatrix(matrix);
-        myApplication = (MyApplication) getActivity().getApplication();
     }
 
     private void initEvents(){
@@ -105,6 +104,7 @@ public class MomentFragment extends Fragment implements View.OnClickListener, Vi
         initCursor();
         mViewPager.setOnPageChangeListener(this);
         mTabWidget.setCurrentTab(0);
+        myApplication = (MyApplication) getActivity().getApplication();
     }
 
     @Override
@@ -167,9 +167,6 @@ public class MomentFragment extends Fragment implements View.OnClickListener, Vi
 
     }
 
-    public interface OnRefreshDataListener{
-        void refreshData(List<MomentBean> momentBeanList);
-    }
 
 
 }

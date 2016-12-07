@@ -71,6 +71,7 @@ public class SquareDetailActivity extends Activity implements View.OnClickListen
 
     private void initEvents(){
         MomentBean moment = (MomentBean) getIntent().getSerializableExtra("square_detail");
+        L.i("square_detail", moment.getAuthor().getAccount());
         ImageLoadUtils.display(this, mHeadImageView, moment.getAuthor().getHead());
         mPresenter.loadSquareComments(Integer.parseInt(moment.getId()));
         mNameTextView.setText(moment.getAuthor().getUsername());
@@ -93,6 +94,7 @@ public class SquareDetailActivity extends Activity implements View.OnClickListen
             case R.id.square_detail_send_ib:
                 break;
             case R.id.square_detail_back_ib:
+                finish();
                 break;
         }
     }

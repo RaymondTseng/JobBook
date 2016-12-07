@@ -8,30 +8,28 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import com.example.jobbook.MyApplication;
 import com.example.jobbook.R;
-import com.example.jobbook.bean.MomentBean;
-import com.example.jobbook.userdetail.UserDetailMomentAdapter;
-import com.example.jobbook.userdetail.presenter.UserDetailMomentPresenterImpl;
-import com.example.jobbook.userdetail.view.UserDetailMomentView;
-import com.example.jobbook.util.L;
+import com.example.jobbook.bean.PersonBean;
+import com.example.jobbook.userdetail.UserDetailFollowAdapter;
+import com.example.jobbook.userdetail.presenter.UserDetailFollowPresenter;
+import com.example.jobbook.userdetail.presenter.UserDetailFollowPresenterImpl;
+import com.example.jobbook.userdetail.view.UserDetailFollowView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by root on 16-11-25.
+ * Created by root on 16-11-28.
  */
 
-public class UserDetailMomentFragment extends Fragment implements UserDetailMomentView,
+public class UserDetailFollowFragment extends Fragment implements UserDetailFollowView,
         UserDetailActivity.OnGetAccountListener {
     private View view;
-    private List<MomentBean> mData;
-    private UserDetailMomentAdapter mAdapter;
-    private UserDetailMomentPresenterImpl mPresenter;
     private ListView mListView;
+    private List<PersonBean> mData;
+    private UserDetailFollowAdapter mAdapter;
+    private UserDetailFollowPresenter mPresenter;
     private String account;
-
 
     @Nullable
     @Override
@@ -42,18 +40,17 @@ public class UserDetailMomentFragment extends Fragment implements UserDetailMome
     }
 
     private void init(View view){
-        mListView = (ListView) view.findViewById(R.id.user_detail_lv);
         mData = new ArrayList<>();
-        mPresenter = new UserDetailMomentPresenterImpl(this);
-        mAdapter = new UserDetailMomentAdapter(getActivity(), mData);
+        mListView = (ListView) view.findViewById(R.id.user_detail_lv);
+        mAdapter = new UserDetailFollowAdapter(getActivity(), mData);
+        mPresenter = new UserDetailFollowPresenterImpl(this);
         mListView.setAdapter(mAdapter);
-        mPresenter.loadMoments(account);
-
+        mPresenter.loadFollow(account);
     }
 
     @Override
-    public void loadMoments(List<MomentBean> moments) {
-        mData = moments;
+    public void loadFollow(List<PersonBean> mFollow) {
+        mData = mFollow;
         mAdapter.refreshData(mData);
     }
 
@@ -68,9 +65,13 @@ public class UserDetailMomentFragment extends Fragment implements UserDetailMome
     }
 
     @Override
+    public void onError() {
+
+    }
+
+    @Override
     public void getAccount(String account) {
         this.account = account;
-        L.i("user_detail_moment", "account:" + this.account);
-//        mPresenter.loadMoments(account);
+//        mPresenter.loadFollow(account);
     }
 }

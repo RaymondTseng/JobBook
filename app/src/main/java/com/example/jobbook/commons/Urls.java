@@ -72,4 +72,11 @@ public class Urls {
 
     public static final String LOGIN_CHECK_URL = IP + "/jobBook/enter/checkLogin/account/";
 
+    public static final String USER_DETAIL_MOMENT_URL = IP + "/JobBook/question/getHisQuestion/";
+
+    public static final String USER_DETAIL_FOLLOW_URL = IP + "/Jobbook/person/myFocus/account/";
+
+    public static final String USER_DETAIL_FANS_URL = IP + "/Jobbook/person/focusMe/account/";
+
+    public static final String USER_DETAIL_FOLLOW_SB_URL = IP + "/Jobbook/person/focus/my/";
 }

@@ -3,11 +3,24 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:weightSum="568">
-    <include
-        layout="@layout/user_detail_title"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="202"/>
+        android:layout_weight="202"
+        android:background="@color/colorBlue">
+        <include
+            layout="@layout/user_detail_title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="202"/>
+        <ImageView
+            android:id="@+id/user_detail_bg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@mipmap/suit"
+            android:scaleType="centerCrop"
+            android:alpha="0.1"/>
+    </RelativeLayout>
     <android.support.v4.view.ViewPager
         android:id="@+id/user_detail_vp"
         android:layout_width="match_parent"
@@ -29,7 +42,8 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true">
+                android:layout_centerInParent="true"
+                android:id="@+id/user_detail_follow_ll">
 
                 <ImageView
                     android:layout_width="wrap_content"

@@ -32,7 +32,62 @@ public class PersonBean implements Serializable {
     /**
      * 用户姓名
      */
-    private String userName;
+    private String username;
+
+    /**
+     * 关注者数量
+     */
+    private int follow;
+
+    /**
+     * 粉丝数量
+     */
+    private int fans;
+
+    /**
+     * 工作地点
+     */
+
+    private String workspace;
+
+    /**
+     * 工作岗位
+     */
+    private String workposition;
+
+
+    public String getWorkSpace() {
+        return workspace;
+    }
+
+    public void setWorkSpace(String workSpace) {
+        this.workspace = workSpace;
+    }
+
+    public String getWorkPosition() {
+        return workposition;
+    }
+
+    public void setWorkPosition(String workPosition) {
+        this.workposition = workPosition;
+    }
+
+    public int getFans() {
+        return fans;
+    }
+
+    public void setFans(int fans) {
+        this.fans = fans;
+    }
+
+    public int getFollow() {
+        return follow;
+    }
+
+    public void setFollow(int follow) {
+        this.follow = follow;
+    }
+
 
     public String getHead() {
         return head;
@@ -59,11 +114,11 @@ public class PersonBean implements Serializable {
     }
 
     public String getUsername() {
-        return userName;
+        return username;
     }
 
     public void setUsername(String name) {
-        this.userName = name;
+        this.username = name;
     }
 
     public String getAccount() {
@@ -74,7 +129,10 @@ public class PersonBean implements Serializable {
         this.account = account;
     }
 
-
+    public String toString(){
+        return "account" + account + ",head" + head + ",password" + password + ",telephone" + telephone +
+                ",username" + username;
+    }
 
 
 }
