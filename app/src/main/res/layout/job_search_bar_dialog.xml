@@ -6,68 +6,6 @@
     android:background="#666666"
     android:paddingTop="3dp">
 
-    <LinearLayout
-        android:id="@+id/search_ll"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@color/colorWhite"
-        android:elevation="5dp"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:minHeight="50dp"
-        android:minWidth="800dp"
-        android:orientation="horizontal"
-        android:weightSum="9">
-
-        <ImageButton
-            android:id="@+id/job_search_bar_dialog_back_ib"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_weight="1"
-            android:background="@null"
-            android:src="@mipmap/left_grey" />
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
-            <Spinner
-                android:id="@+id/job_search_bar_spinner"
-                android:background="@null"
-                android:popupBackground="@color/colorWhite"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingRight="5dp"
-                android:entries="@array/search"
-                android:spinnerMode="dropdown"
-                android:layout_centerVertical="true"
-                ></Spinner>
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/job_search_bar_spinner"
-                android:layout_centerHorizontal="true"
-                android:src="@mipmap/triangle"
-                android:background="@null"/>
-        </RelativeLayout>
-
-        <EditText
-            android:id="@+id/job_search_bar_dialog_et"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_weight="5"
-            android:background="@null"
-            android:hint="搜索一些感兴趣的..."
-            android:singleLine="true"/>
-
-        <ImageButton
-            android:id="@+id/job_search_bar_dialog_search_ib"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_weight="2"
-            android:background="@color/colorWhite"
-            android:src="@mipmap/search_grey" />
-    </LinearLayout>
-
     <ListView
         android:id="@+id/job_search_record_lv"
         android:layout_width="match_parent"
@@ -91,5 +29,67 @@
             android:textSize="16sp" />
 
     </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/search_ll"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="@color/colorWhite"
+        android:elevation="5dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:minHeight="56dp"
+        android:minWidth="800dp"
+        android:orientation="horizontal"
+        android:weightSum="9"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <ImageButton
+            android:id="@+id/job_search_bar_dialog_back_ib"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:background="@null"
+            android:src="@mipmap/left_grey" />
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3">
+
+            <Spinner
+                android:id="@+id/job_search_bar_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:background="@null"
+                android:entries="@array/search"
+                android:paddingRight="5dp"
+                android:popupBackground="@color/colorWhite"
+                android:spinnerMode="dropdown"></Spinner>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/job_search_bar_spinner"
+                android:layout_centerHorizontal="true"
+                android:background="@null"
+                android:src="@mipmap/triangle" />
+        </RelativeLayout>
+
+        <EditText
+            android:id="@+id/job_search_bar_dialog_et"
+            android:layout_width="wrap_content"
+            android:layout_height="56dp"
+            android:layout_weight="7"
+            android:background="@null"
+            android:hint="搜索一些感兴趣的..."
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:singleLine="true"
+            android:imeOptions="actionSearch"/>
+
+    </LinearLayout>
 
 </RelativeLayout>

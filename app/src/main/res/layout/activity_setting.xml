@@ -60,6 +60,32 @@
     <!--android:text="提醒设置"-->
     <!--style="@style/person_content_big_button_style"-->
     <!--/>-->
+    <Button
+        android:id="@+id/setting_change_phone_bt"
+        style="@style/person_content_big_button_style"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:layout_weight="48"
+        android:text="修改手机号" />
+
+    <Button
+        android:id="@+id/setting_change_password_bt"
+        style="@style/person_content_big_button_style"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="2dp"
+        android:layout_weight="48"
+        android:text="修改密码" />
+
+    <Button
+        android:id="@+id/setting_nodification_bt"
+        style="@style/person_content_big_button_style"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="2dp"
+        android:layout_weight="48"
+        android:text="提醒设置" />
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -79,7 +105,7 @@
             android:layout_gravity="right|center_vertical" />
 
         <Button
-            android:id="@+id/person_clearcache_bt"
+            android:id="@+id/setting_clearcache_bt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@null"
@@ -94,7 +120,7 @@
     </FrameLayout>
 
     <Button
-        android:id="@+id/person_about_bt"
+        android:id="@+id/setting_about_bt"
         style="@style/person_content_big_button_style"
         android:layout_width="match_parent"
         android:layout_height="0dp"

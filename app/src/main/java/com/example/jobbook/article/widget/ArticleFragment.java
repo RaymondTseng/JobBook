@@ -9,7 +9,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -91,7 +90,7 @@ public class ArticleFragment extends Fragment implements ArticleView, View.OnCli
         presenter = new ArticlePresenterImpl(this);
         mTitleTextView.setText(Constants.ARTICLE_ALL);
         mMenuPopupWindow = new PopupWindow(mMenuView, ViewGroup.LayoutParams.MATCH_PARENT,
-                (int)((Util.getHeight(getActivity()) / (double)556) * 192), true);
+                (int) ((Util.getHeight(getActivity()) / (double) 556) * 192), true);
         mMenuPopupWindow.setBackgroundDrawable(new BitmapDrawable(getResources(),
                 Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888)));
         mMenuPopupWindow.setOutsideTouchable(true);
@@ -156,12 +155,13 @@ public class ArticleFragment extends Fragment implements ArticleView, View.OnCli
 
     @Override
     public void showLoadFailMsg() {
-        if(pageIndex == 0) {
+        if (pageIndex == 0) {
             adapter.setmShowFooter(false);
             adapter.notifyDataSetChanged();
         }
 //        Util.showSnackBar(getActivity().findViewById(R.id.article_fragment), "网络无法连接！", "重试");
-        Util.showSnackBar(view, "网络无法连接！", "重试");
+        View parentview = getActivity().findViewById(android.R.id.content);
+        Util.showSnackBar(parentview, "网络无法连接！", "重试");
     }
 
 

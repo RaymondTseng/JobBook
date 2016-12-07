@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,12 +12,17 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.jobbook.R;
 import com.example.jobbook.bean.JobBean;
 import com.example.jobbook.commons.Urls;
 import com.example.jobbook.job.JobsAdapter;
+import com.example.jobbook.job.SpinnerTitleAdapter;
 import com.example.jobbook.job.presenter.JobPresenter;
 import com.example.jobbook.job.presenter.JobPresenterImpl;
 import com.example.jobbook.job.view.JobView;
@@ -31,10 +37,9 @@ import java.util.List;
 /**
  * Created by Xu on 2016/7/5.
  */
-public class JobFragment extends Fragment implements JobView, View.OnFocusChangeListener,
+public class JobFragment extends Fragment implements JobView,
         View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
 
-    private EditText mEditText;
     private JobPresenter mJobPresenter;
     private View view;
     private List<JobBean> list;
@@ -42,8 +47,25 @@ public class JobFragment extends Fragment implements JobView, View.OnFocusChange
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLayoutManager;
     private SwipeRefreshLayout mSwipeRefreshLayout;
+    private ImageButton mSearchImageButton;
+    private TextView mRecommendTextView;
+    private AppCompatSpinner mCategorySpinner;
+    private ArrayAdapter mCategoryAdapter;
+    private AppCompatSpinner mLocationSpinner;
+    private ArrayAdapter mLocationAdapter;
+
+    private ImageView cursorOne;
+    private ImageView cursorTwo;
+    private ImageView cursorThree;
 
     private int pageIndex = 0;
+
+    private String mCurrentCategory;
+    private String mCurrentLocation;
+    private boolean isRecommend;
+    private int currentSelection = 0;
+
+    private boolean isFirst;
 
     @Nullable
     @Override
@@ -56,11 +78,18 @@ public class JobFragment extends Fragment implements JobView, View.OnFocusChange
 
     private void initViews(View view) {
         mRecyclerView = (RecyclerView) view.findViewById(R.id.job_rv);
-        mEditText = (EditText) view.findViewById(R.id.job_et);
+        mSearchImageButton = (ImageButton) view.findViewById(R.id.job_fragment_search_ib);
         mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.job_swipe_container);
-}
+        mRecommendTextView = (TextView) view.findViewById(R.id.job_fragment_recommend_tv);
+        mCategorySpinner = (AppCompatSpinner) view.findViewById(R.id.job_fragment_category_sp);
+        mLocationSpinner = (AppCompatSpinner) view.findViewById(R.id.job_fragment_location_sp);
 
-    private void initEvents(){
+        cursorOne = (ImageView) view.findViewById(R.id.job_cursor_one);
+        cursorTwo = (ImageView) view.findViewById(R.id.job_cursor_two);
+        cursorThree = (ImageView) view.findViewById(R.id.job_cursor_three);
+    }
+
+    private void initEvents() {
         mAdapter = new JobsAdapter(getActivity());
         mSwipeRefreshLayout.setColorSchemeResources(R.color.colorBlue);
         mLayoutManager = new LinearLayoutManager(getActivity());
@@ -68,7 +97,6 @@ public class JobFragment extends Fragment implements JobView, View.OnFocusChange
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        mEditText.setOnFocusChangeListener(this);
         mSwipeRefreshLayout.setOnRefreshListener(this);
         mSwipeRefreshLayout.setProgressViewOffset(false, 0, (int) TypedValue
                 .applyDimension(TypedValue.COMPLEX_UNIT_DIP, 24, getResources()
@@ -77,13 +105,99 @@ public class JobFragment extends Fragment implements JobView, View.OnFocusChange
         mAdapter.setOnItemClickListener(mOnItemClickListener);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.addOnScrollListener(mOnScrollListener);
-        mEditText.setFocusable(false);
-        mEditText.setOnClickListener(this);
         mSwipeRefreshLayout.setProgressViewOffset(false, 0, Util.getHeight(getActivity()) / 4);
-        onRefresh();
+
+        mCategoryAdapter = new ArrayAdapter(getActivity(), R.layout.job_header_spinner_item_select, getResources().getStringArray(R.array.category));
+        mCategoryAdapter.setDropDownViewResource(R.layout.job_header_spinner_item_drop);
+        mCategorySpinner.setAdapter(mCategoryAdapter);
+        mCategorySpinner.setAdapter(
+                new SpinnerTitleAdapter(
+                        mCategoryAdapter,
+                        R.layout.job_header_spinner_category_title,
+                        // R.layout.contact_spinner_nothing_selected_dropdown, // Optional
+                        getActivity()));
+
+        mLocationAdapter = new ArrayAdapter(getActivity(), R.layout.job_header_spinner_item_select, getResources().getStringArray(R.array.location));
+        mLocationAdapter.setDropDownViewResource(R.layout.job_header_spinner_item_drop);
+        mLocationSpinner.setAdapter(mLocationAdapter);
+        mLocationSpinner.setAdapter(
+                new SpinnerTitleAdapter(
+                        mLocationAdapter,
+                        R.layout.job_header_spinner_location_title,
+                        // R.layout.contact_spinner_nothing_selected_dropdown, // Optional
+                        getActivity()));
+
+        mSearchImageButton.setOnClickListener(this);
+        mRecommendTextView.setOnClickListener(this);
+        mCategorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                currentSelection = 1;
+                cursorCheckStatus(currentSelection);
+                if (position == 0) {
+
+                } else {
+                    String[] categorys = getResources().getStringArray(R.array.category);
+                    if (position == categorys.length) {
+                        mCurrentCategory = null;
+                    } else {
+                        mCurrentCategory = categorys[position - 1];
+                    }
+                    pageIndex = 0;
+                    list = null;
+                    L.i("jobfragment", "category spinner:" + "isRecommend:" + isRecommend + " mCurrentCategory:" + mCurrentCategory + " mCurrentLocation:" + mCurrentLocation + " pageIndex:" + pageIndex);
+                    mJobPresenter.loadJobs(pageIndex, isRecommend, mCurrentCategory, mCurrentLocation);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        mLocationSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                currentSelection = 2;
+                cursorCheckStatus(currentSelection);
+                if (position == 0) {
+
+                } else {
+                    String[] locations = getResources().getStringArray(R.array.location);
+                    if (position == locations.length) {
+                        mCurrentLocation = null;
+                    } else {
+                        mCurrentLocation = locations[position - 1];
+                    }
+                    pageIndex = 0;
+                    list = null;
+                    L.i("jobfragment", "location spinner:" + "isRecommend:" + isRecommend + " mCurrentCategory:" + mCurrentCategory + " mCurrentLocation:" + mCurrentLocation + " pageIndex:" + pageIndex);
+                    mJobPresenter.loadJobs(pageIndex, isRecommend, mCurrentCategory, mCurrentLocation);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+//        onRefresh();
+
+        isFirst = true;
+        if (isFirst) {
+            currentSelection = 0;
+            cursorCheckStatus(currentSelection);
+            isRecommend = true;
+            pageIndex = 0;
+            list = null;
+            mJobPresenter.loadJobs(pageIndex, isRecommend, mCurrentCategory, mCurrentLocation);
+            isRecommend = false;
+            isFirst = false;
+        }
+
     }
 
-    private RecyclerView.OnScrollListener mOnScrollListener = new RecyclerView.OnScrollListener(){
+    private RecyclerView.OnScrollListener mOnScrollListener = new RecyclerView.OnScrollListener() {
 
         private int lastVisibleItem;
 
@@ -101,10 +215,12 @@ public class JobFragment extends Fragment implements JobView, View.OnFocusChange
                     && mAdapter.ismShowFooter()) {
                 //加载更多
                 L.i("job_fragment", "loading more data");
-                mJobPresenter.loadJobs(pageIndex);
+                L.i("jobfragment", "scroll:" + "isRecommend:" + isRecommend + " mCurrentCategory:" + mCurrentCategory + " mCurrentLocation:" + mCurrentLocation + " pageIndex:" + pageIndex);
+                mJobPresenter.loadJobs(pageIndex, isRecommend, mCurrentCategory, mCurrentLocation);
             }
         }
     };
+
     @Override
     public void showProgress() {
         mSwipeRefreshLayout.setRefreshing(true);
@@ -113,15 +229,15 @@ public class JobFragment extends Fragment implements JobView, View.OnFocusChange
     @Override
     public void addJobs(List<JobBean> jobList) {
         mAdapter.setmShowFooter(true);
-        if(list == null){
+        if (list == null) {
             list = new ArrayList<>();
         }
         list.addAll(jobList);
-        if(pageIndex == 0) {
+        if (pageIndex == 0) {
             mAdapter.updateData(list);
         } else {
             //如果没有更多数据了,则隐藏footer布局
-            if(jobList == null || jobList.size() == 0) {
+            if (jobList == null || jobList.size() == 0) {
                 mAdapter.setmShowFooter(false);
             }
             mAdapter.notifyDataSetChanged();
@@ -137,7 +253,7 @@ public class JobFragment extends Fragment implements JobView, View.OnFocusChange
 
     @Override
     public void showLoadingFailMsg() {
-        if(pageIndex == 0) {
+        if (pageIndex == 0) {
             mAdapter.setmShowFooter(false);
             mAdapter.notifyDataSetChanged();
         }
@@ -151,19 +267,34 @@ public class JobFragment extends Fragment implements JobView, View.OnFocusChange
         L.i("jobfragment", "createSearchDialog");
     }
 
-    @Override
-    public void onFocusChange(View v, boolean hasFocus) {
-        switch (v.getId()) {
-            case R.id.job_et:
-                L.i("jobfragment", "123");
-                break;
-
-        }
-    }
+//    @Override
+//    public void onFocusChange(View v, boolean hasFocus) {
+//        switch (v.getId()) {
+//            case R.id.job_et:
+//                L.i("jobfragment", "123");
+//                break;
+//        }
+//    }
 
     @Override
     public void onClick(View v) {
-        search();
+        switch (v.getId()) {
+            case R.id.job_fragment_search_ib:
+                search();
+                break;
+
+            case R.id.job_fragment_recommend_tv:
+                currentSelection = 0;
+                cursorCheckStatus(currentSelection);
+                isRecommend = true;
+                pageIndex = 0;
+                list = null;
+                mJobPresenter.loadJobs(pageIndex, isRecommend, mCurrentCategory, mCurrentLocation);
+                isRecommend = false;
+                break;
+
+        }
+
     }
 
     private JobsAdapter.OnItemClickListener mOnItemClickListener = new JobsAdapter.OnItemClickListener() {
@@ -180,9 +311,84 @@ public class JobFragment extends Fragment implements JobView, View.OnFocusChange
     public void onRefresh() {
         L.i("TAG", "onRefresh");
         pageIndex = 0;
-        if(list != null){
+        if (list != null) {
             list.clear();
         }
-        mJobPresenter.loadJobs(pageIndex);
+        L.i("jobfragment", "onRefresh:" + "isRecommend:" + isRecommend + " mCurrentCategory:" + mCurrentCategory + " mCurrentLocation:" + mCurrentLocation + " pageIndex:" + pageIndex);
+        mJobPresenter.loadJobs(pageIndex, isRecommend, mCurrentCategory, mCurrentLocation);
+        mAdapter.notifyDataSetChanged();
     }
+
+    private void cursorCheckStatus(int count) {
+//        int one = offset * 2 + cursorWidth;// 1 -> 2 偏移量
+//        int two = one * 2; //1 -> 3 偏移量
+//        Animation animation = null;
+        switch (count) {
+            case 0: {
+                cursorOne.setVisibility(View.VISIBLE);
+                cursorTwo.setVisibility(View.GONE);
+                cursorThree.setVisibility(View.GONE);
+//                if (currentSelection == 2) {
+////                    matrix.postTranslate(-two, 0);
+////                    cursorOne.scrollBy(two, 0);
+////                    cursorOne.setImageMatrix(matrix);
+//                    animation = new TranslateAnimation(two + offset, offset, 0, 0);  // 设置动画位置
+//                } else if (currentSelection == 1) {
+////                    matrix.postTranslate(-one, 0);
+////                    cursorOne.scrollBy(one, 0);
+////                    cursorOne.setImageMatrix(matrix);
+//                    animation = new TranslateAnimation(one + offset, offset, 0, 0);  // 设置动画位置
+//                }
+                L.i("JobFragement", "click 0");
+//                currentSelection = 0;
+                break;
+            }
+
+            case 1: {
+                cursorOne.setVisibility(View.GONE);
+                cursorTwo.setVisibility(View.VISIBLE);
+                cursorThree.setVisibility(View.GONE);
+//                if (currentSelection == 0) {
+////                    matrix.postTranslate(-one, 0);
+////                    cursorOne.setImageMatrix(matrix);// 设置动画位置
+////                    cursorOne.scrollBy(one, cursorHeight);
+//                    animation = new TranslateAnimation(one + offset, offset, 0, 0);  // 设置动画位置
+//                } else if (currentSelection == 2) {
+////                    matrix.postTranslate(one, 0);
+////                    cursorOne.setImageMatrix(matrix);// 设置动画位置
+////                    cursorOne.scrollBy(-one, cursorHeight);
+//                    animation = new TranslateAnimation(two + offset, one + offset, 0, 0);  // 设置动画位置
+//                }
+                L.i("JobFragement", "click 1");
+//                currentSelection = 1;
+                break;
+            }
+            case 2: {
+                cursorOne.setVisibility(View.GONE);
+                cursorTwo.setVisibility(View.GONE);
+                cursorThree.setVisibility(View.VISIBLE);
+//                if (currentSelection == 0) {
+////                    matrix.postTranslate(two, 0);
+////                    cursorOne.setImageMatrix(matrix);// 设置动画位置
+////                    cursorOne.scrollBy(-two, cursorHeight);
+//                    animation = new TranslateAnimation(offset, two + offset, 0, 0);  // 设置动画位置
+//                } else if (currentSelection == 1) {
+////                    matrix.postTranslate(one, 0);
+////                    cursorOne.setImageMatrix(matrix);// 设置动画位置
+////                    cursorOne.scrollBy(-one, cursorHeight);
+//                    animation = new TranslateAnimation(one + offset, two + offset, 0, 0);  // 设置动画位置
+//                }
+                L.i("JobFragement", "click 2");
+//                currentSelection = 2;
+                break;
+            }
+
+            default:
+                break;
+        }
+        cursorOne.setVisibility(View.VISIBLE);
+        cursorTwo.setVisibility(View.GONE);
+        cursorThree.setVisibility(View.GONE);
+    }
+
 }

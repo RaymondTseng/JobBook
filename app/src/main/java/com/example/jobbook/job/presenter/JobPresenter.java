@@ -5,8 +5,8 @@ package com.example.jobbook.job.presenter;
  */
 public interface JobPresenter {
 
-
-    void loadJobs(int pageIndex);
+    void loadJobs(int pageIndex, boolean isRecommend, String type, String location);
 
     void search();
+
 }

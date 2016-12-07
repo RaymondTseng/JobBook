@@ -21,9 +21,9 @@ public class JobPresenterImpl implements JobPresenter, JobModelImpl.OnLoadJobLis
     }
 
     @Override
-    public void loadJobs(int pageIndex) {
+    public void loadJobs(int pageIndex, boolean isRecommend, String type, String location) {
         mJobView.showProgress();
-        mJobModel.loadJobs(pageIndex, this);
+        mJobModel.loadJobs(pageIndex, isRecommend, type, location, this);
     }
 
     @Override
