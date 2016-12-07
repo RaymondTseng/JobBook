@@ -13,6 +13,7 @@ import com.example.jobbook.R;
 import com.example.jobbook.bean.MomentBean;
 import com.example.jobbook.commons.Urls;
 import com.example.jobbook.util.ImageLoadUtils;
+import com.example.jobbook.util.L;
 
 import java.util.List;
 
@@ -28,7 +29,7 @@ public class SquareAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private boolean mShowFooter = true;
     private Context mContext;
 
-    private OnItemClickListener mOnItemClickListener;
+    private OnContentClickListener mOnContentClickListener;
     private OnHeadClickListener mOnHeadClickListener;
     private OnNoInterestButtonClickListener mOnNoInterestButtonClickListener;
     private OnFavouriteButtonClickListener mOnFavouriteButtonClickListener;
@@ -62,15 +63,14 @@ public class SquareAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof ItemViewHolder) {
             MomentBean moment = mData.get(position);
-            if (moment == null) {
-                return;
-            }
             ((ItemViewHolder) holder).mContent.setText(moment.getContent());
             ImageLoadUtils.display(mContext, ((ItemViewHolder) holder).mUserHead, moment.getAuthor().getHead());
-//            ((ItemViewHolder) holder).mUserName.setText(moment.getAuthor().getUsername());
+            ((ItemViewHolder) holder).mUserName.setText(moment.getAuthor().getUsername());
             ((ItemViewHolder) holder).mFavouriteNumbers.setText(moment.getLikesNum() + "");
             ((ItemViewHolder) holder).mCommentNumbers.setText(moment.getCommentNum() + "");
             ((ItemViewHolder) holder).mTime.setText(moment.getDate());
+            ((ItemViewHolder) holder).mCompanyAndPositionTextView.setText(moment.getAuthor().getWorkSpace() + " "
+                                                + moment.getAuthor().getWorkPosition());
             if (moment.getIfLike() == 0) {
                 ((ItemViewHolder) holder).mFavouriteButton.setImageResource(R.mipmap.favourite);
             } else {
@@ -118,18 +118,21 @@ public class SquareAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         TextView mTime;
         ImageButton mNoInterestButton;
         ImageButton mFavouriteButton;
+        TextView mCompanyAndPositionTextView;
 
         public ItemViewHolder(View view) {
             super(view);
             mContent = (TextView) view.findViewById(R.id.square_rv_content_tv);
             mUserHead = (ImageView) view.findViewById(R.id.square_rv_head_iv);
-//            mUserName = (TextView) view.findViewById(R.id.moment_lv_user_name_tv);
+            mUserName = (TextView) view.findViewById(R.id.square_rv_username_tv);
             mFavouriteNumbers = (TextView) view.findViewById(R.id.square_rv_favourite_tv);
             mCommentNumbers = (TextView) view.findViewById(R.id.square_rv_comment_tv);
             mTime = (TextView) view.findViewById(R.id.square_rv_time_tv);
             mNoInterestButton = (ImageButton) view.findViewById(R.id.square_rv_no_interest_ib);
             mFavouriteButton = (ImageButton) view.findViewById(R.id.square_rv_favourite_ib);
-            itemView.setOnClickListener(this);
+            mCompanyAndPositionTextView = (TextView) view.findViewById(R.id.square_rv_company_position_tv);
+            mContent.setOnClickListener(this);
+            mUserHead.setOnClickListener(this);
             mNoInterestButton.setOnClickListener(this);
             mFavouriteButton.setOnClickListener(this);
         }
@@ -156,12 +159,11 @@ public class SquareAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                     }
                     break;
 
-                default:
-                    if (mOnItemClickListener != null) {
-                        mOnItemClickListener.onItemClick(v, this.getLayoutPosition());
+                case R.id.square_rv_content_tv:
+                    if(mOnContentClickListener != null){
+                        mOnContentClickListener.onContentClick(v, this.getLayoutPosition());
                     }
                     break;
-
             }
         }
     }
@@ -190,8 +192,12 @@ public class SquareAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         void onFavouriteButtonClick(ImageButton ib, int position);
     }
 
-    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
-        this.mOnItemClickListener = onItemClickListener;
+    public interface OnContentClickListener{
+        void onContentClick(View view, int position);
+    }
+
+    public void setOnContentClickListener(OnContentClickListener onContentClickListener){
+        this.mOnContentClickListener = onContentClickListener;
     }
 
     public void setOnHeadClickListener(OnHeadClickListener onHeadClickListener) {

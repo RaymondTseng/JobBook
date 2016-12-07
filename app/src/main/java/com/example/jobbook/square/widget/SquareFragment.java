@@ -22,6 +22,7 @@ import android.widget.TextView;
 import com.example.jobbook.MyApplication;
 import com.example.jobbook.R;
 import com.example.jobbook.bean.MomentBean;
+import com.example.jobbook.bean.PersonBean;
 import com.example.jobbook.commons.Urls;
 import com.example.jobbook.square.widget.SquareDetailActivity;
 import com.example.jobbook.moment.widget.MomentFragment;
@@ -29,6 +30,7 @@ import com.example.jobbook.square.SquareAdapter;
 import com.example.jobbook.square.presenter.SquarePresenter;
 import com.example.jobbook.square.presenter.SquarePresenterImpl;
 import com.example.jobbook.square.view.SquareView;
+import com.example.jobbook.userdetail.widget.UserDetailActivity;
 import com.example.jobbook.util.DividerItemDecoration;
 import com.example.jobbook.util.L;
 import com.example.jobbook.util.Util;
@@ -40,7 +42,7 @@ import java.util.List;
  * Created by Xu on 2016/7/5.
  */
 public class SquareFragment extends Fragment implements SquareView,
-        SwipeRefreshLayout.OnRefreshListener, MomentFragment.OnRefreshDataListener {
+        SwipeRefreshLayout.OnRefreshListener {
 
     private static int REFRESH = 1;
 
@@ -91,7 +93,14 @@ public class SquareFragment extends Fragment implements SquareView,
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        mAdapter.setOnItemClickListener(mOnItemClickListener);
+        mAdapter.setOnContentClickListener(new SquareAdapter.OnContentClickListener() {
+            @Override
+            public void onContentClick(View view, int position) {
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("square_detail", mData.get(position));
+                Util.toAnotherActivity(getActivity(), SquareDetailActivity.class, bundle);
+            }
+        });
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.addOnScrollListener(mOnScrollListener);
         mAdapter.setOnNoInterestButtonClickListener(new SquareAdapter.OnNoInterestButtonClickListener() {
@@ -103,7 +112,9 @@ public class SquareFragment extends Fragment implements SquareView,
         mAdapter.setOnHeadClickListener(new SquareAdapter.OnHeadClickListener() {
             @Override
             public void onHeadClick(View view, int position) {
-
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("person_bean", mData.get(position).getAuthor());
+                Util.toAnotherActivity(getActivity(), UserDetailActivity.class, bundle);
             }
         });
         mAdapter.setOnFavouriteButtonClickListener(new SquareAdapter.OnFavouriteButtonClickListener() {
@@ -121,7 +132,6 @@ public class SquareFragment extends Fragment implements SquareView,
 //                refresh();
             }
         });
-        mAdapter.setOnItemClickListener(mOnItemClickListener);
         onRefresh();
     }
 
@@ -271,10 +281,6 @@ public class SquareFragment extends Fragment implements SquareView,
         });
     }
 
-    @Override
-    public void refreshData(List<MomentBean> momentBeanList) {
-        mAdapter.updateData(momentBeanList);
-        mAdapter.notifyDataSetChanged();
-    }
+
 
 }

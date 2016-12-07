@@ -9,9 +9,11 @@
         android:layout_marginRight="32dp"
         android:orientation="vertical">
         <TextView
+            android:id="@+id/user_detail_moment_content_tv"
             style="@style/Black16sptv"
             android:text="        这里是一大段文字，我今天真的非常不想上班，但是老板又强制要求我上班，所以我辞职了"/>
         <TextView
+            android:id="@+id/user_detail_moment_time_tv"
             style="@style/TextGray12sptv"
             android:text="5分钟前"
             android:layout_marginLeft="16dp"

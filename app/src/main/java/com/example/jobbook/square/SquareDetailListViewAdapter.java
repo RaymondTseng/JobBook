@@ -61,10 +61,10 @@ public class SquareDetailListViewAdapter extends BaseAdapter {
         }else{
             view = convertView;
             viewHolder = (ViewHolder) view.getTag();
-            ImageLoadUtils.display(context, viewHolder.mHeadImageView, momentCommentBean.getApplier().getHead());
-            viewHolder.mNameTextView.setText(momentCommentBean.getApplier().getUsername());
-            viewHolder.mContentTextView.setText(momentCommentBean.getContent());
         }
+        ImageLoadUtils.display(context, viewHolder.mHeadImageView, momentCommentBean.getApplier().getHead());
+        viewHolder.mNameTextView.setText(momentCommentBean.getApplier().getUsername());
+        viewHolder.mContentTextView.setText(momentCommentBean.getContent());
         return view;
     }
 

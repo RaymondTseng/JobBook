@@ -39,6 +39,7 @@
                     android:text="张朝旭" />
 
                 <TextView
+                    android:id="@+id/square_rv_company_position_tv"
                     style="@style/TextBlue12sptv"
                     android:text="职谱 扫地僧" />
 
