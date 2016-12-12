@@ -34,14 +34,14 @@ public class UserDetailFollowFragment extends Fragment implements UserDetailFoll
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_user_detail, container, false);
+        view = inflater.inflate(R.layout.fragment_base_lv, container, false);
         init(view);
         return view;
     }
 
     private void init(View view){
         mData = new ArrayList<>();
-        mListView = (ListView) view.findViewById(R.id.user_detail_lv);
+        mListView = (ListView) view.findViewById(R.id.base_lv);
         mAdapter = new UserDetailFollowAdapter(getActivity(), mData);
         mPresenter = new UserDetailFollowPresenterImpl(this);
         mListView.setAdapter(mAdapter);

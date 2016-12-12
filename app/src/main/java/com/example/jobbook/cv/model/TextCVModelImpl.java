@@ -37,9 +37,13 @@ public class TextCVModelImpl implements TextCVModel {
             onBasedInformationFinishedListener.onNameBlankError();
         }else if(TextUtils.isEmpty(textCVBean.getSex())){
             onBasedInformationFinishedListener.onSexBlankError();
-        }else if(TextUtils.isEmpty(textCVBean.getQualification())){
-            onBasedInformationFinishedListener.onQualificationBlankError();
-        }else if(TextUtils.isEmpty(textCVBean.getCity())){
+        }else if(TextUtils.isEmpty(textCVBean.getCompany())){
+            onBasedInformationFinishedListener.onCompanyBlankError();
+        }else if(TextUtils.isEmpty(textCVBean.getStatus())){
+            onBasedInformationFinishedListener.onStatusBlankError();
+        }else if(TextUtils.isEmpty(textCVBean.getPosition())){
+            onBasedInformationFinishedListener.onPositionBlankError();
+        } else if(TextUtils.isEmpty(textCVBean.getCity())){
             onBasedInformationFinishedListener.onLocationBlankError();
         }else if(TextUtils.isEmpty(textCVBean.getDisabilityType())){
             onBasedInformationFinishedListener.onTypeBlankError();
@@ -151,7 +155,9 @@ public class TextCVModelImpl implements TextCVModel {
         void onHeadBlankError();
         void onNameBlankError();
         void onSexBlankError();
-        void onQualificationBlankError();
+        void onStatusBlankError();
+        void onCompanyBlankError();
+        void onPositionBlankError();
         void onLocationBlankError();
         void onTypeBlankError();
         void onLevelBlankError();

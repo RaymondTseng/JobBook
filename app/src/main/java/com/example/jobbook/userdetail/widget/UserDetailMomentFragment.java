@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import com.example.jobbook.MyApplication;
 import com.example.jobbook.R;
 import com.example.jobbook.bean.MomentBean;
 import com.example.jobbook.userdetail.UserDetailMomentAdapter;
@@ -36,13 +35,13 @@ public class UserDetailMomentFragment extends Fragment implements UserDetailMome
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_user_detail, container, false);
+        view = inflater.inflate(R.layout.fragment_base_lv, container, false);
         init(view);
         return view;
     }
 
     private void init(View view){
-        mListView = (ListView) view.findViewById(R.id.user_detail_lv);
+        mListView = (ListView) view.findViewById(R.id.base_lv);
         mData = new ArrayList<>();
         mPresenter = new UserDetailMomentPresenterImpl(this);
         mAdapter = new UserDetailMomentAdapter(getActivity(), mData);

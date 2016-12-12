@@ -57,9 +57,9 @@ public class CompanyCommentListViewAdapter extends BaseAdapter {
         } else {
             view = convertView;
             viewholder = (ViewHolder) view.getTag();
-            viewholder.mCommentUserName.setText(companyCommentBean.getAuthor().getUsername());
-            viewholder.mCommentUserComment.setText(companyCommentBean.getContent());
         }
+        viewholder.mCommentUserName.setText(companyCommentBean.getAuthor().getUsername());
+        viewholder.mCommentUserComment.setText(companyCommentBean.getContent());
         return view;
     }
 

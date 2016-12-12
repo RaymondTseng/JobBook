@@ -29,14 +29,20 @@ public class TextCVPresenterImpl implements TextCVPresenter, TextCVModelImpl.OnB
         mTextCVModel = new TextCVModelImpl();
     }
 
+    private void refresh(){
+        textCVBean = null;
+        TAG = 0;
+        textCVBean = new TextCVBean();
+    }
+
     @Override
-    public void basedInformationCheck(String head, String name, String sex, String qualification, String location,
-                String type, String level, String haveCertification, String tel, String email, String expectJob,
-                                      String expectSalary, String expectLocation) {
+    public void basedInformationCheck(String head, String name, String sex, String status, String company, String position, String location, String type, String level, String haveCertification, String tel, String email, String expectJob, String expectSalary, String expectLocation) {
         textCVBean.setHead(head);
         textCVBean.setName(name);
         textCVBean.setSex(sex);
-        textCVBean.setQualification(qualification);
+        textCVBean.setStatus(status);
+        textCVBean.setCompany(company);
+        textCVBean.setPosition(position);
         textCVBean.setCity(location);
         textCVBean.setDisabilityType(type);
         textCVBean.setDisabilityLevel(level);
@@ -50,11 +56,6 @@ public class TextCVPresenterImpl implements TextCVPresenter, TextCVModelImpl.OnB
         toModel();
     }
 
-    private void refresh(){
-        textCVBean = null;
-        TAG = 0;
-        textCVBean = new TextCVBean();
-    }
     @Override
     public void educationExpCheck(List<EducationExpBean> educationExpBeanList) {
         textCVBean.setEducationExpBeanList(educationExpBeanList);
@@ -178,11 +179,26 @@ public class TextCVPresenterImpl implements TextCVPresenter, TextCVModelImpl.OnB
     }
 
     @Override
-    public void onQualificationBlankError() {
+    public void onStatusBlankError() {
         mTextCVView.hideProgress();
-        mTextCVView.qualificationBlankError();
+        mTextCVView.statusBlankError();
         refresh();
     }
+
+    @Override
+    public void onCompanyBlankError() {
+        mTextCVView.hideProgress();
+        mTextCVView.companyBlankError();
+        refresh();
+    }
+
+    @Override
+    public void onPositionBlankError() {
+        mTextCVView.positionBlankError();
+        mTextCVView.positionBlankError();
+        refresh();
+    }
+
 
     @Override
     public void onLocationBlankError() {

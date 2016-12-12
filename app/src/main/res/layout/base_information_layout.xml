@@ -52,7 +52,7 @@
         <EditText
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
-            android:id="@+id/text_cv_qualification_et"
+            android:id="@+id/text_cv_status_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="72dp"
@@ -63,11 +63,71 @@
             <!--android:background="@drawable/text_cv_et_bg"-->
             <!--android:drawableLeft="@drawable/text_cv_vertical_line"-->
         <TextView
-            android:text="最高学历"
-            android:id="@+id/text_cv_qualification_tv"
+            android:text="求职状态"
+            android:id="@+id/text_cv_status_tv"
             style="@style/Black16sptv"
             android:layout_marginLeft="16dp"
-            android:layout_alignBaseline="@id/text_cv_qualification_et"
+            android:layout_alignBaseline="@id/text_cv_status_et"
+            android:drawableRight="@drawable/text_cv_vertical_gray_line"
+            android:gravity="center"
+            android:drawablePadding="6dp"
+            />
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        >
+        <EditText
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:id="@+id/text_cv_company_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="72dp"
+            android:textCursorDrawable="@drawable/edtitext_cursor"
+            android:background="@drawable/text_cv_et_bg"
+            android:paddingBottom="8dp"/>
+        <!--android:paddingLeft="72dp"-->
+        <!--android:background="@drawable/text_cv_et_bg"-->
+        <!--android:drawableLeft="@drawable/text_cv_vertical_line"-->
+        <TextView
+            android:text="公司"
+            android:id="@+id/text_cv_company_tv"
+            style="@style/Black16sptv"
+            android:layout_marginLeft="16dp"
+            android:layout_alignBaseline="@id/text_cv_company_et"
+            android:drawableRight="@drawable/text_cv_vertical_gray_line"
+            android:gravity="center"
+            android:drawablePadding="6dp"
+            />
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        >
+        <EditText
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:id="@+id/text_cv_position_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="72dp"
+            android:textCursorDrawable="@drawable/edtitext_cursor"
+            android:background="@drawable/text_cv_et_bg"
+            android:paddingBottom="8dp"/>
+        <!--android:paddingLeft="72dp"-->
+        <!--android:background="@drawable/text_cv_et_bg"-->
+        <!--android:drawableLeft="@drawable/text_cv_vertical_line"-->
+        <TextView
+            android:text="职位"
+            android:id="@+id/text_cv_position_tv"
+            style="@style/Black16sptv"
+            android:layout_marginLeft="16dp"
+            android:layout_alignBaseline="@id/text_cv_position_et"
             android:drawableRight="@drawable/text_cv_vertical_gray_line"
             android:gravity="center"
             android:drawablePadding="6dp"

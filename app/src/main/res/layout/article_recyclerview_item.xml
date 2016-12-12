@@ -39,10 +39,12 @@
             android:id="@+id/article_rc_time_iv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:src="@mipmap/time"/>
         <TextView
             style="@style/TextGray12sptv"
             android:id="@+id/article_lv_time_tv"
+            android:layout_gravity="center"
             android:layout_marginLeft="4dp"
             android:text="4分钟前"/>
     </LinearLayout>
@@ -64,7 +66,7 @@
         android:layout_toLeftOf="@id/article_lv_iv"
         android:layout_marginRight="40dp"
         android:layout_marginTop="4dp"
-        android:layout_marginBottom="16dp"
+        android:paddingBottom="16dp"
         android:text="        为什么我会这么说呢，因为我在面试的时候穿了正装，结果就是因为，结果只能四十个字"/>
 
 

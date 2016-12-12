@@ -37,12 +37,17 @@ public class PersonBean implements Serializable {
     /**
      * 关注者数量
      */
-    private int follow;
+    private String follow;
 
     /**
      * 粉丝数量
      */
-    private int fans;
+    private String fans;
+
+    /**
+     * 动态数量
+     */
+    private String moment;
 
     /**
      * 工作地点
@@ -54,6 +59,7 @@ public class PersonBean implements Serializable {
      * 工作岗位
      */
     private String workposition;
+
 
 
     public String getWorkSpace() {
@@ -72,22 +78,29 @@ public class PersonBean implements Serializable {
         this.workposition = workPosition;
     }
 
-    public int getFans() {
-        return fans;
-    }
-
-    public void setFans(int fans) {
-        this.fans = fans;
-    }
-
-    public int getFollow() {
+    public String getFollow() {
         return follow;
     }
 
-    public void setFollow(int follow) {
+    public void setFollow(String follow) {
         this.follow = follow;
     }
 
+    public String getFans() {
+        return fans;
+    }
+
+    public void setFans(String fans) {
+        this.fans = fans;
+    }
+
+    public String getMoment() {
+        return moment;
+    }
+
+    public void setMoment(String moment) {
+        this.moment = moment;
+    }
 
     public String getHead() {
         return head;

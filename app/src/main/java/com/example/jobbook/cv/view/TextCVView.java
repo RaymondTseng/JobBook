@@ -35,9 +35,19 @@ public interface TextCVView {
     void nameBlankError();
 
     /**
-     * 最高学历为空错误
+     * 求职状态为空错误
      */
-    void qualificationBlankError();
+    void statusBlankError();
+
+    /**
+     * 公司为空错误
+     */
+    void companyBlankError();
+
+    /**
+     * 职位为空错误
+     */
+    void positionBlankError();
 
     /**
      * 所在城市为空错误

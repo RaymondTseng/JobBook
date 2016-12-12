@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Created by 椰树 on 2016/7/16.
  */
-public interface FavouriteView {
+public interface FavouriteJobView {
 
     void showProgress();
 

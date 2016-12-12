@@ -36,13 +36,13 @@ public class UserDetailFansFragment extends Fragment implements UserDetailFansVi
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_user_detail, container, false);
+        view = inflater.inflate(R.layout.fragment_base_lv, container, false);
         init(view);
         return view;
     }
 
     private void init(View view){
-        mListView = (ListView) view.findViewById(R.id.user_detail_lv);
+        mListView = (ListView) view.findViewById(R.id.base_lv);
         mData = new ArrayList<>();
         mPresenter = new UserDetailFansPresenterImpl(this);
         mAdapter = new UserDetailFansAdapter(getActivity(), mData);
