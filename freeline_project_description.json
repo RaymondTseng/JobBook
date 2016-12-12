@@ -1,0 +1,96 @@
+{
+    "android_gradle_plugin_version": "2.2.2",
+    "apk_path": "D:\\Workspace\\Android Studio\\JobBook\\app\\build\\outputs\\apk\\app-debug.apk",
+    "auto_dependency": true,
+    "build_cache_dir": "D:\\Workspace\\Android Studio\\JobBook\\app\\build\\freeline",
+    "build_directory": "D:\\Workspace\\Android Studio\\JobBook\\app\\build",
+    "build_script": "gradlew.bat :app:assembleDebug",
+    "build_script_work_directory": "",
+    "build_tools_directory": "D:\\adt-bundle-windows-x86_64-20140702\\sdk\\build-tools\\23.0.3",
+    "build_tools_version": "23.0.3",
+    "compile_sdk_directory": "D:\\adt-bundle-windows-x86_64-20140702\\sdk\\platforms\\android-23",
+    "compile_sdk_version": "android-23",
+    "databinding": [
+        
+    ],
+    "databinding_modules": [
+        
+    ],
+    "debug_package": "com.example.jobbook",
+    "exclude_dep_res_paths": [
+        
+    ],
+    "extra_dep_res_paths": [
+        
+    ],
+    "freeline_cache_dir": "D:\\Workspace\\Android Studio\\JobBook",
+    "freeline_gradle_plugin_version": "0.8.3",
+    "java_home": "D:\\Java\\jdk1.8.0_112",
+    "launcher": "com.example.jobbook.main.widget.MainActivity",
+    "main_assets_directory": [
+        "D:\\Workspace\\Android Studio\\JobBook\\app\\src\\debug\\assets",
+        "D:\\Workspace\\Android Studio\\JobBook\\app\\src\\main\\assets"
+    ],
+    "main_jniLibs_directory": [
+        "D:\\Workspace\\Android Studio\\JobBook\\app\\src\\debug\\jniLibs",
+        "D:\\Workspace\\Android Studio\\JobBook\\app\\src\\main\\jniLibs"
+    ],
+    "main_jni_directory": [
+        "D:\\Workspace\\Android Studio\\JobBook\\app\\src\\debug\\jni",
+        "D:\\Workspace\\Android Studio\\JobBook\\app\\src\\main\\jni"
+    ],
+    "main_manifest_path": "D:\\Workspace\\Android Studio\\JobBook\\app\\src\\main\\AndroidManifest.xml",
+    "main_project_dir": "app",
+    "main_project_name": "app",
+    "main_r_path": "D:\\Workspace\\Android Studio\\JobBook\\app\\build\\generated\\source\\r\\debug\\R.java",
+    "main_res_directory": [
+        "D:\\Workspace\\Android Studio\\JobBook\\app\\src\\debug\\res",
+        "D:\\Workspace\\Android Studio\\JobBook\\app\\src\\main\\res"
+    ],
+    "main_src_directory": [
+        "D:\\Workspace\\Android Studio\\JobBook\\app\\src\\debug\\java",
+        "D:\\Workspace\\Android Studio\\JobBook\\app\\src\\main\\java"
+    ],
+    "module_dependencies": {
+        "app": [
+            
+        ]
+    },
+    "modules": [
+        {
+            "name": "app",
+            "path": "D:\\Workspace\\Android Studio\\JobBook\\app"
+        }
+    ],
+    "package": "com.example.jobbook",
+    "product_flavor": "",
+    "project_source_sets": {
+        "app": {
+            "main_assets_directory": [
+                "D:\\Workspace\\Android Studio\\JobBook\\app\\src\\debug\\assets",
+                "D:\\Workspace\\Android Studio\\JobBook\\app\\src\\main\\assets"
+            ],
+            "main_jniLibs_directory": [
+                "D:\\Workspace\\Android Studio\\JobBook\\app\\src\\debug\\jniLibs",
+                "D:\\Workspace\\Android Studio\\JobBook\\app\\src\\main\\jniLibs"
+            ],
+            "main_jni_directory": [
+                "D:\\Workspace\\Android Studio\\JobBook\\app\\src\\debug\\jni",
+                "D:\\Workspace\\Android Studio\\JobBook\\app\\src\\main\\jni"
+            ],
+            "main_manifest_path": "D:\\Workspace\\Android Studio\\JobBook\\app\\src\\main\\AndroidManifest.xml",
+            "main_res_directory": [
+                "D:\\Workspace\\Android Studio\\JobBook\\app\\src\\debug\\res",
+                "D:\\Workspace\\Android Studio\\JobBook\\app\\src\\main\\res"
+            ],
+            "main_src_directory": [
+                "D:\\Workspace\\Android Studio\\JobBook\\app\\src\\debug\\java",
+                "D:\\Workspace\\Android Studio\\JobBook\\app\\src\\main\\java"
+            ]
+        }
+    },
+    "project_type": "gradle",
+    "root_dir": "D:\\Workspace\\Android Studio\\JobBook",
+    "sdk_directory": "D:\\adt-bundle-windows-x86_64-20140702\\sdk",
+    "use_jdk8": true
+}
