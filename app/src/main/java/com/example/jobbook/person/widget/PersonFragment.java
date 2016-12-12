@@ -13,6 +13,8 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -39,17 +41,24 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
     private static int REFRESH_NAME = 1;
     private static int REFRESH_HEAD = 2;
     private ListView mListView;
-    private ImageButton mSettingImageButton;
+    private LinearLayout mSettingLayout;
     //    private IPersonChanged mIPersonChanged;
-    private Button mSwitchPerson2LoginButton;
-    private Button mSwitch2FeedBackButton;
-    private Button mFavouriteButton;
+    private TextView mSwitchPerson2LoginTextView;
+    private LinearLayout mFavouriteLayout;
     private TextView mNameTextView;
+    private TextView mCompanyPositionTextView;
     private Button mSwitch2TextCVButton;
-    private RelativeLayout mUserDetailRelativeLayout;
-    private CircleImageView mCircleImageView;
+    private ImageView mHeadBackGround;
+    private LinearLayout mMessageLayout;
+    private LinearLayout mBlackListLayout;
+    private TextView mLogOutTextView;
+    private TextView mMomentTextView;
+    private TextView mFollowTextView;
+    private TextView mFansTextView;
+    private CircleImageView mCircleHeadImageView;
     private MyApplication mMyApplication;
     private PersonBean personBean;
+    private TextView mEditTextView;
     private View view;
 
     final Handler handler = new Handler() {
@@ -89,23 +98,30 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
 //    }
 
     private void initViews(View view) {
-        mSwitchPerson2LoginButton = (Button) view.findViewById(R.id.person_switch2login_bt);
-        mSwitch2FeedBackButton = (Button) view.findViewById(R.id.person_feedback_bt);
-        mSettingImageButton = (ImageButton) view.findViewById(R.id.person_setting_ib);
-        mFavouriteButton = (Button) view.findViewById(R.id.person_favourite_bt);
+        mSwitchPerson2LoginTextView = (TextView) view.findViewById(R.id.person_logout_tv);
+        mSettingLayout = (LinearLayout) view.findViewById(R.id.person_setting_ll);
+        mFavouriteLayout = (LinearLayout) view.findViewById(R.id.person_collect_ll);
         mNameTextView = (TextView) view.findViewById(R.id.person_name_tv);
-        mSwitch2TextCVButton = (Button) view.findViewById(R.id.person_textcv_bt);
-        mUserDetailRelativeLayout = (RelativeLayout) view.findViewById(R.id.person_userinfo_rl);
-        mCircleImageView = (CircleImageView) view.findViewById(R.id.person_logo_iv);
+        mCompanyPositionTextView = (TextView) view.findViewById(R.id.person_company_position_tv);
+        mHeadBackGround = (ImageView) view.findViewById(R.id.person_head_bg);
+        mMomentTextView = (TextView) view.findViewById(R.id.person_moment_num_tv);
+        mFollowTextView = (TextView) view.findViewById(R.id.person_follow_num_tv);
+        mFansTextView = (TextView) view.findViewById(R.id.person_fans_num_tv);
+        mMessageLayout = (LinearLayout) view.findViewById(R.id.person_message_ll);
+        mBlackListLayout = (LinearLayout) view.findViewById(R.id.person_black_list_ll);
+        mLogOutTextView = (TextView) view.findViewById(R.id.person_logout_tv);
+        mEditTextView = (TextView) view.findViewById(R.id.person_edit_tv);
+        mCircleHeadImageView = (CircleImageView) view.findViewById(R.id.person_title_head_iv);
     }
 
     private void initEvents() {
-        mSwitchPerson2LoginButton.setOnClickListener(this);
-        mSwitch2FeedBackButton.setOnClickListener(this);
-        mSettingImageButton.setOnClickListener(this);
-        mFavouriteButton.setOnClickListener(this);
-        mSwitch2TextCVButton.setOnClickListener(this);
-        mUserDetailRelativeLayout.setOnClickListener(this);
+        mSwitchPerson2LoginTextView.setOnClickListener(this);
+        mSettingLayout.setOnClickListener(this);
+        mFavouriteLayout.setOnClickListener(this);
+        mMessageLayout.setOnClickListener(this);
+        mBlackListLayout.setOnClickListener(this);
+        mLogOutTextView.setOnClickListener(this);
+        mEditTextView.setOnClickListener(this);
         mMyApplication = (MyApplication) getActivity().getApplication();
         showPersonData();
     }
@@ -117,33 +133,44 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
         if(MyApplication.getmLoginStatus() != 0){
             personBean = MyApplication.getmPersonBean();
             mNameTextView.setText(personBean.getUsername());
-            ImageLoadUtils.display(getActivity(), mCircleImageView, personBean.getHead(), 0);
+            ImageLoadUtils.display(getActivity(), mCircleHeadImageView, personBean.getHead(), 0);
+            ImageLoadUtils.display(getActivity(), mHeadBackGround, personBean.getHead(), 0);
+            mMomentTextView.setText(personBean.getMoment());
+            mFansTextView.setText(personBean.getFans());
+            mFollowTextView.setText(personBean.getFollow());
+            mCompanyPositionTextView.setText(personBean.getWorkSpace() + " " + personBean.getWorkPosition());
         }
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.person_switch2login_bt:
+            case R.id.person_logout_tv:
                 createLogoutDialog();
                 break;
-            case R.id.person_feedback_bt:
-                Util.toAnotherActivity(getActivity(), FeedBackActivity.class);
-                break;
-            case R.id.person_setting_ib:
+//            case R.id.person_feedback_bt:
+//                Util.toAnotherActivity(getActivity(), FeedBackActivity.class);
+//                break;
+            case R.id.person_setting_ll:
                 Util.toAnotherActivity(getActivity(), SettingActivity.class);
                 break;
-            case R.id.person_favourite_bt:
+            case R.id.person_collect_ll:
                 Util.toAnotherActivity(getActivity(), FavouriteActivity.class);
                 break;
-            case R.id.person_textcv_bt:
-                mMyApplication.setHandler(handler);
-                Util.toAnotherActivity(getActivity(), TextCVActivity.class);
+            case R.id.person_black_list_ll:
                 break;
-            case R.id.person_userinfo_rl:
-                mMyApplication.setHandler(handler);
-                Util.toAnotherActivity(getActivity(), UserDetailActivity.class);
+            case R.id.person_message_ll:
                 break;
+            case R.id.person_edit_tv:
+                break;
+//            case R.id.person_textcv_bt:
+//                mMyApplication.setHandler(handler);
+//                Util.toAnotherActivity(getActivity(), TextCVActivity.class);
+//                break;
+//            case R.id.person_userinfo_rl:
+//                mMyApplication.setHandler(handler);
+//                Util.toAnotherActivity(getActivity(), UserDetailActivity.class);
+//                break;
         }
     }
 
@@ -159,9 +186,10 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
     }
 
     private void onRefreshHead() {
-        mCircleImageView.setImageResource(R.mipmap.default_78px);
+        mCircleHeadImageView.setImageResource(R.mipmap.default_78px);
         L.i("onRefreshHead", personBean.getHead());
-        ImageLoadUtils.display(getActivity(), mCircleImageView, personBean.getHead(), 0);
+        ImageLoadUtils.display(getActivity(), mCircleHeadImageView, personBean.getHead(), 0);
+        ImageLoadUtils.display(getActivity(), mHeadBackGround, personBean.getHead(), 0);
     }
 
     private void createLogoutDialog() {

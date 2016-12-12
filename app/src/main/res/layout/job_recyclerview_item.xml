@@ -54,29 +54,26 @@
 
             </RelativeLayout>
 
-            <RelativeLayout
+            <LinearLayout
                 android:id="@+id/job_lv_company_ll"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/job_lv_job_name_rl"
                 android:layout_marginTop="12dp">
 
-                <TextView
-                    android:id="@+id/job_lv_company_tv"
-                    style="@style/TextGray12sptv"
-                    android:layout_centerInParent="true"
-                    android:layout_toRightOf="@+id/job_lv_company_iv"
-                    android:text="卖苹果公司" />
-
                 <ImageView
                     android:id="@+id/job_lv_company_iv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@mipmap/company"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true" />
-            </RelativeLayout>
+                    android:layout_gravity="center" />
+                <TextView
+                    android:id="@+id/job_lv_company_tv"
+                    style="@style/TextGray12sptv"
+                    android:layout_gravity="center"
+                    android:text="卖苹果公司" />
+
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/job_lv_location_ll"
@@ -90,13 +87,13 @@
                     android:id="@+id/job_lv_location_iv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:src="@mipmap/location_gray" />
 
                 <TextView
                     android:id="@+id/job_lv_location_tv"
                     style="@style/TextGray12sptv"
-                    android:layout_alignParentRight="true"
-                    android:layout_toRightOf="@id/job_lv_location_iv"
+                    android:layout_gravity="center"
                     android:text="这是城市名" />
 
                 <TextView

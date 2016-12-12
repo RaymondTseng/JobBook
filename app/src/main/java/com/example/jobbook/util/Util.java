@@ -132,6 +132,11 @@ public class Util {
             personBean.setTelephone(share.getString("telephone", ""));
             personBean.setUsername(share.getString("username", ""));
             personBean.setHead(share.getString("head", ""));
+            personBean.setMoment(share.getString("moment", ""));
+            personBean.setFans(share.getString("fans", ""));
+            personBean.setFollow(share.getString("follow", ""));
+            personBean.setWorkPosition(share.getString("workposition", ""));
+            personBean.setWorkSpace(share.getString("workspace", ""));
             return personBean;
         }
         return null;
@@ -150,6 +155,11 @@ public class Util {
         edit.putString("telephone", personBean.getTelephone());
         edit.putString("username", personBean.getUsername());
         edit.putString("head", personBean.getHead());
+        edit.putString("fans", personBean.getFans());
+        edit.putString("follow", personBean.getFollow());
+        edit.putString("moment", personBean.getMoment());
+        edit.putString("workspace", personBean.getWorkSpace());
+        edit.putString("workposition", personBean.getWorkPosition());
         edit.commit();
     }
 

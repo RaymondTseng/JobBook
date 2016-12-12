@@ -24,9 +24,19 @@ public class TextCVBean implements Serializable{
      */
     private String sex;
     /**
-     * 最高学历
+     * 求职状态
      */
-    private String qualification;
+    private String status;
+
+    /**
+     * 公司
+     */
+    private String company;
+
+    /**
+     * 职位
+     */
+    private String position;
 
     /**
      * 所在城市
@@ -101,14 +111,6 @@ public class TextCVBean implements Serializable{
         this.sex = sex;
     }
 
-    public String getQualification() {
-        return qualification;
-    }
-
-    public void setQualification(String qualification) {
-        this.qualification = qualification;
-    }
-
     public String getCity() {
         return city;
     }
@@ -123,6 +125,30 @@ public class TextCVBean implements Serializable{
 
     public void setDisabilityType(String disabilityType) {
         this.disabilitytype = disabilityType;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
     }
 
     public String getDisabilityLevel() {

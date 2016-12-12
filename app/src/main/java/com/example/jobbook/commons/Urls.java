@@ -48,7 +48,9 @@ public class Urls {
 
     public static final String FEED_BACK_URL = IP + "/jobBook/suggestion/postSuggestion/account/";
 
-    public static final String FAVOURITE_URL = IP + "/jobBook/person/MyFavourite/account/";
+    public static final String FAVOURITE_JOB_URL = IP + "/jobBook/person/MyFavourite/account/";
+
+    public static final String FAVOURITE_ARTICLE_URL = IP + "/jobBook/person/MyArticle/account/";
 
     public static final String POST_TEXT_CV_URL = IP + "/jobBook/cv/postCV/account/";
 

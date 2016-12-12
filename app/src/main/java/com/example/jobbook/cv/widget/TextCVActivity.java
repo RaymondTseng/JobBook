@@ -54,7 +54,9 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
     private TextView mSaveTextView;
     private EditText mNameEditText;
     private Spinner mSexSpinner;
-    private EditText mQualificationEditText;
+    private EditText mStatusEditText;
+    private EditText mCompanyEditText;
+    private EditText mPositionEditText;
     private EditText mCityEditText;
     private Spinner mTypeSpinner;
     private Spinner mLevelSpinner;
@@ -83,7 +85,9 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
     private void initView() {
         mNameEditText = (EditText) findViewById(R.id.text_cv_name_et);
         mSexSpinner = (Spinner) findViewById(R.id.text_cv_sex_spinner);
-        mQualificationEditText = (EditText) findViewById(R.id.text_cv_qualification_et);
+        mStatusEditText = (EditText) findViewById(R.id.text_cv_status_et);
+        mCompanyEditText = (EditText) findViewById(R.id.text_cv_company_et);
+        mPositionEditText = (EditText) findViewById(R.id.text_cv_position_et);
         mCityEditText = (EditText) findViewById(R.id.text_cv_location_et);
         mTypeSpinner = (Spinner) findViewById(R.id.text_cv_type_spinner);
         mLevelSpinner = (Spinner) findViewById(R.id.text_cv_level_spinner);
@@ -317,10 +321,23 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
         setBackgroundRed(mNameEditText, textView);
     }
 
+
     @Override
-    public void qualificationBlankError() {
-        TextView textView = (TextView) findViewById(R.id.text_cv_qualification_tv);
-        setBackgroundRed(mQualificationEditText, textView);
+    public void companyBlankError() {
+        TextView textView = (TextView) findViewById(R.id.text_cv_company_et);
+        setBackgroundRed(mCompanyEditText, textView);
+    }
+
+    @Override
+    public void positionBlankError() {
+        TextView textView = (TextView) findViewById(R.id.text_cv_position_et);
+        setBackgroundRed(mPositionEditText, textView);
+    }
+
+    @Override
+    public void statusBlankError() {
+        TextView textView = (TextView) findViewById(R.id.text_cv_status_tv);
+        setBackgroundRed(mStatusEditText, textView);
     }
 
     @Override
@@ -437,7 +454,8 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
     @Override
     public void save() {
         mPresenter.basedInformationCheck("aaa", mNameEditText.getText().toString(), mSexSpinner.getSelectedItem().toString(),
-                mQualificationEditText.getText().toString(), mCityEditText.getText().toString(), mTypeSpinner.getSelectedItem().toString(),
+                mStatusEditText.getText().toString(), mCompanyEditText.getText().toString(),
+                mPositionEditText.getText().toString(), mCityEditText.getText().toString(), mTypeSpinner.getSelectedItem().toString(),
                 mLevelSpinner.getSelectedItem().toString(), mCertificationSpinner.getSelectedItem().toString(),
                 mTelEditText.getText().toString(), mEmailEditText.getText().toString(), mExpectJobEditText.getText().toString(),
                 mExpectSalaryEditText.getText().toString(), mExpectLocationEditText.getText().toString());
@@ -488,7 +506,7 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
         mNameEditText.setText(textCVBean.getName());
         String[] sex = getResources().getStringArray(R.array.sex);
         setSelection(mSexSpinner, sex, textCVBean.getSex());
-        mQualificationEditText.setText(textCVBean.getQualification());
+//        mQualificationEditText.setText(textCVBean.getQualification());
         mCityEditText.setText(textCVBean.getCity());
         String[] type = getResources().getStringArray(R.array.type);
         setSelection(mTypeSpinner, type, textCVBean.getDisabilityType());

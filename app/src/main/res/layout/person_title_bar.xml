@@ -4,27 +4,110 @@
     android:layout_height="match_parent"
     android:background="@color/colorBlue">
 
-    <ImageView
-        android:layout_width="56dp"
-        android:layout_height="56dp"
-        android:layout_centerVertical="true"
-        android:src="@mipmap/message" />
-
     <TextView
+        style="@style/White16sptv"
+        android:text="编辑"
+        android:id="@+id/person_edit_tv"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_alignParentRight="true"/>
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/person_title_head_iv"
+        android:layout_width="78dp"
+        android:layout_height="78dp"
+        android:src="@mipmap/suit"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"/>
+    <!--<ImageView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:src="@mipmap/suit"-->
+    <!--android:scaleType="fitXY"-->
+    <!--android:alpha="0.1"/>-->
+    <TextView
+        android:id="@+id/person_name_tv"
+        style="@style/White16sptv"
+        android:text="张朝旭他居然凑成了标准的十五字"
+        android:layout_below="@id/person_title_head_iv"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="4dp"
+        />
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="72dp"
-        android:gravity="center_vertical"
-        android:text="个人中心"
-        android:textColor="@color/colorWhite"
-        android:textSize="20sp" />
+        android:layout_height="wrap_content"
+        android:layout_below="@id/person_name_tv"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="4dp"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/company_white"
+            android:layout_gravity="center"/>
+        <TextView
+            android:id="@+id/person_company_position_tv"
+            style="@style/White12sptv"
+            android:gravity="center"
+            android:text="职谱 扫地僧"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:weightSum="3"
+        android:layout_marginBottom="2dp">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/person_moment_num_tv"
+                style="@style/White16sptv"
+                android:layout_gravity="center"
+                android:text="213"/>
+            <TextView
+                style="@style/White12sptv"
+                android:layout_gravity="center"
+                android:text="动态" />
 
-    <ImageButton
-        android:id="@+id/person_setting_ib"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:background="@null"
-        android:src="@mipmap/setting" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/person_follow_num_tv"
+                style="@style/White16sptv"
+                android:layout_gravity="center"
+                android:text="2313"/>
+            <TextView
+                style="@style/White12sptv"
+                android:layout_gravity="center"
+                android:text="关注" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/person_fans_num_tv"
+                style="@style/White16sptv"
+                android:layout_gravity="center"
+                android:text="3213"/>
+            <TextView
+                style="@style/White12sptv"
+                android:layout_gravity="center"
+                android:text="粉丝" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+
 </RelativeLayout>
