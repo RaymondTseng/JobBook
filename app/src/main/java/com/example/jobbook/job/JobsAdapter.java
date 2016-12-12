@@ -32,9 +32,10 @@ public class JobsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         this.mContext = mContext;
     }
 
-    //    public FavouriteJobsAdapter(Fragment mFragment) {
+//    public FavouriteJobsAdapter(Fragment mFragment) {
 //        this.mFragment = mFragment;
 //    }
+
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == TYPE_ITEM) {

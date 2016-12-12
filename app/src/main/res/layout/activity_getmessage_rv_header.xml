@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="24dp"
+    android:background="#d1d1d1"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/getmessage_lv_header_tv"
+        style="@style/TextWhite14sptv"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="2dp"
+        android:text="1233" />
+
+</LinearLayout>

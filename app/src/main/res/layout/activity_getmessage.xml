@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="568">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="56dp"
+        android:layout_height="0dp"
+        android:layout_weight="56"
         android:background="@color/colorBlue">
 
         <ImageButton
@@ -23,6 +26,28 @@
             android:layout_toRightOf="@id/getmessage_back_ib"
             android:text="我的消息" />
     </RelativeLayout>
+
+    <include
+        android:id="@+id/getmessage_loading_layout"
+        layout="@layout/loading_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="512" />
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/getmessage_refresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="512">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/getmessage_rv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:dividerHeight="2dp"
+            android:scrollbars="vertical"></android.support.v7.widget.RecyclerView>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 
 </LinearLayout>
