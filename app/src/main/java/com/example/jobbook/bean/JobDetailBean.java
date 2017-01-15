@@ -125,4 +125,5 @@ public class JobDetailBean implements Serializable{
      */
     private int ifLike;
 
+
 }

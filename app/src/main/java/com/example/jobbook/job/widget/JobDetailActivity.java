@@ -11,6 +11,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.jobbook.MyApplication;
 import com.example.jobbook.R;
@@ -93,9 +94,10 @@ public class JobDetailActivity extends Activity implements View.OnClickListener,
                 finish();
                 break;
             case R.id.job_detail_tocompany_tv:
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("company", jobDetailBean.getCompany());
-                Util.toAnotherActivity(this, CompanyDetailActivity.class, bundle);
+//                Bundle bundle = new Bundle();
+//                bundle.putSerializable("company", jobDetailBean.getCompany());
+//                Util.toAnotherActivity(this, CompanyDetailActivity.class, bundle);
+                Toast.makeText(this, "website:" + jobDetailBean.getCompany().getWebsite(), Toast.LENGTH_SHORT).show();
                 break;
             case R.id.job_detail_like_ib:
 

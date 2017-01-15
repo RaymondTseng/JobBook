@@ -22,8 +22,8 @@
         <RadioButton
             android:id="@+id/question_rb"
             style="@style/bottom_bar_rb_style"
-            android:drawableTop="@drawable/question_rb"
-            android:text="问问"/>
+            android:drawableTop="@drawable/moment_rb"
+            android:text="工作圈"/>
         <RadioButton
             android:id="@+id/person_rb"
             style="@style/bottom_bar_rb_style"

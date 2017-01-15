@@ -20,7 +20,6 @@ public class ArticleModelImpl implements ArticleModel {
 
     @Override
     public void loadArticles(int pageIndex, int type, final OnLoadArticlesListListener listener) {
-        L.i("article_response:", "load");
         OkHttpUtils.postString().url(Urls.ARTICLE_URL + type).content(String.valueOf(pageIndex)).build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
@@ -32,12 +31,12 @@ public class ArticleModelImpl implements ArticleModel {
             public void onResponse(String response, int id) {
                 L.i("article_response:", response);
                 ResultBean resultBean = new Gson().fromJson(response, ResultBean.class);
-                if(resultBean.getStatus().equals("true")){
+                if (resultBean.getStatus().equals("true")) {
                     List<ArticleBean> list = new Gson().fromJson(resultBean.getResponse(),
                             new TypeToken<List<ArticleBean>>() {
-                    }.getType());
+                            }.getType());
                     listener.onSuccess(list);
-                }else {
+                } else {
                     listener.onFailure(resultBean.getResponse(), new Exception());
                 }
 

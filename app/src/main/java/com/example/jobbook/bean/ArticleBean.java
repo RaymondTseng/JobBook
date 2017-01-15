@@ -51,6 +51,19 @@ public class ArticleBean implements Serializable {
      */
     private List<ArticleCommentBean> comments;
 
+    /**
+     * 是否点赞
+     */
+    private int ifLike;
+
+    public int isIfLike() {
+        return ifLike;
+    }
+
+    public void setIfLike(int ifLike) {
+        this.ifLike = ifLike;
+    }
+
     public String getArticle_id() {
         return article_id;
     }

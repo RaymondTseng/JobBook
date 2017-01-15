@@ -5,5 +5,10 @@ package com.example.jobbook.article.model;
  */
 public interface ArticleDetailModel {
     void loadArticle(String articleId, ArticleDetailModelImpl.OnLoadArticleListener listener);
+
     void loadComments(String url, ArticleDetailModelImpl.OnLoadArticleCommentListener listener);
+
+    void unlike(String articleId, ArticleDetailModelImpl.OnUnlikeArticleListener listener);
+
+    void like(String articleId, ArticleDetailModelImpl.OnLikeArticleListener listener);
 }
