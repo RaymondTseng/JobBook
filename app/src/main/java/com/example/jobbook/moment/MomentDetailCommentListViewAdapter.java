@@ -10,21 +10,20 @@ import android.widget.TextView;
 
 import com.example.jobbook.R;
 import com.example.jobbook.bean.MomentCommentBean;
-import com.example.jobbook.util.ImageLoadUtils;
 
 import java.util.List;
 
 /**
  * Created by 椰树 on 2016/7/15.
  */
-public class SquareDetailListViewAdapter extends BaseAdapter {
+public class MomentDetailCommentListViewAdapter extends BaseAdapter {
     private Context mContext;
     private List<MomentCommentBean> mData;
 
     private OnLikeClickListener onLikeClickListener;
     private OnUnlikeClickListener onUnlikeClickListener;
 
-    public SquareDetailListViewAdapter(Context mContext) {
+    public MomentDetailCommentListViewAdapter(Context mContext) {
         this.mContext = mContext;
     }
 
@@ -54,13 +53,13 @@ public class SquareDetailListViewAdapter extends BaseAdapter {
         ViewHolder mViewHolder;
         final MomentCommentBean questionComment = mData.get(position);
         if (convertView == null) {
-            view = LayoutInflater.from(mContext).inflate(R.layout.square_detail_listview_item, null);
+            view = LayoutInflater.from(mContext).inflate(R.layout.moment_detail_comment_listview_item, null);
             mViewHolder = new ViewHolder();
-//            mViewHolder.mContent = (TextView) view.findViewById(R.id.question_detail_lv_content_tv);
+            mViewHolder.mContent = (TextView) view.findViewById(R.id.moment_detail_comment_lv_content_tv);
 //            mViewHolder.mFloor = (TextView) view.findViewById(R.id.question_detail_lv_floor_tv);
 //            mViewHolder.mLike = (TextView) view.findViewById(R.id.question_detail_lv_like_tv);
-//            mViewHolder.mLogo = (ImageView) view.findViewById(R.id.question_detail_lv_user_logo_iv);
-//            mViewHolder.mName = (TextView) view.findViewById(R.id.question_detail_lv_user_name_tv);
+            mViewHolder.mLogo = (ImageView) view.findViewById(R.id.moment_detail_comment_lv_head_iv);
+            mViewHolder.mName = (TextView) view.findViewById(R.id.moment_detail_comment_lv_name_tv);
 //            mViewHolder.mTime = (TextView) view.findViewById(R.id.question_detail_lv_time_tv);
 //            mViewHolder.mUnlike = (TextView) view.findViewById(R.id.question_detail_lv_unlike_tv);
             view.setTag(mViewHolder);
@@ -68,25 +67,25 @@ public class SquareDetailListViewAdapter extends BaseAdapter {
             view = convertView;
             mViewHolder = (ViewHolder) view.getTag();
         }
-        mViewHolder.mContent.setText(questionComment.getContent());
-        mViewHolder.mFloor.setText(position + 1  + "");
-        mViewHolder.mLike.setText(questionComment.getGood() + "");
-        ImageLoadUtils.display(mContext, mViewHolder.mLogo, questionComment.getApplier().getHead());
+        mViewHolder.mContent.setText(calculateSpace(questionComment.getApplier().getUsername()) + questionComment.getContent());
+//        mViewHolder.mFloor.setText(position + 1  + "");
+//        mViewHolder.mLike.setText(questionComment.getGood() + "");
+//        ImageLoadUtils.display(mContext, mViewHolder.mLogo, questionComment.getApplier().getHead());
         mViewHolder.mName.setText(questionComment.getApplier().getUsername());
-        mViewHolder.mTime.setText(questionComment.getAsk_time());
-        mViewHolder.mUnlike.setText(questionComment.getBad() + "");
-        mViewHolder.mLike.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onLikeClickListener.onLikeClickListener(questionComment.getComment_id());
-            }
-        });
-        mViewHolder.mUnlike.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onUnlikeClickListener.onUnlikeClickListener(questionComment.getComment_id());
-            }
-        });
+//        mViewHolder.mTime.setText(questionComment.getAsk_time());
+//        mViewHolder.mUnlike.setText(questionComment.getBad() + "");
+//        mViewHolder.mLike.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                onLikeClickListener.onLikeClickListener(questionComment.getComment_id());
+//            }
+//        });
+//        mViewHolder.mUnlike.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                onUnlikeClickListener.onUnlikeClickListener(questionComment.getComment_id());
+//            }
+//        });
         return view;
     }
 
@@ -110,9 +109,21 @@ public class SquareDetailListViewAdapter extends BaseAdapter {
         ImageView mLogo;
         TextView mName;
         TextView mContent;
-        TextView mTime;
-        TextView mFloor;
-        TextView mLike;
-        TextView mUnlike;
+//        TextView mTime;
+//        TextView mFloor;
+//        TextView mLike;
+//        TextView mUnlike;
+    }
+
+    private String calculateSpace(String username) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < username.length(); i++) {
+            if ((username.charAt(i) >= 'A' && username.charAt(i) <= 'Z') || (username.charAt(i) >= 'a' && username.charAt(i) <= 'z')) {
+                sb.append("   ");
+            } else {
+                sb.append("     ");
+            }
+        }
+        return sb.toString();
     }
 }

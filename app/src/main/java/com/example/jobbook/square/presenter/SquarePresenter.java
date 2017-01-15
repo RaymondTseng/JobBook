@@ -7,7 +7,7 @@ public interface SquarePresenter {
 
     void loadSquare(int pageIndex, String name);
 
-    void like(String squareId);
+    void like(int squareId);
 
-    void unlike(String squareId);
+    void unlike(int squareId);
 }

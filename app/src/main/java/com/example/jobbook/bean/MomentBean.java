@@ -12,7 +12,7 @@ public class MomentBean implements Serializable {
     /**
      * id
      */
-    private String q_id;
+    private int q_id;
     /**
      * 工作圈作者
      */
@@ -46,11 +46,11 @@ public class MomentBean implements Serializable {
         this.likesNum = likesNum;
     }
 
-    public String getId() {
+    public int getId() {
         return q_id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.q_id = id;
     }
 

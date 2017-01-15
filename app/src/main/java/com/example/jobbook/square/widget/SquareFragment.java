@@ -22,10 +22,8 @@ import android.widget.TextView;
 import com.example.jobbook.MyApplication;
 import com.example.jobbook.R;
 import com.example.jobbook.bean.MomentBean;
-import com.example.jobbook.bean.PersonBean;
 import com.example.jobbook.commons.Urls;
-import com.example.jobbook.square.widget.SquareDetailActivity;
-import com.example.jobbook.moment.widget.MomentFragment;
+import com.example.jobbook.moment.widget.MomentDetailActivity;
 import com.example.jobbook.square.SquareAdapter;
 import com.example.jobbook.square.presenter.SquarePresenter;
 import com.example.jobbook.square.presenter.SquarePresenterImpl;
@@ -93,14 +91,7 @@ public class SquareFragment extends Fragment implements SquareView,
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        mAdapter.setOnContentClickListener(new SquareAdapter.OnContentClickListener() {
-            @Override
-            public void onContentClick(View view, int position) {
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("square_detail", mData.get(position));
-                Util.toAnotherActivity(getActivity(), SquareDetailActivity.class, bundle);
-            }
-        });
+        mAdapter.setOnContentClickListener(mOnContentClickListener);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.addOnScrollListener(mOnScrollListener);
         mAdapter.setOnNoInterestButtonClickListener(new SquareAdapter.OnNoInterestButtonClickListener() {
@@ -158,13 +149,13 @@ public class SquareFragment extends Fragment implements SquareView,
         }
     };
 
-    private SquareAdapter.OnItemClickListener mOnItemClickListener = new SquareAdapter.OnItemClickListener() {
+    private SquareAdapter.OnContentClickListener mOnContentClickListener = new SquareAdapter.OnContentClickListener() {
         @Override
-        public void onItemClick(View view, int position) {
+        public void onContentClick(View view, int position) {
             MomentBean square = mAdapter.getItem(position);
             Bundle bundle = new Bundle();
             bundle.putSerializable("square_detail", square);
-            Util.toAnotherActivity(getActivity(), SquareDetailActivity.class, bundle);
+            Util.toAnotherActivity(getActivity(), MomentDetailActivity.class, bundle);
         }
     };
 
@@ -207,12 +198,12 @@ public class SquareFragment extends Fragment implements SquareView,
     }
 
     @Override
-    public void like(String squareId) {
+    public void like(int squareId) {
         mSquarePresenter.like(squareId);
     }
 
     @Override
-    public void unlike(String squareId) {
+    public void unlike(int squareId) {
         mSquarePresenter.unlike(squareId);
     }
 

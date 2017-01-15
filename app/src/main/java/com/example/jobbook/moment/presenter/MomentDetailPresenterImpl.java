@@ -62,9 +62,9 @@ public class MomentDetailPresenterImpl implements MomentDetailPresenter,
     }
 
     @Override
-    public void sendComment(MomentCommentBean momentCommentBean) {
+    public void sendComment(int id, MomentCommentBean momentCommentBean) {
         mView.showProgress();
-        mModel.sendComment(momentCommentBean, this);
+        mModel.sendComment(id, momentCommentBean, this);
     }
 
     @Override

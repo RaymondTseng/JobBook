@@ -38,11 +38,11 @@ public class Urls {
 
     public static final String SQUARE_UNLIKE_URL = IP + "/jobBook/question/unlikeQuestion/q_id/";
 
-    public static final String SQUARE_DETAIL_URL = IP + "/jobBook/question/getQuestion/q_id/";
+    public static final String SQUARE_LOAD_COMMENT_URL = IP + "/jobBook/question/getComments/q_id/";
 
     public static final String NEW_SQUARE_URL = IP + "/jobBook/question/releaseQuestion";
 
-    public static final String SEND_SQUARE_COMMENT_URL = IP + "/jobBook/question/comment";
+    public static final String SEND_SQUARE_COMMENT_URL = IP + "/jobBook/question/comment/q_id/";
 
     public static final String SEARCH_URL = IP + "/jobBook/job/search/keyword/";
 

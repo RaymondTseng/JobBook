@@ -28,25 +28,25 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="16"></LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="48"
-        android:orientation="horizontal"
-        android:id="@+id/person_black_list_ll"
-        android:background="@color/colorWhite">
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/black_list"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="16dp"/>
-        <TextView
-            style="@style/Black16sptv"
-            android:text="我的黑名单"
-            android:layout_marginLeft="8dp"
-            android:layout_gravity="center_vertical"/>
-    </LinearLayout>
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:layout_weight="48"-->
+        <!--android:orientation="horizontal"-->
+        <!--android:id="@+id/person_black_list_ll"-->
+        <!--android:background="@color/colorWhite">-->
+        <!--<ImageView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:src="@mipmap/black_list"-->
+            <!--android:layout_gravity="center_vertical"-->
+            <!--android:layout_marginLeft="16dp"/>-->
+        <!--<TextView-->
+            <!--style="@style/Black16sptv"-->
+            <!--android:text="我的黑名单"-->
+            <!--android:layout_marginLeft="8dp"-->
+            <!--android:layout_gravity="center_vertical"/>-->
+    <!--</LinearLayout>-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"

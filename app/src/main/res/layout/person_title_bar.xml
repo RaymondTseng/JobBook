@@ -4,13 +4,13 @@
     android:layout_height="match_parent"
     android:background="@color/colorBlue">
 
-    <TextView
-        style="@style/White16sptv"
-        android:text="编辑"
-        android:id="@+id/person_edit_tv"
-        android:layout_marginTop="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_alignParentRight="true"/>
+    <!--<TextView-->
+        <!--style="@style/White16sptv"-->
+        <!--android:text="编辑"-->
+        <!--android:id="@+id/person_edit_tv"-->
+        <!--android:layout_marginTop="16dp"-->
+        <!--android:layout_marginRight="16dp"-->
+        <!--android:layout_alignParentRight="true"/>-->
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/person_title_head_iv"
         android:layout_width="78dp"

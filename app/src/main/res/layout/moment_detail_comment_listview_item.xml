@@ -3,6 +3,7 @@
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/colorWhite">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -10,7 +11,7 @@
         android:layout_marginRight="16dp"
         android:orientation="horizontal">
         <ImageView
-            android:id="@+id/square_detail_lv_head_iv"
+            android:id="@+id/moment_detail_comment_lv_head_iv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@mipmap/default_32px"/>
@@ -21,9 +22,9 @@
             <TextView
                 style="@style/TextBlue14sptv"
                 android:text="曾梓航:"
-                android:id="@+id/square_detail_lv_name_tv"/>
+                android:id="@+id/moment_detail_comment_lv_name_tv"/>
             <TextView
-                android:id="@+id/square_detail_lv_content_tv"
+                android:id="@+id/moment_detail_comment_lv_content_tv"
                 style="@style/Black14sptv"
                 android:text="                你这样做有想过你的家里人吗。不想家里人你有想过老板的感受吗，就算不想老板的..."/>
         </FrameLayout>

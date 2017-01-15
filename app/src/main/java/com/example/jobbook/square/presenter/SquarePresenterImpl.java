@@ -30,12 +30,12 @@ public class SquarePresenterImpl implements SquarePresenter,SquareModelImpl.OnLo
     }
 
     @Override
-    public void like(String squareId) {
+    public void like(int squareId) {
         mSquareModel.like(squareId, this);
     }
 
     @Override
-    public void unlike(String squareId) {
+    public void unlike(int squareId) {
         mSquareModel.unlike(squareId, this);
     }
 

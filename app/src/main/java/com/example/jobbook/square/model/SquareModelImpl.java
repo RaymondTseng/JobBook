@@ -47,7 +47,7 @@ public class SquareModelImpl implements SquareModel {
     }
 
     @Override
-    public void like(String squareId, final OnLikeSquareListener listener) {
+    public void like(int squareId, final OnLikeSquareListener listener) {
         String account = "";
         if (MyApplication.getmLoginStatus() == 0) {
             listener.onLikeSquareNoLoginError();
@@ -73,7 +73,7 @@ public class SquareModelImpl implements SquareModel {
     }
 
     @Override
-    public void unlike(String squareId, final OnUnlikeSquareListener listener) {
+    public void unlike(int squareId, final OnUnlikeSquareListener listener) {
         String account = "";
         if (MyApplication.getmLoginStatus() == 0) {
             listener.onUnlikeSquareNoLoginError();

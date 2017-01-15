@@ -25,7 +25,7 @@ public class SettingActivity extends Activity implements View.OnClickListener {
     private ImageButton mBackImageButton;
     private Button mChangePhoneButton;
     private Button mChangePwdButton;
-    private Button mNodificationButton;
+//    private Button mNodificationButton;
     private Button mClearCacheButton;
     private Button mAboutButton;
     private TextView mCacheTextView;
@@ -41,7 +41,7 @@ public class SettingActivity extends Activity implements View.OnClickListener {
         mBackImageButton = (ImageButton) findViewById(R.id.setting_back_ib);
         mChangePhoneButton = (Button) findViewById(R.id.setting_change_phone_bt);
         mChangePwdButton = (Button) findViewById(R.id.setting_change_password_bt);
-        mNodificationButton = (Button) findViewById(R.id.setting_nodification_bt);
+//        mNodificationButton = (Button) findViewById(R.id.setting_nodification_bt);
         mClearCacheButton = (Button) findViewById(R.id.setting_clearcache_bt);
         mAboutButton = (Button) findViewById(R.id.setting_about_bt);
         mCacheTextView = (TextView) findViewById(R.id.show_cache_tv);
@@ -78,8 +78,8 @@ public class SettingActivity extends Activity implements View.OnClickListener {
                 finish();
                 break;
 
-            case R.id.setting_nodification_bt:
-                break;
+//            case R.id.setting_nodification_bt:
+//                break;
 
             case R.id.setting_about_bt:
                 break;
