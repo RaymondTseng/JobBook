@@ -11,7 +11,7 @@ public interface MomentDetailPresenter {
 
     void loadMomentComments(int id);
 
-    void sendComment(MomentCommentBean momentCommentBean);
+    void sendComment(int id, MomentCommentBean momentCommentBean);
 
     void commentLike(int com_id, String account);
 

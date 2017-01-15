@@ -5,4 +5,6 @@ package com.example.jobbook.blacklist.model;
  */
 
 public interface BlackListModel {
+
+    void loadBlackList(BlackListModelImpl.OnLoadBlackListListener listener);
 }

@@ -8,7 +8,7 @@ public class Urls {
     public static final int PAZE_SIZE = 10;
 
 //    public static final String IP = "http://115.28.202.143";
-    public static final String IP = "http://192.168.1.110";
+    public static final String IP = "http://192.168.1.131";
 
     public static final String REGISTER_URL = IP + "/jobBook/enter/doRegister/";
 
@@ -26,6 +26,10 @@ public class Urls {
 
     public static final String ARTICLE_DETAIL_URL = IP + "/jobBook/article/getArticle/a_id/";
 
+    public static final String ARTICLE_LIKE_URL = IP + "/jobBook/article/likesArticle/a_id/";
+
+    public static final String ARTICLE_UNLIKE_URL = IP + "/jobBook/article/unlikesArticle/a_id/";
+
     public static final String SQUARE_URL = IP + "/jobBook/question/allQuestions";
 
     public static final String SQUARE_FOLLOW_URL = IP + "/jobBook/question/focusQuestion";
@@ -34,11 +38,11 @@ public class Urls {
 
     public static final String SQUARE_UNLIKE_URL = IP + "/jobBook/question/unlikeQuestion/q_id/";
 
-    public static final String SQUARE_DETAIL_URL = IP + "/jobBook/question/getQuestion/q_id/";
+    public static final String SQUARE_LOAD_COMMENT_URL = IP + "/jobBook/question/getComments/q_id/";
 
     public static final String NEW_SQUARE_URL = IP + "/jobBook/question/releaseQuestion";
 
-    public static final String SEND_SQUARE_COMMENT_URL = IP + "/jobBook/question/comment";
+    public static final String SEND_SQUARE_COMMENT_URL = IP + "/jobBook/question/comment/q_id/";
 
     public static final String SEARCH_URL = IP + "/jobBook/job/search/keyword/";
 

@@ -18,9 +18,9 @@ public interface SquareFollowView {
 
     void showLoadFailMsg();
 
-    void like(String squareId);
+    void like(int squareId);
 
-    void unlike(String squareId);
+    void unlike(int squareId);
 
     void NoLoginError();
 

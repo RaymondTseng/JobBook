@@ -46,7 +46,7 @@ public class SquareFollowModelImpl implements SquareFollowModel {
     }
 
     @Override
-    public void like(String squareId, String account, final SquareModelImpl.OnLikeSquareListener listener) {
+    public void like(int squareId, String account, final SquareModelImpl.OnLikeSquareListener listener) {
         OkHttpUtils.get().url(Urls.SQUARE_LIKE_URL + squareId + "/account/" + account).build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
@@ -66,7 +66,7 @@ public class SquareFollowModelImpl implements SquareFollowModel {
     }
 
     @Override
-    public void unlike(String squareId, String account, final SquareModelImpl.OnUnlikeSquareListener listener) {
+    public void unlike(int squareId, String account, final SquareModelImpl.OnUnlikeSquareListener listener) {
         OkHttpUtils.get().url(Urls.SQUARE_UNLIKE_URL + squareId + "/account/" + account).build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {

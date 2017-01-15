@@ -10,6 +10,10 @@ import java.util.List;
  */
 public interface ArticleDetailView {
 
+    void like(String articleId);
+
+    void unlike(String articleId);
+
     void showProgress();
 
     void addComments(List<ArticleCommentBean> mComments);
@@ -21,5 +25,15 @@ public interface ArticleDetailView {
     void showLoadFailMsg();
 
     void close();
+
+    void NoLoginError();
+
+    void likeSuccess();
+
+    void unlikeSuccess();
+
+    void likeError();
+
+    void unlikeError();
 
 }

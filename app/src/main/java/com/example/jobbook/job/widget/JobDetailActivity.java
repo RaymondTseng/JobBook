@@ -2,6 +2,8 @@ package com.example.jobbook.job.widget;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -93,9 +95,13 @@ public class JobDetailActivity extends Activity implements View.OnClickListener,
                 finish();
                 break;
             case R.id.job_detail_tocompany_tv:
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("company", jobDetailBean.getCompany());
-                Util.toAnotherActivity(this, CompanyDetailActivity.class, bundle);
+//                Bundle bundle = new Bundle();
+//                bundle.putSerializable("company", jobDetailBean.getCompany());
+//                Util.toAnotherActivity(this, CompanyDetailActivity.class, bundle);
+//                Toast.makeText(this, "website:" + jobDetailBean.getCompany().getWebsite(), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(jobDetailBean.getCompany().getWebsite()));
+                startActivity(intent);
                 break;
             case R.id.job_detail_like_ib:
 

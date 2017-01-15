@@ -12,7 +12,7 @@ import java.util.List;
  * Created by 椰树 on 2016/7/16.
  */
 public class ArticleDetailPresenterImpl implements ArticleDetailPresenter,
-        ArticleDetailModelImpl.OnLoadArticleListener, ArticleDetailModelImpl.OnLoadArticleCommentListener {
+        ArticleDetailModelImpl.OnLoadArticleListener, ArticleDetailModelImpl.OnLoadArticleCommentListener, ArticleDetailModelImpl.OnLikeArticleListener, ArticleDetailModelImpl.OnUnlikeArticleListener {
     private ArticleDetailModel mModel;
     private ArticleDetailView mView;
 
@@ -29,6 +29,16 @@ public class ArticleDetailPresenterImpl implements ArticleDetailPresenter,
     @Override
     public void loadComments() {
 //        mModel.loadComments(null, null);
+    }
+
+    @Override
+    public void like(String articleId) {
+        mModel.like(articleId, this);
+    }
+
+    @Override
+    public void unlike(String articleId) {
+        mModel.unlike(articleId, this);
     }
 
     @Override
@@ -49,5 +59,41 @@ public class ArticleDetailPresenterImpl implements ArticleDetailPresenter,
         mView.showLoadFailMsg();
         mView.hideProgress();
         mView.close();
+    }
+
+    @Override
+    public void onLikeSuccess() {
+        mView.hideProgress();
+        mView.likeSuccess();
+    }
+
+    @Override
+    public void onLikeArticleFailure(String msg, Exception e) {
+        mView.hideProgress();
+        mView.likeError();
+    }
+
+    @Override
+    public void onLikeArticleNoLoginError() {
+        mView.hideProgress();
+        mView.NoLoginError();
+    }
+
+    @Override
+    public void onUnlikeSuccess() {
+        mView.hideProgress();
+        mView.unlikeSuccess();
+    }
+
+    @Override
+    public void onUnlikeArticleFailure(String msg, Exception e) {
+        mView.hideProgress();
+        mView.unlikeError();
+    }
+
+    @Override
+    public void onUnlikeArticleNoLoginError() {
+        mView.hideProgress();
+        mView.NoLoginError();
     }
 }

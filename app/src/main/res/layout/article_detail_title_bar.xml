@@ -15,20 +15,19 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="文章详情"
-        android:textSize="20sp"
-        android:textColor="@color/colorWhite"
-        android:layout_toRightOf="@id/article_detail_back_ib"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="16dp"/>
+        android:layout_marginLeft="16dp"
+        android:layout_toRightOf="@id/article_detail_back_ib"
+        android:text="文章详情"
+        android:textColor="@color/colorWhite"
+        android:textSize="20sp" />
 
     <ImageButton
-        android:id="@+id/article_detail_like_iv"
+        android:id="@+id/article_detail_like_ib"
         android:layout_width="56dp"
         android:layout_height="56dp"
-        android:src="@mipmap/favourite_white"
-        android:background="@null"
-        android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
-         />
+        android:layout_centerVertical="true"
+        android:background="@null"
+        android:src="@mipmap/favourite_white" />
 </RelativeLayout>

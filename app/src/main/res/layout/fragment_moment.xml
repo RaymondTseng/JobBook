@@ -17,7 +17,7 @@
             android:layout_height="match_parent"
             android:layout_weight="56"
             android:background="@null"
-            android:src="@mipmap/knowmore" />
+            />
 
         <LinearLayout
             android:layout_width="0dp"

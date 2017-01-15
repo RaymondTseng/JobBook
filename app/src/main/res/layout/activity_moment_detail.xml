@@ -7,8 +7,8 @@
     android:weightSum="568">
 
     <include
-        android:id="@+id/square_detail_title_bar"
-        layout="@layout/square_detail_title_bar"
+        android:id="@+id/moment_detail_title_bar"
+        layout="@layout/moment_detail_title_bar"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="56" />
@@ -43,26 +43,26 @@
                 android:background="@color/colorWhite">
 
                 <ImageView
-                    android:id="@+id/square_detail_head_iv"
+                    android:id="@+id/moment_detail_head_iv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:src="@mipmap/default_32px" />
 
                 <TextView
-                    android:id="@+id/square_detail_name_tv"
+                    android:id="@+id/moment_detail_name_tv"
                     style="@style/Black14sptv"
                     android:layout_marginLeft="16dp"
                     android:layout_marginTop="12dp"
-                    android:layout_toRightOf="@id/square_detail_head_iv"
+                    android:layout_toRightOf="@id/moment_detail_head_iv"
                     android:text="张朝旭" />
 
                 <TextView
-                    android:id="@+id/square_detail_position_tv"
+                    android:id="@+id/moment_detail_position_tv"
                     style="@style/TextBlue12sptv"
-                    android:layout_below="@id/square_detail_name_tv"
+                    android:layout_below="@id/moment_detail_name_tv"
                     android:layout_marginLeft="16dp"
-                    android:layout_toRightOf="@id/square_detail_head_iv"
+                    android:layout_toRightOf="@id/moment_detail_head_iv"
                     android:text="职谱 扫地僧" />
 
             </RelativeLayout>
@@ -75,7 +75,7 @@
                 android:background="@color/colorSettingsBackgroundGray" />
 
             <TextView
-                android:id="@+id/square_detail_content_tv"
+                android:id="@+id/moment_detail_content_tv"
                 style="@style/Black16sptv"
                 android:layout_marginLeft="32dp"
                 android:layout_marginRight="32dp"
@@ -98,7 +98,7 @@
                     android:src="@mipmap/favorite_16px" />
 
                 <TextView
-                    android:id="@+id/square_detail_favourite_tv"
+                    android:id="@+id/moment_detail_favourite_tv"
                     style="@style/TextGray14sptv"
                     android:layout_gravity="center_vertical"
                     android:text="2300" />
@@ -112,13 +112,13 @@
                     android:src="@mipmap/comment_16px" />
 
                 <TextView
-                    android:id="@+id/square_detail_comment_tv"
+                    android:id="@+id/moment_detail_comment_tv"
                     style="@style/TextGray14sptv"
                     android:layout_gravity="center_vertical"
                     android:text="2100" />
 
                 <TextView
-                    android:id="@+id/square_detail_time_tv"
+                    android:id="@+id/moment_detail_time_tv"
                     style="@style/TextGray14sptv"
                     android:layout_width="match_parent"
                     android:layout_gravity="center_vertical"
@@ -128,7 +128,7 @@
         </LinearLayout>
 
         <ListView
-            android:id="@+id/square_detail_lv"
+            android:id="@+id/moment_detail_lv"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="270"
@@ -143,7 +143,7 @@
 
 
     <LinearLayout
-        android:id="@+id/square_detail_input_ll"
+        android:id="@+id/moment_detail_input_ll"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="56"
@@ -152,7 +152,7 @@
         android:weightSum="360">
 
         <ImageButton
-            android:id="@+id/square_detail_favourite_ib"
+            android:id="@+id/moment_detail_favourite_ib"
             android:layout_width="56dp"
             android:layout_height="56dp"
             android:layout_gravity="center"
@@ -160,7 +160,7 @@
             android:background="@null"/>
 
         <EditText
-            android:id="@+id/square_detail_comment_et"
+            android:id="@+id/moment_detail_comment_et"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="360"
@@ -172,7 +172,7 @@
             android:textSize="20sp" />
 
         <ImageButton
-            android:id="@+id/square_detail_send_ib"
+            android:id="@+id/moment_detail_send_ib"
             android:layout_width="56dp"
             android:layout_height="56dp"
             android:layout_gravity="center"

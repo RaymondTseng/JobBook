@@ -12,18 +12,14 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.jobbook.MyApplication;
 import com.example.jobbook.R;
 import com.example.jobbook.bean.PersonBean;
-import com.example.jobbook.cv.widget.TextCVActivity;
-import com.example.jobbook.feedback.widget.FeedBackActivity;
 import com.example.jobbook.login.widget.LoginActivity;
 import com.example.jobbook.person.view.PersonView;
 import com.example.jobbook.util.ImageLoadUtils;
@@ -50,7 +46,7 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
     private Button mSwitch2TextCVButton;
     private ImageView mHeadBackGround;
     private LinearLayout mMessageLayout;
-    private LinearLayout mBlackListLayout;
+//    private LinearLayout mBlackListLayout;
     private TextView mLogOutTextView;
     private TextView mMomentTextView;
     private TextView mFollowTextView;
@@ -58,7 +54,7 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
     private CircleImageView mCircleHeadImageView;
     private MyApplication mMyApplication;
     private PersonBean personBean;
-    private TextView mEditTextView;
+//    private TextView mEditTextView;
     private View view;
 
     final Handler handler = new Handler() {
@@ -108,9 +104,9 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
         mFollowTextView = (TextView) view.findViewById(R.id.person_follow_num_tv);
         mFansTextView = (TextView) view.findViewById(R.id.person_fans_num_tv);
         mMessageLayout = (LinearLayout) view.findViewById(R.id.person_message_ll);
-        mBlackListLayout = (LinearLayout) view.findViewById(R.id.person_black_list_ll);
+//        mBlackListLayout = (LinearLayout) view.findViewById(R.id.person_black_list_ll);
         mLogOutTextView = (TextView) view.findViewById(R.id.person_logout_tv);
-        mEditTextView = (TextView) view.findViewById(R.id.person_edit_tv);
+//        mEditTextView = (TextView) view.findViewById(R.id.person_edit_tv);
         mCircleHeadImageView = (CircleImageView) view.findViewById(R.id.person_title_head_iv);
     }
 
@@ -119,9 +115,9 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
         mSettingLayout.setOnClickListener(this);
         mFavouriteLayout.setOnClickListener(this);
         mMessageLayout.setOnClickListener(this);
-        mBlackListLayout.setOnClickListener(this);
+//        mBlackListLayout.setOnClickListener(this);
         mLogOutTextView.setOnClickListener(this);
-        mEditTextView.setOnClickListener(this);
+//        mEditTextView.setOnClickListener(this);
         mMyApplication = (MyApplication) getActivity().getApplication();
         showPersonData();
     }
@@ -157,12 +153,12 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
             case R.id.person_collect_ll:
                 Util.toAnotherActivity(getActivity(), FavouriteActivity.class);
                 break;
-            case R.id.person_black_list_ll:
-                break;
+//            case R.id.person_black_list_ll:
+//                break;
             case R.id.person_message_ll:
                 break;
-            case R.id.person_edit_tv:
-                break;
+//            case R.id.person_edit_tv:
+//                break;
 //            case R.id.person_textcv_bt:
 //                mMyApplication.setHandler(handler);
 //                Util.toAnotherActivity(getActivity(), TextCVActivity.class);

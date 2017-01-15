@@ -1,7 +1,5 @@
 package com.example.jobbook.bean;
 
-import android.widget.ImageView;
-
 import java.io.Serializable;
 import java.util.List;
 
@@ -22,10 +20,10 @@ public class CompanyBean implements Serializable {
      */
     private String name;
 
-    /**
-     * 公司图标
-     */
-    private String logo;
+//    /**
+//     * 公司图标
+//     */
+//    private String logo;
 
     /**
      * 公司地址
@@ -52,6 +50,19 @@ public class CompanyBean implements Serializable {
      */
     private List<CompanyCommentBean> comments;
 
+    /**
+     * 公司网址
+     */
+    private String website;
+
+    public String getWebsite() {
+        return website;
+    }
+
+    public void setWebsite(String website) {
+        this.website = website;
+    }
+
     public String getName() {
         return name;
     }
@@ -60,13 +71,13 @@ public class CompanyBean implements Serializable {
         this.name = name;
     }
 
-    public String getLogo() {
-        return logo;
-    }
-
-    public void setLogo(String logo) {
-        this.logo = logo;
-    }
+//    public String getLogo() {
+//        return logo;
+//    }
+//
+//    public void setLogo(String logo) {
+//        this.logo = logo;
+//    }
 
     public String getWelfare() {
         return welfare;

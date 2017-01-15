@@ -28,7 +28,6 @@ import com.example.jobbook.follow.presenter.SquareFollowPresenter;
 import com.example.jobbook.follow.presenter.SquareFollowPresenterImpl;
 import com.example.jobbook.follow.view.SquareFollowView;
 import com.example.jobbook.moment.widget.MomentDetailActivity;
-import com.example.jobbook.moment.widget.MomentFragment;
 import com.example.jobbook.util.DividerItemDecoration;
 import com.example.jobbook.util.L;
 import com.example.jobbook.util.Util;
@@ -200,12 +199,12 @@ public class SquareFollowFragment extends Fragment implements SquareFollowView,
     }
 
     @Override
-    public void like(String squareId) {
+    public void like(int squareId) {
         mSquareFollowPresenter.like(squareId, MyApplication.getAccount());
     }
 
     @Override
-    public void unlike(String squareId) {
+    public void unlike(int squareId) {
         mSquareFollowPresenter.unlike(squareId, MyApplication.getAccount());
     }
 
@@ -217,12 +216,12 @@ public class SquareFollowFragment extends Fragment implements SquareFollowView,
 
     @Override
     public void likeSuccess() {
-
+        Util.showSnackBar(view, "点赞成功！");
     }
 
     @Override
     public void unlikeSuccess() {
-
+        Util.showSnackBar(view, "取消点赞成功！");
     }
 
     @Override

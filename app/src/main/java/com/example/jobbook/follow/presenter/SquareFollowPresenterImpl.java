@@ -30,12 +30,12 @@ public class SquareFollowPresenterImpl implements SquareFollowPresenter,SquareFo
     }
 
     @Override
-    public void like(String squareId, String account) {
+    public void like(int squareId, String account) {
         mSquareFollowModel.like(squareId, account, this);
     }
 
     @Override
-    public void unlike(String squareId, String account) {
+    public void unlike(int squareId, String account) {
         mSquareFollowModel.unlike(squareId, account, this);
     }
 

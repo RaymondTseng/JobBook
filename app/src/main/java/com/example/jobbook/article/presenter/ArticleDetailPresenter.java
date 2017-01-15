@@ -5,5 +5,10 @@ package com.example.jobbook.article.presenter;
  */
 public interface ArticleDetailPresenter {
     void loadArticle(String articleId);
+
     void loadComments();
+
+    void like(String articleId);
+
+    void unlike(String articleId);
 }

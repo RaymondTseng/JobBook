@@ -25,10 +25,11 @@ public class MomentDetailModelImpl implements MomentDetailModel {
 
     @Override
     public void loadMomentComments(int id, final OnLoadMomentCommentsListener mListener) {
-        OkHttpUtils.postString().url(Urls.SQUARE_DETAIL_URL + id).
+        OkHttpUtils.postString().url(Urls.SQUARE_LOAD_COMMENT_URL + id).
                 content(String.valueOf(id)).build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
+                L.i("questiondetail_response", "error");
                 mListener.onFailure("network error", e, LOAD_QUESTION_COMMENTS_ERROR);
             }
 
@@ -57,8 +58,8 @@ public class MomentDetailModelImpl implements MomentDetailModel {
     }
 
     @Override
-    public void sendComment(MomentCommentBean momentCommentBean, final OnSendMomentCommentListener mListener) {
-        OkHttpUtils.postString().url(Urls.SEND_SQUARE_COMMENT_URL).content(new Gson().
+    public void sendComment(int id, MomentCommentBean momentCommentBean, final OnSendMomentCommentListener mListener) {
+        OkHttpUtils.postString().url(Urls.SEND_SQUARE_COMMENT_URL + id).content(new Gson().
                 toJson(momentCommentBean)).build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
