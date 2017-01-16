@@ -1,37 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:weightSum="568">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="202"
         android:background="@color/colorBlue">
+
         <include
             layout="@layout/user_detail_title"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="202"/>
+            android:layout_weight="202" />
+
         <ImageView
             android:id="@+id/user_detail_bg"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@mipmap/suit"
+            android:alpha="0.1"
             android:scaleType="centerCrop"
-            android:alpha="0.1"/>
+            android:src="@mipmap/suit" />
     </RelativeLayout>
+
     <android.support.v4.view.ViewPager
         android:id="@+id/user_detail_vp"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="310"></android.support.v4.view.ViewPager>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_weight="56"
         android:background="@drawable/job_detail_bottom_ll_bg"
         android:orientation="horizontal"
-        android:layout_weight="56"
         android:weightSum="2">
 
         <RelativeLayout
@@ -40,10 +46,10 @@
             android:layout_weight="1">
 
             <LinearLayout
+                android:id="@+id/user_detail_follow_ll"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:id="@+id/user_detail_follow_ll">
+                android:layout_centerInParent="true">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -53,8 +59,7 @@
                 <TextView
                     style="@style/TextBlue14sptv"
                     android:layout_gravity="center"
-                    android:text="关注"
-                    />
+                    android:text="关注" />
             </LinearLayout>
 
         </RelativeLayout>

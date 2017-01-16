@@ -5,5 +5,5 @@ package com.example.jobbook.search.presenter;
  */
 public interface SearchPresenter {
 
-    void search(String content, int pageIndex);
+    void search(int type, String content, int pageIndex);
 }

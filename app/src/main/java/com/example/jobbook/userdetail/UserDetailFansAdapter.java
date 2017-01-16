@@ -51,7 +51,7 @@ public class UserDetailFansAdapter extends BaseAdapter {
             view = LayoutInflater.from(mContext).inflate(R.layout.user_detail_follow_lv_item, null);
             mViewHolder = new ViewHolder();
             mViewHolder.mHeadImageView = (ImageView) view.findViewById(R.id.user_detail_follow_lv_item_head_iv);
-            mViewHolder.mNameTextView = (TextView) view.findViewById(R.id.user_detail_title_follower_tv);
+            mViewHolder.mNameTextView = (TextView) view.findViewById(R.id.user_detail_follow_lv_item_name_tv);
             mViewHolder.mWorkSpacePositionTextView = (TextView) view.findViewById(R.id.user_detail_follow_lv_item_space_position_tv);
             view.setTag(mViewHolder);
         }else{

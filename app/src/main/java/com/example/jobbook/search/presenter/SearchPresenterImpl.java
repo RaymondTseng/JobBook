@@ -21,9 +21,9 @@ public class SearchPresenterImpl implements SearchPresenter, SearchModelImpl.OnS
     }
 
     @Override
-    public void search(String content, int pageIndex) {
+    public void search(int type, String content, int pageIndex) {
         searchView.showProgress();
-        searchModel.search(content, pageIndex, this);
+        searchModel.search(type, content, pageIndex, this);
     }
 
     @Override

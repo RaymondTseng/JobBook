@@ -18,10 +18,19 @@ import okhttp3.Call;
  */
 public class SearchModelImpl implements SearchModel {
 
+    public static final int JOB_LOCATION = 0;
+    public static final int JOB_TYPE = 1;
+
     @Override
-    public void search(String content, int pageIndex, final OnSearchListener listener) {
-        L.i("search:", content + "," + pageIndex);
-        OkHttpUtils.postString().content(String.valueOf(pageIndex)).url(Urls.SEARCH_URL + content).build().execute(new StringCallback() {
+    public void search(int type, String content, int pageIndex, final OnSearchListener listener) {
+        StringBuilder url = new StringBuilder();
+        if (type == JOB_TYPE) {
+            url.append(Urls.JOB_HEADER_SEARCH_URL + "/type/" + content);
+        } else if (type == JOB_LOCATION) {
+            url.append(Urls.JOB_HEADER_SEARCH_URL + "/location/" + content);
+        }
+        L.i("search:", url.toString());
+        OkHttpUtils.postString().content(String.valueOf(pageIndex)).url(url.toString()).build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
                 listener.onSearchFaliure("network error", e);

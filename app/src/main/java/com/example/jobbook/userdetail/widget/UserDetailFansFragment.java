@@ -31,8 +31,6 @@ public class UserDetailFansFragment extends Fragment implements UserDetailFansVi
     private UserDetailFansPresenter mPresenter;
     private String account;
 
-
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -41,7 +39,7 @@ public class UserDetailFansFragment extends Fragment implements UserDetailFansVi
         return view;
     }
 
-    private void init(View view){
+    private void init(View view) {
         mListView = (ListView) view.findViewById(R.id.base_lv);
         mData = new ArrayList<>();
         mPresenter = new UserDetailFansPresenterImpl(this);

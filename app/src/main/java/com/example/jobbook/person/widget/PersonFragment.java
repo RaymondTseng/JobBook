@@ -51,6 +51,9 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
     private TextView mMomentTextView;
     private TextView mFollowTextView;
     private TextView mFansTextView;
+    private LinearLayout mMomentLL;
+    private LinearLayout mFollowLL;
+    private LinearLayout mFanLL;
     private CircleImageView mCircleHeadImageView;
     private MyApplication mMyApplication;
     private PersonBean personBean;
@@ -103,6 +106,9 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
         mMomentTextView = (TextView) view.findViewById(R.id.person_moment_num_tv);
         mFollowTextView = (TextView) view.findViewById(R.id.person_follow_num_tv);
         mFansTextView = (TextView) view.findViewById(R.id.person_fans_num_tv);
+        mMomentLL = (LinearLayout) view.findViewById(R.id.person_moment_num_ll);
+        mFollowLL = (LinearLayout) view.findViewById(R.id.person_follow_num_ll);
+        mFanLL = (LinearLayout) view.findViewById(R.id.person_fans_num_ll);
         mMessageLayout = (LinearLayout) view.findViewById(R.id.person_message_ll);
 //        mBlackListLayout = (LinearLayout) view.findViewById(R.id.person_black_list_ll);
         mLogOutTextView = (TextView) view.findViewById(R.id.person_logout_tv);
@@ -118,6 +124,12 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
 //        mBlackListLayout.setOnClickListener(this);
         mLogOutTextView.setOnClickListener(this);
 //        mEditTextView.setOnClickListener(this);
+//        mMomentTextView.setOnClickListener(this);
+//        mFollowTextView.setOnClickListener(this);
+//        mFansTextView.setOnClickListener(this);
+        mMomentLL.setOnClickListener(this);
+        mFollowLL.setOnClickListener(this);
+        mFanLL.setOnClickListener(this);
         mMyApplication = (MyApplication) getActivity().getApplication();
         showPersonData();
     }
@@ -156,6 +168,13 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
 //            case R.id.person_black_list_ll:
 //                break;
             case R.id.person_message_ll:
+                break;
+            case R.id.person_moment_num_ll:
+                break;
+            case R.id.person_follow_num_ll:
+                break;
+            case R.id.person_fans_num_ll:
+                Util.toAnotherActivity(getActivity(), ShowFanListActivity.class);
                 break;
 //            case R.id.person_edit_tv:
 //                break;

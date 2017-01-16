@@ -5,5 +5,5 @@ package com.example.jobbook.search.model;
  */
 public interface SearchModel {
 
-    void search(String content, int pageIndex, SearchModelImpl.OnSearchListener listener);
+    void search(int type, String content, int pageIndex, SearchModelImpl.OnSearchListener listener);
 }

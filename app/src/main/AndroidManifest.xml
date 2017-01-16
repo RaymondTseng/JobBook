@@ -101,11 +101,13 @@
             android:name=".login.widget.ForgetPwdSecondActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".square.widget.SquareDetailActivity"
+            android:name=".person.widget.ShowFanListActivity"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".userdetail.widget.UserDetailActivity"
             android:screenOrientation="portrait"/>
+
+
 
     </application>
 
