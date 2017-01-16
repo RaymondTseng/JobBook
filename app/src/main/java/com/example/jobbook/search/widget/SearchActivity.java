@@ -12,6 +12,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -49,6 +50,7 @@ public class SearchActivity extends Activity implements View.OnClickListener, Se
     private RecyclerView mRecyclerView;
     private SearchJobsAdapter adapter;
     private String mSearchContent;
+    private int mCurrentType = 0;
     private List<JobBean> list;
     private Spinner mSpinner;
     private LinearLayout mLoadingLinearLayout;
@@ -83,6 +85,17 @@ public class SearchActivity extends Activity implements View.OnClickListener, Se
         mSpinner.setAdapter(mSpinnerAdapter);
         mSpinner.setDropDownVerticalOffset(50);
         mSpinner.setSelection(0);
+        mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                mCurrentType = position;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
     private void initEvents() {
@@ -92,10 +105,12 @@ public class SearchActivity extends Activity implements View.OnClickListener, Se
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             mSearchEditText.setText(bundle.getString("content"));
+            mSpinner.setSelection(bundle.getInt("type"));
+            mCurrentType = bundle.getInt("type");
         }
         presenter = new SearchPresenterImpl(this);
         mSearchContent = bundle.getString("content");
-        presenter.search(mSearchContent, pageIndex);
+        presenter.search(mCurrentType, mSearchContent, pageIndex);
 
         mSearchEditText.requestFocus();
         final InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -112,7 +127,7 @@ public class SearchActivity extends Activity implements View.OnClickListener, Se
                         imm.hideSoftInputFromWindow(v.getApplicationWindowToken(), 0);
                     }
                     if (!TextUtils.isEmpty(mSearchEditText.getText())) {
-                        presenter.search(mSearchEditText.getText().toString(), pageIndex = 0);
+                        presenter.search(mCurrentType, mSearchEditText.getText().toString(), pageIndex = 0);
                     } else {
                         Toast.makeText(SearchActivity.this, "搜索内容不能为空！", Toast.LENGTH_SHORT).show();
                     }
@@ -207,7 +222,7 @@ public class SearchActivity extends Activity implements View.OnClickListener, Se
                     && adapter.ismShowFooter()) {
                 //加载更多
                 L.i("search", "loading more data");
-                presenter.search(mSearchContent, pageIndex);
+                presenter.search(mCurrentType, mSearchContent, pageIndex);
             }
         }
     };

@@ -57,6 +57,7 @@ public class ArticleFragment extends Fragment implements ArticleView, View.OnCli
     private ImageButton mDropImageButton;
     private ArticlePresenter presenter;
     private View view;
+    private View mSnackBarView;
     private List<ArticleBean> list;
     private ArticlesAdapter adapter;
     private RadioGroup radioGroup;
@@ -68,6 +69,8 @@ public class ArticleFragment extends Fragment implements ArticleView, View.OnCli
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_article, container, false);
+        mMenuView = inflater.inflate(R.layout.article_title_bar_rg, null);
+        mSnackBarView = view.findViewById(android.R.id.content);
         initViews(view);
         initEvents();
         initAnimation();
@@ -76,13 +79,13 @@ public class ArticleFragment extends Fragment implements ArticleView, View.OnCli
 
     private void initViews(View view) {
         mArticleTitleLayout = (LinearLayout) view.findViewById(R.id.article_title_ll);
-        mMenuView = getActivity().getLayoutInflater().inflate(R.layout.article_title_bar_rg, null);
         mBlankLayout = (LinearLayout) view.findViewById(R.id.article_blank_ll);
         mTitleTextView = (TextView) view.findViewById(R.id.article_title_tv);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.article_rv);
         mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.article_swipe_container);
         mDropImageButton = (ImageButton) view.findViewById(R.id.article_title_drop_ib);
         radioGroup = (RadioGroup) mMenuView.findViewById(R.id.article_title_rg);
+        L.i("article", "initViews");
     }
 
     private void initEvents() {
@@ -155,13 +158,14 @@ public class ArticleFragment extends Fragment implements ArticleView, View.OnCli
 
     @Override
     public void showLoadFailMsg() {
-        if (pageIndex == 0) {
-            adapter.setmShowFooter(false);
-            adapter.notifyDataSetChanged();
-        }
+//        if (pageIndex == 0) {
+//            adapter.setmShowFooter(false);
+//            adapter.notifyDataSetChanged();
+//        }
 //        Util.showSnackBar(getActivity().findViewById(R.id.article_fragment), "网络无法连接！", "重试");
-        View parentview = getActivity().findViewById(android.R.id.content);
-        Util.showSnackBar(parentview, "网络无法连接！", "重试");
+
+//        View parentview = getActivity().findViewById(android.R.id.content);
+//        Util.showSnackBar(mSnackBarView, "网络无法连接！", "重试");
     }
 
 
@@ -264,7 +268,7 @@ public class ArticleFragment extends Fragment implements ArticleView, View.OnCli
 
     @Override
     public void onRefresh() {
-        L.i("TAG", "onRefresh");
+        L.i("Article_TAG", "onRefresh");
         pageIndex = 0;
         if (list != null) {
             list.clear();

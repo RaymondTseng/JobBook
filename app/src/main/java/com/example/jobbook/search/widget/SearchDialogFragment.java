@@ -49,6 +49,7 @@ public class SearchDialogFragment extends DialogFragment implements View.OnClick
     private LinkedList<String> list;
     private Spinner mSpinner;
     private SharedPreferences sharedPreferences;
+    private int mCurrentType;
 
     @Nullable
     @Override
@@ -74,6 +75,18 @@ public class SearchDialogFragment extends DialogFragment implements View.OnClick
         mSpinner.setDropDownVerticalOffset(50);
         mSpinner.setSelection(0);
 
+        mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                mCurrentType = position;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
         sharedPreferences = getActivity().getSharedPreferences("search", Context.MODE_PRIVATE);
         if (Util.getSearchList(sharedPreferences).size() != 0) {
             list = Util.getSearchList(sharedPreferences);
@@ -87,6 +100,7 @@ public class SearchDialogFragment extends DialogFragment implements View.OnClick
                 Intent intent = new Intent(getActivity(), SearchActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("content", list.get(list.size() - position - 1));
+                bundle.putInt("type", mCurrentType);
                 intent.putExtras(bundle);
                 startActivity(intent);
                 dismiss();
@@ -184,6 +198,7 @@ public class SearchDialogFragment extends DialogFragment implements View.OnClick
         Intent intent = new Intent(getActivity(), SearchActivity.class);
         Bundle bundle = new Bundle();
         bundle.putString("content", mEditText.getText().toString());
+        bundle.putInt("type", mCurrentType);
         intent.putExtras(bundle);
         startActivity(intent);
         dismiss();
