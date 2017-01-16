@@ -1,7 +1,12 @@
 package com.example.jobbook.moment.widget;
 
 import android.app.Activity;
+import android.app.Application;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -17,21 +22,26 @@ import com.example.jobbook.MyApplication;
 import com.example.jobbook.R;
 import com.example.jobbook.bean.MomentBean;
 import com.example.jobbook.bean.MomentCommentBean;
+import com.example.jobbook.commons.Constants;
+import com.example.jobbook.commons.Urls;
 import com.example.jobbook.moment.MomentDetailCommentListViewAdapter;
 import com.example.jobbook.moment.presenter.MomentDetailPresenter;
 import com.example.jobbook.moment.presenter.MomentDetailPresenterImpl;
 import com.example.jobbook.moment.view.MomentDetailView;
+import com.example.jobbook.util.DividerItemDecoration;
 import com.example.jobbook.util.ImageLoadUtils;
 import com.example.jobbook.util.L;
 import com.example.jobbook.util.Util;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by 椰树 on 2016/7/15.
  */
-public class MomentDetailActivity extends Activity implements MomentDetailView, View.OnClickListener, View.OnLayoutChangeListener {
-    private ListView mListView;
+public class MomentDetailActivity extends Activity implements MomentDetailView, View.OnClickListener,
+        View.OnLayoutChangeListener, SwipeRefreshLayout.OnRefreshListener {
+    private RecyclerView mRecyclerView;
     private EditText mEditText;
     private ImageButton mSendImageButton;
     private ImageButton mBackImageButton;
@@ -46,16 +56,21 @@ public class MomentDetailActivity extends Activity implements MomentDetailView, 
     private MomentDetailCommentListViewAdapter mAdapter;
     private MomentBean momentBean;
     private LinearLayout mHeadView;
+    private MomentDetailPresenter presenter;
     private View mRootView;
+    private List<MomentCommentBean> list;
     private RelativeLayout mTitleBarLayout;
     private LinearLayout mInputLayout;
     private LinearLayout mLoadingLinearLayout;
+    private LinearLayoutManager mLayoutManager;
+    private MyApplication myApplication;
     private int mScreenHeight;
     private int mKeyBoardHeight;
     private float mTitleBarHeight;
     private float mInputLayoutHeight;
     private int id;
     private View view;
+    private int pageIndex = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +83,7 @@ public class MomentDetailActivity extends Activity implements MomentDetailView, 
 
     private void initViews() {
         mHeadView = (LinearLayout) getLayoutInflater().inflate(R.layout.activity_moment_detail, null);
-        mListView = (ListView) findViewById(R.id.moment_detail_lv);
+        mRecyclerView = (RecyclerView) findViewById(R.id.moment_detail_rv);
         mEditText = (EditText) findViewById(R.id.moment_detail_comment_et);
         mSendImageButton = (ImageButton) findViewById(R.id.moment_detail_send_ib);
         mBackImageButton = (ImageButton) findViewById(R.id.moment_detail_back_ib);
@@ -101,7 +116,17 @@ public class MomentDetailActivity extends Activity implements MomentDetailView, 
         mSendImageButton.setOnClickListener(this);
         mFavouriteImageButton.setOnClickListener(this);
         mRootView.addOnLayoutChangeListener(this);
-        mListView.setAdapter(mAdapter);
+        mLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(this,
+                DividerItemDecoration.VERTICAL_LIST));
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        mRecyclerView.setAdapter(mAdapter);
+        mAdapter.setOnItemClickListener(mOnItemClickListener);
+        mRecyclerView.addOnScrollListener(mOnScrollListener);
+        myApplication = (MyApplication) getApplication();
+        onRefresh();
 //        mAdapter.setOnLikeClickListener(new OnLikeClickListener() {
 //            @Override
 //            public void onLikeClickListener(int com_id) {
@@ -138,15 +163,35 @@ public class MomentDetailActivity extends Activity implements MomentDetailView, 
         ImageLoadUtils.display(this, mMomentUserLogoImageView, mMoment.getAuthor().getHead());
         mMomentFavouriteTextView.setText(mMoment.getLikesNum() + "");
         mMomentCommentTextView.setText(mMoment.getCommentNum() + "");
+        if(mMoment.getIfLike() == 0){
+            mFavouriteImageButton.setImageResource(R.mipmap.favourite);
+        }else{
+            mFavouriteImageButton.setImageResource(R.mipmap.favourite_tapped);
+        }
     }
 
     @Override
     public void addComments(List<MomentCommentBean> mComments) {
 //        mListView.removeHeaderView(mHeadView);
-        mAdapter.updateData(mComments);
+        list = mComments;
 //        mListView.addHeaderView(mHeadView);
 //        Util.setListViewHeightBasedOnChildren(mListView);
-        mMomentCommentTextView.setText(mComments.size() + "");
+        // 加载数据的地方
+        mAdapter.setmShowFooter(true);
+        if (list == null) {
+            list = new ArrayList<>();
+        }
+        list = mComments;
+        if (pageIndex == 0) {
+            mAdapter.updateData(list);
+        } else {
+            //如果没有更多数据了,则隐藏footer布局
+            if (list == null || list.size() == 0) {
+                mAdapter.setmShowFooter(false);
+            }
+            mAdapter.notifyDataSetChanged();
+        }
+        pageIndex += Urls.PAZE_SIZE;
     }
 
 
@@ -154,6 +199,7 @@ public class MomentDetailActivity extends Activity implements MomentDetailView, 
     public void sendSuccess() {
         mPresenter.loadMomentComments(id);
         mEditText.setText("");
+        mMomentCommentTextView.setText(Integer.valueOf(mMomentCommentTextView.getText().toString()) + 1 + "");
         Util.showSnackBar(view, "评论成功!");
     }
 
@@ -166,7 +212,7 @@ public class MomentDetailActivity extends Activity implements MomentDetailView, 
     public void showLoadFailMsg(int error) {
         switch (error) {
             case 0:
-                Util.showSnackBar(view, "问问加载错误,请重试!");
+                Util.showSnackBar(view, "工作圈加载错误,请重试!");
                 break;
             case 1:
                 Util.showSnackBar(view, "评论加载错误,请重试！");
@@ -208,6 +254,8 @@ public class MomentDetailActivity extends Activity implements MomentDetailView, 
 
     @Override
     public void commentLikeSuccess(int num_like, int num_unlike) {
+        mFavouriteImageButton.setImageResource(R.mipmap.favourite_tapped);
+        mMomentFavouriteTextView.setText(Integer.valueOf(mMomentFavouriteTextView.getText().toString()) + 1 + "");
         Toast.makeText(MomentDetailActivity.this, "评论点赞成功！", Toast.LENGTH_LONG).show();
 //        mPresenter.loadMomentComments(momentBean.getId());
         L.i("comment_like_success", "good:" + num_like + "bad:" + num_unlike);
@@ -220,6 +268,8 @@ public class MomentDetailActivity extends Activity implements MomentDetailView, 
 
     @Override
     public void commentUnlikeSuccess(int num_like, int num_unlike) {
+        mFavouriteImageButton.setImageResource(R.mipmap.favourite);
+        mMomentFavouriteTextView.setText(Integer.valueOf(mMomentFavouriteTextView.getText().toString()) - 1 + "");
         Toast.makeText(MomentDetailActivity.this, "评论踩成功！", Toast.LENGTH_LONG).show();
 //        mPresenter.loadMomentComments(momentBean.getId());
         L.i("comment_like_success", "good:" + num_like + "bad:" + num_unlike);
@@ -245,6 +295,12 @@ public class MomentDetailActivity extends Activity implements MomentDetailView, 
                 break;
 
             case R.id.moment_detail_favourite_ib:
+                if(momentBean.getIfLike() == 0){
+                    presenter.commentLike(momentBean.getId() , myApplication.getAccount());
+
+                }else{
+                    presenter.commentUnlike(momentBean.getId(), myApplication.getAccount());
+                }
                 break;
         }
     }
@@ -259,16 +315,60 @@ public class MomentDetailActivity extends Activity implements MomentDetailView, 
                     MATCH_PARENT, 0, (mTitleBarHeight / newHeight) * 568));
             mInputLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.
                     MATCH_PARENT, 0, (mInputLayoutHeight / newHeight) * 568));
-            mListView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.
+            mRecyclerView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.
                     MATCH_PARENT, 0, ((float) (newHeight - 2 * mTitleBarHeight) / newHeight) * 568));
             L.i("square_detail", "软键盘弹起");
 
         } else if (oldBottom != 0 && bottom != 0 && (bottom - oldBottom > mKeyBoardHeight)) {
             mTitleBarLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, 56));
             mInputLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, 56));
-            mListView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, 456));
+            mRecyclerView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, 456));
             L.i("square_detail", "软键盘关闭");
 
         }
+    }
+
+    private RecyclerView.OnScrollListener mOnScrollListener = new RecyclerView.OnScrollListener() {
+
+        private int lastVisiableItem;
+
+        @Override
+        public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+            super.onScrollStateChanged(recyclerView, newState);
+            if (newState == RecyclerView.SCROLL_STATE_IDLE
+                    && lastVisiableItem + 1 == mAdapter.getItemCount()
+                    && mAdapter.ismShowFooter()) {
+                //加载更多
+                L.i("article_fragment", "loading more data");
+                presenter.loadMomentComments(pageIndex);
+            }
+        }
+
+        @Override
+        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+            super.onScrolled(recyclerView, dx, dy);
+            lastVisiableItem = mLayoutManager.findLastVisibleItemPosition();
+        }
+    };
+
+    private MomentDetailCommentListViewAdapter.OnItemClickListener mOnItemClickListener = new MomentDetailCommentListViewAdapter.OnItemClickListener() {
+        @Override
+        public void onItemClick(View view, int position) {
+//            MomentCommentBean comment = mAdapter.getItem(position);
+//            Bundle bundle = new Bundle();
+//            bundle.putSerializable("article_detail", comment);
+//            Util.toAnotherActivity(this, ArticleDetailActivity.class, bundle);
+        }
+    };
+
+    @Override
+    public void onRefresh() {
+        L.i("TAG", "onRefresh");
+        pageIndex = 0;
+        if (list != null) {
+            list.clear();
+        }
+        presenter.loadMomentComments(pageIndex);
+        mAdapter.notifyDataSetChanged();
     }
 }

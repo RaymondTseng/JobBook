@@ -3,6 +3,7 @@ package com.example.jobbook.moment;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.List;
  * Created by root on 16-11-8.
  */
 
-public class MomentPagerAdapter extends FragmentStatePagerAdapter {
+public class MomentPagerAdapter extends FragmentPagerAdapter {
 
     private List<Fragment> mFragments;
 
@@ -28,5 +29,10 @@ public class MomentPagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public int getCount() {
         return mFragments.size();
+    }
+
+    @Override
+    public int getItemPosition(Object object) {
+        return super.getItemPosition(object);
     }
 }

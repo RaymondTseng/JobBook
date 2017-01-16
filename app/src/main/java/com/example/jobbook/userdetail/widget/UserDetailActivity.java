@@ -1,8 +1,10 @@
 package com.example.jobbook.userdetail.widget;
 
 
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -15,6 +17,7 @@ import android.view.animation.TranslateAnimation;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.example.jobbook.MyApplication;
@@ -25,6 +28,7 @@ import com.example.jobbook.userdetail.presenter.UserDetailPresenter;
 import com.example.jobbook.userdetail.presenter.UserDetailPresenterImpl;
 import com.example.jobbook.userdetail.view.UserDetailView;
 import com.example.jobbook.util.L;
+import com.example.jobbook.util.Util;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +52,9 @@ public class UserDetailActivity extends AppCompatActivity implements View.OnClic
     private MyApplication myApplication;
     private ImageButton mBackImageButton;
     private UserDetailPresenter mPresenter;
+    private View mSettingPopupView;
+    private PopupWindow mSettingPopupWindow;
+    private ImageButton mSettingImageButton;
     private int mCurrentIndex = 0;
     private PersonBean mPersonBean;
 
@@ -67,6 +74,8 @@ public class UserDetailActivity extends AppCompatActivity implements View.OnClic
         mFollowerTextView = (TextView) findViewById(R.id.user_detail_title_follower_tv);
         mBackImageButton = (ImageButton) findViewById(R.id.user_detail_back_ib);
         mFollowLayout = (LinearLayout) findViewById(R.id.user_detail_follow_ll);
+        mSettingImageButton = (ImageButton) findViewById(R.id.user_detail_setting_ib) ;
+        mSettingPopupView = getLayoutInflater().inflate(R.layout.user_detail_setting_popupwindow, null);
     }
 
     private void initCursor(){
@@ -79,7 +88,12 @@ public class UserDetailActivity extends AppCompatActivity implements View.OnClic
         Matrix matrix = new Matrix();
         matrix.postTranslate(initPosition, 0);
         mCursorImageView.setImageMatrix(matrix);
-
+        mSettingPopupWindow = new PopupWindow(mSettingPopupView, Util.getWidth(this)/3,
+                LinearLayout.LayoutParams.WRAP_CONTENT, true);
+        mSettingPopupWindow.setTouchable(true);
+        mSettingPopupWindow.setOutsideTouchable(true);
+        mSettingPopupWindow.setBackgroundDrawable(new BitmapDrawable(getResources(), (Bitmap)null));
+        mSettingImageButton.setOnClickListener(this);
     }
 
     private void initEvents(){
@@ -125,6 +139,9 @@ public class UserDetailActivity extends AppCompatActivity implements View.OnClic
                 }else{
                     mPresenter.follow(MyApplication.getAccount(), mPersonBean.getAccount());
                 }
+                break;
+            case R.id.user_detail_setting_ib:
+                mSettingPopupWindow.showAsDropDown(mSettingImageButton);
                 break;
         }
     }

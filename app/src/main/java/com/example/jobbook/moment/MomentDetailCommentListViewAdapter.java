@@ -1,6 +1,7 @@
 package com.example.jobbook.moment;
 
 import android.content.Context;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,109 +11,26 @@ import android.widget.TextView;
 
 import com.example.jobbook.R;
 import com.example.jobbook.bean.MomentCommentBean;
+import com.example.jobbook.util.ImageLoadUtils;
 
 import java.util.List;
 
 /**
  * Created by 椰树 on 2016/7/15.
  */
-public class MomentDetailCommentListViewAdapter extends BaseAdapter {
-    private Context mContext;
+public class MomentDetailCommentListViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+
+    private static final int TYPE_ITEM = 0;
+    private static final int TYPE_FOOTER = 1;
+
     private List<MomentCommentBean> mData;
+    private boolean mShowFooter = true;
+    private Context mContext;
 
-    private OnLikeClickListener onLikeClickListener;
-    private OnUnlikeClickListener onUnlikeClickListener;
+    private OnItemClickListener mOnItemClickListener;
 
-    public MomentDetailCommentListViewAdapter(Context mContext) {
+    public MomentDetailCommentListViewAdapter(Context mContext){
         this.mContext = mContext;
-    }
-
-    public void updateData(List<MomentCommentBean> mData) {
-        this.mData = mData;
-        this.notifyDataSetChanged();
-    }
-
-    @Override
-    public int getCount() {
-        return mData == null ? 0 : mData.size();
-    }
-
-    @Override
-    public Object getItem(int position) {
-        return mData == null ? null : mData.get(position);
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        View view;
-        ViewHolder mViewHolder;
-        final MomentCommentBean questionComment = mData.get(position);
-        if (convertView == null) {
-            view = LayoutInflater.from(mContext).inflate(R.layout.moment_detail_comment_listview_item, null);
-            mViewHolder = new ViewHolder();
-            mViewHolder.mContent = (TextView) view.findViewById(R.id.moment_detail_comment_lv_content_tv);
-//            mViewHolder.mFloor = (TextView) view.findViewById(R.id.question_detail_lv_floor_tv);
-//            mViewHolder.mLike = (TextView) view.findViewById(R.id.question_detail_lv_like_tv);
-            mViewHolder.mLogo = (ImageView) view.findViewById(R.id.moment_detail_comment_lv_head_iv);
-            mViewHolder.mName = (TextView) view.findViewById(R.id.moment_detail_comment_lv_name_tv);
-//            mViewHolder.mTime = (TextView) view.findViewById(R.id.question_detail_lv_time_tv);
-//            mViewHolder.mUnlike = (TextView) view.findViewById(R.id.question_detail_lv_unlike_tv);
-            view.setTag(mViewHolder);
-        } else {
-            view = convertView;
-            mViewHolder = (ViewHolder) view.getTag();
-        }
-        mViewHolder.mContent.setText(calculateSpace(questionComment.getApplier().getUsername()) + questionComment.getContent());
-//        mViewHolder.mFloor.setText(position + 1  + "");
-//        mViewHolder.mLike.setText(questionComment.getGood() + "");
-//        ImageLoadUtils.display(mContext, mViewHolder.mLogo, questionComment.getApplier().getHead());
-        mViewHolder.mName.setText(questionComment.getApplier().getUsername());
-//        mViewHolder.mTime.setText(questionComment.getAsk_time());
-//        mViewHolder.mUnlike.setText(questionComment.getBad() + "");
-//        mViewHolder.mLike.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                onLikeClickListener.onLikeClickListener(questionComment.getComment_id());
-//            }
-//        });
-//        mViewHolder.mUnlike.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                onUnlikeClickListener.onUnlikeClickListener(questionComment.getComment_id());
-//            }
-//        });
-        return view;
-    }
-
-    public interface OnLikeClickListener {
-        void onLikeClickListener(int com_id);
-    }
-
-    public interface OnUnlikeClickListener {
-        void onUnlikeClickListener(int com_id);
-    }
-
-    public void setOnLikeClickListener(OnLikeClickListener onLikeClickListener) {
-        this.onLikeClickListener = onLikeClickListener;
-    }
-
-    public void setOnUnlikeClickListener(OnUnlikeClickListener onUnlikeClickListener) {
-        this.onUnlikeClickListener = onUnlikeClickListener;
-    }
-
-    class ViewHolder {
-        ImageView mLogo;
-        TextView mName;
-        TextView mContent;
-//        TextView mTime;
-//        TextView mFloor;
-//        TextView mLike;
-//        TextView mUnlike;
     }
 
     private String calculateSpace(String username) {
@@ -125,5 +43,108 @@ public class MomentDetailCommentListViewAdapter extends BaseAdapter {
             }
         }
         return sb.toString();
+    }
+
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        if(viewType == TYPE_ITEM) {
+            View v = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.moment_detail_comment_listview_item, parent, false);
+            ItemViewHolder vh = new ItemViewHolder(v);
+            return vh;
+        } else {
+            View view = LayoutInflater.from(parent.getContext()).inflate(
+                    R.layout.loadingfooter_layout, null);
+            view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT));
+            return new FooterViewHolder(view);
+        }
+    }
+
+    @Override
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        if(holder instanceof ItemViewHolder) {
+            MomentCommentBean comment = mData.get(position);
+            if(comment == null){
+                return;
+            }
+            ImageLoadUtils.display(mContext, ((ItemViewHolder)holder).mLogo, comment.getApplier().getHead());
+            ((ItemViewHolder) holder).mContent.setText(calculateSpace(comment.getApplier().getUsername()) + comment.getContent());
+            ((ItemViewHolder) holder).mName.setText(comment.getApplier().getUsername());
+        }
+    }
+
+    public void updateData(List<MomentCommentBean> mData){
+        this.mData = mData;
+        this.notifyDataSetChanged();
+    }
+
+    @Override
+    public int getItemCount() {
+        int begin = mShowFooter?1:0;
+        if(mData == null) {
+            return begin;
+        }
+        return mData.size() + begin;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        // 最后一个item设置为footerView
+        if(!mShowFooter) {
+            return TYPE_ITEM;
+        }
+        if (position + 1 == getItemCount()) {
+            return TYPE_FOOTER;
+        } else {
+            return TYPE_ITEM;
+        }
+    }
+    public interface OnItemClickListener {
+        void onItemClick(View view, int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.mOnItemClickListener = onItemClickListener;
+    }
+
+    public class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+        ImageView mLogo;
+        TextView mName;
+        TextView mContent;
+
+        public ItemViewHolder(View view){
+            super(view);
+            mLogo = (ImageView) view.findViewById(R.id.moment_detail_comment_lv_head_iv);
+            mName = (TextView) view.findViewById(R.id.moment_detail_comment_lv_name_tv);
+            mContent = (TextView) view.findViewById(R.id.moment_detail_comment_lv_content_tv);
+            itemView.setOnClickListener(this);
+        }
+        @Override
+        public void onClick(View v) {
+            if(mOnItemClickListener != null) {
+                mOnItemClickListener.onItemClick(v, this.getLayoutPosition());
+            }
+        }
+    }
+
+    public MomentCommentBean getItem(int position){
+        return mData == null ? null : mData.get(position);
+    }
+
+    public boolean ismShowFooter() {
+        return mShowFooter;
+    }
+
+    public void setmShowFooter(boolean mShowFooter) {
+        this.mShowFooter = mShowFooter;
+    }
+
+    public class FooterViewHolder extends RecyclerView.ViewHolder {
+
+        public FooterViewHolder(View view) {
+            super(view);
+        }
+
     }
 }

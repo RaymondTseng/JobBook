@@ -9,6 +9,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -89,7 +90,7 @@ public class ArticleFragment extends Fragment implements ArticleView, View.OnCli
     }
 
     private void initEvents() {
-        list = new ArrayList<>();
+//        list = new ArrayList<>();
         presenter = new ArticlePresenterImpl(this);
         mTitleTextView.setText(Constants.ARTICLE_ALL);
         mMenuPopupWindow = new PopupWindow(mMenuView, ViewGroup.LayoutParams.MATCH_PARENT,
