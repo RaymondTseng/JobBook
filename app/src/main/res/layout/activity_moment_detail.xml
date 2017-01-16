@@ -127,8 +127,8 @@
             </LinearLayout>
         </LinearLayout>
 
-        <ListView
-            android:id="@+id/moment_detail_lv"
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/moment_detail_rv"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="270"
@@ -138,7 +138,7 @@
             android:dividerHeight="2dp"
             android:transcriptMode="normal">
 
-        </ListView>
+        </android.support.v7.widget.RecyclerView>
     </LinearLayout>
 
 

@@ -21,6 +21,7 @@ import com.example.jobbook.main.presenter.MainPresenterImpl;
 import com.example.jobbook.main.view.MainView;
 import com.example.jobbook.moment.widget.MomentFragment;
 import com.example.jobbook.person.widget.PersonFragment;
+import com.example.jobbook.util.L;
 import com.example.jobbook.util.Util;
 
 import java.util.ArrayList;
@@ -36,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     private RadioButton mPersonRadioButton;
     private RadioGroup mRadioGroup;
     private MainFragmentPagerAdapter mFragmentPagerAdapter;
-    private List<Fragment> mFragments;
+    private List<Fragment> mFragments = new ArrayList<>();
     private MainPresenter mMainPresenter;
 
     @Override
@@ -68,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     }
 
     private void initList() {
-        mFragments = new ArrayList<>();
+//        mFragments = new ArrayList<>();
         mFragments.add(new JobFragment());
         mFragments.add(new ArticleFragment());
         mFragments.add(new MomentFragment());

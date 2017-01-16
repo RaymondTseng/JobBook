@@ -3,6 +3,7 @@ package com.example.jobbook.userdetail.model;
 import com.example.jobbook.bean.PersonBean;
 import com.example.jobbook.bean.ResultBean;
 import com.example.jobbook.commons.Urls;
+import com.example.jobbook.util.L;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -32,6 +33,7 @@ public class UserDetailFollowModelImpl implements UserDetailFollowModel {
                 if(resultBean.getStatus().equals("true")){
                     List<PersonBean> list = new Gson().fromJson(resultBean.getResponse(),
                             new TypeToken<List<PersonBean>>(){}.getType());
+                    L.i("user_detail_follow", response);
                     listener.onSuccess(list);
                 }else{
                     listener.onFailure(resultBean.getResponse(), new Exception());

@@ -11,6 +11,7 @@
         android:background="@null"
         android:layout_alignParentLeft="true"/>
     <ImageButton
+        android:id="@+id/user_detail_setting_ib"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@mipmap/setting"

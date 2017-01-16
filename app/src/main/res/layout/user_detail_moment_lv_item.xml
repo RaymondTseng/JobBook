@@ -7,6 +7,8 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="32dp"
         android:layout_marginRight="32dp"
+        android:layout_marginTop="16dp"
+        android:paddingBottom="16dp"
         android:orientation="vertical">
         <TextView
             android:id="@+id/user_detail_moment_content_tv"

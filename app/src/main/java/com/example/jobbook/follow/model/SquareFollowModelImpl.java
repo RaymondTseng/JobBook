@@ -23,6 +23,7 @@ public class SquareFollowModelImpl implements SquareFollowModel {
     @Override
     public void loadSquareFollows(int pageIndex, String name, final OnLoadSquareFollowListListener listener) {
         L.i("square_follow_response:", "load");
+        L.i("square_follow_response:", name);
         OkHttpUtils.postString().url(Urls.SQUARE_FOLLOW_URL + "/account/" + name).content(pageIndex + "").build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
