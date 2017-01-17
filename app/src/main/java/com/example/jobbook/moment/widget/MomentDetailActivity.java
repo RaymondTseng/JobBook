@@ -1,7 +1,6 @@
 package com.example.jobbook.moment.widget;
 
 import android.app.Activity;
-import android.app.Application;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -13,7 +12,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,7 +20,6 @@ import com.example.jobbook.MyApplication;
 import com.example.jobbook.R;
 import com.example.jobbook.bean.MomentBean;
 import com.example.jobbook.bean.MomentCommentBean;
-import com.example.jobbook.commons.Constants;
 import com.example.jobbook.commons.Urls;
 import com.example.jobbook.moment.MomentDetailCommentListViewAdapter;
 import com.example.jobbook.moment.presenter.MomentDetailPresenter;
@@ -368,6 +365,7 @@ public class MomentDetailActivity extends Activity implements MomentDetailView, 
         if (list != null) {
             list.clear();
         }
+        presenter = new MomentDetailPresenterImpl(this);
         presenter.loadMomentComments(pageIndex);
         mAdapter.notifyDataSetChanged();
     }

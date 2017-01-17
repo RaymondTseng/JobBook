@@ -3,10 +3,9 @@ package com.example.jobbook.square.model;
 
 import com.example.jobbook.MyApplication;
 import com.example.jobbook.bean.MomentBean;
-import com.example.jobbook.util.L;
-
 import com.example.jobbook.bean.ResultBean;
 import com.example.jobbook.commons.Urls;
+import com.example.jobbook.util.L;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -44,6 +43,8 @@ public class SquareModelImpl implements SquareModel {
                 }
             }
         });
+//        L.i("squaremodelimpl", "network error");
+//        listener.onFailure("network error", new Exception());
     }
 
     @Override

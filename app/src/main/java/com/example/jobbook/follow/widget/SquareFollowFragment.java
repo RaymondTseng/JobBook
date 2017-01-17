@@ -27,6 +27,7 @@ import com.example.jobbook.follow.SquareFollowsAdapter;
 import com.example.jobbook.follow.presenter.SquareFollowPresenter;
 import com.example.jobbook.follow.presenter.SquareFollowPresenterImpl;
 import com.example.jobbook.follow.view.SquareFollowView;
+import com.example.jobbook.main.widget.MainActivity;
 import com.example.jobbook.moment.widget.MomentDetailActivity;
 import com.example.jobbook.util.DividerItemDecoration;
 import com.example.jobbook.util.L;
@@ -195,7 +196,7 @@ public class SquareFollowFragment extends Fragment implements SquareFollowView,
             mAdapter.setmShowFooter(false);
             mAdapter.notifyDataSetChanged();
         }
-        Util.showSnackBar(view, "网络无法连接！", "重试");
+        Util.showSnackBar(MainActivity.mSnackBarView, "网络无法连接！", "重试");
     }
 
     @Override
@@ -210,28 +211,27 @@ public class SquareFollowFragment extends Fragment implements SquareFollowView,
 
     @Override
     public void NoLoginError() {
-        view = getActivity().getWindow().getDecorView();
-        Util.showSnackBar(view, "请先登录！");
+        Util.showSnackBar(MainActivity.mSnackBarView, "请先登录！");
     }
 
     @Override
     public void likeSuccess() {
-        Util.showSnackBar(view, "点赞成功！");
+        Util.showSnackBar(MainActivity.mSnackBarView, "点赞成功！");
     }
 
     @Override
     public void unlikeSuccess() {
-        Util.showSnackBar(view, "取消点赞成功！");
+        Util.showSnackBar(MainActivity.mSnackBarView, "取消点赞成功！");
     }
 
     @Override
     public void likeError() {
-        Util.showSnackBar(view, "点赞失败！");
+        Util.showSnackBar(MainActivity.mSnackBarView, "点赞失败！");
     }
 
     @Override
     public void unlikeError() {
-        Util.showSnackBar(view, "取消点赞失败！");
+        Util.showSnackBar(MainActivity.mSnackBarView, "取消点赞失败！");
     }
 
     @Override

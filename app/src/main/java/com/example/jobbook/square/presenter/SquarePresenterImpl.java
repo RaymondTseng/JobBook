@@ -1,8 +1,6 @@
 package com.example.jobbook.square.presenter;
 
 import com.example.jobbook.bean.MomentBean;
-import com.example.jobbook.util.L;
-
 import com.example.jobbook.square.model.SquareModel;
 import com.example.jobbook.square.model.SquareModelImpl;
 import com.example.jobbook.square.view.SquareView;
@@ -25,7 +23,6 @@ public class SquarePresenterImpl implements SquarePresenter,SquareModelImpl.OnLo
     @Override
     public void loadSquare(int pageIndex, String name) {
         mSquareView.showProgress();
-        L.i("square", "showprogress");
         mSquareModel.loadSquares(pageIndex, name, this);
     }
 

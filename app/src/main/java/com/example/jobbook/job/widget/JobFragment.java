@@ -8,7 +8,6 @@ import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +26,7 @@ import com.example.jobbook.job.SpinnerTitleAdapter;
 import com.example.jobbook.job.presenter.JobPresenter;
 import com.example.jobbook.job.presenter.JobPresenterImpl;
 import com.example.jobbook.job.view.JobView;
+import com.example.jobbook.main.widget.MainActivity;
 import com.example.jobbook.search.widget.SearchDialogFragment;
 import com.example.jobbook.util.DividerItemDecoration;
 import com.example.jobbook.util.L;
@@ -258,7 +258,7 @@ public class JobFragment extends Fragment implements JobView,
             mAdapter.setmShowFooter(false);
             mAdapter.notifyDataSetChanged();
         }
-        Util.showSnackBar(view, "网络无法连接！", "重试");
+        Util.showSnackBar(MainActivity.mSnackBarView, "网络无法连接！", "重试");
     }
 
     @Override

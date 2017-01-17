@@ -9,7 +9,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +28,7 @@ import com.example.jobbook.article.view.ArticleView;
 import com.example.jobbook.bean.ArticleBean;
 import com.example.jobbook.commons.Constants;
 import com.example.jobbook.commons.Urls;
+import com.example.jobbook.main.widget.MainActivity;
 import com.example.jobbook.util.DividerItemDecoration;
 import com.example.jobbook.util.L;
 import com.example.jobbook.util.Util;
@@ -58,7 +58,6 @@ public class ArticleFragment extends Fragment implements ArticleView, View.OnCli
     private ImageButton mDropImageButton;
     private ArticlePresenter presenter;
     private View view;
-    private View mSnackBarView;
     private List<ArticleBean> list;
     private ArticlesAdapter adapter;
     private RadioGroup radioGroup;
@@ -71,7 +70,6 @@ public class ArticleFragment extends Fragment implements ArticleView, View.OnCli
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_article, container, false);
         mMenuView = inflater.inflate(R.layout.article_title_bar_rg, null);
-        mSnackBarView = view.findViewById(android.R.id.content);
         initViews(view);
         initEvents();
         initAnimation();
@@ -109,7 +107,7 @@ public class ArticleFragment extends Fragment implements ArticleView, View.OnCli
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        adapter = new ArticlesAdapter(getActivity().getApplicationContext());
+        adapter = new ArticlesAdapter(getActivity());
         adapter.setOnItemClickListener(mOnItemClickListener);
         mRecyclerView.setAdapter(adapter);
         mRecyclerView.addOnScrollListener(mOnScrollListener);
@@ -166,7 +164,7 @@ public class ArticleFragment extends Fragment implements ArticleView, View.OnCli
 //        Util.showSnackBar(getActivity().findViewById(R.id.article_fragment), "网络无法连接！", "重试");
 
 //        View parentview = getActivity().findViewById(android.R.id.content);
-//        Util.showSnackBar(mSnackBarView, "网络无法连接！", "重试");
+        Util.showSnackBar(MainActivity.mSnackBarView, "网络无法连接！", "重试");
     }
 
 
