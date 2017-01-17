@@ -3,41 +3,44 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBlue">
+
     <ImageButton
         android:id="@+id/user_detail_back_ib"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@mipmap/left_white"
+        android:layout_alignParentLeft="true"
         android:background="@null"
-        android:layout_alignParentLeft="true"/>
-    <ImageButton
-        android:id="@+id/user_detail_setting_ib"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@mipmap/setting"
-        android:background="@null"
-        android:layout_alignParentRight="true"/>
+        android:src="@mipmap/left_white" />
+
+    <!--<ImageButton-->
+        <!--android:id="@+id/user_detail_setting_ib"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:background="@null"-->
+        <!--android:src="@mipmap/setting" />-->
+
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/user_detail_title_head_iv"
         android:layout_width="78dp"
         android:layout_height="78dp"
-        android:src="@mipmap/suit"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"/>
+        android:layout_marginTop="16dp"
+        android:src="@mipmap/suit" />
     <!--<ImageView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:src="@mipmap/suit"-->
-        <!--android:scaleType="fitXY"-->
-        <!--android:alpha="0.1"/>-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:src="@mipmap/suit"-->
+    <!--android:scaleType="fitXY"-->
+    <!--android:alpha="0.1"/>-->
     <TextView
         android:id="@+id/user_detail_title_head_name_tv"
         style="@style/White16sptv"
-        android:text="张朝旭他居然凑成了标准的十五字"
         android:layout_below="@id/user_detail_title_head_iv"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="8dp"
-        />
+        android:text="张朝旭他居然凑成了标准的十五字" />
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -45,54 +48,60 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="8dp"
         android:orientation="horizontal">
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/company_white"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center"
+            android:src="@mipmap/company_white" />
+
         <TextView
             style="@style/White12sptv"
-            android:text="职谱 扫地僧"
-            />
+            android:text="职谱 扫地僧" />
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_alignParentBottom="true"
-        android:weightSum="3"
-        android:layout_marginBottom="4dp">
+        android:layout_marginBottom="4dp"
+        android:orientation="horizontal"
+        android:weightSum="3">
+
         <TextView
             android:id="@+id/user_detail_title_moment_tv"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="动态"
             android:gravity="center"
-            android:textColor="@color/colorWhite"/>
+            android:text="动态"
+            android:textColor="@color/colorWhite" />
+
         <TextView
             android:id="@+id/user_detail_title_follow_tv"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="关注 2312"
             android:gravity="center"
-            android:textColor="@color/colorWhite"/>
+            android:text="关注 2312"
+            android:textColor="@color/colorWhite" />
+
         <TextView
             android:id="@+id/user_detail_title_follower_tv"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="粉丝 2312"
             android:gravity="center"
-            android:textColor="@color/colorWhite"/>
+            android:text="粉丝 2312"
+            android:textColor="@color/colorWhite" />
     </LinearLayout>
+
     <ImageView
         android:id="@+id/user_detail_cursor_iv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@mipmap/triangle_white"
+        android:layout_alignParentBottom="true"
         android:scaleType="matrix"
-        android:layout_alignParentBottom="true"/>
+        android:src="@mipmap/triangle_white" />
 
 </RelativeLayout>

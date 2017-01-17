@@ -10,7 +10,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +23,7 @@ import com.example.jobbook.MyApplication;
 import com.example.jobbook.R;
 import com.example.jobbook.bean.MomentBean;
 import com.example.jobbook.commons.Urls;
+import com.example.jobbook.main.widget.MainActivity;
 import com.example.jobbook.moment.widget.MomentDetailActivity;
 import com.example.jobbook.square.SquareAdapter;
 import com.example.jobbook.square.presenter.SquarePresenter;
@@ -195,7 +195,7 @@ public class SquareFragment extends Fragment implements SquareView,
             mAdapter.setmShowFooter(false);
             mAdapter.notifyDataSetChanged();
         }
-        Util.showSnackBar(view, "网络无法连接！", "重试");
+        Util.showSnackBar(MainActivity.mSnackBarView, "网络无法连接！", "重试");
     }
 
     @Override
@@ -210,7 +210,7 @@ public class SquareFragment extends Fragment implements SquareView,
 
     @Override
     public void NoLoginError() {
-        Util.showSnackBar(view, "请先登录！");
+        Util.showSnackBar(MainActivity.mSnackBarView, "请先登录！");
     }
 
     @Override
@@ -225,12 +225,12 @@ public class SquareFragment extends Fragment implements SquareView,
 
     @Override
     public void likeError() {
-        Util.showSnackBar(view, "点赞失败！");
+        Util.showSnackBar(MainActivity.mSnackBarView, "点赞失败！");
     }
 
     @Override
     public void unlikeError() {
-        Util.showSnackBar(view, "取消点赞失败！");
+        Util.showSnackBar(MainActivity.mSnackBarView, "取消点赞失败！");
     }
 
     @Override
@@ -272,7 +272,5 @@ public class SquareFragment extends Fragment implements SquareView,
             }
         });
     }
-
-
 
 }

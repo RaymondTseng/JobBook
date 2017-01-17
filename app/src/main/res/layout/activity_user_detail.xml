@@ -38,7 +38,7 @@
         android:layout_weight="56"
         android:background="@drawable/job_detail_bottom_ll_bg"
         android:orientation="horizontal"
-        android:weightSum="2">
+        android:weightSum="1">
 
         <RelativeLayout
             android:layout_width="0dp"
@@ -64,28 +64,28 @@
 
         </RelativeLayout>
 
-        <RelativeLayout
-            android:id="@+id/job_detail_send_cv_ll"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
+        <!--<RelativeLayout-->
+            <!--android:id="@+id/job_detail_send_cv_ll"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="1">-->
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true">
+            <!--<LinearLayout-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_centerInParent="true">-->
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/chat" />
+                <!--<ImageView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:src="@mipmap/chat" />-->
 
-                <TextView
-                    style="@style/TextBlue14sptv"
-                    android:layout_gravity="center"
-                    android:text="投递简历" />
-            </LinearLayout>
+                <!--<TextView-->
+                    <!--style="@style/TextBlue14sptv"-->
+                    <!--android:layout_gravity="center"-->
+                    <!--android:text="投递简历" />-->
+            <!--</LinearLayout>-->
 
-        </RelativeLayout>
+        <!--</RelativeLayout>-->
     </LinearLayout>
 </LinearLayout>

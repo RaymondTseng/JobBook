@@ -21,6 +21,7 @@ import com.example.jobbook.MyApplication;
 import com.example.jobbook.R;
 import com.example.jobbook.bean.PersonBean;
 import com.example.jobbook.login.widget.LoginActivity;
+import com.example.jobbook.main.widget.MainActivity;
 import com.example.jobbook.person.view.PersonView;
 import com.example.jobbook.util.ImageLoadUtils;
 import com.example.jobbook.util.L;
@@ -64,7 +65,7 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
         @Override
         public void handleMessage(Message msg) {
             if (msg.what == REFRESH) {
-                Util.showSnackBar(view, "保存成功！");
+                Util.showSnackBar(MainActivity.mSnackBarView, "保存成功！");
             } else if (msg.what == REFRESH_NAME) {
                 mNameTextView.setText(MyApplication.getmPersonBean().getUsername());
             } else if (msg.what == REFRESH_HEAD) {

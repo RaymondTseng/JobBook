@@ -7,7 +7,6 @@ import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
@@ -74,8 +73,8 @@ public class UserDetailActivity extends AppCompatActivity implements View.OnClic
         mFollowerTextView = (TextView) findViewById(R.id.user_detail_title_follower_tv);
         mBackImageButton = (ImageButton) findViewById(R.id.user_detail_back_ib);
         mFollowLayout = (LinearLayout) findViewById(R.id.user_detail_follow_ll);
-        mSettingImageButton = (ImageButton) findViewById(R.id.user_detail_setting_ib) ;
-        mSettingPopupView = getLayoutInflater().inflate(R.layout.user_detail_setting_popupwindow, null);
+//        mSettingImageButton = (ImageButton) findViewById(R.id.user_detail_setting_ib);
+//        mSettingPopupView = getLayoutInflater().inflate(R.layout.user_detail_setting_popupwindow, null);
     }
 
     private void initCursor(){
@@ -93,7 +92,7 @@ public class UserDetailActivity extends AppCompatActivity implements View.OnClic
         mSettingPopupWindow.setTouchable(true);
         mSettingPopupWindow.setOutsideTouchable(true);
         mSettingPopupWindow.setBackgroundDrawable(new BitmapDrawable(getResources(), (Bitmap)null));
-        mSettingImageButton.setOnClickListener(this);
+//        mSettingImageButton.setOnClickListener(this);
     }
 
     private void initEvents(){
@@ -140,9 +139,9 @@ public class UserDetailActivity extends AppCompatActivity implements View.OnClic
                     mPresenter.follow(MyApplication.getAccount(), mPersonBean.getAccount());
                 }
                 break;
-            case R.id.user_detail_setting_ib:
-                mSettingPopupWindow.showAsDropDown(mSettingImageButton);
-                break;
+//            case R.id.user_detail_setting_ib:
+//                mSettingPopupWindow.showAsDropDown(mSettingImageButton);
+//                break;
         }
     }
 

@@ -1,13 +1,18 @@
 package com.example.jobbook.main.widget;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.KeyEvent;
+import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.example.jobbook.MyApplication;
 import com.example.jobbook.R;
@@ -21,7 +26,6 @@ import com.example.jobbook.main.presenter.MainPresenterImpl;
 import com.example.jobbook.main.view.MainView;
 import com.example.jobbook.moment.widget.MomentFragment;
 import com.example.jobbook.person.widget.PersonFragment;
-import com.example.jobbook.util.L;
 import com.example.jobbook.util.Util;
 
 import java.util.ArrayList;
@@ -40,10 +44,25 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     private List<Fragment> mFragments = new ArrayList<>();
     private MainPresenter mMainPresenter;
 
+    public static View mSnackBarView;
+
+    // 定义一个变量，来标识是否退出
+    private static boolean isExit = false;
+
+    private static Handler mHandler = new Handler() {
+
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            isExit = false;
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mSnackBarView = findViewById(R.id.main_layout);
         initViews();
         initList();
         initEvent();
@@ -177,5 +196,27 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     protected void onDestroy() {
         super.onDestroy();
         Log.i("main", "ondestory");
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            exit();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    private void exit() {
+        if (!isExit) {
+            isExit = true;
+            Toast.makeText(getApplicationContext(), "再按一次后退键退出程序",
+                    Toast.LENGTH_SHORT).show();
+            // 利用handler延迟发送更改状态信息
+            mHandler.sendEmptyMessageDelayed(0, 2000);
+        } else {
+//            Log.e(TAG, "exit application");
+            this.finish();
+        }
     }
 }

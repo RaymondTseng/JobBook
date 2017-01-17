@@ -313,7 +313,6 @@ public class Util {
      * @param content
      */
     public static void showSnackBar(View view, String content, String buttonText) {
-//        View view = activity.getWindow().getDecorView();
         final Snackbar snackbar = Snackbar.make(view, content, Snackbar.LENGTH_SHORT);
         View demo = snackbar.getView();
         ((TextView)demo.findViewById(R.id.snackbar_text)).setTextColor(Color.WHITE);
