@@ -17,6 +17,7 @@ import com.example.jobbook.person.presenter.ShowMomentListPresenterImpl;
 import com.example.jobbook.person.view.ShowMomentListView;
 import com.example.jobbook.userdetail.UserDetailFansAdapter;
 import com.example.jobbook.userdetail.UserDetailMomentAdapter;
+import com.example.jobbook.util.L;
 import com.example.jobbook.util.Util;
 
 import java.util.ArrayList;
@@ -41,13 +42,14 @@ public class ShowMomentListActivity extends Activity implements ShowMomentListVi
         setContentView(R.layout.activity_momentlist);
         initViews();
         initEvents();
+        L.i("showmoment", "create");
     }
 
     private void initViews() {
         view = findViewById(android.R.id.content);
         mShowMomentListListiew = (ListView) findViewById(R.id.momentlist_lv);
         mBackImageButton = (ImageButton) findViewById(R.id.momentlist_back_ib);
-        mLoadingLinearLayout = (LinearLayout) findViewById(R.id.blacklist_loading_layout);
+        mLoadingLinearLayout = (LinearLayout) findViewById(R.id.momentlist_loading_layout);
     }
 
     private void initEvents() {

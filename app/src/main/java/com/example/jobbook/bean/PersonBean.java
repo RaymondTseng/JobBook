@@ -32,7 +32,7 @@ public class PersonBean implements Serializable {
     /**
      * 用户姓名
      */
-    private String username;
+    private String userName;
 
     /**
      * 关注者数量
@@ -127,11 +127,11 @@ public class PersonBean implements Serializable {
     }
 
     public String getUsername() {
-        return username;
+        return userName;
     }
 
     public void setUsername(String name) {
-        this.username = name;
+        this.userName = name;
     }
 
     public String getAccount() {
@@ -144,7 +144,7 @@ public class PersonBean implements Serializable {
 
     public String toString(){
         return "account" + account + ",head" + head + ",password" + password + ",telephone" + telephone +
-                ",username" + username;
+                ",userName" + userName;
     }
 
 

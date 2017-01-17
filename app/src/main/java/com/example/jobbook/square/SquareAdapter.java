@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.example.jobbook.R;
 import com.example.jobbook.bean.MomentBean;
 import com.example.jobbook.commons.Urls;
+import com.example.jobbook.person.ShowFanListAdapter;
 import com.example.jobbook.util.ImageLoadUtils;
 import com.example.jobbook.util.L;
 
@@ -76,6 +77,19 @@ public class SquareAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             } else {
                 ((ItemViewHolder) holder).mFavouriteButton.setImageResource(R.mipmap.favourite_tapped);
             }
+        }
+    }
+
+    @Override
+    public void onBindViewHolder(RecyclerView.ViewHolder holder , int position , List playloads){
+        if(playloads.isEmpty()){
+            onBindViewHolder(holder, position);
+        }else{
+            String playload = (String)playloads.get(0);
+            L.i("playload", playload);
+            MomentBean momentBean = mData.get(position);
+            ItemViewHolder viewHolder = (ItemViewHolder) holder;
+//            viewHolder.mFavouriteNumbers.setText("1");
         }
     }
 

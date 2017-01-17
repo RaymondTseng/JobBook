@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.example.jobbook.R;
 import com.example.jobbook.bean.PersonBean;
 import com.example.jobbook.util.ImageLoadUtils;
+import com.example.jobbook.util.L;
 
 import java.util.List;
 
@@ -58,6 +59,7 @@ public class UserDetailFansAdapter extends BaseAdapter {
             view = convertView;
             mViewHolder = (ViewHolder) view.getTag();
         }
+//        L.i("showfans" , mPersonBean.getUsername());
         ImageLoadUtils.display(mContext, mViewHolder.mHeadImageView, mPersonBean.getHead());
         mViewHolder.mNameTextView.setText(mPersonBean.getUsername());
         mViewHolder.mWorkSpacePositionTextView.setText(mPersonBean.getWorkSpace() + " " +

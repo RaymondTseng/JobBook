@@ -31,7 +31,7 @@ public class ShowMomentListModelImpl implements ShowMomentListModel {
 
             @Override
             public void onResponse(String response, int i) {
-                L.i("showfollowlist", response);
+                L.i("showmomentlist", response);
                 ResultBean resultBean = new Gson().fromJson(response, ResultBean.class);
                 if (resultBean.getStatus().equals("true")) {
                     List<MomentBean> list = new Gson().fromJson(resultBean.getResponse(),
