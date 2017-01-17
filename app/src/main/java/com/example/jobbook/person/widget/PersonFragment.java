@@ -106,7 +106,7 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
         mMomentTextView = (TextView) view.findViewById(R.id.person_moment_num_tv);
         mFollowTextView = (TextView) view.findViewById(R.id.person_follow_num_tv);
         mFansTextView = (TextView) view.findViewById(R.id.person_fans_num_tv);
-        mMomentLL = (LinearLayout) view.findViewById(R.id.person_moment_num_ll);
+        mMomentLL = (LinearLayout) view.findViewById(R.id.person_fans_num_ll);
         mFollowLL = (LinearLayout) view.findViewById(R.id.person_follow_num_ll);
         mFanLL = (LinearLayout) view.findViewById(R.id.person_fans_num_ll);
         mMessageLayout = (LinearLayout) view.findViewById(R.id.person_message_ll);
@@ -170,8 +170,10 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
             case R.id.person_message_ll:
                 break;
             case R.id.person_moment_num_ll:
+                Util.toAnotherActivity(getActivity(), ShowMomentListActivity.class);
                 break;
             case R.id.person_follow_num_ll:
+                Util.toAnotherActivity(getActivity(), ShowFollowerListActivity.class);
                 break;
             case R.id.person_fans_num_ll:
                 Util.toAnotherActivity(getActivity(), ShowFanListActivity.class);
