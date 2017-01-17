@@ -1,10 +1,14 @@
 package com.example.jobbook.person.widget;
 
 import android.app.AlertDialog;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +26,13 @@ import com.example.jobbook.R;
 import com.example.jobbook.bean.PersonBean;
 import com.example.jobbook.login.widget.LoginActivity;
 import com.example.jobbook.main.widget.MainActivity;
+import com.example.jobbook.person.presenter.UploadPresenter;
+import com.example.jobbook.person.presenter.UploadPresenterImpl;
 import com.example.jobbook.person.view.PersonView;
+import com.example.jobbook.person.view.UploadView;
+import com.example.jobbook.upload.CropUtils;
+import com.example.jobbook.upload.UploadManager;
+import com.example.jobbook.upload.UploadPopupWindow;
 import com.example.jobbook.util.ImageLoadUtils;
 import com.example.jobbook.util.L;
 import com.example.jobbook.util.Util;
@@ -33,7 +43,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 /**
  * Created by 椰树 on 2016/5/20.
  */
-public class PersonFragment extends Fragment implements PersonView, View.OnClickListener {
+public class PersonFragment extends Fragment implements PersonView, View.OnClickListener, UploadView {
     private static int REFRESH = 0;
     private static int REFRESH_NAME = 1;
     private static int REFRESH_HEAD = 2;
@@ -47,6 +57,7 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
     private Button mSwitch2TextCVButton;
     private ImageView mHeadBackGround;
     private LinearLayout mMessageLayout;
+    private UploadPresenter presenter;
 //    private LinearLayout mBlackListLayout;
     private TextView mLogOutTextView;
     private TextView mMomentTextView;
@@ -55,11 +66,14 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
     private LinearLayout mMomentLL;
     private LinearLayout mFollowLL;
     private LinearLayout mFanLL;
+    private LinearLayout mLoadingLayout;
     private CircleImageView mCircleHeadImageView;
     private MyApplication mMyApplication;
     private PersonBean personBean;
+    private UploadPopupWindow mPopupWindow;
 //    private TextView mEditTextView;
     private View view;
+    private Uri mUri;
 
     final Handler handler = new Handler() {
         @Override
@@ -107,10 +121,11 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
         mMomentTextView = (TextView) view.findViewById(R.id.person_moment_num_tv);
         mFollowTextView = (TextView) view.findViewById(R.id.person_follow_num_tv);
         mFansTextView = (TextView) view.findViewById(R.id.person_fans_num_tv);
-        mMomentLL = (LinearLayout) view.findViewById(R.id.person_fans_num_ll);
+        mMomentLL = (LinearLayout) view.findViewById(R.id.person_moment_num_ll);
         mFollowLL = (LinearLayout) view.findViewById(R.id.person_follow_num_ll);
         mFanLL = (LinearLayout) view.findViewById(R.id.person_fans_num_ll);
         mMessageLayout = (LinearLayout) view.findViewById(R.id.person_message_ll);
+        mLoadingLayout = (LinearLayout) view.findViewById(R.id.loading_circle_progress_bar_ll);
 //        mBlackListLayout = (LinearLayout) view.findViewById(R.id.person_black_list_ll);
         mLogOutTextView = (TextView) view.findViewById(R.id.person_logout_tv);
 //        mEditTextView = (TextView) view.findViewById(R.id.person_edit_tv);
@@ -118,12 +133,15 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
     }
 
     private void initEvents() {
+        mUri = null;
+        presenter = new UploadPresenterImpl(this);
         mSwitchPerson2LoginTextView.setOnClickListener(this);
         mSettingLayout.setOnClickListener(this);
         mFavouriteLayout.setOnClickListener(this);
         mMessageLayout.setOnClickListener(this);
 //        mBlackListLayout.setOnClickListener(this);
         mLogOutTextView.setOnClickListener(this);
+        mCircleHeadImageView.setOnClickListener(this);
 //        mEditTextView.setOnClickListener(this);
 //        mMomentTextView.setOnClickListener(this);
 //        mFollowTextView.setOnClickListener(this);
@@ -172,12 +190,18 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
                 break;
             case R.id.person_moment_num_ll:
                 Util.toAnotherActivity(getActivity(), ShowMomentListActivity.class);
+                L.i("showmoment", "click");
                 break;
             case R.id.person_follow_num_ll:
                 Util.toAnotherActivity(getActivity(), ShowFollowerListActivity.class);
                 break;
             case R.id.person_fans_num_ll:
                 Util.toAnotherActivity(getActivity(), ShowFanListActivity.class);
+                break;
+            case R.id.person_title_head_iv:
+                mPopupWindow = new UploadPopupWindow(getActivity(), itemsOnClick);
+                mPopupWindow.showAtLocation(getActivity().findViewById(R.id.person_fragment_ll),
+                        Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
                 break;
 //            case R.id.person_edit_tv:
 //                break;
@@ -195,6 +219,46 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
 //    public interface IPersonChanged {
 //        void switchPerson2Login();
 //    }
+
+    //为弹出窗口实现监听类
+    private View.OnClickListener itemsOnClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            // 隐藏弹出窗口
+            mPopupWindow.dismiss();
+            switch (v.getId()) {
+                case R.id.person_upload_takePhoto_bt:// 拍照
+                    CropUtils.pickAvatarFromCamera(getActivity());
+                    break;
+                case R.id.person_upload_pickPhoto_bt:// 相册选择图片
+                    CropUtils.pickAvatarFromGallery(getActivity());
+                    break;
+                case R.id.person_upload_cancel_bt:// 取消
+//                    finish();
+                    break;
+            }
+        }
+    };
+
+    private CropUtils.CropHandler cropHandler = new CropUtils.CropHandler() {
+        @Override
+        public void handleCropResult(Uri uri, int tag) {
+            //send Image to Server
+            sendImage(UploadManager.getBitmapFromUri(getActivity().getApplicationContext(), uri));
+            mUri = uri;
+//            ImageLoadUtils.display(UserDetailActivity.this , mUserHeadImageView, uri);
+        }
+
+        @Override
+        public void handleCropError(Intent data) {
+
+        }
+    };
+
+    private void sendImage(Bitmap bm) {
+        L.i("photo", "sendImage");
+        presenter.uploadImage(bm);
+    }
 
     @Override
     public void onResume() {
@@ -242,5 +306,36 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
             }
         });
     }
+
+    @Override
+    public void showProgress() {
+        mLoadingLayout.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideProgress() {
+        mLoadingLayout.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void uploadSuccess() {
+        Util.showSnackBar(view, "上传成功！");
+    }
+
+    @Override
+    public void uploadFailure() {
+        Util.showSnackBar(view, "上传失败，请重试！");
+    }
+
+    @Override
+    public void loadHead(Bitmap bm) {
+        L.i("photo", "loadHead1:" + mUri.toString());
+        mMyApplication.getHandler().sendEmptyMessage(2);
+//        mUserHeadImageView.setImageBitmap(bm);
+        mCircleHeadImageView.setImageURI(mUri);
+        bm.recycle();
+//        this.onCreate(null);
+    }
+
 
 }

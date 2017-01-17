@@ -103,6 +103,10 @@
         <activity
             android:name=".person.widget.ShowFanListActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".person.widget.ShowFollowerListActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".person.widget.ShowMomentListActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".userdetail.widget.UserDetailActivity"
             android:screenOrientation="portrait"/>
