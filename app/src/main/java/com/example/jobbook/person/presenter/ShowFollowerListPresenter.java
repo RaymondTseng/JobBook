@@ -5,4 +5,6 @@ package com.example.jobbook.person.presenter;
  */
 
 public interface ShowFollowerListPresenter {
+
+    void loadFollwers(String account);
 }

@@ -6,5 +6,5 @@ package com.example.jobbook.person.model;
 
 public interface ShowFollowerListModel {
 
-    void loadFollowerList(ShowFollowerListModelImpl.OnLoadFollowerListListener listener);
+    void loadFollowerList(String account , final ShowFollowerListModelImpl.OnLoadFollowerListListener listener);
 }

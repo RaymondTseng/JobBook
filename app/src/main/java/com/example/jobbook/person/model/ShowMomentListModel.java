@@ -6,5 +6,5 @@ package com.example.jobbook.person.model;
 
 public interface ShowMomentListModel {
 
-    void loadMomentList(ShowMomentListModelImpl.OnLoadMomentListListener listener);
+    void loadMomentList(String account , final ShowMomentListModelImpl.OnLoadMomentListListener listener);
 }
