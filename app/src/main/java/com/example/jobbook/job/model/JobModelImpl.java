@@ -37,7 +37,7 @@ public class JobModelImpl implements JobModel{
             }
         }
         L.i("job_response:", "isRecommend:" + isRecommend + " type:" + type + " location:" + location);
-        L.i("job_response:", url.toString());
+        L.i("job_response_url:", "url:" + url.toString());
         L.i("job_response:", "pageIndex:" + pageIndex);
         OkHttpUtils.postString().url(url.toString()).content(String.valueOf(pageIndex)).build().execute(new StringCallback() {
             @Override

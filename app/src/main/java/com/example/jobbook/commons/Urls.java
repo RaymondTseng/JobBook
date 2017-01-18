@@ -77,7 +77,7 @@ public class Urls {
 
     public static final String LOGIN_CHECK_URL = IP + "/enter/checkLogin/account/";
 
-    public static final String USER_DETAIL_MOMENT_URL = IP + "/question/getHisQuestion/";
+    public static final String USER_DETAIL_MOMENT_URL = IP + "/question/getHisQuestion/his/";
 
     public static final String USER_DETAIL_FOLLOW_URL = IP + "/person/myFocus/account/";
 

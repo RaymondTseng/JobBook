@@ -34,7 +34,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 /**
  * Created by Xu on 2016/9/5.
  */
-public class UserDetailActivity extends Activity implements View.OnClickListener, UploadView {
+public class OldUserDetailActivity extends Activity implements View.OnClickListener, UploadView {
 
     private ImageButton mBackImageButton;
     private RelativeLayout mChangeHeadRelativeLayout;
@@ -122,10 +122,10 @@ public class UserDetailActivity extends Activity implements View.OnClickListener
             mPopupWindow.dismiss();
             switch (v.getId()) {
                 case R.id.person_upload_takePhoto_bt:// 拍照
-                    CropUtils.pickAvatarFromCamera(UserDetailActivity.this);
+                    CropUtils.pickAvatarFromCamera(OldUserDetailActivity.this);
                     break;
                 case R.id.person_upload_pickPhoto_bt:// 相册选择图片
-                    CropUtils.pickAvatarFromGallery(UserDetailActivity.this);
+                    CropUtils.pickAvatarFromGallery(OldUserDetailActivity.this);
                     break;
                 case R.id.person_upload_cancel_bt:// 取消
 //                    finish();
@@ -140,7 +140,7 @@ public class UserDetailActivity extends Activity implements View.OnClickListener
             //send Image to Server
             sendImage(UploadManager.getBitmapFromUri(getApplicationContext(), uri));
             mUri = uri;
-//            ImageLoadUtils.display(UserDetailActivity.this , mUserHeadImageView, uri);
+//            ImageLoadUtils.display(OldUserDetailActivity.this , mUserHeadImageView, uri);
         }
 
         @Override

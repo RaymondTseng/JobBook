@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.jobbook.R;
@@ -21,6 +22,7 @@ import java.util.List;
 public class UserDetailFollowAdapter extends BaseAdapter {
     private List<PersonBean> mData;
     private Context mContext;
+    private OnUserFollowItemClickListener listener;
 
     public UserDetailFollowAdapter(Context mContext, List<PersonBean> mData){
         this.mContext = mContext;
@@ -45,13 +47,14 @@ public class UserDetailFollowAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         View view;
         ViewHolder mViewHolder;
-        PersonBean mPersonBean = mData.get(position);
+        final PersonBean mPersonBean = mData.get(position);
         if(convertView == null){
             view = LayoutInflater.from(mContext).inflate(R.layout.user_detail_follow_lv_item, null);
             mViewHolder = new ViewHolder();
             mViewHolder.mHeadImageView = (ImageView) view.findViewById(R.id.user_detail_follow_lv_item_head_iv);
             mViewHolder.mNameTextView = (TextView) view.findViewById(R.id.user_detail_follow_lv_item_name_tv);
             mViewHolder.mWorkSpacePositionTextView = (TextView) view.findViewById(R.id.user_detail_follow_lv_item_space_position_tv);
+            mViewHolder.mParentView = (RelativeLayout) view.findViewById(R.id.user_detail_follow_lv_item_rl);
             view.setTag(mViewHolder);
         }else{
             view = convertView;
@@ -61,6 +64,14 @@ public class UserDetailFollowAdapter extends BaseAdapter {
         mViewHolder.mNameTextView.setText(mPersonBean.getUsername());
         mViewHolder.mWorkSpacePositionTextView.setText(mPersonBean.getWorkSpace() + " " +
                 mPersonBean.getWorkPosition());
+        mViewHolder.mParentView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (listener != null) {
+                    listener.onUserFollowItemClick(mPersonBean);
+                }
+            }
+        });
         return view;
     }
 
@@ -68,10 +79,19 @@ public class UserDetailFollowAdapter extends BaseAdapter {
         ImageView mHeadImageView;
         TextView mNameTextView;
         TextView mWorkSpacePositionTextView;
+        RelativeLayout mParentView;
     }
 
     public void refreshData(List<PersonBean> mData){
         this.mData = mData;
         notifyDataSetChanged();
+    }
+
+    public void setOnUserFollowItemClickListener(OnUserFollowItemClickListener listener) {
+        this.listener = listener;
+    }
+
+    public interface OnUserFollowItemClickListener{
+        void onUserFollowItemClick(PersonBean personBean);
     }
 }

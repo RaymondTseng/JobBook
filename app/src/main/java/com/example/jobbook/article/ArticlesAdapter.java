@@ -2,7 +2,6 @@ package com.example.jobbook.article;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import com.example.jobbook.util.L;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,8 +13,6 @@ import com.example.jobbook.bean.ArticleBean;
 import com.example.jobbook.commons.Constants;
 import com.example.jobbook.util.ImageLoadUtils;
 import com.example.jobbook.util.Util;
-
-import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -31,6 +28,7 @@ public class ArticlesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private Context mContext;
 
     private OnItemClickListener mOnItemClickListener;
+    private OnFooterItemClickListener mOnFooterItemClickListener;
 
     public ArticlesAdapter(Context mContext){
         this.mContext = mContext;
@@ -111,6 +109,14 @@ public class ArticlesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         this.mOnItemClickListener = onItemClickListener;
     }
 
+    public interface OnFooterItemClickListener {
+        void onFooterItemClick(View view, int position);
+    }
+
+    public void setOnFooterItemClickListener(OnFooterItemClickListener onFooterItemClickListener) {
+        this.mOnFooterItemClickListener = onFooterItemClickListener;
+    }
+
     public class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView mLabel;
         TextView mTitle;
@@ -147,11 +153,18 @@ public class ArticlesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         this.mShowFooter = mShowFooter;
     }
 
-    public class FooterViewHolder extends RecyclerView.ViewHolder {
+    public class FooterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         public FooterViewHolder(View view) {
             super(view);
+            itemView.setOnClickListener(this);
         }
 
+        @Override
+        public void onClick(View v) {
+            if(mOnFooterItemClickListener != null) {
+                mOnFooterItemClickListener.onFooterItemClick(v, this.getLayoutPosition());
+            }
+        }
     }
 }

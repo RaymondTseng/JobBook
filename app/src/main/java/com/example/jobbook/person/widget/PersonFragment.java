@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -211,7 +210,7 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
 //                break;
 //            case R.id.person_userinfo_rl:
 //                mMyApplication.setHandler(handler);
-//                Util.toAnotherActivity(getActivity(), UserDetailActivity.class);
+//                Util.toAnotherActivity(getActivity(), OldUserDetailActivity.class);
 //                break;
         }
     }
@@ -246,7 +245,7 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
             //send Image to Server
             sendImage(UploadManager.getBitmapFromUri(getActivity().getApplicationContext(), uri));
             mUri = uri;
-//            ImageLoadUtils.display(UserDetailActivity.this , mUserHeadImageView, uri);
+//            ImageLoadUtils.display(OldUserDetailActivity.this , mUserHeadImageView, uri);
         }
 
         @Override

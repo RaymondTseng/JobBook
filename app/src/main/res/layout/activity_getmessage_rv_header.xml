@@ -10,6 +10,6 @@
         style="@style/TextWhite14sptv"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="2dp"
-        android:text="1233" />
+        android:text="0" />
 
 </LinearLayout>

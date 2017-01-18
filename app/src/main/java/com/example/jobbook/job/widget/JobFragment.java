@@ -67,6 +67,7 @@ public class JobFragment extends Fragment implements JobView,
     private int currentSelection = 0;
 
     private boolean isFirst;
+    private boolean isInitCursorFirst = true;
 
     @Nullable
     @Override
@@ -104,6 +105,7 @@ public class JobFragment extends Fragment implements JobView,
                         .getDisplayMetrics()));
         mJobPresenter = new JobPresenterImpl(this);
         mAdapter.setOnItemClickListener(mOnItemClickListener);
+        mAdapter.setOnFooterItemClickListener(mOnFooterItemClickListener);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.addOnScrollListener(mOnScrollListener);
         mSwipeRefreshLayout.setProgressViewOffset(false, 0, Util.getHeight(getActivity()) / 4);
@@ -133,6 +135,7 @@ public class JobFragment extends Fragment implements JobView,
         mCategorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                L.i("category", "itemselected");
                 currentSelection = 1;
                 cursorCheckStatus(currentSelection);
                 if (position == 0) {
@@ -159,6 +162,7 @@ public class JobFragment extends Fragment implements JobView,
         mLocationSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                L.i("location", "itemselected");
                 currentSelection = 2;
                 cursorCheckStatus(currentSelection);
                 if (position == 0) {
@@ -196,6 +200,12 @@ public class JobFragment extends Fragment implements JobView,
             isFirst = false;
         }
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        isInitCursorFirst = true;
     }
 
     private RecyclerView.OnScrollListener mOnScrollListener = new RecyclerView.OnScrollListener() {
@@ -308,6 +318,13 @@ public class JobFragment extends Fragment implements JobView,
         }
     };
 
+    private JobsAdapter.OnFooterItemClickListener mOnFooterItemClickListener = new JobsAdapter.OnFooterItemClickListener() {
+        @Override
+        public void onFooterItemClick(View view, int position) {
+            mJobPresenter.loadJobs(pageIndex, isRecommend, mCurrentCategory, mCurrentLocation);
+        }
+    };
+
     @Override
     public void onRefresh() {
         L.i("TAG", "onRefresh");
@@ -325,7 +342,7 @@ public class JobFragment extends Fragment implements JobView,
 //        int two = one * 2; //1 -> 3 偏移量
 //        Animation animation = null;
         switch (count) {
-            case 0: {
+            case 0:
                 cursorOne.setVisibility(View.VISIBLE);
                 cursorTwo.setVisibility(View.GONE);
                 cursorThree.setVisibility(View.GONE);
@@ -343,9 +360,8 @@ public class JobFragment extends Fragment implements JobView,
                 L.i("JobFragement", "click 0");
 //                currentSelection = 0;
                 break;
-            }
 
-            case 1: {
+            case 1:
                 cursorOne.setVisibility(View.GONE);
                 cursorTwo.setVisibility(View.VISIBLE);
                 cursorThree.setVisibility(View.GONE);
@@ -363,8 +379,7 @@ public class JobFragment extends Fragment implements JobView,
                 L.i("JobFragement", "click 1");
 //                currentSelection = 1;
                 break;
-            }
-            case 2: {
+            case 2:
                 cursorOne.setVisibility(View.GONE);
                 cursorTwo.setVisibility(View.GONE);
                 cursorThree.setVisibility(View.VISIBLE);
@@ -381,15 +396,18 @@ public class JobFragment extends Fragment implements JobView,
 //                }
                 L.i("JobFragement", "click 2");
 //                currentSelection = 2;
+                if (isInitCursorFirst) {
+                    cursorOne.setVisibility(View.VISIBLE);
+                    cursorTwo.setVisibility(View.GONE);
+                    cursorThree.setVisibility(View.GONE);
+                    isInitCursorFirst = false;
+                }
                 break;
-            }
 
             default:
                 break;
         }
-        cursorOne.setVisibility(View.VISIBLE);
-        cursorTwo.setVisibility(View.GONE);
-        cursorThree.setVisibility(View.GONE);
+
     }
 
 }

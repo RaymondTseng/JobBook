@@ -17,6 +17,7 @@ import com.example.jobbook.person.presenter.FavouriteJobPresenter;
 import com.example.jobbook.person.presenter.FavouriteJobPresenterImpl;
 import com.example.jobbook.person.view.FavouriteJobView;
 import com.example.jobbook.util.L;
+import com.example.jobbook.util.Util;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,6 +72,6 @@ public class FavouriteJobsFragment extends Fragment implements FavouriteJobView{
 
     @Override
     public void showLoadFailMsg() {
-
+        Util.showSnackBar(view, "读取收藏岗位错误，请重试！");
     }
 }

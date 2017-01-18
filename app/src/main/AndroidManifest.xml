@@ -83,7 +83,7 @@
             android:name=".cv.widget.TextCVActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".person.widget.UserDetailActivity"
+            android:name=".person.widget.OldUserDetailActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".update.widget.UpdatePhoneActivity"

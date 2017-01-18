@@ -1,8 +1,8 @@
 package com.example.jobbook.person.widget;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -14,8 +14,8 @@ import com.example.jobbook.bean.PersonBean;
 import com.example.jobbook.person.presenter.ShowFollowerListPresenter;
 import com.example.jobbook.person.presenter.ShowFollowerListPresenterImpl;
 import com.example.jobbook.person.view.ShowFollowerListView;
-import com.example.jobbook.userdetail.UserDetailFansAdapter;
-import com.example.jobbook.userdetail.UserDetailMomentAdapter;
+import com.example.jobbook.userdetail.UserDetailFollowAdapter;
+import com.example.jobbook.userdetail.widget.UserDetailActivity;
 import com.example.jobbook.util.Util;
 
 import java.util.ArrayList;
@@ -31,7 +31,7 @@ public class ShowFollowerListActivity extends Activity implements ShowFollowerLi
     private ImageButton mBackImageButton;
     private LinearLayout mLoadingLinearLayout;
     private ShowFollowerListPresenter presenter;
-    private UserDetailFansAdapter mAdapter;
+    private UserDetailFollowAdapter mAdapter;
     private View view;
 
     @Override
@@ -51,10 +51,18 @@ public class ShowFollowerListActivity extends Activity implements ShowFollowerLi
 
     private void initEvents() {
         presenter = new ShowFollowerListPresenterImpl(this);
-        mAdapter = new UserDetailFansAdapter(this, new ArrayList<PersonBean>());
+        mAdapter = new UserDetailFollowAdapter(this, new ArrayList<PersonBean>());
         mShowFollowerListListView.setAdapter(mAdapter);
         presenter.loadFollwers(MyApplication.getAccount());
         mBackImageButton.setOnClickListener(this);
+        mAdapter.setOnUserFollowItemClickListener(new UserDetailFollowAdapter.OnUserFollowItemClickListener() {
+            @Override
+            public void onUserFollowItemClick(PersonBean personBean) {
+                Intent intent = new Intent(ShowFollowerListActivity.this, UserDetailActivity.class);
+                intent.putExtra("person_bean", personBean);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
