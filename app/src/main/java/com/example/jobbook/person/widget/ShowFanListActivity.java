@@ -1,6 +1,7 @@
 package com.example.jobbook.person.widget;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
@@ -14,6 +15,7 @@ import com.example.jobbook.person.presenter.ShowFanListPresenter;
 import com.example.jobbook.person.presenter.ShowFanListPresenterImpl;
 import com.example.jobbook.person.view.ShowFanListView;
 import com.example.jobbook.userdetail.UserDetailFansAdapter;
+import com.example.jobbook.userdetail.widget.UserDetailActivity;
 import com.example.jobbook.util.Util;
 
 import java.util.ArrayList;
@@ -60,6 +62,14 @@ public class ShowFanListActivity extends Activity implements ShowFanListView, Vi
         presenter.loadFans(MyApplication.getAccount());
         adapter = new UserDetailFansAdapter(this, new ArrayList<PersonBean>());
         mShowFanListListView.setAdapter(adapter);
+        adapter.setOnUserFanItemClickListener(new UserDetailFansAdapter.OnUserFanItemClickListener() {
+            @Override
+            public void onUserFanItemClick(PersonBean personBean) {
+                Intent intent = new Intent(ShowFanListActivity.this, UserDetailActivity.class);
+                intent.putExtra("person_bean", MyApplication.getmPersonBean());
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

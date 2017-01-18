@@ -53,7 +53,7 @@ public class ArticleDetailActivity extends Activity implements ArticleDetailView
     private void initViews() {
         mLikeImageButton = (ImageButton) findViewById(R.id.article_detail_like_ib);
         mBackImageButton = (ImageButton) findViewById(R.id.article_detail_back_ib);
-        mListView = (ListView) findViewById(R.id.article_detail_lv);
+//        mListView = (ListView) findViewById(R.id.article_detail_lv);
         mReadingQuantityTextView = (TextView) findViewById(R.id.article_detail_content_reading_tv);
         mArticleTitleTextView = (TextView) findViewById(R.id.article_detail_title_tv);
         mArticleContentTextView = (HtmlTextView) findViewById(R.id.article_detail_content_tv);
@@ -84,7 +84,7 @@ public class ArticleDetailActivity extends Activity implements ArticleDetailView
     @Override
     public void addArticle(ArticleBean mArticle) {
         bean = mArticle;
-        mReadingQuantityTextView.setText(mArticle.getReadingquantity() + "跟帖");
+        mReadingQuantityTextView.setText(mArticle.getReadingquantity() + "");
         mArticleTitleTextView.setText(mArticle.getTitle());
 //        mArticleContentTextView.setText(mArticle.getContent());
         mArticleContentTextView.setHtml(StringEscapeUtils.unescapeHtml4(mArticle.getContent()), new HtmlHttpImageGetter(mArticleContentTextView));

@@ -26,11 +26,14 @@ import com.example.jobbook.userdetail.UserDetailPagerAdapter;
 import com.example.jobbook.userdetail.presenter.UserDetailPresenter;
 import com.example.jobbook.userdetail.presenter.UserDetailPresenterImpl;
 import com.example.jobbook.userdetail.view.UserDetailView;
+import com.example.jobbook.util.ImageLoadUtils;
 import com.example.jobbook.util.L;
 import com.example.jobbook.util.Util;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by root on 16-11-21.
@@ -54,6 +57,10 @@ public class UserDetailActivity extends AppCompatActivity implements View.OnClic
     private View mSettingPopupView;
     private PopupWindow mSettingPopupWindow;
     private ImageButton mSettingImageButton;
+    private CircleImageView mHeadImageView;
+    private TextView mNameTextView;
+    private TextView mCompanyPositionTextView;
+    private LinearLayout mLoadingLinearLayout;
     private int mCurrentIndex = 0;
     private PersonBean mPersonBean;
 
@@ -73,6 +80,10 @@ public class UserDetailActivity extends AppCompatActivity implements View.OnClic
         mFollowerTextView = (TextView) findViewById(R.id.user_detail_title_follower_tv);
         mBackImageButton = (ImageButton) findViewById(R.id.user_detail_back_ib);
         mFollowLayout = (LinearLayout) findViewById(R.id.user_detail_follow_ll);
+        mLoadingLinearLayout = (LinearLayout) findViewById(R.id.loading_circle_progress_bar_ll);
+        mHeadImageView = (CircleImageView) findViewById(R.id.user_detail_title_head_iv);
+        mNameTextView = (TextView) findViewById(R.id.user_detail_title_head_name_tv);
+        mCompanyPositionTextView = (TextView) findViewById(R.id.user_detail_title_company_position_tv);
 //        mSettingImageButton = (ImageButton) findViewById(R.id.user_detail_setting_ib);
 //        mSettingPopupView = getLayoutInflater().inflate(R.layout.user_detail_setting_popupwindow, null);
     }
@@ -115,6 +126,12 @@ public class UserDetailActivity extends AppCompatActivity implements View.OnClic
         ((UserDetailMomentFragment) mFragemnts.get(0)).getAccount(mPersonBean.getAccount());
         ((UserDetailFollowFragment) mFragemnts.get(1)).getAccount(mPersonBean.getAccount());
         ((UserDetailFansFragment) mFragemnts.get(2)).getAccount(mPersonBean.getAccount());
+
+        ImageLoadUtils.display(this, mHeadImageView, mPersonBean.getHead());
+        mNameTextView.setText(mPersonBean.getUsername());
+        mCompanyPositionTextView.setText(mPersonBean.getWorkSpace());
+        mFollowTextView.setText("关注 " + mPersonBean.getFollow());
+        mFollowerTextView.setText("粉丝 " + mPersonBean.getFans());
     }
 
     @Override
@@ -204,12 +221,12 @@ public class UserDetailActivity extends AppCompatActivity implements View.OnClic
 
     @Override
     public void hideProgress() {
-
+        mLoadingLinearLayout.setVisibility(View.GONE);
     }
 
     @Override
     public void showProgress() {
-
+        mLoadingLinearLayout.setVisibility(View.VISIBLE);
     }
 
     public interface OnGetAccountListener{

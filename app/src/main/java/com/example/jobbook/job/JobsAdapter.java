@@ -27,6 +27,7 @@ public class JobsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 //    private Fragment mFragment;
 
     private OnItemClickListener mOnItemClickListener;
+    private OnFooterItemClickListener mOnFooterItemClickListener;
 
     public JobsAdapter(Context mContext) {
         this.mContext = mContext;
@@ -105,6 +106,14 @@ public class JobsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         this.mOnItemClickListener = onItemClickListener;
     }
 
+    public interface OnFooterItemClickListener {
+        void onFooterItemClick(View view, int position);
+    }
+
+    public void setOnFooterItemClickListener(OnFooterItemClickListener onFooterItemClickListener) {
+        this.mOnFooterItemClickListener = onFooterItemClickListener;
+    }
+
     public class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         ImageView mCompanyLogo;
         TextView mJobName;
@@ -144,11 +153,18 @@ public class JobsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         this.mShowFooter = mShowFooter;
     }
 
-    public class FooterViewHolder extends RecyclerView.ViewHolder {
+    public class FooterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         public FooterViewHolder(View view) {
             super(view);
+            itemView.setOnClickListener(this);
         }
 
+        @Override
+        public void onClick(View v) {
+            if(mOnFooterItemClickListener != null) {
+                mOnFooterItemClickListener.onFooterItemClick(v, this.getLayoutPosition());
+            }
+        }
     }
 }

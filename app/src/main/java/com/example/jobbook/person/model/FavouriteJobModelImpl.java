@@ -25,6 +25,7 @@ public class FavouriteJobModelImpl implements FavouriteJobModel {
         OkHttpUtils.get().url(Urls.FAVOURITE_JOB_URL + accountName).build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
+                L.i("loadfavourite", e.getMessage());
                 listener.onFailure("network error", e);
             }
 

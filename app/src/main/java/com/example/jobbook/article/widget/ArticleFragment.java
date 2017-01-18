@@ -109,6 +109,7 @@ public class ArticleFragment extends Fragment implements ArticleView, View.OnCli
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         adapter = new ArticlesAdapter(getActivity());
         adapter.setOnItemClickListener(mOnItemClickListener);
+        adapter.setOnFooterItemClickListener(mOnFooterItemClickListener);
         mRecyclerView.setAdapter(adapter);
         mRecyclerView.addOnScrollListener(mOnScrollListener);
         mSwipeRefreshLayout.setProgressViewOffset(false, 0, Util.getHeight(getActivity()) / 4);
@@ -262,6 +263,13 @@ public class ArticleFragment extends Fragment implements ArticleView, View.OnCli
             Bundle bundle = new Bundle();
             bundle.putSerializable("article_detail", article);
             Util.toAnotherActivity(getActivity(), ArticleDetailActivity.class, bundle);
+        }
+    };
+
+    private ArticlesAdapter.OnFooterItemClickListener mOnFooterItemClickListener = new ArticlesAdapter.OnFooterItemClickListener() {
+        @Override
+        public void onFooterItemClick(View view, int position) {
+            presenter.loadArticles(pageIndex, currentType);
         }
     };
 

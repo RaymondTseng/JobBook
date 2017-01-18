@@ -17,8 +17,7 @@
         layout="@layout/loading_layout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="512"
-        android:visibility="gone" />
+        android:layout_weight="512" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -36,12 +35,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-            <ListView
-                android:id="@+id/article_detail_lv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:divider="@drawable/listview_short_divider"
-                android:dividerHeight="2dp"></ListView>
+            <!--<ListView-->
+            <!--android:id="@+id/article_detail_lv"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:divider="@drawable/listview_short_divider"-->
+            <!--android:dividerHeight="2dp"></ListView>-->
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.example.jobbook.MyApplication;
 import com.example.jobbook.R;
-import com.example.jobbook.person.widget.UserDetailActivity;
+import com.example.jobbook.person.widget.OldUserDetailActivity;
 import com.example.jobbook.update.presenter.UpdatePwdPresenter;
 import com.example.jobbook.update.presenter.UpdatePwdPresenterImpl;
 import com.example.jobbook.update.view.UpdatePwdView;
@@ -70,7 +70,7 @@ public class UpdatePwdActivity extends Activity implements View.OnClickListener,
 
     @Override
     public void close() {
-        Util.toAnotherActivity(this, UserDetailActivity.class);
+        Util.toAnotherActivity(this, OldUserDetailActivity.class);
         finish();
     }
 

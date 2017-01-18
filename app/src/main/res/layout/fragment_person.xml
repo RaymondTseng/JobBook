@@ -1,134 +1,146 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/person_fragment_ll"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/person_fragment_ll"
     android:background="@color/colorBackgroundGray"
     android:orientation="vertical"
-    android:weightSum="512"
-    >
+    android:weightSum="512">
 
     <include
+        layout="@layout/loading_layout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="600"
-        layout="@layout/loading_layout"
-        android:visibility="gone"
-        />
+        android:visibility="gone" />
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="202"
         android:background="@color/colorBlue">
+
         <include
             layout="@layout/person_title_bar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="202"/>
+            android:layout_weight="202" />
+
         <ImageView
             android:id="@+id/person_head_bg"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@mipmap/suit"
+            android:alpha="0.1"
             android:scaleType="centerCrop"
-            android:alpha="0.1"/>
+            android:src="@mipmap/suit" />
     </RelativeLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="16"></LinearLayout>
     <!--<LinearLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="0dp"-->
-        <!--android:layout_weight="48"-->
-        <!--android:orientation="horizontal"-->
-        <!--android:id="@+id/person_black_list_ll"-->
-        <!--android:background="@color/colorWhite">-->
-        <!--<ImageView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:src="@mipmap/black_list"-->
-            <!--android:layout_gravity="center_vertical"-->
-            <!--android:layout_marginLeft="16dp"/>-->
-        <!--<TextView-->
-            <!--style="@style/Black16sptv"-->
-            <!--android:text="我的黑名单"-->
-            <!--android:layout_marginLeft="8dp"-->
-            <!--android:layout_gravity="center_vertical"/>-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="0dp"-->
+    <!--android:layout_weight="48"-->
+    <!--android:orientation="horizontal"-->
+    <!--android:id="@+id/person_black_list_ll"-->
+    <!--android:background="@color/colorWhite">-->
+    <!--<ImageView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:src="@mipmap/black_list"-->
+    <!--android:layout_gravity="center_vertical"-->
+    <!--android:layout_marginLeft="16dp"/>-->
+    <!--<TextView-->
+    <!--style="@style/Black16sptv"-->
+    <!--android:text="我的黑名单"-->
+    <!--android:layout_marginLeft="8dp"-->
+    <!--android:layout_gravity="center_vertical"/>-->
     <!--</LinearLayout>-->
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="48"
-        android:orientation="horizontal"
-        android:layout_marginTop="2dp"
         android:id="@+id/person_collect_ll"
-        android:background="@color/colorWhite">
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/collect"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="16dp"/>
-        <TextView
-            style="@style/Black16sptv"
-            android:text="我的收藏"
-            android:layout_marginLeft="8dp"
-            android:layout_gravity="center_vertical"/>
-    </LinearLayout>
-    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="48"
-        android:orientation="horizontal"
         android:layout_marginTop="2dp"
-        android:id="@+id/person_message_ll"
-        android:background="@color/colorWhite">
+        android:layout_weight="48"
+        android:background="@color/colorWhite"
+        android:orientation="horizontal">
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/message_blue"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="16dp"/>
+            android:layout_marginLeft="16dp"
+            android:src="@mipmap/collect" />
+
         <TextView
             style="@style/Black16sptv"
-            android:text="消息"
+            android:layout_gravity="center_vertical"
             android:layout_marginLeft="8dp"
-            android:layout_gravity="center_vertical"/>
+            android:text="我的收藏" />
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/person_message_ll"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="2dp"
+        android:layout_weight="48"
+        android:background="@color/colorWhite"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="16dp"
+            android:src="@mipmap/message_blue" />
+
+        <TextView
+            style="@style/Black16sptv"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="8dp"
+            android:text="消息" />
+    </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="16"></LinearLayout>
+
     <LinearLayout
+        android:id="@+id/person_setting_ll"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="48"
-        android:orientation="horizontal"
-        android:id="@+id/person_setting_ll"
-        android:background="@color/colorWhite">
+        android:background="@color/colorWhite"
+        android:orientation="horizontal">
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/setting_blue"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="16dp"/>
+            android:layout_marginLeft="16dp"
+            android:src="@mipmap/setting_blue" />
+
         <TextView
             style="@style/Black16sptv"
-            android:text="设置"
+            android:layout_gravity="center_vertical"
             android:layout_marginLeft="8dp"
-            android:layout_gravity="center_vertical"/>
+            android:text="设置" />
     </LinearLayout>
+
     <TextView
+        android:id="@+id/person_logout_tv"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="48"
-        android:text="注销"
-        android:id="@+id/person_logout_tv"
         android:layout_marginTop="2dp"
-        android:textSize="16sp"
-        android:textColor="@color/colorPink"
+        android:layout_weight="48"
         android:background="@color/colorWhite"
-        android:gravity="center"/>
+        android:gravity="center"
+        android:text="注销"
+        android:textColor="@color/colorPink"
+        android:textSize="16sp" />
 
 </LinearLayout>
