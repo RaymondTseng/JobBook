@@ -17,6 +17,6 @@ public interface FavouriteArticleView {
 
     void hideProgress();
 
-    void showLoadFailMsg();
+    void showLoadFailMsg(String msg);
 
 }

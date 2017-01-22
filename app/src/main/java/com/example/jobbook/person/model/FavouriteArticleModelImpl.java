@@ -23,7 +23,7 @@ public class FavouriteArticleModelImpl implements FavouriteArticleModel{
         OkHttpUtils.get().url(Urls.FAVOURITE_ARTICLE_URL + account).build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int i) {
-                listener.onFailure("network error", e);
+                listener.onFailure("网络错误!", e);
             }
 
             @Override
@@ -34,7 +34,7 @@ public class FavouriteArticleModelImpl implements FavouriteArticleModel{
                             TypeToken<List<ArticleBean>>(){}.getType());
                     listener.onSuccess(mData);
                 }else{
-                    listener.onFailure(resultBean.getResponse(), new Exception());
+                    listener.onFailure("读取错误!", new Exception());
                 }
             }
         });

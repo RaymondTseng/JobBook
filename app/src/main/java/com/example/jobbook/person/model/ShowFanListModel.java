@@ -7,4 +7,6 @@ package com.example.jobbook.person.model;
 public interface ShowFanListModel {
 
     void loadFanList(String account, ShowFantListModelImpl.OnLoadFanListListener listener);
+
+    void follow(String myAccount, String hisAccount, ShowFantListModelImpl.OnFollowListener listener);
 }

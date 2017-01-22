@@ -70,7 +70,6 @@ public class UpdatePwdActivity extends Activity implements View.OnClickListener,
 
     @Override
     public void close() {
-        Util.toAnotherActivity(this, OldUserDetailActivity.class);
         finish();
     }
 

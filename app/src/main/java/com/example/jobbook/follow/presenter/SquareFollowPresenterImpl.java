@@ -23,20 +23,20 @@ public class SquareFollowPresenterImpl implements SquareFollowPresenter,SquareFo
     }
 
     @Override
-    public void loadSquareFollows(int pageIndex, String name) {
+    public void loadSquareFollows(int pageIndex) {
         mSquareFollowView.showProgress();
         L.i("square", "showprogress");
-        mSquareFollowModel.loadSquareFollows(pageIndex, name, this);
+        mSquareFollowModel.loadSquareFollows(pageIndex, this);
     }
 
     @Override
-    public void like(int squareId, String account) {
-        mSquareFollowModel.like(squareId, account, this);
+    public void like(int squareId, int position) {
+        mSquareFollowModel.like(squareId, position, this);
     }
 
     @Override
-    public void unlike(int squareId, String account) {
-        mSquareFollowModel.unlike(squareId, account, this);
+    public void unlike(int squareId, int position) {
+        mSquareFollowModel.unlike(squareId, position, this);
     }
 
     @Override
@@ -52,8 +52,8 @@ public class SquareFollowPresenterImpl implements SquareFollowPresenter,SquareFo
     }
 
     @Override
-    public void onLikeSuccess() {
-        mSquareFollowView.likeSuccess();
+    public void onLikeSuccess(MomentBean momentBean, int position) {
+        mSquareFollowView.likeSuccess(momentBean, position);
     }
 
     @Override
@@ -69,8 +69,8 @@ public class SquareFollowPresenterImpl implements SquareFollowPresenter,SquareFo
     }
 
     @Override
-    public void onUnlikeSuccess() {
-        mSquareFollowView.unlikeSuccess();
+    public void onUnlikeSuccess(MomentBean momentBean, int position) {
+        mSquareFollowView.unlikeSuccess(momentBean, position);
     }
 
     @Override

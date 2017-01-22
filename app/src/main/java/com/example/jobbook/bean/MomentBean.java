@@ -102,4 +102,9 @@ public class MomentBean implements Serializable {
     public void setIfLike(int ifLike) {
         this.ifLike = ifLike;
     }
+
+    public String toString(){
+        return "author" + author.toString() + ",content" + content + ",date" + date + ",commentNum" +
+                commentNum + ",likesNum" + likesNum + ",ifLike" + ifLike ;
+    }
 }

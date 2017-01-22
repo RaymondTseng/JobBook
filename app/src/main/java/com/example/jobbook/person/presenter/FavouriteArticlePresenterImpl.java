@@ -29,7 +29,7 @@ public class FavouriteArticlePresenterImpl implements FavouriteArticleModelImpl.
     @Override
     public void onFailure(String msg, Exception e) {
         mView.hideProgress();
-        mView.showLoadFailMsg();
+        mView.showLoadFailMsg(msg);
     }
 
     @Override

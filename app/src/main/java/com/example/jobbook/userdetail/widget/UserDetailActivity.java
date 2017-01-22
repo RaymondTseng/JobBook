@@ -22,6 +22,7 @@ import android.widget.TextView;
 import com.example.jobbook.MyApplication;
 import com.example.jobbook.R;
 import com.example.jobbook.bean.PersonBean;
+import com.example.jobbook.userdetail.UserDetailFansAdapter;
 import com.example.jobbook.userdetail.UserDetailPagerAdapter;
 import com.example.jobbook.userdetail.presenter.UserDetailPresenter;
 import com.example.jobbook.userdetail.presenter.UserDetailPresenterImpl;
@@ -108,6 +109,7 @@ public class UserDetailActivity extends AppCompatActivity implements View.OnClic
 
     private void initEvents(){
         mPersonBean = (PersonBean) getIntent().getSerializableExtra("person_bean");
+        L.i("userdetail", mPersonBean.toString());
         mFragemnts.add(new UserDetailMomentFragment());
         mFragemnts.add(new UserDetailFollowFragment());
         mFragemnts.add(new UserDetailFansFragment());
@@ -228,6 +230,8 @@ public class UserDetailActivity extends AppCompatActivity implements View.OnClic
     public void showProgress() {
         mLoadingLinearLayout.setVisibility(View.VISIBLE);
     }
+
+
 
     public interface OnGetAccountListener{
         void getAccount(String account);

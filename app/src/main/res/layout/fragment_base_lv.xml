@@ -13,9 +13,9 @@
         android:layout_weight="600"
         android:visibility="gone" />
 
-    <ListView
-        android:id="@+id/base_lv"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/base_rv"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="512"></ListView>
+        android:layout_weight="512"></android.support.v7.widget.RecyclerView>
 </LinearLayout>

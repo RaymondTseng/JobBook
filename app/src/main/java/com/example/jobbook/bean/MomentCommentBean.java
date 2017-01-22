@@ -93,4 +93,9 @@ public class MomentCommentBean implements Serializable {
     public void setContent(String content) {
         this.content = content;
     }
+
+    public String toString(){
+        return "applier" + applier.toString() + ",good" + good + ",bad" + bad + ",ask_time" + ask_time +
+                ",content" + content;
+    }
 }

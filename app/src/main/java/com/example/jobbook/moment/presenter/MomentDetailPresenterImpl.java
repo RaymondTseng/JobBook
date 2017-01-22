@@ -36,9 +36,9 @@ public class MomentDetailPresenterImpl implements MomentDetailPresenter,
     }
 
     @Override
-    public void onSuccess() {
+    public void onSendSuccess(MomentBean momentBean) {
         mView.hideProgress();
-        mView.sendSuccess();
+        mView.sendSuccess(momentBean);
     }
 
 
@@ -56,50 +56,50 @@ public class MomentDetailPresenterImpl implements MomentDetailPresenter,
     }
 
     @Override
-    public void loadMomentComments(int id) {
+    public void loadMomentComments(int id, int index) {
         mView.showProgress();
-        mModel.loadMomentComments(id, this);
+        mModel.loadMomentComments(id, index, this);
     }
 
     @Override
-    public void sendComment(int id, MomentCommentBean momentCommentBean) {
+    public void sendComment(MomentCommentBean momentCommentBean) {
         mView.showProgress();
-        mModel.sendComment(id, momentCommentBean, this);
+        mModel.sendComment(momentCommentBean, this);
     }
 
     @Override
     public void commentLike(int com_id, String account) {
         mView.showProgress();
-        mModel.commentLike(com_id, account, this);
+        mModel.like(com_id, account, this);
     }
 
     @Override
     public void commentUnlike(int com_id, String account) {
         mView.showProgress();
-        mModel.commentUnlike(com_id, account, this);
+        mModel.unlike(com_id, account, this);
     }
 
     @Override
-    public void onLikeSuccess(int num_like, int num_unlike) {
+    public void onLikeSuccess(MomentBean momentBean) {
         mView.hideProgress();
-        mView.commentLikeSuccess(num_like, num_unlike);
+        mView.likeSuccess(momentBean);
     }
 
     @Override
     public void onLikeFailure(String msg, Exception e, int error) {
         mView.hideProgress();
-        mView.commentLikeFailure(msg);
+        mView.likeFailure(msg);
     }
 
     @Override
-    public void onUnlikeSuccess(int num_like, int num_unlike) {
+    public void onUnlikeSuccess(MomentBean momentBean) {
         mView.hideProgress();
-        mView.commentUnlikeSuccess(num_like, num_unlike);
+        mView.unlikeSuccess(momentBean);
     }
 
     @Override
     public void onUnlikeFailure(String msg, Exception e, int error) {
         mView.hideProgress();
-        mView.commentUnlikeFailure(msg);
+        mView.unlikeFailure(msg);
     }
 }

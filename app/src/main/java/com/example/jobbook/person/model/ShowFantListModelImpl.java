@@ -2,7 +2,9 @@ package com.example.jobbook.person.model;
 
 import com.example.jobbook.bean.PersonBean;
 import com.example.jobbook.bean.ResultBean;
+import com.example.jobbook.bean.TypePersonBean;
 import com.example.jobbook.commons.Urls;
+import com.example.jobbook.userdetail.model.UserDetailModelImpl;
 import com.example.jobbook.util.L;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -25,7 +27,7 @@ public class ShowFantListModelImpl implements ShowFanListModel {
             @Override
             public void onError(Call call, Exception e, int i) {
                 L.i("showfanlist", "error");
-                listener.onFailure("network error", e);
+                listener.onFailure("网络错误!", e);
             }
 
             @Override
@@ -33,19 +35,46 @@ public class ShowFantListModelImpl implements ShowFanListModel {
                 L.i("showfanlist", response);
                 ResultBean resultBean = new Gson().fromJson(response, ResultBean.class);
                 if (resultBean.getStatus().equals("true")) {
-                    List<PersonBean> list = new Gson().fromJson(resultBean.getResponse(),
-                            new TypeToken<List<PersonBean>>() {
+                    List<TypePersonBean> list = new Gson().fromJson(resultBean.getResponse(),
+                            new TypeToken<List<TypePersonBean>>() {
                             }.getType());
                     listener.onSuccess(list);
                 } else {
-                    listener.onFailure(resultBean.getResponse(), new Exception());
+                    listener.onFailure("粉丝列表读取错误，请重试！", new Exception());
+                }
+            }
+        });
+    }
+
+    @Override
+    public void follow(String myAccount, String hisAccount, final OnFollowListener listener) {
+        OkHttpUtils.get().url(Urls.USER_DETAIL_FOLLOW_SB_URL + myAccount + "/hisAccount/" +
+                hisAccount).build().execute(new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int i) {
+                listener.onFailure("network error", e);
+            }
+
+            @Override
+            public void onResponse(String response, int i) {
+                ResultBean resultBean = new Gson().fromJson(response, ResultBean.class);
+                if(resultBean.getStatus().equals("true")){
+                    listener.onSuccess();
+                }else{
+                    listener.onFailure("关注失败", new Exception());
                 }
             }
         });
     }
 
     public interface OnLoadFanListListener {
-        void onSuccess(List<PersonBean> list);
+        void onSuccess(List<TypePersonBean> list);
+
+        void onFailure(String msg, Exception e);
+    }
+
+    public interface OnFollowListener{
+        void onSuccess();
 
         void onFailure(String msg, Exception e);
     }

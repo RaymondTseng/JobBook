@@ -22,9 +22,9 @@ public class ShowMomentListPresenterImpl implements ShowMomentListPresenter, Sho
     }
 
     @Override
-    public void loadMomentList(String account) {
+    public void loadMomentList(String hisAccount, String myAccount) {
         view.showProgress();
-        model.loadMomentList(account, this);
+        model.loadMomentList(hisAccount, myAccount, this);
     }
 
     @Override

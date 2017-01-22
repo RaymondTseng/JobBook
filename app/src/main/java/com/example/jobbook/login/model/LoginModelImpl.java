@@ -7,6 +7,7 @@ import com.example.jobbook.bean.PersonBean;
 import com.example.jobbook.bean.ResultBean;
 import com.example.jobbook.commons.Urls;
 import com.example.jobbook.util.L;
+import com.example.jobbook.util.Util;
 import com.google.gson.Gson;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
@@ -19,7 +20,7 @@ import okhttp3.Call;
 public class LoginModelImpl implements LoginModel {
 
     @Override
-    public void login(String account, final String password, final OnLoginFinishedListener listener) {
+    public void login(String account, String password, final OnLoginFinishedListener listener) {
         if (TextUtils.isEmpty(account)) {
             listener.onAccountError();
         } else if (TextUtils.isEmpty(password)) {
@@ -27,11 +28,13 @@ public class LoginModelImpl implements LoginModel {
         }else{
             PersonBean personBean = new PersonBean();
             personBean.setAccount(account);
-            personBean.setPassword(password);
-            OkHttpUtils.postString().url(Urls.LOGIN_URL).content(new Gson().toJson(personBean)).build().execute(new StringCallback() {
+            personBean.setPassword(Util.getMD5(password));
+            OkHttpUtils.postString().url(Urls.LOGIN_URL).content(new Gson().toJson(personBean)).build().
+                    execute(new StringCallback() {
                 @Override
                 public void onError(Call call, Exception e, int id) {
-                    L.i("response", e.toString());
+                    L.i("login_response", e.toString());
+                    L.i("login_response", id + "");
                     listener.onNetWorkError();
                 }
 

@@ -1,6 +1,7 @@
 package com.example.jobbook.userdetail.view;
 
 import com.example.jobbook.bean.PersonBean;
+import com.example.jobbook.bean.TypePersonBean;
 
 import java.util.List;
 
@@ -9,11 +10,13 @@ import java.util.List;
  */
 
 public interface UserDetailFansView {
-    void loadFans(List<PersonBean> mFans);
+    void loadFans(List<TypePersonBean> mFans);
 
     void showProgress();
 
     void hideProgress();
 
-    void onError();
+    void followSuccess();
+
+    void onError(String msg);
 }

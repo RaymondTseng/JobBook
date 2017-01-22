@@ -81,6 +81,7 @@ public class SquareFragment extends Fragment implements SquareView,
     }
 
     private void initEvents() {
+        myApplication = (MyApplication) getActivity().getApplication();
         mSwipeRefreshLayout.setOnRefreshListener(this);
         mSquarePresenter = new SquarePresenterImpl(this);
         mLayoutManager = new LinearLayoutManager(getActivity());
@@ -115,11 +116,11 @@ public class SquareFragment extends Fragment implements SquareView,
                 if (mData.get(position).getIfLike() == 0) {
 //                    L.i("like_ib_click", "click like");
                     ib.setImageResource(R.mipmap.favourite_tapped);
-                    like(mData.get(position).getId());
+                    like(position);
                 } else {
 //                    L.i("like_ib_click", "click unlike");
                     ib.setImageResource(R.mipmap.favourite);
-                    unlike(mData.get(position).getId());
+                    unlike(position);
                 }
 //                refresh();
             }
@@ -156,6 +157,7 @@ public class SquareFragment extends Fragment implements SquareView,
             MomentBean square = mAdapter.getItem(position);
             Bundle bundle = new Bundle();
             bundle.putSerializable("square_detail", square);
+            myApplication.setHandler(handler);
             Util.toAnotherActivity(getActivity(), MomentDetailActivity.class, bundle);
         }
     };
@@ -172,13 +174,16 @@ public class SquareFragment extends Fragment implements SquareView,
             mData = new ArrayList<>();
         }
         mData.addAll(squareList);
+        if(squareList == null || squareList.size() < Urls.PAZE_SIZE){
+            mAdapter.setmShowFooter(false);
+        }
         if (pageIndex == 0) {
             mAdapter.updateData(mData);
         } else {
             //如果没有更多数据了,则隐藏footer布局
-            if (squareList == null || squareList.size() == 0) {
-                mAdapter.setmShowFooter(false);
-            }
+//            if (squareList == null || squareList.size() == 0) {
+//                mAdapter.setmShowFooter(false);
+//            }
             mAdapter.notifyDataSetChanged();
         }
         pageIndex += Urls.PAZE_SIZE;
@@ -199,13 +204,13 @@ public class SquareFragment extends Fragment implements SquareView,
     }
 
     @Override
-    public void like(int squareId) {
-        mSquarePresenter.like(squareId);
+    public void like(int position) {
+        mSquarePresenter.like(mData.get(position).getId(), position);
     }
 
     @Override
-    public void unlike(int squareId) {
-        mSquarePresenter.unlike(squareId);
+    public void unlike(int position) {
+        mSquarePresenter.unlike(mData.get(position).getId(), position);
     }
 
     @Override
@@ -214,13 +219,19 @@ public class SquareFragment extends Fragment implements SquareView,
     }
 
     @Override
-    public void likeSuccess() {
-
+    public void likeSuccess(MomentBean momentBean, int position) {
+        mAdapter.getmData().set(position, momentBean);
+        //RecyclerView局部更新
+        mAdapter.notifyItemChanged(position, "refresh");
+        Util.showSnackBar(MainActivity.mSnackBarView, "点赞成功！");
     }
 
     @Override
-    public void unlikeSuccess() {
-
+    public void unlikeSuccess(MomentBean momentBean, int position) {
+        mAdapter.getmData().set(position, momentBean);
+        //RecyclerView局部更新
+        mAdapter.notifyItemChanged(position, "refresh");
+        Util.showSnackBar(MainActivity.mSnackBarView, "取消点赞成功！");
     }
 
     @Override
@@ -232,6 +243,7 @@ public class SquareFragment extends Fragment implements SquareView,
     public void unlikeError() {
         Util.showSnackBar(MainActivity.mSnackBarView, "取消点赞失败！");
     }
+
 
     @Override
     public void onRefresh() {

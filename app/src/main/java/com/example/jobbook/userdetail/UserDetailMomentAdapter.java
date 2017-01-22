@@ -7,10 +7,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.jobbook.R;
 import com.example.jobbook.bean.MomentBean;
+import com.example.jobbook.util.L;
 
 import java.util.List;
 
@@ -18,22 +20,35 @@ import java.util.List;
  * Created by root on 16-11-28.
  */
 
-public class UserDetailMomentAdapter extends BaseAdapter {
+public class UserDetailMomentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context mContext;
     private List<MomentBean> mData;
+    private OnMomentItemClickListener onMomentItemClickListener;
 
     public UserDetailMomentAdapter(Context mContext, List<MomentBean> mData){
         this.mContext = mContext;
         this.mData = mData;
     }
+
+
     @Override
-    public int getCount() {
-        return mData.size();
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.user_detail_moment_lv_item, parent, false);
+        ViewHolder vh = new ViewHolder(v);
+        return vh;
     }
 
     @Override
-    public Object getItem(int position) {
-        return mData.get(position);
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        if(holder instanceof ViewHolder){
+            MomentBean moment = mData.get(position);
+            if(moment == null){
+                return;
+            }
+            ((ViewHolder) holder).mContentTextView.setText(moment.getContent());
+            ((ViewHolder) holder).mTimeTextView.setText(moment.getDate());
+        }
     }
 
     @Override
@@ -42,32 +57,46 @@ public class UserDetailMomentAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        View view;
-        ViewHolder mViewHolder;
-        MomentBean moment = mData.get(position);
-        if(convertView == null){
-            view = LayoutInflater.from(mContext).inflate(R.layout.user_detail_moment_lv_item, null);
-            mViewHolder = new ViewHolder();
-            mViewHolder.mContentTextView = (TextView) view.findViewById(R.id.user_detail_moment_content_tv);
-            mViewHolder.mTimeTextView = (TextView) view.findViewById(R.id.user_detail_moment_time_tv);
-            view.setTag(mViewHolder);
-        }else{
-            view = convertView;
-            mViewHolder = (ViewHolder) view.getTag();
+    public int getItemCount() {
+        if(mData == null){
+            return 0;
         }
-        mViewHolder.mContentTextView.setText(moment.getContent());
-        mViewHolder.mTimeTextView.setText(moment.getDate());
-        return view;
+
+        return mData.size();
     }
+
 
     public void refreshData(List<MomentBean> mData){
         this.mData = mData;
         notifyDataSetChanged();
     }
 
-    class ViewHolder{
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView mContentTextView;
         TextView mTimeTextView;
+        LinearLayout mParentView;
+
+        public ViewHolder(View view) {
+            super(view);
+            mContentTextView = (TextView) view.findViewById(R.id.user_detail_moment_content_tv);
+            mTimeTextView = (TextView) view.findViewById(R.id.user_detail_moment_time_tv);
+            mParentView = (LinearLayout) view.findViewById(R.id.user_detail_moment_lv_item_ll);
+            mParentView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            if(onMomentItemClickListener != null){
+                onMomentItemClickListener.onMomentItemClick(mData.get(getLayoutPosition()));
+            }
+        }
+    }
+
+    public interface OnMomentItemClickListener{
+        void onMomentItemClick(MomentBean momentBean);
+    }
+
+    public void setOnMomentItemClickListener(OnMomentItemClickListener listener){
+        this.onMomentItemClickListener = listener;
     }
 }

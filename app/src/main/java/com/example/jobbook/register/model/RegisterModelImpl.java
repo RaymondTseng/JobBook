@@ -8,10 +8,9 @@ import com.example.jobbook.bean.PersonBean;
 import com.example.jobbook.bean.ResultBean;
 import com.example.jobbook.commons.Urls;
 import com.example.jobbook.util.L;
+import com.example.jobbook.util.SMSSDKManager;
 import com.example.jobbook.util.Util;
 import com.google.gson.Gson;
-import com.jude.smssdk_mob.Callback;
-import com.jude.smssdk_mob.SMSManager;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -40,12 +39,12 @@ public class RegisterModelImpl implements RegisterModel {
         } else if (Util.illegalCharactersCheck(account)) {
             listener.onAccountIllegalError();
         } else {
-            SMSManager.getInstance().verifyCode(mContext, "86", account, code, new Callback() {
+            SMSSDKManager.getInstance().verifyCode(mContext, "86", account, code, new SMSSDKManager.Callback() {
                 @Override
                 public void success() {
                     PersonBean personBean = new PersonBean();
                     personBean.setAccount(account);
-                    personBean.setPassword(password);
+                    personBean.setPassword(Util.getMD5(password));
                     personBean.setUsername(userName);
                     personBean.setTelephone(null);
                     L.i("registermodelimpl", Urls.REGISTER_URL);

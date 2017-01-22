@@ -9,9 +9,9 @@ import com.example.jobbook.bean.MomentCommentBean;
 public interface MomentDetailPresenter {
     void loadMoment(MomentBean momentBean);
 
-    void loadMomentComments(int id);
+    void loadMomentComments(int id, int index);
 
-    void sendComment(int id, MomentCommentBean momentCommentBean);
+    void sendComment(MomentCommentBean momentCommentBean);
 
     void commentLike(int com_id, String account);
 

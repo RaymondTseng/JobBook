@@ -48,7 +48,7 @@ public class SquareModelImpl implements SquareModel {
     }
 
     @Override
-    public void like(int squareId, final OnLikeSquareListener listener) {
+    public void like(int squareId, final int position, final OnLikeSquareListener listener) {
         String account = "";
         if (MyApplication.getmLoginStatus() == 0) {
             listener.onLikeSquareNoLoginError();
@@ -63,9 +63,11 @@ public class SquareModelImpl implements SquareModel {
 
             @Override
             public void onResponse(String response, int id) {
+                L.i("square_like", response);
                 ResultBean resultBean = new Gson().fromJson(response, ResultBean.class);
                 if (resultBean.getStatus().equals("true")) {
-                    listener.onLikeSuccess();
+                    MomentBean momentBean = new Gson().fromJson(resultBean.getResponse(), MomentBean.class);
+                    listener.onLikeSuccess(momentBean, position);
                 } else {
                     listener.onLikeSquareFailure(resultBean.getResponse(), null);
                 }
@@ -74,10 +76,11 @@ public class SquareModelImpl implements SquareModel {
     }
 
     @Override
-    public void unlike(int squareId, final OnUnlikeSquareListener listener) {
+    public void unlike(int squareId, final int position, final OnUnlikeSquareListener listener) {
         String account = "";
         if (MyApplication.getmLoginStatus() == 0) {
             listener.onUnlikeSquareNoLoginError();
+            return;
         } else {
             account = MyApplication.getAccount();
         }
@@ -92,7 +95,8 @@ public class SquareModelImpl implements SquareModel {
                 L.i("square_unlike", response);
                 ResultBean resultBean = new Gson().fromJson(response, ResultBean.class);
                 if (resultBean.getStatus().equals("true")) {
-                    listener.onUnlikeSuccess();
+                    MomentBean momentBean = new Gson().fromJson(resultBean.getResponse(), MomentBean.class);
+                    listener.onUnlikeSuccess(momentBean, position);
                 } else {
                     listener.onUnlikeSquareFailure(resultBean.getResponse(), null);
                 }
@@ -100,20 +104,22 @@ public class SquareModelImpl implements SquareModel {
         });
     }
 
+
     public interface OnLoadSquaresListListener {
         void onSuccess(List<MomentBean> list);
         void onFailure(String msg, Exception e);
     }
 
     public interface OnLikeSquareListener {
-        void onLikeSuccess();
+        void onLikeSuccess(MomentBean momentBean, int position);
         void onLikeSquareFailure(String msg, Exception e);
         void onLikeSquareNoLoginError();
     }
 
     public interface OnUnlikeSquareListener {
-        void onUnlikeSuccess();
+        void onUnlikeSuccess(MomentBean momentBean, int position);
         void onUnlikeSquareFailure(String msg, Exception e);
         void onUnlikeSquareNoLoginError();
     }
+
 }

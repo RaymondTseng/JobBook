@@ -16,7 +16,7 @@ public interface MomentDetailView {
 
     void addComments(List<MomentCommentBean> mComments);
 
-    void sendSuccess();
+    void sendSuccess(MomentBean momentBean);
 
     void hideProgress();
 
@@ -30,11 +30,11 @@ public interface MomentDetailView {
 
     void sendComment(String comment);
 
-    void commentLikeSuccess(int num_like, int num_unlike);
+    void likeSuccess(MomentBean momentBean);
 
-    void commentLikeFailure(String msg);
+    void likeFailure(String msg);
 
-    void commentUnlikeSuccess(int num_like, int num_unlike);
+    void unlikeSuccess(MomentBean momentBean);
 
-    void commentUnlikeFailure(String msg);
+    void unlikeFailure(String msg);
 }

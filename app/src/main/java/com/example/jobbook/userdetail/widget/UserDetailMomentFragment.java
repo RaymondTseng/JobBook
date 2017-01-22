@@ -3,17 +3,25 @@ package com.example.jobbook.userdetail.widget;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
+import com.example.jobbook.MyApplication;
 import com.example.jobbook.R;
 import com.example.jobbook.bean.MomentBean;
+import com.example.jobbook.moment.widget.MomentDetailActivity;
 import com.example.jobbook.userdetail.UserDetailMomentAdapter;
 import com.example.jobbook.userdetail.presenter.UserDetailMomentPresenterImpl;
 import com.example.jobbook.userdetail.view.UserDetailMomentView;
+import com.example.jobbook.util.DividerItemDecoration;
 import com.example.jobbook.util.L;
+import com.example.jobbook.util.Util;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,12 +31,14 @@ import java.util.List;
  */
 
 public class UserDetailMomentFragment extends Fragment implements UserDetailMomentView,
-        UserDetailActivity.OnGetAccountListener {
+        UserDetailActivity.OnGetAccountListener, UserDetailMomentAdapter.OnMomentItemClickListener {
     private View view;
     private List<MomentBean> mData;
     private UserDetailMomentAdapter mAdapter;
     private UserDetailMomentPresenterImpl mPresenter;
-    private ListView mListView;
+    private RecyclerView mRecyclerView;
+    private LinearLayoutManager mLayoutManager;
+    private LinearLayout mLoadingLayout;
     private String account;
 
 
@@ -41,12 +51,24 @@ public class UserDetailMomentFragment extends Fragment implements UserDetailMome
     }
 
     private void init(View view){
-        mListView = (ListView) view.findViewById(R.id.base_lv);
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.base_rv);
+        mLoadingLayout = (LinearLayout) view.findViewById(R.id.loading_layout);
         mData = new ArrayList<>();
         mPresenter = new UserDetailMomentPresenterImpl(this);
         mAdapter = new UserDetailMomentAdapter(getActivity(), mData);
-        mListView.setAdapter(mAdapter);
-        mPresenter.loadMoments(account);
+        mLayoutManager = new LinearLayoutManager(getActivity());
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(),
+                DividerItemDecoration.VERTICAL_LIST));
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        mRecyclerView.setAdapter(mAdapter);
+        mAdapter.setOnMomentItemClickListener(this);
+        if(MyApplication.getmLoginStatus() != 0){
+            mPresenter.loadMoments(account, MyApplication.getAccount());
+        }else{
+            mPresenter.loadMoments(account, "");
+        }
 
     }
 
@@ -58,12 +80,12 @@ public class UserDetailMomentFragment extends Fragment implements UserDetailMome
 
     @Override
     public void showProgress() {
-
+        mLoadingLayout.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideProgress() {
-
+        mLoadingLayout.setVisibility(View.GONE);
     }
 
     @Override
@@ -71,5 +93,12 @@ public class UserDetailMomentFragment extends Fragment implements UserDetailMome
         this.account = account;
         L.i("user_detail_moment", "account:" + this.account);
 //        mPresenter.loadMoments(account);
+    }
+
+    @Override
+    public void onMomentItemClick(MomentBean momentBean) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("square_detail", momentBean);
+        Util.toAnotherActivity(getActivity(), MomentDetailActivity.class, bundle);
     }
 }

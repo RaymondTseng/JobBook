@@ -2,6 +2,7 @@ package com.example.jobbook.userdetail.view;
 
 import com.example.jobbook.bean.MomentBean;
 import com.example.jobbook.bean.PersonBean;
+import com.example.jobbook.bean.TypePersonBean;
 
 import java.util.List;
 
@@ -11,11 +12,13 @@ import java.util.List;
 
 public interface UserDetailFollowView {
 
-    void loadFollow(List<PersonBean> mFollow);
+    void loadFollow(List<TypePersonBean> mFollow);
 
     void showProgress();
 
     void hideProgress();
 
-    void onError();
+    void onError(String msg);
+
+    void followSuccess();
 }

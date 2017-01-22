@@ -19,15 +19,15 @@ import com.example.jobbook.register.presenter.RegisterPresenter;
 import com.example.jobbook.register.presenter.RegisterPresenterImpl;
 import com.example.jobbook.register.view.RegisterView;
 import com.example.jobbook.util.L;
+import com.example.jobbook.util.SMSSDKManager;
 import com.example.jobbook.util.Util;
-import com.jude.smssdk_mob.SMSManager;
-import com.jude.smssdk_mob.TimeListener;
+
 
 
 /**
  * Created by 椰树 on 2016/6/2.
  */
-public class RegisterActivity extends Activity implements RegisterView, View.OnClickListener, TimeListener {
+public class RegisterActivity extends Activity implements RegisterView, View.OnClickListener, SMSSDKManager.TimeListener {
 
     private Button mRegisterButton;
     private EditText mAccountEditText;
@@ -69,7 +69,7 @@ public class RegisterActivity extends Activity implements RegisterView, View.OnC
         mCloseImageButton.setOnClickListener(this);
         mGetCodeButton.setOnClickListener(this);
         L.i("registerfragment", "load code:" + Urls.GET_CODE_URL);
-        SMSManager.getInstance().registerTimeListener(this);
+        SMSSDKManager.getInstance().registerTimeListener(this);
         mLoadingLinearLayout.setVisibility(View.GONE);
     }
 
@@ -183,7 +183,7 @@ public class RegisterActivity extends Activity implements RegisterView, View.OnC
                 break;
             case R.id.register_code_bt:
                 if (!TextUtils.isEmpty(mAccountEditText.getText().toString())) {
-                    SMSManager.getInstance().sendMessage(RegisterActivity.this, "86", mAccountEditText.getText().toString());
+                    SMSSDKManager.getInstance().sendMessage(RegisterActivity.this, "86", mAccountEditText.getText().toString());
                 } else {
                     codeBlankError();
                 }
@@ -195,7 +195,7 @@ public class RegisterActivity extends Activity implements RegisterView, View.OnC
     public void onDestroy() {
         super.onDestroy();
         presenter.destroy();
-        SMSManager.getInstance().unRegisterTimeListener(this);
+        SMSSDKManager.getInstance().unRegisterTimeListener(this);
     }
 
     @Override

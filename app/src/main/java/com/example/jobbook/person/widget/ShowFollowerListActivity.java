@@ -3,6 +3,9 @@ package com.example.jobbook.person.widget;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -11,11 +14,14 @@ import android.widget.ListView;
 import com.example.jobbook.MyApplication;
 import com.example.jobbook.R;
 import com.example.jobbook.bean.PersonBean;
+import com.example.jobbook.bean.TypePersonBean;
 import com.example.jobbook.person.presenter.ShowFollowerListPresenter;
 import com.example.jobbook.person.presenter.ShowFollowerListPresenterImpl;
 import com.example.jobbook.person.view.ShowFollowerListView;
+import com.example.jobbook.userdetail.UserDetailFansAdapter;
 import com.example.jobbook.userdetail.UserDetailFollowAdapter;
 import com.example.jobbook.userdetail.widget.UserDetailActivity;
+import com.example.jobbook.util.DividerItemDecoration;
 import com.example.jobbook.util.Util;
 
 import java.util.ArrayList;
@@ -25,12 +31,14 @@ import java.util.List;
  * Created by Xu on 2017/1/16.
  */
 
-public class ShowFollowerListActivity extends Activity implements ShowFollowerListView, View.OnClickListener {
+public class ShowFollowerListActivity extends Activity implements ShowFollowerListView, View.OnClickListener,
+        UserDetailFollowAdapter.OnFollowClickListener, UserDetailFollowAdapter.OnFollowerItemClickListener{
 
-    private ListView mShowFollowerListListView;
+    private RecyclerView mRecyclerView;
     private ImageButton mBackImageButton;
     private LinearLayout mLoadingLinearLayout;
     private ShowFollowerListPresenter presenter;
+    private LinearLayoutManager mLayoutManager;
     private UserDetailFollowAdapter mAdapter;
     private View view;
 
@@ -44,25 +52,33 @@ public class ShowFollowerListActivity extends Activity implements ShowFollowerLi
 
     private void initViews() {
         view = findViewById(android.R.id.content);
-        mShowFollowerListListView = (ListView) findViewById(R.id.followerlist_lv);
+        mRecyclerView = (RecyclerView) findViewById(R.id.followerlist_rv);
         mBackImageButton = (ImageButton) findViewById(R.id.followerlist_back_ib);
         mLoadingLinearLayout = (LinearLayout) findViewById(R.id.followerlist_loading_layout);
     }
 
     private void initEvents() {
         presenter = new ShowFollowerListPresenterImpl(this);
-        mAdapter = new UserDetailFollowAdapter(this, new ArrayList<PersonBean>());
-        mShowFollowerListListView.setAdapter(mAdapter);
-        presenter.loadFollwers(MyApplication.getAccount());
+        mAdapter = new UserDetailFollowAdapter(this, new ArrayList<TypePersonBean>());
+        mLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(this,
+                DividerItemDecoration.VERTICAL_LIST));
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        mRecyclerView.setAdapter(mAdapter);
         mBackImageButton.setOnClickListener(this);
-        mAdapter.setOnUserFollowItemClickListener(new UserDetailFollowAdapter.OnUserFollowItemClickListener() {
-            @Override
-            public void onUserFollowItemClick(PersonBean personBean) {
-                Intent intent = new Intent(ShowFollowerListActivity.this, UserDetailActivity.class);
-                intent.putExtra("person_bean", personBean);
-                startActivity(intent);
-            }
-        });
+        mAdapter.setOnFollwerItemClickListener(this);
+        mAdapter.setOnFollowClickListener(this);
+        presenter.loadFollwers(MyApplication.getAccount());
+//        mAdapter.setOnUserFollowItemClickListener(new UserDetailFollowAdapter.OnUserFollowItemClickListener() {
+//            @Override
+//            public void onUserFollowItemClick(PersonBean personBean) {
+//                Intent intent = new Intent(ShowFollowerListActivity.this, UserDetailActivity.class);
+//                intent.putExtra("person_bean", personBean);
+//                startActivity(intent);
+//            }
+//        });
     }
 
     @Override
@@ -76,12 +92,18 @@ public class ShowFollowerListActivity extends Activity implements ShowFollowerLi
     }
 
     @Override
-    public void showLoadFailMsg() {
-        Util.showSnackBar(view, "关注列表读取错误，请重试！");
+    public void showLoadFailMsg(String msg) {
+        Util.showSnackBar(view, msg);
+    }
+
+
+    @Override
+    public void followSuccess() {
+        Util.showSnackBar(view , "关注成功!");
     }
 
     @Override
-    public void loadFanList(List<PersonBean> list) {
+    public void loadFanList(List<TypePersonBean> list) {
         mAdapter.refreshData(list);
     }
 
@@ -92,5 +114,18 @@ public class ShowFollowerListActivity extends Activity implements ShowFollowerLi
                 finish();
                 break;
         }
+    }
+
+
+    @Override
+    public void onFollowClick(TypePersonBean personBean) {
+        presenter.follow(MyApplication.getAccount(), personBean.getAccount());
+    }
+
+    @Override
+    public void onFollowerItemClick(TypePersonBean personBean) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("person_bean", personBean);
+        Util.toAnotherActivity(this, UserDetailActivity.class, bundle);
     }
 }

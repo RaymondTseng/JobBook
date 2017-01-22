@@ -8,5 +8,5 @@ import com.example.jobbook.person.model.ShowMomentListModelImpl;
 
 public interface ShowMomentListPresenter {
 
-    void loadMomentList(String account);
+    void loadMomentList(String hisAccount, String myAccount);
 }
