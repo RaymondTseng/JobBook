@@ -6,5 +6,5 @@ package com.example.jobbook.userdetail.presenter;
 
 public interface UserDetailMomentPresenter {
 
-    void loadMoments(String account);
+    void loadMoments(String hisAccount, String myAccount);
 }

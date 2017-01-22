@@ -28,110 +28,17 @@
         android:background="@color/colorWhite"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="186"
-            android:background="@color/colorWhite"
-            android:orientation="vertical"
-            android:paddingBottom="20dp">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:background="@color/colorWhite">
-
-                <ImageView
-                    android:id="@+id/moment_detail_head_iv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:src="@mipmap/default_32px" />
-
-                <TextView
-                    android:id="@+id/moment_detail_name_tv"
-                    style="@style/Black14sptv"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginTop="12dp"
-                    android:layout_toRightOf="@id/moment_detail_head_iv"
-                    android:text="张朝旭" />
-
-                <TextView
-                    android:id="@+id/moment_detail_position_tv"
-                    style="@style/TextBlue12sptv"
-                    android:layout_below="@id/moment_detail_name_tv"
-                    android:layout_marginLeft="16dp"
-                    android:layout_toRightOf="@id/moment_detail_head_iv"
-                    android:text="职谱 扫地僧" />
-
-            </RelativeLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_marginLeft="32dp"
-                android:layout_marginRight="32dp"
-                android:background="@color/colorSettingsBackgroundGray" />
-
-            <TextView
-                android:id="@+id/moment_detail_content_tv"
-                style="@style/Black16sptv"
-                android:layout_marginLeft="32dp"
-                android:layout_marginRight="32dp"
-                android:layout_marginTop="8dp"
-                android:text="    这里是一大段文字，我今天真的非常不想上班，但是老板又强制要求我上班，所以我辞职了" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="32dp"
-                android:layout_marginRight="32dp"
-                android:layout_marginTop="8dp"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@null"
-                    android:layout_gravity="center"
-                    android:src="@mipmap/favorite_16px" />
-
-                <TextView
-                    android:id="@+id/moment_detail_favourite_tv"
-                    style="@style/TextGray14sptv"
-                    android:layout_gravity="center_vertical"
-                    android:text="2300" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
-                    android:background="@null"
-                    android:layout_gravity="center"
-                    android:src="@mipmap/comment_16px" />
-
-                <TextView
-                    android:id="@+id/moment_detail_comment_tv"
-                    style="@style/TextGray14sptv"
-                    android:layout_gravity="center_vertical"
-                    android:text="2100" />
-
-                <TextView
-                    android:id="@+id/moment_detail_time_tv"
-                    style="@style/TextGray14sptv"
-                    android:layout_width="match_parent"
-                    android:layout_gravity="center_vertical"
-                    android:gravity="right"
-                    android:text="5分钟前" />
-            </LinearLayout>
-        </LinearLayout>
+        <!--<include-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="0dp"-->
+            <!--android:layout_weight="176"-->
+            <!--layout="@layout/moment_detail_head_ll"/>-->
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/moment_detail_rv"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="270"
+            android:layout_weight="280"
             android:layout_marginTop="2dp"
             android:background="@color/colorWhite"
             android:divider="@drawable/listview_short_divider"

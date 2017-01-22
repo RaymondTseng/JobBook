@@ -84,4 +84,6 @@ public class Urls {
     public static final String USER_DETAIL_FANS_URL = IP + "/person/focusMe/account/";
 
     public static final String USER_DETAIL_FOLLOW_SB_URL = IP + "/person/focus/my/";
+
+    public static final String SINGLE_MOMENT_URL = IP + "question/getSingleMoment/account/";
 }

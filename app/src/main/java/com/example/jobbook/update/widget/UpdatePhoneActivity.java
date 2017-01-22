@@ -17,14 +17,14 @@ import com.example.jobbook.update.presenter.UpdatePhonePresenter;
 import com.example.jobbook.update.presenter.UpdatePhonePresenterImpl;
 import com.example.jobbook.update.view.UpdatePhoneView;
 import com.example.jobbook.util.L;
+import com.example.jobbook.util.SMSSDKManager;
 import com.example.jobbook.util.Util;
-import com.jude.smssdk_mob.SMSManager;
-import com.jude.smssdk_mob.TimeListener;
+
 
 /**
  * Created by Xu on 2016/9/5.
  */
-public class UpdatePhoneActivity extends Activity implements View.OnClickListener, UpdatePhoneView, TimeListener {
+public class UpdatePhoneActivity extends Activity implements View.OnClickListener, UpdatePhoneView, SMSSDKManager.TimeListener {
 
     private ImageButton mBackImageButton;
     private TextView mOriginalPhoneTextView;
@@ -60,11 +60,15 @@ public class UpdatePhoneActivity extends Activity implements View.OnClickListene
         mBackImageButton.setOnClickListener(this);
         mGetCodeButton.setOnClickListener(this);
         mCompleteTextView.setOnClickListener(this);
-        personBean = MyApplication.getmPersonBean();
-        L.i("phone", "result:" + personBean.getAccount());
-        mOriginalPhoneTextView.setText(personBean.getAccount());
-        SMSManager.getInstance().setDefaultDelay(60);
-        SMSManager.getInstance().registerTimeListener(this);
+        if(MyApplication.getmLoginStatus() != 0){
+            personBean = MyApplication.getmPersonBean();
+            L.i("phone", "result:" + personBean.getAccount());
+            mOriginalPhoneTextView.setText(personBean.getAccount());
+            SMSSDKManager.getInstance().setDefaultDelay(60);
+            SMSSDKManager.getInstance().registerTimeListener(this);
+        }else{
+            finish();
+        }
 
     }
 
@@ -86,13 +90,12 @@ public class UpdatePhoneActivity extends Activity implements View.OnClickListene
 
     @Override
     public void close() {
-        Util.toAnotherActivity(this, OldUserDetailActivity.class);
         finish();
     }
 
     @Override
     public void getCode() {
-        SMSManager.getInstance().sendMessage(this, "86", mOriginalPhoneTextView.getText().toString());
+        SMSSDKManager.getInstance().sendMessage(this, "86", mOriginalPhoneTextView.getText().toString());
     }
 
     @Override
@@ -137,7 +140,7 @@ public class UpdatePhoneActivity extends Activity implements View.OnClickListene
 
     @Override
     protected void onDestroy() {
-        SMSManager.getInstance().unRegisterTimeListener(this);
+        SMSSDKManager.getInstance().unRegisterTimeListener(this);
         super.onDestroy();
     }
 

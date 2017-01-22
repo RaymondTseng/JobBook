@@ -60,14 +60,14 @@
     <!--android:text="提醒设置"-->
     <!--style="@style/person_content_big_button_style"-->
     <!--/>-->
-    <Button
-        android:id="@+id/setting_change_phone_bt"
-        style="@style/person_content_big_button_style"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="16dp"
-        android:layout_weight="48"
-        android:text="修改手机号" />
+    <!--<Button-->
+        <!--android:id="@+id/setting_change_phone_bt"-->
+        <!--style="@style/person_content_big_button_style"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:layout_marginTop="16dp"-->
+        <!--android:layout_weight="48"-->
+        <!--android:text="修改手机号" />-->
 
     <Button
         android:id="@+id/setting_change_password_bt"

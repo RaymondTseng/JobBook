@@ -10,7 +10,9 @@ import java.util.List;
 /**
  * Created by Xu on 2016/7/5.
  */
-public class SquarePresenterImpl implements SquarePresenter,SquareModelImpl.OnLoadSquaresListListener, SquareModelImpl.OnLikeSquareListener, SquareModelImpl.OnUnlikeSquareListener {
+public class SquarePresenterImpl implements SquarePresenter,SquareModelImpl.OnLoadSquaresListListener,
+        SquareModelImpl.OnLikeSquareListener, SquareModelImpl.OnUnlikeSquareListener
+        {
 
     private SquareView mSquareView;
     private SquareModel mSquareModel;
@@ -27,14 +29,15 @@ public class SquarePresenterImpl implements SquarePresenter,SquareModelImpl.OnLo
     }
 
     @Override
-    public void like(int squareId) {
-        mSquareModel.like(squareId, this);
+    public void like(int squareId, int position) {
+        mSquareModel.like(squareId, position, this);
     }
 
     @Override
-    public void unlike(int squareId) {
-        mSquareModel.unlike(squareId, this);
+    public void unlike(int squareId, int position) {
+        mSquareModel.unlike(squareId, position, this);
     }
+
 
     @Override
     public void onSuccess(List<MomentBean> list) {
@@ -49,8 +52,8 @@ public class SquarePresenterImpl implements SquarePresenter,SquareModelImpl.OnLo
     }
 
     @Override
-    public void onLikeSuccess() {
-        mSquareView.likeSuccess();
+    public void onLikeSuccess(MomentBean momentBean, int position) {
+        mSquareView.likeSuccess(momentBean, position);
     }
 
     @Override
@@ -66,11 +69,11 @@ public class SquarePresenterImpl implements SquarePresenter,SquareModelImpl.OnLo
     }
 
     @Override
-    public void onUnlikeSuccess() {
-        mSquareView.unlikeSuccess();
+    public void onUnlikeSuccess(MomentBean momentBean, int position) {
+        mSquareView.unlikeSuccess(momentBean, position);
     }
 
-    @Override
+            @Override
     public void onUnlikeSquareFailure(String msg, Exception e) {
         mSquareView.hideProgress();
         mSquareView.unlikeError();
@@ -81,4 +84,5 @@ public class SquarePresenterImpl implements SquarePresenter,SquareModelImpl.OnLo
         mSquareView.hideProgress();
         mSquareView.NoLoginError();
     }
+
 }

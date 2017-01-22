@@ -1,6 +1,7 @@
 package com.example.jobbook.follow.model;
 
 
+import com.example.jobbook.MyApplication;
 import com.example.jobbook.bean.MomentBean;
 import com.example.jobbook.bean.ResultBean;
 import com.example.jobbook.commons.Urls;
@@ -21,10 +22,15 @@ import okhttp3.Call;
 public class SquareFollowModelImpl implements SquareFollowModel {
 
     @Override
-    public void loadSquareFollows(int pageIndex, String name, final OnLoadSquareFollowListListener listener) {
-        L.i("square_follow_response:", "load");
-        L.i("square_follow_response:", name);
-        OkHttpUtils.postString().url(Urls.SQUARE_FOLLOW_URL + "/account/" + name).content(pageIndex + "").build().execute(new StringCallback() {
+    public void loadSquareFollows(int pageIndex, final OnLoadSquareFollowListListener listener) {
+        String account = "";
+        if(MyApplication.getmLoginStatus() == 0){
+            listener.onFailure("请先登录!", new Exception());
+            return;
+        }else{
+            account = MyApplication.getAccount();
+        }
+        OkHttpUtils.postString().url(Urls.SQUARE_FOLLOW_URL + "/account/" + account).content(pageIndex + "").build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
                 L.i("square_follow_response:", e.getMessage());
@@ -47,7 +53,14 @@ public class SquareFollowModelImpl implements SquareFollowModel {
     }
 
     @Override
-    public void like(int squareId, String account, final SquareModelImpl.OnLikeSquareListener listener) {
+    public void like(int squareId, final int position, final SquareModelImpl.OnLikeSquareListener listener) {
+        String account = "";
+        if(MyApplication.getmLoginStatus() == 0){
+            listener.onLikeSquareNoLoginError();
+            return;
+        }else{
+            account = MyApplication.getAccount();
+        }
         OkHttpUtils.get().url(Urls.SQUARE_LIKE_URL + squareId + "/account/" + account).build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
@@ -56,9 +69,11 @@ public class SquareFollowModelImpl implements SquareFollowModel {
 
             @Override
             public void onResponse(String response, int id) {
+                L.i("follow_like", response);
                 ResultBean resultBean = new Gson().fromJson(response, ResultBean.class);
                 if (resultBean.getStatus().equals("true")) {
-                    listener.onLikeSuccess();
+                    MomentBean momentBean = new Gson().fromJson(resultBean.getResponse(), MomentBean.class);
+                    listener.onLikeSuccess(momentBean, position);
                 } else {
                     listener.onLikeSquareFailure(resultBean.getResponse(), null);
                 }
@@ -67,7 +82,14 @@ public class SquareFollowModelImpl implements SquareFollowModel {
     }
 
     @Override
-    public void unlike(int squareId, String account, final SquareModelImpl.OnUnlikeSquareListener listener) {
+    public void unlike(int squareId, final int position, final SquareModelImpl.OnUnlikeSquareListener listener) {
+        String account = "";
+        if(MyApplication.getmLoginStatus() == 0){
+            listener.onUnlikeSquareNoLoginError();
+            return;
+        }else{
+            account = MyApplication.getAccount();
+        }
         OkHttpUtils.get().url(Urls.SQUARE_UNLIKE_URL + squareId + "/account/" + account).build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
@@ -76,10 +98,11 @@ public class SquareFollowModelImpl implements SquareFollowModel {
 
             @Override
             public void onResponse(String response, int id) {
-                L.i("square_unlike", response);
+                L.i("follow_unlike", response);
                 ResultBean resultBean = new Gson().fromJson(response, ResultBean.class);
                 if (resultBean.getStatus().equals("true")) {
-                    listener.onUnlikeSuccess();
+                    MomentBean momentBean = new Gson().fromJson(resultBean.getResponse(), MomentBean.class);
+                    listener.onUnlikeSuccess(momentBean, position);
                 } else {
                     listener.onUnlikeSquareFailure(resultBean.getResponse(), null);
                 }

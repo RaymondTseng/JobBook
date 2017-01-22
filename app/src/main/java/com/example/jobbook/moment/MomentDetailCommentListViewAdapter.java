@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.example.jobbook.R;
 import com.example.jobbook.bean.MomentCommentBean;
 import com.example.jobbook.util.ImageLoadUtils;
+import com.example.jobbook.util.L;
 
 import java.util.List;
 
@@ -20,12 +21,15 @@ import java.util.List;
  */
 public class MomentDetailCommentListViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
+    private static final int TYPE_HEADER = -1;
     private static final int TYPE_ITEM = 0;
     private static final int TYPE_FOOTER = 1;
 
     private List<MomentCommentBean> mData;
     private boolean mShowFooter = true;
+    private boolean mShowHeader = false;
     private Context mContext;
+    private View mHeaderView;
 
     private OnItemClickListener mOnItemClickListener;
 
@@ -35,11 +39,13 @@ public class MomentDetailCommentListViewAdapter extends RecyclerView.Adapter<Rec
 
     private String calculateSpace(String username) {
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < username.length(); i++) {
-            if ((username.charAt(i) >= 'A' && username.charAt(i) <= 'Z') || (username.charAt(i) >= 'a' && username.charAt(i) <= 'z')) {
-                sb.append("   ");
-            } else {
-                sb.append("     ");
+        if(username != null){
+            for (int i = 0; i < username.length(); i++) {
+                if ((username.charAt(i) >= 'A' && username.charAt(i) <= 'Z') || (username.charAt(i) >= 'a' && username.charAt(i) <= 'z')) {
+                    sb.append("   ");
+                } else {
+                    sb.append("     ");
+                }
             }
         }
         return sb.toString();
@@ -47,7 +53,15 @@ public class MomentDetailCommentListViewAdapter extends RecyclerView.Adapter<Rec
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        if(viewType == TYPE_ITEM) {
+        if(viewType == TYPE_HEADER) {
+//            View v = LayoutInflater.from(parent.getContext()).
+//                    inflate(R.layout.moment_detail_head_ll, parent, false);
+//            v.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+//                    ViewGroup.LayoutParams.WRAP_CONTENT));
+            mHeaderView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT));
+            return new HeaderViewHolder(mHeaderView);
+        }else if(viewType == TYPE_ITEM) {
             View v = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.moment_detail_comment_listview_item, parent, false);
             ItemViewHolder vh = new ItemViewHolder(v);
@@ -63,7 +77,11 @@ public class MomentDetailCommentListViewAdapter extends RecyclerView.Adapter<Rec
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        if(getItemViewType(position) == TYPE_HEADER) return;
+        if(getItemViewType(position) == TYPE_FOOTER) return;
         if(holder instanceof ItemViewHolder) {
+            L.i("commentadpterposition", position + "");
+            position = getRealPosition(holder);
             MomentCommentBean comment = mData.get(position);
             if(comment == null){
                 return;
@@ -74,6 +92,25 @@ public class MomentDetailCommentListViewAdapter extends RecyclerView.Adapter<Rec
         }
     }
 
+    private int getRealPosition(RecyclerView.ViewHolder holder){
+        int position = holder.getLayoutPosition();
+        L.i("commentadpter", "result:" + position);
+//        if(mShowHeader && mShowFooter){
+//            return position - 2;
+//        }else if(mShowFooter || mShowHeader){
+//            return position - 1;
+//        }
+        return mShowHeader ? position - 1 : position;
+    }
+
+    public void setmHeaderView(View mHeaderView){
+        if(mHeaderView != null){
+            this.mHeaderView = mHeaderView;
+            notifyItemInserted(0);
+            mShowHeader = true;
+        }
+    }
+
     public void updateData(List<MomentCommentBean> mData){
         this.mData = mData;
         this.notifyDataSetChanged();
@@ -81,7 +118,8 @@ public class MomentDetailCommentListViewAdapter extends RecyclerView.Adapter<Rec
 
     @Override
     public int getItemCount() {
-        int begin = mShowFooter?1:0;
+        int begin = mShowHeader ? 1 : 0;
+        begin += mShowFooter?1:0;
         if(mData == null) {
             return begin;
         }
@@ -90,11 +128,14 @@ public class MomentDetailCommentListViewAdapter extends RecyclerView.Adapter<Rec
 
     @Override
     public int getItemViewType(int position) {
+        if(position == 0){
+            return TYPE_HEADER;
+        }
         // 最后一个item设置为footerView
         if(!mShowFooter) {
             return TYPE_ITEM;
         }
-        if (position + 1 == getItemCount()) {
+        if (mShowHeader && position + 1 == getItemCount()) {
             return TYPE_FOOTER;
         } else {
             return TYPE_ITEM;
@@ -146,5 +187,11 @@ public class MomentDetailCommentListViewAdapter extends RecyclerView.Adapter<Rec
             super(view);
         }
 
+    }
+
+    public class HeaderViewHolder extends RecyclerView.ViewHolder{
+        public HeaderViewHolder(View view) {
+            super(view);
+        }
     }
 }

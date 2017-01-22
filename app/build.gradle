@@ -7,7 +7,7 @@ android {
     defaultConfig {
         applicationId "com.example.jobbook"
         minSdkVersion 16
-        targetSdkVersion 23
+        targetSdkVersion 22
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
@@ -42,7 +42,7 @@ dependencies {
     compile(name: 'okhttp3-integration-1.4.0', ext: 'aar')
 //    compile 'de.hdodenhof:circleimageview:2.1.0'
     compile(name: 'circleimageview-2.1.0', ext: 'aar')
-    compile 'com.jude:smssdk_mob:1.1.1'
+//    compile 'com.jude:smssdk_mob:1.1.1'
     compile 'com.jzxiang.pickerview:TimePickerDialog:1.0.1'
 //    compile 'com.yalantis:ucrop:2.1.2'
     compile(name: 'ucrop-2.1.2', ext: 'aar')
@@ -56,6 +56,8 @@ dependencies {
 //    releaseCompile(name: 'leakcanary-android-no-op-1.3', ext: 'aar')
 
     compile 'org.sufficientlysecure:html-textview:2.0'
+    compile name:'SMSSDK-2.1.3',ext:'aar'
+    compile name:'SMSSDKGUI-2.1.3',ext:'aar'
 
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.4'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4'

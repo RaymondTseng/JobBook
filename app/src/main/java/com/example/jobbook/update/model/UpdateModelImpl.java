@@ -8,10 +8,9 @@ import com.example.jobbook.bean.PersonBean;
 import com.example.jobbook.bean.ResultBean;
 import com.example.jobbook.commons.Urls;
 import com.example.jobbook.util.L;
+import com.example.jobbook.util.SMSSDKManager;
 import com.example.jobbook.util.Util;
 import com.google.gson.Gson;
-import com.jude.smssdk_mob.Callback;
-import com.jude.smssdk_mob.SMSManager;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -33,13 +32,16 @@ public class UpdateModelImpl implements UpdateModel {
         } else if (TextUtils.isEmpty(nPwdConfirm)) {
             listener.onConfirmPwdBlankError();
         } else if (!Util.getMD5(oPwd).equals(MyApplication.getmPersonBean().getPassword())) {
+            L.i("update_pwd", Util.getMD5(oPwd));
+            L.i("update_pwd", MyApplication.getmPersonBean().getPassword());
             listener.onOriginalPwdError();
         } else if (!nPwd.equals(nPwdConfirm)) {
             listener.onPwdConfirmError();
         } else if (Util.getMD5(oPwd).equals(Util.getMD5(nPwd))) {
             listener.onOriginalPwdEqualNewPwdError();
         } else {
-            OkHttpUtils.get().url(Urls.UPDATE_PWD_URL + "account/" + account + "/oldpsw/" + Util.getMD5(oPwd) + "/newpsw/" + Util.getMD5(nPwd)).build().execute(new StringCallback() {
+            OkHttpUtils.get().url(Urls.UPDATE_PWD_URL + "account/" + account + "/oldpsw/" +
+                    Util.getMD5(oPwd) + "/newpsw/" + Util.getMD5(nPwd)).build().execute(new StringCallback() {
                 @Override
                 public void onError(Call call, Exception e, int id) {
                     L.i("response", e.getMessage());
@@ -48,6 +50,7 @@ public class UpdateModelImpl implements UpdateModel {
 
                 @Override
                 public void onResponse(String response, int id) {
+                    L.i("update_pwd", response);
                     ResultBean resultBean = new Gson().fromJson(response, ResultBean.class);
                     if (resultBean.getStatus().equals("true")) {
                         PersonBean personBean = new Gson().fromJson(resultBean.getResponse(), PersonBean.class);
@@ -68,7 +71,7 @@ public class UpdateModelImpl implements UpdateModel {
         } else if (TextUtils.isEmpty(code)) {
             listener.onCodeBlankError();
         } else {
-            SMSManager.getInstance().verifyCode(mContext, "86", tel, code, new Callback() {
+            SMSSDKManager.getInstance().verifyCode(mContext, "86", tel, code, new SMSSDKManager.Callback() {
                 @Override
                 public void success() {
                     OkHttpUtils.get().url(Urls.UPDATE_PHONE_URL + "account/" + account + "/newTel/" + tel).build().execute(new StringCallback() {
@@ -79,6 +82,7 @@ public class UpdateModelImpl implements UpdateModel {
 
                         @Override
                         public void onResponse(String response, int id) {
+                            L.i("update_phone", response);
                             ResultBean resultBean = new Gson().fromJson(response, ResultBean.class);
                             if (resultBean.getStatus().equals("true")) {
                                 PersonBean personBean = new Gson().fromJson(resultBean.getResponse(), PersonBean.class);

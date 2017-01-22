@@ -80,6 +80,7 @@ public class SquareFollowFragment extends Fragment implements SquareFollowView,
     }
 
     private void initEvents() {
+        myApplication = (MyApplication)getActivity().getApplication();
         mSwipeRefreshLayout.setOnRefreshListener(this);
         mSquareFollowPresenter = new SquareFollowPresenterImpl(this);
         mLayoutManager = new LinearLayoutManager(getActivity());
@@ -111,11 +112,11 @@ public class SquareFollowFragment extends Fragment implements SquareFollowView,
                 if (mData.get(position).getIfLike() == 0) {
 //                    L.i("like_ib_click", "click like");
                     ib.setImageResource(R.mipmap.favourite_tapped);
-                    like(mData.get(position).getId());
+                    like(position);
                 } else {
 //                    L.i("like_ib_click", "click unlike");
                     ib.setImageResource(R.mipmap.favourite);
-                    unlike(mData.get(position).getId());
+                    unlike(position);
                 }
 //                refresh();
             }
@@ -142,7 +143,7 @@ public class SquareFollowFragment extends Fragment implements SquareFollowView,
                 //加载更多
                 L.i("square_fragment", "loading more data");
                 if(MyApplication.getmLoginStatus() != 0){
-                    mSquareFollowPresenter.loadSquareFollows(pageIndex, MyApplication.getAccount());
+                    mSquareFollowPresenter.loadSquareFollows(pageIndex);
                 }else{
                     NoLoginError();
                 }
@@ -157,6 +158,7 @@ public class SquareFollowFragment extends Fragment implements SquareFollowView,
             MomentBean square = mAdapter.getItem(position);
             Bundle bundle = new Bundle();
             bundle.putSerializable("square_detail", square);
+            myApplication.setHandler(handler);
             Util.toAnotherActivity(getActivity(), MomentDetailActivity.class, bundle);
         }
     };
@@ -173,13 +175,16 @@ public class SquareFollowFragment extends Fragment implements SquareFollowView,
             mData = new ArrayList<>();
         }
         mData.addAll(squareList);
+        if(squareList == null || squareList.size() < Urls.PAZE_SIZE){
+            mAdapter.setmShowFooter(false);
+        }
         if (pageIndex == 0) {
             mAdapter.updateData(mData);
         } else {
             //如果没有更多数据了,则隐藏footer布局
-            if (squareList == null || squareList.size() == 0) {
-                mAdapter.setmShowFooter(false);
-            }
+//            if (squareList == null || squareList.size() == 0) {
+//                mAdapter.setmShowFooter(false);
+//            }
             mAdapter.notifyDataSetChanged();
         }
         pageIndex += Urls.PAZE_SIZE;
@@ -200,13 +205,13 @@ public class SquareFollowFragment extends Fragment implements SquareFollowView,
     }
 
     @Override
-    public void like(int squareId) {
-        mSquareFollowPresenter.like(squareId, MyApplication.getAccount());
+    public void like(int position) {
+        mSquareFollowPresenter.like(mData.get(position).getId(), position);
     }
 
     @Override
-    public void unlike(int squareId) {
-        mSquareFollowPresenter.unlike(squareId, MyApplication.getAccount());
+    public void unlike(int position) {
+        mSquareFollowPresenter.unlike(mData.get(position).getId(), position);
     }
 
     @Override
@@ -215,12 +220,18 @@ public class SquareFollowFragment extends Fragment implements SquareFollowView,
     }
 
     @Override
-    public void likeSuccess() {
+    public void likeSuccess(MomentBean momentBean, int position) {
+        mAdapter.getmData().set(position, momentBean);
+        //RecyclerView局部更新
+        mAdapter.notifyItemChanged(position, "refresh");
         Util.showSnackBar(MainActivity.mSnackBarView, "点赞成功！");
     }
 
     @Override
-    public void unlikeSuccess() {
+    public void unlikeSuccess(MomentBean momentBean, int position) {
+        mAdapter.getmData().set(position, momentBean);
+        //RecyclerView局部更新
+        mAdapter.notifyItemChanged(position, "refresh");
         Util.showSnackBar(MainActivity.mSnackBarView, "取消点赞成功！");
     }
 
@@ -242,7 +253,7 @@ public class SquareFollowFragment extends Fragment implements SquareFollowView,
             mData.clear();
         }
         if(MyApplication.getmLoginStatus() != 0){
-            mSquareFollowPresenter.loadSquareFollows(pageIndex, MyApplication.getAccount());
+            mSquareFollowPresenter.loadSquareFollows(pageIndex);
         }else{
             NoLoginError();
         }
@@ -277,6 +288,7 @@ public class SquareFollowFragment extends Fragment implements SquareFollowView,
             }
         });
     }
+
 
 
 }

@@ -1,6 +1,7 @@
 package com.example.jobbook.userdetail.presenter;
 
 import com.example.jobbook.bean.PersonBean;
+import com.example.jobbook.bean.TypePersonBean;
 import com.example.jobbook.userdetail.model.UserDetailFansModel;
 import com.example.jobbook.userdetail.model.UserDetailFansModelImpl;
 import com.example.jobbook.userdetail.view.UserDetailFansView;
@@ -12,7 +13,7 @@ import java.util.List;
  */
 
 public class UserDetailFansPresenterImpl implements UserDetailFansPresenter,
-        UserDetailFansModelImpl.OnLoadFansListener {
+        UserDetailFansModelImpl.OnLoadFansListener, UserDetailFansModelImpl.OnFollowListener {
     private UserDetailFansModel mModel;
     private UserDetailFansView mView;
 
@@ -27,14 +28,25 @@ public class UserDetailFansPresenterImpl implements UserDetailFansPresenter,
     }
 
     @Override
-    public void onSuccess(List<PersonBean> mFans) {
+    public void follow(String myAccount, String hisAccount) {
+        mView.showProgress();
+        mModel.follow(myAccount, hisAccount, this);
+    }
+
+    @Override
+    public void onSuccess(List<TypePersonBean> mFans) {
         mView.hideProgress();
         mView.loadFans(mFans);
     }
 
     @Override
+    public void onSuccess() {
+        mView.followSuccess();
+    }
+
+    @Override
     public void onFailure(String msg, Exception e) {
-        mView.onError();
+        mView.onError(msg);
         mView.hideProgress();
     }
 }

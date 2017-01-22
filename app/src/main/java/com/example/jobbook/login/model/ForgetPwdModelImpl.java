@@ -6,9 +6,8 @@ import android.util.Log;
 
 import com.example.jobbook.bean.ResultBean;
 import com.example.jobbook.commons.Urls;
+import com.example.jobbook.util.SMSSDKManager;
 import com.google.gson.Gson;
-import com.jude.smssdk_mob.Callback;
-import com.jude.smssdk_mob.SMSManager;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -49,7 +48,7 @@ public class ForgetPwdModelImpl implements ForgetPwdModel {
         if(TextUtils.isEmpty(code)){
             listener.onCodeBlankError();
         }else{
-            SMSManager.getInstance().verifyCode(mContext, "86", phone, code, new Callback() {
+            SMSSDKManager.getInstance().verifyCode(mContext, "86", phone, code, new SMSSDKManager.Callback() {
                 @Override
                 public void success() {
                     listener.onCheckCodeSuccess();

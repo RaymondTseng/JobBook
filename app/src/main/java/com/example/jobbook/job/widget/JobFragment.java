@@ -244,13 +244,16 @@ public class JobFragment extends Fragment implements JobView,
             list = new ArrayList<>();
         }
         list.addAll(jobList);
+        if(jobList == null || jobList.size() < Urls.PAZE_SIZE){
+            mAdapter.setmShowFooter(false);
+        }
         if (pageIndex == 0) {
             mAdapter.updateData(list);
         } else {
             //如果没有更多数据了,则隐藏footer布局
-            if (jobList == null || jobList.size() == 0) {
-                mAdapter.setmShowFooter(false);
-            }
+//            if (jobList == null || jobList.size() == 0) {
+//                mAdapter.setmShowFooter(false);
+//            }
             mAdapter.notifyDataSetChanged();
         }
         L.i("pageIndex", pageIndex + "");

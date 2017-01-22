@@ -6,6 +6,6 @@ package com.example.jobbook.userdetail.model;
 
 public interface UserDetailMomentModel {
 
-    void loadUserDetailMoments(String account,
+    void loadUserDetailMoments(String hisAccount, String myAccount,
                                UserDetailMomentModelImpl.OnLoadUserDetailMomentListener listener);
 }

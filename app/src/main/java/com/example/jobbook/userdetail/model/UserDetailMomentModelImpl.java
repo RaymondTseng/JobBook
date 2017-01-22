@@ -20,9 +20,9 @@ import okhttp3.Call;
 public class UserDetailMomentModelImpl implements  UserDetailMomentModel{
 
     @Override
-    public void loadUserDetailMoments(String account,
+    public void loadUserDetailMoments(String hisAccount, String myAccount,
                                       final OnLoadUserDetailMomentListener listener) {
-        OkHttpUtils.get().url(Urls.USER_DETAIL_MOMENT_URL + "his/" + account)
+        OkHttpUtils.get().url(Urls.USER_DETAIL_MOMENT_URL + hisAccount + "/my/" + myAccount)
                 .build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int i) {

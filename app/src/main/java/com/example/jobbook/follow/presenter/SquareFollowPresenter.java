@@ -5,9 +5,9 @@ package com.example.jobbook.follow.presenter;
  */
 public interface SquareFollowPresenter {
 
-    void loadSquareFollows(int pageIndex, String name);
+    void loadSquareFollows(int pageIndex);
 
-    void like(int squareId, String account);
+    void like(int squareId, int position);
 
-    void unlike(int squareId, String account);
+    void unlike(int squareId, int position);
 }

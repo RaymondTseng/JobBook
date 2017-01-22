@@ -14,14 +14,14 @@ import com.example.jobbook.R;
 import com.example.jobbook.login.presenter.ForgetPwdFirstPresenter;
 import com.example.jobbook.login.presenter.ForgetPwdFirstPresenterImpl;
 import com.example.jobbook.login.view.ForgetPwdFirstView;
+import com.example.jobbook.util.SMSSDKManager;
 import com.example.jobbook.util.Util;
-import com.jude.smssdk_mob.SMSManager;
-import com.jude.smssdk_mob.TimeListener;
+
 
 /**
  * Created by 椰树 on 2016/9/14.
  */
-public class ForgetPwdFirstActivity extends Activity implements ForgetPwdFirstView, View.OnClickListener, TimeListener {
+public class ForgetPwdFirstActivity extends Activity implements ForgetPwdFirstView, View.OnClickListener, SMSSDKManager.TimeListener {
     private ImageButton mBackImageButton;
     private TextView mNextTextView;
     private EditText mPhoneEditText;
@@ -52,7 +52,7 @@ public class ForgetPwdFirstActivity extends Activity implements ForgetPwdFirstVi
     private void initEvents() {
         hideProgress();
         mPresenter = new ForgetPwdFirstPresenterImpl(this);
-        SMSManager.getInstance().registerTimeListener(this);
+        SMSSDKManager.getInstance().registerTimeListener(this);
         mNextTextView.setOnClickListener(this);
         mGetCodeButton.setOnClickListener(this);
         mBackImageButton.setOnClickListener(this);
@@ -85,7 +85,7 @@ public class ForgetPwdFirstActivity extends Activity implements ForgetPwdFirstVi
 
     @Override
     public void checkSuccess() {
-        SMSManager.getInstance().sendMessage(this, "86", mPhoneEditText.getText().toString());
+        SMSSDKManager.getInstance().sendMessage(this, "86", mPhoneEditText.getText().toString());
     }
 
     @Override
@@ -155,7 +155,7 @@ public class ForgetPwdFirstActivity extends Activity implements ForgetPwdFirstVi
 
     @Override
     public void onDestroy() {
-        SMSManager.getInstance().unRegisterTimeListener(this);
+        SMSSDKManager.getInstance().unRegisterTimeListener(this);
         super.onDestroy();
     }
 }

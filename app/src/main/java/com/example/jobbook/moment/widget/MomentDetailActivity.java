@@ -51,9 +51,9 @@ public class MomentDetailActivity extends Activity implements MomentDetailView, 
     private TextView mMomentFavouriteTextView;
     private TextView mMomentCommentTextView;
     private MomentDetailCommentListViewAdapter mAdapter;
-    private MomentBean momentBean;
+    private MomentBean mMomentBean;
     private LinearLayout mHeadView;
-    private MomentDetailPresenter presenter;
+//    private MomentDetailPresenter presenter;
     private View mRootView;
     private List<MomentCommentBean> list;
     private RelativeLayout mTitleBarLayout;
@@ -79,18 +79,18 @@ public class MomentDetailActivity extends Activity implements MomentDetailView, 
     }
 
     private void initViews() {
-        mHeadView = (LinearLayout) getLayoutInflater().inflate(R.layout.activity_moment_detail, null);
+        mHeadView = (LinearLayout) getLayoutInflater().inflate(R.layout.moment_detail_head_ll, null);
         mRecyclerView = (RecyclerView) findViewById(R.id.moment_detail_rv);
         mEditText = (EditText) findViewById(R.id.moment_detail_comment_et);
         mSendImageButton = (ImageButton) findViewById(R.id.moment_detail_send_ib);
         mBackImageButton = (ImageButton) findViewById(R.id.moment_detail_back_ib);
         mFavouriteImageButton = (ImageButton) findViewById(R.id.moment_detail_favourite_ib);
-        mMomentContentTextView = (TextView) findViewById(R.id.moment_detail_content_tv);
-        mMomentUserNameTextView = (TextView) findViewById(R.id.moment_detail_name_tv);
-        mMomentTimeTextView = (TextView) findViewById(R.id.moment_detail_time_tv);
-        mMomentUserLogoImageView = (ImageView) findViewById(R.id.moment_detail_head_iv);
-        mMomentFavouriteTextView = (TextView) findViewById(R.id.moment_detail_favourite_tv);
-        mMomentCommentTextView = (TextView) findViewById(R.id.moment_detail_comment_tv);
+        mMomentContentTextView = (TextView) mHeadView.findViewById(R.id.moment_detail_content_tv);
+        mMomentUserNameTextView = (TextView) mHeadView.findViewById(R.id.moment_detail_name_tv);
+        mMomentTimeTextView = (TextView) mHeadView.findViewById(R.id.moment_detail_time_tv);
+        mMomentUserLogoImageView = (ImageView) mHeadView.findViewById(R.id.moment_detail_head_iv);
+        mMomentFavouriteTextView = (TextView) mHeadView.findViewById(R.id.moment_detail_favourite_tv);
+        mMomentCommentTextView = (TextView) mHeadView.findViewById(R.id.moment_detail_comment_tv);
         mRootView = findViewById(R.id.question_detail_root_ll);
         mTitleBarLayout = (RelativeLayout) findViewById(R.id.moment_detail_title_bar);
         mInputLayout = (LinearLayout) findViewById(R.id.moment_detail_input_ll);
@@ -98,17 +98,20 @@ public class MomentDetailActivity extends Activity implements MomentDetailView, 
     }
 
     private void initEvents() {
-        momentBean = (MomentBean) getIntent().getExtras().getSerializable("square_detail");
-        id = momentBean.getId();
-        L.i("squaredetail_activity", "123:" + momentBean.getId());
+        mMomentBean = (MomentBean) getIntent().getSerializableExtra("square_detail");
+        list = new ArrayList<>();
+        id = mMomentBean.getId();
+        L.i("squaredetail_activity", "123:" + mMomentBean.getId());
         mScreenHeight = Util.getHeight(this);
         mKeyBoardHeight = mScreenHeight / 3;
         mTitleBarHeight = ((float) mScreenHeight / 568) * 56;
         mInputLayoutHeight = mTitleBarHeight;
-        mAdapter = new MomentDetailCommentListViewAdapter(this);
         mPresenter = new MomentDetailPresenterImpl(this);
-        mPresenter.loadMoment(momentBean);
-        mPresenter.loadMomentComments(momentBean.getId());
+
+        mPresenter.loadMoment(mMomentBean);
+//        mPresenter.loadMomentComments(momentBean.getId());
+        mAdapter = new MomentDetailCommentListViewAdapter(this);
+        mAdapter.setmHeaderView(mHeadView);
         mBackImageButton.setOnClickListener(this);
         mSendImageButton.setOnClickListener(this);
         mFavouriteImageButton.setOnClickListener(this);
@@ -120,6 +123,7 @@ public class MomentDetailActivity extends Activity implements MomentDetailView, 
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setAdapter(mAdapter);
+
         mAdapter.setOnItemClickListener(mOnItemClickListener);
         mRecyclerView.addOnScrollListener(mOnScrollListener);
         myApplication = (MyApplication) getApplication();
@@ -154,6 +158,7 @@ public class MomentDetailActivity extends Activity implements MomentDetailView, 
 
     @Override
     public void addMoment(MomentBean mMoment) {
+        L.i("momentdetail", "result:" + mMoment.toString());
         mMomentContentTextView.setText(mMoment.getContent());
         mMomentUserNameTextView.setText(mMoment.getAuthor().getUsername());
         mMomentTimeTextView.setText(mMoment.getDate());
@@ -170,22 +175,26 @@ public class MomentDetailActivity extends Activity implements MomentDetailView, 
     @Override
     public void addComments(List<MomentCommentBean> mComments) {
 //        mListView.removeHeaderView(mHeadView);
-        list = mComments;
+//        list = mComments;
 //        mListView.addHeaderView(mHeadView);
 //        Util.setListViewHeightBasedOnChildren(mListView);
         // 加载数据的地方
+        L.i("momentdetailacti", "size:" + mComments.size());
         mAdapter.setmShowFooter(true);
         if (list == null) {
             list = new ArrayList<>();
         }
-        list = mComments;
+        list.addAll(mComments);
+        if(mComments == null || mComments.size() < Urls.PAZE_SIZE){
+            mAdapter.setmShowFooter(false);
+        }
         if (pageIndex == 0) {
             mAdapter.updateData(list);
         } else {
             //如果没有更多数据了,则隐藏footer布局
-            if (list == null || list.size() == 0) {
-                mAdapter.setmShowFooter(false);
-            }
+//            if (mComments == null || mComments.size() == 0) {
+//                mAdapter.setmShowFooter(false);
+//            }
             mAdapter.notifyDataSetChanged();
         }
         pageIndex += Urls.PAZE_SIZE;
@@ -193,10 +202,12 @@ public class MomentDetailActivity extends Activity implements MomentDetailView, 
 
 
     @Override
-    public void sendSuccess() {
-        mPresenter.loadMomentComments(id);
+    public void sendSuccess(MomentBean momentBean) {
+        onRefresh();
+        mMomentBean = momentBean;
         mEditText.setText("");
-        mMomentCommentTextView.setText(Integer.valueOf(mMomentCommentTextView.getText().toString()) + 1 + "");
+        mMomentCommentTextView.setText(mMomentBean.getCommentNum() + "");
+        mMomentFavouriteTextView.setText(mMomentBean.getLikesNum() + "");
         Util.showSnackBar(view, "评论成功!");
     }
 
@@ -241,46 +252,48 @@ public class MomentDetailActivity extends Activity implements MomentDetailView, 
             noLoginError();
         } else {
             MomentCommentBean momentCommentBean = new MomentCommentBean();
+            momentCommentBean.setQ_id(id);
             momentCommentBean.setApplier(MyApplication.getmPersonBean());
             momentCommentBean.setContent(comment);
 //            L.i("square_detail", momentBean.getId() + "");
 //            momentCommentBean.setQ_id(momentBean.getId());
-            mPresenter.sendComment(id, momentCommentBean);
+            mPresenter.sendComment(momentCommentBean);
         }
     }
 
     @Override
-    public void commentLikeSuccess(int num_like, int num_unlike) {
+    public void likeSuccess(MomentBean momentBean) {
         mFavouriteImageButton.setImageResource(R.mipmap.favourite_tapped);
-        mMomentFavouriteTextView.setText(Integer.valueOf(mMomentFavouriteTextView.getText().toString()) + 1 + "");
+        mMomentFavouriteTextView.setText(momentBean.getLikesNum() + "");
+        mMomentCommentTextView.setText(momentBean.getCommentNum() + "");
         Toast.makeText(MomentDetailActivity.this, "评论点赞成功！", Toast.LENGTH_LONG).show();
 //        mPresenter.loadMomentComments(momentBean.getId());
-        L.i("comment_like_success", "good:" + num_like + "bad:" + num_unlike);
     }
 
     @Override
-    public void commentLikeFailure(String msg) {
-        Toast.makeText(MomentDetailActivity.this, "您已经点过啦！", Toast.LENGTH_LONG).show();
+    public void likeFailure(String msg) {
+        Toast.makeText(MomentDetailActivity.this, msg, Toast.LENGTH_LONG).show();
     }
 
     @Override
-    public void commentUnlikeSuccess(int num_like, int num_unlike) {
+    public void unlikeSuccess(MomentBean momentBean) {
         mFavouriteImageButton.setImageResource(R.mipmap.favourite);
-        mMomentFavouriteTextView.setText(Integer.valueOf(mMomentFavouriteTextView.getText().toString()) - 1 + "");
-        Toast.makeText(MomentDetailActivity.this, "评论踩成功！", Toast.LENGTH_LONG).show();
+        mMomentFavouriteTextView.setText(momentBean.getLikesNum() + "");
+        mMomentCommentTextView.setText(momentBean.getCommentNum() + "");
+        Toast.makeText(MomentDetailActivity.this, "取消点赞成功！", Toast.LENGTH_LONG).show();
 //        mPresenter.loadMomentComments(momentBean.getId());
-        L.i("comment_like_success", "good:" + num_like + "bad:" + num_unlike);
     }
 
     @Override
-    public void commentUnlikeFailure(String msg) {
-        Toast.makeText(MomentDetailActivity.this, "您已经点过啦！", Toast.LENGTH_LONG).show();
+    public void unlikeFailure(String msg) {
+        Toast.makeText(MomentDetailActivity.this, msg, Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.moment_detail_back_ib:
+                myApplication.getHandler().sendEmptyMessage(1);
                 finish();
                 break;
             case R.id.moment_detail_send_ib:
@@ -292,11 +305,11 @@ public class MomentDetailActivity extends Activity implements MomentDetailView, 
                 break;
 
             case R.id.moment_detail_favourite_ib:
-                if(momentBean.getIfLike() == 0){
-                    presenter.commentLike(momentBean.getId() , myApplication.getAccount());
+                if(mMomentBean.getIfLike() == 0){
+                    mPresenter.commentLike(mMomentBean.getId() , myApplication.getAccount());
 
                 }else{
-                    presenter.commentUnlike(momentBean.getId(), myApplication.getAccount());
+                    mPresenter.commentUnlike(mMomentBean.getId(), myApplication.getAccount());
                 }
                 break;
         }
@@ -337,7 +350,7 @@ public class MomentDetailActivity extends Activity implements MomentDetailView, 
                     && mAdapter.ismShowFooter()) {
                 //加载更多
                 L.i("article_fragment", "loading more data");
-                presenter.loadMomentComments(pageIndex);
+                mPresenter.loadMomentComments(id, pageIndex);
             }
         }
 
@@ -365,8 +378,8 @@ public class MomentDetailActivity extends Activity implements MomentDetailView, 
         if (list != null) {
             list.clear();
         }
-        presenter = new MomentDetailPresenterImpl(this);
-        presenter.loadMomentComments(pageIndex);
+//        presenter = new MomentDetailPresenterImpl(this);
+        mPresenter.loadMomentComments(id, pageIndex);
         mAdapter.notifyDataSetChanged();
     }
 }

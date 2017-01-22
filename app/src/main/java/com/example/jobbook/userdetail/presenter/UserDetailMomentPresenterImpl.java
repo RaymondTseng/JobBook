@@ -21,9 +21,9 @@ public class UserDetailMomentPresenterImpl implements UserDetailMomentPresenter,
         this.mModel = new UserDetailMomentModelImpl();
     }
     @Override
-    public void loadMoments(String account) {
+    public void loadMoments(String hisAccount, String myAccount) {
         mView.showProgress();
-        mModel.loadUserDetailMoments(account, this);
+        mModel.loadUserDetailMoments(hisAccount, myAccount, this);
     }
 
     @Override

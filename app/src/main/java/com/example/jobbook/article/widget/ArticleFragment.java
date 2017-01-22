@@ -139,13 +139,16 @@ public class ArticleFragment extends Fragment implements ArticleView, View.OnCli
             list = new ArrayList<>();
         }
         list = articlesList;
+        if(articlesList == null || articlesList.size() < Urls.PAZE_SIZE){
+            adapter.setmShowFooter(false);
+        }
         if (pageIndex == 0) {
             adapter.updateData(list);
         } else {
             //如果没有更多数据了,则隐藏footer布局
-            if (articlesList == null || articlesList.size() == 0) {
-                adapter.setmShowFooter(false);
-            }
+//            if (articlesList == null || articlesList.size() == 0) {
+//                adapter.setmShowFooter(false);
+//            }
             adapter.notifyDataSetChanged();
         }
         pageIndex += Urls.PAZE_SIZE;

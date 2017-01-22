@@ -18,17 +18,18 @@ public interface SquareView {
 
     void showLoadFailMsg();
 
-    void like(int squareId);
+    void like(int position);
 
-    void unlike(int squareId);
+    void unlike(int position);
 
     void NoLoginError();
 
-    void likeSuccess();
+    void likeSuccess(MomentBean momentBean, int position);
 
-    void unlikeSuccess();
+    void unlikeSuccess(MomentBean momentBean, int position);
 
     void likeError();
 
     void unlikeError();
+
 }

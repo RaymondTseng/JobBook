@@ -3,6 +3,9 @@ package com.example.jobbook.person.widget;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +14,7 @@ import android.widget.ListView;
 
 import com.example.jobbook.MyApplication;
 import com.example.jobbook.R;
+import com.example.jobbook.article.widget.ArticleDetailActivity;
 import com.example.jobbook.bean.ArticleBean;
 import com.example.jobbook.bean.JobBean;
 import com.example.jobbook.person.FavouriteArticleAdapter;
@@ -19,7 +23,9 @@ import com.example.jobbook.person.presenter.FavouriteArticlePresenter;
 import com.example.jobbook.person.presenter.FavouriteArticlePresenterImpl;
 import com.example.jobbook.person.presenter.FavouriteJobPresenter;
 import com.example.jobbook.person.view.FavouriteArticleView;
+import com.example.jobbook.util.DividerItemDecoration;
 import com.example.jobbook.util.L;
+import com.example.jobbook.util.Util;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,12 +34,14 @@ import java.util.List;
  * Created by root on 16-12-7.
  */
 
-public class FavouriteArticleFragment extends Fragment implements FavouriteArticleView {
+public class FavouriteArticleFragment extends Fragment implements FavouriteArticleView,
+        FavouriteArticleAdapter.OnArticleItemClickListener {
     private View view;
-    private ListView mListView;
+    private RecyclerView mRecyclerView;
     private FavouriteArticleAdapter mAdapter;
     private FavouriteArticlePresenter mPresenter;
     private List<ArticleBean> mData;
+    private LinearLayoutManager mLayoutManager;
     private LinearLayout mLoadingLayout;
 
 
@@ -48,13 +56,22 @@ public class FavouriteArticleFragment extends Fragment implements FavouriteArtic
     }
 
     private void init(View view){
-        mListView = (ListView) view.findViewById(R.id.base_lv);
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.base_rv);
         mLoadingLayout = (LinearLayout) view.findViewById(R.id.loading_layout);
         mData = new ArrayList<>();
         mPresenter = new FavouriteArticlePresenterImpl(this);
         mAdapter = new FavouriteArticleAdapter(getActivity(), mData);
-        mListView.setAdapter(mAdapter);
-        mPresenter.loadArticle(MyApplication.getAccount());
+        mLayoutManager = new LinearLayoutManager(getActivity());
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(),
+                DividerItemDecoration.VERTICAL_LIST));
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        mRecyclerView.setAdapter(mAdapter);
+        mAdapter.setOnArticleItemClickListener(this);
+        if(MyApplication.getmLoginStatus() != 0){
+            mPresenter.loadArticle(MyApplication.getAccount());
+        }
     }
 
     @Override
@@ -74,7 +91,22 @@ public class FavouriteArticleFragment extends Fragment implements FavouriteArtic
     }
 
     @Override
-    public void showLoadFailMsg() {
+    public void showLoadFailMsg(String msg) {
+        Util.showSnackBar(view , msg);
+    }
 
+    @Override
+    public void onArticleItemClick(ArticleBean articleBean) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("article_detail", articleBean);
+        Util.toAnotherActivity(getActivity(), ArticleDetailActivity.class, bundle);
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        if(MyApplication.getmLoginStatus() != 0){
+            mPresenter.loadArticle(MyApplication.getAccount());
+        }
     }
 }

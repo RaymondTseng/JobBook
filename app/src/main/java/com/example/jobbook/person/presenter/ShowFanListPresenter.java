@@ -7,4 +7,6 @@ package com.example.jobbook.person.presenter;
 public interface ShowFanListPresenter {
 
     void loadFans(String account);
+
+    void follow(String myAccount, String hisAccount);
 }

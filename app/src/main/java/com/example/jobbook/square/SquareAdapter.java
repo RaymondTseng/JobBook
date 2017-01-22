@@ -9,6 +9,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.jobbook.MyApplication;
 import com.example.jobbook.R;
 import com.example.jobbook.bean.MomentBean;
 import com.example.jobbook.commons.Urls;
@@ -72,6 +73,9 @@ public class SquareAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             ((ItemViewHolder) holder).mTime.setText(moment.getDate());
             ((ItemViewHolder) holder).mCompanyAndPositionTextView.setText(moment.getAuthor().getWorkSpace() + " "
                                                 + moment.getAuthor().getWorkPosition());
+            if(MyApplication.getAccount().equals(moment.getAuthor().getAccount())){
+                ((ItemViewHolder)holder).mNoInterestButton.setVisibility(View.GONE);
+            }
             if (moment.getIfLike() == 0) {
                 ((ItemViewHolder) holder).mFavouriteButton.setImageResource(R.mipmap.favourite);
             } else {
@@ -87,8 +91,14 @@ public class SquareAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         }else{
             String playload = (String)playloads.get(0);
             L.i("playload", playload);
-            MomentBean momentBean = mData.get(position);
-            ItemViewHolder viewHolder = (ItemViewHolder) holder;
+            MomentBean moment = mData.get(position);
+            ((ItemViewHolder) holder).mFavouriteNumbers.setText(moment.getLikesNum() + "");
+            ((ItemViewHolder) holder).mCommentNumbers.setText(moment.getCommentNum() + "");
+            if (moment.getIfLike() == 0) {
+                ((ItemViewHolder) holder).mFavouriteButton.setImageResource(R.mipmap.favourite);
+            } else {
+                ((ItemViewHolder) holder).mFavouriteButton.setImageResource(R.mipmap.favourite_tapped);
+            }
 //            viewHolder.mFavouriteNumbers.setText("1");
         }
     }
@@ -156,26 +166,26 @@ public class SquareAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             switch (v.getId()) {
                 case R.id.square_rv_no_interest_ib:
                     if (mOnNoInterestButtonClickListener != null) {
-                        mOnNoInterestButtonClickListener.onNoInterestButtonClick(v, this.getLayoutPosition());
+                        mOnNoInterestButtonClickListener.onNoInterestButtonClick(v, this.getAdapterPosition());
                     }
                     break;
 
                 case R.id.square_rv_head_iv:
                     if (mOnHeadClickListener != null) {
-                        mOnHeadClickListener.onHeadClick(v, this.getLayoutPosition());
+                        mOnHeadClickListener.onHeadClick(v, this.getAdapterPosition());
                     }
                     break;
 
                 case R.id.square_rv_favourite_ib:
                     if (mOnFavouriteButtonClickListener != null) {
                         ImageButton ib = (ImageButton) v;
-                        mOnFavouriteButtonClickListener.onFavouriteButtonClick(ib, this.getLayoutPosition());
+                        mOnFavouriteButtonClickListener.onFavouriteButtonClick(ib, this.getAdapterPosition());
                     }
                     break;
 
                 case R.id.square_rv_content_tv:
                     if(mOnContentClickListener != null){
-                        mOnContentClickListener.onContentClick(v, this.getLayoutPosition());
+                        mOnContentClickListener.onContentClick(v, this.getAdapterPosition());
                     }
                     break;
             }
@@ -188,6 +198,10 @@ public class SquareAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             this.setmShowFooter(false);
         }
         this.notifyDataSetChanged();
+    }
+
+    public List<MomentBean> getmData() {
+        return mData;
     }
 
     public interface OnItemClickListener {

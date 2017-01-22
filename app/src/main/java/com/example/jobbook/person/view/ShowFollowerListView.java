@@ -1,6 +1,7 @@
 package com.example.jobbook.person.view;
 
 import com.example.jobbook.bean.PersonBean;
+import com.example.jobbook.bean.TypePersonBean;
 
 import java.util.List;
 
@@ -14,7 +15,9 @@ public interface ShowFollowerListView {
 
     void hideProgress();
 
-    void showLoadFailMsg();
+    void showLoadFailMsg(String msg);
 
-    void loadFanList(List<PersonBean> list);
+    void loadFanList(List<TypePersonBean> list);
+
+    void followSuccess();
 }

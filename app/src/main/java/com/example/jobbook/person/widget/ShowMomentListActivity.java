@@ -2,6 +2,8 @@ package com.example.jobbook.person.widget;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageButton;
@@ -12,11 +14,13 @@ import com.example.jobbook.MyApplication;
 import com.example.jobbook.R;
 import com.example.jobbook.bean.MomentBean;
 import com.example.jobbook.blacklist.BlackListRecyclerViewAdapter;
+import com.example.jobbook.moment.widget.MomentDetailActivity;
 import com.example.jobbook.person.presenter.ShowMomentListPresenter;
 import com.example.jobbook.person.presenter.ShowMomentListPresenterImpl;
 import com.example.jobbook.person.view.ShowMomentListView;
 import com.example.jobbook.userdetail.UserDetailFansAdapter;
 import com.example.jobbook.userdetail.UserDetailMomentAdapter;
+import com.example.jobbook.util.DividerItemDecoration;
 import com.example.jobbook.util.L;
 import com.example.jobbook.util.Util;
 
@@ -27,13 +31,15 @@ import java.util.List;
  * Created by Xu on 2017/1/16.
  */
 
-public class ShowMomentListActivity extends Activity implements ShowMomentListView, View.OnClickListener{
+public class ShowMomentListActivity extends Activity implements ShowMomentListView, View.OnClickListener,
+                UserDetailMomentAdapter.OnMomentItemClickListener{
 
-    private ListView mShowMomentListListiew;
+    private RecyclerView mRecyclerView;
     private ImageButton mBackImageButton;
     private LinearLayout mLoadingLinearLayout;
     private UserDetailMomentAdapter mAdapter;
     private ShowMomentListPresenter presenter;
+    private LinearLayoutManager mLayoutManager;
     private View view;
 
     @Override
@@ -47,17 +53,27 @@ public class ShowMomentListActivity extends Activity implements ShowMomentListVi
 
     private void initViews() {
         view = findViewById(android.R.id.content);
-        mShowMomentListListiew = (ListView) findViewById(R.id.momentlist_lv);
+        mRecyclerView = (RecyclerView) findViewById(R.id.momentlist_rv);
         mBackImageButton = (ImageButton) findViewById(R.id.momentlist_back_ib);
         mLoadingLinearLayout = (LinearLayout) findViewById(R.id.momentlist_loading_layout);
     }
 
     private void initEvents() {
         mAdapter = new UserDetailMomentAdapter(this, new ArrayList<MomentBean>());
-        mShowMomentListListiew.setAdapter(mAdapter);
         presenter = new ShowMomentListPresenterImpl(this);
-        presenter.loadMomentList(MyApplication.getAccount());
+        mLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(this,
+                DividerItemDecoration.VERTICAL_LIST));
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        mRecyclerView.setAdapter(mAdapter);
+        mAdapter.setOnMomentItemClickListener(this);
         mBackImageButton.setOnClickListener(this);
+        mAdapter.setOnMomentItemClickListener(this);
+        if(MyApplication.getmLoginStatus() != 0){
+            presenter.loadMomentList(MyApplication.getAccount(), MyApplication.getAccount());
+        }
     }
 
     @Override
@@ -87,5 +103,13 @@ public class ShowMomentListActivity extends Activity implements ShowMomentListVi
                 finish();
                 break;
         }
+    }
+
+    @Override
+    public void onMomentItemClick(MomentBean momentBean) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("square_detail", momentBean);
+        L.i("showmomenlist", momentBean.toString());
+        Util.toAnotherActivity(this, MomentDetailActivity.class, bundle);
     }
 }

@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.jobbook.R;
+import com.example.jobbook.update.widget.UpdatePhoneActivity;
 import com.example.jobbook.update.widget.UpdatePwdActivity;
 import com.example.jobbook.util.DataCleanManager;
 import com.example.jobbook.util.Util;
@@ -23,7 +24,7 @@ import com.example.jobbook.util.Util;
 public class SettingActivity extends Activity implements View.OnClickListener {
 
     private ImageButton mBackImageButton;
-    private Button mChangePhoneButton;
+//    private Button mChangePhoneButton;
     private Button mChangePwdButton;
 //    private Button mNodificationButton;
     private Button mClearCacheButton;
@@ -39,7 +40,7 @@ public class SettingActivity extends Activity implements View.OnClickListener {
 
     private void initViews() {
         mBackImageButton = (ImageButton) findViewById(R.id.setting_back_ib);
-        mChangePhoneButton = (Button) findViewById(R.id.setting_change_phone_bt);
+//        mChangePhoneButton = (Button) findViewById(R.id.setting_change_phone_bt);
         mChangePwdButton = (Button) findViewById(R.id.setting_change_password_bt);
 //        mNodificationButton = (Button) findViewById(R.id.setting_nodification_bt);
         mClearCacheButton = (Button) findViewById(R.id.setting_clearcache_bt);
@@ -47,6 +48,8 @@ public class SettingActivity extends Activity implements View.OnClickListener {
         mCacheTextView = (TextView) findViewById(R.id.show_cache_tv);
         mBackImageButton.setOnClickListener(this);
         mClearCacheButton.setOnClickListener(this);
+        mChangePwdButton.setOnClickListener(this);
+//        mChangePhoneButton.setOnClickListener(this);
         mAboutButton.setOnClickListener(this);
         try {
             mCacheTextView.setText(DataCleanManager.getCacheSize(this.getCacheDir()));
@@ -70,12 +73,12 @@ public class SettingActivity extends Activity implements View.OnClickListener {
                 }
                 break;
 
-            case R.id.setting_change_phone_bt:
-                break;
+//            case R.id.setting_change_phone_bt:
+//                Util.toAnotherActivity(this, UpdatePhoneActivity.class);
+//                break;
 
             case R.id.setting_change_password_bt:
                 Util.toAnotherActivity(this, UpdatePwdActivity.class);
-                finish();
                 break;
 
 //            case R.id.setting_nodification_bt:

@@ -13,6 +13,7 @@ import com.example.jobbook.R;
 import com.example.jobbook.bean.MomentBean;
 import com.example.jobbook.commons.Urls;
 import com.example.jobbook.util.ImageLoadUtils;
+import com.example.jobbook.util.L;
 
 import java.util.List;
 
@@ -66,7 +67,7 @@ public class SquareFollowsAdapter extends RecyclerView.Adapter<RecyclerView.View
             }
             ((ItemViewHolder) holder).mContent.setText(moment.getContent());
             ImageLoadUtils.display(mContext, ((ItemViewHolder) holder).mUserHead, moment.getAuthor().getHead());
-//            ((ItemViewHolder) holder).mUserName.setText(moment.getAuthor().getUsername());
+            ((ItemViewHolder) holder).mUserName.setText(moment.getAuthor().getUsername());
             ((ItemViewHolder) holder).mFavouriteNumbers.setText(moment.getLikesNum() + "");
             ((ItemViewHolder) holder).mCommentNumbers.setText(moment.getCommentNum() + "");
             ((ItemViewHolder) holder).mTime.setText(moment.getDate());
@@ -76,6 +77,29 @@ public class SquareFollowsAdapter extends RecyclerView.Adapter<RecyclerView.View
                 ((ItemViewHolder) holder).mFavouriteButton.setImageResource(R.mipmap.favourite_tapped);
             }
         }
+    }
+
+    @Override
+    public void onBindViewHolder(RecyclerView.ViewHolder holder , int position , List playloads){
+        if(playloads.isEmpty()){
+            onBindViewHolder(holder, position);
+        }else{
+            String playload = (String)playloads.get(0);
+            L.i("playload", playload);
+            MomentBean moment = mData.get(position);
+            ((ItemViewHolder) holder).mFavouriteNumbers.setText(moment.getLikesNum() + "");
+            ((ItemViewHolder) holder).mCommentNumbers.setText(moment.getCommentNum() + "");
+            if (moment.getIfLike() == 0) {
+                ((ItemViewHolder) holder).mFavouriteButton.setImageResource(R.mipmap.favourite);
+            } else {
+                ((ItemViewHolder) holder).mFavouriteButton.setImageResource(R.mipmap.favourite_tapped);
+            }
+//            viewHolder.mFavouriteNumbers.setText("1");
+        }
+    }
+
+    public List<MomentBean> getmData() {
+        return mData;
     }
 
     @Override
@@ -121,12 +145,13 @@ public class SquareFollowsAdapter extends RecyclerView.Adapter<RecyclerView.View
             super(view);
             mContent = (TextView) view.findViewById(R.id.square_follow_rv_content_tv);
             mUserHead = (ImageView) view.findViewById(R.id.square_follow_rv_head_iv);
-//            mUserName = (TextView) view.findViewById(R.id.moment_lv_user_name_tv);
+            mUserName = (TextView) view.findViewById(R.id.square_follow_rv_username_tv);
             mFavouriteNumbers = (TextView) view.findViewById(R.id.square_follow_rv_favourite_tv);
             mCommentNumbers = (TextView) view.findViewById(R.id.square_follow_rv_comment_tv);
             mTime = (TextView) view.findViewById(R.id.square_follow_rv_time_tv);
             mFavouriteButton = (ImageButton) view.findViewById(R.id.square_follow_rv_favourite_ib);
             itemView.setOnClickListener(this);
+            mUserHead.setOnClickListener(this);
             mFavouriteButton.setOnClickListener(this);
         }
 
@@ -136,19 +161,19 @@ public class SquareFollowsAdapter extends RecyclerView.Adapter<RecyclerView.View
                 case R.id.square_follow_rv_favourite_ib:
                     if (mOnFavouriteButtonClickListener != null) {
                         ImageButton ib = (ImageButton) v;
-                        mOnFavouriteButtonClickListener.onFavouriteButtonClick(ib, this.getLayoutPosition());
+                        mOnFavouriteButtonClickListener.onFavouriteButtonClick(ib, this.getAdapterPosition());
                     }
                     break;
 
                 case R.id.square_follow_rv_head_iv:
                     if (mOnHeadClickListener != null) {
-                        mOnHeadClickListener.onHeadClick(v, this.getLayoutPosition());
+                        mOnHeadClickListener.onHeadClick(v, this.getAdapterPosition());
                     }
                     break;
 
                 default:
                     if (mOnItemClickListener != null) {
-                        mOnItemClickListener.onItemClick(v, this.getPosition());
+                        mOnItemClickListener.onItemClick(v, this.getAdapterPosition());
                     }
                     break;
 

@@ -7,4 +7,6 @@ package com.example.jobbook.person.model;
 public interface ShowFollowerListModel {
 
     void loadFollowerList(String account , final ShowFollowerListModelImpl.OnLoadFollowerListListener listener);
+
+    void follow(String myAccount, String hisAccount, final ShowFollowerListModelImpl.OnFollowListener listener);
 }

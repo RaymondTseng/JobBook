@@ -7,10 +7,10 @@ import com.example.jobbook.square.model.SquareModelImpl;
  */
 public interface SquareFollowModel {
 
-    void loadSquareFollows(int pageIndex, String name, SquareFollowModelImpl.OnLoadSquareFollowListListener listener);
+    void loadSquareFollows(int pageIndex, SquareFollowModelImpl.OnLoadSquareFollowListListener listener);
 
-    void like(int squareId, String account, SquareModelImpl.OnLikeSquareListener listener);
+    void like(int squareId, int position, SquareModelImpl.OnLikeSquareListener listener);
 
-    void unlike(int squareId, String account, SquareModelImpl.OnUnlikeSquareListener listener);
+    void unlike(int squareId, int position, SquareModelImpl.OnUnlikeSquareListener listener);
 
 }

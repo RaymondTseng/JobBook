@@ -41,6 +41,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="600"
+        android:visibility="gone"
         />
 
     <RelativeLayout
@@ -101,13 +102,14 @@
             android:layout_alignParentTop="true"
             android:background="@color/colorBlue"
             android:gravity="center"
-            android:paddingBottom="13dp"
+            android:text="获取验证码"
             android:paddingLeft="22dp"
             android:paddingRight="22dp"
-            android:paddingTop="13dp"
-            android:text="获取验证码"
             android:textColor="@color/colorWhite"
             android:textSize="14sp" />
+            <!--android:paddingBottom="13dp"-->
+            <!--android:paddingTop="13dp"-->
+
 
         <EditText
             android:id="@+id/forget_pwd_first_code_et"
