@@ -6,8 +6,14 @@ import android.content.SharedPreferences;
 import android.os.Handler;
 
 import com.example.jobbook.bean.PersonBean;
+import com.example.jobbook.service.MyPushIntentService;
+import com.example.jobbook.util.L;
 import com.example.jobbook.util.Util;
+import com.umeng.message.IUmengRegisterCallback;
+import com.umeng.message.PushAgent;
 import com.zhy.http.okhttp.OkHttpUtils;
+
+import org.litepal.LitePal;
 
 import java.util.concurrent.TimeUnit;
 
@@ -23,6 +29,8 @@ public class MyApplication extends Application {
     private static int mLoginStatus = 0;
 
     private static String account;
+
+    public static PushAgent mPushAgent;
 
     private Handler handler = null;
 
@@ -45,6 +53,7 @@ public class MyApplication extends Application {
 
     /**
      * set mPersonBean,save LoginStatus
+     *
      * @param context
      * @param personBean
      */
@@ -124,10 +133,56 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
+        LitePal.initialize(this);
 
+        mPushAgent = PushAgent.getInstance(this);
 
+        //注册推送服务，每次调用register方法都会回调该接口
+        mPushAgent.register(new IUmengRegisterCallback() {
+
+            @Override
+            public void onSuccess(String deviceToken) {
+                //注册成功会返回device token
+                L.d("devicetoken", deviceToken);
+            }
+
+            @Override
+            public void onFailure(String s, String s1) {
+                L.d("devicetoken", s + s1);
+            }
+        });
+//        if (Util.loadPersonBean(context.getSharedPreferences("user", MODE_PRIVATE)) != null) {
+//            mPushAgent.enable(new IUmengCallback() {
+//                @Override
+//                public void onSuccess() {
+//                    L.d("umeng-enabled", "success");
+//                }
+//
+//                @Override
+//                public void onFailure(String s, String s1) {
+//                    L.d("umeng-enabled", s + s1);
+//                }
+//            });
+//            L.d("myapplication", "register");
+//        } else {
+//            mPushAgent.disable(new IUmengCallback() {
+//                @Override
+//                public void onSuccess() {
+//                    L.d("umeng-disabled", "success");
+//                }
+//
+//                @Override
+//                public void onFailure(String s, String s1) {
+//                    L.d("umeng-disabled", s + s1);
+//                }
+//            });
+//        }
+
+        mPushAgent.setPushIntentServiceClass(MyPushIntentService.class);
+        mPushAgent.setDisplayNotificationNumber(5);
         // 内存泄漏检测工具
 //        LeakCanary.install(this);
+
 
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
 //                .addInterceptor(new LoggerInterceptor("TAG"))

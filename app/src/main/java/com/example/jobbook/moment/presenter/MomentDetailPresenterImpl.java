@@ -56,6 +56,12 @@ public class MomentDetailPresenterImpl implements MomentDetailPresenter,
     }
 
     @Override
+    public void loadMomentById(int id, String account) {
+        mView.showProgress();
+        mModel.loadMomentById(id, account, this);
+    }
+
+    @Override
     public void loadMomentComments(int id, int index) {
         mView.showProgress();
         mModel.loadMomentComments(id, index, this);

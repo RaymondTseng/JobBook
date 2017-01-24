@@ -5,4 +5,6 @@ package com.example.jobbook.message.model;
  */
 
 public interface GetMessageModel {
+
+    void getMessages(String account, GetMessageModelImpl.OnGetMessageListener listener);
 }

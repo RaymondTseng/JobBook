@@ -34,20 +34,19 @@
         android:layout_height="0dp"
         android:layout_weight="512" />
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/getmessage_refresh_layout"
+    <!--<android.support.v4.widget.SwipeRefreshLayout-->
+    <!--android:id="@+id/getmessage_refresh_layout"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="0dp"-->
+    <!--android:layout_weight="512">-->
+
+    <ListView
+        android:id="@+id/getmessage_lv"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="512">
+        android:layout_weight="512"></ListView>
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/getmessage_rv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:dividerHeight="2dp"
-            android:scrollbars="vertical"></android.support.v7.widget.RecyclerView>
-
-    </android.support.v4.widget.SwipeRefreshLayout>
+    <!--</android.support.v4.widget.SwipeRefreshLayout>-->
 
 
 </LinearLayout>

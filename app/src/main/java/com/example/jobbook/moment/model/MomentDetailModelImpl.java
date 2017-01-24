@@ -58,6 +58,31 @@ public class MomentDetailModelImpl implements MomentDetailModel {
     }
 
     @Override
+    public void loadMomentById(int id, String account, final OnLoadMomentListener listener) {
+        OkHttpUtils.get().url(Urls.SQUARE_LIKE_URL + id + "/account/" + account ).build().execute(new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int i) {
+                listener.onFailure(e.getMessage(), e, 0);
+            }
+
+            @Override
+            public void onResponse(String response, int i) {
+                L.i("momentdetail_like", response);
+                ResultBean resultBean = new Gson().fromJson(response, ResultBean.class);
+                if (resultBean.getStatus().equals("true")) {
+//                    String[] array = resultBean.getResponse().split("/");
+//                    L.i("comment_like_result", "good" + array[0] + " bad:" + array[1]);
+//                    listener.onLikeSuccess(Integer.valueOf(array[0]), Integer.valueOf(array[1]));
+                    MomentBean momentBean = new Gson().fromJson(resultBean.getResponse(), MomentBean.class);
+                    listener.onSuccess(momentBean);
+                } else {
+                    listener.onFailure(resultBean.getResponse(), null, 0);
+                }
+            }
+        });
+    }
+
+    @Override
     public void sendComment(MomentCommentBean momentCommentBean, final OnSendMomentCommentListener mListener) {
         OkHttpUtils.postString().url(Urls.SEND_SQUARE_COMMENT_URL).content(new Gson().
                 toJson(momentCommentBean)).build().execute(new StringCallback() {

@@ -81,28 +81,44 @@
             android:text="我的收藏" />
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/person_message_ll"
+    <RelativeLayout
+        android:id="@+id/person_message_rl"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="2dp"
         android:layout_weight="48"
         android:background="@color/colorWhite"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        >
 
         <ImageView
+            android:id="@+id/message_iv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
             android:layout_marginLeft="16dp"
             android:src="@mipmap/message_blue" />
 
         <TextView
             style="@style/Black16sptv"
-            android:layout_gravity="center_vertical"
+            android:layout_toRightOf="@id/message_iv"
+            android:layout_centerVertical="true"
             android:layout_marginLeft="8dp"
             android:text="消息" />
-    </LinearLayout>
+
+        <TextView
+            android:id="@+id/unread_address_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/unread_count_bg"
+            android:gravity="center"
+            android:textColor="@color/colorWhite"
+            android:textSize="12sp" />
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
