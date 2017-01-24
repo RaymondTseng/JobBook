@@ -53,7 +53,7 @@ public class MomentDetailActivity extends Activity implements MomentDetailView, 
     private MomentDetailCommentListViewAdapter mAdapter;
     private MomentBean mMomentBean;
     private LinearLayout mHeadView;
-//    private MomentDetailPresenter presenter;
+    //    private MomentDetailPresenter presenter;
     private View mRootView;
     private List<MomentCommentBean> list;
     private RelativeLayout mTitleBarLayout;
@@ -165,9 +165,9 @@ public class MomentDetailActivity extends Activity implements MomentDetailView, 
         ImageLoadUtils.display(this, mMomentUserLogoImageView, mMoment.getAuthor().getHead());
         mMomentFavouriteTextView.setText(mMoment.getLikesNum() + "");
         mMomentCommentTextView.setText(mMoment.getCommentNum() + "");
-        if(mMoment.getIfLike() == 0){
+        if (mMoment.getIfLike() == 0) {
             mFavouriteImageButton.setImageResource(R.mipmap.favourite);
-        }else{
+        } else {
             mFavouriteImageButton.setImageResource(R.mipmap.favourite_tapped);
         }
     }
@@ -185,7 +185,7 @@ public class MomentDetailActivity extends Activity implements MomentDetailView, 
             list = new ArrayList<>();
         }
         list.addAll(mComments);
-        if(mComments == null || mComments.size() < Urls.PAZE_SIZE){
+        if (mComments == null || mComments.size() < Urls.PAZE_SIZE) {
             mAdapter.setmShowFooter(false);
         }
         if (pageIndex == 0) {
@@ -305,10 +305,10 @@ public class MomentDetailActivity extends Activity implements MomentDetailView, 
                 break;
 
             case R.id.moment_detail_favourite_ib:
-                if(mMomentBean.getIfLike() == 0){
-                    mPresenter.commentLike(mMomentBean.getId() , myApplication.getAccount());
+                if (mMomentBean.getIfLike() == 0) {
+                    mPresenter.commentLike(mMomentBean.getId(), myApplication.getAccount());
 
-                }else{
+                } else {
                     mPresenter.commentUnlike(mMomentBean.getId(), myApplication.getAccount());
                 }
                 break;

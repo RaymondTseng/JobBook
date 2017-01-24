@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +19,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.jobbook.MyApplication;
@@ -25,16 +27,21 @@ import com.example.jobbook.R;
 import com.example.jobbook.bean.PersonBean;
 import com.example.jobbook.login.widget.LoginActivity;
 import com.example.jobbook.main.widget.MainActivity;
+import com.example.jobbook.message.widget.GetMessageActivity;
 import com.example.jobbook.person.presenter.UploadPresenter;
 import com.example.jobbook.person.presenter.UploadPresenterImpl;
 import com.example.jobbook.person.view.PersonView;
 import com.example.jobbook.person.view.UploadView;
+import com.example.jobbook.service.MyPushIntentService;
 import com.example.jobbook.upload.CropUtils;
 import com.example.jobbook.upload.UploadManager;
 import com.example.jobbook.upload.UploadPopupWindow;
 import com.example.jobbook.util.ImageLoadUtils;
 import com.example.jobbook.util.L;
 import com.example.jobbook.util.Util;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -46,6 +53,7 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
     private static int REFRESH = 0;
     private static int REFRESH_NAME = 1;
     private static int REFRESH_HEAD = 2;
+    private static int REFRESH_UNREAD = 3;
     private ListView mListView;
     private LinearLayout mSettingLayout;
     //    private IPersonChanged mIPersonChanged;
@@ -55,9 +63,9 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
     private TextView mCompanyPositionTextView;
     private Button mSwitch2TextCVButton;
     private ImageView mHeadBackGround;
-    private LinearLayout mMessageLayout;
+    private RelativeLayout mMessageLayout;
     private UploadPresenter presenter;
-//    private LinearLayout mBlackListLayout;
+    //    private LinearLayout mBlackListLayout;
     private TextView mLogOutTextView;
     private TextView mMomentTextView;
     private TextView mFollowTextView;
@@ -70,9 +78,12 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
     private MyApplication mMyApplication;
     private PersonBean personBean;
     private UploadPopupWindow mPopupWindow;
-//    private TextView mEditTextView;
+    //    private TextView mEditTextView;
+    private TextView mUnReadTextView;
     private View view;
     private Uri mUri;
+    private Timer timer;
+    private TimerTask timerTask;
 
     final Handler handler = new Handler() {
         @Override
@@ -83,6 +94,8 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
                 mNameTextView.setText(MyApplication.getmPersonBean().getUsername());
             } else if (msg.what == REFRESH_HEAD) {
                 onRefreshHead();
+            } else if (msg.what == REFRESH_UNREAD) {
+                refreshUnread();
             }
         }
     };
@@ -123,11 +136,11 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
         mMomentLL = (LinearLayout) view.findViewById(R.id.person_moment_num_ll);
         mFollowLL = (LinearLayout) view.findViewById(R.id.person_follow_num_ll);
         mFanLL = (LinearLayout) view.findViewById(R.id.person_fans_num_ll);
-        mMessageLayout = (LinearLayout) view.findViewById(R.id.person_message_ll);
+        mMessageLayout = (RelativeLayout) view.findViewById(R.id.person_message_rl);
         mLoadingLayout = (LinearLayout) view.findViewById(R.id.loading_circle_progress_bar_ll);
 //        mBlackListLayout = (LinearLayout) view.findViewById(R.id.person_black_list_ll);
         mLogOutTextView = (TextView) view.findViewById(R.id.person_logout_tv);
-//        mEditTextView = (TextView) view.findViewById(R.id.person_edit_tv);
+        mUnReadTextView = (TextView) view.findViewById(R.id.unread_address_number);
         mCircleHeadImageView = (CircleImageView) view.findViewById(R.id.person_title_head_iv);
     }
 
@@ -150,13 +163,21 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
         mFanLL.setOnClickListener(this);
         mMyApplication = (MyApplication) getActivity().getApplication();
         showPersonData();
+        timer = new Timer();
+        timerTask = new TimerTask() {
+            @Override
+            public void run() {
+                handler.sendEmptyMessage(REFRESH_UNREAD);
+            }
+        };
+        timer.schedule(timerTask, 0, 1000);
     }
 
     @Override
     public void showPersonData() {
 //        Bundle bundle = (Bundle) getArguments();
 //        PersonBean personBean = (PersonBean) bundle.getSerializable("PersonBean");
-        if(MyApplication.getmLoginStatus() != 0){
+        if (MyApplication.getmLoginStatus() != 0) {
             personBean = MyApplication.getmPersonBean();
             mNameTextView.setText(personBean.getUsername());
             ImageLoadUtils.display(getActivity(), mCircleHeadImageView, personBean.getHead(), 0);
@@ -185,7 +206,12 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
                 break;
 //            case R.id.person_black_list_ll:
 //                break;
-            case R.id.person_message_ll:
+            case R.id.person_message_rl:
+                Util.toAnotherActivity(getActivity(), GetMessageActivity.class);
+                mUnReadTextView.setVisibility(View.GONE);
+                MainActivity.mBadgeView.setText("");
+                MainActivity.mBadgeView.setVisibility(View.GONE);
+                MyPushIntentService.num = 0;
                 break;
             case R.id.person_moment_num_ll:
                 Util.toAnotherActivity(getActivity(), ShowMomentListActivity.class);
@@ -263,7 +289,20 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
     public void onResume() {
         super.onResume();
         L.i("personfragment", "on resume");
+        refreshUnread();
 //        onRefreshHead();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        timer.cancel();
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        refreshUnread();
     }
 
     private void onRefreshHead() {
@@ -334,6 +373,15 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
         mCircleHeadImageView.setImageURI(mUri);
         bm.recycle();
 //        this.onCreate(null);
+    }
+
+    private void refreshUnread() {
+        if (!TextUtils.isEmpty(MainActivity.mBadgeView.getText()) && Integer.valueOf(MainActivity.mBadgeView.getText().toString()) != 0) {
+            mUnReadTextView.setVisibility(View.VISIBLE);
+            mUnReadTextView.setText(MainActivity.mBadgeView.getText());
+        } else {
+            mUnReadTextView.setVisibility(View.GONE);
+        }
     }
 
 

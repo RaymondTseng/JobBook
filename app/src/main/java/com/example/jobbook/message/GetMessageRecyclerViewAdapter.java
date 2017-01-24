@@ -39,7 +39,7 @@ public class GetMessageRecyclerViewAdapter extends RecyclerView.Adapter<Recycler
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == USER) {
             View v = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.activity_getmessage_rv_user_item, parent, false);
+                    .inflate(R.layout.activity_getmessage_lv_user_item, parent, false);
             ItemViewHolder vh = new ItemViewHolder(v);
             return vh;
         } else if (viewType == SYSTEM) {

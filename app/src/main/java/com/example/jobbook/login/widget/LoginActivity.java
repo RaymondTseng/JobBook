@@ -1,8 +1,12 @@
 package com.example.jobbook.login.widget;
 
 import android.app.Activity;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -20,6 +24,8 @@ import com.example.jobbook.login.presenter.LoginPresenterImpl;
 import com.example.jobbook.login.view.LoginView;
 import com.example.jobbook.main.widget.MainActivity;
 import com.example.jobbook.register.widget.RegisterActivity;
+import com.example.jobbook.service.MyPushIntentService;
+import com.example.jobbook.util.L;
 import com.example.jobbook.util.Util;
 
 /**
@@ -37,6 +43,19 @@ public class LoginActivity extends Activity implements View.OnClickListener, Log
     private TextView mForgetPwdTextView;
 
     private View view;
+    private MyPushIntentService.MyRefreshBinder binder;
+
+    private ServiceConnection connection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            binder = (MyPushIntentService.MyRefreshBinder) service;
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +66,9 @@ public class LoginActivity extends Activity implements View.OnClickListener, Log
         initEvents();
         presenter = new LoginPresenterImpl(this);
         mLoadingLinearLayout.setVisibility(View.GONE);
+
+        Intent intent = new Intent(LoginActivity.this, MyPushIntentService.class);
+        bindService(intent, connection, BIND_AUTO_CREATE);
     }
 
     private void initEvents() {
@@ -95,6 +117,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, Log
     public void onDestroy() {
         super.onDestroy();
         presenter.destroy();
+        unbindService(connection);
     }
 
     @Override
@@ -166,7 +189,9 @@ public class LoginActivity extends Activity implements View.OnClickListener, Log
     @Override
     public void switch2Person(PersonBean personBean) {
         MyApplication.setmPersonBean(LoginActivity.this, personBean);
+        binder.refresh(personBean);
         Util.toAnotherActivity(LoginActivity.this, MainActivity.class);
+        L.i("login", "refresh");
         finish();
     }
 
@@ -174,5 +199,6 @@ public class LoginActivity extends Activity implements View.OnClickListener, Log
     public void switch2Register() {
         Util.toAnotherActivity(LoginActivity.this, RegisterActivity.class);
     }
+
 
 }

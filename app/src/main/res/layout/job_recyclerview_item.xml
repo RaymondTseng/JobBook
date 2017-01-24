@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:id="@+id/job_recyclerview_item_ll"
     android:orientation="vertical">
+
+    <!-- android:id="@+id/job_item_parent_ll"-->
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -14,8 +17,8 @@
             android:id="@+id/job_lv_iv"
             android:layout_width="78dp"
             android:layout_height="78dp"
-            android:layout_marginLeft="16dp"
             android:layout_centerVertical="true"
+            android:layout_marginLeft="16dp"
             android:layout_marginTop="16dp" />
 
         <RelativeLayout
@@ -29,15 +32,15 @@
             <RelativeLayout
                 android:id="@+id/job_lv_job_name_rl"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                >
+                android:layout_height="wrap_content">
+
                 <TextView
                     android:id="@+id/job_lv_time_tv"
                     style="@style/TextGray12sptv"
-                    android:text="4.15~5.20"
-                    android:layout_marginRight="16dp"
+                    android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_alignParentRight="true" />
+                    android:layout_marginRight="16dp"
+                    android:text="4.15~5.20" />
 
                 <TextView
                     android:id="@+id/job_lv_name_tv"
@@ -45,11 +48,11 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
-                    android:layout_toLeftOf="@id/job_lv_time_tv"
+                    android:layout_centerVertical="true"
                     android:layout_marginRight="10dp"
+                    android:layout_toLeftOf="@id/job_lv_time_tv"
                     android:text="平面设计师"
                     android:textColor="@color/colorBlack"
-                    android:layout_centerVertical="true"
                     android:textSize="16sp" />
 
 
@@ -66,8 +69,9 @@
                     android:id="@+id/job_lv_company_iv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@mipmap/company"
-                    android:layout_gravity="center" />
+                    android:layout_gravity="center"
+                    android:src="@mipmap/company" />
+
                 <TextView
                     android:id="@+id/job_lv_company_tv"
                     style="@style/TextGray12sptv"

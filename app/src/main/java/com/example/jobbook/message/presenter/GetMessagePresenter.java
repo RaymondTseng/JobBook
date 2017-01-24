@@ -5,4 +5,6 @@ package com.example.jobbook.message.presenter;
  */
 
 public interface GetMessagePresenter {
+
+    void getMessage(String account);
 }

@@ -22,6 +22,16 @@
             android:name="com.example.jobbook.util.MyGlideModule"
             android:value="GlideModule" />
 
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="588392cbf43e481fb7001e56">
+        </meta-data>
+
+        <meta-data
+            android:name="UMENG_MESSAGE_SECRET"
+            android:value="2c6c373ef77d00228a0060d60e8110ee">
+        </meta-data>
+
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="portrait"
@@ -70,9 +80,6 @@
             android:name=".feedback.widget.FeedBackActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".job.widget.CompanyDetailActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".moment.widget.NewMomentActivity"
             android:screenOrientation="portrait" />
         <activity
@@ -110,6 +117,11 @@
         <activity
             android:name=".userdetail.widget.UserDetailActivity"
             android:screenOrientation="portrait"/>
+        <activity
+            android:name=".message.widget.GetMessageActivity"
+            android:screenOrientation="portrait"/>
+
+        <service android:name=".service.MyPushIntentService" />
 
 
 

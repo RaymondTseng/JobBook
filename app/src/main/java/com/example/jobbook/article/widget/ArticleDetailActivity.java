@@ -67,7 +67,6 @@ public class ArticleDetailActivity extends Activity implements ArticleDetailView
         mBackImageButton.setOnClickListener(this);
         mPresenter = new ArticleDetailPresenterImpl(this);
         mArticleBean = (ArticleBean) getIntent().getExtras().getSerializable("article_detail");
-        L.i("article_bean_activity", "123:" + mArticleBean.getArticle_id());
         mPresenter.loadArticle(mArticleBean.getArticle_id());
     }
 

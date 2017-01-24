@@ -11,6 +11,8 @@ public interface MomentDetailModel {
 
     void loadMoment(MomentBean momentBean, MomentDetailModelImpl.OnLoadMomentListener mListener);
 
+    void loadMomentById(int id, String account, MomentDetailModelImpl.OnLoadMomentListener mListener);
+
     void sendComment(MomentCommentBean momentCommentBean, MomentDetailModelImpl.OnSendMomentCommentListener mListener);
 
     void like(int com_id, String account, MomentDetailModelImpl.OnLikeListener listener);

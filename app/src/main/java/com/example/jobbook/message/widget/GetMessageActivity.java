@@ -1,30 +1,41 @@
 package com.example.jobbook.message.widget;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 
+import com.example.jobbook.MyApplication;
 import com.example.jobbook.R;
-import com.example.jobbook.message.GetMessageRecyclerViewAdapter;
+import com.example.jobbook.bean.MessageBean;
+import com.example.jobbook.message.GetMessageListViewAdapter;
+import com.example.jobbook.message.presenter.GetMessagePresenter;
+import com.example.jobbook.message.presenter.GetMessagePresenterImpl;
 import com.example.jobbook.message.view.GetMessageView;
+import com.example.jobbook.moment.widget.MomentDetailActivity;
+import com.example.jobbook.userdetail.widget.UserDetailActivity;
 import com.example.jobbook.util.Util;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Xu on 2016/12/6.
  */
 
-public class GetMessageActivity extends Activity implements SwipeRefreshLayout.OnRefreshListener, GetMessageView {
+public class GetMessageActivity extends Activity implements View.OnClickListener, GetMessageView {
 
-    private SwipeRefreshLayout refreshLayout;
+//    private SwipeRefreshLayout refreshLayout;
     private ImageButton mBackImageButton;
     //    private StickyListHeadersListView stickyList;
-    private RecyclerView mGetMessageRecyclerView;
+    private ListView mGetMessageListView;
     private LinearLayout mLoadingLinearLayout;
-    private GetMessageRecyclerViewAdapter mAdapter;
+//    private GetMessageRecyclerViewAdapter mAdapter;
+    private GetMessageListViewAdapter mAdapter;
+    private GetMessagePresenter presenter;
     private View view;
 
     @Override
@@ -37,20 +48,46 @@ public class GetMessageActivity extends Activity implements SwipeRefreshLayout.O
 
     private void initViews() {
         view = findViewById(android.R.id.content);
-        refreshLayout = (SwipeRefreshLayout) findViewById(R.id.getmessage_refresh_layout);
+//        refreshLayout = (SwipeRefreshLayout) findViewById(R.id.getmessage_refresh_layout);
         mBackImageButton = (ImageButton) findViewById(R.id.getmessage_back_ib);
 //        stickyList = (StickyListHeadersListView) findViewById(R.id.getmessage_lv);
-        mGetMessageRecyclerView = (RecyclerView) findViewById(R.id.getmessage_rv);
+        mGetMessageListView = (ListView) findViewById(R.id.getmessage_lv);
         mLoadingLinearLayout = (LinearLayout) findViewById(R.id.getmessage_loading_layout);
     }
 
     private void initEvents() {
-        mAdapter = new GetMessageRecyclerViewAdapter(this);
+        presenter = new GetMessagePresenterImpl(this);
+        presenter.getMessage(MyApplication.getAccount());
+        mAdapter = new GetMessageListViewAdapter(this, new ArrayList<MessageBean>());
+        mGetMessageListView.setAdapter(mAdapter);
+        mBackImageButton.setOnClickListener(this);
+        mAdapter.setOnMessageItemClickLitener(new GetMessageListViewAdapter.OnMessageItemClickListener() {
+            @Override
+            public void onItemClick(MessageBean messageBean) {
+                switch (messageBean.getType()) {
+                    case MessageBean.FOLLOW:
+                        Intent intent = new Intent(GetMessageActivity.this, UserDetailActivity.class);
+                        intent.putExtra("person_account_from_message", messageBean.getId());
+                        startActivity(intent);
+                        break;
+                    case MessageBean.LIKE:
+                        Intent intent1 = new Intent(GetMessageActivity.this, MomentDetailActivity.class);
+                        intent1.putExtra("moment_id_from_message", messageBean.getId());
+                        startActivity(intent1);
+                        break;
+                    case MessageBean.COMMENT:
+                        Intent intent2 = new Intent(GetMessageActivity.this, MomentDetailActivity.class);
+                        intent2.putExtra("moment_id_from_message", messageBean.getId());
+                        startActivity(intent2);
+                        break;
+                }
+            }
+        });
     }
 
     @Override
-    public void onRefresh() {
-
+    public void getMessage(List<MessageBean> list) {
+        mAdapter.refreshData(list);
     }
 
     @Override
@@ -66,5 +103,14 @@ public class GetMessageActivity extends Activity implements SwipeRefreshLayout.O
     @Override
     public void showLoadFailMsg() {
         Util.showSnackBar(view, "获取消息错误，请重试！");
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.getmessage_back_ib:
+                finish();
+                break;
+        }
     }
 }

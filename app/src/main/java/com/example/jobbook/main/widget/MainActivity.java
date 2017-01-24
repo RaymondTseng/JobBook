@@ -7,9 +7,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -26,13 +26,16 @@ import com.example.jobbook.main.presenter.MainPresenterImpl;
 import com.example.jobbook.main.view.MainView;
 import com.example.jobbook.moment.widget.MomentFragment;
 import com.example.jobbook.person.widget.PersonFragment;
+import com.example.jobbook.service.MyPushIntentService;
+import com.example.jobbook.util.BadgeView;
+import com.example.jobbook.util.L;
 import com.example.jobbook.util.Util;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener,
-        ViewPager.OnPageChangeListener, MainView {
+        ViewPager.OnPageChangeListener, MainView, MyPushIntentService.OnRefreshPersonBadgeViewListener {
 
     private ViewPager mFragmentContainer;
     private RadioButton mJobRadioButton;
@@ -43,6 +46,8 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     private MainFragmentPagerAdapter mFragmentPagerAdapter;
     private List<Fragment> mFragments = new ArrayList<>();
     private MainPresenter mMainPresenter;
+    public static BadgeView mBadgeView;
+    private Button mButton;
 
     public static View mSnackBarView;
 
@@ -67,6 +72,8 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         initList();
         initEvent();
         switch2Job();
+        MyPushIntentService.listeners.add(this);
+
     }
 
 //    @Override
@@ -84,7 +91,9 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         mQuestionRadioButton = (RadioButton) findViewById(R.id.question_rb);
         mPersonRadioButton = (RadioButton) findViewById(R.id.person_rb);
         mRadioGroup = (RadioGroup) findViewById(R.id.bottom_bar_rg);
+        mButton = (Button) findViewById(R.id.main_bt);
         mMainPresenter = new MainPresenterImpl(this);
+        mBadgeView = new BadgeView(this);
     }
 
     private void initList() {
@@ -117,6 +126,9 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                 }
             }
         }
+
+        mBadgeView.setTargetView(mButton);
+
     }
 
     /**
@@ -176,6 +188,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
 //        mFragmentContainer.setCurrentItem(3);
         if (MyApplication.getmLoginStatus() == 0) {
             Util.toAnotherActivity(MainActivity.this, LoginActivity.class);
+//            mFragmentContainer.setCurrentItem(0);
             finish();
         } else {
             mFragmentContainer.setCurrentItem(3);
@@ -189,13 +202,20 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
 
     @Override
     public void loginCheckTimeOut() {
-        Log.i("logincheck", "timeout");
+        L.i("logincheck", "timeout");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.i("main", "ondestory");
+        L.i("main", "ondestory");
+        MyPushIntentService.listeners.remove(this);
     }
 
     @Override
@@ -217,6 +237,23 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         } else {
 //            Log.e(TAG, "exit application");
             this.finish();
+        }
+    }
+
+    @Override
+    public void onRefresh(final int num) {
+        if (num != 0) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (mBadgeView.getVisibility() == View.GONE) {
+                        mBadgeView.setVisibility(View.VISIBLE);
+                        mBadgeView.setText("" + num);
+                    } else {
+                        mBadgeView.setText("" + num);
+                    }
+                }
+            });
         }
     }
 }
