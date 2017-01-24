@@ -1,9 +1,13 @@
 package com.example.jobbook.cv.widget;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -19,6 +23,12 @@ import com.example.jobbook.bean.TextCVBean;
 import com.example.jobbook.cv.presenter.TextCVPresenter;
 import com.example.jobbook.cv.presenter.TextCVPresenterImpl;
 import com.example.jobbook.cv.view.TextCVView;
+import com.example.jobbook.person.presenter.UploadPresenter;
+import com.example.jobbook.person.presenter.UploadPresenterImpl;
+import com.example.jobbook.person.view.UploadView;
+import com.example.jobbook.upload.CropUtils;
+import com.example.jobbook.upload.UploadManager;
+import com.example.jobbook.upload.UploadPopupWindow;
 import com.example.jobbook.util.L;
 import com.example.jobbook.util.Util;
 import com.jzxiang.pickerview.TimePickerDialog;
@@ -30,10 +40,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 /**
  * Created by 椰树 on 2016/8/25.
  */
-public class TextCVActivity extends AppCompatActivity implements OnDateSetListener, View.OnClickListener, TextCVView {
+public class TextCVActivity extends AppCompatActivity implements OnDateSetListener, View.OnClickListener,
+        TextCVView, UploadView {
     private static final String EDU_ADMISSION = "1";
     private static final String EDU_GRADUATION = "2";
     private static final String JOB_INAUGURATION = "3";
@@ -68,8 +81,14 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
     private EditText mExpectLocationEditText;
     private TextView mEduDivider;
     private TextView mJobDivider;
+    private CircleImageView mUserHeadImageView;
+    private UploadPopupWindow mPopupWindow;
     private LinearLayout mLoadingLayout;
     private TextCVPresenter mPresenter;
+    private UploadPresenter uploadPresenter;
+    private Uri mUri;
+    private MyApplication myApplication;
+    private TextCVBean mTextCVBean;
     
 
     SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM");
@@ -109,12 +128,16 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
         mSaveTextView = (TextView) findViewById(R.id.text_cv_save_tv);
         mEduDivider = (TextView) findViewById(R.id.edu_exp_divider);
         mJobDivider = (TextView) findViewById(R.id.job_exp_divider);
+        mUserHeadImageView = (CircleImageView) findViewById(R.id.text_cv_head_iv);
         mLoadingLayout = (LinearLayout) findViewById(R.id.loading_circle_progress_bar_ll);
     }
 
     @SuppressWarnings("ResourceType")
     private void initEvents() {
+        mUri = null;
+        myApplication = (MyApplication)getApplication();
         mPresenter = new TextCVPresenterImpl(this);
+        uploadPresenter = new UploadPresenterImpl(this);
         mPresenter.load();
         mJobExpInaugurationTextView.setOnClickListener(this);
         mJobExpDimissionTextView.setOnClickListener(this);
@@ -283,8 +306,52 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
                     mEduContainerLayout.removeViewAt(Integer.valueOf(position.split(";")[1]));
                 }
                 break;
+            case R.id.text_cv_head_iv:
+                mPopupWindow = new UploadPopupWindow(this, itemsOnClick);
+                mPopupWindow.showAtLocation(this.findViewById(R.id.person_fragment_ll),
+                        Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+                break;
 
         }
+    }
+
+    //为弹出窗口实现监听类
+    private View.OnClickListener itemsOnClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            // 隐藏弹出窗口
+            mPopupWindow.dismiss();
+            switch (v.getId()) {
+                case R.id.person_upload_takePhoto_bt:// 拍照
+                    CropUtils.pickAvatarFromCamera(TextCVActivity.this);
+                    break;
+                case R.id.person_upload_pickPhoto_bt:// 相册选择图片
+                    CropUtils.pickAvatarFromGallery(TextCVActivity.this);
+                    break;
+                case R.id.person_upload_cancel_bt:// 取消
+//                    finish();
+                    break;
+            }
+        }
+    };
+    private CropUtils.CropHandler cropHandler = new CropUtils.CropHandler() {
+        @Override
+        public void handleCropResult(Uri uri, int tag) {
+            //send Image to Server
+            sendImage(UploadManager.getBitmapFromUri(getApplicationContext(), uri));
+            mUri = uri;
+//            ImageLoadUtils.display(OldUserDetailActivity.this , mUserHeadImageView, uri);
+        }
+
+        @Override
+        public void handleCropError(Intent data) {
+
+        }
+    };
+
+    private void sendImage(Bitmap bm) {
+        L.i("photo", "sendImage");
+        uploadPresenter.uploadImage(bm);
     }
 
     @Override
@@ -308,6 +375,25 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
     @Override
     public void hideProgress() {
         mLoadingLayout.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void uploadSuccess() {
+        Util.showSnackBar(getWindow().getDecorView(), "上传成功！");
+    }
+
+    @Override
+    public void uploadFailure() {
+        Util.showSnackBar(getWindow().getDecorView(), "上传失败！");
+    }
+
+    @Override
+    public void loadHead(Bitmap bm) {
+        L.i("photo", "loadHead1:" + mUri.toString());
+        myApplication.getHandler().sendEmptyMessage(2);
+//        mUserHeadImageView.setImageBitmap(bm);
+        mUserHeadImageView.setImageURI(mUri);
+        bm.recycle();
     }
 
     @Override

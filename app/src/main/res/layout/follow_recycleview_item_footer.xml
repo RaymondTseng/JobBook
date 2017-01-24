@@ -30,7 +30,7 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:scaleType="center"
-                android:src="@mipmap/favourite_gray" />
+                android:src="@mipmap/favourite_grey" />
 
             <TextView
                 android:id="@+id/moment_lv_favourite_tv"
