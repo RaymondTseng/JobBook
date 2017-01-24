@@ -51,7 +51,7 @@
             android:layout_width="56dp"
             android:layout_height="56dp"
             android:layout_alignParentRight="true"
-            android:background="@mipmap/close_gray" />
+            android:background="@mipmap/close_grey" />
 
     </RelativeLayout>
 

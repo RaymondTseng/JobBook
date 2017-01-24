@@ -18,7 +18,7 @@
             android:layout_marginLeft="16dp"
             android:background="@null"/>
         <TextView
-            android:text="简历"
+            android:text="资料"
             style="@style/Black20sptv"
             android:layout_centerInParent="true"/>
         <TextView
@@ -52,10 +52,10 @@
                 android:layout_height="wrap_content"
                 android:background="@color/colorWhite"
                 >
-                <ImageView
+                <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/text_cv_head_iv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="78dp"
+                    android:layout_height="78dp"
                     android:layout_centerVertical="true"
                     android:layout_alignParentLeft="true"
                     android:layout_marginLeft="32dp"

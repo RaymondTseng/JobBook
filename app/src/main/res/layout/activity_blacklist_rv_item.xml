@@ -50,7 +50,7 @@
         android:id="@+id/blacklist_rv_item_cancel_ib"
         android:layout_width="56dp"
         android:layout_height="56dp"
-        android:src="@mipmap/close_gray"
+        android:src="@mipmap/close_grey"
         android:background="@null"
         android:scaleType="fitXY"
         android:layout_alignParentRight="true"/>

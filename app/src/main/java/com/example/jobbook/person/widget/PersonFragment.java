@@ -25,6 +25,7 @@ import android.widget.TextView;
 import com.example.jobbook.MyApplication;
 import com.example.jobbook.R;
 import com.example.jobbook.bean.PersonBean;
+import com.example.jobbook.cv.widget.TextCVActivity;
 import com.example.jobbook.login.widget.LoginActivity;
 import com.example.jobbook.main.widget.MainActivity;
 import com.example.jobbook.message.widget.GetMessageActivity;
@@ -228,8 +229,10 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
                 mPopupWindow.showAtLocation(getActivity().findViewById(R.id.person_fragment_ll),
                         Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
                 break;
-//            case R.id.person_edit_tv:
-//                break;
+            case R.id.person_edit_tv:
+                mMyApplication.setHandler(handler);
+                Util.toAnotherActivity(getActivity(), TextCVActivity.class);
+                break;
 //            case R.id.person_textcv_bt:
 //                mMyApplication.setHandler(handler);
 //                Util.toAnotherActivity(getActivity(), TextCVActivity.class);
