@@ -85,7 +85,9 @@ public class Urls {
 
     public static final String USER_DETAIL_FOLLOW_SB_URL = IP + "/person/focus/my/";
 
-    public static final String SINGLE_MOMENT_URL = IP + "question/getSingleMoment/account/";
+    public static final String SINGLE_MOMENT_URL = IP + "/question/getSingleMoment/account/";
 
     public static final String GET_MESSAGE_URL = IP + "/person/myMessage/";
+
+    public static final String GET_USER_DETAIL_BY_ACCOUNT_URL = IP + "/person/getPersonBean/account/";
 }

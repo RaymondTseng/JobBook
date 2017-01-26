@@ -22,7 +22,6 @@ import android.widget.TextView;
 import com.example.jobbook.MyApplication;
 import com.example.jobbook.R;
 import com.example.jobbook.bean.PersonBean;
-import com.example.jobbook.userdetail.UserDetailFansAdapter;
 import com.example.jobbook.userdetail.UserDetailPagerAdapter;
 import com.example.jobbook.userdetail.presenter.UserDetailPresenter;
 import com.example.jobbook.userdetail.presenter.UserDetailPresenterImpl;
@@ -41,7 +40,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
  */
 
 public class UserDetailActivity extends AppCompatActivity implements View.OnClickListener,
-        ViewPager.OnPageChangeListener, UserDetailView{
+        ViewPager.OnPageChangeListener, UserDetailView {
     private ImageView mCursorImageView;
     private ViewPager mViewPager;
     private int mCursorWidth;
@@ -64,16 +63,18 @@ public class UserDetailActivity extends AppCompatActivity implements View.OnClic
     private LinearLayout mLoadingLinearLayout;
     private int mCurrentIndex = 0;
     private PersonBean mPersonBean;
+    private View view;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_detail);
+        view = findViewById(android.R.id.content);
         initViews();
         initEvents();
     }
 
-    private void initViews(){
+    private void initViews() {
         mCursorImageView = (ImageView) findViewById(R.id.user_detail_cursor_iv);
         mViewPager = (ViewPager) findViewById(R.id.user_detail_vp);
         mMomentTextView = (TextView) findViewById(R.id.user_detail_title_moment_tv);
@@ -89,27 +90,25 @@ public class UserDetailActivity extends AppCompatActivity implements View.OnClic
 //        mSettingPopupView = getLayoutInflater().inflate(R.layout.user_detail_setting_popupwindow, null);
     }
 
-    private void initCursor(){
+    private void initCursor() {
         mCursorWidth = BitmapFactory.decodeResource(getResources(),
                 R.mipmap.triangle_white).getWidth();
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
         int screenW = dm.widthPixels;
-        initPosition = (int)(((double)screenW / 6) - ((double)mCursorWidth / 2));
+        initPosition = (int) (((double) screenW / 6) - ((double) mCursorWidth / 2));
         Matrix matrix = new Matrix();
         matrix.postTranslate(initPosition, 0);
         mCursorImageView.setImageMatrix(matrix);
-        mSettingPopupWindow = new PopupWindow(mSettingPopupView, Util.getWidth(this)/3,
+        mSettingPopupWindow = new PopupWindow(mSettingPopupView, Util.getWidth(this) / 3,
                 LinearLayout.LayoutParams.WRAP_CONTENT, true);
         mSettingPopupWindow.setTouchable(true);
         mSettingPopupWindow.setOutsideTouchable(true);
-        mSettingPopupWindow.setBackgroundDrawable(new BitmapDrawable(getResources(), (Bitmap)null));
+        mSettingPopupWindow.setBackgroundDrawable(new BitmapDrawable(getResources(), (Bitmap) null));
 //        mSettingImageButton.setOnClickListener(this);
     }
 
-    private void initEvents(){
-        mPersonBean = (PersonBean) getIntent().getSerializableExtra("person_bean");
-        L.i("userdetail", mPersonBean.toString());
+    private void initEvents() {
         mFragemnts.add(new UserDetailMomentFragment());
         mFragemnts.add(new UserDetailFollowFragment());
         mFragemnts.add(new UserDetailFansFragment());
@@ -125,20 +124,27 @@ public class UserDetailActivity extends AppCompatActivity implements View.OnClic
         mViewPager.setOnPageChangeListener(this);
         mViewPager.setCurrentItem(0);
         mPresenter = new UserDetailPresenterImpl(this);
-        ((UserDetailMomentFragment) mFragemnts.get(0)).getAccount(mPersonBean.getAccount());
-        ((UserDetailFollowFragment) mFragemnts.get(1)).getAccount(mPersonBean.getAccount());
-        ((UserDetailFansFragment) mFragemnts.get(2)).getAccount(mPersonBean.getAccount());
+        mPersonBean = (PersonBean) getIntent().getSerializableExtra("person_bean");
+        if (mPersonBean != null) {
+            L.i("userdetail", mPersonBean.toString());
+            ((UserDetailMomentFragment) mFragemnts.get(0)).getAccount(mPersonBean.getAccount());
+            ((UserDetailFollowFragment) mFragemnts.get(1)).getAccount(mPersonBean.getAccount());
+            ((UserDetailFansFragment) mFragemnts.get(2)).getAccount(mPersonBean.getAccount());
+            setData(mPersonBean);
+        } else {
+            String account = getIntent().getStringExtra("person_account_from_message");
+            ((UserDetailMomentFragment) mFragemnts.get(0)).getAccount(account);
+            ((UserDetailFollowFragment) mFragemnts.get(1)).getAccount(account);
+            ((UserDetailFansFragment) mFragemnts.get(2)).getAccount(account);
+            mPresenter.loadUserDetailByAccount(account);
+        }
 
-        ImageLoadUtils.display(this, mHeadImageView, mPersonBean.getHead());
-        mNameTextView.setText(mPersonBean.getUsername());
-        mCompanyPositionTextView.setText(mPersonBean.getWorkSpace());
-        mFollowTextView.setText("关注 " + mPersonBean.getFollow());
-        mFollowerTextView.setText("粉丝 " + mPersonBean.getFans());
+
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.user_detail_title_moment_tv:
                 mViewPager.setCurrentItem(0);
                 break;
@@ -152,9 +158,9 @@ public class UserDetailActivity extends AppCompatActivity implements View.OnClic
                 finish();
                 break;
             case R.id.user_detail_follow_ll:
-                if(MyApplication.getmLoginStatus() == 0){
+                if (MyApplication.getmLoginStatus() == 0) {
 
-                }else{
+                } else {
                     mPresenter.follow(MyApplication.getAccount(), mPersonBean.getAccount());
                 }
                 break;
@@ -173,29 +179,29 @@ public class UserDetailActivity extends AppCompatActivity implements View.OnClic
     public void onPageSelected(int position) {
         int offset = (initPosition + (mCursorWidth / 2)) * 2;
         Animation animation = null;
-        switch (position){
+        switch (position) {
             case 0:
                 ((UserDetailMomentFragment) mFragemnts.get(0)).getAccount(mPersonBean.getAccount());
-                if(mCurrentIndex == 1){
+                if (mCurrentIndex == 1) {
                     animation = new TranslateAnimation(offset, 0, 0, 0);
-                }else if(mCurrentIndex == 2){
-                    animation = new TranslateAnimation(offset*2 , 0, 0, 0);
+                } else if (mCurrentIndex == 2) {
+                    animation = new TranslateAnimation(offset * 2, 0, 0, 0);
                 }
                 break;
             case 1:
                 ((UserDetailFollowFragment) mFragemnts.get(1)).getAccount(mPersonBean.getAccount());
-                if(mCurrentIndex == 0){
+                if (mCurrentIndex == 0) {
                     animation = new TranslateAnimation(0, offset, 0, 0);
-                }else if(mCurrentIndex == 2){
-                    animation = new TranslateAnimation(offset*2, offset, 0, 0);
+                } else if (mCurrentIndex == 2) {
+                    animation = new TranslateAnimation(offset * 2, offset, 0, 0);
                 }
                 break;
             case 2:
                 ((UserDetailFansFragment) mFragemnts.get(2)).getAccount(mPersonBean.getAccount());
-                if(mCurrentIndex == 0){
-                    animation = new TranslateAnimation(0, offset*2, 0, 0);
-                }else if(mCurrentIndex == 1){
-                    animation = new TranslateAnimation(offset, offset*2 , 0, 0);
+                if (mCurrentIndex == 0) {
+                    animation = new TranslateAnimation(0, offset * 2, 0, 0);
+                } else if (mCurrentIndex == 1) {
+                    animation = new TranslateAnimation(offset, offset * 2, 0, 0);
                 }
                 break;
         }
@@ -214,11 +220,12 @@ public class UserDetailActivity extends AppCompatActivity implements View.OnClic
     @Override
     public void followSuccess() {
         L.i("user_detail", "follow success");
+        Util.showSnackBar(view, "关注成功!");
     }
 
     @Override
     public void followFail() {
-
+        Util.showSnackBar(view, "关注失败，请重试!");
     }
 
     @Override
@@ -231,9 +238,26 @@ public class UserDetailActivity extends AppCompatActivity implements View.OnClic
         mLoadingLinearLayout.setVisibility(View.VISIBLE);
     }
 
+    @Override
+    public void loadSuccess(PersonBean personBean) {
+        setData(personBean);
+        mPersonBean = personBean;
+    }
 
+    @Override
+    public void loadFail() {
+        Util.showSnackBar(view, "加载失败，请退出重试!");
+    }
 
-    public interface OnGetAccountListener{
+    private void setData(PersonBean personBean) {
+        ImageLoadUtils.display(this, mHeadImageView, personBean.getHead());
+        mNameTextView.setText(personBean.getUsername());
+        mCompanyPositionTextView.setText(personBean.getWorkSpace());
+        mFollowTextView.setText("关注 " + personBean.getFollow());
+        mFollowerTextView.setText("粉丝 " + personBean.getFans());
+    }
+
+    public interface OnGetAccountListener {
         void getAccount(String account);
     }
 }

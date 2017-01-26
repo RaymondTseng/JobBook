@@ -7,4 +7,6 @@ package com.example.jobbook.userdetail.presenter;
 public interface UserDetailPresenter {
 
     void follow(String myAccount, String hisAccount);
+
+    void loadUserDetailByAccount(String account);
 }

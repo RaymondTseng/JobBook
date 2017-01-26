@@ -26,7 +26,7 @@
             <TextView
                 android:id="@+id/getmessage_lv_user_item_title_tv"
                 style="@style/TextBlue16sptv"
-                android:text="有人评论你的工作圈啦" />
+                android:text="" />
 
             <TextView
                 android:id="@+id/getmessage_lv_user_item_time_tv"
@@ -34,14 +34,14 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="16dp"
                 android:gravity="center_vertical"
-                android:text="2分钟前" />
+                android:text="" />
 
         </RelativeLayout>
 
         <TextView
             android:id="@+id/getmessage_lv_user_item_content_tv"
             style="@style/TextGray12sptv"
-            android:text="点击查看..." />
+            android:text="" />
 
     </LinearLayout>
 

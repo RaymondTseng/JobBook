@@ -30,7 +30,9 @@ public class MyApplication extends Application {
 
     private static String account;
 
-    public static PushAgent mPushAgent;
+    private PushAgent mPushAgent;
+
+    public static String mDevicetoken;
 
     private Handler handler = null;
 
@@ -144,6 +146,7 @@ public class MyApplication extends Application {
             public void onSuccess(String deviceToken) {
                 //注册成功会返回device token
                 L.d("devicetoken", deviceToken);
+                mDevicetoken = deviceToken;
             }
 
             @Override

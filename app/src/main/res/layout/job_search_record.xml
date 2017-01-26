@@ -18,7 +18,7 @@
         android:layout_marginBottom="15dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="15dp"
-        android:text="我的未来" />
+        android:text="" />
 
 
 </LinearLayout>

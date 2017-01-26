@@ -35,12 +35,12 @@
                 <TextView
                     android:id="@+id/user_detail_fan_lv_item_name_tv"
                     style="@style/Black14sptv"
-                    android:text="这是刘鱼人" />
+                    android:text="" />
 
                 <TextView
                     android:id="@+id/user_detail_fan_lv_item_space_position_tv"
                     style="@style/TextBlue12sptv"
-                    android:text="职谱 扫地僧" />
+                    android:text="" />
             </LinearLayout>
 
         </LinearLayout>

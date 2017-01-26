@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import com.example.jobbook.MyApplication;
 import com.example.jobbook.R;
-import com.example.jobbook.person.widget.OldUserDetailActivity;
 import com.example.jobbook.update.presenter.UpdateUsernamePresenter;
 import com.example.jobbook.update.presenter.UpdateUsernamePresenterImpl;
 import com.example.jobbook.update.view.UpdateUsernameView;

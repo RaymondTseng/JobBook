@@ -58,16 +58,18 @@ public class MomentDetailModelImpl implements MomentDetailModel {
     }
 
     @Override
-    public void loadMomentById(int id, String account, final OnLoadMomentListener listener) {
-        OkHttpUtils.get().url(Urls.SQUARE_LIKE_URL + id + "/account/" + account ).build().execute(new StringCallback() {
+    public void loadMomentById(String id, String account, final OnLoadMomentListener listener) {
+        L.i("loadMomentById", Urls.SINGLE_MOMENT_URL + account + "/q_id/" + id);
+        OkHttpUtils.get().url(Urls.SINGLE_MOMENT_URL + account + "/q_id/" + id).build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int i) {
-                listener.onFailure(e.getMessage(), e, 0);
+                L.i("loadMomentById", e.getMessage());
+                listener.onFailure(e.getMessage(), e, LOAD_QUESTION_ERROR);
             }
 
             @Override
             public void onResponse(String response, int i) {
-                L.i("momentdetail_like", response);
+                L.i("loadMomentById", response);
                 ResultBean resultBean = new Gson().fromJson(response, ResultBean.class);
                 if (resultBean.getStatus().equals("true")) {
 //                    String[] array = resultBean.getResponse().split("/");
@@ -76,7 +78,7 @@ public class MomentDetailModelImpl implements MomentDetailModel {
                     MomentBean momentBean = new Gson().fromJson(resultBean.getResponse(), MomentBean.class);
                     listener.onSuccess(momentBean);
                 } else {
-                    listener.onFailure(resultBean.getResponse(), null, 0);
+                    listener.onFailure(resultBean.getResponse(), null, LOAD_QUESTION_ERROR);
                 }
             }
         });

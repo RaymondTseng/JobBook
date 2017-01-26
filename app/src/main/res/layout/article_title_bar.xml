@@ -3,24 +3,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBlue">
+
     <LinearLayout
+        android:id="@+id/article_title_ll"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/article_title_ll"
         android:layout_centerInParent="true">
+
         <TextView
             android:id="@+id/article_title_tv"
-            android:text="全部板块"
             style="@style/White20sptv"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center"
+            android:text="全部板块" />
+
         <ImageButton
             android:id="@+id/article_title_drop_ib"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/down_white"
-            android:scaleType="centerInside"
             android:background="@null"
-            android:clickable="false" />
+            android:clickable="false"
+            android:scaleType="centerInside"
+            android:src="@mipmap/down_white" />
     </LinearLayout>
 
 

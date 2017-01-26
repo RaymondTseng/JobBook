@@ -37,8 +37,7 @@
         layout="@layout/loading_layout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="512"
-        android:visibility="gone"/>
+        android:layout_weight="512" />
 
     <EditText
         android:id="@+id/activity_publish_moment_content_et"

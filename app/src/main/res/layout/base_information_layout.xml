@@ -1,325 +1,328 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorWhite">
+    android:background="@color/colorWhite"
+    android:orientation="vertical">
+
     <TextView
+        style="@style/Black20sptv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:layout_marginTop="16dp"
-        android:text="基本信息"
-        style="@style/Black20sptv"
         android:gravity="center"
-        android:layout_marginBottom="8dp"/>
+        android:text="基本信息" />
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="12dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        >
+        android:layout_marginRight="16dp">
+
         <TextView
             android:id="@+id/text_cv_name_tv"
-            android:text="性别"
             style="@style/Black16sptv"
-            android:gravity="center"
             android:drawablePadding="8dp"
             android:drawableRight="@drawable/text_cv_vertical_gray_line"
-            />
+            android:gravity="center"
+            android:text="性别" />
+
         <Spinner
             android:id="@+id/text_cv_sex_spinner"
-            android:popupBackground="@color/colorWhite"
-            android:layout_alignBaseline="@id/text_cv_name_tv"
-            android:layout_toRightOf="@id/text_cv_name_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/text_cv_name_tv"
+            android:layout_toRightOf="@id/text_cv_name_tv"
             android:entries="@array/sex"
-            android:spinnerMode="dropdown"
-            ></Spinner>
+            android:popupBackground="@color/colorWhite"
+            android:spinnerMode="dropdown"></Spinner>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/colorBackgroundGray"
             android:layout_below="@id/text_cv_name_tv"
-            android:layout_marginTop="4dp"/>
+            android:layout_marginTop="4dp"
+            android:background="@color/colorBackgroundGray" />
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
-        >
+        android:layout_marginBottom="12dp">
+
         <EditText
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
             android:id="@+id/text_cv_status_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="72dp"
-            android:textCursorDrawable="@drawable/edtitext_cursor"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
             android:background="@drawable/text_cv_et_bg"
-            android:paddingBottom="8dp"/>
-            <!--android:paddingLeft="72dp"-->
-            <!--android:background="@drawable/text_cv_et_bg"-->
-            <!--android:drawableLeft="@drawable/text_cv_vertical_line"-->
+            android:paddingBottom="8dp"
+            android:paddingLeft="72dp"
+            android:textCursorDrawable="@drawable/edtitext_cursor" />
+        <!--android:paddingLeft="72dp"-->
+        <!--android:background="@drawable/text_cv_et_bg"-->
+        <!--android:drawableLeft="@drawable/text_cv_vertical_line"-->
         <TextView
-            android:text="求职状态"
             android:id="@+id/text_cv_status_tv"
             style="@style/Black16sptv"
-            android:layout_marginLeft="16dp"
             android:layout_alignBaseline="@id/text_cv_status_et"
+            android:layout_marginLeft="16dp"
+            android:drawablePadding="6dp"
             android:drawableRight="@drawable/text_cv_vertical_gray_line"
             android:gravity="center"
-            android:drawablePadding="6dp"
-            />
+            android:text="求职状态" />
 
     </RelativeLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
-        >
+        android:layout_marginBottom="12dp">
+
         <EditText
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
             android:id="@+id/text_cv_company_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="72dp"
-            android:textCursorDrawable="@drawable/edtitext_cursor"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
             android:background="@drawable/text_cv_et_bg"
-            android:paddingBottom="8dp"/>
+            android:paddingBottom="8dp"
+            android:paddingLeft="72dp"
+            android:textCursorDrawable="@drawable/edtitext_cursor" />
         <!--android:paddingLeft="72dp"-->
         <!--android:background="@drawable/text_cv_et_bg"-->
         <!--android:drawableLeft="@drawable/text_cv_vertical_line"-->
         <TextView
-            android:text="公司"
             android:id="@+id/text_cv_company_tv"
             style="@style/Black16sptv"
-            android:layout_marginLeft="16dp"
             android:layout_alignBaseline="@id/text_cv_company_et"
+            android:layout_marginLeft="16dp"
+            android:drawablePadding="6dp"
             android:drawableRight="@drawable/text_cv_vertical_gray_line"
             android:gravity="center"
-            android:drawablePadding="6dp"
-            />
+            android:text="公司" />
 
     </RelativeLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
-        >
+        android:layout_marginBottom="12dp">
+
         <EditText
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
             android:id="@+id/text_cv_position_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="72dp"
-            android:textCursorDrawable="@drawable/edtitext_cursor"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
             android:background="@drawable/text_cv_et_bg"
-            android:paddingBottom="8dp"/>
+            android:paddingBottom="8dp"
+            android:paddingLeft="72dp"
+            android:textCursorDrawable="@drawable/edtitext_cursor" />
         <!--android:paddingLeft="72dp"-->
         <!--android:background="@drawable/text_cv_et_bg"-->
         <!--android:drawableLeft="@drawable/text_cv_vertical_line"-->
         <TextView
-            android:text="职位"
             android:id="@+id/text_cv_position_tv"
             style="@style/Black16sptv"
-            android:layout_marginLeft="16dp"
             android:layout_alignBaseline="@id/text_cv_position_et"
+            android:layout_marginLeft="16dp"
+            android:drawablePadding="6dp"
             android:drawableRight="@drawable/text_cv_vertical_gray_line"
             android:gravity="center"
-            android:drawablePadding="6dp"
-            />
+            android:text="职位" />
 
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
-        >
+        android:layout_marginBottom="12dp">
+
         <EditText
             android:id="@+id/text_cv_location_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="72dp"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
-            android:paddingBottom="8dp"
             android:background="@drawable/text_cv_et_bg"
-            android:textCursorDrawable="@drawable/edtitext_cursor"
-            />
+            android:paddingBottom="8dp"
+            android:paddingLeft="72dp"
+            android:textCursorDrawable="@drawable/edtitext_cursor" />
+
         <TextView
-            android:text="所在城市"
-            style="@style/Black16sptv"
             android:id="@+id/text_cv_location_tv"
+            style="@style/Black16sptv"
+            android:layout_alignBaseline="@id/text_cv_location_et"
             android:layout_marginLeft="16dp"
+            android:drawablePadding="6dp"
             android:drawableRight="@drawable/text_cv_vertical_gray_line"
             android:gravity="center"
-            android:drawablePadding="6dp"
-            android:layout_alignBaseline="@id/text_cv_location_et"
-            />
+            android:text="所在城市" />
 
     </RelativeLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="12dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        >
+        android:layout_marginRight="16dp">
+
         <TextView
             android:id="@+id/text_cv_type_tv"
-            android:text="残疾类型"
             style="@style/Black16sptv"
-            android:gravity="center"
             android:drawablePadding="8dp"
             android:drawableRight="@drawable/text_cv_vertical_gray_line"
-            />
+            android:gravity="center"
+            android:text="残疾类型" />
+
         <Spinner
             android:id="@+id/text_cv_type_spinner"
-            android:popupBackground="@color/colorWhite"
-            android:layout_alignBaseline="@id/text_cv_type_tv"
-            android:layout_toRightOf="@id/text_cv_type_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/text_cv_type_tv"
+            android:layout_toRightOf="@id/text_cv_type_tv"
             android:entries="@array/type"
-            android:spinnerMode="dropdown"
-            ></Spinner>
+            android:popupBackground="@color/colorWhite"
+            android:spinnerMode="dropdown"></Spinner>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/colorBackgroundGray"
             android:layout_below="@id/text_cv_type_tv"
-            android:layout_marginTop="4dp"/>
+            android:layout_marginTop="4dp"
+            android:background="@color/colorBackgroundGray" />
 
     </RelativeLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="12dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        >
+        android:layout_marginRight="16dp">
+
         <TextView
             android:id="@+id/text_cv_level_tv"
-            android:text="残疾等级"
             style="@style/Black16sptv"
-            android:gravity="center"
             android:drawablePadding="8dp"
             android:drawableRight="@drawable/text_cv_vertical_gray_line"
-            />
+            android:gravity="center"
+            android:text="残疾等级" />
+
         <Spinner
             android:id="@+id/text_cv_level_spinner"
-            android:popupBackground="@color/colorWhite"
-            android:layout_alignBaseline="@id/text_cv_level_tv"
-            android:layout_toRightOf="@id/text_cv_level_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/text_cv_level_tv"
+            android:layout_toRightOf="@id/text_cv_level_tv"
             android:entries="@array/level"
-            android:spinnerMode="dropdown"
-            ></Spinner>
+            android:popupBackground="@color/colorWhite"
+            android:spinnerMode="dropdown"></Spinner>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/colorBackgroundGray"
             android:layout_below="@id/text_cv_level_tv"
-            android:layout_marginTop="4dp"/>
+            android:layout_marginTop="4dp"
+            android:background="@color/colorBackgroundGray" />
 
     </RelativeLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
-        >
+        android:layout_marginBottom="12dp">
+
         <TextView
             android:id="@+id/text_cv_certificate_tv"
-            android:text="残疾证"
             style="@style/Black16sptv"
-            android:gravity="center"
             android:layout_marginLeft="16dp"
             android:drawablePadding="8dp"
             android:drawableRight="@drawable/text_cv_vertical_gray_line"
-            />
+            android:gravity="center"
+            android:text="残疾证" />
+
         <Spinner
             android:id="@+id/text_cv_certificate_spinner"
-            android:gravity="center"
-            android:popupBackground="@color/colorWhite"
-            android:layout_alignBaseline="@id/text_cv_certificate_tv"
-            android:layout_toRightOf="@id/text_cv_certificate_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:entries="@array/ifhave"
+            android:layout_alignBaseline="@id/text_cv_certificate_tv"
             android:layout_marginRight="16dp"
-            ></Spinner>
+            android:layout_toRightOf="@id/text_cv_certificate_tv"
+            android:entries="@array/ifhave"
+            android:gravity="center"
+            android:popupBackground="@color/colorWhite"></Spinner>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginLeft="16dp"
-            android:background="@color/colorBackgroundGray"
             android:layout_below="@id/text_cv_certificate_tv"
-            android:layout_marginTop="4dp"/>
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="4dp"
+            android:background="@color/colorBackgroundGray" />
     </RelativeLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
-        >
+        android:layout_marginBottom="12dp">
+
         <EditText
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
             android:id="@+id/text_cv_tel_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="72dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
             android:background="@drawable/text_cv_et_bg"
             android:paddingBottom="8dp"
-            android:textCursorDrawable="@drawable/edtitext_cursor"
-            />
+            android:paddingLeft="72dp"
+            android:textCursorDrawable="@drawable/edtitext_cursor" />
+
         <TextView
-            android:text="联系电话"
-            style="@style/Black16sptv"
             android:id="@+id/text_cv_tel_tv"
+            style="@style/Black16sptv"
+            android:layout_alignBaseline="@id/text_cv_tel_et"
+            android:layout_marginLeft="16dp"
+            android:drawablePadding="6dp"
             android:drawableRight="@drawable/text_cv_vertical_gray_line"
             android:gravity="center"
-            android:drawablePadding="6dp"
-            android:layout_marginLeft="16dp"
-            android:layout_alignBaseline="@id/text_cv_tel_et"
-            />
+            android:text="联系电话" />
 
     </RelativeLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
-        >
+        android:layout_marginBottom="12dp">
+
         <EditText
             android:id="@+id/text_cv_email_et"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="72dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
             android:background="@drawable/text_cv_et_bg"
             android:paddingBottom="8dp"
-            android:textCursorDrawable="@drawable/edtitext_cursor"
-            />
+            android:paddingLeft="72dp"
+            android:textCursorDrawable="@drawable/edtitext_cursor" />
+
         <TextView
-            android:text="联系邮箱"
-            style="@style/Black16sptv"
             android:id="@+id/text_cv_email_tv"
+            style="@style/Black16sptv"
+            android:layout_alignBaseline="@id/text_cv_email_et"
+            android:layout_marginLeft="16dp"
+            android:drawablePadding="6dp"
             android:drawableRight="@drawable/text_cv_vertical_gray_line"
             android:gravity="center"
-            android:drawablePadding="6dp"
-            android:layout_marginLeft="16dp"
-            android:layout_alignBaseline="@id/text_cv_email_et"
-            />
+            android:text="联系邮箱" />
 
     </RelativeLayout>
-
 
 
 </LinearLayout>

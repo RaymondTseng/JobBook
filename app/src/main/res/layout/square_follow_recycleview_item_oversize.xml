@@ -9,9 +9,9 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:layout_below="@+id/square_follow_rl"
             android:layout_width="match_parent"
             android:layout_height="2dp"
+            android:layout_below="@+id/square_follow_rl"
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="32dp"
             android:layout_marginRight="32dp"
@@ -21,9 +21,9 @@
             android:id="@+id/square_follow_rl"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true">
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true">
 
             <ImageView
                 android:id="@+id/square_follow_rv_head_iv"
@@ -43,11 +43,11 @@
 
                 <TextView
                     style="@style/TextBlackde14sptv"
-                    android:text="张朝旭" />
+                    android:text="" />
 
                 <TextView
                     style="@style/TextBlue12sptv"
-                    android:text="职谱 扫地僧" />
+                    android:text="" />
 
             </LinearLayout>
 
@@ -64,13 +64,13 @@
 
         <TextView
             style="@style/TextBlackb316sptv"
-            android:text="       	红黑树是一种特定类型的二叉树，它是在计算机科学中用来组织数据比如数字的块的一种结构。所有数据块都存储在节点中。这些节点中的某一个节点总是这里只能有七十五个字…" />
+            android:text="" />
 
         <TextView
             style="@style/TextBlue16sptv"
             android:layout_gravity="right|bottom"
             android:layout_marginRight="16dp"
-            android:text="点开全文" />
+            android:text="" />
     </FrameLayout>
 
     <include layout="@layout/follow_recycleview_item_footer" />

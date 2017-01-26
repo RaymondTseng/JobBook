@@ -43,7 +43,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginTop="8dp"
-        android:text="1.负责apple产品UI的视觉创意和风格设计；\n2.与产品经理配合，积极寻求更好的产品界面视觉方案；\n3.与开发人员合作，根据产品需求，提交开发所需的UI交互设计细节；" />
+        android:text="" />
 
     <TextView
         android:layout_width="match_parent"
@@ -66,6 +66,6 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginTop="8dp"
-        android:text="1.负责apple产品UI的视觉创意和风格设计；2.与产品经理配合，积极寻求更好的产品界面视觉方案；\n3.与开发人员合作，根据产品需求，提交开发所需的UI交互设计细节；" />
+        android:text="" />
 
 </LinearLayout>

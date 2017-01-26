@@ -11,7 +11,7 @@
         android:layout_marginLeft="32dp"
         android:layout_marginRight="32dp"
         android:layout_marginTop="8dp"
-        android:text="       这里是一大段文字，我今天真的非常不想上班，但是老板又强制要求我上班，所以我辞职了" />
+        android:text="" />
 
     <include
         layout="@layout/follow_recycleview_item_footer"

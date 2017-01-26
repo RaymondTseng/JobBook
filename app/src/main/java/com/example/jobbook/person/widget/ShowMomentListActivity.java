@@ -8,17 +8,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 
 import com.example.jobbook.MyApplication;
 import com.example.jobbook.R;
 import com.example.jobbook.bean.MomentBean;
-import com.example.jobbook.blacklist.BlackListRecyclerViewAdapter;
 import com.example.jobbook.moment.widget.MomentDetailActivity;
 import com.example.jobbook.person.presenter.ShowMomentListPresenter;
 import com.example.jobbook.person.presenter.ShowMomentListPresenterImpl;
 import com.example.jobbook.person.view.ShowMomentListView;
-import com.example.jobbook.userdetail.UserDetailFansAdapter;
 import com.example.jobbook.userdetail.UserDetailMomentAdapter;
 import com.example.jobbook.util.DividerItemDecoration;
 import com.example.jobbook.util.L;
