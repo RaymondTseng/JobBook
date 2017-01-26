@@ -38,11 +38,11 @@
 
             <TextView
                 style="@style/TextBlackde14sptv"
-                android:text="张朝旭" />
+                android:text="" />
 
             <TextView
                 style="@style/TextBlue12sptv"
-                android:text="职谱 扫地僧" />
+                android:text="" />
 
         </LinearLayout>
 

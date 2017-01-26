@@ -1,9 +1,10 @@
 package com.example.jobbook.login.model;
 
 import android.text.TextUtils;
-import com.example.jobbook.util.L;
 
+import com.example.jobbook.MyApplication;
 import com.example.jobbook.bean.PersonBean;
+import com.example.jobbook.bean.PersonWithDeviceTokenBean;
 import com.example.jobbook.bean.ResultBean;
 import com.example.jobbook.commons.Urls;
 import com.example.jobbook.util.L;
@@ -26,9 +27,11 @@ public class LoginModelImpl implements LoginModel {
         } else if (TextUtils.isEmpty(password)) {
             listener.onPasswordError();
         }else{
-            PersonBean personBean = new PersonBean();
+            PersonWithDeviceTokenBean personBean = new PersonWithDeviceTokenBean();
             personBean.setAccount(account);
             personBean.setPassword(Util.getMD5(password));
+            personBean.setDevicetoken(MyApplication.mDevicetoken);
+            L.i("loginmodelimpl", personBean.toString());
             OkHttpUtils.postString().url(Urls.LOGIN_URL).content(new Gson().toJson(personBean)).build().
                     execute(new StringCallback() {
                 @Override

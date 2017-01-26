@@ -40,7 +40,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="16dp"
-                    android:text="4.15~5.20" />
+                    android:text="" />
 
                 <TextView
                     android:id="@+id/job_lv_name_tv"
@@ -51,7 +51,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="10dp"
                     android:layout_toLeftOf="@id/job_lv_time_tv"
-                    android:text="平面设计师"
+                    android:text=""
                     android:textColor="@color/colorBlack"
                     android:textSize="16sp" />
 
@@ -76,7 +76,7 @@
                     android:id="@+id/job_lv_company_tv"
                     style="@style/TextGray12sptv"
                     android:layout_gravity="center"
-                    android:text="卖苹果公司" />
+                    android:text="" />
 
             </LinearLayout>
 
@@ -99,13 +99,13 @@
                     android:id="@+id/job_lv_location_tv"
                     style="@style/TextGray12sptv"
                     android:layout_gravity="center"
-                    android:text="这是城市名" />
+                    android:text="" />
 
                 <TextView
                     android:id="@+id/job_lv_salary_tv"
                     style="@style/TextGray12sptv"
                     android:paddingLeft="16dp"
-                    android:text="¥1.5k~2.5k"
+                    android:text=""
                     android:textColor="@color/colorBlue" />
             </LinearLayout>
 

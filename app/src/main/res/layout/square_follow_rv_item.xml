@@ -36,11 +36,11 @@
                 <TextView
                     android:id="@+id/square_follow_rv_username_tv"
                     style="@style/TextBlackde14sptv"
-                    android:text="张朝旭" />
+                    android:text="" />
 
                 <TextView
                     style="@style/TextBlue12sptv"
-                    android:text="职谱 扫地僧" />
+                    android:text="" />
 
             </LinearLayout>
 
@@ -54,7 +54,7 @@
         android:layout_marginLeft="32dp"
         android:layout_marginRight="32dp"
         android:layout_marginTop="4dp"
-        android:text="       这里是一大段文字，我今天真的非常不想上班，但是老板又强制要求我上班，所以我辞职了" />
+        android:text="" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -79,7 +79,7 @@
                 android:id="@+id/square_follow_rv_favourite_tv"
                 style="@style/TextGray14sptv"
                 android:layout_gravity="center_vertical"
-                android:text="(2300)" />
+                android:text="" />
 
         </LinearLayout>
 
@@ -100,7 +100,7 @@
                 android:id="@+id/square_follow_rv_comment_tv"
                 style="@style/TextGray14sptv"
                 android:layout_gravity="center_vertical"
-                android:text="(1200)" />
+                android:text="" />
 
         </LinearLayout>
 
@@ -118,7 +118,7 @@
             style="@style/TextGray14sptv"
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@id/square_follow_rv_favourite_ib"
-            android:text="5分钟前" />
+            android:text="" />
 
 
     </RelativeLayout>

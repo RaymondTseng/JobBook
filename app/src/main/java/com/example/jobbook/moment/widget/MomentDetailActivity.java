@@ -98,17 +98,23 @@ public class MomentDetailActivity extends Activity implements MomentDetailView, 
     }
 
     private void initEvents() {
-        mMomentBean = (MomentBean) getIntent().getSerializableExtra("square_detail");
         list = new ArrayList<>();
-        id = mMomentBean.getId();
-        L.i("squaredetail_activity", "123:" + mMomentBean.getId());
         mScreenHeight = Util.getHeight(this);
         mKeyBoardHeight = mScreenHeight / 3;
         mTitleBarHeight = ((float) mScreenHeight / 568) * 56;
         mInputLayoutHeight = mTitleBarHeight;
         mPresenter = new MomentDetailPresenterImpl(this);
 
-        mPresenter.loadMoment(mMomentBean);
+        mMomentBean = (MomentBean) getIntent().getSerializableExtra("square_detail");
+        if (mMomentBean != null) {
+            id = mMomentBean.getId();
+            L.i("squaredetail_activity", "123:" + mMomentBean.getId());
+            mPresenter.loadMoment(mMomentBean);
+        } else {
+            String id = getIntent().getStringExtra("moment_id_from_message");
+            mPresenter.loadMomentById(id, MyApplication.getAccount());
+        }
+
 //        mPresenter.loadMomentComments(momentBean.getId());
         mAdapter = new MomentDetailCommentListViewAdapter(this);
         mAdapter.setmHeaderView(mHeadView);
@@ -293,7 +299,9 @@ public class MomentDetailActivity extends Activity implements MomentDetailView, 
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.moment_detail_back_ib:
-                myApplication.getHandler().sendEmptyMessage(1);
+                if (myApplication.getHandler() != null) {
+                    myApplication.getHandler().sendEmptyMessage(1);
+                }
                 finish();
                 break;
             case R.id.moment_detail_send_ib:

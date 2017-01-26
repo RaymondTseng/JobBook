@@ -13,7 +13,9 @@ import android.util.Log;
 
 import com.example.jobbook.MyApplication;
 import com.example.jobbook.R;
+import com.example.jobbook.bean.MessageBean;
 import com.example.jobbook.bean.PersonBean;
+import com.example.jobbook.bean.UmengMessageBean;
 import com.example.jobbook.bean.UnreadBean;
 import com.example.jobbook.receiver.NotificationBroadcast;
 import com.example.jobbook.util.L;
@@ -89,12 +91,13 @@ public class MyPushIntentService extends UmengMessageService {
             Log.d(TAG, "title=" + msg.title);      //通知标题
             Log.d(TAG, "text=" + msg.text);        //通知内容
             num++;
-            UnreadBean demo = new Gson().fromJson(msg.custom, UnreadBean.class);
+
+            UmengMessageBean messageBean = new Gson().fromJson(msg.custom, UmengMessageBean.class);
 
             if (MyApplication.getmLoginStatus() == 1) {
-                L.i("MyPush", "account" + demo.getAccount() + " local account:" + MyApplication.getmPersonBean().getAccount());
-                if (demo.getAccount().equals(MyApplication.getmPersonBean().getAccount())) {
-                    showNotification(msg);
+                L.i("MyPush", "account" + messageBean.getAccount() + " local account:" + MyApplication.getmPersonBean().getAccount());
+                if (messageBean.getAccount().equals(MyApplication.getmPersonBean().getAccount())) {
+                    showNotification(messageBean, msg);
                     L.i("MyPush", "lala");
                     int unread = 0;
                     List<UnreadBean> beans = DataSupport.where("account = ?", getAccount()).find(UnreadBean.class);
@@ -112,30 +115,30 @@ public class MyPushIntentService extends UmengMessageService {
                 }
                 else {
                     L.i("MyPush", "haha");
-                    List<UnreadBean> beans = DataSupport.where("account = ?", demo.getAccount()).find(UnreadBean.class);
+                    List<UnreadBean> beans = DataSupport.where("account = ?", messageBean.getAccount()).find(UnreadBean.class);
                     if (beans.size() == 0) {
                         UnreadBean bean = new UnreadBean();
-                        bean.setAccount(demo.getAccount());
+                        bean.setAccount(messageBean.getAccount());
                         bean.setNum(1);
                         bean.save();
                     } else {
                         ContentValues values = new ContentValues();
                         values.put("num", beans.get(0).getNum() + 1);
-                        DataSupport.updateAll(UnreadBean.class, values, "account = ?", demo.getAccount());
+                        DataSupport.updateAll(UnreadBean.class, values, "account = ?", messageBean.getAccount());
                     }
                     num--;
                 }
             } else {
-                List<UnreadBean> beans = DataSupport.where("account = ?", demo.getAccount()).find(UnreadBean.class);
+                List<UnreadBean> beans = DataSupport.where("account = ?", messageBean.getAccount()).find(UnreadBean.class);
                 if (beans.size() == 0) {
                     UnreadBean bean = new UnreadBean();
-                    bean.setAccount(demo.getAccount());
+                    bean.setAccount(messageBean.getAccount());
                     bean.setNum(1);
                     bean.save();
                 } else {
                     ContentValues values = new ContentValues();
                     values.put("num", beans.get(0).getNum() + 1);
-                    DataSupport.updateAll(UnreadBean.class, values, "account = ?", demo.getAccount());
+                    DataSupport.updateAll(UnreadBean.class, values, "account = ?", messageBean.getAccount());
                 }
                 num--;
             }
@@ -145,37 +148,49 @@ public class MyPushIntentService extends UmengMessageService {
 
     }
 
-    private void showNotification(UMessage msg) {
+    private void showNotification(UmengMessageBean msg, UMessage message) {
         int id = new Random(System.nanoTime()).nextInt();
-        oldMessage = msg;
+        oldMessage = message;
         NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         manager.cancelAll();
         Notification.Builder mBuilder = new Notification.Builder(this);
-        mBuilder.setContentTitle(msg.title)
-                .setContentText(msg.text)
-                .setTicker(msg.ticker)
+        switch (msg.getType()) {
+            case MessageBean.FOLLOW:
+                mBuilder.setContentTitle("有一个新用户关注你啦")
+                        .setTicker("在职谱，有一个新用户关注你啦");
+                break;
+            case MessageBean.LIKE:
+                mBuilder.setContentTitle("有人给你的工作圈点赞啦")
+                        .setTicker("在职谱，有人给你的工作圈点赞啦");;
+                break;
+            case MessageBean.COMMENT:
+                mBuilder.setContentTitle("有人评论你的工作圈啦")
+                        .setTicker("在职谱，有人评论你的工作圈啦");;
+                break;
+        }
+        mBuilder.setContentText("点击查看")
                 .setWhen(System.currentTimeMillis())
-                .setSmallIcon(R.drawable.article_rb)
+                .setSmallIcon(R.mipmap.ic_launcher)
                 .setAutoCancel(true);
-        Notification notification = mBuilder.getNotification();
-        PendingIntent clickPendingIntent = getClickPendingIntent(this, msg);
-        PendingIntent dismissPendingIntent = getDismissPendingIntent(this, msg);
+        Notification notification = mBuilder.build();
+        PendingIntent clickPendingIntent = getClickPendingIntent(this, message, msg);
+        PendingIntent dismissPendingIntent = getDismissPendingIntent(this, message);
         notification.deleteIntent = dismissPendingIntent;
         notification.contentIntent = clickPendingIntent;
         manager.notify(id, notification);
     }
 
-    public PendingIntent getClickPendingIntent(Context context, UMessage msg) {
+    public PendingIntent getClickPendingIntent(Context context, UMessage msg, UmengMessageBean messageBean) {
         Intent clickIntent = new Intent();
         clickIntent.setClass(context, NotificationBroadcast.class);
         clickIntent.putExtra(NotificationBroadcast.EXTRA_KEY_MSG,
                 msg.getRaw().toString());
         clickIntent.putExtra(NotificationBroadcast.EXTRA_KEY_ACTION,
                 NotificationBroadcast.ACTION_CLICK);
+        clickIntent.putExtra(NotificationBroadcast.CUSTOM_MESSAGE, messageBean);
         PendingIntent clickPendingIntent = PendingIntent.getBroadcast(context,
                 (int) (System.currentTimeMillis()),
                 clickIntent, PendingIntent.FLAG_CANCEL_CURRENT);
-
         return clickPendingIntent;
     }
 

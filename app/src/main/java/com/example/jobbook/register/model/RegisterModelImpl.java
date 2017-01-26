@@ -2,9 +2,10 @@ package com.example.jobbook.register.model;
 
 import android.content.Context;
 import android.text.TextUtils;
-import com.example.jobbook.util.L;
 
+import com.example.jobbook.MyApplication;
 import com.example.jobbook.bean.PersonBean;
+import com.example.jobbook.bean.PersonWithDeviceTokenBean;
 import com.example.jobbook.bean.ResultBean;
 import com.example.jobbook.commons.Urls;
 import com.example.jobbook.util.L;
@@ -42,12 +43,13 @@ public class RegisterModelImpl implements RegisterModel {
             SMSSDKManager.getInstance().verifyCode(mContext, "86", account, code, new SMSSDKManager.Callback() {
                 @Override
                 public void success() {
-                    PersonBean personBean = new PersonBean();
+                    PersonWithDeviceTokenBean personBean = new PersonWithDeviceTokenBean();
                     personBean.setAccount(account);
                     personBean.setPassword(Util.getMD5(password));
                     personBean.setUsername(userName);
                     personBean.setTelephone(null);
-                    L.i("registermodelimpl", Urls.REGISTER_URL);
+                    personBean.setDevicetoken(MyApplication.mDevicetoken);
+                    L.i("registermodelimpl", personBean.toString());
                     OkHttpUtils.postString().url(Urls.REGISTER_URL).content(new Gson().
                             toJson(personBean)).build().execute(new StringCallback() {
                         @Override

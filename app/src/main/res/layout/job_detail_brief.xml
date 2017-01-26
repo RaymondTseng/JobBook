@@ -27,7 +27,7 @@
             <TextView
                 android:id="@+id/job_detail_time_tv"
                 style="@style/TextGray12sptv"
-                android:text="2016.04.15" />
+                android:text="" />
 
         </LinearLayout>
 
@@ -37,7 +37,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:text="平面设计师" />
+            android:text="" />
 
     </RelativeLayout>
 
@@ -58,7 +58,7 @@
             android:id="@+id/job_detail_salary_tv"
             style="@style/TextBlue14sptv"
             android:layout_marginLeft="8dp"
-            android:text="3000元-4000元/月" />
+            android:text="" />
 
     </LinearLayout>
 
@@ -81,7 +81,7 @@
             style="@style/TextBlackb314sptv"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="32dp"
-            android:text="广东省广东省广东省广东省广东省广东省广东省广东省广东省广东省" />
+            android:text="" />
 
     </LinearLayout>
 
@@ -101,7 +101,7 @@
         android:layout_below="@+id/job_detail_divider"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="8dp"
-        android:text="广东广州润宝公司" />
+        android:text="" />
 
     <RelativeLayout
         android:id="@+id/job_detail_location_parent_ll"
@@ -126,7 +126,7 @@
                 style="@style/TextBlackb314sptv"
                 android:layout_width="120dp"
                 android:layout_marginLeft="8dp"
-                android:text="广东省广州市" />
+                android:text="" />
 
         </LinearLayout>
 
@@ -147,7 +147,7 @@
                 android:layout_width="112dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="16dp"
-                android:text="3000-4000人" />
+                android:text="" />
 
         </LinearLayout>
 
@@ -171,7 +171,7 @@
             style="@style/TextBlue14sptv"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="22dp"
-            android:text="五险一金 • 双休五险一金*双休五险一金*双休五险一金*双休五险一金*双休五险一金*双休五险一金*双休" />
+            android:text="" />
 
     </LinearLayout>
 

@@ -1,79 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:weightSum="568"
-    android:background="@color/colorBackgroundGray">
+    android:background="@color/colorBackgroundGray"
+    android:orientation="vertical"
+    android:weightSum="568">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="56"
         android:background="@color/colorBlue">
+
         <ImageButton
             android:id="@+id/favourite_back_ib"
             android:layout_width="56dp"
             android:layout_height="56dp"
-            android:src="@mipmap/left_white"
             android:layout_centerVertical="true"
-            android:background="@null"/>
+            android:background="@null"
+            android:src="@mipmap/left_white" />
+
         <TextView
-            android:text="我的收藏"
             style="@style/White20sptv"
             android:layout_centerVertical="true"
+            android:layout_marginLeft="16dp"
             android:layout_toRightOf="@id/favourite_back_ib"
-            android:layout_marginLeft="16dp"/>
+            android:text="我的收藏" />
     </RelativeLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="32"
         android:background="@color/colorWhite">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:weightSum="6"
+            android:background="@color/colorWhite"
             android:orientation="horizontal"
-            android:background="@color/colorWhite">
+            android:weightSum="6">
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="2"></LinearLayout>
+
             <TextView
                 android:id="@+id/favourite_job_tv"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:gravity="center"
                 android:text="岗位"
-                android:textSize="14sp"
-                android:gravity="center"/>
+                android:textSize="14sp" />
+
             <TextView
                 android:id="@+id/favourite_article_tv"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:gravity="center"
                 android:text="干货"
-                android:textSize="14sp"
-                android:gravity="center"/>
+                android:textSize="14sp" />
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="2"></LinearLayout>
         </LinearLayout>
+
         <ImageView
             android:id="@+id/favourite_cursor_iv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@mipmap/blue_line"
             android:layout_alignParentBottom="true"
-            android:scaleType="matrix"/>
+            android:scaleType="matrix"
+            android:src="@mipmap/blue_line" />
     </RelativeLayout>
 
     <android.support.v4.view.ViewPager
+        android:id="@+id/favourite_vp"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="2dp"
-        android:id="@+id/favourite_vp"
-        android:background="@color/colorWhite"
-        android:layout_weight="480"></android.support.v4.view.ViewPager>
+        android:layout_weight="480"
+        android:background="@color/colorWhite"></android.support.v4.view.ViewPager>
 
 </LinearLayout>

@@ -12,7 +12,6 @@ import android.widget.TextView;
 import com.example.jobbook.MyApplication;
 import com.example.jobbook.R;
 import com.example.jobbook.bean.PersonBean;
-import com.example.jobbook.person.widget.OldUserDetailActivity;
 import com.example.jobbook.update.presenter.UpdatePhonePresenter;
 import com.example.jobbook.update.presenter.UpdatePhonePresenterImpl;
 import com.example.jobbook.update.view.UpdatePhoneView;

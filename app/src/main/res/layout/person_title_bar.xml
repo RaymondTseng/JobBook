@@ -5,19 +5,20 @@
     android:background="@color/colorBlue">
 
     <TextView
-        style="@style/White16sptv"
-        android:text="编辑"
         android:id="@+id/person_edit_tv"
-        android:layout_marginTop="16dp"
+        style="@style/White16sptv"
+        android:layout_alignParentRight="true"
         android:layout_marginRight="16dp"
-        android:layout_alignParentRight="true"/>
+        android:layout_marginTop="16dp"
+        android:text="编辑" />
+
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/person_title_head_iv"
         android:layout_width="78dp"
         android:layout_height="78dp"
-        android:src="@mipmap/suit"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"/>
+        android:layout_marginTop="16dp"
+        android:src="@mipmap/suit" />
     <!--<ImageView-->
     <!--android:layout_width="match_parent"-->
     <!--android:layout_height="match_parent"-->
@@ -27,11 +28,11 @@
     <TextView
         android:id="@+id/person_name_tv"
         style="@style/White16sptv"
-        android:text="张朝旭他居然凑成了标准的十五字"
         android:layout_below="@id/person_title_head_iv"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="4dp"
-        />
+        android:text="" />
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -39,36 +40,41 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="4dp"
         android:orientation="horizontal">
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/company_white"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center"
+            android:src="@mipmap/company_white" />
+
         <TextView
             android:id="@+id/person_company_position_tv"
             style="@style/White12sptv"
             android:gravity="center"
-            android:text="职谱 扫地僧"
-            />
+            android:text="" />
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_alignParentBottom="true"
-        android:weightSum="3"
-        android:layout_marginBottom="2dp">
+        android:layout_marginBottom="2dp"
+        android:orientation="horizontal"
+        android:weightSum="3">
+
         <LinearLayout
             android:id="@+id/person_moment_num_ll"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical">
+
             <TextView
                 android:id="@+id/person_moment_num_tv"
                 style="@style/White16sptv"
                 android:layout_gravity="center"
-                android:text="213"/>
+                android:text="" />
+
             <TextView
                 style="@style/White12sptv"
                 android:layout_gravity="center"
@@ -82,28 +88,33 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical">
+
             <TextView
                 android:id="@+id/person_follow_num_tv"
                 style="@style/White16sptv"
                 android:layout_gravity="center"
-                android:text="2313"/>
+                android:text="" />
+
             <TextView
                 style="@style/White12sptv"
                 android:layout_gravity="center"
                 android:text="关注" />
 
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/person_fans_num_ll"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical">
+
             <TextView
                 android:id="@+id/person_fans_num_tv"
                 style="@style/White16sptv"
                 android:layout_gravity="center"
-                android:text="3213"/>
+                android:text="" />
+
             <TextView
                 style="@style/White12sptv"
                 android:layout_gravity="center"

@@ -15,13 +15,13 @@
 
         <TextView
             style="@style/TextBlackb316sptv"
-            android:text="       	红黑树是一种特定类型的二叉树，它是在计算机科学中用来组织数据比如数字的块的一种结构。所有数据块都存储在节点中。这些节点中的某一个节点总是这里只能有七十五个字…" />
+            android:text="" />
 
         <TextView
             style="@style/TextBlue16sptv"
             android:layout_gravity="right|bottom"
             android:layout_marginRight="16dp"
-            android:text="点开全文" />
+            android:text="" />
     </FrameLayout>
 
     <include layout="@layout/follow_recycleview_item_footer" />

@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import com.example.jobbook.MyApplication;
 import com.example.jobbook.R;
-import com.example.jobbook.person.widget.OldUserDetailActivity;
 import com.example.jobbook.update.presenter.UpdatePwdPresenter;
 import com.example.jobbook.update.presenter.UpdatePwdPresenterImpl;
 import com.example.jobbook.update.view.UpdatePwdView;
