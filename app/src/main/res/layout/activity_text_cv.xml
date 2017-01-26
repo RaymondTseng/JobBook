@@ -3,6 +3,7 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorWhite"
+    android:id="@+id/text_cv_activity_ll"
     android:weightSum="568">
     <RelativeLayout
         android:layout_width="match_parent"
@@ -60,6 +61,7 @@
                     android:layout_alignParentLeft="true"
                     android:layout_marginLeft="32dp"
                     android:src="@mipmap/add_head"
+                    android:background="@null"
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="16dp"
                     />

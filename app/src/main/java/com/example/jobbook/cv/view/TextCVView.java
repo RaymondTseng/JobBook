@@ -1,5 +1,6 @@
 package com.example.jobbook.cv.view;
 
+import com.example.jobbook.bean.PersonBean;
 import com.example.jobbook.bean.TextCVBean;
 
 /**
@@ -9,7 +10,7 @@ public interface TextCVView {
     /**
      * 成功
      */
-    void success();
+    void success(PersonBean personBean);
     /**
      * 网络错误
      */

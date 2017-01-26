@@ -86,7 +86,6 @@ public class ArticleDetailModelImpl implements ArticleDetailModel {
         if (MyApplication.getmLoginStatus() == 0) {
             listener.onLikeArticleNoLoginError();
         } else {
-            L.i("article", "like");
             account = MyApplication.getAccount();
             OkHttpUtils.get().url(Urls.ARTICLE_LIKE_URL + articleId + "/account/" + account).build().execute(new StringCallback() {
                 @Override

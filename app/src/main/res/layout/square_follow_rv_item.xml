@@ -73,7 +73,7 @@
                 android:layout_height="24dp"
                 android:layout_gravity="center_vertical"
                 android:scaleType="center"
-                android:src="@mipmap/favourite_grey" />
+                android:src="@mipmap/favourite" />
 
             <TextView
                 android:id="@+id/square_follow_rv_favourite_tv"
