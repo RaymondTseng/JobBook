@@ -1,5 +1,6 @@
 package com.example.jobbook.cv.presenter;
 
+import com.example.jobbook.bean.PersonBean;
 import com.example.jobbook.util.L;
 import android.view.View;
 import android.widget.EditText;
@@ -86,15 +87,22 @@ public class TextCVPresenterImpl implements TextCVPresenter, TextCVModelImpl.OnB
 
     @Override
     public void onSuccess() {
-        mTextCVView.hideProgress();
-        mTextCVView.success();
-        refresh();
+//        mTextCVView.hideProgress();
+//        mTextCVView.success();
+//        refresh();
     }
 
     @Override
     public void onSuccess(TextCVBean textCVBean) {
         mTextCVView.hideProgress();
         mTextCVView.load(textCVBean);
+    }
+
+    @Override
+    public void onSuccess(PersonBean personBean) {
+        mTextCVView.hideProgress();
+        mTextCVView.success(personBean);
+        refresh();
     }
 
     @Override

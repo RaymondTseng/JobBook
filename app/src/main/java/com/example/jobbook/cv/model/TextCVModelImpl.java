@@ -1,6 +1,8 @@
 package com.example.jobbook.cv.model;
 
 import android.text.TextUtils;
+
+import com.example.jobbook.bean.PersonBean;
 import com.example.jobbook.util.L;
 
 import com.example.jobbook.MyApplication;
@@ -96,7 +98,7 @@ public class TextCVModelImpl implements TextCVModel {
                     .content(new Gson().toJson(textCVBean)).build().execute(new StringCallback() {
                 @Override
                 public void onError(Call call, Exception e, int id) {
-                    L.i("response", e.getMessage());
+                    L.i("TextCV", e.getMessage());
                     onBasedInformationFinishedListener.onFailure("network", e, id);
                 }
 
@@ -105,7 +107,8 @@ public class TextCVModelImpl implements TextCVModel {
                     L.i("TextCV", response);
                     ResultBean resultBean = new Gson().fromJson(response, ResultBean.class);
                     if(resultBean.getStatus().equals("true")){
-                        onBasedInformationFinishedListener.onSuccess();
+                        PersonBean personBean = new Gson().fromJson(resultBean.getResponse(), PersonBean.class);
+                        onBasedInformationFinishedListener.onSuccess(personBean);
                         onEducationExpFinishedListener.onSuccess();
                         onJobExpFinishedListener.onSuccess();
                     } else {
@@ -150,7 +153,7 @@ public class TextCVModelImpl implements TextCVModel {
     }
 
     public interface OnBasedInformationFinishedListener{
-        void onSuccess();
+        void onSuccess(PersonBean personBean);
         void onFailure(String msg, Exception e, int id);
         void onHeadBlankError();
         void onNameBlankError();

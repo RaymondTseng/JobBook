@@ -79,7 +79,7 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
     private MyApplication mMyApplication;
     private PersonBean personBean;
     private UploadPopupWindow mPopupWindow;
-    //    private TextView mEditTextView;
+        private TextView mEditTextView;
     private TextView mUnReadTextView;
     private View view;
     private Uri mUri;
@@ -92,7 +92,7 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
             if (msg.what == REFRESH) {
                 Util.showSnackBar(MainActivity.mSnackBarView, "保存成功！");
             } else if (msg.what == REFRESH_NAME) {
-                mNameTextView.setText(MyApplication.getmPersonBean().getUsername());
+                showPersonData();
             } else if (msg.what == REFRESH_HEAD) {
                 onRefreshHead();
             } else if (msg.what == REFRESH_UNREAD) {
@@ -141,6 +141,7 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
         mLoadingLayout = (LinearLayout) view.findViewById(R.id.loading_circle_progress_bar_ll);
 //        mBlackListLayout = (LinearLayout) view.findViewById(R.id.person_black_list_ll);
         mLogOutTextView = (TextView) view.findViewById(R.id.person_logout_tv);
+        mEditTextView = (TextView) view.findViewById(R.id.person_edit_tv);
         mUnReadTextView = (TextView) view.findViewById(R.id.unread_address_number);
         mCircleHeadImageView = (CircleImageView) view.findViewById(R.id.person_title_head_iv);
     }
@@ -155,7 +156,7 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
 //        mBlackListLayout.setOnClickListener(this);
         mLogOutTextView.setOnClickListener(this);
         mCircleHeadImageView.setOnClickListener(this);
-//        mEditTextView.setOnClickListener(this);
+        mEditTextView.setOnClickListener(this);
 //        mMomentTextView.setOnClickListener(this);
 //        mFollowTextView.setOnClickListener(this);
 //        mFansTextView.setOnClickListener(this);

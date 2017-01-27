@@ -19,6 +19,7 @@ import com.example.jobbook.MyApplication;
 import com.example.jobbook.R;
 import com.example.jobbook.bean.EducationExpBean;
 import com.example.jobbook.bean.JobExpBean;
+import com.example.jobbook.bean.PersonBean;
 import com.example.jobbook.bean.TextCVBean;
 import com.example.jobbook.cv.presenter.TextCVPresenter;
 import com.example.jobbook.cv.presenter.TextCVPresenterImpl;
@@ -29,6 +30,7 @@ import com.example.jobbook.person.view.UploadView;
 import com.example.jobbook.upload.CropUtils;
 import com.example.jobbook.upload.UploadManager;
 import com.example.jobbook.upload.UploadPopupWindow;
+import com.example.jobbook.util.ImageLoadUtils;
 import com.example.jobbook.util.L;
 import com.example.jobbook.util.Util;
 import com.jzxiang.pickerview.TimePickerDialog;
@@ -139,6 +141,7 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
         mPresenter = new TextCVPresenterImpl(this);
         uploadPresenter = new UploadPresenterImpl(this);
         mPresenter.load();
+        mUserHeadImageView.setOnClickListener(this);
         mJobExpInaugurationTextView.setOnClickListener(this);
         mJobExpDimissionTextView.setOnClickListener(this);
         mEduExpAdmissionTextView.setOnClickListener(this);
@@ -282,6 +285,7 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
                 close();
                 break;
             case R.id.text_cv_save_tv:
+                L.i("text_cv", "save");
                 save();
                 break;
             case R.id.text_cv_add_edu_exp_ib:
@@ -308,7 +312,7 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
                 break;
             case R.id.text_cv_head_iv:
                 mPopupWindow = new UploadPopupWindow(this, itemsOnClick);
-                mPopupWindow.showAtLocation(this.findViewById(R.id.person_fragment_ll),
+                mPopupWindow.showAtLocation(this.findViewById(R.id.text_cv_activity_ll),
                         Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
                 break;
 
@@ -340,7 +344,7 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
             //send Image to Server
             sendImage(UploadManager.getBitmapFromUri(getApplicationContext(), uri));
             mUri = uri;
-//            ImageLoadUtils.display(OldUserDetailActivity.this , mUserHeadImageView, uri);
+            ImageLoadUtils.display(TextCVActivity.this , mUserHeadImageView, mUri);
         }
 
         @Override
@@ -349,13 +353,19 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
         }
     };
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        CropUtils.handleResult(this, cropHandler, requestCode, resultCode, data);
+    }
+
     private void sendImage(Bitmap bm) {
         L.i("photo", "sendImage");
         uploadPresenter.uploadImage(bm);
     }
 
     @Override
-    public void success() {
+    public void success(PersonBean personBean) {
+        MyApplication.setmPersonBean(this, personBean);
         MyApplication myApplication = (MyApplication) getApplication();
         Handler handler = myApplication.getHandler();
         handler.sendEmptyMessage(1);
@@ -539,7 +549,8 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
 
     @Override
     public void save() {
-        mPresenter.basedInformationCheck("aaa", mNameEditText.getText().toString(), mSexSpinner.getSelectedItem().toString(),
+        mPresenter.basedInformationCheck(MyApplication.getmPersonBean().getHead(),
+                mNameEditText.getText().toString(), mSexSpinner.getSelectedItem().toString(),
                 mStatusEditText.getText().toString(), mCompanyEditText.getText().toString(),
                 mPositionEditText.getText().toString(), mCityEditText.getText().toString(), mTypeSpinner.getSelectedItem().toString(),
                 mLevelSpinner.getSelectedItem().toString(), mCertificationSpinner.getSelectedItem().toString(),
@@ -589,6 +600,7 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
 
     @Override
     public void load(TextCVBean textCVBean) {
+        ImageLoadUtils.display(this, mUserHeadImageView, textCVBean.getHead(), 0);
         mNameEditText.setText(textCVBean.getName());
         String[] sex = getResources().getStringArray(R.array.sex);
         setSelection(mSexSpinner, sex, textCVBean.getSex());
@@ -601,8 +613,11 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
         String[] ifHave = getResources().getStringArray(R.array.ifhave);
         setSelection(mCertificationSpinner, ifHave, textCVBean.isHaveDisabilityCard());
         mTelEditText.setText(textCVBean.getTelephone());
+        mStatusEditText.setText(textCVBean.getStatus());
         mEmailEditText.setText(textCVBean.getEmail());
         mExpectJobEditText.setText(textCVBean.getExpectPosition());
+        mCompanyEditText.setText(textCVBean.getCompany());
+        mPositionEditText.setText(textCVBean.getPosition());
         mExpectSalaryEditText.setText(textCVBean.getExpectSalary());
         mExpectLocationEditText.setText(textCVBean.getExpectLocation());
         for (int i = 0; i < textCVBean.getEducationExpBeanList().size(); i++) {

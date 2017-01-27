@@ -31,12 +31,12 @@ public class TextCVBean implements Serializable{
     /**
      * 公司
      */
-    private String company;
+    private String workspace;
 
     /**
      * 职位
      */
-    private String position;
+    private String workposition;
 
     /**
      * 所在城市
@@ -136,19 +136,19 @@ public class TextCVBean implements Serializable{
     }
 
     public String getCompany() {
-        return company;
+        return workspace;
     }
 
     public void setCompany(String company) {
-        this.company = company;
+        this.workspace = company;
     }
 
     public String getPosition() {
-        return position;
+        return workposition;
     }
 
     public void setPosition(String position) {
-        this.position = position;
+        this.workposition = position;
     }
 
     public String getDisabilityLevel() {

@@ -90,6 +90,8 @@ public class NewMomentActivity extends Activity implements NewMomentView, View.O
 
     @Override
     public void showSuccess() {
+        MyApplication.getmPersonBean().setMoment(Integer.valueOf(MyApplication.getmPersonBean().
+                getMoment()) + 1 + "");
         Util.showSnackBar(view, "发表成功!");
     }
 
