@@ -13,7 +13,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.jobbook.R;
-import com.example.jobbook.update.widget.UpdatePhoneActivity;
 import com.example.jobbook.update.widget.UpdatePwdActivity;
 import com.example.jobbook.util.DataCleanManager;
 import com.example.jobbook.util.Util;
@@ -85,6 +84,7 @@ public class SettingActivity extends Activity implements View.OnClickListener {
 //                break;
 
             case R.id.setting_about_bt:
+                Util.toAnotherActivity(this, AboutActivity.class);
                 break;
         }
     }

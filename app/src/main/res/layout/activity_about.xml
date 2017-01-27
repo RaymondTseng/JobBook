@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="568">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="56"
+        android:background="@color/colorBlue">
+
+        <ImageButton
+            android:id="@+id/about_back_ib"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_centerVertical="true"
+            android:background="@null"
+            android:src="@mipmap/left_white" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="16dp"
+            android:layout_toRightOf="@id/about_back_ib"
+            android:text="关于我们"
+            android:textColor="@color/colorWhite"
+            android:textSize="20sp" />
+    </RelativeLayout>
+
+    <TextView
+        android:layout_height="0dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_weight="512"
+        android:text="职谱Jobbook是一个垂直于残疾朋友的就业服务交流社区，意在鼓励残友们提高自己的思想和技能水平，充实自己，明确职业的方向，同时也为他们提供一个专属于他们的工作交流平台。\n\n
+职谱为残疾朋友提供以下服务：\n
+1、安全可靠的岗位信息：\n
+    职谱每天定期会发送适合残疾朋友的岗位信息；\n
+2、线上线下培训指导：\n
+    职谱不定期举办线上线下分享会，邀请资深hr、国家级社工为残疾朋友进行技能培训及心理辅导；\n
+3、资讯干货：\n
+    在各大门户网站精选适合残疾人的生活技巧、实用工作技能、时事资讯，并发送给残疾朋友；\n"
+        android:textColor="@color/colorTextBlackde"
+        android:textSize="18sp"
+        android:layout_width="wrap_content" />
+
+</LinearLayout>

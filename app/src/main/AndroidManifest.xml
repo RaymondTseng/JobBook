@@ -24,13 +24,11 @@
 
         <meta-data
             android:name="UMENG_APPKEY"
-            android:value="588392cbf43e481fb7001e56">
-        </meta-data>
+            android:value="588392cbf43e481fb7001e56"></meta-data>
 
         <meta-data
             android:name="UMENG_MESSAGE_SECRET"
-            android:value="2c6c373ef77d00228a0060d60e8110ee">
-        </meta-data>
+            android:value="2c6c373ef77d00228a0060d60e8110ee"></meta-data>
 
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
@@ -74,9 +72,6 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
-            android:name=".chat.widget.ChatActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".feedback.widget.FeedBackActivity"
             android:screenOrientation="portrait" />
         <activity
@@ -85,12 +80,9 @@
         <activity
             android:name=".search.widget.SearchActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".cv.widget.TextCVActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".person.widget.OldUserDetailActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".update.widget.UpdatePhoneActivity"
@@ -109,20 +101,25 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".person.widget.ShowFanListActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".person.widget.ShowFollowerListActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".person.widget.ShowMomentListActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".person.widget.ShowFollowerListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".person.widget.ShowMomentListActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".userdetail.widget.UserDetailActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".message.widget.GetMessageActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".person.widget.AboutActivity"
+            android:screenOrientation="portrait" />
 
         <service android:name=".service.MyPushIntentService" />
-
 
 
     </application>
