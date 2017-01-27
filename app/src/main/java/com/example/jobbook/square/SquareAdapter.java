@@ -13,7 +13,6 @@ import com.example.jobbook.MyApplication;
 import com.example.jobbook.R;
 import com.example.jobbook.bean.MomentBean;
 import com.example.jobbook.commons.Urls;
-import com.example.jobbook.person.ShowFanListAdapter;
 import com.example.jobbook.util.ImageLoadUtils;
 import com.example.jobbook.util.L;
 
@@ -73,7 +72,11 @@ public class SquareAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             ((ItemViewHolder) holder).mTime.setText(moment.getDate());
             ((ItemViewHolder) holder).mCompanyAndPositionTextView.setText(moment.getAuthor().getWorkSpace() + " "
                                                 + moment.getAuthor().getWorkPosition());
-            if(MyApplication.getAccount().equals(moment.getAuthor().getAccount())){
+            if (MyApplication.getAccount() != null) {
+                if(MyApplication.getAccount().equals(moment.getAuthor().getAccount())){
+                    ((ItemViewHolder)holder).mNoInterestButton.setVisibility(View.GONE);
+                }
+            } else {
                 ((ItemViewHolder)holder).mNoInterestButton.setVisibility(View.GONE);
             }
             if (moment.getIfLike() == 0) {

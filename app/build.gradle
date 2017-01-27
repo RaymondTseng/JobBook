@@ -13,10 +13,37 @@ android {
         multiDexEnabled true
 
     }
-    buildTypes {
+
+    sourceSets {
+        debug.setRoot('build-types/debug')
+        release.setRoot('build-types/release')
+    }
+
+    //签名
+    signingConfigs {
         release {
+            //这样写就得把demo.jk文件放在项目目录
+            storeFile file("jobbook.jks")
+            storePassword "jobbook123"
+            keyAlias "jobbook"
+            keyPassword "jobbook123"
+        }
+    }
+
+    buildTypes {
+        debug {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        release {
+            //混淆
+            minifyEnabled true
+            //Zipalign优化
+            zipAlignEnabled true
+            // 移除无用的resource文件
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
 
