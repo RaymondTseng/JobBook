@@ -16,7 +16,7 @@ public class MomentBean implements Serializable {
     /**
      * 工作圈作者
      */
-    private PersonBean author;
+    private TypePersonBean author;
     /**
      * 工作圈内容
      */
@@ -58,7 +58,7 @@ public class MomentBean implements Serializable {
         return author;
     }
 
-    public void setAuthor(PersonBean author) {
+    public void setAuthor(TypePersonBean author) {
         this.author = author;
     }
 

@@ -294,6 +294,7 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
         super.onResume();
         L.i("personfragment", "on resume");
         refreshUnread();
+        showPersonData();
 //        onRefreshHead();
     }
 

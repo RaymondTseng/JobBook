@@ -106,6 +106,7 @@ public class SquareFragment extends Fragment implements SquareView,
             @Override
             public void onHeadClick(View view, int position) {
                 Bundle bundle = new Bundle();
+                L.i("square_person", mData.get(position).getAuthor().toString());
                 bundle.putSerializable("person_bean", mData.get(position).getAuthor());
                 Util.toAnotherActivity(getActivity(), UserDetailActivity.class, bundle);
             }

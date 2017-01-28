@@ -91,9 +91,9 @@ public class ArticleDetailActivity extends Activity implements ArticleDetailView
         if (MyApplication.getmLoginStatus() == 1) {
             L.i("like_status", bean.isIfLike() + "");
             if (bean.isIfLike() == 0) {
-                mLikeImageButton.setImageResource(R.mipmap.favourite_white);
-            } else {
                 mLikeImageButton.setImageResource(R.mipmap.favourite);
+            } else {
+                mLikeImageButton.setImageResource(R.mipmap.favourite_tapped);
             }
         }
     }
@@ -120,13 +120,13 @@ public class ArticleDetailActivity extends Activity implements ArticleDetailView
 
     @Override
     public void likeSuccess() {
-        mLikeImageButton.setImageResource(R.mipmap.favourite);
+        mLikeImageButton.setImageResource(R.mipmap.favourite_tapped);
         Util.showSnackBar(view, "收藏成功！");
     }
 
     @Override
     public void unlikeSuccess() {
-        mLikeImageButton.setImageResource(R.mipmap.favourite_white);
+        mLikeImageButton.setImageResource(R.mipmap.favourite);
         Util.showSnackBar(view, "取消收藏成功！");
     }
 

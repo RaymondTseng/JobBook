@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.example.jobbook.MyApplication;
 import com.example.jobbook.R;
 import com.example.jobbook.bean.MomentBean;
+import com.example.jobbook.bean.TypePersonBean;
 import com.example.jobbook.moment.presenter.NewMomentPresenter;
 import com.example.jobbook.moment.presenter.NewMomentPresenterImpl;
 import com.example.jobbook.moment.view.NewMomentView;
@@ -131,7 +132,7 @@ public class NewMomentActivity extends Activity implements NewMomentView, View.O
                     publishNoLoginError();
                 } else {
                     mNewMomentReleaseTextView.setTextColor(Color.parseColor("#61ffffff"));
-                    momentBean.setAuthor(MyApplication.getmPersonBean());
+                    momentBean.setAuthor(new TypePersonBean(MyApplication.getmPersonBean(), 1));
 //                    momentBean.setTitle(mNewMomentTitleEditText.getText().toString());
                     momentBean.setContent(mNewMomentContentEditText.getText().toString());
                     mNewMomentPresenter.newmoment(momentBean);
