@@ -9,4 +9,9 @@ public interface UserDetailPresenter {
     void follow(String myAccount, String hisAccount);
 
     void loadUserDetailByAccount(String account);
+
+    void unfollow(String myAccount, String hisAccount);
+
+    void refreshPersonBean();
+
 }

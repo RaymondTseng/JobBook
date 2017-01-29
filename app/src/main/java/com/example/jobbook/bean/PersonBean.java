@@ -9,6 +9,23 @@ import java.util.List;
 public class PersonBean implements Serializable {
     private static final long serialVersionUID = 1L;
 
+    public PersonBean(PersonBean personBean) {
+        this.account = personBean.getAccount();
+        this.head = personBean.getHead();
+        this.password = personBean.getPassword();
+        this.telephone = personBean.getTelephone();
+        this.username = personBean.getUsername();
+        this.follow = personBean.getFollow();
+        this.fans = personBean.getFans();
+        this.moment = personBean.getMoment();
+        this.workspace = personBean.getWorkSpace();
+        this.workposition = personBean.getWorkPosition();
+    }
+
+    public PersonBean(){
+
+    }
+
     /**
      * 用户账号
      */

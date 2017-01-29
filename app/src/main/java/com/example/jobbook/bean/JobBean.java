@@ -17,7 +17,7 @@ public class JobBean implements Serializable{
     /**
      * 公司头像
      */
-    private String logo;
+    private String comlogo;
 
     /**
      * 职位名称
@@ -54,11 +54,11 @@ public class JobBean implements Serializable{
     }
 
     public String getLogo() {
-        return logo;
+        return comlogo;
     }
 
     public void setLogo(String logo) {
-        this.logo = logo;
+        this.comlogo = logo;
     }
 
     public String getName() {

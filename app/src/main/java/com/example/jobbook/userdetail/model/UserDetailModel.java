@@ -9,4 +9,8 @@ public interface UserDetailModel {
     void follow(String myAccount, String hisAccount, UserDetailModelImpl.OnFollowListener listener);
 
     void loadUserDetailByAccount(String account, UserDetailModelImpl.OnLoadUserDetailByAccountListener listener);
+
+    void unFollow(String myAccount, String hisAccount, UserDetailModelImpl.OnUnFollowListener listener);
+
+    void refreshPersonBean(UserDetailModelImpl.OnRefreshListener listener);
 }

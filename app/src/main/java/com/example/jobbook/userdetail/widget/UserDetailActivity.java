@@ -22,6 +22,7 @@ import android.widget.TextView;
 import com.example.jobbook.MyApplication;
 import com.example.jobbook.R;
 import com.example.jobbook.bean.PersonBean;
+import com.example.jobbook.bean.TypePersonBean;
 import com.example.jobbook.userdetail.UserDetailPagerAdapter;
 import com.example.jobbook.userdetail.presenter.UserDetailPresenter;
 import com.example.jobbook.userdetail.presenter.UserDetailPresenterImpl;
@@ -61,9 +62,13 @@ public class UserDetailActivity extends AppCompatActivity implements View.OnClic
     private TextView mNameTextView;
     private TextView mCompanyPositionTextView;
     private LinearLayout mLoadingLinearLayout;
+    private TextView mFocusTextView;
+    private ImageView mFocusImageView;
     private int mCurrentIndex = 0;
-    private PersonBean mPersonBean;
+    private TypePersonBean mPersonBean;
     private View view;
+    private static int UNFOLLOW = 1;
+    private static int FOLLOW = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +91,8 @@ public class UserDetailActivity extends AppCompatActivity implements View.OnClic
         mHeadImageView = (CircleImageView) findViewById(R.id.user_detail_title_head_iv);
         mNameTextView = (TextView) findViewById(R.id.user_detail_title_head_name_tv);
         mCompanyPositionTextView = (TextView) findViewById(R.id.user_detail_title_company_position_tv);
+        mFocusTextView = (TextView) findViewById(R.id.user_detail_focus_tv);
+        mFocusImageView = (ImageView) findViewById(R.id.user_detail_focus_iv);
 //        mSettingImageButton = (ImageButton) findViewById(R.id.user_detail_setting_ib);
 //        mSettingPopupView = getLayoutInflater().inflate(R.layout.user_detail_setting_popupwindow, null);
     }
@@ -124,7 +131,7 @@ public class UserDetailActivity extends AppCompatActivity implements View.OnClic
         mViewPager.setOnPageChangeListener(this);
         mViewPager.setCurrentItem(0);
         mPresenter = new UserDetailPresenterImpl(this);
-        mPersonBean = (PersonBean) getIntent().getSerializableExtra("person_bean");
+        mPersonBean = (TypePersonBean) getIntent().getSerializableExtra("person_bean");
         if (mPersonBean != null) {
             L.i("userdetail", mPersonBean.toString());
             ((UserDetailMomentFragment) mFragemnts.get(0)).getAccount(mPersonBean.getAccount());
@@ -158,10 +165,11 @@ public class UserDetailActivity extends AppCompatActivity implements View.OnClic
                 finish();
                 break;
             case R.id.user_detail_follow_ll:
-                if (MyApplication.getmLoginStatus() == 0) {
-
-                } else {
-                    mPresenter.follow(MyApplication.getAccount(), mPersonBean.getAccount());
+                if (MyApplication.getmLoginStatus() != 0) {
+                    if(mPersonBean.getType() == UNFOLLOW )
+                        mPresenter.follow(MyApplication.getAccount(), mPersonBean.getAccount());
+                    else
+                        mPresenter.unfollow(MyApplication.getAccount(), mPersonBean.getAccount());
                 }
                 break;
 //            case R.id.user_detail_setting_ib:
@@ -220,13 +228,27 @@ public class UserDetailActivity extends AppCompatActivity implements View.OnClic
     @Override
     public void followSuccess() {
         L.i("user_detail", "follow success");
+        mPresenter.loadUserDetailByAccount(MyApplication.getAccount());
+        mFocusTextView.setText("取消关注");
+        mFocusTextView.setTextColor(this.getResources().getColor(R.color.colorPink));
+        mFocusImageView.setImageResource(R.mipmap.close_red_24_dp);
         Util.showSnackBar(view, "关注成功!");
     }
 
     @Override
-    public void followFail() {
-        Util.showSnackBar(view, "关注失败，请重试!");
+    public void onFail(String msg) {
+        Util.showSnackBar(view, msg);
     }
+
+    @Override
+    public void unfollowSuccess() {
+        mPresenter.loadUserDetailByAccount(MyApplication.getAccount());
+        mFocusTextView.setText("关注");
+        mFocusTextView.setTextColor(this.getResources().getColor(R.color.colorBlue));
+        mFocusImageView.setImageResource(R.mipmap.add_24_dp);
+        Util.showSnackBar(view, "取消关注成功!");
+    }
+
 
     @Override
     public void hideProgress() {
@@ -239,22 +261,28 @@ public class UserDetailActivity extends AppCompatActivity implements View.OnClic
     }
 
     @Override
-    public void loadSuccess(PersonBean personBean) {
+    public void loadSuccess(TypePersonBean personBean) {
         setData(personBean);
         mPersonBean = personBean;
     }
 
     @Override
-    public void loadFail() {
-        Util.showSnackBar(view, "加载失败，请退出重试!");
+    public void onRefreshSuccess(TypePersonBean personBean) {
+        MyApplication.setmPersonBean(this, personBean);
     }
 
-    private void setData(PersonBean personBean) {
+
+    private void setData(TypePersonBean personBean) {
         ImageLoadUtils.display(this, mHeadImageView, personBean.getHead());
         mNameTextView.setText(personBean.getUsername());
         mCompanyPositionTextView.setText(personBean.getWorkSpace());
         mFollowTextView.setText("关注 " + personBean.getFollow());
         mFollowerTextView.setText("粉丝 " + personBean.getFans());
+        if(personBean.getType() == FOLLOW){
+            mFocusTextView.setText("取消关注");
+            mFocusTextView.setTextColor(this.getResources().getColor(R.color.colorPink));
+            mFocusImageView.setImageResource(R.mipmap.close_red_24_dp);
+        }
     }
 
     public interface OnGetAccountListener {

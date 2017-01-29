@@ -10,7 +10,14 @@ public class TypePersonBean extends PersonBean implements Serializable{
 
     private static final long serialVersionUID = 1L;
 
+
+
     private int type;
+
+    public TypePersonBean(PersonBean personBean, int type) {
+        super(personBean);
+        this.type = type;
+    }
 
     public int getType() {
         return type;
