@@ -5,5 +5,5 @@ package com.example.jobbook.person.view;
  */
 public interface PersonView {
 
-    void showPersonData();
+    boolean showPersonData();
 }

@@ -4,15 +4,11 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -39,6 +35,7 @@ import com.example.jobbook.upload.UploadManager;
 import com.example.jobbook.upload.UploadPopupWindow;
 import com.example.jobbook.util.ImageLoadUtils;
 import com.example.jobbook.util.L;
+import com.example.jobbook.util.LazyLoadFragment;
 import com.example.jobbook.util.Util;
 
 import java.util.Timer;
@@ -50,7 +47,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 /**
  * Created by 椰树 on 2016/5/20.
  */
-public class PersonFragment extends Fragment implements PersonView, View.OnClickListener, UploadView {
+public class PersonFragment extends LazyLoadFragment implements PersonView, View.OnClickListener, UploadView {
     private static int REFRESH = 0;
     private static int REFRESH_NAME = 1;
     private static int REFRESH_HEAD = 2;
@@ -81,7 +78,6 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
     private UploadPopupWindow mPopupWindow;
         private TextView mEditTextView;
     private TextView mUnReadTextView;
-    private View view;
     private Uri mUri;
     private Timer timer;
     private TimerTask timerTask;
@@ -102,13 +98,14 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
     };
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_person, container, false);
-        initViews(view);
+    protected int setContentView() {
+        return R.layout.fragment_person;
+    }
+
+    @Override
+    protected void lazyLoad() {
+        initViews();
         initEvents();
-        L.i("person", "createview");
-        return view;
     }
 
 //    @Override
@@ -124,26 +121,26 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
 //        }
 //    }
 
-    private void initViews(View view) {
-        mSwitchPerson2LoginTextView = (TextView) view.findViewById(R.id.person_logout_tv);
-        mSettingLayout = (LinearLayout) view.findViewById(R.id.person_setting_ll);
-        mFavouriteLayout = (LinearLayout) view.findViewById(R.id.person_collect_ll);
-        mNameTextView = (TextView) view.findViewById(R.id.person_name_tv);
-        mCompanyPositionTextView = (TextView) view.findViewById(R.id.person_company_position_tv);
-        mHeadBackGround = (ImageView) view.findViewById(R.id.person_head_bg);
-        mMomentTextView = (TextView) view.findViewById(R.id.person_moment_num_tv);
-        mFollowTextView = (TextView) view.findViewById(R.id.person_follow_num_tv);
-        mFansTextView = (TextView) view.findViewById(R.id.person_fans_num_tv);
-        mMomentLL = (LinearLayout) view.findViewById(R.id.person_moment_num_ll);
-        mFollowLL = (LinearLayout) view.findViewById(R.id.person_follow_num_ll);
-        mFanLL = (LinearLayout) view.findViewById(R.id.person_fans_num_ll);
-        mMessageLayout = (RelativeLayout) view.findViewById(R.id.person_message_rl);
-        mLoadingLayout = (LinearLayout) view.findViewById(R.id.loading_circle_progress_bar_ll);
-//        mBlackListLayout = (LinearLayout) view.findViewById(R.id.person_black_list_ll);
-        mLogOutTextView = (TextView) view.findViewById(R.id.person_logout_tv);
-        mEditTextView = (TextView) view.findViewById(R.id.person_edit_tv);
-        mUnReadTextView = (TextView) view.findViewById(R.id.unread_address_number);
-        mCircleHeadImageView = (CircleImageView) view.findViewById(R.id.person_title_head_iv);
+    protected void initViews() {
+        mSwitchPerson2LoginTextView = findViewById(R.id.person_logout_tv);
+        mSettingLayout = findViewById(R.id.person_setting_ll);
+        mFavouriteLayout = findViewById(R.id.person_collect_ll);
+        mNameTextView = findViewById(R.id.person_name_tv);
+        mCompanyPositionTextView = findViewById(R.id.person_company_position_tv);
+        mHeadBackGround = findViewById(R.id.person_head_bg);
+        mMomentTextView = findViewById(R.id.person_moment_num_tv);
+        mFollowTextView = findViewById(R.id.person_follow_num_tv);
+        mFansTextView = findViewById(R.id.person_fans_num_tv);
+        mMomentLL = findViewById(R.id.person_moment_num_ll);
+        mFollowLL = findViewById(R.id.person_follow_num_ll);
+        mFanLL = findViewById(R.id.person_fans_num_ll);
+        mMessageLayout = findViewById(R.id.person_message_rl);
+        mLoadingLayout = findViewById(R.id.loading_circle_progress_bar_ll);
+//        mBlackListLayout = findViewById(R.id.person_black_list_ll);
+        mLogOutTextView = findViewById(R.id.person_logout_tv);
+        mEditTextView = findViewById(R.id.person_edit_tv);
+        mUnReadTextView = findViewById(R.id.unread_address_number);
+        mCircleHeadImageView = findViewById(R.id.person_title_head_iv);
     }
 
     private void initEvents() {
@@ -164,19 +161,20 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
         mFollowLL.setOnClickListener(this);
         mFanLL.setOnClickListener(this);
         mMyApplication = (MyApplication) getActivity().getApplication();
-        showPersonData();
-        timer = new Timer();
-        timerTask = new TimerTask() {
-            @Override
-            public void run() {
-                handler.sendEmptyMessage(REFRESH_UNREAD);
-            }
-        };
-        timer.schedule(timerTask, 0, 1000);
+        if (showPersonData()) {
+            timer = new Timer();
+            timerTask = new TimerTask() {
+                @Override
+                public void run() {
+                    handler.sendEmptyMessage(REFRESH_UNREAD);
+                }
+            };
+            timer.schedule(timerTask, 0, 1000);
+        }
     }
 
     @Override
-    public void showPersonData() {
+    public boolean showPersonData() {
 //        Bundle bundle = (Bundle) getArguments();
 //        PersonBean personBean = (PersonBean) bundle.getSerializable("PersonBean");
         if (MyApplication.getmLoginStatus() != 0) {
@@ -188,7 +186,9 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
             mFansTextView.setText(personBean.getFans());
             mFollowTextView.setText(personBean.getFollow());
             mCompanyPositionTextView.setText(personBean.getWorkSpace() + " " + personBean.getWorkPosition());
+            return true;
         }
+        return false;
     }
 
     @Override
@@ -301,7 +301,9 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
     @Override
     public void onDestroy() {
         super.onDestroy();
-        timer.cancel();
+        if (timer != null) {
+            timer.cancel();
+        }
     }
 
     @Override
@@ -362,12 +364,12 @@ public class PersonFragment extends Fragment implements PersonView, View.OnClick
 
     @Override
     public void uploadSuccess() {
-        Util.showSnackBar(view, "上传成功！");
+        Util.showSnackBar(MainActivity.mSnackBarView, "上传成功！");
     }
 
     @Override
     public void uploadFailure() {
-        Util.showSnackBar(view, "上传失败，请重试！");
+        Util.showSnackBar(MainActivity.mSnackBarView, "上传失败，请重试！");
     }
 
     @Override

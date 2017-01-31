@@ -3,13 +3,10 @@ package com.example.jobbook.article.widget;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -31,6 +28,7 @@ import com.example.jobbook.commons.Urls;
 import com.example.jobbook.main.widget.MainActivity;
 import com.example.jobbook.util.DividerItemDecoration;
 import com.example.jobbook.util.L;
+import com.example.jobbook.util.LazyLoadFragment;
 import com.example.jobbook.util.Util;
 
 import java.util.ArrayList;
@@ -39,7 +37,7 @@ import java.util.List;
 /**
  * Created by Xu on 2016/7/5.
  */
-public class ArticleFragment extends Fragment implements ArticleView, View.OnClickListener,
+public class ArticleFragment extends LazyLoadFragment implements ArticleView, View.OnClickListener,
         PopupWindow.OnDismissListener, RadioGroup.OnCheckedChangeListener, SwipeRefreshLayout.OnRefreshListener {
 
     private int pageIndex = 0;
@@ -57,7 +55,6 @@ public class ArticleFragment extends Fragment implements ArticleView, View.OnCli
     private View mMenuView;
     private ImageButton mDropImageButton;
     private ArticlePresenter presenter;
-    private View view;
     private List<ArticleBean> list;
     private ArticlesAdapter adapter;
     private RadioGroup radioGroup;
@@ -65,24 +62,27 @@ public class ArticleFragment extends Fragment implements ArticleView, View.OnCli
     private LinearLayoutManager mLayoutManager;
     private SwipeRefreshLayout mSwipeRefreshLayout;
 
-    @Nullable
+
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_article, container, false);
-        mMenuView = inflater.inflate(R.layout.article_title_bar_rg, null);
-        initViews(view);
-        initEvents();
-        initAnimation();
-        return view;
+    protected int setContentView() {
+        return R.layout.fragment_article;
     }
 
-    private void initViews(View view) {
-        mArticleTitleLayout = (LinearLayout) view.findViewById(R.id.article_title_ll);
-        mBlankLayout = (LinearLayout) view.findViewById(R.id.article_blank_ll);
-        mTitleTextView = (TextView) view.findViewById(R.id.article_title_tv);
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.article_rv);
-        mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.article_swipe_container);
-        mDropImageButton = (ImageButton) view.findViewById(R.id.article_title_drop_ib);
+    @Override
+    protected void lazyLoad() {
+        initEvents();
+        initAnimation();
+    }
+
+    protected void initViews() {
+        mMenuView = inflater.inflate(R.layout.article_title_bar_rg, null);
+        mArticleTitleLayout = findViewById(R.id.article_title_ll);
+        mBlankLayout = findViewById(R.id.article_blank_ll);
+        mTitleTextView = findViewById(R.id.article_title_tv);
+        mRecyclerView = findViewById(R.id.article_rv);
+        mSwipeRefreshLayout = findViewById(R.id.article_swipe_container);
+        mDropImageButton = findViewById(R.id.article_title_drop_ib);
         radioGroup = (RadioGroup) mMenuView.findViewById(R.id.article_title_rg);
         L.i("article", "initViews");
     }
