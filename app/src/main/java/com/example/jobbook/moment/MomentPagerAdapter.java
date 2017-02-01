@@ -13,6 +13,7 @@ import java.util.List;
 
 public class MomentPagerAdapter extends FragmentPagerAdapter {
 
+
     private List<Fragment> mFragments;
 
     public MomentPagerAdapter(FragmentManager fm, List<Fragment> mFragments){
@@ -34,4 +35,5 @@ public class MomentPagerAdapter extends FragmentPagerAdapter {
     public int getItemPosition(Object object) {
         return super.getItemPosition(object);
     }
+
 }

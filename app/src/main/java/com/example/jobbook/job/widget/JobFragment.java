@@ -1,17 +1,13 @@
 package com.example.jobbook.job.widget;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
@@ -30,6 +26,7 @@ import com.example.jobbook.main.widget.MainActivity;
 import com.example.jobbook.search.widget.SearchDialogFragment;
 import com.example.jobbook.util.DividerItemDecoration;
 import com.example.jobbook.util.L;
+import com.example.jobbook.util.LazyLoadFragment;
 import com.example.jobbook.util.Util;
 
 import java.util.ArrayList;
@@ -38,7 +35,7 @@ import java.util.List;
 /**
  * Created by Xu on 2016/7/5.
  */
-public class JobFragment extends Fragment implements JobView,
+public class JobFragment extends LazyLoadFragment implements JobView,
         View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
 
     private JobPresenter mJobPresenter;
@@ -69,26 +66,28 @@ public class JobFragment extends Fragment implements JobView,
     private boolean isFirst;
     private boolean isInitCursorFirst = true;
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_job, container, false);
-        initViews(view);
-        initEvents();
-        return view;
+    protected int setContentView() {
+        return R.layout.fragment_job;
     }
 
-    private void initViews(View view) {
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.job_rv);
-        mSearchImageButton = (ImageButton) view.findViewById(R.id.job_fragment_search_ib);
-        mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.job_swipe_container);
-        mRecommendTextView = (TextView) view.findViewById(R.id.job_fragment_recommend_tv);
-        mCategorySpinner = (AppCompatSpinner) view.findViewById(R.id.job_fragment_category_sp);
-        mLocationSpinner = (AppCompatSpinner) view.findViewById(R.id.job_fragment_location_sp);
+    @Override
+    protected void lazyLoad() {
+        initViews();
+        initEvents();
+    }
 
-        cursorOne = (ImageView) view.findViewById(R.id.job_cursor_one);
-        cursorTwo = (ImageView) view.findViewById(R.id.job_cursor_two);
-        cursorThree = (ImageView) view.findViewById(R.id.job_cursor_three);
+    protected void initViews() {
+        mRecyclerView = findViewById(R.id.job_rv);
+        mSearchImageButton = findViewById(R.id.job_fragment_search_ib);
+        mSwipeRefreshLayout = findViewById(R.id.job_swipe_container);
+        mRecommendTextView = findViewById(R.id.job_fragment_recommend_tv);
+        mCategorySpinner = findViewById(R.id.job_fragment_category_sp);
+        mLocationSpinner = findViewById(R.id.job_fragment_location_sp);
+
+        cursorOne = findViewById(R.id.job_cursor_one);
+        cursorTwo = findViewById(R.id.job_cursor_two);
+        cursorThree = findViewById(R.id.job_cursor_three);
     }
 
     private void initEvents() {

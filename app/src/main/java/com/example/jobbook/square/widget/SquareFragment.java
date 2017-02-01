@@ -3,17 +3,13 @@ package com.example.jobbook.square.widget;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageButton;
@@ -32,6 +28,7 @@ import com.example.jobbook.square.view.SquareView;
 import com.example.jobbook.userdetail.widget.UserDetailActivity;
 import com.example.jobbook.util.DividerItemDecoration;
 import com.example.jobbook.util.L;
+import com.example.jobbook.util.LazyLoadFragment;
 import com.example.jobbook.util.Util;
 
 import java.util.ArrayList;
@@ -40,7 +37,7 @@ import java.util.List;
 /**
  * Created by Xu on 2016/7/5.
  */
-public class SquareFragment extends Fragment implements SquareView,
+public class SquareFragment extends LazyLoadFragment implements SquareView,
         SwipeRefreshLayout.OnRefreshListener {
 
     private static int REFRESH = 1;
@@ -65,19 +62,19 @@ public class SquareFragment extends Fragment implements SquareView,
         }
     };
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_square, container, false);
-        initViews(view);
-        initEvents();
-        L.i("squarefragment", "create");
-        return view;
+    protected int setContentView() {
+        return R.layout.fragment_square;
     }
 
-    public void initViews(View view) {
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.square_rv);
-        mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.square_swipe_container);
+    @Override
+    protected void lazyLoad() {
+        initEvents();
+    }
+
+    public void initViews() {
+        mRecyclerView = findViewById(R.id.square_rv);
+        mSwipeRefreshLayout = findViewById(R.id.square_swipe_container);
     }
 
     private void initEvents() {

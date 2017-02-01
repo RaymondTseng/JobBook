@@ -236,7 +236,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
             mHandler.sendEmptyMessageDelayed(0, 2000);
         } else {
 //            Log.e(TAG, "exit application");
-            this.finish();
+            System.exit(0);
         }
     }
 
