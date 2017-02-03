@@ -39,10 +39,10 @@ public class TextCVModelImpl implements TextCVModel {
             onBasedInformationFinishedListener.onNameBlankError();
         }else if(TextUtils.isEmpty(textCVBean.getSex())){
             onBasedInformationFinishedListener.onSexBlankError();
-        }else if(TextUtils.isEmpty(textCVBean.getCompany())){
-            onBasedInformationFinishedListener.onCompanyBlankError();
         }else if(TextUtils.isEmpty(textCVBean.getStatus())){
             onBasedInformationFinishedListener.onStatusBlankError();
+        }else if(TextUtils.isEmpty(textCVBean.getCompany())){
+            onBasedInformationFinishedListener.onCompanyBlankError();
         }else if(TextUtils.isEmpty(textCVBean.getPosition())){
             onBasedInformationFinishedListener.onPositionBlankError();
         } else if(TextUtils.isEmpty(textCVBean.getCity())){
@@ -86,10 +86,10 @@ public class TextCVModelImpl implements TextCVModel {
                     onJobExpFinishedListener.onDimissionTimeBlankError(i);
                     return;
                 }else if(TextUtils.isEmpty(jobExpBean.getCompany())){
-                    onJobExpFinishedListener.onCompanyBlankError(i);
+                    onJobExpFinishedListener.onJobCompanyBlankError(i);
                     return;
                 }else if(TextUtils.isEmpty(jobExpBean.getPosition())){
-                    onJobExpFinishedListener.onPositionBlankError(i);
+                    onJobExpFinishedListener.onJobPositionBlankError(i);
                     return;
                 }
             }
@@ -183,8 +183,8 @@ public class TextCVModelImpl implements TextCVModel {
         void onFailure(String msg, Exception e, int id);
         void onInaugurationTimeBlankError(int id);
         void onDimissionTimeBlankError(int id);
-        void onCompanyBlankError(int id);
-        void onPositionBlankError(int id);
+        void onJobCompanyBlankError(int id);
+        void onJobPositionBlankError(int id);
     }
 
     public interface OnLoadTextCVListener{

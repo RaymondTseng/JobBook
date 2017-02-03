@@ -420,13 +420,13 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
 
     @Override
     public void companyBlankError() {
-        TextView textView = (TextView) findViewById(R.id.text_cv_company_et);
+        TextView textView = (TextView) findViewById(R.id.text_cv_company_tv);
         setBackgroundRed(mCompanyEditText, textView);
     }
 
     @Override
     public void positionBlankError() {
-        TextView textView = (TextView) findViewById(R.id.text_cv_position_et);
+        TextView textView = (TextView) findViewById(R.id.text_cv_position_tv);
         setBackgroundRed(mPositionEditText, textView);
     }
 
@@ -653,6 +653,12 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
             textView.setTextColor(ContextCompat.getColor(this, R.color.colorPink));
             textView.setCompoundDrawablesWithIntrinsicBounds(null, null, ContextCompat.
                     getDrawable(this, R.drawable.text_cv_vertical_red_line), null);
+            if (textView.getText().toString().length() > 2) {
+                editText.setPadding(Util.dip2px(editText.getContext(), 72), 0, 0, Util.dip2px(editText.getContext(), 8));
+            } else {
+                L.i("bgred", "<=2");
+                editText.setPadding(Util.dip2px(editText.getContext(), 40), 0, 0, Util.dip2px(editText.getContext(), 8));
+            }
             editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                 @Override
                 public void onFocusChange(View v, boolean hasFocus) {

@@ -257,10 +257,10 @@ public class PersonFragment extends LazyLoadFragment implements PersonView, View
             mPopupWindow.dismiss();
             switch (v.getId()) {
                 case R.id.person_upload_takePhoto_bt:// 拍照
-                    CropUtils.pickAvatarFromCamera(getActivity());
+                    CropUtils.pickAvatarFromCamera(PersonFragment.this);
                     break;
                 case R.id.person_upload_pickPhoto_bt:// 相册选择图片
-                    CropUtils.pickAvatarFromGallery(getActivity());
+                    CropUtils.pickAvatarFromGallery(PersonFragment.this);
                     break;
                 case R.id.person_upload_cancel_bt:// 取消
 //                    finish();
@@ -273,9 +273,11 @@ public class PersonFragment extends LazyLoadFragment implements PersonView, View
         @Override
         public void handleCropResult(Uri uri, int tag) {
             //send Image to Server
+            L.i("person_head", "handler");
             sendImage(UploadManager.getBitmapFromUri(getActivity().getApplicationContext(), uri));
             mUri = uri;
-//            ImageLoadUtils.display(OldUserDetailActivity.this , mUserHeadImageView, uri);
+//            ImageLoadUtils.display(getActivity() , mCircleHeadImageView, uri);
+//            ImageLoadUtils.display(getActivity(), mHeadBackGround, uri);
         }
 
         @Override
@@ -283,6 +285,11 @@ public class PersonFragment extends LazyLoadFragment implements PersonView, View
 
         }
     };
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        CropUtils.handleResult(getContext(), PersonFragment.this, cropHandler, requestCode, resultCode, data);
+    }
 
     private void sendImage(Bitmap bm) {
         L.i("photo", "sendImage");
@@ -375,9 +382,11 @@ public class PersonFragment extends LazyLoadFragment implements PersonView, View
     @Override
     public void loadHead(Bitmap bm) {
         L.i("photo", "loadHead1:" + mUri.toString());
-        mMyApplication.getHandler().sendEmptyMessage(2);
-//        mUserHeadImageView.setImageBitmap(bm);
+//        mMyApplication.getHandler().sendEmptyMessage(2);
+//        mCircleHeadImageView.setImageBitmap(bm);
+//        mHeadBackGround.setImageBitmap(bm);
         mCircleHeadImageView.setImageURI(mUri);
+        mHeadBackGround.setImageURI(mUri);
         bm.recycle();
 //        this.onCreate(null);
     }
