@@ -132,14 +132,14 @@ public class TextCVPresenterImpl implements TextCVPresenter, TextCVModelImpl.OnB
     }
 
     @Override
-    public void onCompanyBlankError(int id) {
+    public void onJobCompanyBlankError(int id) {
         mTextCVView.hideProgress();
         mTextCVView.jobExpCompanyBlankError(id);
         refresh();
     }
 
     @Override
-    public void onPositionBlankError(int id) {
+    public void onJobPositionBlankError(int id) {
         mTextCVView.hideProgress();
         mTextCVView.jobExpPositionBlankError(id);
         refresh();
@@ -202,7 +202,7 @@ public class TextCVPresenterImpl implements TextCVPresenter, TextCVModelImpl.OnB
 
     @Override
     public void onPositionBlankError() {
-        mTextCVView.positionBlankError();
+        mTextCVView.hideProgress();
         mTextCVView.positionBlankError();
         refresh();
     }

@@ -1,5 +1,6 @@
 package com.example.jobbook.main.widget;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -238,6 +239,12 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
 //            Log.e(TAG, "exit application");
             System.exit(0);
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        L.i("person_head", "onActivityResult");
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override

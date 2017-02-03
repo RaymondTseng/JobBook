@@ -1,6 +1,8 @@
 package com.example.jobbook.upload;
 
 import android.app.Activity;
+import android.support.v4.app.Fragment;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -61,15 +63,23 @@ public class CropUtils {
     }
 
     public static void pickAvatarFromGallery(Activity context) {
-        pickFromGallery(context, null, TYPE_AVATAR);
+        context.startActivityForResult(pickFromGallery(null, TYPE_AVATAR), REQUEST_SELECT_PICTURE);
+    }
+
+    public static void pickAvatarFromGallery(Fragment context){
+        context.startActivityForResult(pickFromGallery(null, TYPE_AVATAR), REQUEST_SELECT_PICTURE);
     }
 
     public static void pickAvatarFromCamera(Activity context) {
-        pickFromCamera(context, null, TYPE_AVATAR);
+        context.startActivityForResult(pickFromCamera(null, TYPE_AVATAR), REQUEST_CAMERA);
+    }
+
+    public static void pickAvatarFromCamera(Fragment context) {
+        context.startActivityForResult(pickFromCamera(null, TYPE_AVATAR), REQUEST_CAMERA);
     }
 
 
-    public static void pickFromGallery(Activity context, CropConfig config, int type) {
+    public static Intent pickFromGallery(CropConfig config, int type) {
         if (config != null) {
             CropUtils.config = config;//怎么避免前后两次config
         } else {
@@ -80,7 +90,8 @@ public class CropUtils {
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
-        context.startActivityForResult(Intent.createChooser(intent, "选择图片"), REQUEST_SELECT_PICTURE);
+        return intent;
+//        context.startActivityForResult(Intent.createChooser(intent, "选择图片"), REQUEST_SELECT_PICTURE);
     }
 
     private static void setType(int type) {
@@ -101,7 +112,7 @@ public class CropUtils {
         }
     }
 
-    public static void pickFromCamera(Activity context, CropConfig config, int type) {
+    public static Intent pickFromCamera(CropConfig config, int type) {
         if (config != null) {
             CropUtils.config = config;
         } else {
@@ -113,17 +124,18 @@ public class CropUtils {
         Uri mDestinationUri = buildUri();
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE)
                 .putExtra(MediaStore.EXTRA_OUTPUT, mDestinationUri);
-        context.startActivityForResult(intent, REQUEST_CAMERA);
+        return intent;
+//        context.startActivityForResult(intent, REQUEST_CAMERA);
     }
 
-    public static void pickFromGallery(Activity context) {
-
-        pickFromGallery(context, null, 0);
-    }
-
-    public static void pickFromCamera(Activity context) {
-        pickFromCamera(context, null, 0);
-    }
+//    public static void pickFromGallery(Activity context) {
+//
+//        pickFromGallery(context, null, 0);
+//    }
+//
+//    public static void pickFromCamera(Activity context) {
+//        pickFromCamera(context, null, 0);
+//    }
 
     /**
      * 注意，调用时data为null的判断
@@ -140,7 +152,7 @@ public class CropUtils {
             if (requestCode == REQUEST_SELECT_PICTURE) {//第一次，选择图片后返回
                 final Uri selectedUri = data.getData();
                 if (selectedUri != null) {
-                    startCropActivity(context, data.getData());
+                    prepareForCrop(data.getData()).start(context);
                 } else {
                     Toast.makeText(context, "Cannot retrieve selected image", Toast.LENGTH_SHORT).show();
                 }
@@ -150,7 +162,7 @@ public class CropUtils {
                 cropHandler.handleCropResult(finalUri, config.tag);
 
             } else if (requestCode == REQUEST_CAMERA) {//第一次，拍照后返回
-                startCropActivity(context, uri);
+                prepareForCrop(uri).start(context);
             }
         }
         if (resultCode == UCrop.RESULT_ERROR) {
@@ -159,7 +171,33 @@ public class CropUtils {
 
     }
 
-    private static void startCropActivity(Activity context, Uri sourceUri) {
+    public static void handleResult(Context context, Fragment fragment,
+                                    CropHandler cropHandler, int requestCode, int resultCode, Intent data) {
+
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == REQUEST_SELECT_PICTURE) {//第一次，选择图片后返回
+                final Uri selectedUri = data.getData();
+                if (selectedUri != null) {
+                    prepareForCrop(data.getData()).start(context, fragment);
+                } else {
+                    Toast.makeText(context, "Cannot retrieve selected image", Toast.LENGTH_SHORT).show();
+                }
+            } else if (requestCode == UCrop.REQUEST_CROP) {//第二次返回，图片已经剪切好
+
+                Uri finalUri = UCrop.getOutput(data);
+                cropHandler.handleCropResult(finalUri, config.tag);
+
+            } else if (requestCode == REQUEST_CAMERA) {//第一次，拍照后返回
+                prepareForCrop(uri).start(context, fragment);
+            }
+        }
+        if (resultCode == UCrop.RESULT_ERROR) {
+            cropHandler.handleCropError(data);
+        }
+
+    }
+
+    private static UCrop prepareForCrop(Uri sourceUri) {
         Uri mDestinationUri = buildUri();
         UCrop uCrop = UCrop.of(sourceUri, mDestinationUri);
 
@@ -179,7 +217,7 @@ public class CropUtils {
 
         uCrop.withOptions(options);
 
-        uCrop.start(context);
+        return uCrop;
     }
 
 
