@@ -105,8 +105,10 @@ public class NewMomentActivity extends Activity implements NewMomentView, View.O
     @Override
     public void close() {
         myApplication = (MyApplication) getApplication();
-        Handler handler = myApplication.getHandler();
-        handler.sendEmptyMessage(1);
+        if(myApplication.getHandler() != null){
+            myApplication.getHandler().sendEmptyMessage(1);
+            myApplication.setHandler(null);
+        }
         this.finish();
     }
 

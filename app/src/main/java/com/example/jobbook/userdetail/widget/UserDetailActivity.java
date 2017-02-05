@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -162,6 +163,11 @@ public class UserDetailActivity extends AppCompatActivity implements View.OnClic
                 mViewPager.setCurrentItem(2);
                 break;
             case R.id.user_detail_back_ib:
+                Handler handler = myApplication.getHandler();
+                if(handler != null){
+                    handler.sendEmptyMessage(1);
+                    myApplication.setHandler(null);
+                }
                 finish();
                 break;
             case R.id.user_detail_follow_ll:

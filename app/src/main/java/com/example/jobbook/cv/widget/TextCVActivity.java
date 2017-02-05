@@ -368,7 +368,10 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
         MyApplication.setmPersonBean(this, personBean);
         MyApplication myApplication = (MyApplication) getApplication();
         Handler handler = myApplication.getHandler();
-        handler.sendEmptyMessage(1);
+        if(handler != null){
+            handler.sendEmptyMessage(1);
+            myApplication.setHandler(null);
+        }
         close();
     }
 
