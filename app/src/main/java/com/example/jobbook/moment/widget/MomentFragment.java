@@ -122,8 +122,8 @@ public class MomentFragment extends Fragment implements View.OnClickListener, Vi
                 break;
             case R.id.moment_publish_tv:
                 if(MyApplication.getmLoginStatus() == 1){
-                    Util.toAnotherActivity(getActivity(), NewMomentActivity.class);
                     myApplication.setHandler(((SquareFragment)mFragemnts.get(0)).handler);
+                    Util.toAnotherActivity(getActivity(), NewMomentActivity.class);
                 }else{
                     Util.showSnackBar(view, "请先登录");
                 }

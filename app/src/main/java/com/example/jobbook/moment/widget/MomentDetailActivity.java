@@ -301,6 +301,7 @@ public class MomentDetailActivity extends Activity implements MomentDetailView, 
             case R.id.moment_detail_back_ib:
                 if (myApplication.getHandler() != null) {
                     myApplication.getHandler().sendEmptyMessage(1);
+                    myApplication.setHandler(null);
                 }
                 finish();
                 break;
