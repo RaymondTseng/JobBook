@@ -1,7 +1,6 @@
 package com.example.jobbook.userdetail.model;
 
 import com.example.jobbook.MyApplication;
-import com.example.jobbook.bean.PersonBean;
 import com.example.jobbook.bean.ResultBean;
 import com.example.jobbook.bean.TypePersonBean;
 import com.example.jobbook.commons.Urls;
@@ -20,7 +19,7 @@ public class UserDetailModelImpl implements UserDetailModel {
 
     @Override
     public void follow(String myAccount, String hisAccount, final OnFollowListener listener) {
-        OkHttpUtils.get().url(Urls.USER_DETAIL_FOLLOW_SB_URL + myAccount + "/hisAccount/" +
+        OkHttpUtils.get().url(Urls.USER_DETAIL_FOLLOW_SB_URL + myAccount + "/you/" +
                 hisAccount).build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int i) {
@@ -29,10 +28,11 @@ public class UserDetailModelImpl implements UserDetailModel {
 
             @Override
             public void onResponse(String response, int i) {
+                L.i("userdetail_follow", response); // !!!
                 ResultBean resultBean = new Gson().fromJson(response, ResultBean.class);
-                if(resultBean.getStatus().equals("true")){
+                if (resultBean.getStatus().equals("true")) {
                     listener.onSuccess();
-                }else{
+                } else {
                     listener.onFailure("关注失败", new Exception());
                 }
             }
@@ -50,10 +50,11 @@ public class UserDetailModelImpl implements UserDetailModel {
             @Override
             public void onResponse(String response, int i) {
                 ResultBean resultBean = new Gson().fromJson(response, ResultBean.class);
-                if(resultBean.getStatus().equals("true")){
+                if (resultBean.getStatus().equals("true")) {
                     TypePersonBean personBean = new Gson().fromJson(resultBean.getResponse(), TypePersonBean.class);
+                    L.i("userdetailimpl", personBean.toString());
                     listener.onSuccess(personBean);
-                }else{
+                } else {
                     listener.onLoadFailure("加载失败", new Exception());
                 }
             }
@@ -73,9 +74,9 @@ public class UserDetailModelImpl implements UserDetailModel {
             public void onResponse(String response, int i) {
                 L.i("userdetail_unfollow", response);
                 ResultBean resultBean = new Gson().fromJson(response, ResultBean.class);
-                if(resultBean.getStatus().equals("true")){
+                if (resultBean.getStatus().equals("true")) {
                     listener.onUnfollowSuccess();
-                }else{
+                } else {
                     listener.onFailure("取消关注失败", new Exception());
                 }
             }
@@ -94,33 +95,37 @@ public class UserDetailModelImpl implements UserDetailModel {
             @Override
             public void onResponse(String response, int i) {
                 ResultBean resultBean = new Gson().fromJson(response, ResultBean.class);
-                if(resultBean.getStatus().equals("true")){
+                if (resultBean.getStatus().equals("true")) {
                     TypePersonBean personBean = new Gson().fromJson(resultBean.getResponse(), TypePersonBean.class);
                     listener.onRefreshSuccess(personBean);
-                }else{
+                } else {
                     listener.onFailure("加载失败", new Exception());
                 }
             }
         });
     }
 
-    public interface OnFollowListener{
+    public interface OnFollowListener {
         void onSuccess();
+
         void onFailure(String msg, Exception e);
     }
 
     public interface OnLoadUserDetailByAccountListener {
         void onSuccess(TypePersonBean personBean);
+
         void onLoadFailure(String msg, Exception e);
     }
 
-    public interface OnUnFollowListener{
+    public interface OnUnFollowListener {
         void onUnfollowSuccess();
+
         void onFailure(String msg, Exception e);
     }
 
-    public interface OnRefreshListener{
+    public interface OnRefreshListener {
         void onRefreshSuccess(TypePersonBean personBean);
+
         void onFailure(String msg, Exception e);
     }
 }

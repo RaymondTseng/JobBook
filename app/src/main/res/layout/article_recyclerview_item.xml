@@ -53,14 +53,6 @@
             android:text="" />
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/article_lv_iv"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
-        android:layout_alignParentRight="true"
-        android:layout_below="@id/article_lv_title_ll"
-        android:layout_marginRight="16dp" />
-
     <TextView
         android:id="@+id/article_lv_content_tv"
         style="@style/TextGray12sptv"
@@ -69,9 +61,20 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="40dp"
         android:layout_marginTop="4dp"
-        android:layout_toLeftOf="@id/article_lv_iv"
+        android:layout_toLeftOf="@+id/article_lv_iv"
         android:paddingBottom="16dp"
         android:text="" />
+
+    <ImageView
+        android:id="@+id/article_lv_iv"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_marginRight="17dp"
+        android:layout_alignTop="@+id/article_lv_ll_1"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="17dp"
+        />
 
 
 </RelativeLayout>

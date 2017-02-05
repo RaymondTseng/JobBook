@@ -93,6 +93,9 @@ public class PersonFragment extends LazyLoadFragment implements PersonView, View
                 onRefreshHead();
             } else if (msg.what == REFRESH_UNREAD) {
                 refreshUnread();
+                if (!personBean.toString().equals(MyApplication.getmPersonBean().toString())) {
+                    showPersonData();
+                }
             }
         }
     };
@@ -104,7 +107,6 @@ public class PersonFragment extends LazyLoadFragment implements PersonView, View
 
     @Override
     protected void lazyLoad() {
-        initViews();
         initEvents();
     }
 
@@ -141,6 +143,7 @@ public class PersonFragment extends LazyLoadFragment implements PersonView, View
         mEditTextView = findViewById(R.id.person_edit_tv);
         mUnReadTextView = findViewById(R.id.unread_address_number);
         mCircleHeadImageView = findViewById(R.id.person_title_head_iv);
+        personBean = MyApplication.getmPersonBean();
     }
 
     private void initEvents() {
@@ -180,6 +183,7 @@ public class PersonFragment extends LazyLoadFragment implements PersonView, View
         if (MyApplication.getmLoginStatus() != 0) {
             personBean = MyApplication.getmPersonBean();
             mNameTextView.setText(personBean.getUsername());
+//            L.i("showpersondata", "lalalaalala,关注：" + personBean.getFollow());
             ImageLoadUtils.display(getActivity(), mCircleHeadImageView, personBean.getHead(), 0);
             ImageLoadUtils.display(getActivity(), mHeadBackGround, personBean.getHead(), 0);
             mMomentTextView.setText(personBean.getMoment());
