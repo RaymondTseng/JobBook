@@ -25,6 +25,7 @@ import com.example.jobbook.follow.presenter.SquareFollowPresenterImpl;
 import com.example.jobbook.follow.view.SquareFollowView;
 import com.example.jobbook.main.widget.MainActivity;
 import com.example.jobbook.moment.widget.MomentDetailActivity;
+import com.example.jobbook.userdetail.widget.UserDetailActivity;
 import com.example.jobbook.util.DividerItemDecoration;
 import com.example.jobbook.util.L;
 import com.example.jobbook.util.LazyLoadFragment;
@@ -89,7 +90,7 @@ public class SquareFollowFragment extends LazyLoadFragment implements SquareFoll
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        mAdapter.setOnItemClickListener(mOnItemClickListener);
+        mAdapter.setOnContentClickListener(mOnContentClickListener);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.addOnScrollListener(mOnScrollListener);
 //        mAdapter.setOnNoInterestButtonClickListener(new SquareFollowsAdapter.OnNoInterestButtonClickListener() {
@@ -101,7 +102,10 @@ public class SquareFollowFragment extends LazyLoadFragment implements SquareFoll
         mAdapter.setOnHeadClickListener(new SquareFollowsAdapter.OnHeadClickListener() {
             @Override
             public void onHeadClick(View view, int position) {
-
+                Bundle bundle = new Bundle();
+                L.i("square_person", mData.get(position).getAuthor().toString());
+                bundle.putSerializable("person_bean", mData.get(position).getAuthor());
+                Util.toAnotherActivity(getActivity(), UserDetailActivity.class, bundle);
             }
         });
         mAdapter.setOnFavouriteButtonClickListener(new SquareFollowsAdapter.OnFavouriteButtonClickListener() {
@@ -117,6 +121,18 @@ public class SquareFollowFragment extends LazyLoadFragment implements SquareFoll
                     unlike(position);
                 }
 //                refresh();
+            }
+        });
+        mAdapter.setOnShowAllOrHideAllListener(new SquareFollowsAdapter.OnShowAllOrHideAllListener() {
+            @Override
+            public void onShowAllOrHideAll(TextView view, TextView contentTextView, String content) {
+                if (view.getText().toString().equals("点开全文")) {
+                    contentTextView.setText(content);
+                    view.setText("收起全文");
+                } else {
+                    contentTextView.setText(content.substring(0, 75));
+                    view.setText("点开全文");
+                }
             }
         });
         onRefresh();
@@ -150,9 +166,9 @@ public class SquareFollowFragment extends LazyLoadFragment implements SquareFoll
         }
     };
 
-    private SquareFollowsAdapter.OnItemClickListener mOnItemClickListener = new SquareFollowsAdapter.OnItemClickListener() {
+    private SquareFollowsAdapter.OnContentClickListener mOnContentClickListener = new SquareFollowsAdapter.OnContentClickListener() {
         @Override
-        public void onItemClick(View view, int position) {
+        public void onContentClick(View view, int position) {
             MomentBean square = mAdapter.getItem(position);
             Bundle bundle = new Bundle();
             bundle.putSerializable("square_detail", square);

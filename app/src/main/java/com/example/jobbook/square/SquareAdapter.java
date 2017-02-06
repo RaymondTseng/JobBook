@@ -34,6 +34,7 @@ public class SquareAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private OnHeadClickListener mOnHeadClickListener;
     private OnNoInterestButtonClickListener mOnNoInterestButtonClickListener;
     private OnFavouriteButtonClickListener mOnFavouriteButtonClickListener;
+    private OnShowAllOrHideAllListener mOnShowAllOrHideAllListener;
 
     public SquareAdapter(Context mContext) {
         this.mContext = mContext;
@@ -49,9 +50,10 @@ public class SquareAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         } else if (viewType == TYPE_ITEM_OVER) {
             View v = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.square_recycleview_item_oversize, parent, false);
-            ItemViewHolder vh = new ItemViewHolder(v);
+            ItemOverSizeViewHolder vh = new ItemOverSizeViewHolder(v);
             return vh;
-        } else {
+        }
+        else {
             View view = LayoutInflater.from(parent.getContext()).inflate(
                     R.layout.loadingfooter_layout, null);
             view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
@@ -61,7 +63,7 @@ public class SquareAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof ItemViewHolder) {
             MomentBean moment = mData.get(position);
             ((ItemViewHolder) holder).mContent.setText(moment.getContent());
@@ -83,6 +85,37 @@ public class SquareAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 ((ItemViewHolder) holder).mFavouriteButton.setImageResource(R.mipmap.favourite);
             } else {
                 ((ItemViewHolder) holder).mFavouriteButton.setImageResource(R.mipmap.favourite_tapped);
+            }
+        } else if (holder instanceof ItemOverSizeViewHolder) {
+            final MomentBean moment = mData.get(position);
+            ((ItemOverSizeViewHolder) holder).mContent.setText(moment.getContent().substring(0, 75));
+            ImageLoadUtils.display(mContext, ((ItemOverSizeViewHolder) holder).mUserHead, moment.getAuthor().getHead());
+            ((ItemOverSizeViewHolder) holder).mUserName.setText(moment.getAuthor().getUsername());
+            ((ItemOverSizeViewHolder) holder).mFavouriteNumbers.setText(moment.getLikesNum() + "");
+            ((ItemOverSizeViewHolder) holder).mCommentNumbers.setText(moment.getCommentNum() + "");
+            ((ItemOverSizeViewHolder) holder).mTime.setText(moment.getDate());
+            ((ItemOverSizeViewHolder) holder).mCompanyAndPositionTextView.setText(moment.getAuthor().getWorkSpace() + " "
+                    + moment.getAuthor().getWorkPosition());
+            if (MyApplication.getAccount() != null) {
+                if(MyApplication.getAccount().equals(moment.getAuthor().getAccount())){
+                    ((ItemOverSizeViewHolder)holder).mNoInterestButton.setVisibility(View.GONE);
+                }
+            } else {
+                ((ItemOverSizeViewHolder)holder).mNoInterestButton.setVisibility(View.GONE);
+            }
+            if (moment.getIfLike() == 0) {
+                ((ItemOverSizeViewHolder) holder).mFavouriteButton.setImageResource(R.mipmap.favourite);
+            } else {
+                ((ItemOverSizeViewHolder) holder).mFavouriteButton.setImageResource(R.mipmap.favourite_tapped);
+            }
+            if (mOnShowAllOrHideAllListener != null) {
+                ((ItemOverSizeViewHolder) holder).mShowAll.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        TextView textView = (TextView) v;
+                        mOnShowAllOrHideAllListener.onShowAllOrHideAll(textView, ((ItemOverSizeViewHolder) holder).mContent, moment.getContent());
+                    }
+                });
             }
         }
     }
@@ -134,6 +167,15 @@ public class SquareAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 return TYPE_ITEM;
             }
         }
+        // 最后一个item设置为footerView
+//        if(!mShowFooter) {
+//            return TYPE_ITEM;
+//        }
+//        if (position + 1 == getItemCount()) {
+//            return TYPE_FOOTER;
+//        } else {
+//            return TYPE_ITEM;
+//        }
     }
 
     public class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -195,6 +237,68 @@ public class SquareAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         }
     }
 
+    public class ItemOverSizeViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        TextView mContent;
+        ImageView mUserHead;
+        TextView mUserName;
+        TextView mFavouriteNumbers;
+        TextView mCommentNumbers;
+        TextView mTime;
+        ImageButton mNoInterestButton;
+        ImageButton mFavouriteButton;
+        TextView mCompanyAndPositionTextView;
+        TextView mShowAll;
+
+        public ItemOverSizeViewHolder(View view) {
+            super(view);
+            mContent = (TextView) view.findViewById(R.id.square_oversize_rv_content_tv);
+            mUserHead = (ImageView) view.findViewById(R.id.square_oversize_rv_head_iv);
+            mUserName = (TextView) view.findViewById(R.id.square_oversize_rv_username_tv);
+            mFavouriteNumbers = (TextView) view.findViewById(R.id.square_oversize_rv_favourite_tv);
+            mCommentNumbers = (TextView) view.findViewById(R.id.square_oversize_rv_comment_tv);
+            mTime = (TextView) view.findViewById(R.id.square_oversize_rv_time_tv);
+            mNoInterestButton = (ImageButton) view.findViewById(R.id.square_oversize_rv_no_interest_ib);
+            mFavouriteButton = (ImageButton) view.findViewById(R.id.square_oversize_rv_favourite_ib);
+            mCompanyAndPositionTextView = (TextView) view.findViewById(R.id.square_oversize_rv_company_position_tv);
+            mShowAll = (TextView) view.findViewById(R.id.square_oversize_rv_show_all_tv);
+            mContent.setOnClickListener(this);
+            mUserHead.setOnClickListener(this);
+            mNoInterestButton.setOnClickListener(this);
+            mFavouriteButton.setOnClickListener(this);
+//            mShowAll.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.square_oversize_rv_no_interest_ib:
+                    if (mOnNoInterestButtonClickListener != null) {
+                        mOnNoInterestButtonClickListener.onNoInterestButtonClick(v, this.getAdapterPosition());
+                    }
+                    break;
+
+                case R.id.square_oversize_rv_head_iv:
+                    if (mOnHeadClickListener != null) {
+                        mOnHeadClickListener.onHeadClick(v, this.getAdapterPosition());
+                    }
+                    break;
+
+                case R.id.square_oversize_rv_favourite_ib:
+                    if (mOnFavouriteButtonClickListener != null) {
+                        ImageButton ib = (ImageButton) v;
+                        mOnFavouriteButtonClickListener.onFavouriteButtonClick(ib, this.getAdapterPosition());
+                    }
+                    break;
+
+                case R.id.square_oversize_rv_content_tv:
+                    if(mOnContentClickListener != null){
+                        mOnContentClickListener.onContentClick(v, this.getAdapterPosition());
+                    }
+                    break;
+            }
+        }
+    }
+
     public void updateData(List<MomentBean> mData) {
         this.mData = mData;
         if (mData.size() % Urls.PAZE_SIZE != 0) {
@@ -227,6 +331,10 @@ public class SquareAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         void onContentClick(View view, int position);
     }
 
+    public interface OnShowAllOrHideAllListener {
+        void onShowAllOrHideAll(TextView view, TextView contentTextView, String content);
+    }
+
     public void setOnContentClickListener(OnContentClickListener onContentClickListener){
         this.mOnContentClickListener = onContentClickListener;
     }
@@ -241,6 +349,10 @@ public class SquareAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     public void setOnFavouriteButtonClickListener(OnFavouriteButtonClickListener onFavouriteButtonClickListener) {
         this.mOnFavouriteButtonClickListener = onFavouriteButtonClickListener;
+    }
+
+    public void setOnShowAllOrHideAllListener(OnShowAllOrHideAllListener onShowAllOrHideAllListener) {
+        this.mOnShowAllOrHideAllListener = onShowAllOrHideAllListener;
     }
 
     public MomentBean getItem(int position) {

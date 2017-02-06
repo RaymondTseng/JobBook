@@ -123,6 +123,18 @@ public class SquareFragment extends LazyLoadFragment implements SquareView,
 //                refresh();
             }
         });
+        mAdapter.setOnShowAllOrHideAllListener(new SquareAdapter.OnShowAllOrHideAllListener() {
+            @Override
+            public void onShowAllOrHideAll(TextView view, TextView contentTextView, String content) {
+                if (view.getText().toString().equals("点开全文")) {
+                    contentTextView.setText(content);
+                    view.setText("收起全文");
+                } else {
+                    contentTextView.setText(content.substring(0, 75));
+                    view.setText("点开全文");
+                }
+            }
+        });
         onRefresh();
     }
 

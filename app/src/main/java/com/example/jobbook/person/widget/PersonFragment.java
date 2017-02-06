@@ -82,7 +82,7 @@ public class PersonFragment extends LazyLoadFragment implements PersonView, View
     private Timer timer;
     private TimerTask timerTask;
 
-    final Handler handler = new Handler() {
+    private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             if (msg.what == REFRESH) {
@@ -93,8 +93,10 @@ public class PersonFragment extends LazyLoadFragment implements PersonView, View
                 onRefreshHead();
             } else if (msg.what == REFRESH_UNREAD) {
                 refreshUnread();
-                if (!personBean.toString().equals(MyApplication.getmPersonBean().toString())) {
-                    showPersonData();
+                if (personBean != null) {
+                    if (!personBean.toString().equals(MyApplication.getmPersonBean().toString())) {
+                        showPersonData();
+                    }
                 }
             }
         }
