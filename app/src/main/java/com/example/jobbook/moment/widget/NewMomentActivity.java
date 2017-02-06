@@ -101,7 +101,6 @@ public class NewMomentActivity extends Activity implements NewMomentView, View.O
         Util.showSnackBar(view, "请先登录！");
     }
 
-
     @Override
     public void close() {
         myApplication = (MyApplication) getApplication();
