@@ -283,7 +283,6 @@ public class UserDetailActivity extends AppCompatActivity implements View.OnClic
 
     @Override
     public void loadSuccess(TypePersonBean personBean) {
-        mPersonBean = personBean;
         setData(personBean);
     }
 
@@ -322,6 +321,7 @@ public class UserDetailActivity extends AppCompatActivity implements View.OnClic
                 mFocusTextView.setTextColor(this.getResources().getColor(R.color.colorPink));
                 mFocusImageView.setImageResource(R.mipmap.close_red_24_dp);
             }
+            mPersonBean = personBean;
         }
     }
 
