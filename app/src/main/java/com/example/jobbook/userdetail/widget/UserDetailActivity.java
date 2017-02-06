@@ -22,7 +22,6 @@ import android.widget.TextView;
 
 import com.example.jobbook.MyApplication;
 import com.example.jobbook.R;
-import com.example.jobbook.bean.PersonBean;
 import com.example.jobbook.bean.TypePersonBean;
 import com.example.jobbook.userdetail.UserDetailPagerAdapter;
 import com.example.jobbook.userdetail.presenter.UserDetailPresenter;
@@ -68,6 +67,8 @@ public class UserDetailActivity extends AppCompatActivity implements View.OnClic
     private int mCurrentIndex = 0;
     private TypePersonBean mPersonBean;
     private View view;
+    private boolean isSelf = false;
+
     private static int UNFOLLOW = 1;
     private static int FOLLOW = 0;
 
@@ -138,12 +139,18 @@ public class UserDetailActivity extends AppCompatActivity implements View.OnClic
             ((UserDetailMomentFragment) mFragemnts.get(0)).getAccount(mPersonBean.getAccount());
             ((UserDetailFollowFragment) mFragemnts.get(1)).getAccount(mPersonBean.getAccount());
             ((UserDetailFansFragment) mFragemnts.get(2)).getAccount(mPersonBean.getAccount());
+            if (mPersonBean.getAccount().equals(MyApplication.getAccount())) {
+                isSelf = true;
+            }
             setData(mPersonBean);
         } else {
             String account = getIntent().getStringExtra("person_account_from_message");
             ((UserDetailMomentFragment) mFragemnts.get(0)).getAccount(account);
             ((UserDetailFollowFragment) mFragemnts.get(1)).getAccount(account);
             ((UserDetailFansFragment) mFragemnts.get(2)).getAccount(account);
+            if (account.equals(MyApplication.getAccount())) {
+                isSelf = true;
+            }
             mPresenter.loadUserDetailByAccount(account);
         }
 
@@ -164,7 +171,7 @@ public class UserDetailActivity extends AppCompatActivity implements View.OnClic
                 break;
             case R.id.user_detail_back_ib:
                 Handler handler = myApplication.getHandler();
-                if(handler != null){
+                if (handler != null) {
                     handler.sendEmptyMessage(1);
                     myApplication.setHandler(null);
                 }
@@ -172,10 +179,15 @@ public class UserDetailActivity extends AppCompatActivity implements View.OnClic
                 break;
             case R.id.user_detail_follow_ll:
                 if (MyApplication.getmLoginStatus() != 0) {
-                    if(mPersonBean.getType() == UNFOLLOW )
-                        mPresenter.follow(MyApplication.getAccount(), mPersonBean.getAccount());
-                    else
-                        mPresenter.unfollow(MyApplication.getAccount(), mPersonBean.getAccount());
+                    L.i("userdetail", "personbean: " + mPersonBean.getAccount() + " localaccount:" + MyApplication.getAccount());
+                    if (mPersonBean.getAccount().equals(MyApplication.getAccount())) {
+                        Util.showSnackBar(view, "不能关注自己~");
+                    } else {
+                        if (mPersonBean.getType() == UNFOLLOW)
+                            mPresenter.follow(MyApplication.getAccount(), mPersonBean.getAccount());
+                        else
+                            mPresenter.unfollow(MyApplication.getAccount(), mPersonBean.getAccount());
+                    }
                 }
                 break;
 //            case R.id.user_detail_setting_ib:
@@ -238,6 +250,7 @@ public class UserDetailActivity extends AppCompatActivity implements View.OnClic
         mFocusTextView.setText("取消关注");
         mFocusTextView.setTextColor(this.getResources().getColor(R.color.colorPink));
         mFocusImageView.setImageResource(R.mipmap.close_red_24_dp);
+        mPersonBean.setType(FOLLOW);
         Util.showSnackBar(view, "关注成功!");
     }
 
@@ -249,9 +262,11 @@ public class UserDetailActivity extends AppCompatActivity implements View.OnClic
     @Override
     public void unfollowSuccess() {
         mPresenter.loadUserDetailByAccount(MyApplication.getAccount());
+        L.i("user_detail", "unfollow success");
         mFocusTextView.setText("关注");
         mFocusTextView.setTextColor(this.getResources().getColor(R.color.colorBlue));
         mFocusImageView.setImageResource(R.mipmap.add_24_dp);
+        mPersonBean.setType(UNFOLLOW);
         Util.showSnackBar(view, "取消关注成功!");
     }
 
@@ -269,7 +284,6 @@ public class UserDetailActivity extends AppCompatActivity implements View.OnClic
     @Override
     public void loadSuccess(TypePersonBean personBean) {
         setData(personBean);
-        mPersonBean = personBean;
     }
 
     @Override
@@ -279,15 +293,35 @@ public class UserDetailActivity extends AppCompatActivity implements View.OnClic
 
 
     private void setData(TypePersonBean personBean) {
-        ImageLoadUtils.display(this, mHeadImageView, personBean.getHead());
-        mNameTextView.setText(personBean.getUsername());
-        mCompanyPositionTextView.setText(personBean.getWorkSpace());
-        mFollowTextView.setText("关注 " + personBean.getFollow());
-        mFollowerTextView.setText("粉丝 " + personBean.getFans());
-        if(personBean.getType() == FOLLOW){
-            mFocusTextView.setText("取消关注");
-            mFocusTextView.setTextColor(this.getResources().getColor(R.color.colorPink));
-            mFocusImageView.setImageResource(R.mipmap.close_red_24_dp);
+        L.i("userdetail", "typeperson: " + personBean.toString());
+        L.i("userdetail", "person:" + personBean.getAccount() + " myapp:" + MyApplication.getAccount());
+        if (personBean.getAccount().equals(MyApplication.getAccount())) {
+            MyApplication.setmPersonBean(this, personBean);
+            if (isSelf) {
+                ImageLoadUtils.display(this, mHeadImageView, personBean.getHead());
+                mNameTextView.setText(personBean.getUsername());
+                mCompanyPositionTextView.setText(personBean.getWorkSpace());
+                mFollowTextView.setText("关注 " + personBean.getFollow());
+                mFollowerTextView.setText("粉丝 " + personBean.getFans());
+                if (personBean.getType() == FOLLOW) {
+                    mFocusTextView.setText("取消关注");
+                    mFocusTextView.setTextColor(this.getResources().getColor(R.color.colorPink));
+                    mFocusImageView.setImageResource(R.mipmap.close_red_24_dp);
+                }
+                isSelf = false;
+            }
+        } else {
+            ImageLoadUtils.display(this, mHeadImageView, personBean.getHead());
+            mNameTextView.setText(personBean.getUsername());
+            mCompanyPositionTextView.setText(personBean.getWorkSpace());
+            mFollowTextView.setText("关注 " + personBean.getFollow());
+            mFollowerTextView.setText("粉丝 " + personBean.getFans());
+            if (personBean.getType() == FOLLOW) {
+                mFocusTextView.setText("取消关注");
+                mFocusTextView.setTextColor(this.getResources().getColor(R.color.colorPink));
+                mFocusImageView.setImageResource(R.mipmap.close_red_24_dp);
+            }
+            mPersonBean = personBean;
         }
     }
 
