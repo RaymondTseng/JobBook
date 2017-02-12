@@ -212,12 +212,12 @@ public class JobDetailActivity extends Activity implements View.OnClickListener,
 
     @Override
     public void sendCVSuccess() {
-        Util.showSnackBar(view, "提交成功！");
+        Util.showSnackBar(view, "发送成功！");
     }
 
     @Override
     public void sendCVFailure() {
-        Util.showSnackBar(view, "提交失败！");
+        Util.showSnackBar(view, "发送失败，请重试！");
     }
 
     @Override
