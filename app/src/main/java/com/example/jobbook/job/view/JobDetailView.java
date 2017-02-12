@@ -43,4 +43,6 @@ public interface JobDetailView {
 
     void sendCVRepeated();
 
+    void sendCVNoWrite();
+
 }

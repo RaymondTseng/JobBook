@@ -121,4 +121,10 @@ public class JobDetailPresenterImpl implements JobDetailPresenter, JobDetailMode
         mJobDetailView.hideProgress();
         mJobDetailView.sendCVRepeated();
     }
+
+    @Override
+    public void onSendCVNoWrite() {
+        mJobDetailView.hideProgress();
+        mJobDetailView.sendCVNoWrite();
+    }
 }

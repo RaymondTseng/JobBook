@@ -129,7 +129,9 @@ public class JobDetailModelImpl implements JobDetailModel {
                         listener.onSendCVNoDestination();
                     } else if (resultBean.getResponse().equals("have sent")) {
                         listener.onSendCVRepeated();
-                    } else {
+                    }else if(resultBean.getResponse().equals("no write")){
+                        listener.onSendCVNoWrite();
+                    }else {
                         listener.onSendCVFailure("job_detail_null", new Exception());
                     }
                 }
@@ -171,5 +173,7 @@ public class JobDetailModelImpl implements JobDetailModel {
         void onSendCVNoDestination();
 
         void onSendCVRepeated();
+
+        void onSendCVNoWrite();
     }
 }

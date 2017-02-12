@@ -235,6 +235,11 @@ public class JobDetailActivity extends Activity implements View.OnClickListener,
         Util.showSnackBar(view, "您之前已经发送过！");
     }
 
+    @Override
+    public void sendCVNoWrite() {
+        Util.showSnackBar(view, "您还未填写简历！");
+    }
+
     private void refresh() {
         try {
             Thread.sleep(500);
