@@ -155,9 +155,11 @@ public class MomentFragment extends Fragment implements View.OnClickListener, Vi
 
         mTabWidget.setCurrentTab(position);
         mCurrentIndex = position;
-        animation.setFillAfter(true);
-        animation.setDuration(200);
-        mCursorImageView.startAnimation(animation);
+        if (animation != null) {
+            animation.setFillAfter(true);
+            animation.setDuration(200);
+            mCursorImageView.startAnimation(animation);
+        }
     }
 
     @Override
