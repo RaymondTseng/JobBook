@@ -192,6 +192,7 @@
             android:paddingLeft="16dp"
             android:maxLines="1"
             android:textCursorDrawable="@drawable/edtitext_cursor"
+            android:inputType="textPassword"
             android:textSize="16sp" />
     </RelativeLayout>
 
@@ -219,6 +220,7 @@
             android:layout_alignParentBottom="true"
             android:paddingLeft="16dp"
             android:maxLines="1"
+            android:inputType="textPassword"
             android:textCursorDrawable="@drawable/edtitext_cursor"
             android:textSize="16sp" />
     </RelativeLayout>

@@ -257,6 +257,7 @@ public class SquareFragment extends LazyLoadFragment implements SquareView,
 
     @Override
     public void onRefresh() {
+        mSquarePresenter = new SquarePresenterImpl(this);
         L.i("TAG", "onRefresh");
         pageIndex = 0;
         if (mData != null) {

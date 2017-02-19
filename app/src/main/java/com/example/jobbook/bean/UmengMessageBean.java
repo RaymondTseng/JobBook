@@ -12,7 +12,9 @@ public class UmengMessageBean implements Serializable {
 
     private int type;
 
-    private String account;
+    private String accountFrom;
+
+    private String accountTo;
 
     private String event;
 
@@ -26,12 +28,20 @@ public class UmengMessageBean implements Serializable {
         this.type = type;
     }
 
-    public String getAccount() {
-        return account;
+    public String getAccountFrom() {
+        return accountFrom;
     }
 
-    public void setAccount(String account) {
-        this.account = account;
+    public void setAccountFrom(String accountFrom) {
+        this.accountFrom = accountFrom;
+    }
+
+    public String getAccountTo() {
+        return accountTo;
+    }
+
+    public void setAccountTo(String accountTo) {
+        this.accountTo = accountTo;
     }
 
     public String getEvent() {
