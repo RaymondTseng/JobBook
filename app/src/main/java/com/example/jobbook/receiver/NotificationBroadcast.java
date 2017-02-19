@@ -4,11 +4,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import com.example.jobbook.bean.MessageBean;
-import com.example.jobbook.bean.UmengMessageBean;
-import com.example.jobbook.moment.widget.MomentDetailActivity;
 import com.example.jobbook.service.MyPushIntentService;
-import com.example.jobbook.userdetail.widget.UserDetailActivity;
+import com.example.jobbook.util.L;
 import com.umeng.message.UTrack;
 import com.umeng.message.common.UmLog;
 import com.umeng.message.entity.UMessage;
@@ -22,7 +19,7 @@ import org.json.JSONObject;
 public class NotificationBroadcast extends BroadcastReceiver {
     public static final String EXTRA_KEY_ACTION = "ACTION";
     public static final String EXTRA_KEY_MSG = "MSG";
-    public static final String CUSTOM_MESSAGE = "CUSTOM_MESSAGE";
+//    public static final String CUSTOM_MESSAGE = "CUSTOM_MESSAGE";
     public static final int ACTION_CLICK = 10;
     public static final int ACTION_DISMISS = 11;
     public static final int EXTRA_ACTION_NOT_EXIST = -1;
@@ -34,9 +31,9 @@ public class NotificationBroadcast extends BroadcastReceiver {
         String message = intent.getStringExtra(EXTRA_KEY_MSG);
         int action = intent.getIntExtra(EXTRA_KEY_ACTION,
                 EXTRA_ACTION_NOT_EXIST);
+        L.i("broadcast notification", "receive");
         try {
             UMessage msg = new UMessage(new JSONObject(message));
-
             switch (action) {
                 case ACTION_DISMISS:
                     UmLog.d(TAG, "dismiss notification");
@@ -48,30 +45,8 @@ public class NotificationBroadcast extends BroadcastReceiver {
                     UTrack.getInstance(context).setClearPrevMessage(true);
                     MyPushIntentService.oldMessage = null;
                     UTrack.getInstance(context).trackMsgClick(msg);
-                    UmengMessageBean messageBean = (UmengMessageBean) intent.getSerializableExtra(CUSTOM_MESSAGE);
-                    switch (messageBean.getType()) {
-                        case MessageBean.FOLLOW:
-                            Intent intentFollow = new Intent(context, UserDetailActivity.class);
-                            intentFollow.putExtra("person_account_from_message", messageBean.getEvent());
-                            intentFollow.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            context.startActivity(intentFollow);
-                            break;
-                        case MessageBean.LIKE:
-                            Intent intentLike = new Intent(context, MomentDetailActivity.class);
-                            intentLike.putExtra("moment_id_from_message", messageBean.getEvent());
-                            intentLike.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            context.startActivity(intentLike);
-                            break;
-                        case MessageBean.COMMENT:
-                            Intent intentComment = new Intent(context, MomentDetailActivity.class);
-                            intentComment.putExtra("moment_id_from_message", messageBean.getEvent());
-                            intentComment.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            context.startActivity(intentComment);
-                            break;
-                    }
                     break;
             }
-            //
         } catch (JSONException e) {
             e.printStackTrace();
         } catch (Exception e) {

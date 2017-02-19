@@ -95,6 +95,7 @@ public class PersonFragment extends LazyLoadFragment implements PersonView, View
                 refreshUnread();
                 if (personBean != null) {
                     if (!personBean.toString().equals(MyApplication.getmPersonBean().toString())) {
+                        L.i("handler", "refresh");
                         showPersonData();
                     }
                 }
