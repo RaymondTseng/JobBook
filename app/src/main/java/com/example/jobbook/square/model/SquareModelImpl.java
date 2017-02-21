@@ -55,6 +55,7 @@ public class SquareModelImpl implements SquareModel {
         } else {
             account = MyApplication.getAccount();
         }
+        L.i("square_like", Urls.SQUARE_LIKE_URL + squareId + "/account/" + account);
         OkHttpUtils.get().url(Urls.SQUARE_LIKE_URL + squareId + "/account/" + account).build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {

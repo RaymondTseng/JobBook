@@ -1,5 +1,6 @@
 package com.example.jobbook.person.model;
 
+import com.example.jobbook.MyApplication;
 import com.example.jobbook.bean.PersonBean;
 import com.example.jobbook.bean.ResultBean;
 import com.example.jobbook.bean.TypePersonBean;
@@ -23,7 +24,8 @@ public class ShowFantListModelImpl implements ShowFanListModel {
 
     @Override
     public void loadFanList(String account, final OnLoadFanListListener listener) {
-        OkHttpUtils.get().url(Urls.USER_DETAIL_FANS_URL + account).build().execute(new StringCallback() {
+        String myAccount = MyApplication.getAccount() != null ? MyApplication.getAccount() : "";
+        OkHttpUtils.get().url(Urls.USER_DETAIL_FANS_URL + account + "/my/" + myAccount).build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int i) {
                 L.i("showfanlist", "error");
