@@ -19,30 +19,27 @@
             android:background="@null"
             />
 
-        <LinearLayout
+        <FrameLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="248"
-            android:orientation="vertical"
-            android:weightSum="80">
+            android:layout_weight="248">
 
             <TabWidget
                 android:id="@+id/moment_tab"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="78"
+                android:layout_height="match_parent"
                 android:background="@color/colorBlue"
                 android:gravity="right|center_vertical"></TabWidget>
 
             <ImageView
                 android:id="@+id/moment_cursor"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="2"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
                 android:scaleType="matrix"
                 android:src="@mipmap/line" />
 
-        </LinearLayout>
+        </FrameLayout>
 
         <TextView
             android:id="@+id/moment_publish_tv"

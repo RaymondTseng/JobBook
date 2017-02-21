@@ -187,6 +187,8 @@ public class UserDetailActivity extends AppCompatActivity implements View.OnClic
                             mPresenter.follow(MyApplication.getAccount(), mPersonBean.getAccount());
                         else
                             mPresenter.unfollow(MyApplication.getAccount(), mPersonBean.getAccount());
+                        if(myApplication.getHandler() != null)
+                            myApplication.getHandler().sendEmptyMessage(1);
                     }
                 }
                 break;

@@ -3,6 +3,8 @@ package com.example.jobbook.person.widget;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -41,7 +43,17 @@ public class ShowFollowerListActivity extends Activity implements ShowFollowerLi
     private LinearLayoutManager mLayoutManager;
     private UserDetailFollowAdapter mAdapter;
     private View view;
+    private MyApplication myApplication;
+    private static int REFRESH = 1;
 
+    public final Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            if (msg.what == REFRESH) {
+                presenter.loadFollwers(MyApplication.getAccount());
+            }
+        }
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +71,7 @@ public class ShowFollowerListActivity extends Activity implements ShowFollowerLi
 
     private void initEvents() {
         presenter = new ShowFollowerListPresenterImpl(this);
+        myApplication = (MyApplication)getApplication();
         mAdapter = new UserDetailFollowAdapter(this, new ArrayList<TypePersonBean>());
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.addItemDecoration(new DividerItemDecoration(this,
@@ -126,6 +139,7 @@ public class ShowFollowerListActivity extends Activity implements ShowFollowerLi
     public void onFollowerItemClick(TypePersonBean personBean) {
         Bundle bundle = new Bundle();
         bundle.putSerializable("person_bean", personBean);
+        myApplication.setHandler(handler);
         Util.toAnotherActivity(this, UserDetailActivity.class, bundle);
     }
 }
