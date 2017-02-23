@@ -54,10 +54,11 @@ public class MomentDetailActivity extends Activity implements MomentDetailView, 
     private MomentBean mMomentBean;
     private LinearLayout mHeadView;
     //    private MomentDetailPresenter presenter;
-    private View mRootView;
+//    private LinearLayout mRootView;
     private List<MomentCommentBean> list;
     private RelativeLayout mTitleBarLayout;
     private LinearLayout mInputLayout;
+//    private LinearLayout mRecyclerViewLayout;
     private LinearLayout mLoadingLinearLayout;
     private LinearLayoutManager mLayoutManager;
     private MyApplication myApplication;
@@ -91,9 +92,10 @@ public class MomentDetailActivity extends Activity implements MomentDetailView, 
         mMomentUserLogoImageView = (ImageView) mHeadView.findViewById(R.id.moment_detail_head_iv);
         mMomentFavouriteTextView = (TextView) mHeadView.findViewById(R.id.moment_detail_favourite_tv);
         mMomentCommentTextView = (TextView) mHeadView.findViewById(R.id.moment_detail_comment_tv);
-        mRootView = findViewById(R.id.question_detail_root_ll);
+//        mRootView = (LinearLayout)findViewById(R.id.question_detail_root_ll);
         mTitleBarLayout = (RelativeLayout) findViewById(R.id.moment_detail_title_bar);
         mInputLayout = (LinearLayout) findViewById(R.id.moment_detail_input_ll);
+//        mRecyclerViewLayout = (LinearLayout) findViewById(R.id.moment_detail_rv_ll);
         mLoadingLinearLayout = (LinearLayout) findViewById(R.id.loading_circle_progress_bar_ll);
     }
 
@@ -121,7 +123,7 @@ public class MomentDetailActivity extends Activity implements MomentDetailView, 
         mBackImageButton.setOnClickListener(this);
         mSendImageButton.setOnClickListener(this);
         mFavouriteImageButton.setOnClickListener(this);
-        mRootView.addOnLayoutChangeListener(this);
+//        mRootView.addOnLayoutChangeListener(this);
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.addItemDecoration(new DividerItemDecoration(this,
                 DividerItemDecoration.VERTICAL_LIST));
@@ -330,22 +332,37 @@ public class MomentDetailActivity extends Activity implements MomentDetailView, 
             int dValue = oldBottom - bottom;
             int newHeight = mScreenHeight - dValue;
             L.i("square_detail", "newHeight:" + newHeight + "Height:" + mScreenHeight + "mTitleBarHeight:" + mTitleBarHeight);
+//            mTitleBarLayout.setLayoutParams(new RelativeLayout.LayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.
+//                    MATCH_PARENT, 0, (mTitleBarHeight / newHeight) * 568)));
             mTitleBarLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.
                     MATCH_PARENT, 0, (mTitleBarHeight / newHeight) * 568));
-            mInputLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.
-                    MATCH_PARENT, 0, (mInputLayoutHeight / newHeight) * 568));
             mRecyclerView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.
                     MATCH_PARENT, 0, ((float) (newHeight - 2 * mTitleBarHeight) / newHeight) * 568));
+            mInputLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.
+                    MATCH_PARENT, 0, (mInputLayoutHeight / newHeight) * 568));
+            mTitleBarLayout.invalidate();
+            mRecyclerView.invalidate();
+            mInputLayout.invalidate();
+            L.i("square_detail", "mTitleBarLayout:" + mTitleBarLayout.getHeight());
+            L.i("square_detail", "mRecyclerView:" + mRecyclerView.getHeight());
+            L.i("square_detail", "mInputLayout:" + mInputLayout.getHeight());
             L.i("square_detail", "软键盘弹起");
 
         } else if (oldBottom != 0 && bottom != 0 && (bottom - oldBottom > mKeyBoardHeight)) {
             mTitleBarLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, 56));
-            mInputLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, 56));
             mRecyclerView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, 456));
+            mInputLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, 56));
+            mTitleBarLayout.invalidate();
+            mRecyclerView.invalidate();
+            mInputLayout.invalidate();
+            L.i("square_detail", "mTitleBarLayout:" + mTitleBarLayout.getHeight());
+            L.i("square_detail", "mRecyclerView:" + mRecyclerView.getHeight());
+            L.i("square_detail", "mInputLayout:" + mInputLayout.getHeight());
             L.i("square_detail", "软键盘关闭");
 
         }
     }
+
 
     private RecyclerView.OnScrollListener mOnScrollListener = new RecyclerView.OnScrollListener() {
 
