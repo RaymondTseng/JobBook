@@ -65,6 +65,7 @@
                 android:background="@null"
                 android:entries="@array/search"
                 android:paddingRight="5dp"
+                android:textSize="18sp"
                 android:popupBackground="@color/colorWhite"
                 android:spinnerMode="dropdown"></Spinner>
 

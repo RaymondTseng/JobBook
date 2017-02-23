@@ -118,7 +118,11 @@ public class JobDetailActivity extends Activity implements View.OnClickListener,
                 refresh();
                 break;
             case R.id.job_detail_send_cv_ll:
-                sendCVCheckDialog();
+                if (MyApplication.getmLoginStatus() == 0) {
+                    Util.showSnackBar(view, "请先登录");
+                } else {
+                    sendCVCheckDialog();
+                }
                 break;
         }
     }
@@ -212,7 +216,7 @@ public class JobDetailActivity extends Activity implements View.OnClickListener,
 
     @Override
     public void sendCVSuccess() {
-        Util.showSnackBar(view, "发送成功！");
+        Util.showSnackBar(view, "您的简历发送成功！");
     }
 
     @Override
@@ -222,7 +226,7 @@ public class JobDetailActivity extends Activity implements View.OnClickListener,
 
     @Override
     public void sendCVEmailFailed() {
-        Util.showSnackBar(view, "邮箱发送失败");
+        Util.showSnackBar(view, "公司邮箱错误，请重试！");
     }
 
     @Override
@@ -232,12 +236,12 @@ public class JobDetailActivity extends Activity implements View.OnClickListener,
 
     @Override
     public void sendCVRepeated() {
-        Util.showSnackBar(view, "您之前已经发送过！");
+        Util.showSnackBar(view, "您之前已经投递过该公司！");
     }
 
     @Override
     public void sendCVNoWrite() {
-        Util.showSnackBar(view, "您还未填写简历！");
+        Util.showSnackBar(view, "发送失败，请先完善简历");
     }
 
     private void refresh() {

@@ -7,7 +7,7 @@
     android:gravity="center"
     android:orientation="vertical"
     android:textColor="@color/colorAccent"
-    android:textSize="14sp"
+    android:textSize="20sp"
     android:typeface="serif">
 
 

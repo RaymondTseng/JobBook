@@ -139,21 +139,29 @@ public class MyApplication extends Application {
 
         mPushAgent = PushAgent.getInstance(this);
 
-        //注册推送服务，每次调用register方法都会回调该接口
-        mPushAgent.register(new IUmengRegisterCallback() {
+        mPushAgent.setDebugMode(false);
 
+        new Thread(new Runnable() {
             @Override
-            public void onSuccess(String deviceToken) {
-                //注册成功会返回device token
-                L.d("devicetoken", deviceToken);
-                mDevicetoken = deviceToken;
-            }
+            public void run() {
+                //注册推送服务，每次调用register方法都会回调该接口
+                mPushAgent.register(new IUmengRegisterCallback() {
 
-            @Override
-            public void onFailure(String s, String s1) {
-                L.d("devicetoken", s + s1);
+                    @Override
+                    public void onSuccess(String deviceToken) {
+                        //注册成功会返回device token
+                        L.d("devicetoken", deviceToken);
+                        mDevicetoken = deviceToken;
+                    }
+
+                    @Override
+                    public void onFailure(String s, String s1) {
+                        L.d("devicetoken", s + s1);
+                    }
+                });
             }
-        });
+        }).start();
+
 //        if (Util.loadPersonBean(context.getSharedPreferences("user", MODE_PRIVATE)) != null) {
 //            mPushAgent.enable(new IUmengCallback() {
 //                @Override
