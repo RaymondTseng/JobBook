@@ -9,7 +9,6 @@ import com.example.jobbook.MyApplication;
 import com.example.jobbook.bean.ResultBean;
 import com.example.jobbook.commons.Urls;
 import com.example.jobbook.upload.UploadManager;
-import com.example.jobbook.util.L;
 import com.google.gson.Gson;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
@@ -31,7 +30,7 @@ public class UploadModelImpl implements UploadModel {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bm.compress(Bitmap.CompressFormat.JPEG, 100, stream);
         byte[] bytes = UploadManager.compressBitmap(stream.toByteArray(), 200);
-        String img = new String(Base64.encodeToString(bytes, Base64.DEFAULT));
+        String img = Base64.encodeToString(bytes, Base64.DEFAULT);
         L.i("img", "img:" + img);
         if (!TextUtils.isEmpty(MyApplication.getAccount())) {
             OkHttpUtils.postString().content(img).url(Urls.UPLOAD_IMAGE_URL + "account/" +

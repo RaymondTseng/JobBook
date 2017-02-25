@@ -1,19 +1,14 @@
 package com.example.jobbook.upload;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.util.Base64;
-import com.example.jobbook.util.L;
 
-import com.example.jobbook.MyApplication;
+import com.example.jobbook.util.L;
 import com.example.jobbook.util.Util;
-import com.zhy.http.okhttp.OkHttpUtils;
-import com.zhy.http.okhttp.callback.StringCallback;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -21,8 +16,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-
-import okhttp3.Call;
 
 /**
  * Created by Xu on 2016/9/5.
@@ -56,7 +49,7 @@ public class UploadManager {
     }
 
     public static Uri convertUri(Context context, Uri uri, String userAccount) {
-        InputStream is = null;
+        InputStream is;
         try {
             is = context.getContentResolver().openInputStream(uri);
             Bitmap bitmap = BitmapFactory.decodeStream(is);
@@ -90,15 +83,13 @@ public class UploadManager {
             }
             bitmap.compress(Bitmap.CompressFormat.JPEG, quality, baos);
         }
-        byte[] byteData = baos.toByteArray();
-        return byteData;
+        return baos.toByteArray();
     }
 
     private static long getSizeOfBitmap(Bitmap bitmap) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);//这里100的话表示不压缩质量
-        long length = baos.toByteArray().length / 1024;//读出图片的kb大小
-        return length;
+        return baos.toByteArray().length / 1024;//读出图片的kb大小
     }
 
     /**
@@ -109,9 +100,8 @@ public class UploadManager {
      */
     public static Bitmap getBitmapFromUri(Context context, Uri uri) {
         try {
-            Bitmap bitmap = MediaStore.Images.Media.getBitmap(
+            return MediaStore.Images.Media.getBitmap(
                     context.getContentResolver(), uri);
-            return bitmap;
         } catch (Exception e) {
             L.e("[Android]", e.getMessage());
             L.e("[Android]", "目录为：" + uri);

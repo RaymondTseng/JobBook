@@ -30,7 +30,6 @@
                 android:layout_height="56dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="12dp"
-                android:layout_toRightOf="@+id/square_rv_head_iv"
                 android:orientation="vertical">
 
                 <TextView

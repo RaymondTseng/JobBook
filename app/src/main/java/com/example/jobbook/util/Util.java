@@ -23,10 +23,7 @@ import com.example.jobbook.commons.Constants;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.LinkedList;
-import java.util.TimeZone;
 
 /**
  * Created by 椰树 on 2016/7/15.
@@ -264,11 +261,7 @@ public class Util {
     public static boolean hasSDCard() {
         // 获取外部存储的状态
         String state = Environment.getExternalStorageState();
-        if (Environment.MEDIA_MOUNTED.equals(state)) {
-            // 有SD卡
-            return true;
-        }
-        return false;
+        return Environment.MEDIA_MOUNTED.equals(state);
     }
 
     public static String getMD5(String val) {
@@ -350,31 +343,31 @@ public class Util {
      * @param originalTime
      * @return
      */
-    public static String getTime(long currentTime, long originalTime) {
-        long delta = currentTime - originalTime;
-        if (delta < 0) {
-            return null;
-        }
-        if (delta < 1L * 60000L) {
-//            long seconds = toSeconds(delta);
-//            return (seconds <= 0 ? 1 : seconds) + ONE_SECOND_AGO;
-            return "刚刚";
-        }
-        if (delta < 60L * 60000L) {
-            long minutes = delta / 60L / 1000L;
-            return (minutes <= 0 ? 1 : minutes) + "分钟前";
-        }
-        if (delta < 24L * 3600000L) {
-            long hours = delta / 60L / 60L / 1000L;
-            return (hours <= 0 ? 1 : hours) + "小时前";
-        }
-        Date date = new Date(originalTime);
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeZone(TimeZone.getTimeZone("GMT"));
-        calendar.setTime(date);
-        String time = (calendar.get(Calendar.MONTH) + 1) + "/" + calendar.get(Calendar.DAY_OF_MONTH);
-        return time;
-
-    }
+//    public static String getTime(long currentTime, long originalTime) {
+//        long delta = currentTime - originalTime;
+//        if (delta < 0) {
+//            return null;
+//        }
+//        if (delta < 1L * 60000L) {
+////            long seconds = toSeconds(delta);
+////            return (seconds <= 0 ? 1 : seconds) + ONE_SECOND_AGO;
+//            return "刚刚";
+//        }
+//        if (delta < 60L * 60000L) {
+//            long minutes = delta / 60L / 1000L;
+//            return (minutes <= 0 ? 1 : minutes) + "分钟前";
+//        }
+//        if (delta < 24L * 3600000L) {
+//            long hours = delta / 60L / 60L / 1000L;
+//            return (hours <= 0 ? 1 : hours) + "小时前";
+//        }
+//        Date date = new Date(originalTime);
+//        Calendar calendar = Calendar.getInstance();
+//        calendar.setTimeZone(TimeZone.getTimeZone("GMT"));
+//        calendar.setTime(date);
+//        String time = (calendar.get(Calendar.MONTH) + 1) + "/" + calendar.get(Calendar.DAY_OF_MONTH);
+//        return time;
+//
+//    }
 
 }

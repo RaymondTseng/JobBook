@@ -19,9 +19,7 @@
         android:minWidth="800dp"
         android:orientation="horizontal"
         android:weightSum="9"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        >
 
         <ImageButton
             android:id="@+id/job_search_activity_back_ib"

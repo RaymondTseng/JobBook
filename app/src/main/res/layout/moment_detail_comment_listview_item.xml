@@ -2,41 +2,34 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
+    android:layout_marginTop="10dp"
     android:background="@color/colorWhite"
     android:orientation="horizontal">
 
-    <LinearLayout
+    <ImageView
+        android:id="@+id/moment_detail_comment_lv_head_iv"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:src="@mipmap/default_32px" />
+
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal">
+        android:layout_marginLeft="8dp">
 
-        <ImageView
-            android:id="@+id/moment_detail_comment_lv_head_iv"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:src="@mipmap/default_32px" />
+        <TextView
+            android:id="@+id/moment_detail_comment_lv_name_tv"
+            style="@style/TextBlue14sptv"
+            android:text="" />
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp">
+        <TextView
+            android:id="@+id/moment_detail_comment_lv_content_tv"
+            style="@style/Black14sptv"
+            android:text="" />
+    </FrameLayout>
 
-            <TextView
-                android:id="@+id/moment_detail_comment_lv_name_tv"
-                style="@style/TextBlue14sptv"
-                android:text="" />
-
-            <TextView
-                android:id="@+id/moment_detail_comment_lv_content_tv"
-                style="@style/Black14sptv"
-                android:text="" />
-        </FrameLayout>
-
-
-    </LinearLayout>
 
 </LinearLayout>

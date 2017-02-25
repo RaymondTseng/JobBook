@@ -1,14 +1,12 @@
 package com.example.jobbook.person;
 
 import android.content.Context;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.jobbook.R;
@@ -37,8 +35,7 @@ public class FavouriteJobAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.job_recyclerview_item, parent, false);
-        ViewHolder vh = new ViewHolder(v);
-        return vh;
+        return new ViewHolder(v);
     }
 
     @Override
@@ -83,7 +80,7 @@ public class FavouriteJobAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         TextView mLocation;
         TextView mTime;
         TextView mSalary;
-        LinearLayout mParentView;
+        RelativeLayout mParentView;
 
         public ViewHolder(View view) {
             super(view);
@@ -93,7 +90,7 @@ public class FavouriteJobAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             mLocation = (TextView) view.findViewById(R.id.job_lv_location_tv);
             mSalary = (TextView) view.findViewById(R.id.job_lv_salary_tv);
             mTime = (TextView) view.findViewById(R.id.job_lv_time_tv);
-            mParentView = (LinearLayout) view.findViewById(R.id.job_recyclerview_item_ll);
+            mParentView = (RelativeLayout) view.findViewById(R.id.job_recyclerview_item_rl);
             mParentView.setOnClickListener(this);
         }
 

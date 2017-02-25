@@ -1,5 +1,6 @@
 package com.example.jobbook.upload;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
@@ -7,6 +8,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.PopupWindow;
 
@@ -67,5 +69,26 @@ public class UploadPopupWindow extends PopupWindow {
         mTakePhotoButton.setOnClickListener(itemOnClick);
         mPickPhotoButton.setOnClickListener(itemOnClick);
         mCancelButton.setOnClickListener(itemOnClick);
+    }
+
+    public void setBackgroundAlpha(Activity activity, float bgAlpha) {
+        WindowManager.LayoutParams lp = (activity).getWindow()
+                .getAttributes();
+        lp.alpha = bgAlpha;
+        activity.getWindow().setAttributes(lp);
+    }
+
+    public void dismissPopupWindow(Activity activity) {
+        super.dismiss();
+        setBackgroundAlpha(activity, 1.0f);
+    }
+
+    public void dismissOutSide(final Activity activity) {
+        setOnDismissListener(new OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                setBackgroundAlpha(activity, 1.0f);
+            }
+        });
     }
 }

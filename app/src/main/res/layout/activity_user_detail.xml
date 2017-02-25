@@ -14,8 +14,7 @@
         <include
             layout="@layout/user_detail_title"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="202" />
+            android:layout_height="match_parent" />
 
         <ImageView
             android:id="@+id/user_detail_bg"
@@ -39,62 +38,51 @@
         android:layout_height="0dp"
         android:layout_weight="310"></android.support.v4.view.ViewPager>
 
+
     <LinearLayout
+        android:id="@+id/user_detail_follow_ll"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="56"
         android:background="@drawable/job_detail_bottom_ll_bg"
-        android:orientation="horizontal"
-        android:weightSum="1">
+        android:gravity="center"
+        android:orientation="horizontal">
 
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
+        <ImageView
+            android:id="@+id/user_detail_focus_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/add_24_dp" />
 
-            <LinearLayout
-                android:id="@+id/user_detail_follow_ll"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/add_24_dp"
-                    android:id="@+id/user_detail_focus_iv"/>
-
-                <TextView
-                    style="@style/TextBlue14sptv"
-                    android:id="@+id/user_detail_focus_tv"
-                    android:layout_gravity="center"
-                    android:text="关注" />
-            </LinearLayout>
-
-        </RelativeLayout>
-
-        <!--<RelativeLayout-->
-            <!--android:id="@+id/job_detail_send_cv_ll"-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:layout_weight="1">-->
-
-            <!--<LinearLayout-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_centerInParent="true">-->
-
-                <!--<ImageView-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:src="@mipmap/chat" />-->
-
-                <!--<TextView-->
-                    <!--style="@style/TextBlue14sptv"-->
-                    <!--android:layout_gravity="center"-->
-                    <!--android:text="投递简历" />-->
-            <!--</LinearLayout>-->
-
-        <!--</RelativeLayout>-->
+        <TextView
+            android:id="@+id/user_detail_focus_tv"
+            style="@style/TextBlue14sptv"
+            android:layout_gravity="center"
+            android:text="关注" />
     </LinearLayout>
+
+
+    <!--<RelativeLayout-->
+    <!--android:id="@+id/job_detail_send_cv_ll"-->
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_weight="1">-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_centerInParent="true">-->
+
+    <!--<ImageView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:src="@mipmap/chat" />-->
+
+    <!--<TextView-->
+    <!--style="@style/TextBlue14sptv"-->
+    <!--android:layout_gravity="center"-->
+    <!--android:text="投递简历" />-->
+    <!--</LinearLayout>-->
+
+    <!--</RelativeLayout>-->
 </LinearLayout>

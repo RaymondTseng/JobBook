@@ -59,6 +59,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="2dp"
+        android:baselineAligned="false"
         android:orientation="horizontal"
         android:weightSum="3">
 

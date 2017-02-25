@@ -2,17 +2,14 @@ package com.example.jobbook.userdetail;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.jobbook.R;
 import com.example.jobbook.bean.MomentBean;
-import com.example.jobbook.util.L;
 
 import java.util.List;
 
@@ -35,8 +32,7 @@ public class UserDetailMomentAdapter extends RecyclerView.Adapter<RecyclerView.V
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.user_detail_moment_lv_item, parent, false);
-        ViewHolder vh = new ViewHolder(v);
-        return vh;
+        return new ViewHolder(v);
     }
 
     @Override

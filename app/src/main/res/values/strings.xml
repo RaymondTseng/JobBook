@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">JobBook</string>
+    <string name="app_name">职谱</string>
     <array name="sex">
         <item>男</item>
         <item>女</item>

@@ -92,4 +92,6 @@ public class Urls {
     public static final String GET_MESSAGE_URL = IP + "/person/myMessage/";
 
     public static final String GET_USER_DETAIL_BY_ACCOUNT_URL = IP + "/person/getPersonBean/account/";
+
+    public static final String UPLOAD_ERROR_URL = IP + "/index/loadError";
 }

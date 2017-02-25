@@ -25,7 +25,6 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:layout_below="@id/job_detail_location_ll"
         android:layout_marginLeft="32dp"
         android:layout_marginRight="32dp"
         android:layout_marginTop="7dp"
@@ -48,7 +47,6 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:layout_below="@id/job_detail_location_ll"
         android:layout_marginLeft="32dp"
         android:layout_marginRight="32dp"
         android:layout_marginTop="16dp"

@@ -10,18 +10,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 
 import com.example.jobbook.MyApplication;
 import com.example.jobbook.R;
 import com.example.jobbook.article.widget.ArticleDetailActivity;
 import com.example.jobbook.bean.ArticleBean;
-import com.example.jobbook.bean.JobBean;
 import com.example.jobbook.person.FavouriteArticleAdapter;
-import com.example.jobbook.person.FavouriteJobAdapter;
 import com.example.jobbook.person.presenter.FavouriteArticlePresenter;
 import com.example.jobbook.person.presenter.FavouriteArticlePresenterImpl;
-import com.example.jobbook.person.presenter.FavouriteJobPresenter;
 import com.example.jobbook.person.view.FavouriteArticleView;
 import com.example.jobbook.util.DividerItemDecoration;
 import com.example.jobbook.util.L;

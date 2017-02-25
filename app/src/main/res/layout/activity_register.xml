@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_register_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorWhite"
-    android:id="@+id/activity_register_layout"
     android:orientation="vertical"
     android:weightSum="568">
 
@@ -28,13 +28,12 @@
         layout="@layout/loading_layout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="650"
-        />
+        android:layout_weight="650" />
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="16"></LinearLayout>
+        android:layout_weight="16"></FrameLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -46,23 +45,22 @@
         <TextView
             style="@style/Black12sptv"
             android:text="手机号码" />
-        />
 
         <EditText
             android:id="@+id/register_account_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:paddingLeft="16dp"
             android:maxLines="1"
+            android:paddingLeft="16dp"
             android:textCursorDrawable="@drawable/edtitext_cursor"
             android:textSize="16sp" />
     </RelativeLayout>
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="16"></LinearLayout>
+        android:layout_weight="16"></FrameLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -70,6 +68,7 @@
         android:layout_marginLeft="32dp"
         android:layout_marginRight="32dp"
         android:layout_weight="60"
+        android:baselineAligned="false"
         android:orientation="horizontal"
         android:weightSum="2">
 
@@ -88,8 +87,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:paddingLeft="16dp"
                 android:maxLines="1"
+                android:paddingLeft="16dp"
                 android:textCursorDrawable="@drawable/edtitext_cursor"
                 android:textSize="16sp" />
 
@@ -120,10 +119,10 @@
         </RelativeLayout>
     </LinearLayout>
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="16"></LinearLayout>
+        android:layout_weight="16"></FrameLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -135,23 +134,22 @@
         <TextView
             style="@style/Black12sptv"
             android:text="昵称" />
-        />
 
         <EditText
             android:id="@+id/register_username_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:paddingLeft="16dp"
             android:maxLines="1"
+            android:paddingLeft="16dp"
             android:textCursorDrawable="@drawable/edtitext_cursor"
             android:textSize="16sp" />
     </RelativeLayout>
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="16"></LinearLayout>
+        android:layout_weight="16"></FrameLayout>
     <!--<RelativeLayout-->
     <!--android:layout_width="match_parent"-->
     <!--android:layout_height="0dp"-->
@@ -189,17 +187,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:paddingLeft="16dp"
-            android:maxLines="1"
-            android:textCursorDrawable="@drawable/edtitext_cursor"
             android:inputType="textPassword"
+            android:maxLines="1"
+            android:paddingLeft="16dp"
+            android:textCursorDrawable="@drawable/edtitext_cursor"
             android:textSize="16sp" />
     </RelativeLayout>
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="16"></LinearLayout>
+        android:layout_weight="16"></FrameLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -218,22 +216,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:paddingLeft="16dp"
-            android:maxLines="1"
             android:inputType="textPassword"
+            android:maxLines="1"
+            android:paddingLeft="16dp"
             android:textCursorDrawable="@drawable/edtitext_cursor"
             android:textSize="16sp" />
     </RelativeLayout>
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="16"></LinearLayout>
+        android:layout_weight="16"></FrameLayout>
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="14"></LinearLayout>
+        android:layout_weight="14"></FrameLayout>
 
     <Button
         android:id="@+id/register_register_bt"

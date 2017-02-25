@@ -1,7 +1,6 @@
 package com.example.jobbook.upload;
 
 import android.app.Activity;
-import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -9,12 +8,12 @@ import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.ColorInt;
-import com.example.jobbook.util.L;
-
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.example.jobbook.MyApplication;
+import com.example.jobbook.util.L;
 import com.yalantis.ucrop.UCrop;
 import com.yalantis.ucrop.UCropActivity;
 
@@ -122,9 +121,8 @@ public class CropUtils {
         setType(type);
 
         Uri mDestinationUri = buildUri();
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        return new Intent(MediaStore.ACTION_IMAGE_CAPTURE)
                 .putExtra(MediaStore.EXTRA_OUTPUT, mDestinationUri);
-        return intent;
 //        context.startActivityForResult(intent, REQUEST_CAMERA);
     }
 

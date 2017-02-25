@@ -38,8 +38,7 @@ public class ArticlesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         if(viewType == TYPE_ITEM) {
             View v = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.article_recyclerview_item, parent, false);
-            ItemViewHolder vh = new ItemViewHolder(v);
-            return vh;
+            return new ItemViewHolder(v);
         } else {
             View view = LayoutInflater.from(parent.getContext()).inflate(
                     R.layout.loadingfooter_layout, null);

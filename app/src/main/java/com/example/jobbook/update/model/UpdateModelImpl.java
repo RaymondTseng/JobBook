@@ -14,8 +14,6 @@ import com.google.gson.Gson;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
-import java.util.List;
-
 import okhttp3.Call;
 
 /**

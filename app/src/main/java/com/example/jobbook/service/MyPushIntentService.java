@@ -116,12 +116,10 @@ public class MyPushIntentService extends UmengMessageService {
             case MessageBean.LIKE:
                 mBuilder.setContentTitle("有人给你的工作圈点赞啦")
                         .setTicker("在职谱，有人给你的工作圈点赞啦");
-                ;
                 break;
             case MessageBean.COMMENT:
                 mBuilder.setContentTitle("有人评论你的工作圈啦")
                         .setTicker("在职谱，有人评论你的工作圈啦");
-                ;
                 break;
         }
         mBuilder.setContentText("点击查看")
@@ -129,10 +127,8 @@ public class MyPushIntentService extends UmengMessageService {
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setAutoCancel(true);
         Notification notification = mBuilder.build();
-        PendingIntent clickPendingIntent = getClickPendingIntent(this, message, msg);
-        PendingIntent dismissPendingIntent = getDismissPendingIntent(this, message);
-        notification.deleteIntent = dismissPendingIntent;
-        notification.contentIntent = clickPendingIntent;
+        notification.deleteIntent = getDismissPendingIntent(this, message);
+        notification.contentIntent = getClickPendingIntent(this, message, msg);
         manager.notify(id, notification);
     }
 

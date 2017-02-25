@@ -1,46 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
+    android:layout_marginTop="8dp">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
+    <ImageView
+        android:id="@+id/article_detail_lv_user_logo_iv"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:src="@mipmap/default_32px" />
+
+    <TextView
+        android:id="@+id/article_detail_lv_user_name_tv"
+        style="@style/Black12sptv"
         android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="8dp">
+        android:layout_toRightOf="@id/article_detail_lv_user_logo_iv"
+        android:text="" />
 
-        <ImageView
-            android:id="@+id/article_detail_lv_user_logo_iv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/default_32px" />
+    <TextView
+        android:id="@+id/article_detail_lv_comment_tv"
+        style="@style/Black12sptv"
+        android:layout_alignLeft="@id/article_detail_lv_user_name_tv"
+        android:layout_below="@id/article_detail_lv_user_name_tv"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"
+        android:text=""
+        android:textColor="@color/colorBlack" />
 
-        <TextView
-            android:id="@+id/article_detail_lv_user_name_tv"
-            style="@style/Black12sptv"
-            android:layout_marginLeft="16dp"
-            android:layout_toRightOf="@id/article_detail_lv_user_logo_iv"
-            android:text="" />
-
-        <TextView
-            android:id="@+id/article_detail_lv_comment_tv"
-            style="@style/Black12sptv"
-            android:layout_alignLeft="@id/article_detail_lv_user_name_tv"
-            android:layout_below="@id/article_detail_lv_user_name_tv"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="8dp"
-            android:text=""
-            android:textColor="@color/colorBlack" />
-
-        <TextView
-            android:id="@+id/article_detail_lv_like_tv"
-            style="@style/TextGray12sptv"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="4dp"
-            android:text="" />
-    </RelativeLayout>
-
-</LinearLayout>
+    <TextView
+        android:id="@+id/article_detail_lv_like_tv"
+        style="@style/TextGray12sptv"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="4dp"
+        android:text="" />
+</RelativeLayout>

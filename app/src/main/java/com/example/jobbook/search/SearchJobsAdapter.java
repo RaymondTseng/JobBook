@@ -36,8 +36,7 @@ public class SearchJobsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         if (viewType == TYPE_ITEM) {
             View v = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.job_recyclerview_item, parent, false);
-            ItemViewHolder vh = new ItemViewHolder(v);
-            return vh;
+            return new ItemViewHolder(v);
         } else {
             View view = LayoutInflater.from(parent.getContext()).inflate(
                     R.layout.loadingfooter_layout, null);
@@ -121,7 +120,7 @@ public class SearchJobsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         @Override
         public void onClick(View v) {
             if (mOnItemClickListener != null) {
-                mOnItemClickListener.onItemClick(v, this.getPosition());
+                mOnItemClickListener.onItemClick(v, this.getLayoutPosition());
             }
         }
     }

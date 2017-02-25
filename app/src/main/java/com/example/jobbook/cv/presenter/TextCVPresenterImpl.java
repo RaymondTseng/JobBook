@@ -1,12 +1,8 @@
 package com.example.jobbook.cv.presenter;
 
-import com.example.jobbook.bean.PersonBean;
-import com.example.jobbook.util.L;
-import android.view.View;
-import android.widget.EditText;
-
 import com.example.jobbook.bean.EducationExpBean;
 import com.example.jobbook.bean.JobExpBean;
+import com.example.jobbook.bean.PersonBean;
 import com.example.jobbook.bean.TextCVBean;
 import com.example.jobbook.cv.model.TextCVModel;
 import com.example.jobbook.cv.model.TextCVModelImpl;

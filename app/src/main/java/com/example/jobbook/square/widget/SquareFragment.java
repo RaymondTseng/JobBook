@@ -53,14 +53,7 @@ public class SquareFragment extends LazyLoadFragment implements SquareView,
 
     private int pageIndex = 0;
 
-    public final Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            if (msg.what == REFRESH) {
-                onRefresh();
-            }
-        }
-    };
+    public Handler handler;
 
     @Override
     protected int setContentView() {
@@ -79,6 +72,7 @@ public class SquareFragment extends LazyLoadFragment implements SquareView,
 
     private void initEvents() {
         myApplication = (MyApplication) getActivity().getApplication();
+        handler = new SquareHandler();
         mSwipeRefreshLayout.setOnRefreshListener(this);
         mSquarePresenter = new SquarePresenterImpl(this);
         mLayoutManager = new LinearLayoutManager(getActivity());
@@ -294,6 +288,22 @@ public class SquareFragment extends LazyLoadFragment implements SquareView,
                 onCreate(null);
             }
         });
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        handler.removeCallbacksAndMessages(null);
+    }
+
+    public class SquareHandler extends Handler {
+
+        @Override
+        public void handleMessage(Message msg) {
+            if (msg.what == REFRESH) {
+                onRefresh();
+            }
+        }
     }
 
 }

@@ -23,8 +23,7 @@
         <include
             layout="@layout/person_title_bar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="202" />
+            android:layout_height="match_parent" />
 
         <ImageView
             android:id="@+id/person_head_bg"
@@ -35,10 +34,10 @@
             android:src="@mipmap/suit" />
     </RelativeLayout>
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="16"></LinearLayout>
+        android:layout_weight="16"></FrameLayout>
     <!--<LinearLayout-->
     <!--android:layout_width="match_parent"-->
     <!--android:layout_height="0dp"-->
@@ -120,10 +119,10 @@
             android:textSize="12sp" />
     </RelativeLayout>
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="16"></LinearLayout>
+        android:layout_weight="16"></FrameLayout>
 
     <LinearLayout
         android:id="@+id/person_setting_ll"

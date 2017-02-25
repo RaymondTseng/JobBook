@@ -5,11 +5,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.jobbook.R;
@@ -44,13 +41,11 @@ public class UserDetailFollowAdapter extends RecyclerView.Adapter<RecyclerView.V
         if(viewType == UNFOLLOW_TYPE){
             View v = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.user_detail_follow_lv_item, parent, false);
-            ViewHolder vh = new ViewHolder(v, UNFOLLOW_TYPE);
-            return vh;
+            return new ViewHolder(v, UNFOLLOW_TYPE);
         }else{
             View v = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.user_detail_follow_lv_item, parent, false);
-            ViewHolder vh = new ViewHolder(v, FOLLOW_TYPE);
-            return vh;
+            return new ViewHolder(v, FOLLOW_TYPE);
         }
     }
 
@@ -104,7 +99,7 @@ public class UserDetailFollowAdapter extends RecyclerView.Adapter<RecyclerView.V
             mHeadImageView = (ImageView) view.findViewById(R.id.user_detail_follow_lv_item_head_iv);
             mNameTextView = (TextView) view.findViewById(R.id.user_detail_follow_lv_item_name_tv);
             mWorkSpacePositionTextView = (TextView) view.findViewById(R.id.user_detail_follow_lv_item_space_position_tv);
-            itemView = (LinearLayout) view.findViewById(R.id.user_detail_follow_lv_item_ll);
+            itemView = view.findViewById(R.id.user_detail_follow_lv_item_ll);
             mFollowImageButton = (ImageButton) view.findViewById(R.id.user_detail_follow_lv_item_follow_ib);
             itemView.setOnClickListener(this);
             if(type == UNFOLLOW_TYPE){

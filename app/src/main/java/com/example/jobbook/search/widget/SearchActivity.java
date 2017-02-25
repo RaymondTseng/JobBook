@@ -109,8 +109,10 @@ public class SearchActivity extends Activity implements View.OnClickListener, Se
             mCurrentType = bundle.getInt("type");
         }
         presenter = new SearchPresenterImpl(this);
-        mSearchContent = bundle.getString("content");
-        presenter.search(mCurrentType, mSearchContent, pageIndex);
+        if (bundle != null) {
+            mSearchContent = bundle.getString("content");
+            presenter.search(mCurrentType, mSearchContent, pageIndex);
+        }
 
         mSearchEditText.requestFocus();
         final InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);

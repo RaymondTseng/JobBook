@@ -53,14 +53,7 @@ public class SquareFollowFragment extends LazyLoadFragment implements SquareFoll
 
     private int pageIndex = 0;
 
-    public final Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            if (msg.what == REFRESH) {
-                onRefresh();
-            }
-        }
-    };
+    public Handler handler;
 
     @Override
     protected int setContentView() {
@@ -80,6 +73,7 @@ public class SquareFollowFragment extends LazyLoadFragment implements SquareFoll
 
     private void initEvents() {
         myApplication = (MyApplication)getActivity().getApplication();
+        handler = new SquareFollowHandler();
         mSwipeRefreshLayout.setOnRefreshListener(this);
         mSquareFollowPresenter = new SquareFollowPresenterImpl(this);
         mLayoutManager = new LinearLayoutManager(getActivity());
@@ -303,6 +297,20 @@ public class SquareFollowFragment extends LazyLoadFragment implements SquareFoll
         });
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        handler.removeCallbacksAndMessages(null);
+    }
 
+    public class SquareFollowHandler extends Handler {
+
+        @Override
+        public void handleMessage(Message msg) {
+            if (msg.what == REFRESH) {
+                onRefresh();
+            }
+        }
+    }
 
 }

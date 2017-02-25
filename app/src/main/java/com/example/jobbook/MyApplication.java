@@ -7,6 +7,7 @@ import android.os.Handler;
 
 import com.example.jobbook.bean.PersonBean;
 import com.example.jobbook.service.MyPushIntentService;
+import com.example.jobbook.util.CrashHandler;
 import com.example.jobbook.util.L;
 import com.example.jobbook.util.Util;
 import com.umeng.message.IUmengRegisterCallback;
@@ -135,6 +136,18 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
+        OkHttpClient okHttpClient = new OkHttpClient.Builder()
+//                .addInterceptor(new LoggerInterceptor("TAG"))
+                .connectTimeout(50000L, TimeUnit.MILLISECONDS)
+                .readTimeout(50000L, TimeUnit.MILLISECONDS)
+                //其他配置
+                .build();
+
+        OkHttpUtils.initClient(okHttpClient);
+
+        CrashHandler crashHandler = CrashHandler.getInstance();
+        crashHandler.init(getApplicationContext());
+
         LitePal.initialize(this);
 
         mPushAgent = PushAgent.getInstance(this);
@@ -195,14 +208,7 @@ public class MyApplication extends Application {
 //        LeakCanary.install(this);
 
 
-        OkHttpClient okHttpClient = new OkHttpClient.Builder()
-//                .addInterceptor(new LoggerInterceptor("TAG"))
-                .connectTimeout(50000L, TimeUnit.MILLISECONDS)
-                .readTimeout(50000L, TimeUnit.MILLISECONDS)
-                //其他配置
-                .build();
 
-        OkHttpUtils.initClient(okHttpClient);
 //        Context context = this.getApplicationContext();
 //        SharedPreferences sharedPreferences = context.getSharedPreferences("user", MODE_PRIVATE);
 //        MyApplication.setmPersonBean(context, Util.loadPersonBean(sharedPreferences));

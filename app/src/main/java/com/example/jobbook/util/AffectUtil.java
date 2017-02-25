@@ -11,7 +11,7 @@ import android.widget.EditText;
 public class AffectUtil {
 
     public static View.OnFocusChangeListener changeHintColorListener(final EditText editText) {
-        View.OnFocusChangeListener listener = new View.OnFocusChangeListener() {
+        return new View.OnFocusChangeListener() {
 
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -22,6 +22,5 @@ public class AffectUtil {
                 }
             }
         };
-        return listener;
     }
 }

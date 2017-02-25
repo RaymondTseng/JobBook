@@ -6,9 +6,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-
-import com.example.jobbook.person.FavouritePagerAdapter;
-
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.animation.Animation;
@@ -18,7 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.jobbook.R;
-
+import com.example.jobbook.person.FavouritePagerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -119,9 +116,11 @@ public class FavouriteActivity extends AppCompatActivity implements View.OnClick
         }
 
         mCurrentIndex = position;
-        animation.setFillAfter(true);
-        animation.setDuration(200);
-        mCursorImageView.startAnimation(animation);
+        if (animation != null) {
+            animation.setFillAfter(true);
+            animation.setDuration(200);
+            mCursorImageView.startAnimation(animation);
+        }
     }
 
     @Override

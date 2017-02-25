@@ -1,6 +1,5 @@
 package com.example.jobbook.userdetail.presenter;
 
-import com.example.jobbook.bean.PersonBean;
 import com.example.jobbook.bean.TypePersonBean;
 import com.example.jobbook.userdetail.model.UserDetailFansModel;
 import com.example.jobbook.userdetail.model.UserDetailFansModelImpl;

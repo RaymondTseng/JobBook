@@ -7,13 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.jobbook.R;
 import com.example.jobbook.bean.PersonBean;
 import com.example.jobbook.bean.TypePersonBean;
-import com.example.jobbook.moment.MomentDetailCommentListViewAdapter;
 import com.example.jobbook.util.ImageLoadUtils;
 import com.example.jobbook.util.L;
 
@@ -43,13 +41,11 @@ public class ShowFanListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         if(viewType == UNFOLLOW_TYPE){
             View v = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.user_detail_fan_lv_item, parent, false);
-            ViewHolder vh = new ViewHolder(v, UNFOLLOW_TYPE);
-            return vh;
+            return new ViewHolder(v, UNFOLLOW_TYPE);
         }else{
             View v = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.user_detail_fan_lv_item, parent, false);
-            ViewHolder vh = new ViewHolder(v, FOLLOW_TYPE);
-            return vh;
+            return new ViewHolder(v, FOLLOW_TYPE);
         }
     }
 
@@ -103,7 +99,7 @@ public class ShowFanListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             mHeadImageView = (ImageView) view.findViewById(R.id.user_detail_fan_lv_item_head_iv);
             mNameTextView = (TextView) view.findViewById(R.id.user_detail_fan_lv_item_name_tv);
             mWorkSpacePositionTextView = (TextView) view.findViewById(R.id.user_detail_fan_lv_item_space_position_tv);
-            itemView = (LinearLayout) view.findViewById(R.id.user_detail_fan_lv_item_ll);
+            itemView = view.findViewById(R.id.user_detail_fan_lv_item_ll);
             mFollowImageButton = (ImageButton) view.findViewById(R.id.user_detail_fan_lv_item_follow_ib);
             itemView.setOnClickListener(this);
             if(type == UNFOLLOW_TYPE){

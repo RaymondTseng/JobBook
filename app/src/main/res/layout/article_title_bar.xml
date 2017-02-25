@@ -1,30 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/article_title_ll"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center"
     android:background="@color/colorBlue">
 
-    <LinearLayout
-        android:id="@+id/article_title_ll"
+    <TextView
+        android:id="@+id/article_title_tv"
+        style="@style/White20sptv"
+        android:layout_gravity="center"
+        android:text="全部板块" />
+
+    <ImageButton
+        android:id="@+id/article_title_drop_ib"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true">
-
-        <TextView
-            android:id="@+id/article_title_tv"
-            style="@style/White20sptv"
-            android:layout_gravity="center"
-            android:text="全部板块" />
-
-        <ImageButton
-            android:id="@+id/article_title_drop_ib"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:clickable="false"
-            android:scaleType="centerInside"
-            android:src="@mipmap/down_white" />
-    </LinearLayout>
+        android:background="@null"
+        android:clickable="false"
+        android:scaleType="centerInside"
+        android:src="@mipmap/down_white" />
+</LinearLayout>
 
 
-</RelativeLayout>

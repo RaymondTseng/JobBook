@@ -233,11 +233,12 @@ public class UserDetailActivity extends AppCompatActivity implements View.OnClic
                 }
                 break;
         }
-
         mCurrentIndex = position;
-        animation.setFillAfter(true);
-        animation.setDuration(200);
-        mCursorImageView.startAnimation(animation);
+        if (animation != null) {
+            animation.setFillAfter(true);
+            animation.setDuration(200);
+            mCursorImageView.startAnimation(animation);
+        }
     }
 
     @Override
