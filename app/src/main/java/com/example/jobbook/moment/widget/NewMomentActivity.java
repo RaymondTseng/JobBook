@@ -9,6 +9,7 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -73,6 +74,9 @@ public class NewMomentActivity extends Activity implements NewMomentView, View.O
         mNewMomentContentEditText.setOnFocusChangeListener(AffectUtil.changeHintColorListener(mNewMomentContentEditText));
 
         handler = new NewMomentHandler();
+
+        mNewMomentContentEditText.requestFocus();
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
     }
 
     @Override
@@ -163,7 +167,9 @@ public class NewMomentActivity extends Activity implements NewMomentView, View.O
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        handler.removeCallbacksAndMessages(null);
+        if (handler != null) {
+            handler.removeCallbacksAndMessages(null);
+        }
     }
 
     public class NewMomentHandler extends Handler {

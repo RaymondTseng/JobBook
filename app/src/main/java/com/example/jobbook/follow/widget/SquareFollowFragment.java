@@ -300,7 +300,9 @@ public class SquareFollowFragment extends LazyLoadFragment implements SquareFoll
     @Override
     public void onDestroy() {
         super.onDestroy();
-        handler.removeCallbacksAndMessages(null);
+        if (handler != null) {
+            handler.removeCallbacksAndMessages(null);
+        }
     }
 
     public class SquareFollowHandler extends Handler {

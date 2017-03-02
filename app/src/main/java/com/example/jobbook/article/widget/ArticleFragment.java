@@ -20,6 +20,7 @@ import android.widget.TextView;
 import com.example.jobbook.R;
 import com.example.jobbook.article.ArticlesAdapter;
 import com.example.jobbook.article.presenter.ArticlePresenter;
+import com.example.jobbook.article.presenter.ArticlePresenterImpl;
 import com.example.jobbook.article.view.ArticleView;
 import com.example.jobbook.bean.ArticleBean;
 import com.example.jobbook.commons.Constants;
@@ -88,7 +89,7 @@ public class ArticleFragment extends LazyLoadFragment implements ArticleView, Vi
 
     private void initEvents() {
 //        list = new ArrayList<>();
-//        presenter = new ArticlePresenterImpl(this);
+        presenter = new ArticlePresenterImpl(this);
         mTitleTextView.setText(Constants.ARTICLE_ALL);
         mMenuPopupWindow = new PopupWindow(mMenuView, ViewGroup.LayoutParams.MATCH_PARENT,
                 (int) ((Util.getHeight(getActivity()) / (double) 556) * 192), true);

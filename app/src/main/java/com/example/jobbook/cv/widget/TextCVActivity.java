@@ -1,5 +1,6 @@
 package com.example.jobbook.cv.widget;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -9,6 +10,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -44,6 +46,8 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static com.example.jobbook.R.id.text_cv_activity_ll;
+
 /**
  * Created by 椰树 on 2016/8/25.
  */
@@ -53,6 +57,7 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
     private static final String EDU_GRADUATION = "2";
     private static final String JOB_INAUGURATION = "3";
     private static final String JOB_DIMISSION = "4";
+    private LinearLayout mParentLayout;
     private TimePickerDialog mJobExpInaugurationDialog;
     private TimePickerDialog mJobExpDimissionDialog;
     private TimePickerDialog mEduExpAdmissionDialog;
@@ -104,6 +109,7 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
     }
 
     private void initView() {
+        mParentLayout = (LinearLayout) findViewById(R.id.text_cv_activity_ll);
         mNameEditText = (EditText) findViewById(R.id.text_cv_name_et);
         mSexSpinner = (Spinner) findViewById(R.id.text_cv_sex_spinner);
         mStatusEditText = (EditText) findViewById(R.id.text_cv_status_et);
@@ -141,6 +147,7 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
         mPresenter = new TextCVPresenterImpl(this);
         uploadPresenter = new UploadPresenterImpl(this);
         mPresenter.load();
+        mParentLayout.setOnClickListener(this);
         mUserHeadImageView.setOnClickListener(this);
         mJobExpInaugurationTextView.setOnClickListener(this);
         mJobExpDimissionTextView.setOnClickListener(this);
@@ -265,6 +272,11 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case text_cv_activity_ll:
+                InputMethodManager imm = (InputMethodManager)
+                        getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                break;
             case R.id.job_exp_inauguration_tv:
                 mJobExpInaugurationDialog.show(getSupportFragmentManager(), JOB_INAUGURATION + ";" + v.getTag());
                 mJobDivider.setBackgroundColor(ContextCompat.getColor(v.getContext(), R.color.colorBackgroundGray));
@@ -312,7 +324,7 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
                 break;
             case R.id.text_cv_head_iv:
                 mPopupWindow = new UploadPopupWindow(this, itemsOnClick);
-                mPopupWindow.showAtLocation(this.findViewById(R.id.text_cv_activity_ll),
+                mPopupWindow.showAtLocation(this.findViewById(text_cv_activity_ll),
                         Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
                 break;
 

@@ -29,13 +29,13 @@
             android:layout_marginTop="24dp"
             android:text="职谱" />
 
-        <ImageButton
-            android:id="@+id/job_fragment_search_ib"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:background="@color/colorBlue"
-            android:src="@mipmap/search" />
+        <!--<ImageButton-->
+            <!--android:id="@+id/job_fragment_search_ib"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:background="@color/colorBlue"-->
+            <!--android:src="@mipmap/search" />-->
 
     </RelativeLayout>
 

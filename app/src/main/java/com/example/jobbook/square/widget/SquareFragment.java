@@ -19,6 +19,7 @@ import com.example.jobbook.MyApplication;
 import com.example.jobbook.R;
 import com.example.jobbook.bean.MomentBean;
 import com.example.jobbook.commons.Urls;
+import com.example.jobbook.login.widget.LoginActivity;
 import com.example.jobbook.main.widget.MainActivity;
 import com.example.jobbook.moment.widget.MomentDetailActivity;
 import com.example.jobbook.square.SquareAdapter;
@@ -219,7 +220,12 @@ public class SquareFragment extends LazyLoadFragment implements SquareView,
 
     @Override
     public void NoLoginError() {
-        Util.showSnackBar(MainActivity.mSnackBarView, "请先登录！");
+        Util.showSnackBar(MainActivity.mSnackBarView, "请先登录！", "现在登录", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Util.toAnotherActivity(getActivity(), LoginActivity.class);
+            }
+        });
     }
 
     @Override

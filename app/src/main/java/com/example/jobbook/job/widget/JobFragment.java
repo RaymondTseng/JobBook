@@ -10,7 +10,6 @@ import android.util.TypedValue;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -39,13 +38,12 @@ public class JobFragment extends LazyLoadFragment implements JobView,
         View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
 
     private JobPresenter mJobPresenter;
-    private View view;
     private List<JobBean> list;
     private JobsAdapter mAdapter;
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLayoutManager;
     private SwipeRefreshLayout mSwipeRefreshLayout;
-    private ImageButton mSearchImageButton;
+//    private ImageButton mSearchImageButton;
     private TextView mRecommendTextView;
     private AppCompatSpinner mCategorySpinner;
     private ArrayAdapter mCategoryAdapter;
@@ -79,7 +77,7 @@ public class JobFragment extends LazyLoadFragment implements JobView,
 
     protected void initViews() {
         mRecyclerView = findViewById(R.id.job_rv);
-        mSearchImageButton = findViewById(R.id.job_fragment_search_ib);
+//        mSearchImageButton = findViewById(R.id.job_fragment_search_ib);
         mSwipeRefreshLayout = findViewById(R.id.job_swipe_container);
         mRecommendTextView = findViewById(R.id.job_fragment_recommend_tv);
         mCategorySpinner = findViewById(R.id.job_fragment_category_sp);
@@ -129,7 +127,7 @@ public class JobFragment extends LazyLoadFragment implements JobView,
                         // R.layout.contact_spinner_nothing_selected_dropdown, // Optional
                         getActivity()));
 
-        mSearchImageButton.setOnClickListener(this);
+//        mSearchImageButton.setOnClickListener(this);
         mRecommendTextView.setOnClickListener(this);
         mCategorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -292,9 +290,9 @@ public class JobFragment extends LazyLoadFragment implements JobView,
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.job_fragment_search_ib:
-                search();
-                break;
+//            case R.id.job_fragment_search_ib:
+//                search();
+//                break;
 
             case R.id.job_fragment_recommend_tv:
                 currentSelection = 0;

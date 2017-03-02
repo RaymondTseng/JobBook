@@ -1,6 +1,7 @@
 package com.example.jobbook.moment.widget;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -8,11 +9,13 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +24,7 @@ import com.example.jobbook.R;
 import com.example.jobbook.bean.MomentBean;
 import com.example.jobbook.bean.MomentCommentBean;
 import com.example.jobbook.commons.Urls;
+import com.example.jobbook.login.widget.LoginActivity;
 import com.example.jobbook.moment.MomentDetailCommentListViewAdapter;
 import com.example.jobbook.moment.presenter.MomentDetailPresenter;
 import com.example.jobbook.moment.presenter.MomentDetailPresenterImpl;
@@ -54,7 +58,7 @@ public class MomentDetailActivity extends Activity implements MomentDetailView, 
     private MomentBean mMomentBean;
     private LinearLayout mHeadView;
     //    private MomentDetailPresenter presenter;
-//    private LinearLayout mRootView;
+    private ScrollView mRootView;
     private List<MomentCommentBean> list;
     private RelativeLayout mTitleBarLayout;
     private LinearLayout mInputLayout;
@@ -92,7 +96,7 @@ public class MomentDetailActivity extends Activity implements MomentDetailView, 
         mMomentUserLogoImageView = (ImageView) mHeadView.findViewById(R.id.moment_detail_head_iv);
         mMomentFavouriteTextView = (TextView) mHeadView.findViewById(R.id.moment_detail_favourite_tv);
         mMomentCommentTextView = (TextView) mHeadView.findViewById(R.id.moment_detail_comment_tv);
-//        mRootView = (LinearLayout)findViewById(R.id.question_detail_root_ll);
+        mRootView = (ScrollView)findViewById(R.id.question_detail_root_ll);
         mTitleBarLayout = (RelativeLayout) findViewById(R.id.moment_detail_title_bar);
         mInputLayout = (LinearLayout) findViewById(R.id.moment_detail_input_ll);
 //        mRecyclerViewLayout = (LinearLayout) findViewById(R.id.moment_detail_rv_ll);
@@ -120,6 +124,7 @@ public class MomentDetailActivity extends Activity implements MomentDetailView, 
 //        mPresenter.loadMomentComments(momentBean.getId());
         mAdapter = new MomentDetailCommentListViewAdapter(this);
         mAdapter.setmHeaderView(mHeadView);
+        mRootView.setOnClickListener(this);
         mBackImageButton.setOnClickListener(this);
         mSendImageButton.setOnClickListener(this);
         mFavouriteImageButton.setOnClickListener(this);
@@ -251,7 +256,13 @@ public class MomentDetailActivity extends Activity implements MomentDetailView, 
 
     @Override
     public void noLoginError() {
-        Util.showSnackBar(view, "请先登录!");
+        Util.showSnackBar(view, "请先登录", "现在登录", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Util.toAnotherActivity(MomentDetailActivity.this, LoginActivity.class);
+                finish();
+            }
+        });
     }
 
     @Override
@@ -300,6 +311,11 @@ public class MomentDetailActivity extends Activity implements MomentDetailView, 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.question_detail_root_ll:
+                InputMethodManager imm = (InputMethodManager)
+                        getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                break;
             case R.id.moment_detail_back_ib:
                 if (myApplication.getHandler() != null) {
                     myApplication.getHandler().sendEmptyMessage(1);

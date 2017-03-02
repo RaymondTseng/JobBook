@@ -1,9 +1,11 @@
 package com.example.jobbook.register.widget;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -39,6 +41,7 @@ public class RegisterActivity extends Activity implements RegisterView, View.OnC
     private ImageButton mCloseImageButton;
     private LinearLayout mLoadingLinearLayout;
     private RegisterPresenter presenter;
+    private LinearLayout mParentLayout;
 
     private View view;
 
@@ -52,6 +55,7 @@ public class RegisterActivity extends Activity implements RegisterView, View.OnC
     }
 
     private void initViews() {
+        mParentLayout = (LinearLayout) findViewById(R.id.activity_register_layout);
         mRegisterButton = (Button) findViewById(R.id.register_register_bt);
         mAccountEditText = (EditText) findViewById(R.id.register_account_et);
         mUserNameEditText = (EditText) findViewById(R.id.register_username_et);
@@ -68,6 +72,7 @@ public class RegisterActivity extends Activity implements RegisterView, View.OnC
         mRegisterButton.setOnClickListener(this);
         mCloseImageButton.setOnClickListener(this);
         mGetCodeButton.setOnClickListener(this);
+        mParentLayout.setOnClickListener(this);
         L.i("registerfragment", "load code:" + Urls.GET_CODE_URL);
         SMSSDKManager.getInstance().registerTimeListener(this);
         mLoadingLinearLayout.setVisibility(View.GONE);
@@ -108,7 +113,7 @@ public class RegisterActivity extends Activity implements RegisterView, View.OnC
 
     @Override
     public void accountBlankError() {
-        Util.showSnackBar(view, "用户名为空");
+        Util.showSnackBar(view, "手机号为空");
     }
 
     @Override
@@ -128,7 +133,7 @@ public class RegisterActivity extends Activity implements RegisterView, View.OnC
 
     @Override
     public void accountExistError() {
-        Util.showSnackBar(view, "用户名已存在");
+        Util.showSnackBar(view, "手机号已存在");
     }
 
     @Override
@@ -187,6 +192,11 @@ public class RegisterActivity extends Activity implements RegisterView, View.OnC
                 } else {
                     codeBlankError();
                 }
+                break;
+            case R.id.activity_register_layout:
+                InputMethodManager imm = (InputMethodManager)
+                        getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
                 break;
         }
     }
