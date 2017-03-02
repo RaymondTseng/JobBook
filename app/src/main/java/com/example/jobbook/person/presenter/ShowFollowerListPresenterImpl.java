@@ -1,6 +1,5 @@
 package com.example.jobbook.person.presenter;
 
-import com.example.jobbook.bean.PersonBean;
 import com.example.jobbook.bean.TypePersonBean;
 import com.example.jobbook.person.model.ShowFollowerListModel;
 import com.example.jobbook.person.model.ShowFollowerListModelImpl;

@@ -25,9 +25,13 @@ public class SearchModelImpl implements SearchModel {
     public void search(int type, String content, int pageIndex, final OnSearchListener listener) {
         StringBuilder url = new StringBuilder();
         if (type == JOB_TYPE) {
-            url.append(Urls.JOB_HEADER_SEARCH_URL + "/type/" + content);
+            url.append(Urls.JOB_HEADER_SEARCH_URL);
+            url.append("/type/");
+            url.append(content);
         } else if (type == JOB_LOCATION) {
-            url.append(Urls.JOB_HEADER_SEARCH_URL + "/location/" + content);
+            url.append(Urls.JOB_HEADER_SEARCH_URL);
+            url.append("/location/");
+            url.append(content);
         }
         L.i("search:", url.toString());
         OkHttpUtils.postString().content(String.valueOf(pageIndex)).url(url.toString()).build().execute(new StringCallback() {

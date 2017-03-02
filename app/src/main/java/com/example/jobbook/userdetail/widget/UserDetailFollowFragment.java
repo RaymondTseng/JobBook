@@ -10,11 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 
 import com.example.jobbook.MyApplication;
 import com.example.jobbook.R;
-import com.example.jobbook.bean.PersonBean;
 import com.example.jobbook.bean.TypePersonBean;
 import com.example.jobbook.userdetail.UserDetailFollowAdapter;
 import com.example.jobbook.userdetail.presenter.UserDetailFollowPresenter;

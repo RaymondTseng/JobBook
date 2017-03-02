@@ -1,9 +1,6 @@
 package com.example.jobbook.register.presenter;
 
 import android.content.Context;
-import com.example.jobbook.util.L;
-import android.widget.Toast;
-
 import com.example.jobbook.bean.PersonBean;
 import com.example.jobbook.register.model.RegisterModel;
 import com.example.jobbook.register.model.RegisterModelImpl;

@@ -40,10 +40,10 @@
         android:layout_height="0dp"
         android:layout_weight="542" />
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="32"></LinearLayout>
+        android:layout_weight="32"></FrameLayout>
 
     <ImageView
         android:layout_width="wrap_content"
@@ -52,10 +52,10 @@
         android:layout_weight="144"
         android:src="@mipmap/logo" />
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="32"></LinearLayout>
+        android:layout_weight="32"></FrameLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -67,7 +67,6 @@
         <TextView
             style="@style/Black12sptv"
             android:text="账号/手机号" />
-        />
 
         <EditText
             android:id="@+id/login_account_et"
@@ -82,10 +81,10 @@
             android:textSize="16sp" />
     </RelativeLayout>
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="16"></LinearLayout>
+        android:layout_weight="16"></FrameLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -111,10 +110,10 @@
             android:textSize="16sp" />
     </RelativeLayout>
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="34"></LinearLayout>
+        android:layout_weight="34"></FrameLayout>
 
     <Button
         android:id="@+id/login_login_bt"
@@ -128,10 +127,10 @@
         android:textColor="@color/colorWhite"
         android:textSize="16sp" />
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="16"></LinearLayout>
+        android:layout_weight="16"></FrameLayout>
 
     <TextView
         android:id="@+id/login_forget_tv"

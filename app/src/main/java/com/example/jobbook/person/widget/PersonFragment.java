@@ -55,7 +55,7 @@ public class PersonFragment extends LazyLoadFragment implements PersonView, View
     private ListView mListView;
     private LinearLayout mSettingLayout;
     //    private IPersonChanged mIPersonChanged;
-    private TextView mSwitchPerson2LoginTextView;
+//    private TextView mSwitchPerson2LoginTextView;
     private LinearLayout mFavouriteLayout;
     private TextView mNameTextView;
     private TextView mCompanyPositionTextView;
@@ -82,26 +82,7 @@ public class PersonFragment extends LazyLoadFragment implements PersonView, View
     private Timer timer;
     private TimerTask timerTask;
 
-    private Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            if (msg.what == REFRESH) {
-                Util.showSnackBar(MainActivity.mSnackBarView, "保存成功！");
-            } else if (msg.what == REFRESH_NAME) {
-                showPersonData();
-            } else if (msg.what == REFRESH_HEAD) {
-                onRefreshHead();
-            } else if (msg.what == REFRESH_UNREAD) {
-                refreshUnread();
-                if (personBean != null) {
-                    if (!personBean.toString().equals(MyApplication.getmPersonBean().toString())) {
-                        L.i("handler", "refresh");
-                        showPersonData();
-                    }
-                }
-            }
-        }
-    };
+    private Handler handler;
 
     @Override
     protected int setContentView() {
@@ -127,7 +108,6 @@ public class PersonFragment extends LazyLoadFragment implements PersonView, View
 //    }
 
     protected void initViews() {
-        mSwitchPerson2LoginTextView = findViewById(R.id.person_logout_tv);
         mSettingLayout = findViewById(R.id.person_setting_ll);
         mFavouriteLayout = findViewById(R.id.person_collect_ll);
         mNameTextView = findViewById(R.id.person_name_tv);
@@ -152,7 +132,6 @@ public class PersonFragment extends LazyLoadFragment implements PersonView, View
     private void initEvents() {
         mUri = null;
         presenter = new UploadPresenterImpl(this);
-        mSwitchPerson2LoginTextView.setOnClickListener(this);
         mSettingLayout.setOnClickListener(this);
         mFavouriteLayout.setOnClickListener(this);
         mMessageLayout.setOnClickListener(this);
@@ -166,6 +145,7 @@ public class PersonFragment extends LazyLoadFragment implements PersonView, View
         mMomentLL.setOnClickListener(this);
         mFollowLL.setOnClickListener(this);
         mFanLL.setOnClickListener(this);
+        handler = new PersonHandler();
         mMyApplication = (MyApplication) getActivity().getApplication();
         if (showPersonData()) {
             timer = new Timer();
@@ -234,8 +214,10 @@ public class PersonFragment extends LazyLoadFragment implements PersonView, View
                 break;
             case R.id.person_title_head_iv:
                 mPopupWindow = new UploadPopupWindow(getActivity(), itemsOnClick);
+                mPopupWindow.setBackgroundAlpha(getActivity(), 0.5f);
                 mPopupWindow.showAtLocation(getActivity().findViewById(R.id.person_fragment_ll),
                         Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+                mPopupWindow.dismissOutSide(getActivity());
                 break;
             case R.id.person_edit_tv:
                 mMyApplication.setHandler(handler);
@@ -261,7 +243,7 @@ public class PersonFragment extends LazyLoadFragment implements PersonView, View
         @Override
         public void onClick(View v) {
             // 隐藏弹出窗口
-            mPopupWindow.dismiss();
+            mPopupWindow.dismissPopupWindow(getActivity());
             switch (v.getId()) {
                 case R.id.person_upload_takePhoto_bt:// 拍照
                     CropUtils.pickAvatarFromCamera(PersonFragment.this);
@@ -315,6 +297,7 @@ public class PersonFragment extends LazyLoadFragment implements PersonView, View
     @Override
     public void onDestroy() {
         super.onDestroy();
+        handler.removeCallbacksAndMessages(null);
         if (timer != null) {
             timer.cancel();
         }
@@ -404,6 +387,27 @@ public class PersonFragment extends LazyLoadFragment implements PersonView, View
             mUnReadTextView.setText(MainActivity.mBadgeView.getText());
         } else {
             mUnReadTextView.setVisibility(View.GONE);
+        }
+    }
+
+    public class PersonHandler extends Handler {
+        @Override
+        public void handleMessage(Message msg) {
+            if (msg.what == REFRESH) {
+                Util.showSnackBar(MainActivity.mSnackBarView, "保存成功！");
+            } else if (msg.what == REFRESH_NAME) {
+                showPersonData();
+            } else if (msg.what == REFRESH_HEAD) {
+                onRefreshHead();
+            } else if (msg.what == REFRESH_UNREAD) {
+                refreshUnread();
+                if (personBean != null) {
+                    if (!personBean.toString().equals(MyApplication.getmPersonBean().toString())) {
+                        L.i("handler", "refresh");
+                        showPersonData();
+                    }
+                }
+            }
         }
     }
 

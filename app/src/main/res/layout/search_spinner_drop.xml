@@ -8,7 +8,7 @@
     android:orientation="vertical"
     android:padding="5dp"
     android:textColor="@color/colorBlack"
-    android:textSize="14sp">
+    android:textSize="18sp">
 
 
 </TextView>

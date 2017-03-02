@@ -1,11 +1,9 @@
 package com.example.jobbook.userdetail.presenter;
 
-import com.example.jobbook.bean.PersonBean;
 import com.example.jobbook.bean.TypePersonBean;
 import com.example.jobbook.userdetail.model.UserDetailFollowModel;
 import com.example.jobbook.userdetail.model.UserDetailFollowModelImpl;
 import com.example.jobbook.userdetail.view.UserDetailFollowView;
-import com.example.jobbook.util.Util;
 
 import java.util.List;
 

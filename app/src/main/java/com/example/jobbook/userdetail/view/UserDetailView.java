@@ -1,6 +1,5 @@
 package com.example.jobbook.userdetail.view;
 
-import com.example.jobbook.bean.PersonBean;
 import com.example.jobbook.bean.TypePersonBean;
 
 /**

@@ -29,11 +29,16 @@ public class JobModelImpl implements JobModel{
         } else {
             url.append(Urls.JOB_HEADER_SEARCH_URL);
             if (!TextUtils.isEmpty(type) && !TextUtils.isEmpty(location)) {
-                url.append("/type/" + type + "/location/" + location);
+                url.append("/type/");
+                url.append(type);
+                url.append("/location/");
+                url.append(location);
             } else if (!TextUtils.isEmpty(type)) {
-                url.append("/type/" + type);
+                url.append("/type/");
+                url.append(type);
             } else if (!TextUtils.isEmpty(location)) {
-                url.append("/location/" + location);
+                url.append("/location/");
+                url.append(location);
             }
         }
         L.i("job_response:", "isRecommend:" + isRecommend + " type:" + type + " location:" + location);

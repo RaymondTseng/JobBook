@@ -27,7 +27,7 @@ public class DataCleanManager {
      * @param context
      */
     public static void cleanSharedPreference(Context context) {
-        deleteDir(new File("/data/data/"
+        deleteDir(new File(context.getFilesDir().getPath()
                 + context.getPackageName() + "/shared_prefs"));
     }
 
@@ -91,7 +91,7 @@ public class DataCleanManager {
                 }
             }
         }
-        return dir.delete();
+        return (dir != null) ? dir.delete() : false;
     }
 
     // 获取文件

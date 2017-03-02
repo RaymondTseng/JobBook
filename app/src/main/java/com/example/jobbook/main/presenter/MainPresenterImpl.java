@@ -5,9 +5,6 @@ import android.content.SharedPreferences;
 
 import com.example.jobbook.main.model.MainModel;
 import com.example.jobbook.main.model.MainModelImpl;
-import com.example.jobbook.util.L;
-
-import com.example.jobbook.MyApplication;
 import com.example.jobbook.R;
 import com.example.jobbook.bean.PersonBean;
 import com.example.jobbook.main.view.MainView;

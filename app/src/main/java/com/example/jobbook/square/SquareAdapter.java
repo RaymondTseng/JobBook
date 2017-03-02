@@ -45,13 +45,11 @@ public class SquareAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         if (viewType == TYPE_ITEM) {
             View v = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.square_rv_item, parent, false);
-            ItemViewHolder vh = new ItemViewHolder(v);
-            return vh;
+            return new ItemViewHolder(v);
         } else if (viewType == TYPE_ITEM_OVER) {
             View v = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.square_recycleview_item_oversize, parent, false);
-            ItemOverSizeViewHolder vh = new ItemOverSizeViewHolder(v);
-            return vh;
+            return new ItemOverSizeViewHolder(v);
         }
         else {
             View view = LayoutInflater.from(parent.getContext()).inflate(

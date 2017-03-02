@@ -2,24 +2,18 @@ package com.example.jobbook.cv.model;
 
 import android.text.TextUtils;
 
-import com.example.jobbook.bean.PersonBean;
-import com.example.jobbook.util.L;
-
 import com.example.jobbook.MyApplication;
 import com.example.jobbook.bean.EducationExpBean;
 import com.example.jobbook.bean.JobExpBean;
+import com.example.jobbook.bean.PersonBean;
 import com.example.jobbook.bean.ResultBean;
 import com.example.jobbook.bean.TextCVBean;
 import com.example.jobbook.commons.Constants;
 import com.example.jobbook.commons.Urls;
 import com.example.jobbook.util.L;
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.reflect.TypeToken;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
-
-import java.util.List;
 
 import okhttp3.Call;
 

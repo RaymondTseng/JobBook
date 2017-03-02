@@ -1,25 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="32dp"
-        android:layout_marginRight="32dp"
-        android:layout_marginTop="16dp"
-        android:paddingBottom="16dp"
-        android:orientation="vertical"
-        android:id="@+id/user_detail_moment_lv_item_ll">
-        <TextView
-            android:id="@+id/user_detail_moment_content_tv"
-            style="@style/Black16sptv"
-            android:text=""/>
-        <TextView
-            android:id="@+id/user_detail_moment_time_tv"
-            style="@style/TextGray12sptv"
-            android:text=""
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="4dp"/>
-    </LinearLayout>
+    android:id="@+id/user_detail_moment_lv_item_ll"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="32dp"
+    android:layout_marginRight="32dp"
+    android:layout_marginTop="16dp"
+    android:orientation="vertical"
+    android:paddingBottom="16dp">
+
+    <TextView
+        android:id="@+id/user_detail_moment_content_tv"
+        style="@style/Black16sptv"
+        android:text="" />
+
+    <TextView
+        android:id="@+id/user_detail_moment_time_tv"
+        style="@style/TextGray12sptv"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="4dp"
+        android:text="" />
 </LinearLayout>

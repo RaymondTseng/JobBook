@@ -337,7 +337,7 @@ public class MomentDetailActivity extends Activity implements MomentDetailView, 
             mTitleBarLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.
                     MATCH_PARENT, 0, (mTitleBarHeight / newHeight) * 568));
             mRecyclerView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.
-                    MATCH_PARENT, 0, ((float) (newHeight - 2 * mTitleBarHeight) / newHeight) * 568));
+                    MATCH_PARENT, 0, ((newHeight - 2 * mTitleBarHeight) / newHeight) * 568));
             mInputLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.
                     MATCH_PARENT, 0, (mInputLayoutHeight / newHeight) * 568));
             mTitleBarLayout.invalidate();

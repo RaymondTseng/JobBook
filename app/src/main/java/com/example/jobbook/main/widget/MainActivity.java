@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     // 定义一个变量，来标识是否退出
     private static boolean isExit = false;
 
-    private static Handler mHandler = new Handler() {
+    public static Handler mHandler = new Handler() {
 
         @Override
         public void handleMessage(Message msg) {

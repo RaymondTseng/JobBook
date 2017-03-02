@@ -1,6 +1,5 @@
 package com.example.jobbook.job.view;
 
-import com.example.jobbook.bean.JobBean;
 import com.example.jobbook.bean.JobDetailBean;
 
 /**

@@ -218,8 +218,8 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
     private void initJobView(View jobView){
         TextView mInaugurationTextView = (TextView) jobView.findViewById(R.id.job_exp_inauguration_tv);
         TextView mDimissionTextView = (TextView) jobView.findViewById(R.id.job_exp_dimission_tv);
-        EditText mCompantEditText = (EditText) jobView.findViewById(R.id.job_exp_company_et);
-        EditText mPositionEditText = (EditText) jobView.findViewById(R.id.job_exp_position_et);
+//        EditText mCompantEditText = (EditText) jobView.findViewById(R.id.job_exp_company_et);
+//        EditText mPositionEditText = (EditText) jobView.findViewById(R.id.job_exp_position_et);
         mInaugurationTextView.setTag(mJobContainerLayout.getChildCount() - 1);
         mDimissionTextView.setTag(mJobContainerLayout.getChildCount() - 1);
         mInaugurationTextView.setOnClickListener(this);
@@ -246,8 +246,8 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
     private void initEduView(View eduView){
         TextView mAdmissionTextView = (TextView) eduView.findViewById(R.id.education_exp_admission_tv);
         TextView mGraduationTextView = (TextView) eduView.findViewById(R.id.education_exp_graduation_tv);
-        EditText mSchoolEditText = (EditText) eduView.findViewById(R.id.education_school_et);
-        EditText mMajorEditText = (EditText) eduView.findViewById(R.id.education_major_et);
+//        EditText mSchoolEditText = (EditText) eduView.findViewById(R.id.education_school_et);
+//        EditText mMajorEditText = (EditText) eduView.findViewById(R.id.education_major_et);
         mAdmissionTextView.setTag(mEduContainerLayout.getChildCount() - 1);
         mGraduationTextView.setTag(mEduContainerLayout.getChildCount() - 1);
         mAdmissionTextView.setOnClickListener(this);
@@ -266,19 +266,19 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.job_exp_inauguration_tv:
-                mJobExpInaugurationDialog.show(getSupportFragmentManager(), JOB_INAUGURATION + ";" + (int) v.getTag());
+                mJobExpInaugurationDialog.show(getSupportFragmentManager(), JOB_INAUGURATION + ";" + v.getTag());
                 mJobDivider.setBackgroundColor(ContextCompat.getColor(v.getContext(), R.color.colorBackgroundGray));
                 break;
             case R.id.job_exp_dimission_tv:
-                mJobExpDimissionDialog.show(getSupportFragmentManager(), JOB_DIMISSION + ";" + (int) v.getTag());
+                mJobExpDimissionDialog.show(getSupportFragmentManager(), JOB_DIMISSION + ";" + v.getTag());
                 mJobDivider.setBackgroundColor(ContextCompat.getColor(v.getContext(), R.color.colorBackgroundGray));
                 break;
             case R.id.education_exp_admission_tv:
-                mEduExpAdmissionDialog.show(getSupportFragmentManager(), EDU_ADMISSION + ";" + (int) v.getTag());
+                mEduExpAdmissionDialog.show(getSupportFragmentManager(), EDU_ADMISSION + ";" + v.getTag());
                 mEduDivider.setBackgroundColor(ContextCompat.getColor(v.getContext(), R.color.colorBackgroundGray));
                 break;
             case R.id.education_exp_graduation_tv:
-                mEduExpGraduationDialog.show(getSupportFragmentManager(), EDU_GRADUATION + ";" + (int) v.getTag());
+                mEduExpGraduationDialog.show(getSupportFragmentManager(), EDU_GRADUATION + ";" + v.getTag());
                 mEduDivider.setBackgroundColor(ContextCompat.getColor(v.getContext(), R.color.colorBackgroundGray));
                 break;
             case R.id.text_cv_close_ib:

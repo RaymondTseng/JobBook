@@ -1,35 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorWhite">
-    <RelativeLayout
-        android:layout_width="match_parent"
+    android:background="@color/colorWhite"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginTop="29dp">
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            >
-            <TextView
-                android:id="@+id/job_exp_inauguration_tv"
-                android:text="就职年月(2016.12)"
-                style="@style/TextGray16sptv"
-                android:layout_gravity="center"/>
-            <TextView
-                android:layout_width="1dp"
-                android:layout_height="26dp"
-                android:background="@color/colorBackgroundGray"
-                android:layout_marginLeft="14dp"/>
-            <TextView
-                android:id="@+id/job_exp_dimission_tv"
-                android:text="离职年月(2017.12)"
-                style="@style/TextGray16sptv"
-                android:layout_gravity="center"
-                android:layout_marginLeft="14dp"/>
-        </LinearLayout>
-    </RelativeLayout>
+
+        <TextView
+            android:id="@+id/job_exp_inauguration_tv"
+            style="@style/TextGray16sptv"
+            android:layout_gravity="center"
+            android:text="就职年月(2016.12)" />
+
+        <TextView
+            android:layout_width="1dp"
+            android:layout_height="26dp"
+            android:layout_marginLeft="14dp"
+            android:background="@color/colorBackgroundGray" />
+
+        <TextView
+            android:id="@+id/job_exp_dimission_tv"
+            style="@style/TextGray16sptv"
+            android:layout_gravity="center"
+            android:layout_marginLeft="14dp"
+            android:text="离职年月(2017.12)" />
+    </LinearLayout>
+
     <TextView
         android:id="@+id/job_exp_divider"
         android:layout_width="match_parent"
@@ -37,60 +38,61 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginTop="5dp"
-        android:background="@color/colorBackgroundGray"/>
+        android:background="@color/colorBackgroundGray" />
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="12dp"
-        android:layout_marginTop="12dp"
-        >
+        android:layout_marginTop="12dp">
+
         <EditText
             android:id="@+id/job_exp_company_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
+            android:background="@drawable/text_cv_et_bg"
             android:paddingBottom="8dp"
             android:paddingLeft="40dp"
-            android:background="@drawable/text_cv_et_bg"
-            android:textCursorDrawable="@drawable/edtitext_cursor"
-            />
+            android:textCursorDrawable="@drawable/edtitext_cursor" />
+
         <TextView
-            android:text="公司"
-            style="@style/Black16sptv"
             android:id="@+id/job_exp_company_tv"
+            style="@style/Black16sptv"
+            android:layout_alignBaseline="@id/job_exp_company_et"
+            android:layout_marginLeft="16dp"
+            android:drawablePadding="6dp"
             android:drawableRight="@drawable/text_cv_vertical_gray_line"
             android:gravity="center"
-            android:drawablePadding="6dp"
-            android:layout_marginLeft="16dp"
-            android:layout_alignBaseline="@id/job_exp_company_et"
-            />
+            android:text="公司" />
 
     </RelativeLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
+        android:layout_height="wrap_content">
+
         <EditText
             android:id="@+id/job_exp_position_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
+            android:background="@drawable/text_cv_et_bg"
             android:paddingBottom="8dp"
             android:paddingLeft="40dp"
-            android:background="@drawable/text_cv_et_bg"
-            android:textCursorDrawable="@drawable/edtitext_cursor"
-            />
+            android:textCursorDrawable="@drawable/edtitext_cursor" />
+
         <TextView
-            android:text="职位"
-            style="@style/Black16sptv"
             android:id="@+id/job_exp_position_tv"
+            style="@style/Black16sptv"
+            android:layout_alignBaseline="@id/job_exp_position_et"
+            android:layout_marginLeft="16dp"
+            android:drawablePadding="6dp"
             android:drawableRight="@drawable/text_cv_vertical_gray_line"
             android:gravity="center"
-            android:drawablePadding="6dp"
-            android:layout_marginLeft="16dp"
-            android:layout_alignBaseline="@id/job_exp_position_et"
+            android:text="职位"
 
             />
 

@@ -36,8 +36,7 @@ public class FavouriteJobsAdapter extends RecyclerView.Adapter<RecyclerView.View
         if (viewType == TYPE_ITEM) {
             View v = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.job_recyclerview_item, parent, false);
-            ItemViewHolder vh = new ItemViewHolder(v);
-            return vh;
+            return new ItemViewHolder(v);
         } else {
             View view = LayoutInflater.from(parent.getContext()).inflate(
                     R.layout.loadingfooter_layout, null);

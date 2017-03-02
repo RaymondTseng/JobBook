@@ -41,10 +41,10 @@
             android:orientation="horizontal"
             android:weightSum="6">
 
-            <LinearLayout
+            <FrameLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="2"></LinearLayout>
+                android:layout_weight="2"></FrameLayout>
 
             <TextView
                 android:id="@+id/favourite_job_tv"
@@ -64,10 +64,10 @@
                 android:text="干货"
                 android:textSize="14sp" />
 
-            <LinearLayout
+            <FrameLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="2"></LinearLayout>
+                android:layout_weight="2"></FrameLayout>
         </LinearLayout>
 
         <ImageView

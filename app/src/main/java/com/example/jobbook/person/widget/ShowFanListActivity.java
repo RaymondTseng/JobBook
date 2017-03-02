@@ -1,7 +1,6 @@
 package com.example.jobbook.person.widget;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,7 +12,6 @@ import android.widget.LinearLayout;
 import com.example.jobbook.MyApplication;
 import com.example.jobbook.R;
 import com.example.jobbook.bean.TypePersonBean;
-import com.example.jobbook.person.ShowFanListAdapter;
 import com.example.jobbook.person.presenter.ShowFanListPresenter;
 import com.example.jobbook.person.presenter.ShowFanListPresenterImpl;
 import com.example.jobbook.person.view.ShowFanListView;

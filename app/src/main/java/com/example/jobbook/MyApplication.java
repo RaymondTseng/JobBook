@@ -7,6 +7,7 @@ import android.os.Handler;
 
 import com.example.jobbook.bean.PersonBean;
 import com.example.jobbook.service.MyPushIntentService;
+import com.example.jobbook.util.CrashHandler;
 import com.example.jobbook.util.L;
 import com.example.jobbook.util.Util;
 import com.umeng.message.IUmengRegisterCallback;
@@ -135,25 +136,45 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
+        OkHttpClient okHttpClient = new OkHttpClient.Builder()
+//                .addInterceptor(new LoggerInterceptor("TAG"))
+                .connectTimeout(50000L, TimeUnit.MILLISECONDS)
+                .readTimeout(50000L, TimeUnit.MILLISECONDS)
+                //其他配置
+                .build();
+
+        OkHttpUtils.initClient(okHttpClient);
+
+        CrashHandler crashHandler = CrashHandler.getInstance();
+        crashHandler.init(getApplicationContext());
+
         LitePal.initialize(this);
 
         mPushAgent = PushAgent.getInstance(this);
 
-        //注册推送服务，每次调用register方法都会回调该接口
-        mPushAgent.register(new IUmengRegisterCallback() {
+        mPushAgent.setDebugMode(false);
 
+        new Thread(new Runnable() {
             @Override
-            public void onSuccess(String deviceToken) {
-                //注册成功会返回device token
-                L.d("devicetoken", deviceToken);
-                mDevicetoken = deviceToken;
-            }
+            public void run() {
+                //注册推送服务，每次调用register方法都会回调该接口
+                mPushAgent.register(new IUmengRegisterCallback() {
 
-            @Override
-            public void onFailure(String s, String s1) {
-                L.d("devicetoken", s + s1);
+                    @Override
+                    public void onSuccess(String deviceToken) {
+                        //注册成功会返回device token
+                        L.d("devicetoken", deviceToken);
+                        mDevicetoken = deviceToken;
+                    }
+
+                    @Override
+                    public void onFailure(String s, String s1) {
+                        L.d("devicetoken", s + s1);
+                    }
+                });
             }
-        });
+        }).start();
+
 //        if (Util.loadPersonBean(context.getSharedPreferences("user", MODE_PRIVATE)) != null) {
 //            mPushAgent.enable(new IUmengCallback() {
 //                @Override
@@ -187,14 +208,7 @@ public class MyApplication extends Application {
 //        LeakCanary.install(this);
 
 
-        OkHttpClient okHttpClient = new OkHttpClient.Builder()
-//                .addInterceptor(new LoggerInterceptor("TAG"))
-                .connectTimeout(50000L, TimeUnit.MILLISECONDS)
-                .readTimeout(50000L, TimeUnit.MILLISECONDS)
-                //其他配置
-                .build();
 
-        OkHttpUtils.initClient(okHttpClient);
 //        Context context = this.getApplicationContext();
 //        SharedPreferences sharedPreferences = context.getSharedPreferences("user", MODE_PRIVATE);
 //        MyApplication.setmPersonBean(context, Util.loadPersonBean(sharedPreferences));

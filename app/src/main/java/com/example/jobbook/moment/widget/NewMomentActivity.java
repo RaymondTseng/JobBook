@@ -33,7 +33,7 @@ public class NewMomentActivity extends Activity implements NewMomentView, View.O
     private static int CHANGE_COLOR = 1;
 
     private ImageButton mCloseImageButton;
-//    private EditText mNewQuestionTitleEditText;
+    //    private EditText mNewQuestionTitleEditText;
     private EditText mNewMomentContentEditText;
     private TextView mNewMomentReleaseTextView;
     private NewMomentPresenter mNewMomentPresenter;
@@ -42,18 +42,7 @@ public class NewMomentActivity extends Activity implements NewMomentView, View.O
     private MyApplication myApplication;
     private View view;
 
-    private Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            if (msg.what == CHANGE_COLOR) {
-                mNewMomentReleaseTextView.setClickable(true);
-                mNewMomentReleaseTextView.setTextColor(Color.WHITE);
-            } else if (msg.what == NO_CHANGE_COLOR) {
-                mNewMomentReleaseTextView.setTextColor(Color.parseColor("#61ffffff"));
-            }
-        }
-
-    };
+    private NewMomentHandler handler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +71,8 @@ public class NewMomentActivity extends Activity implements NewMomentView, View.O
         mNewMomentReleaseTextView.setTextColor(Color.WHITE);
 //        mNewQuestionTitleEditText.setOnFocusChangeListener(AffectUtil.changeHintColorListener(mNewMomentTitleEditText));
         mNewMomentContentEditText.setOnFocusChangeListener(AffectUtil.changeHintColorListener(mNewMomentContentEditText));
+
+        handler = new NewMomentHandler();
     }
 
     @Override
@@ -104,7 +95,7 @@ public class NewMomentActivity extends Activity implements NewMomentView, View.O
     @Override
     public void close() {
         myApplication = (MyApplication) getApplication();
-        if(myApplication.getHandler() != null){
+        if (myApplication.getHandler() != null) {
             myApplication.getHandler().sendEmptyMessage(1);
             myApplication.setHandler(null);
         }
@@ -166,6 +157,25 @@ public class NewMomentActivity extends Activity implements NewMomentView, View.O
             Message message = new Message();
             message.what = NO_CHANGE_COLOR;
             handler.sendMessage(message);
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        handler.removeCallbacksAndMessages(null);
+    }
+
+    public class NewMomentHandler extends Handler {
+
+        @Override
+        public void handleMessage(Message msg) {
+            if (msg.what == CHANGE_COLOR) {
+                mNewMomentReleaseTextView.setClickable(true);
+                mNewMomentReleaseTextView.setTextColor(Color.WHITE);
+            } else if (msg.what == NO_CHANGE_COLOR) {
+                mNewMomentReleaseTextView.setTextColor(Color.parseColor("#61ffffff"));
+            }
         }
     }
 }

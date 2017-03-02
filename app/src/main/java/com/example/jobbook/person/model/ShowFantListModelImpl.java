@@ -1,11 +1,9 @@
 package com.example.jobbook.person.model;
 
 import com.example.jobbook.MyApplication;
-import com.example.jobbook.bean.PersonBean;
 import com.example.jobbook.bean.ResultBean;
 import com.example.jobbook.bean.TypePersonBean;
 import com.example.jobbook.commons.Urls;
-import com.example.jobbook.userdetail.model.UserDetailModelImpl;
 import com.example.jobbook.util.L;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;

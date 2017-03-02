@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="600"
-        />
+        android:visibility="gone" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -44,40 +44,28 @@
     </ScrollView>
 
     <LinearLayout
+        android:id="@+id/job_detail_send_cv_ll"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:background="@drawable/job_detail_bottom_ll_bg"
+        android:gravity="center"
         android:orientation="horizontal"
         android:paddingBottom="5dp"
         android:paddingTop="5dp">
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/profile_blue" />
 
-        <RelativeLayout
-            android:id="@+id/job_detail_send_cv_ll"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/profile_blue" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="投递简历"
-                    android:layout_gravity="center_vertical"
-                    android:textColor="@color/colorBlue"
-                    android:textSize="16sp" />
-            </LinearLayout>
-
-        </RelativeLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="投递简历"
+            android:textColor="@color/colorBlue"
+            android:textSize="16sp" />
     </LinearLayout>
+
 
 </LinearLayout>

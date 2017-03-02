@@ -1,7 +1,5 @@
 package com.example.jobbook.main.view;
 
-import android.content.Context;
-
 import com.example.jobbook.bean.PersonBean;
 
 /**

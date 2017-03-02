@@ -36,17 +36,7 @@ public class FeedBackActivity extends Activity implements FeedBackView, View.OnC
     private FeedBackPresenter mFeedBackPresenter;
     private LinearLayout mLoadingLinearLayout;
 
-    private Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            if (msg.what == CHANGE_COLOR) {
-                mFeedBackTextView.setTextColor(Color.WHITE);
-            } else if (msg.what == NO_CHANGE_COLOR) {
-                mFeedBackTextView.setTextColor(Color.parseColor("#61ffffff"));
-            }
-        }
-
-    };
+    private FeedBackHandler handler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +65,8 @@ public class FeedBackActivity extends Activity implements FeedBackView, View.OnC
         mFeedBackMailEditText.addTextChangedListener(this);
         mFeedBackContentEditText.addTextChangedListener(this);
         mFeedBackContentEditText.setOnFocusChangeListener(AffectUtil.changeHintColorListener(mFeedBackContentEditText));
+
+        handler = new FeedBackHandler();
     }
 
     @Override
@@ -149,6 +141,24 @@ public class FeedBackActivity extends Activity implements FeedBackView, View.OnC
             Message message = new Message();
             message.what = NO_CHANGE_COLOR;
             handler.sendMessage(message);
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        handler.removeCallbacksAndMessages(null);
+    }
+
+    public class FeedBackHandler extends Handler {
+
+        @Override
+        public void handleMessage(Message msg) {
+            if (msg.what == CHANGE_COLOR) {
+                mFeedBackTextView.setTextColor(Color.WHITE);
+            } else if (msg.what == NO_CHANGE_COLOR) {
+                mFeedBackTextView.setTextColor(Color.parseColor("#61ffffff"));
+            }
         }
     }
 }

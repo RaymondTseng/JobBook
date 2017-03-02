@@ -1,7 +1,6 @@
 package com.example.jobbook.person.widget;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -11,16 +10,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 
 import com.example.jobbook.MyApplication;
 import com.example.jobbook.R;
-import com.example.jobbook.bean.PersonBean;
 import com.example.jobbook.bean.TypePersonBean;
 import com.example.jobbook.person.presenter.ShowFollowerListPresenter;
 import com.example.jobbook.person.presenter.ShowFollowerListPresenterImpl;
 import com.example.jobbook.person.view.ShowFollowerListView;
-import com.example.jobbook.userdetail.UserDetailFansAdapter;
 import com.example.jobbook.userdetail.UserDetailFollowAdapter;
 import com.example.jobbook.userdetail.widget.UserDetailActivity;
 import com.example.jobbook.util.DividerItemDecoration;
@@ -46,14 +42,8 @@ public class ShowFollowerListActivity extends Activity implements ShowFollowerLi
     private MyApplication myApplication;
     private static int REFRESH = 1;
 
-    public final Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            if (msg.what == REFRESH) {
-                presenter.loadFollwers(MyApplication.getAccount());
-            }
-        }
-    };
+    public Handler handler;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,6 +61,7 @@ public class ShowFollowerListActivity extends Activity implements ShowFollowerLi
 
     private void initEvents() {
         presenter = new ShowFollowerListPresenterImpl(this);
+        handler = new ShowFollowerHandler();
         myApplication = (MyApplication)getApplication();
         mAdapter = new UserDetailFollowAdapter(this, new ArrayList<TypePersonBean>());
         mLayoutManager = new LinearLayoutManager(this);
@@ -84,6 +75,7 @@ public class ShowFollowerListActivity extends Activity implements ShowFollowerLi
         mAdapter.setOnFollwerItemClickListener(this);
         mAdapter.setOnFollowClickListener(this);
         presenter.loadFollwers(MyApplication.getAccount());
+
 //        mAdapter.setOnUserFollowItemClickListener(new UserDetailFollowAdapter.OnUserFollowItemClickListener() {
 //            @Override
 //            public void onUserFollowItemClick(PersonBean personBean) {
@@ -141,5 +133,21 @@ public class ShowFollowerListActivity extends Activity implements ShowFollowerLi
         bundle.putSerializable("person_bean", personBean);
         myApplication.setHandler(handler);
         Util.toAnotherActivity(this, UserDetailActivity.class, bundle);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        handler.removeCallbacksAndMessages(null);
+    }
+
+    public class ShowFollowerHandler extends Handler {
+
+        @Override
+        public void handleMessage(Message msg) {
+            if (msg.what == REFRESH) {
+                presenter.loadFollwers(MyApplication.getAccount());
+            }
+        }
     }
 }
