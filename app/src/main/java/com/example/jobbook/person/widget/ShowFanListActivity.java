@@ -108,6 +108,7 @@ public class ShowFanListActivity extends Activity implements ShowFanListView, Vi
     @Override
     public void followSuccess() {
         Util.showSnackBar(view, "关注成功!");
+        presenter.loadFans(MyApplication.getAccount());
     }
 
     @Override

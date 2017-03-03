@@ -77,6 +77,8 @@
                     android:layout_marginLeft="16dp"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="16dp"
+                    android:imeOptions="actionNext"
+                    android:singleLine="true"
                     android:background="@drawable/text_cv_et_bg"
                     android:textCursorDrawable="@drawable/edtitext_cursor"
 

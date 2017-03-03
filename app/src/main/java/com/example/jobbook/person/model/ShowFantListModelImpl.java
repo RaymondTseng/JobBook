@@ -48,7 +48,7 @@ public class ShowFantListModelImpl implements ShowFanListModel {
 
     @Override
     public void follow(String myAccount, String hisAccount, final OnFollowListener listener) {
-        OkHttpUtils.get().url(Urls.USER_DETAIL_FOLLOW_SB_URL + myAccount + "/hisAccount/" +
+        OkHttpUtils.get().url(Urls.USER_DETAIL_FOLLOW_SB_URL + myAccount + "/you/" +
                 hisAccount).build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int i) {
