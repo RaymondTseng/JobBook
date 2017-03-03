@@ -41,6 +41,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, Log
     private EditText mPasswordEditText;
     private LinearLayout mLoadingLinearLayout;
     private TextView mForgetPwdTextView;
+    private LinearLayout mParentLayout;
 
     private View view;
     private MyPushIntentService.MyRefreshBinder binder;
@@ -100,6 +101,8 @@ public class LoginActivity extends Activity implements View.OnClickListener, Log
     }
 
     private void initView() {
+        mParentLayout = (LinearLayout) findViewById(R.id.activity_login_layout);
+        mParentLayout.setOnClickListener(this);
         mLoginButton = (Button) findViewById(R.id.login_login_bt);
         mLoginButton.setOnClickListener(this);
         mRegisterTextView = (TextView) findViewById(R.id.login_register_tv);
@@ -140,6 +143,11 @@ public class LoginActivity extends Activity implements View.OnClickListener, Log
             case R.id.login_forget_tv:
                 Util.toAnotherActivity(LoginActivity.this, ForgetPwdFirstActivity.class);
                 finish();
+                break;
+            case R.id.activity_login_layout:
+                InputMethodManager imm = (InputMethodManager)
+                        getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
                 break;
         }
     }

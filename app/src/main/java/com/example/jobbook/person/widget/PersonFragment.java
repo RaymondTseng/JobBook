@@ -297,7 +297,9 @@ public class PersonFragment extends LazyLoadFragment implements PersonView, View
     @Override
     public void onDestroy() {
         super.onDestroy();
-        handler.removeCallbacksAndMessages(null);
+        if (handler != null) {
+            handler.removeCallbacksAndMessages(null);
+        }
         if (timer != null) {
             timer.cancel();
         }

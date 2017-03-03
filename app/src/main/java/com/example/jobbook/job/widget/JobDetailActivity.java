@@ -20,6 +20,7 @@ import com.example.jobbook.bean.JobDetailBean;
 import com.example.jobbook.job.presenter.JobDetailPresenter;
 import com.example.jobbook.job.presenter.JobDetailPresenterImpl;
 import com.example.jobbook.job.view.JobDetailView;
+import com.example.jobbook.login.widget.LoginActivity;
 import com.example.jobbook.util.L;
 import com.example.jobbook.util.Util;
 
@@ -119,7 +120,13 @@ public class JobDetailActivity extends Activity implements View.OnClickListener,
                 break;
             case R.id.job_detail_send_cv_ll:
                 if (MyApplication.getmLoginStatus() == 0) {
-                    Util.showSnackBar(view, "请先登录");
+                    Util.showSnackBar(view, "请先登录", "现在登录", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Util.toAnotherActivity(JobDetailActivity.this, LoginActivity.class);
+                            finish();
+                        }
+                    });
                 } else {
                     sendCVCheckDialog();
                 }
@@ -185,7 +192,13 @@ public class JobDetailActivity extends Activity implements View.OnClickListener,
 
     @Override
     public void NoLoginError() {
-        Util.showSnackBar(view, "请先登录");
+        Util.showSnackBar(view, "请先登录", "现在登录", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Util.toAnotherActivity(JobDetailActivity.this, LoginActivity.class);
+                finish();
+            }
+        });
     }
 
     @Override

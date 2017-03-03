@@ -1,9 +1,11 @@
 package com.example.jobbook.login.widget;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -18,6 +20,7 @@ import com.example.jobbook.util.Util;
  * Created by 椰树 on 2016/9/14.
  */
 public class ForgetPwdSecondActivity extends Activity implements ForgetPwdSecondView, OnClickListener {
+    private LinearLayout mParentLayout;
     private TextView mFinishTextView;
     private EditText mNewPwdEditText;
     private EditText mConfirmEditText;
@@ -36,6 +39,7 @@ public class ForgetPwdSecondActivity extends Activity implements ForgetPwdSecond
     }
 
     private void initViews() {
+        mParentLayout = (LinearLayout) findViewById(R.id.activity_forget_pwd_second_layout);
         mFinishTextView = (TextView) findViewById(R.id.forget_pwd_second_finish_tv);
         mNewPwdEditText = (EditText) findViewById(R.id.forget_pwd_second_new_pwd_et);
         mConfirmEditText = (EditText) findViewById(R.id.forget_pwd_second_confirm_pwd_et);
@@ -97,6 +101,11 @@ public class ForgetPwdSecondActivity extends Activity implements ForgetPwdSecond
         switch (v.getId()) {
             case R.id.forget_pwd_second_finish_tv:
                 complete();
+                break;
+            case R.id.activity_forget_pwd_second_layout:
+                InputMethodManager imm = (InputMethodManager)
+                        getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
                 break;
         }
     }

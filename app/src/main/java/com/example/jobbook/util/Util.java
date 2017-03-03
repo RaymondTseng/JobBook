@@ -337,6 +337,7 @@ public class Util {
         snackbar.show();
     }
 
+
     /**
      * 返回“几分钟前”的字符串，最大为"24小时前"
      * @param currentTime

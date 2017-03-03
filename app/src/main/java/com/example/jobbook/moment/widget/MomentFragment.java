@@ -20,6 +20,7 @@ import android.widget.TextView;
 import com.example.jobbook.MyApplication;
 import com.example.jobbook.R;
 import com.example.jobbook.follow.widget.SquareFollowFragment;
+import com.example.jobbook.login.widget.LoginActivity;
 import com.example.jobbook.moment.MomentPagerAdapter;
 import com.example.jobbook.square.widget.SquareFragment;
 import com.example.jobbook.util.L;
@@ -117,7 +118,13 @@ public class MomentFragment extends Fragment implements View.OnClickListener, Vi
                 if(MyApplication.getmLoginStatus() == 1){
                     mViewPager.setCurrentItem(1);
                 }else{
-                    Util.showSnackBar(view, "请先登录");
+                    Util.showSnackBar(view, "请先登录", "现在登录", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Util.toAnotherActivity(getActivity(), LoginActivity.class);
+                            getActivity().finish();
+                        }
+                    });
                 }
                 break;
             case R.id.moment_publish_tv:
@@ -125,7 +132,13 @@ public class MomentFragment extends Fragment implements View.OnClickListener, Vi
                     myApplication.setHandler(((SquareFragment)mFragemnts.get(0)).handler);
                     Util.toAnotherActivity(getActivity(), NewMomentActivity.class);
                 }else{
-                    Util.showSnackBar(view, "请先登录");
+                    Util.showSnackBar(view, "请先登录", "现在登录", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Util.toAnotherActivity(getActivity(), LoginActivity.class);
+                            getActivity().finish();
+                        }
+                    });
                 }
                 break;
         }
