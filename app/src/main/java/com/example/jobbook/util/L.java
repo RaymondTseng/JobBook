@@ -17,7 +17,7 @@ public class L {
 
     public static final int ERROR = 5;
 
-    public static final int NOTHING = 6;
+    public static final int NOTHING = 0;
 
     public static final int LEVEL = VERBOSE;
 

@@ -1,5 +1,6 @@
 package com.example.jobbook.person.model;
 
+import com.example.jobbook.MyApplication;
 import com.example.jobbook.bean.ResultBean;
 import com.example.jobbook.bean.TypePersonBean;
 import com.example.jobbook.commons.Urls;
@@ -21,7 +22,8 @@ public class ShowFollowerListModelImpl implements ShowFollowerListModel {
 
     @Override
     public void loadFollowerList(String account , final OnLoadFollowerListListener listener) {
-        OkHttpUtils.get().url(Urls.USER_DETAIL_FOLLOW_URL + account).build().execute(new StringCallback() {
+        String myAccount = MyApplication.getAccount() == null ? "" : MyApplication.getAccount();
+        OkHttpUtils.get().url(Urls.USER_DETAIL_FOLLOW_URL + account + "/my/" + myAccount).build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int i) {
                 L.i("showfollowlist", "error");

@@ -1,6 +1,7 @@
 package com.example.jobbook.login.model;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.example.jobbook.MyApplication;
 import com.example.jobbook.bean.PersonBean;
@@ -43,7 +44,7 @@ public class LoginModelImpl implements LoginModel {
 
                 @Override
                 public void onResponse(String response, int id) {
-                    L.i("response", response);
+                    L.i("login_response", response);
                     ResultBean resultBean = new Gson().fromJson(response, ResultBean.class);
                     if(resultBean.getStatus().equals("true")){
                         PersonBean personBean = new Gson().fromJson(resultBean.getResponse(), PersonBean.class);
