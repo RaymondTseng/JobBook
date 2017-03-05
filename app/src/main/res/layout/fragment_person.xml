@@ -71,7 +71,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="16dp"
-            android:src="@mipmap/collect" />
+            android:src="@mipmap/collect"
+            android:background="@null"/>
 
         <TextView
             style="@style/Black16sptv"

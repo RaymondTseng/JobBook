@@ -90,7 +90,7 @@ public class MomentFragment extends Fragment implements View.OnClickListener, Vi
             mTextTabs[i].setFocusable(true);
             mTextTabs[i].setText(addresses[i]);
             mTextTabs[i].setTextSize(16);
-            mTextTabs[i].setBackgroundColor(getResources().getColor(R.color.colorBlue));
+//            mTextTabs[i].setBackgroundColor(getResources().getColor(R.color.colorBlue));
             mTextTabs[i].setGravity(Gravity.CENTER);
             mTextTabs[i].setTextColor(getResources().getColorStateList(R.color.colorWhite));
             mTabWidget.addView(mTextTabs[i]);

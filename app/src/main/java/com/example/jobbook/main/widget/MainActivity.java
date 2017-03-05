@@ -68,6 +68,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        getWindow().setBackgroundDrawable(null);
         mSnackBarView = findViewById(R.id.main_layout);
         initViews();
         initList();

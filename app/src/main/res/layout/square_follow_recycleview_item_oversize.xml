@@ -4,7 +4,6 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-
     <LinearLayout
         android:id="@+id/square_follow_oversize_rl"
         android:layout_width="match_parent"
