@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewStub;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageButton;
@@ -31,7 +32,7 @@ public class JobDetailActivity extends Activity implements View.OnClickListener,
     private ImageButton mBackImageButton;
     private TextView mToCompanyDetailTextView;
     private ImageButton mLikeImageButton;
-    private LinearLayout mLoadingLinearLayout;
+    private ViewStub mLoadingLinearLayout;
     private TextView mJobNameTextView;
     private TextView mJobLocationTextView;
     private TextView mJobTimeTextView;
@@ -76,7 +77,8 @@ public class JobDetailActivity extends Activity implements View.OnClickListener,
         mJobRequireTextView = (TextView) findViewById(R.id.job_detail_description_require_content_tv);
         mBenefitTextView = (TextView) findViewById(R.id.job_detail_benefit_tv);
         mSendCVLayout = (LinearLayout) findViewById(R.id.job_detail_send_cv_ll);
-        mLoadingLinearLayout = (LinearLayout) findViewById(R.id.loading_circle_progress_bar_ll);
+        mLoadingLinearLayout = (ViewStub) findViewById(R.id.activity_job_detail_loading);
+        mLoadingLinearLayout.inflate();
     }
 
     private void initEvents() {

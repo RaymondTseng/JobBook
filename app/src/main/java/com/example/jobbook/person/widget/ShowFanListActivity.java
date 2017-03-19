@@ -6,8 +6,8 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewStub;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 
 import com.example.jobbook.MyApplication;
 import com.example.jobbook.R;
@@ -35,7 +35,7 @@ public class ShowFanListActivity extends Activity implements ShowFanListView, Vi
 //    private LinearLayoutManager mLayoutManager;
     private RecyclerView mRecyclerView;
     private ImageButton mBackImageButton;
-    private LinearLayout mLoadingLinearLayout;
+    private ViewStub mLoadingViewStub;
     private UserDetailFansAdapter adapter;
     private ShowFanListPresenter presenter;
     private LinearLayoutManager mLayoutManager;
@@ -53,7 +53,8 @@ public class ShowFanListActivity extends Activity implements ShowFanListView, Vi
         view = findViewById(android.R.id.content);
         mRecyclerView = (RecyclerView) findViewById(R.id.fanlist_rv);
         mBackImageButton = (ImageButton) findViewById(R.id.fanlist_back_ib);
-        mLoadingLinearLayout = (LinearLayout) findViewById(R.id.fanlist_loading_layout);
+        mLoadingViewStub = (ViewStub) findViewById(R.id.fanlist_loading_layout);
+        mLoadingViewStub.inflate();
     }
 
     private void initEvents() {
@@ -87,12 +88,12 @@ public class ShowFanListActivity extends Activity implements ShowFanListView, Vi
 
     @Override
     public void showProgress() {
-        mLoadingLinearLayout.setVisibility(View.VISIBLE);
+        mLoadingViewStub.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideProgress() {
-        mLoadingLinearLayout.setVisibility(View.GONE);
+        mLoadingViewStub.setVisibility(View.GONE);
     }
 
     @Override

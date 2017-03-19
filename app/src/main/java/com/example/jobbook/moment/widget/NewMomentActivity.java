@@ -9,10 +9,10 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.ViewStub;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.jobbook.MyApplication;
@@ -38,7 +38,7 @@ public class NewMomentActivity extends Activity implements NewMomentView, View.O
     private EditText mNewMomentContentEditText;
     private TextView mNewMomentReleaseTextView;
     private NewMomentPresenter mNewMomentPresenter;
-    private LinearLayout mLoadingLinearLayout;
+    private ViewStub mLoadingLinearLayout;
 
     private MyApplication myApplication;
     private View view;
@@ -60,7 +60,8 @@ public class NewMomentActivity extends Activity implements NewMomentView, View.O
 //        mNewMomentTitleEditText = (EditText) findViewById(R.id.activity_publish_question_title_et);
         mNewMomentContentEditText = (EditText) findViewById(R.id.activity_publish_moment_content_et);
         mNewMomentReleaseTextView = (TextView) findViewById(R.id.activity_publish_moment_release_tv);
-        mLoadingLinearLayout = (LinearLayout) findViewById(R.id.loading_circle_progress_bar_ll);
+        mLoadingLinearLayout = (ViewStub) findViewById(R.id.activity_publish_moment_loading);
+        mLoadingLinearLayout.inflate();
     }
 
     private void initEvents() {

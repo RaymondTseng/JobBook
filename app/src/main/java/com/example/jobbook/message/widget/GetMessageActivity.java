@@ -4,8 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewStub;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.example.jobbook.MyApplication;
@@ -32,7 +32,7 @@ public class GetMessageActivity extends Activity implements View.OnClickListener
     private ImageButton mBackImageButton;
     //    private StickyListHeadersListView stickyList;
     private ListView mGetMessageListView;
-    private LinearLayout mLoadingLinearLayout;
+    private ViewStub mLoadingLinearLayout;
 //    private GetMessageRecyclerViewAdapter mAdapter;
     private GetMessageListViewAdapter mAdapter;
     private GetMessagePresenter presenter;
@@ -52,7 +52,8 @@ public class GetMessageActivity extends Activity implements View.OnClickListener
         mBackImageButton = (ImageButton) findViewById(R.id.getmessage_back_ib);
 //        stickyList = (StickyListHeadersListView) findViewById(R.id.getmessage_lv);
         mGetMessageListView = (ListView) findViewById(R.id.getmessage_lv);
-        mLoadingLinearLayout = (LinearLayout) findViewById(R.id.getmessage_loading_layout);
+        mLoadingLinearLayout = (ViewStub) findViewById(R.id.getmessage_loading_layout);
+        mLoadingLinearLayout.inflate();
     }
 
     private void initEvents() {

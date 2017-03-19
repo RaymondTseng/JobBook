@@ -9,7 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
+import android.view.ViewStub;
 
 import com.example.jobbook.MyApplication;
 import com.example.jobbook.R;
@@ -38,9 +38,7 @@ public class FavouriteArticleFragment extends Fragment implements FavouriteArtic
     private FavouriteArticlePresenter mPresenter;
     private List<ArticleBean> mData;
     private LinearLayoutManager mLayoutManager;
-    private LinearLayout mLoadingLayout;
-
-
+    private ViewStub mLoadingLayout;
 
     @Nullable
     @Override
@@ -53,7 +51,8 @@ public class FavouriteArticleFragment extends Fragment implements FavouriteArtic
 
     private void init(View view){
         mRecyclerView = (RecyclerView) view.findViewById(R.id.base_rv);
-        mLoadingLayout = (LinearLayout) view.findViewById(R.id.loading_layout);
+        mLoadingLayout = (ViewStub) view.findViewById(R.id.fragment_base_lv_loading);
+        mLoadingLayout.inflate();
         mData = new ArrayList<>();
         mPresenter = new FavouriteArticlePresenterImpl(this);
         mAdapter = new FavouriteArticleAdapter(getActivity(), mData);

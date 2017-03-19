@@ -3,7 +3,7 @@
     android:id="@+id/article_recyclerview_item_rl"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/colorWhite">
+    >
 
     <LinearLayout
         android:id="@+id/article_lv_title_ll"

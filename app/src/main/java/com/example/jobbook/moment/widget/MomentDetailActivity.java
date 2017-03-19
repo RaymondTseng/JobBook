@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewStub;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -63,7 +64,7 @@ public class MomentDetailActivity extends Activity implements MomentDetailView, 
     private RelativeLayout mTitleBarLayout;
     private LinearLayout mInputLayout;
 //    private LinearLayout mRecyclerViewLayout;
-    private LinearLayout mLoadingLinearLayout;
+    private ViewStub mLoadingLinearLayout;
     private LinearLayoutManager mLayoutManager;
     private MyApplication myApplication;
     private int mScreenHeight;
@@ -100,7 +101,8 @@ public class MomentDetailActivity extends Activity implements MomentDetailView, 
         mTitleBarLayout = (RelativeLayout) findViewById(R.id.moment_detail_title_bar);
         mInputLayout = (LinearLayout) findViewById(R.id.moment_detail_input_ll);
 //        mRecyclerViewLayout = (LinearLayout) findViewById(R.id.moment_detail_rv_ll);
-        mLoadingLinearLayout = (LinearLayout) findViewById(R.id.loading_circle_progress_bar_ll);
+        mLoadingLinearLayout = (ViewStub) findViewById(R.id.activity_moment_detail_loading);
+        mLoadingLinearLayout.inflate();
     }
 
     private void initEvents() {

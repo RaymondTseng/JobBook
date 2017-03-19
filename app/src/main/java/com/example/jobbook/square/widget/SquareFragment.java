@@ -20,7 +20,6 @@ import com.example.jobbook.R;
 import com.example.jobbook.bean.MomentBean;
 import com.example.jobbook.commons.Urls;
 import com.example.jobbook.login.widget.LoginActivity;
-import com.example.jobbook.main.widget.MainActivity;
 import com.example.jobbook.moment.widget.MomentDetailActivity;
 import com.example.jobbook.square.SquareAdapter;
 import com.example.jobbook.square.presenter.SquarePresenter;
@@ -205,7 +204,12 @@ public class SquareFragment extends LazyLoadFragment implements SquareView,
             mAdapter.setmShowFooter(false);
             mAdapter.notifyDataSetChanged();
         }
-        Util.showSnackBar(MainActivity.mSnackBarView, "网络无法连接！", "重试");
+        Util.showSnackBar(MyApplication.mSnackBarView, "网络无法连接！", "重试", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onRefresh();
+            }
+        });
     }
 
     @Override
@@ -220,7 +224,7 @@ public class SquareFragment extends LazyLoadFragment implements SquareView,
 
     @Override
     public void NoLoginError() {
-        Util.showSnackBar(MainActivity.mSnackBarView, "请先登录！", "现在登录", new View.OnClickListener() {
+        Util.showSnackBar(MyApplication.mSnackBarView, "请先登录！", "现在登录", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Util.toAnotherActivity(getActivity(), LoginActivity.class);
@@ -233,7 +237,7 @@ public class SquareFragment extends LazyLoadFragment implements SquareView,
         mAdapter.getmData().set(position, momentBean);
         //RecyclerView局部更新
         mAdapter.notifyItemChanged(position, "refresh");
-        Util.showSnackBar(MainActivity.mSnackBarView, "点赞成功！");
+        Util.showSnackBar(MyApplication.mSnackBarView, "点赞成功！");
     }
 
     @Override
@@ -241,17 +245,17 @@ public class SquareFragment extends LazyLoadFragment implements SquareView,
         mAdapter.getmData().set(position, momentBean);
         //RecyclerView局部更新
         mAdapter.notifyItemChanged(position, "refresh");
-        Util.showSnackBar(MainActivity.mSnackBarView, "取消点赞成功！");
+        Util.showSnackBar(MyApplication.mSnackBarView, "取消点赞成功！");
     }
 
     @Override
     public void likeError() {
-        Util.showSnackBar(MainActivity.mSnackBarView, "点赞失败！");
+        Util.showSnackBar(MyApplication.mSnackBarView, "点赞失败！");
     }
 
     @Override
     public void unlikeError() {
-        Util.showSnackBar(MainActivity.mSnackBarView, "取消点赞失败！");
+        Util.showSnackBar(MyApplication.mSnackBarView, "取消点赞失败！");
     }
 
 

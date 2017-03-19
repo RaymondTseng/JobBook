@@ -7,9 +7,9 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewStub;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -40,7 +40,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, Log
     private LoginPresenter presenter;
     private EditText mAccountEditText;
     private EditText mPasswordEditText;
-    private LinearLayout mLoadingLinearLayout;
+    private ViewStub mLoadingLinearLayout;
     private TextView mForgetPwdTextView;
     private LinearLayout mParentLayout;
 
@@ -111,7 +111,8 @@ public class LoginActivity extends Activity implements View.OnClickListener, Log
         mCloseImageButton.setOnClickListener(this);
         mAccountEditText = (EditText) findViewById(R.id.login_account_et);
         mPasswordEditText = (EditText) findViewById(R.id.login_password_et);
-        mLoadingLinearLayout = (LinearLayout) findViewById(R.id.loading_circle_progress_bar_ll);
+        mLoadingLinearLayout = (ViewStub) findViewById(R.id.activity_login_loading);
+        mLoadingLinearLayout.inflate();
         mForgetPwdTextView = (TextView) findViewById(R.id.login_forget_tv);
         mRegisterTextView.setOnClickListener(this);
         mForgetPwdTextView.setOnClickListener(this);

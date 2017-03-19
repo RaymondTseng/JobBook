@@ -8,8 +8,8 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewStub;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 
 import com.example.jobbook.MyApplication;
 import com.example.jobbook.R;
@@ -34,7 +34,7 @@ public class ShowFollowerListActivity extends Activity implements ShowFollowerLi
 
     private RecyclerView mRecyclerView;
     private ImageButton mBackImageButton;
-    private LinearLayout mLoadingLinearLayout;
+    private ViewStub mLoadingLinearLayout;
     private ShowFollowerListPresenter presenter;
     private LinearLayoutManager mLayoutManager;
     private UserDetailFollowAdapter mAdapter;
@@ -56,7 +56,8 @@ public class ShowFollowerListActivity extends Activity implements ShowFollowerLi
         view = findViewById(android.R.id.content);
         mRecyclerView = (RecyclerView) findViewById(R.id.followerlist_rv);
         mBackImageButton = (ImageButton) findViewById(R.id.followerlist_back_ib);
-        mLoadingLinearLayout = (LinearLayout) findViewById(R.id.followerlist_loading_layout);
+        mLoadingLinearLayout = (ViewStub) findViewById(R.id.followerlist_loading_layout);
+        mLoadingLinearLayout.inflate();
     }
 
     private void initEvents() {

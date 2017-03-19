@@ -1,188 +1,214 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:id="@+id/text_cv_activity_ll"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorWhite"
-    android:id="@+id/text_cv_activity_ll"
+    android:orientation="vertical"
     android:weightSum="568">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="56"
         android:background="@color/colorWhite">
+
         <ImageButton
             android:id="@+id/text_cv_close_ib"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/close"
             android:layout_centerVertical="true"
             android:layout_marginLeft="16dp"
-            android:background="@null"/>
+            android:background="@null"
+            android:src="@mipmap/close" />
+
         <TextView
-            android:text="资料"
             style="@style/Black20sptv"
-            android:layout_centerInParent="true"/>
+            android:layout_centerInParent="true"
+            android:text="资料" />
+
         <TextView
             android:id="@+id/text_cv_save_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="保存"
-            android:textSize="16sp"
-            android:textColor="@color/colorBlue"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:layout_marginRight="16dp"
-            android:layout_centerVertical="true"/>
+            android:text="保存"
+            android:textColor="@color/colorBlue"
+            android:textSize="16sp" />
     </RelativeLayout>
-    <include
-        layout="@layout/loading_layout"
+
+    <ViewStub
+        android:id="@+id/activity_text_cv_loading"
+        android:layout="@layout/loading_layout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="600"
-        android:visibility="gone"
-        />
+        android:visibility="gone" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="512">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorWhite"
-                >
+                android:background="@color/colorWhite">
+
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/text_cv_head_iv"
                     android:layout_width="78dp"
                     android:layout_height="78dp"
-                    android:layout_centerVertical="true"
                     android:layout_alignParentLeft="true"
-                    android:layout_marginLeft="32dp"
-                    android:src="@mipmap/add_head"
-                    android:background="@null"
-                    android:layout_marginTop="16dp"
+                    android:layout_centerVertical="true"
                     android:layout_marginBottom="16dp"
-                    />
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@null"
+                    android:src="@mipmap/add_head" />
+
                 <EditText
                     android:id="@+id/text_cv_name_et"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="你的姓名"
-                    android:textColorHint="@color/colorTextGray"
-                    android:textSize="20sp"
-                    android:layout_centerVertical="true"
-                    android:layout_toRightOf="@id/text_cv_head_iv"
-                    android:layout_marginLeft="16dp"
                     android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="16dp"
                     android:layout_marginRight="16dp"
+                    android:layout_toRightOf="@id/text_cv_head_iv"
+                    android:background="@drawable/text_cv_et_bg"
+                    android:hint="你的姓名"
                     android:imeOptions="actionNext"
                     android:singleLine="true"
-                    android:background="@drawable/text_cv_et_bg"
+                    android:textColorHint="@color/colorTextGray"
                     android:textCursorDrawable="@drawable/edtitext_cursor"
+                    android:textSize="20sp"
 
                     />
             </RelativeLayout>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/colorBackgroundGray"/>
+                android:background="@color/colorBackgroundGray" />
+
             <include
+                layout="@layout/base_information_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                layout="@layout/base_information_layout"
-                android:layout_marginTop="1dp"
-                />
+                android:layout_marginTop="1dp" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/colorBackgroundGray"/>
+                android:background="@color/colorBackgroundGray" />
+
             <TextView
-                android:text="教育经历"
                 style="@style/Black20sptv"
                 android:layout_gravity="center"
-                android:layout_marginTop="16dp"/>
+                android:layout_marginTop="16dp"
+                android:text="教育经历" />
+
             <LinearLayout
+                android:id="@+id/text_cv_edu_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/text_cv_edu_container"
                 android:orientation="vertical">
+
                 <include
                     android:id="@+id/text_cv_edu_original_ll"
+                    layout="@layout/education_experiment_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    layout="@layout/education_experiment_layout"
-                    android:layout_marginTop="1dp"/>
+                    android:layout_marginTop="1dp" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="28dp"
                 android:layout_marginTop="12dp"
-                android:background="@color/colorWhite">
+                android:background="@color/colorWhite"
+                android:paddingBottom="28dp">
+
                 <ImageButton
                     android:id="@+id/text_cv_add_edu_exp_ib"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@mipmap/add_blue"
                     android:layout_marginLeft="16dp"
+                    android:background="@null"
                     android:clickable="true"
-                    android:background="@null"/>
+                    android:src="@mipmap/add_blue" />
+
                 <TextView
-                    android:layout_gravity="center"
-                    android:text="添加教育经历"
                     style="@style/Black16sptv"
-                    android:layout_marginLeft="16dp"/>
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="16dp"
+                    android:text="添加教育经历" />
             </LinearLayout>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/colorBackgroundGray"/>
+                android:background="@color/colorBackgroundGray" />
+
             <TextView
-                android:text="工作经历"
                 style="@style/Black20sptv"
                 android:layout_gravity="center"
-                android:layout_marginTop="16dp"/>
+                android:layout_marginTop="16dp"
+                android:text="工作经历" />
+
             <LinearLayout
                 android:id="@+id/text_cv_job_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
                 <include
+                    layout="@layout/job_experiment_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    layout="@layout/job_experiment_layout"
-                    android:layout_marginTop="1dp"/>
+                    android:layout_marginTop="1dp" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="28dp"
                 android:layout_marginTop="12dp"
-                android:background="@color/colorWhite">
+                android:background="@color/colorWhite"
+                android:paddingBottom="28dp">
+
                 <ImageButton
                     android:id="@+id/text_cv_add_job_exp_ib"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@mipmap/add_blue"
                     android:layout_marginLeft="16dp"
-                    android:background="@null"/>
+                    android:background="@null"
+                    android:src="@mipmap/add_blue" />
+
                 <TextView
-                    android:layout_gravity="center"
-                    android:text="添加工作经历"
                     style="@style/Black16sptv"
-                    android:layout_marginLeft="16dp"/>
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="16dp"
+                    android:text="添加工作经历" />
             </LinearLayout>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/colorBackgroundGray"/>
+                android:background="@color/colorBackgroundGray" />
+
             <include
+                layout="@layout/expect_job_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                layout="@layout/expect_job_layout"
-                android:layout_marginTop="1dp"/>
+                android:layout_marginTop="1dp" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

@@ -17,6 +17,7 @@ import android.widget.PopupWindow;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.example.jobbook.MyApplication;
 import com.example.jobbook.R;
 import com.example.jobbook.article.ArticlesAdapter;
 import com.example.jobbook.article.presenter.ArticlePresenter;
@@ -25,7 +26,6 @@ import com.example.jobbook.article.view.ArticleView;
 import com.example.jobbook.bean.ArticleBean;
 import com.example.jobbook.commons.Constants;
 import com.example.jobbook.commons.Urls;
-import com.example.jobbook.main.widget.MainActivity;
 import com.example.jobbook.util.DividerItemDecoration;
 import com.example.jobbook.util.L;
 import com.example.jobbook.util.LazyLoadFragment;
@@ -61,7 +61,6 @@ public class ArticleFragment extends LazyLoadFragment implements ArticleView, Vi
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLayoutManager;
     private SwipeRefreshLayout mSwipeRefreshLayout;
-
 
 
     @Override
@@ -168,7 +167,12 @@ public class ArticleFragment extends LazyLoadFragment implements ArticleView, Vi
 //        Util.showSnackBar(getActivity().findViewById(R.id.article_fragment), "网络无法连接！", "重试");
 
 //        View parentview = getActivity().findViewById(android.R.id.content);
-        Util.showSnackBar(MainActivity.mSnackBarView, "网络无法连接！", "重试");
+        Util.showSnackBar(MyApplication.mSnackBarView, "网络无法连接！", "重试", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onRefresh();
+            }
+        });
     }
 
 

@@ -27,9 +27,9 @@
             android:text="我的粉丝" />
     </RelativeLayout>
 
-    <include
+    <ViewStub
         android:id="@+id/fanlist_loading_layout"
-        layout="@layout/loading_layout"
+        android:layout="@layout/loading_layout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="512" />

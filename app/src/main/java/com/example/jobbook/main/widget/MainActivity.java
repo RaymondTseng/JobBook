@@ -50,8 +50,6 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     public static BadgeView mBadgeView;
     private Button mButton;
 
-    public static View mSnackBarView;
-
     // 定义一个变量，来标识是否退出
     private static boolean isExit = false;
 
@@ -68,7 +66,8 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mSnackBarView = findViewById(R.id.main_layout);
+        getWindow().setBackgroundDrawable(null);
+        MyApplication.mSnackBarView = findViewById(R.id.main_layout);
         initViews();
         initList();
         initEvent();
@@ -217,6 +216,8 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         super.onDestroy();
         L.i("main", "ondestory");
         MyPushIntentService.listeners.remove(this);
+        MyApplication.mSnackBarView = null;
+        mBadgeView = null;
     }
 
     @Override
@@ -263,4 +264,5 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
             });
         }
     }
+
 }

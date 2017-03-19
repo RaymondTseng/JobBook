@@ -9,7 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
+import android.view.ViewStub;
 
 import com.example.jobbook.MyApplication;
 import com.example.jobbook.R;
@@ -38,7 +38,7 @@ public class UserDetailFansFragment extends Fragment implements UserDetailFansVi
     private List<TypePersonBean> mData;
     private UserDetailFansPresenter mPresenter;
     private LinearLayoutManager mLayoutManager;
-    private LinearLayout mLoadingLayout;
+    private ViewStub mLoadingLayout;
     private String account;
 
     @Nullable
@@ -51,7 +51,8 @@ public class UserDetailFansFragment extends Fragment implements UserDetailFansVi
 
     private void init(View view) {
         mRecyclerView = (RecyclerView) view.findViewById(R.id.base_rv);
-        mLoadingLayout = (LinearLayout) view.findViewById(R.id.loading_layout) ;
+        mLoadingLayout = (ViewStub) view.findViewById(R.id.fragment_base_lv_loading);
+        mLoadingLayout.inflate();
         mData = new ArrayList<>();
         mPresenter = new UserDetailFansPresenterImpl(this);
         mAdapter = new UserDetailFansAdapter(getActivity(), mData);
@@ -65,6 +66,7 @@ public class UserDetailFansFragment extends Fragment implements UserDetailFansVi
         mAdapter.setOnFollowFanClickListener(this);
         mAdapter.setOnFanItemClickListener(this);
         mPresenter.loadFans(account);
+        mLoadingLayout.setVisibility(View.GONE);
     }
 
     @Override

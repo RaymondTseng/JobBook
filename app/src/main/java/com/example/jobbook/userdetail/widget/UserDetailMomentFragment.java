@@ -9,7 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
+import android.view.ViewStub;
 
 import com.example.jobbook.MyApplication;
 import com.example.jobbook.R;
@@ -37,9 +37,8 @@ public class UserDetailMomentFragment extends Fragment implements UserDetailMome
     private UserDetailMomentPresenterImpl mPresenter;
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLayoutManager;
-    private LinearLayout mLoadingLayout;
+    private ViewStub mLoadingLayout;
     private String account;
-
 
     @Nullable
     @Override
@@ -51,7 +50,8 @@ public class UserDetailMomentFragment extends Fragment implements UserDetailMome
 
     private void init(View view){
         mRecyclerView = (RecyclerView) view.findViewById(R.id.base_rv);
-        mLoadingLayout = (LinearLayout) view.findViewById(R.id.loading_layout);
+        mLoadingLayout = (ViewStub) view.findViewById(R.id.fragment_base_lv_loading);
+        mLoadingLayout.inflate();
         mData = new ArrayList<>();
         mPresenter = new UserDetailMomentPresenterImpl(this);
         mAdapter = new UserDetailMomentAdapter(getActivity(), mData);
@@ -68,7 +68,7 @@ public class UserDetailMomentFragment extends Fragment implements UserDetailMome
         }else{
             mPresenter.loadMoments(account, "");
         }
-
+        mLoadingLayout.setVisibility(View.GONE);
     }
 
     @Override

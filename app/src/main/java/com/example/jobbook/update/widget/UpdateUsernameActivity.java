@@ -3,9 +3,9 @@ package com.example.jobbook.update.widget;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewStub;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.jobbook.MyApplication;
@@ -25,7 +25,7 @@ public class UpdateUsernameActivity extends Activity implements View.OnClickList
     private EditText mUserNameEditText;
     private TextView mCompleteTextView;
     private UpdateUsernamePresenter presenter;
-    private LinearLayout mLoadingLinearLayout;
+    private ViewStub mLoadingLinearLayout;
     private MyApplication mMyApplication;
 
     private View view;
@@ -43,7 +43,8 @@ public class UpdateUsernameActivity extends Activity implements View.OnClickList
         mBackImageButton = (ImageButton) findViewById(R.id.person_change_username_back_ib);
         mUserNameEditText = (EditText) findViewById(R.id.person_change_username_et);
         mCompleteTextView = (TextView) findViewById(R.id.person_change_username_complete_tv);
-        mLoadingLinearLayout = (LinearLayout) findViewById(R.id.loading_circle_progress_bar_ll);
+        mLoadingLinearLayout = (ViewStub) findViewById(R.id.activity_person_change_username_loading);
+        mLoadingLinearLayout.inflate();
     }
 
 

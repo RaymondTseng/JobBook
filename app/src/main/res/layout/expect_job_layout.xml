@@ -1,101 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorWhite">
+    android:orientation="vertical">
+
     <TextView
-        android:text="期待工作"
         style="@style/Black20sptv"
         android:layout_gravity="center"
-        android:layout_marginTop="16dp"/>
+        android:layout_marginTop="16dp"
+        android:text="期待工作" />
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
-        >
+        android:layout_marginBottom="12dp">
+
         <EditText
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
             android:id="@+id/text_cv_expect_job_positon_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/text_cv_et_bg"
+            android:imeOptions="actionNext"
             android:paddingBottom="8dp"
             android:paddingLeft="40dp"
-            android:imeOptions="actionNext"
             android:singleLine="true"
-            android:background="@drawable/text_cv_et_bg"
-            android:textCursorDrawable="@drawable/edtitext_cursor"
-            />
+            android:textCursorDrawable="@drawable/edtitext_cursor" />
+
         <TextView
-            android:text="职位"
+            android:id="@+id/text_cv_expect_job_positon_tv"
             style="@style/Black16sptv"
+            android:layout_alignBaseline="@id/text_cv_expect_job_positon_et"
+            android:layout_marginLeft="16dp"
+            android:drawablePadding="6dp"
             android:drawableRight="@drawable/text_cv_vertical_gray_line"
             android:gravity="center"
-            android:drawablePadding="6dp"
-            android:id="@+id/text_cv_expect_job_positon_tv"
-            android:layout_marginLeft="16dp"
-            android:layout_alignBaseline="@id/text_cv_expect_job_positon_et"
-            />
+            android:text="职位" />
 
     </RelativeLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
-        >
+        android:layout_marginBottom="12dp">
+
         <EditText
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
             android:id="@+id/text_cv_expect_job_salary_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="40dp"
-            android:imeOptions="actionNext"
-            android:singleLine="true"
-            android:paddingBottom="8dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
             android:background="@drawable/text_cv_et_bg"
-            android:textCursorDrawable="@drawable/edtitext_cursor"
-            />
+            android:imeOptions="actionNext"
+            android:paddingBottom="8dp"
+            android:paddingLeft="40dp"
+            android:singleLine="true"
+            android:textCursorDrawable="@drawable/edtitext_cursor" />
+
         <TextView
-            android:text="薪水"
+            android:id="@+id/text_cv_expect_job_salary_tv"
             style="@style/Black16sptv"
+            android:layout_alignBaseline="@id/text_cv_expect_job_salary_et"
+            android:layout_marginLeft="16dp"
+            android:drawablePadding="6dp"
             android:drawableRight="@drawable/text_cv_vertical_gray_line"
             android:gravity="center"
-            android:drawablePadding="6dp"
-            android:id="@+id/text_cv_expect_job_salary_tv"
-            android:layout_marginLeft="16dp"
-            android:layout_alignBaseline="@id/text_cv_expect_job_salary_et"
-            />
+            android:text="薪水" />
 
     </RelativeLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
-        >
+        android:layout_marginBottom="12dp">
+
         <EditText
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
             android:id="@+id/text_cv_expect_job_location_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="72dp"
-            android:imeOptions="actionNext"
-            android:singleLine="true"
-            android:paddingBottom="8dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
             android:background="@drawable/text_cv_et_bg"
-            android:textCursorDrawable="@drawable/edtitext_cursor"
-            />
+            android:imeOptions="actionNext"
+            android:paddingBottom="8dp"
+            android:paddingLeft="72dp"
+            android:singleLine="true"
+            android:textCursorDrawable="@drawable/edtitext_cursor" />
+
         <TextView
-            android:text="工作地点"
+            android:id="@+id/text_cv_expect_job_location_tv"
             style="@style/Black16sptv"
+            android:layout_alignBaseline="@id/text_cv_expect_job_location_et"
+            android:layout_marginLeft="16dp"
+            android:drawablePadding="6dp"
             android:drawableRight="@drawable/text_cv_vertical_gray_line"
             android:gravity="center"
-            android:drawablePadding="6dp"
-            android:id="@+id/text_cv_expect_job_location_tv"
-            android:layout_marginLeft="16dp"
-            android:layout_alignBaseline="@id/text_cv_expect_job_location_et"
-            />
+            android:text="工作地点" />
 
     </RelativeLayout>
 

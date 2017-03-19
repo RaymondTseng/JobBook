@@ -3,8 +3,7 @@
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="12dp"
-    android:paddingTop="12dp"
-    android:background="@color/colorWhite">
+    android:paddingTop="12dp">
     <ImageButton
         android:id="@+id/delete_exp_ib"
         android:layout_width="wrap_content"

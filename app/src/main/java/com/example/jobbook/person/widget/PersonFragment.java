@@ -9,6 +9,7 @@ import android.os.Message;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewStub;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -71,12 +72,12 @@ public class PersonFragment extends LazyLoadFragment implements PersonView, View
     private LinearLayout mMomentLL;
     private LinearLayout mFollowLL;
     private LinearLayout mFanLL;
-    private LinearLayout mLoadingLayout;
+    private ViewStub mLoadingLayout;
     private CircleImageView mCircleHeadImageView;
     private MyApplication mMyApplication;
     private PersonBean personBean;
     private UploadPopupWindow mPopupWindow;
-        private TextView mEditTextView;
+    private TextView mEditTextView;
     private TextView mUnReadTextView;
     private Uri mUri;
     private Timer timer;
@@ -120,7 +121,8 @@ public class PersonFragment extends LazyLoadFragment implements PersonView, View
         mFollowLL = findViewById(R.id.person_follow_num_ll);
         mFanLL = findViewById(R.id.person_fans_num_ll);
         mMessageLayout = findViewById(R.id.person_message_rl);
-        mLoadingLayout = findViewById(R.id.loading_circle_progress_bar_ll);
+        mLoadingLayout = findViewById(R.id.fragment_person_loading);
+        mLoadingLayout.inflate();
 //        mBlackListLayout = findViewById(R.id.person_black_list_ll);
         mLogOutTextView = findViewById(R.id.person_logout_tv);
         mEditTextView = findViewById(R.id.person_edit_tv);
@@ -157,6 +159,7 @@ public class PersonFragment extends LazyLoadFragment implements PersonView, View
             };
             timer.schedule(timerTask, 0, 1000);
         }
+        mLoadingLayout.setVisibility(View.GONE);
     }
 
     @Override
@@ -363,12 +366,12 @@ public class PersonFragment extends LazyLoadFragment implements PersonView, View
 
     @Override
     public void uploadSuccess() {
-        Util.showSnackBar(MainActivity.mSnackBarView, "上传成功！");
+        Util.showSnackBar(MyApplication.mSnackBarView, "上传成功！");
     }
 
     @Override
     public void uploadFailure() {
-        Util.showSnackBar(MainActivity.mSnackBarView, "上传失败，请重试！");
+        Util.showSnackBar(MyApplication.mSnackBarView, "上传失败，请重试！");
     }
 
     @Override
@@ -396,14 +399,14 @@ public class PersonFragment extends LazyLoadFragment implements PersonView, View
         @Override
         public void handleMessage(Message msg) {
             if (msg.what == REFRESH) {
-                Util.showSnackBar(MainActivity.mSnackBarView, "保存成功！");
+                Util.showSnackBar(MyApplication.mSnackBarView, "保存成功！");
             } else if (msg.what == REFRESH_NAME) {
                 showPersonData();
             } else if (msg.what == REFRESH_HEAD) {
                 onRefreshHead();
             } else if (msg.what == REFRESH_UNREAD) {
                 refreshUnread();
-                if (personBean != null) {
+                if (personBean != null && MyApplication.getmPersonBean() != null) {
                     if (!personBean.toString().equals(MyApplication.getmPersonBean().toString())) {
                         L.i("handler", "refresh");
                         showPersonData();

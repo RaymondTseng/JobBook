@@ -67,8 +67,9 @@
 
     </LinearLayout>
 
-    <include
-        layout="@layout/loading_layout"
+    <ViewStub
+        android:id="@+id/job_search_activity_loading"
+        android:layout="@layout/loading_layout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="512" />

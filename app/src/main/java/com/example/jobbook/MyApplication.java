@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Handler;
+import android.view.View;
 
 import com.example.jobbook.bean.PersonBean;
 import com.example.jobbook.service.MyPushIntentService;
@@ -36,6 +37,8 @@ public class MyApplication extends Application {
     public static String mDevicetoken;
 
     private Handler handler = null;
+
+    public static View mSnackBarView;
 
 //    public static PersonBean getmPersonBean(Context context) {
 //        if (mPersonBean != null) {

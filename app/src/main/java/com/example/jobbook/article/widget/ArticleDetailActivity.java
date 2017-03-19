@@ -3,8 +3,8 @@ package com.example.jobbook.article.widget;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewStub;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -37,7 +37,7 @@ public class ArticleDetailActivity extends Activity implements ArticleDetailView
     private TextView mArticleTitleTextView;
     private TextView mTimeTextView;
     private HtmlTextView mArticleContentTextView;
-    private LinearLayout mLoadingLinearLayout;
+    private ViewStub mLoadingViewStub;
     private ArticleBean bean;
     private View view;
 
@@ -58,7 +58,8 @@ public class ArticleDetailActivity extends Activity implements ArticleDetailView
         mArticleTitleTextView = (TextView) findViewById(R.id.article_detail_title_tv);
         mArticleContentTextView = (HtmlTextView) findViewById(R.id.article_detail_content_tv);
         mTimeTextView = (TextView) findViewById(R.id.article_detail_content_time_tv);
-        mLoadingLinearLayout = (LinearLayout) findViewById(R.id.loading_circle_progress_bar_ll);
+        mLoadingViewStub = (ViewStub) findViewById(R.id.article_detail_loading);
+        mLoadingViewStub.inflate();
     }
 
     private void initEvents() {
@@ -72,7 +73,7 @@ public class ArticleDetailActivity extends Activity implements ArticleDetailView
 
     @Override
     public void showProgress() {
-        mLoadingLinearLayout.setVisibility(View.VISIBLE);
+        mLoadingViewStub.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -100,7 +101,7 @@ public class ArticleDetailActivity extends Activity implements ArticleDetailView
 
     @Override
     public void hideProgress() {
-        mLoadingLinearLayout.setVisibility(View.GONE);
+        mLoadingViewStub.setVisibility(View.GONE);
     }
 
     @Override
