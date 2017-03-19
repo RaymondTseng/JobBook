@@ -9,7 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
+import android.view.ViewStub;
 
 import com.example.jobbook.MyApplication;
 import com.example.jobbook.R;
@@ -37,7 +37,7 @@ public class UserDetailFollowFragment extends Fragment implements UserDetailFoll
     private UserDetailFollowAdapter mAdapter;
     private UserDetailFollowPresenter mPresenter;
     private LinearLayoutManager mLayoutManager;
-    private LinearLayout mLoadingLayout;
+    private ViewStub mLoadingLayout;
     private String account;
 
     @Nullable
@@ -51,7 +51,8 @@ public class UserDetailFollowFragment extends Fragment implements UserDetailFoll
     private void init(View view){
         mData = new ArrayList<>();
         mRecyclerView = (RecyclerView) view.findViewById(R.id.base_rv);
-        mLoadingLayout = (LinearLayout) view.findViewById(R.id.loading_layout);
+        mLoadingLayout = (ViewStub) view.findViewById(R.id.fragment_base_lv_loading);
+        mLoadingLayout.inflate();
         mAdapter = new UserDetailFollowAdapter(getActivity(), mData);
         mPresenter = new UserDetailFollowPresenterImpl(this);
         mLayoutManager = new LinearLayoutManager(getActivity());
@@ -64,6 +65,7 @@ public class UserDetailFollowFragment extends Fragment implements UserDetailFoll
         mAdapter.setOnFollowClickListener(this);
         mAdapter.setOnFollwerItemClickListener(this);
         mPresenter.loadFollow(account);
+        mLoadingLayout.setVisibility(View.GONE);
     }
 
     @Override

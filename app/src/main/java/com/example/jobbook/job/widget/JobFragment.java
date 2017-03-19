@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.jobbook.MyApplication;
 import com.example.jobbook.R;
 import com.example.jobbook.bean.JobBean;
 import com.example.jobbook.commons.Urls;
@@ -21,7 +22,6 @@ import com.example.jobbook.job.SpinnerTitleAdapter;
 import com.example.jobbook.job.presenter.JobPresenter;
 import com.example.jobbook.job.presenter.JobPresenterImpl;
 import com.example.jobbook.job.view.JobView;
-import com.example.jobbook.main.widget.MainActivity;
 import com.example.jobbook.search.widget.SearchDialogFragment;
 import com.example.jobbook.util.DividerItemDecoration;
 import com.example.jobbook.util.L;
@@ -268,7 +268,12 @@ public class JobFragment extends LazyLoadFragment implements JobView,
             mAdapter.setmShowFooter(false);
             mAdapter.notifyDataSetChanged();
         }
-        Util.showSnackBar(MainActivity.mSnackBarView, "网络无法连接！", "重试");
+        Util.showSnackBar(MyApplication.mSnackBarView, "网络无法连接！", "重试", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mJobPresenter.loadJobs(pageIndex, isRecommend, mCurrentCategory, mCurrentLocation);
+            }
+        });
     }
 
     @Override

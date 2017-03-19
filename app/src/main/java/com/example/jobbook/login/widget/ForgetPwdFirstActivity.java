@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewStub;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,7 +30,7 @@ public class ForgetPwdFirstActivity extends Activity implements ForgetPwdFirstVi
     private EditText mPhoneEditText;
     private EditText mCodeEditText;
     private Button mGetCodeButton;
-    private LinearLayout mLoadingLayout;
+    private ViewStub mLoadingLayout;
     private ForgetPwdFirstPresenter mPresenter;
     private View view;
 
@@ -49,7 +50,7 @@ public class ForgetPwdFirstActivity extends Activity implements ForgetPwdFirstVi
         mPhoneEditText = (EditText) findViewById(R.id.forget_pwd_first_phone_et);
         mCodeEditText = (EditText) findViewById(R.id.forget_pwd_first_code_et);
         mGetCodeButton = (Button) findViewById(R.id.forget_pwd_first_code_bt);
-        mLoadingLayout = (LinearLayout) findViewById(R.id.loading_circle_progress_bar_ll);
+        mLoadingLayout = (ViewStub) findViewById(R.id.activity_forget_pwd_first_loading);
     }
 
     private void initEvents() {

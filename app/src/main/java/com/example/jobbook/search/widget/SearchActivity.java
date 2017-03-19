@@ -10,13 +10,13 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewStub;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -53,7 +53,7 @@ public class SearchActivity extends Activity implements View.OnClickListener, Se
     private int mCurrentType = 0;
     private List<JobBean> list;
     private Spinner mSpinner;
-    private LinearLayout mLoadingLinearLayout;
+    private ViewStub mLoadingLinearLayout;
 
     private int pageIndex = 0;
 
@@ -73,7 +73,8 @@ public class SearchActivity extends Activity implements View.OnClickListener, Se
 //        mSearchImageButton.setOnClickListener(this);
         mSearchEditText = (EditText) findViewById(R.id.job_search_activity_et);
         mRecyclerView = (RecyclerView) findViewById(R.id.job_search_activity_rv);
-        mLoadingLinearLayout = (LinearLayout) findViewById(R.id.loading_circle_progress_bar_ll);
+        mLoadingLinearLayout = (ViewStub) findViewById(R.id.job_search_activity_loading);
+        mLoadingLinearLayout.inflate();
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
         mRecyclerView.setHasFixedSize(true);

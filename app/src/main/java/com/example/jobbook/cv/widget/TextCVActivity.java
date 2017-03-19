@@ -10,6 +10,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewStub;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -90,7 +91,7 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
     private TextView mJobDivider;
     private CircleImageView mUserHeadImageView;
     private UploadPopupWindow mPopupWindow;
-    private LinearLayout mLoadingLayout;
+    private ViewStub mLoadingLayout;
     private TextCVPresenter mPresenter;
     private UploadPresenter uploadPresenter;
     private Uri mUri;
@@ -137,7 +138,8 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
         mEduDivider = (TextView) findViewById(R.id.edu_exp_divider);
         mJobDivider = (TextView) findViewById(R.id.job_exp_divider);
         mUserHeadImageView = (CircleImageView) findViewById(R.id.text_cv_head_iv);
-        mLoadingLayout = (LinearLayout) findViewById(R.id.loading_circle_progress_bar_ll);
+        mLoadingLayout = (ViewStub) findViewById(R.id.activity_text_cv_loading);
+        mLoadingLayout.inflate();
     }
 
     @SuppressWarnings("ResourceType")

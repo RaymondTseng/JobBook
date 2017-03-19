@@ -9,7 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
+import android.view.ViewStub;
 
 import com.example.jobbook.MyApplication;
 import com.example.jobbook.R;
@@ -37,7 +37,7 @@ public class FavouriteJobsFragment extends Fragment implements FavouriteJobView,
     private List<JobBean> mData;
     private FavouriteJobPresenter mPresenter;
     private LinearLayoutManager mLayoutManager;
-    private LinearLayout mLoadingLayout;
+    private ViewStub mLoadingLayout;
 
 
     @Nullable
@@ -51,7 +51,8 @@ public class FavouriteJobsFragment extends Fragment implements FavouriteJobView,
 
     private void init(View view){
         mRecyclerView = (RecyclerView) view.findViewById(R.id.base_rv);
-        mLoadingLayout = (LinearLayout) view.findViewById(R.id.loading_layout);
+        mLoadingLayout = (ViewStub) view.findViewById(R.id.fragment_base_lv_loading);
+        mLoadingLayout.inflate();
         mData = new ArrayList<>();
         mPresenter = new FavouriteJobPresenterImpl(this);
         mAdapter = new FavouriteJobAdapter(getActivity(), mData);

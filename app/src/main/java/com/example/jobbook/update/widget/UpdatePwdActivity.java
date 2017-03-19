@@ -3,9 +3,9 @@ package com.example.jobbook.update.widget;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewStub;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.jobbook.MyApplication;
@@ -26,7 +26,7 @@ public class UpdatePwdActivity extends Activity implements View.OnClickListener,
     private EditText mNewPwdConfirmEditText;
     private TextView mCompleteTextView;
     private UpdatePwdPresenter presenter;
-    private LinearLayout mLoadingLinearLayout;
+    private ViewStub mLoadingLinearLayout;
 
     private View view;
 
@@ -45,7 +45,8 @@ public class UpdatePwdActivity extends Activity implements View.OnClickListener,
         mNewPwdEditText = (EditText) findViewById(R.id.person_change_pwd_new_pwd_et);
         mNewPwdConfirmEditText = (EditText) findViewById(R.id.person_change_pwd_new_pwd_confirm_et);
         mCompleteTextView = (TextView) findViewById(R.id.person_change_pwd_complete_tv);
-        mLoadingLinearLayout = (LinearLayout) findViewById(R.id.loading_circle_progress_bar_ll);
+        mLoadingLinearLayout = (ViewStub) findViewById(R.id.activity_person_change_pwd_loading);
+        mLoadingLinearLayout.inflate();
     }
 
     private void initEvents() {

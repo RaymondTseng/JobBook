@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewStub;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -39,7 +40,7 @@ public class RegisterActivity extends Activity implements RegisterView, View.OnC
     private EditText mCodeEditText;
     private Button mGetCodeButton;
     private ImageButton mCloseImageButton;
-    private LinearLayout mLoadingLinearLayout;
+    private ViewStub mLoadingLinearLayout;
     private RegisterPresenter presenter;
     private LinearLayout mParentLayout;
 
@@ -64,7 +65,8 @@ public class RegisterActivity extends Activity implements RegisterView, View.OnC
         mCodeEditText = (EditText) findViewById(R.id.register_code_et);
         mCloseImageButton = (ImageButton) findViewById(R.id.register_close_ib);
         mGetCodeButton = (Button) findViewById(R.id.register_code_bt);
-        mLoadingLinearLayout = (LinearLayout) findViewById(R.id.loading_circle_progress_bar_ll);
+        mLoadingLinearLayout = (ViewStub) findViewById(R.id.activity_register_loading);
+        mLoadingLinearLayout.inflate();
     }
 
     private void initEvents() {

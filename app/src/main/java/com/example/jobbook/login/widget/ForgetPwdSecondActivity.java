@@ -5,9 +5,9 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewStub;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.jobbook.R;
@@ -20,11 +20,10 @@ import com.example.jobbook.util.Util;
  * Created by 椰树 on 2016/9/14.
  */
 public class ForgetPwdSecondActivity extends Activity implements ForgetPwdSecondView, OnClickListener {
-    private LinearLayout mParentLayout;
     private TextView mFinishTextView;
     private EditText mNewPwdEditText;
     private EditText mConfirmEditText;
-    private LinearLayout mLoadingLayout;
+    private ViewStub mLoadingLayout;
     private String account;
     private ForgetPwdSecondPresenter mPresenter;
     private View view;
@@ -39,11 +38,11 @@ public class ForgetPwdSecondActivity extends Activity implements ForgetPwdSecond
     }
 
     private void initViews() {
-        mParentLayout = (LinearLayout) findViewById(R.id.activity_forget_pwd_second_layout);
+//        mParentLayout = (LinearLayout) findViewById(R.id.activity_forget_pwd_second_layout);
         mFinishTextView = (TextView) findViewById(R.id.forget_pwd_second_finish_tv);
         mNewPwdEditText = (EditText) findViewById(R.id.forget_pwd_second_new_pwd_et);
         mConfirmEditText = (EditText) findViewById(R.id.forget_pwd_second_confirm_pwd_et);
-        mLoadingLayout = (LinearLayout) findViewById(R.id.loading_circle_progress_bar_ll);
+        mLoadingLayout = (ViewStub) findViewById(R.id.activity_forget_pwd_second_loading);
     }
 
     private void initEvents() {

@@ -6,8 +6,8 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewStub;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 
 import com.example.jobbook.MyApplication;
 import com.example.jobbook.R;
@@ -33,7 +33,7 @@ public class ShowMomentListActivity extends Activity implements ShowMomentListVi
 
     private RecyclerView mRecyclerView;
     private ImageButton mBackImageButton;
-    private LinearLayout mLoadingLinearLayout;
+    private ViewStub mLoadingLinearLayout;
     private UserDetailMomentAdapter mAdapter;
     private ShowMomentListPresenter presenter;
     private LinearLayoutManager mLayoutManager;
@@ -52,7 +52,8 @@ public class ShowMomentListActivity extends Activity implements ShowMomentListVi
         view = findViewById(android.R.id.content);
         mRecyclerView = (RecyclerView) findViewById(R.id.momentlist_rv);
         mBackImageButton = (ImageButton) findViewById(R.id.momentlist_back_ib);
-        mLoadingLinearLayout = (LinearLayout) findViewById(R.id.momentlist_loading_layout);
+        mLoadingLinearLayout = (ViewStub) findViewById(R.id.momentlist_loading_layout);
+        mLoadingLinearLayout.inflate();
     }
 
     private void initEvents() {

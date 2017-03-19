@@ -12,6 +12,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.view.View;
+import android.view.ViewStub;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageButton;
@@ -61,7 +62,7 @@ public class UserDetailActivity extends AppCompatActivity implements View.OnClic
     private CircleImageView mHeadImageView;
     private TextView mNameTextView;
     private TextView mCompanyPositionTextView;
-    private LinearLayout mLoadingLinearLayout;
+    private ViewStub mLoadingLinearLayout;
     private TextView mFocusTextView;
     private ImageView mFocusImageView;
     private int mCurrentIndex = 0;
@@ -89,7 +90,8 @@ public class UserDetailActivity extends AppCompatActivity implements View.OnClic
         mFollowerTextView = (TextView) findViewById(R.id.user_detail_title_follower_tv);
         mBackImageButton = (ImageButton) findViewById(R.id.user_detail_back_ib);
         mFollowLayout = (LinearLayout) findViewById(R.id.user_detail_follow_ll);
-        mLoadingLinearLayout = (LinearLayout) findViewById(R.id.loading_circle_progress_bar_ll);
+        mLoadingLinearLayout = (ViewStub) findViewById(R.id.activity_user_detail_loading);
+        mLoadingLinearLayout.inflate();
         mHeadImageView = (CircleImageView) findViewById(R.id.user_detail_title_head_iv);
         mNameTextView = (TextView) findViewById(R.id.user_detail_title_head_name_tv);
         mCompanyPositionTextView = (TextView) findViewById(R.id.user_detail_title_company_position_tv);
@@ -153,7 +155,7 @@ public class UserDetailActivity extends AppCompatActivity implements View.OnClic
             }
             mPresenter.loadUserDetailByAccount(account);
         }
-
+        mLoadingLinearLayout.setVisibility(View.GONE);
 
     }
 
