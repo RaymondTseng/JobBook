@@ -106,7 +106,7 @@ public class ShowMomentListActivity extends Activity implements ShowMomentListVi
     @Override
     public void onMomentItemClick(MomentBean momentBean) {
         Bundle bundle = new Bundle();
-        bundle.putSerializable("square_detail", momentBean);
+        bundle.putParcelable("square_detail", momentBean);
         L.i("showmomenlist", momentBean.toString());
         Util.toAnotherActivity(this, MomentDetailActivity.class, bundle);
     }

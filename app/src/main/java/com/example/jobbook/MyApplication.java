@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.view.View;
 
 import com.example.jobbook.bean.PersonBean;
+import com.example.jobbook.network.RetrofitService;
 import com.example.jobbook.service.MyPushIntentService;
 import com.example.jobbook.util.CrashHandler;
 import com.example.jobbook.util.L;
@@ -40,15 +41,7 @@ public class MyApplication extends Application {
 
     public static View mSnackBarView;
 
-//    public static PersonBean getmPersonBean(Context context) {
-//        if (mPersonBean != null) {
-//            return mPersonBean;
-//        } else {
-//            SharedPreferences sharedPreferences = context.getSharedPreferences("user", MODE_PRIVATE);
-//            return Util.loadPersonBean(sharedPreferences);
-//        }
-//    }
-
+    private static Context sContext;
 
     public static PersonBean getmPersonBean() {
         if (mPersonBean != null) {
@@ -90,6 +83,10 @@ public class MyApplication extends Application {
 
     private static void setAccount(String account) {
         MyApplication.account = account;
+    }
+
+    public static Context getContext() {
+        return sContext;
     }
 
 //    public static LinkedList<String> getmSearchRecordList() {
@@ -138,6 +135,10 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        sContext = getApplicationContext();
+
+        RetrofitService.init();
 
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
 //                .addInterceptor(new LoggerInterceptor("TAG"))
@@ -209,7 +210,6 @@ public class MyApplication extends Application {
         mPushAgent.setDisplayNotificationNumber(5);
         // 内存泄漏检测工具
 //        LeakCanary.install(this);
-
 
 
 //        Context context = this.getApplicationContext();

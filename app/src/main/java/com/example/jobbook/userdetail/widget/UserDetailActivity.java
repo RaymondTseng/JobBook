@@ -135,7 +135,7 @@ public class UserDetailActivity extends AppCompatActivity implements View.OnClic
         mViewPager.setOnPageChangeListener(this);
         mViewPager.setCurrentItem(0);
         mPresenter = new UserDetailPresenterImpl(this);
-        mPersonBean = (TypePersonBean) getIntent().getSerializableExtra("person_bean");
+        mPersonBean = getIntent().getParcelableExtra("person_bean");
         if (mPersonBean != null) {
             L.i("userdetail", mPersonBean.toString());
             ((UserDetailMomentFragment) mFragemnts.get(0)).getAccount(mPersonBean.getAccount());

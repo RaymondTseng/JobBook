@@ -1,11 +1,12 @@
 package com.example.jobbook.bean;
 
-import java.io.Serializable;
+import android.os.Parcel;
+import android.os.Parcelable;
 /**
  * Created by Xu on 2016/7/6.
  */
-public class PersonBean implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class PersonBean implements Parcelable {
+//    private static final long serialVersionUID = 1L;
 
     public PersonBean(PersonBean personBean) {
         this.account = personBean.getAccount();
@@ -163,4 +164,47 @@ public class PersonBean implements Serializable {
     }
 
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.account);
+        dest.writeString(this.head);
+        dest.writeString(this.password);
+        dest.writeString(this.telephone);
+        dest.writeString(this.username);
+        dest.writeString(this.follow);
+        dest.writeString(this.fans);
+        dest.writeString(this.moment);
+        dest.writeString(this.workspace);
+        dest.writeString(this.workposition);
+    }
+
+    protected PersonBean(Parcel in) {
+        this.account = in.readString();
+        this.head = in.readString();
+        this.password = in.readString();
+        this.telephone = in.readString();
+        this.username = in.readString();
+        this.follow = in.readString();
+        this.fans = in.readString();
+        this.moment = in.readString();
+        this.workspace = in.readString();
+        this.workposition = in.readString();
+    }
+
+    public static final Creator<PersonBean> CREATOR = new Creator<PersonBean>() {
+        @Override
+        public PersonBean createFromParcel(Parcel source) {
+            return new PersonBean(source);
+        }
+
+        @Override
+        public PersonBean[] newArray(int size) {
+            return new PersonBean[size];
+        }
+    };
 }

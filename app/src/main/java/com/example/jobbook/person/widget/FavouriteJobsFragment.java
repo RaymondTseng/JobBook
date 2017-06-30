@@ -93,7 +93,7 @@ public class FavouriteJobsFragment extends Fragment implements FavouriteJobView,
     @Override
     public void onJobItemClick(JobBean jobBean) {
         Bundle bundle = new Bundle();
-        bundle.putSerializable("job_detail", jobBean);
+        bundle.putParcelable("job_detail", jobBean);
         Util.toAnotherActivity(getActivity(), JobDetailActivity.class, bundle);
     }
 

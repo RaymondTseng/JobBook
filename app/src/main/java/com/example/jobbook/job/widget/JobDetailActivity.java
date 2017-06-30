@@ -82,7 +82,7 @@ public class JobDetailActivity extends Activity implements View.OnClickListener,
     }
 
     private void initEvents() {
-        jobBean = (JobBean) getIntent().getExtras().getSerializable("job_detail");
+        jobBean = getIntent().getExtras().getParcelable("job_detail");
         mPresenter = new JobDetailPresenterImpl(this);
         mPresenter.loadJob(jobBean.getId());
         mToCompanyDetailTextView.setOnClickListener(this);
@@ -102,12 +102,16 @@ public class JobDetailActivity extends Activity implements View.OnClickListener,
 //                bundle.putSerializable("company", jobDetailBean.getCompany());
 //                Util.toAnotherActivity(this, CompanyDetailActivity.class, bundle);
 //                Toast.makeText(this, "website:" + jobDetailBean.getCompany().getWebsite(), Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setData(Uri.parse(jobDetailBean.getCompany().getWebsite()));
-                startActivity(intent);
+                try {
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    intent.setData(Uri.parse(jobDetailBean.getCompany().getWebsite()));
+                    startActivity(intent);
+                } catch (Exception e) {
+                    Util.showSnackBar(view, "打开公司网址失败！");
+                }
+
                 break;
             case R.id.job_detail_like_ib:
-
                 if (jobDetailBean.isIfLike() == 0) {
                     L.i("like_ib_click", "click like");
 //                    mLikeImageButton.setImageResource(R.mipmap.favourite);
@@ -154,7 +158,7 @@ public class JobDetailActivity extends Activity implements View.OnClickListener,
     @Override
     public void addJob(JobDetailBean jobDetailBean) {
         this.jobDetailBean = jobDetailBean;
-        L.i("addjob", "success");
+        L.i("job_detail", jobDetailBean.getCompany().toString());
 //        ImageLoadUtils.display(this, mCompanyImageView, jobDetailBean.getCompany().getLogo());
         mJobNameTextView.setText(jobDetailBean.getName());
         mJobLocationTextView.setText(jobDetailBean.getLocation());

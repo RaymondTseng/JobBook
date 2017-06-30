@@ -1,20 +1,21 @@
 package com.example.jobbook.bean;
 
+import java.util.List;
+
 /**
- * Created by Xu on 2016/8/25.
- * 返回结果类
+ * Created by Xu on 2017/6/29.
  */
-public class ResultBean{
+
+public class ArticleList {
 
     private String status;
+    private List<ArticleBean> response;
 
-    private String response;
-
-    public String getResponse() {
+    public List<ArticleBean> getResponse() {
         return response;
     }
 
-    public void setResponse(String response) {
+    public void setResponse(List<ArticleBean> response) {
         this.response = response;
     }
 
@@ -25,4 +26,5 @@ public class ResultBean{
     public void setStatus(String status) {
         this.status = status;
     }
+
 }

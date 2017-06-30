@@ -203,7 +203,7 @@ public class SearchActivity extends Activity implements View.OnClickListener, Se
         public void onItemClick(View view, int position) {
             JobBean job = adapter.getItem(position);
             Bundle bundle = new Bundle();
-            bundle.putSerializable("job_detail", job);
+            bundle.putParcelable("job_detail", job);
             Util.toAnotherActivity(SearchActivity.this, JobDetailActivity.class, bundle);
         }
     };

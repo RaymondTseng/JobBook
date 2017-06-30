@@ -98,7 +98,7 @@ public class SquareFragment extends LazyLoadFragment implements SquareView,
             public void onHeadClick(View view, int position) {
                 Bundle bundle = new Bundle();
                 L.i("square_person", mData.get(position).getAuthor().toString());
-                bundle.putSerializable("person_bean", mData.get(position).getAuthor());
+                bundle.putParcelable("person_bean", mData.get(position).getAuthor());
                 Util.toAnotherActivity(getActivity(), UserDetailActivity.class, bundle);
             }
         });
@@ -160,7 +160,7 @@ public class SquareFragment extends LazyLoadFragment implements SquareView,
         public void onContentClick(View view, int position) {
             MomentBean square = mAdapter.getItem(position);
             Bundle bundle = new Bundle();
-            bundle.putSerializable("square_detail", square);
+            bundle.putParcelable("square_detail", square);
             myApplication.setHandler(handler);
             Util.toAnotherActivity(getActivity(), MomentDetailActivity.class, bundle);
         }

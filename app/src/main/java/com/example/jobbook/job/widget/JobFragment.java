@@ -318,7 +318,7 @@ public class JobFragment extends LazyLoadFragment implements JobView,
         public void onItemClick(View view, int position) {
             JobBean job = mAdapter.getItem(position);
             Bundle bundle = new Bundle();
-            bundle.putSerializable("job_detail", job);
+            bundle.putParcelable("job_detail", job);
             Util.toAnotherActivity(getActivity(), JobDetailActivity.class, bundle);
         }
     };

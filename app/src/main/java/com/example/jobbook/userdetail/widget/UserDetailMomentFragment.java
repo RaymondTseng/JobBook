@@ -97,7 +97,7 @@ public class UserDetailMomentFragment extends Fragment implements UserDetailMome
     @Override
     public void onMomentItemClick(MomentBean momentBean) {
         Bundle bundle = new Bundle();
-        bundle.putSerializable("square_detail", momentBean);
+        bundle.putParcelable("square_detail", momentBean);
         Util.toAnotherActivity(getActivity(), MomentDetailActivity.class, bundle);
     }
 }

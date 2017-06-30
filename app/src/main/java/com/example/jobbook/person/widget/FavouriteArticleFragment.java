@@ -93,7 +93,7 @@ public class FavouriteArticleFragment extends Fragment implements FavouriteArtic
     @Override
     public void onArticleItemClick(ArticleBean articleBean) {
         Bundle bundle = new Bundle();
-        bundle.putSerializable("article_detail", articleBean);
+        bundle.putParcelable("article_detail", articleBean);
         Util.toAnotherActivity(getActivity(), ArticleDetailActivity.class, bundle);
     }
 

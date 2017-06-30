@@ -1,14 +1,17 @@
 package com.example.jobbook.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.io.Serializable;
 
 /**
  * Created by Xu on 2017/1/21.
  */
 
-public class MessageBean implements Serializable {
+public class MessageBean implements Parcelable {
 
-    private static final long serialVersionUID = 1L;
+//    private static final long serialVersionUID = 1L;
 
     public static final int FOLLOW = 1;
 
@@ -45,4 +48,37 @@ public class MessageBean implements Serializable {
     public void setType(int type) {
         this.type = type;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.id);
+        dest.writeString(this.time);
+        dest.writeInt(this.type);
+    }
+
+    public MessageBean() {
+    }
+
+    protected MessageBean(Parcel in) {
+        this.id = in.readString();
+        this.time = in.readString();
+        this.type = in.readInt();
+    }
+
+    public static final Creator<MessageBean> CREATOR = new Creator<MessageBean>() {
+        @Override
+        public MessageBean createFromParcel(Parcel source) {
+            return new MessageBean(source);
+        }
+
+        @Override
+        public MessageBean[] newArray(int size) {
+            return new MessageBean[size];
+        }
+    };
 }

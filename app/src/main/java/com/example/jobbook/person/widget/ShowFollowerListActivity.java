@@ -131,7 +131,7 @@ public class ShowFollowerListActivity extends Activity implements ShowFollowerLi
     @Override
     public void onFollowerItemClick(TypePersonBean personBean) {
         Bundle bundle = new Bundle();
-        bundle.putSerializable("person_bean", personBean);
+        bundle.putParcelable("person_bean", personBean);
         myApplication.setHandler(handler);
         Util.toAnotherActivity(this, UserDetailActivity.class, bundle);
     }
