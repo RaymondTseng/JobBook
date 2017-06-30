@@ -1,6 +1,5 @@
 package com.example.jobbook.article.presenter;
 
-import com.example.jobbook.article.model.ArticleModelImpl;
 import com.example.jobbook.article.view.ArticleView;
 import com.example.jobbook.bean.ArticleBean;
 import com.example.jobbook.network.RetrofitService;
@@ -15,7 +14,7 @@ import rx.functions.Action0;
 /**
  * Created by Xu on 2016/7/5.
  */
-public class ArticlePresenterImpl implements ArticlePresenter, ArticleModelImpl.OnLoadArticlesListListener{
+public class ArticlePresenterImpl implements ArticlePresenter {
 
 //    private ArticleModel mArticleModel;
     private ArticleView mArticleView;
@@ -31,7 +30,7 @@ public class ArticlePresenterImpl implements ArticlePresenter, ArticleModelImpl.
 //        mArticleModel.loadArticles(pageIndex, type, this);
 
         RetrofitService.getArticlesList(type, pageIndex)
-                .compose(mTransformer)
+//                .compose(mTransformer)
                 .doOnSubscribe(new Action0() {
                     @Override
                     public void call() {
@@ -59,17 +58,17 @@ public class ArticlePresenterImpl implements ArticlePresenter, ArticleModelImpl.
 
     }
 
-    @Override
-    public void onSuccess(List<ArticleBean> list) {
-//        mArticleView.hideProgress();
-//        mArticleView.addArticles(list);
-    }
-
-    @Override
-    public void onFailure(String msg, Exception e) {
-//        mArticleView.hideProgress();
-//        mArticleView.showLoadFailMsg();
-    }
+//    @Override
+//    public void onSuccess(List<ArticleBean> list) {
+////        mArticleView.hideProgress();
+////        mArticleView.addArticles(list);
+//    }
+//
+//    @Override
+//    public void onFailure(String msg, Exception e) {
+////        mArticleView.hideProgress();
+////        mArticleView.showLoadFailMsg();
+//    }
 
     /**
      * 统一变换

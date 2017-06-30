@@ -1,12 +1,11 @@
 package com.example.jobbook.login.model;
 
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.example.jobbook.MyApplication;
 import com.example.jobbook.bean.PersonBean;
 import com.example.jobbook.bean.PersonWithDeviceTokenBean;
-import com.example.jobbook.bean.ResultBean;
+import com.example.jobbook.api.bean.ResultBean;
 import com.example.jobbook.commons.Urls;
 import com.example.jobbook.util.L;
 import com.example.jobbook.util.Util;

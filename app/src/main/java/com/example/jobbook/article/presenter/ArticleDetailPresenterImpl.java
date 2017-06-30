@@ -1,99 +1,151 @@
 package com.example.jobbook.article.presenter;
 
-import com.example.jobbook.article.model.ArticleDetailModel;
-import com.example.jobbook.article.model.ArticleDetailModelImpl;
+import com.example.jobbook.MyApplication;
+import com.example.jobbook.api.bean.ResultBean;
 import com.example.jobbook.article.view.ArticleDetailView;
 import com.example.jobbook.bean.ArticleBean;
-import com.example.jobbook.bean.ArticleCommentBean;
+import com.example.jobbook.network.RetrofitService;
+import com.orhanobut.logger.Logger;
 
-import java.util.List;
+import rx.Subscriber;
+import rx.functions.Action0;
 
 /**
  * Created by 椰树 on 2016/7/16.
  */
-public class ArticleDetailPresenterImpl implements ArticleDetailPresenter,
-        ArticleDetailModelImpl.OnLoadArticleListener, ArticleDetailModelImpl.OnLoadArticleCommentListener, ArticleDetailModelImpl.OnLikeArticleListener, ArticleDetailModelImpl.OnUnlikeArticleListener {
-    private ArticleDetailModel mModel;
+public class ArticleDetailPresenterImpl implements ArticleDetailPresenter {
     private ArticleDetailView mView;
 
-    public ArticleDetailPresenterImpl(ArticleDetailView mView){
+    public ArticleDetailPresenterImpl(ArticleDetailView mView) {
         this.mView = mView;
-        mModel = new ArticleDetailModelImpl();
     }
+
     @Override
     public void loadArticle(String articleId) {
-        mView.showProgress();
-        mModel.loadArticle(articleId, this);
+//        mView.showProgress();
+//        mModel.loadArticle(articleId, this);
+        String account = "";
+        if (MyApplication.getmLoginStatus() == 1) {
+            account = MyApplication.getAccount();
+        }
+        RetrofitService.getArticleDetail(articleId, account)
+                .doOnSubscribe(new Action0() {
+                    @Override
+                    public void call() {
+                        mView.showProgress();
+                    }
+                })
+                .subscribe(new Subscriber<ArticleBean>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable throwable) {
+                        Logger.e(throwable.getMessage(), throwable);
+                        mView.showLoadFailMsg();
+                    }
+
+                    @Override
+                    public void onNext(ArticleBean articleBean) {
+                        mView.hideProgress();
+                        mView.addArticle(articleBean);
+                    }
+                });
     }
 
     @Override
     public void loadComments() {
-//        mModel.loadComments(null, null);
     }
 
     @Override
     public void like(String articleId) {
-        mModel.like(articleId, this);
+        //        mModel.like(articleId, this);
+        String account = "";
+        if (MyApplication.getmLoginStatus() == 1) {
+            account = MyApplication.getAccount();
+        }
+        RetrofitService.like(articleId, account)
+                .doOnSubscribe(new Action0() {
+                    @Override
+                    public void call() {
+                        mView.showProgress();
+                    }
+                })
+                .subscribe(new Subscriber<ResultBean>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable throwable) {
+                        Logger.e(throwable.getMessage(), throwable);
+                        mView.hideProgress();
+                        mView.likeError();
+                    }
+
+                    @Override
+                    public void onNext(ResultBean resultBean) {
+                        if (resultBean.getStatus().equals("true")) {
+                            mView.hideProgress();
+                            mView.likeSuccess();
+                        } else {
+                            if (resultBean.getResponse().equals("please login first!")) {
+                                mView.hideProgress();
+                                mView.NoLoginError();
+                            } else if (resultBean.getResponse().equals("like failed")) {
+                                mView.hideProgress();
+                                mView.likeError();
+                            }
+                        }
+                    }
+                });
     }
 
     @Override
     public void unlike(String articleId) {
-        mModel.unlike(articleId, this);
-    }
+//        mModel.unlike(articleId, this);
+        String account = "";
+        if (MyApplication.getmLoginStatus() == 1) {
+            account = MyApplication.getAccount();
+        }
+        RetrofitService.unlike(articleId, account)
+                .doOnSubscribe(new Action0() {
+                    @Override
+                    public void call() {
+                        mView.showProgress();
+                    }
+                })
+                .subscribe(new Subscriber<ResultBean>() {
+                    @Override
+                    public void onCompleted() {
 
-    @Override
-    public void onSuccess(List<ArticleCommentBean> mComments) {
-//        mView.ad
-    }
+                    }
 
+                    @Override
+                    public void onError(Throwable throwable) {
+                        Logger.e(throwable.getMessage(), throwable);
+                        mView.hideProgress();
+                        mView.unlikeError();
+                    }
 
-    @Override
-    public void onSuccess(ArticleBean mArticle) {
-        mView.hideProgress();
-        mView.addArticle(mArticle);
-    }
-
-    @Override
-    public void onFailure(String msg, Exception e) {
-        //先判断文章是否加载成功，不成功直接失败，在判断评论是否加载成功
-        mView.showLoadFailMsg();
-        mView.hideProgress();
-        mView.close();
-    }
-
-    @Override
-    public void onLikeSuccess() {
-        mView.hideProgress();
-        mView.likeSuccess();
-    }
-
-    @Override
-    public void onLikeArticleFailure(String msg, Exception e) {
-        mView.hideProgress();
-        mView.likeError();
-    }
-
-    @Override
-    public void onLikeArticleNoLoginError() {
-        mView.hideProgress();
-        mView.NoLoginError();
-    }
-
-    @Override
-    public void onUnlikeSuccess() {
-        mView.hideProgress();
-        mView.unlikeSuccess();
-    }
-
-    @Override
-    public void onUnlikeArticleFailure(String msg, Exception e) {
-        mView.hideProgress();
-        mView.unlikeError();
-    }
-
-    @Override
-    public void onUnlikeArticleNoLoginError() {
-        mView.hideProgress();
-        mView.NoLoginError();
+                    @Override
+                    public void onNext(ResultBean resultBean) {
+                        if (resultBean.getStatus().equals("true")) {
+                            mView.hideProgress();
+                            mView.unlikeSuccess();
+                        } else {
+                            if (resultBean.getResponse().equals("please login first!")){
+                                mView.hideProgress();
+                                mView.NoLoginError();
+                            } else if (resultBean.getResponse().equals("like failed")) {
+                                mView.hideProgress();
+                                mView.unlikeError();
+                            }
+                        }
+                    }
+                });
     }
 }

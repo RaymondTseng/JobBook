@@ -1,6 +1,8 @@
 package com.example.jobbook.api;
 
-import com.example.jobbook.bean.ArticleList;
+import com.example.jobbook.api.bean.ArticleListWrapper;
+import com.example.jobbook.api.bean.ArticleWrapper;
+import com.example.jobbook.api.bean.ResultBean;
 
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
@@ -25,7 +27,7 @@ public interface IArticlesApi {
      */
     @Headers(CACHE_CONTROL_NETWORK)
     @GET("article/allArticle/type/{type}/index/{index}")
-    Observable<ArticleList> getArticlesList(@Path("type") int type, @Path("index") int index);
+    Observable<ArticleListWrapper> getArticlesList(@Path("type") int type, @Path("index") int index);
 
     /**
      * 获取文章详情
@@ -34,8 +36,28 @@ public interface IArticlesApi {
      * @param
      * @return
      */
-    @Headers(CACHE_CONTROL_NETWORK)
+//    @Headers(CACHE_CONTROL_FORCE_NETWORK)
     @GET("article/getArticle/a_id/{a_id}/account/{account}")
-    Observable<ArticleList> getArticleDetail(@Path("a_id") int a_id, @Path("account") String account);
+    Observable<ArticleWrapper> getArticleDetail(@Path("a_id") String a_id, @Path("account") String account);
+
+    /**
+     * 文章点赞
+     * eg: http://115.28.202.143/jobBook/index.php/article/likesArticle/a_id/1/account/123
+     *
+     * @param
+     * @return
+     */
+    @GET("article/likesArticle/a_id/{a_id}/account/{account}")
+    Observable<ResultBean> like(@Path("a_id") String a_id, @Path("account") String account);
+
+    /**
+     * 文章取消点赞
+     * eg: http://115.28.202.143/jobBook/index.php/article/likesArticle/a_id/1/account/123
+     *
+     * @param
+     * @return
+     */
+    @GET("article/unlikesArticle/a_id/{a_id}/account/{account}")
+    Observable<ResultBean> unlike(@Path("a_id") String a_id, @Path("account") String account);
 
 }

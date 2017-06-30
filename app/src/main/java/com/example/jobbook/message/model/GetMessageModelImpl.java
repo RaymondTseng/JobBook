@@ -1,7 +1,7 @@
 package com.example.jobbook.message.model;
 
 import com.example.jobbook.bean.MessageBean;
-import com.example.jobbook.bean.ResultBean;
+import com.example.jobbook.api.bean.ResultBean;
 import com.example.jobbook.commons.Urls;
 import com.example.jobbook.util.L;
 import com.google.gson.Gson;

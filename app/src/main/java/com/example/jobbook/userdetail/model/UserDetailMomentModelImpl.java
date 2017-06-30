@@ -1,7 +1,7 @@
 package com.example.jobbook.userdetail.model;
 
 import com.example.jobbook.bean.MomentBean;
-import com.example.jobbook.bean.ResultBean;
+import com.example.jobbook.api.bean.ResultBean;
 import com.example.jobbook.commons.Urls;
 import com.example.jobbook.util.L;
 import com.google.gson.Gson;

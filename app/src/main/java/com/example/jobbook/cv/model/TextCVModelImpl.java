@@ -6,7 +6,7 @@ import com.example.jobbook.MyApplication;
 import com.example.jobbook.bean.EducationExpBean;
 import com.example.jobbook.bean.JobExpBean;
 import com.example.jobbook.bean.PersonBean;
-import com.example.jobbook.bean.ResultBean;
+import com.example.jobbook.api.bean.ResultBean;
 import com.example.jobbook.bean.TextCVBean;
 import com.example.jobbook.commons.Constants;
 import com.example.jobbook.commons.Urls;

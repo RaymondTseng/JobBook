@@ -3,7 +3,7 @@ package com.example.jobbook.main.model;
 import android.util.Log;
 
 import com.example.jobbook.bean.PersonBean;
-import com.example.jobbook.bean.ResultBean;
+import com.example.jobbook.api.bean.ResultBean;
 import com.example.jobbook.commons.Urls;
 import com.google.gson.Gson;
 import com.zhy.http.okhttp.OkHttpUtils;

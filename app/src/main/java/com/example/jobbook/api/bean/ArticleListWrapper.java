@@ -1,4 +1,6 @@
-package com.example.jobbook.bean;
+package com.example.jobbook.api.bean;
+
+import com.example.jobbook.bean.ArticleBean;
 
 import java.util.List;
 
@@ -6,7 +8,7 @@ import java.util.List;
  * Created by Xu on 2017/6/29.
  */
 
-public class ArticleList {
+public class ArticleListWrapper {
 
     private String status;
     private List<ArticleBean> response;

@@ -4,15 +4,19 @@ import android.support.annotation.NonNull;
 
 import com.example.jobbook.MyApplication;
 import com.example.jobbook.api.IArticlesApi;
+import com.example.jobbook.api.bean.ArticleListWrapper;
+import com.example.jobbook.api.bean.ArticleWrapper;
+import com.example.jobbook.api.bean.ResultBean;
 import com.example.jobbook.bean.ArticleBean;
-import com.example.jobbook.bean.ArticleList;
 import com.example.jobbook.commons.Urls;
+import com.example.jobbook.util.L;
 import com.orhanobut.logger.Logger;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Cache;
@@ -64,7 +68,7 @@ public class RetrofitService {
      */
     public static void init() {
         // 指定缓存路径,缓存大小100Mb
-        Cache cache = new Cache(new File(MyApplication.getContext().getCacheDir(), "HttpCache"),
+        Cache cache = new Cache(new File(MyApplication.getContext().getCacheDir(), "JobbookCache"),
                 1024 * 1024 * 100);
         OkHttpClient okHttpClient = new OkHttpClient.Builder().cache(cache)
                 .retryOnConnectionFailure(true)
@@ -113,6 +117,14 @@ public class RetrofitService {
             if (NetUtil.isNetworkAvailable(MyApplication.getContext())) {
                 //有网的时候读接口上的@Headers里的配置，你可以在这里进行统一的设置
                 String cacheControl = request.cacheControl().toString();
+                L.i("cacheControl", "is:" + cacheControl);
+                if ("".equals(cacheControl)) {
+                    L.i("cacheControl", "nocache");
+                    return originalResponse.newBuilder()
+                            .header("Cache-Control", "no-cache")
+                            .removeHeader("Pragma")
+                            .build();
+                }
                 return originalResponse.newBuilder()
                         .header("Cache-Control", cacheControl)
                         .removeHeader("Pragma")
@@ -160,9 +172,10 @@ public class RetrofitService {
 
     /**
      * 获取文章列表
+     *
      * @return
      */
-    public static Observable<ArticleBean> getArticlesList(int type, int page) {
+    public static Observable<List<ArticleBean>> getArticlesList(int type, int page) {
         return articlesService.getArticlesList(type, page)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
@@ -172,19 +185,78 @@ public class RetrofitService {
     }
 
     /**
-     * 类型转换
+     * 获取文章详情
+     *
      * @return
      */
-    private static Func1<ArticleList, Observable<ArticleBean>> _flatMapArticles() {
-        return new Func1<ArticleList, Observable<ArticleBean>>() {
+    public static Observable<ArticleBean> getArticleDetail(String a_id, String account) {
+        return articlesService.getArticleDetail(a_id, account)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .flatMap(_flatMapArticleDetail());
+    }
+
+    /**
+     * 文章点赞
+     *
+     * @return
+     */
+    public static Observable<ResultBean> like(String a_id, String account) {
+        return articlesService.like(a_id, account)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    /**
+     * 文章取消点赞
+     *
+     * @return
+     */
+    public static Observable<ResultBean> unlike(String a_id, String account) {
+        return articlesService.unlike(a_id, account)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    /**
+     * 类型转换
+     *
+     * @return
+     */
+    private static Func1<ArticleListWrapper, Observable<List<ArticleBean>>> _flatMapArticles() {
+        return new Func1<ArticleListWrapper, Observable<List<ArticleBean>>>() {
             @Override
-            public Observable<ArticleBean> call(ArticleList articleList) {
-                if (!articleList.getStatus().equals("true")) {
+            public Observable<List<ArticleBean>> call(ArticleListWrapper articleListWrapper) {
+                if (!articleListWrapper.getStatus().equals("true")) {
                     return Observable.empty();
                 }
-                return Observable.from(articleList.getResponse());
+                return Observable.just(articleListWrapper.getResponse());
             }
         };
     }
+
+    /**
+     * 类型转换
+     *
+     * @return
+     */
+    private static Func1<ArticleWrapper, Observable<ArticleBean>> _flatMapArticleDetail() {
+        return new Func1<ArticleWrapper, Observable<ArticleBean>>() {
+            @Override
+            public Observable<ArticleBean> call(ArticleWrapper articleWrapper) {
+                if (!articleWrapper.getStatus().equals("true")) {
+                    return Observable.empty();
+                }
+                return Observable.just(articleWrapper.getResponse());
+            }
+        };
+    }
+
 
 }

@@ -1,7 +1,7 @@
 package com.example.jobbook.userdetail.model;
 
 import com.example.jobbook.MyApplication;
-import com.example.jobbook.bean.ResultBean;
+import com.example.jobbook.api.bean.ResultBean;
 import com.example.jobbook.bean.TypePersonBean;
 import com.example.jobbook.commons.Urls;
 import com.example.jobbook.util.L;

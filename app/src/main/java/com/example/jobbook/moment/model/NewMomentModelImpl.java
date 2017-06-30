@@ -3,7 +3,7 @@ package com.example.jobbook.moment.model;
 import com.example.jobbook.util.L;
 
 import com.example.jobbook.bean.MomentBean;
-import com.example.jobbook.bean.ResultBean;
+import com.example.jobbook.api.bean.ResultBean;
 import com.example.jobbook.commons.Urls;
 import com.google.gson.Gson;
 import com.zhy.http.okhttp.OkHttpUtils;

@@ -1,10 +1,10 @@
-package com.example.jobbook.bean;
+package com.example.jobbook.api.bean;
 
 /**
  * Created by Xu on 2016/8/25.
  * 返回结果类
  */
-public class ResultBean{
+public class ResultBean {
 
     private String status;
 
