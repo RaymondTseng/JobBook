@@ -5,9 +5,11 @@ import android.support.annotation.NonNull;
 import com.example.jobbook.MyApplication;
 import com.example.jobbook.api.IArticlesApi;
 import com.example.jobbook.api.IFeedBackApi;
+import com.example.jobbook.api.ISquareApi;
 import com.example.jobbook.api.bean.ResultBean;
 import com.example.jobbook.bean.ArticleBean;
 import com.example.jobbook.bean.FeedBackBean;
+import com.example.jobbook.bean.MomentBean;
 import com.example.jobbook.commons.Urls;
 import com.example.jobbook.util.L;
 import com.orhanobut.logger.Logger;
@@ -49,7 +51,7 @@ public class RetrofitService {
     private static final String CACHE_CONTROL_CACHE = "only-if-cached, max-stale=" + CACHE_STALE_SEC;
     //查询网络的Cache-Control设置
     //(假如请求了服务器并在a时刻返回响应结果，则在max-age规定的秒数内，浏览器将不会发送对应的请求到服务器，数据由缓存直接返回)
-    public static final String CACHE_CONTROL_NETWORK = "Cache-Control: public, max-age=3600";
+    public static final String CACHE_CONTROL_NETWORK = "Cache-Control: public, max-age=300";
     // 避免出现 HTTP 403 Forbidden，参考：http://stackoverflow.com/questions/13670692/403-forbidden-with-java-but-not-web-browser
     static final String AVOID_HTTP403_FORBIDDEN = "User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11";
 
@@ -59,6 +61,7 @@ public class RetrofitService {
     // 需要的服务
     private static IArticlesApi articlesService;
     private static IFeedBackApi feedBackService;
+    private static ISquareApi squareService;
 
     private RetrofitService() {
         throw new AssertionError();
@@ -99,6 +102,7 @@ public class RetrofitService {
                 .build();
         articlesService = retrofit.create(IArticlesApi.class);
         feedBackService = retrofit.create(IFeedBackApi.class);
+        squareService = retrofit.create(ISquareApi.class);
     }
 
     /**
@@ -226,12 +230,63 @@ public class RetrofitService {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
+    /**
+     * 发送反馈
+     * @param account
+     * @param feedBackBean
+     * @return
+     */
     public static Observable<ResultBean<String>> feedback(String account, FeedBackBean feedBackBean) {
         return feedBackService.feedBack(account, feedBackBean)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())
                 .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    /**
+     * 获取已关注人的工作圈
+     * @param account
+     * @param index
+     * @return
+     */
+    public static Observable<List<MomentBean>> getFollowSquare(String account, int index) {
+        return squareService.getFollowSquare(account, index)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .flatMap(_flatMapSquareFollow());
+    }
+
+    /**
+     * 点赞工作圈
+     * @param q_id
+     * @param account
+     * @return
+     */
+    public static Observable<MomentBean> likeSquare(int q_id, String account) {
+        return squareService.likeSquare(q_id, account)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .flatMap(_flatMaplikeSquare());
+    }
+
+    /**
+     * 取消点赞工作圈
+     * @param q_id
+     * @param account
+     * @return
+     */
+    public static Observable<MomentBean> unlikeSquare(int q_id, String account) {
+        return squareService.unlikeSquare(q_id, account)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .flatMap(_flatMaplikeSquare());
     }
 
     /************************************ 类型转换 *******************************************/
@@ -266,6 +321,41 @@ public class RetrofitService {
                     return Observable.empty();
                 }
                 return Observable.just(articleWrapper.getResponse());
+            }
+        };
+    }
+
+    /**
+     * 类型转换
+     *
+     * @return
+     */
+    private static Func1<ResultBean<List<MomentBean>>, Observable<List<MomentBean>>> _flatMapSquareFollow() {
+        return new Func1<ResultBean<List<MomentBean>>, Observable<List<MomentBean>>>() {
+            @Override
+            public Observable<List<MomentBean>> call(ResultBean<List<MomentBean>> resultBean) {
+                if (!resultBean.getStatus().equals("true")) {
+                    return Observable.empty();
+                }
+                return Observable.just(resultBean.getResponse());
+            }
+        };
+    }
+
+    /**
+     * 类型转换
+     * @return
+     */
+    private static Func1<ResultBean<MomentBean>, Observable<MomentBean>> _flatMaplikeSquare() {
+        return new Func1<ResultBean<MomentBean>, Observable<MomentBean>>() {
+            @Override
+            public Observable<MomentBean> call(ResultBean<MomentBean> resultBean) {
+                if (!resultBean.getStatus().equals("true")) {
+                    Logger.i("error", resultBean.getResponse());
+                    return Observable.empty();
+                }
+                L.i("square_like_response", resultBean.getResponse().toString() + "");
+                return Observable.just(resultBean.getResponse());
             }
         };
     }

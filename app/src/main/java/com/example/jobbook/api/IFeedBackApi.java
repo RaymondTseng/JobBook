@@ -14,6 +14,12 @@ import rx.Observable;
 
 public interface IFeedBackApi {
 
+    /**
+     * 发送反馈
+     * @param account
+     * @param feedBackBean
+     * @return
+     */
     @POST("/suggestion/postSuggestion/account/{account}")
     Observable<ResultBean<String>> feedBack(@Path("account") String account, @Body FeedBackBean feedBackBean);
 }

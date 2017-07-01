@@ -21,19 +21,11 @@ public class Urls {
 
     public static final String JOB_UNLIKE_URL = IP + "/job/unliked/job_id/";
 
-    public static final String ARTICLE_URL = IP + "/article/allArticle/type/";
-
-    public static final String ARTICLE_DETAIL_URL = IP + "/article/getArticle/a_id/";
-
-    public static final String ARTICLE_LIKE_URL = IP + "/article/likesArticle/a_id/";
-
-    public static final String ARTICLE_UNLIKE_URL = IP + "/article/unlikesArticle/a_id/";
-
     public static final String SQUARE_URL = IP + "/question/allQuestions";
 
     public static final String SQUARE_FOLLOW_URL = IP + "/question/focusQuestion";
 
-    public static final String SQUARE_LIKE_URL = IP + "/question/likesQuestion/q_id/";
+    public static final String SQUARE_LIKE_URL = IP + "/question/likeQuestion/q_id/";
 
     public static final String SQUARE_UNLIKE_URL = IP + "/question/unlikeQuestion/q_id/";
 

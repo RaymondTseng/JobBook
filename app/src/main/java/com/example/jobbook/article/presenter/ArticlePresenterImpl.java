@@ -46,6 +46,7 @@ public class ArticlePresenterImpl implements ArticlePresenter {
                     @Override
                     public void onError(Throwable throwable) {
                         Logger.e(throwable.getMessage(), throwable);
+                        mArticleView.hideProgress();
                         mArticleView.showLoadFailMsg();
                     }
 

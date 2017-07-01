@@ -194,6 +194,7 @@ public class SquareFollowFragment extends LazyLoadFragment implements SquareFoll
 //            }
             mAdapter.notifyDataSetChanged();
         }
+        L.i("data0", mData.get(0).getIfLike() + "");
         pageIndex += Urls.PAZE_SIZE;
     }
 
