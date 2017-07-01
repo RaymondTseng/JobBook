@@ -62,7 +62,7 @@ public class RegisterModelImpl implements RegisterModel {
                         public void onResponse(String response, int id) {
                             ResultBean resultBean = new Gson().fromJson(response, ResultBean.class);
                             if (resultBean.getStatus().equals("true")) {
-                                PersonBean personBean = new Gson().fromJson(resultBean.getResponse(), PersonBean.class);
+                                PersonBean personBean = new Gson().fromJson((String)resultBean.getResponse(), PersonBean.class);
                                 listener.onSuccess(personBean);
                             } else {
                                 if (resultBean.getResponse().equals("Have Registered!")) {

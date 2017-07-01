@@ -30,7 +30,7 @@ public class FavouriteArticleModelImpl implements FavouriteArticleModel{
             public void onResponse(String response, int i) {
                 ResultBean resultBean = new Gson().fromJson(response, ResultBean.class);
                 if(resultBean.getStatus().equals("true")){
-                    List<ArticleBean> mData = new Gson().fromJson(resultBean.getResponse(), new
+                    List<ArticleBean> mData = new Gson().fromJson((String)resultBean.getResponse(), new
                             TypeToken<List<ArticleBean>>(){}.getType());
                     listener.onSuccess(mData);
                 }else{

@@ -38,11 +38,11 @@ public class MomentDetailModelImpl implements MomentDetailModel {
                 L.i("questiondetail_response", response);
                 ResultBean resultBean = new Gson().fromJson(response, ResultBean.class);
                 if (resultBean.getStatus().equals("true")) {
-                    List<MomentCommentBean> list = new Gson().fromJson(resultBean.getResponse(), new TypeToken<List<MomentCommentBean>>() {
+                    List<MomentCommentBean> list = new Gson().fromJson((String)resultBean.getResponse(), new TypeToken<List<MomentCommentBean>>() {
                     }.getType());
                     mListener.onSuccess(list);
                 } else {
-                    mListener.onFailure(resultBean.getResponse(), new Exception(), id);
+                    mListener.onFailure((String)resultBean.getResponse(), new Exception(), id);
                 }
             }
         });
@@ -75,10 +75,10 @@ public class MomentDetailModelImpl implements MomentDetailModel {
 //                    String[] array = resultBean.getResponse().split("/");
 //                    L.i("comment_like_result", "good" + array[0] + " bad:" + array[1]);
 //                    listener.onLikeSuccess(Integer.valueOf(array[0]), Integer.valueOf(array[1]));
-                    MomentBean momentBean = new Gson().fromJson(resultBean.getResponse(), MomentBean.class);
+                    MomentBean momentBean = new Gson().fromJson((String)resultBean.getResponse(), MomentBean.class);
                     listener.onSuccess(momentBean);
                 } else {
-                    listener.onFailure(resultBean.getResponse(), null, LOAD_QUESTION_ERROR);
+                    listener.onFailure((String)resultBean.getResponse(), null, LOAD_QUESTION_ERROR);
                 }
             }
         });
@@ -98,11 +98,11 @@ public class MomentDetailModelImpl implements MomentDetailModel {
                 L.i("question_send_comment", response);
                 ResultBean resultBean = new Gson().fromJson(response, ResultBean.class);
                 if (resultBean.getStatus().equals("true")) {
-                    MomentBean momentBean = new Gson().fromJson(resultBean.getResponse(), MomentBean.class);
+                    MomentBean momentBean = new Gson().fromJson((String)resultBean.getResponse(), MomentBean.class);
 
                     mListener.onSendSuccess(momentBean);
                 } else {
-                    mListener.onFailure(resultBean.getResponse(), new Exception(), SEND_COMMENT_ERROR);
+                    mListener.onFailure((String)resultBean.getResponse(), new Exception(), SEND_COMMENT_ERROR);
                 }
             }
         });
@@ -124,10 +124,10 @@ public class MomentDetailModelImpl implements MomentDetailModel {
 //                    String[] array = resultBean.getResponse().split("/");
 //                    L.i("comment_like_result", "good" + array[0] + " bad:" + array[1]);
 //                    listener.onLikeSuccess(Integer.valueOf(array[0]), Integer.valueOf(array[1]));
-                    MomentBean momentBean = new Gson().fromJson(resultBean.getResponse(), MomentBean.class);
+                    MomentBean momentBean = new Gson().fromJson((String)resultBean.getResponse(), MomentBean.class);
                     listener.onLikeSuccess(momentBean);
                 } else {
-                    listener.onLikeFailure(resultBean.getResponse(), null, 0);
+                    listener.onLikeFailure((String)resultBean.getResponse(), null, 0);
                 }
             }
         });
@@ -149,10 +149,10 @@ public class MomentDetailModelImpl implements MomentDetailModel {
 //                    String[] array = resultBean.getResponse().split("/");
 //                    L.i("comment_like_result", "good" + array[0] + " bad:" + array[1]);
 //                    listener.onUnlikeSuccess(Integer.valueOf(array[0]), Integer.valueOf(array[1]));
-                    MomentBean momentBean = new Gson().fromJson(resultBean.getResponse(), MomentBean.class);
+                    MomentBean momentBean = new Gson().fromJson((String)resultBean.getResponse(), MomentBean.class);
                     listener.onUnlikeSuccess(momentBean);
                 } else {
-                    listener.onUnlikeFailure(resultBean.getResponse(), null, 0);
+                    listener.onUnlikeFailure((String)resultBean.getResponse(), null, 0);
                 }
             }
         });

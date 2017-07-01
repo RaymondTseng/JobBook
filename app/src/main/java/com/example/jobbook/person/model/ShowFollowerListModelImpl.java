@@ -35,12 +35,12 @@ public class ShowFollowerListModelImpl implements ShowFollowerListModel {
                 L.i("showfollowlist", response);
                 ResultBean resultBean = new Gson().fromJson(response, ResultBean.class);
                 if (resultBean.getStatus().equals("true")) {
-                    List<TypePersonBean> list = new Gson().fromJson(resultBean.getResponse(),
+                    List<TypePersonBean> list = new Gson().fromJson((String)resultBean.getResponse(),
                             new TypeToken<List<TypePersonBean>>() {
                             }.getType());
                     listener.onSuccess(list);
                 } else {
-                    listener.onFailure(resultBean.getResponse(), new Exception());
+                    listener.onFailure((String)resultBean.getResponse(), new Exception());
                 }
             }
         });

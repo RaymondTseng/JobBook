@@ -49,7 +49,7 @@ public class UploadModelImpl implements UploadModel {
                     if (resultBean.getStatus().equals("true")) {
                         listener.onSuccess(bm);
                     } else {
-                        listener.onFailure(resultBean.getResponse(), null);
+                        listener.onFailure((String)resultBean.getResponse(), null);
                         L.i("photo", "result:failure");
                     }
                 }

@@ -34,12 +34,12 @@ public class ShowMomentListModelImpl implements ShowMomentListModel {
                 L.i("showmomentlist", response);
                 ResultBean resultBean = new Gson().fromJson(response, ResultBean.class);
                 if (resultBean.getStatus().equals("true")) {
-                    List<MomentBean> list = new Gson().fromJson(resultBean.getResponse(),
+                    List<MomentBean> list = new Gson().fromJson((String)resultBean.getResponse(),
                             new TypeToken<List<MomentBean>>() {
                             }.getType());
                     listener.onSuccess(list);
                 } else {
-                    listener.onFailure(resultBean.getResponse(), new Exception());
+                    listener.onFailure((String)resultBean.getResponse(), new Exception());
                 }
             }
         });

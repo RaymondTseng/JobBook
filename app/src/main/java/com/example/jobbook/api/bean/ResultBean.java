@@ -4,17 +4,17 @@ package com.example.jobbook.api.bean;
  * Created by Xu on 2016/8/25.
  * 返回结果类
  */
-public class ResultBean {
+public class ResultBean<T> {
 
     private String status;
 
-    private String response;
+    private T response;
 
-    public String getResponse() {
+    public T getResponse() {
         return response;
     }
 
-    public void setResponse(String response) {
+    public void setResponse(T response) {
         this.response = response;
     }
 

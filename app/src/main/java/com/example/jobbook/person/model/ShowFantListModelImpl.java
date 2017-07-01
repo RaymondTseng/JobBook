@@ -35,7 +35,7 @@ public class ShowFantListModelImpl implements ShowFanListModel {
                 L.i("showfanlist", response);
                 ResultBean resultBean = new Gson().fromJson(response, ResultBean.class);
                 if (resultBean.getStatus().equals("true")) {
-                    List<TypePersonBean> list = new Gson().fromJson(resultBean.getResponse(),
+                    List<TypePersonBean> list = new Gson().fromJson((String)resultBean.getResponse(),
                             new TypeToken<List<TypePersonBean>>() {
                             }.getType());
                     listener.onSuccess(list);

@@ -4,10 +4,10 @@ import android.support.annotation.NonNull;
 
 import com.example.jobbook.MyApplication;
 import com.example.jobbook.api.IArticlesApi;
-import com.example.jobbook.api.bean.ArticleListWrapper;
-import com.example.jobbook.api.bean.ArticleWrapper;
+import com.example.jobbook.api.IFeedBackApi;
 import com.example.jobbook.api.bean.ResultBean;
 import com.example.jobbook.bean.ArticleBean;
+import com.example.jobbook.bean.FeedBackBean;
 import com.example.jobbook.commons.Urls;
 import com.example.jobbook.util.L;
 import com.orhanobut.logger.Logger;
@@ -58,6 +58,7 @@ public class RetrofitService {
 
     // 需要的服务
     private static IArticlesApi articlesService;
+    private static IFeedBackApi feedBackService;
 
     private RetrofitService() {
         throw new AssertionError();
@@ -97,6 +98,7 @@ public class RetrofitService {
                 .baseUrl(Urls.IP)
                 .build();
         articlesService = retrofit.create(IArticlesApi.class);
+        feedBackService = retrofit.create(IFeedBackApi.class);
     }
 
     /**
@@ -203,7 +205,7 @@ public class RetrofitService {
      *
      * @return
      */
-    public static Observable<ResultBean> like(String a_id, String account) {
+    public static Observable<ResultBean<String>> like(String a_id, String account) {
         return articlesService.like(a_id, account)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
@@ -216,7 +218,7 @@ public class RetrofitService {
      *
      * @return
      */
-    public static Observable<ResultBean> unlike(String a_id, String account) {
+    public static Observable<ResultBean<String>> unlike(String a_id, String account) {
         return articlesService.unlike(a_id, account)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
@@ -224,15 +226,25 @@ public class RetrofitService {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
+    public static Observable<ResultBean<String>> feedback(String account, FeedBackBean feedBackBean) {
+        return feedBackService.feedBack(account, feedBackBean)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    /************************************ 类型转换 *******************************************/
+
     /**
      * 类型转换
      *
      * @return
      */
-    private static Func1<ArticleListWrapper, Observable<List<ArticleBean>>> _flatMapArticles() {
-        return new Func1<ArticleListWrapper, Observable<List<ArticleBean>>>() {
+    private static Func1<ResultBean<List<ArticleBean>>, Observable<List<ArticleBean>>> _flatMapArticles() {
+        return new Func1<ResultBean<List<ArticleBean>>, Observable<List<ArticleBean>>>() {
             @Override
-            public Observable<List<ArticleBean>> call(ArticleListWrapper articleListWrapper) {
+            public Observable<List<ArticleBean>> call(ResultBean<List<ArticleBean>> articleListWrapper) {
                 if (!articleListWrapper.getStatus().equals("true")) {
                     return Observable.empty();
                 }
@@ -246,10 +258,10 @@ public class RetrofitService {
      *
      * @return
      */
-    private static Func1<ArticleWrapper, Observable<ArticleBean>> _flatMapArticleDetail() {
-        return new Func1<ArticleWrapper, Observable<ArticleBean>>() {
+    private static Func1<ResultBean<ArticleBean>, Observable<ArticleBean>> _flatMapArticleDetail() {
+        return new Func1<ResultBean<ArticleBean>, Observable<ArticleBean>>() {
             @Override
-            public Observable<ArticleBean> call(ArticleWrapper articleWrapper) {
+            public Observable<ArticleBean> call(ResultBean<ArticleBean> articleWrapper) {
                 if (!articleWrapper.getStatus().equals("true")) {
                     return Observable.empty();
                 }
@@ -257,6 +269,21 @@ public class RetrofitService {
             }
         };
     }
+
+    /**
+     * 错误统一处理
+     * @param <T>
+     */
+//    private class HttpResultFunc<T> implements Func1<ResultBean<T>, T> {
+//
+//        @Override
+//        public T call(ResultBean<T> resultBean){
+//            if (!resultBean.getStatus().equals("true")) {
+//                throw new Exception();
+//            }
+//            return resultBean.getResponse();
+//        }
+//    }
 
 
 }

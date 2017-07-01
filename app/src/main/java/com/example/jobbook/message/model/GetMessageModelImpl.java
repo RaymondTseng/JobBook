@@ -32,10 +32,10 @@ public class GetMessageModelImpl implements GetMessageModel {
                 L.i("get message response", "result:" + response);
                 ResultBean resultBean = new Gson().fromJson(response, ResultBean.class);
                 if (resultBean.getStatus().equals("true")) {
-                    List<MessageBean> lists = new Gson().fromJson(resultBean.getResponse(), new TypeToken<List<MessageBean>>(){}.getType());
+                    List<MessageBean> lists = new Gson().fromJson((String)resultBean.getResponse(), new TypeToken<List<MessageBean>>(){}.getType());
                     listener.onSuccess(lists);
                 } else {
-                    listener.onFailure(resultBean.getResponse(), null);
+                    listener.onFailure((String)resultBean.getResponse(), null);
                 }
             }
         });

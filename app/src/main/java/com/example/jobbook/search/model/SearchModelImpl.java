@@ -46,14 +46,14 @@ public class SearchModelImpl implements SearchModel {
                 ResultBean resultBean = new Gson().fromJson(response, ResultBean.class);
                 if (resultBean.getStatus().equals("true")) {
                     if (resultBean.getResponse() != null) {
-                        List<JobBean> list = new Gson().fromJson(resultBean.getResponse(), new TypeToken<List<JobBean>>() {
+                        List<JobBean> list = new Gson().fromJson((String)resultBean.getResponse(), new TypeToken<List<JobBean>>() {
                         }.getType());
                         listener.onSuccess(list);
                     } else {
                         listener.onSearchEmpty("", new Exception());
                     }
                 } else {
-                    listener.onSearchFaliure(resultBean.getResponse(), new Exception());
+                    listener.onSearchFaliure((String)resultBean.getResponse(), new Exception());
                 }
             }
         });

@@ -51,7 +51,7 @@ public class UserDetailModelImpl implements UserDetailModel {
             public void onResponse(String response, int i) {
                 ResultBean resultBean = new Gson().fromJson(response, ResultBean.class);
                 if (resultBean.getStatus().equals("true")) {
-                    TypePersonBean personBean = new Gson().fromJson(resultBean.getResponse(), TypePersonBean.class);
+                    TypePersonBean personBean = new Gson().fromJson((String)resultBean.getResponse(), TypePersonBean.class);
                     L.i("userdetailimpl", personBean.toString());
                     listener.onSuccess(personBean);
                 } else {
@@ -96,7 +96,7 @@ public class UserDetailModelImpl implements UserDetailModel {
             public void onResponse(String response, int i) {
                 ResultBean resultBean = new Gson().fromJson(response, ResultBean.class);
                 if (resultBean.getStatus().equals("true")) {
-                    TypePersonBean personBean = new Gson().fromJson(resultBean.getResponse(), TypePersonBean.class);
+                    TypePersonBean personBean = new Gson().fromJson((String)resultBean.getResponse(), TypePersonBean.class);
                     listener.onRefreshSuccess(personBean);
                 } else {
                     listener.onFailure("加载失败", new Exception());

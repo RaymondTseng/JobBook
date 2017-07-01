@@ -42,11 +42,11 @@ public class SquareFollowModelImpl implements SquareFollowModel {
                 L.i("square_follow_response", response);
                 ResultBean resultBean = new Gson().fromJson(response, ResultBean.class);
                 if (resultBean.getStatus().equals("true")) {
-                    List<MomentBean> momentBeanList = new Gson().fromJson(resultBean.getResponse(), new TypeToken<List<MomentBean>>() {
+                    List<MomentBean> momentBeanList = new Gson().fromJson((String)resultBean.getResponse(), new TypeToken<List<MomentBean>>() {
                     }.getType());
                     listener.onSuccess(momentBeanList);
                 } else {
-                    listener.onFailure(resultBean.getResponse(), new Exception());
+                    listener.onFailure((String)resultBean.getResponse(), new Exception());
                 }
             }
         });
@@ -72,10 +72,10 @@ public class SquareFollowModelImpl implements SquareFollowModel {
                 L.i("follow_like", response);
                 ResultBean resultBean = new Gson().fromJson(response, ResultBean.class);
                 if (resultBean.getStatus().equals("true")) {
-                    MomentBean momentBean = new Gson().fromJson(resultBean.getResponse(), MomentBean.class);
+                    MomentBean momentBean = new Gson().fromJson((String)resultBean.getResponse(), MomentBean.class);
                     listener.onLikeSuccess(momentBean, position);
                 } else {
-                    listener.onLikeSquareFailure(resultBean.getResponse(), null);
+                    listener.onLikeSquareFailure((String)resultBean.getResponse(), null);
                 }
             }
         });
@@ -101,10 +101,10 @@ public class SquareFollowModelImpl implements SquareFollowModel {
                 L.i("follow_unlike", response);
                 ResultBean resultBean = new Gson().fromJson(response, ResultBean.class);
                 if (resultBean.getStatus().equals("true")) {
-                    MomentBean momentBean = new Gson().fromJson(resultBean.getResponse(), MomentBean.class);
+                    MomentBean momentBean = new Gson().fromJson((String)resultBean.getResponse(), MomentBean.class);
                     listener.onUnlikeSuccess(momentBean, position);
                 } else {
-                    listener.onUnlikeSquareFailure(resultBean.getResponse(), null);
+                    listener.onUnlikeSquareFailure((String)resultBean.getResponse(), null);
                 }
             }
         });

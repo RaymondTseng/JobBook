@@ -101,12 +101,12 @@ public class TextCVModelImpl implements TextCVModel {
                     L.i("TextCV", response);
                     ResultBean resultBean = new Gson().fromJson(response, ResultBean.class);
                     if(resultBean.getStatus().equals("true")){
-                        PersonBean personBean = new Gson().fromJson(resultBean.getResponse(), PersonBean.class);
+                        PersonBean personBean = new Gson().fromJson((String)resultBean.getResponse(), PersonBean.class);
                         onBasedInformationFinishedListener.onSuccess(personBean);
                         onEducationExpFinishedListener.onSuccess();
                         onJobExpFinishedListener.onSuccess();
                     } else {
-                        onBasedInformationFinishedListener.onFailure(resultBean.getResponse(), null, id);
+                        onBasedInformationFinishedListener.onFailure((String)resultBean.getResponse(), null, id);
                     }
                 }
             });
@@ -128,10 +128,10 @@ public class TextCVModelImpl implements TextCVModel {
                 L.i("loadcv", response);
                 ResultBean resultBean = new Gson().fromJson(response, ResultBean.class);
                 if(resultBean.getStatus().equals("true")){
-                    TextCVBean textCVBean = new Gson().fromJson(resultBean.getResponse(), TextCVBean.class);
+                    TextCVBean textCVBean = new Gson().fromJson((String)resultBean.getResponse(), TextCVBean.class);
                     listener.onSuccess(textCVBean);
                 }else{
-                    listener.onFailure(resultBean.getResponse(), new Exception(), id);
+                    listener.onFailure((String)resultBean.getResponse(), new Exception(), id);
                 }
             }
         });

@@ -34,11 +34,11 @@ public class FavouriteJobModelImpl implements FavouriteJobModel {
                 L.i("loadfavourite", "result:" + response);
                 ResultBean resultBean = new Gson().fromJson(response, ResultBean.class);
                 if (resultBean.getStatus().equals("true")) {
-                    List<JobBean> list = new Gson().fromJson(resultBean.getResponse(), new TypeToken<List<JobBean>>() {
+                    List<JobBean> list = new Gson().fromJson((String)resultBean.getResponse(), new TypeToken<List<JobBean>>() {
                     }.getType());
                     listener.onSuccess(list);
                 } else {
-                    listener.onFailure(resultBean.getResponse(), new Exception());
+                    listener.onFailure((String)resultBean.getResponse(), new Exception());
                 }
             }
         });

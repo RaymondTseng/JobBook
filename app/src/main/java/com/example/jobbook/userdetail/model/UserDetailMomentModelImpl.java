@@ -34,7 +34,7 @@ public class UserDetailMomentModelImpl implements  UserDetailMomentModel{
                 L.i("user_detail_moment_load", response);
                 ResultBean resultBean = new Gson().fromJson(response, ResultBean.class);
                 if(resultBean.getStatus().equals("true")){
-                    List<MomentBean> list = new Gson().fromJson(resultBean.getResponse(),
+                    List<MomentBean> list = new Gson().fromJson((String)resultBean.getResponse(),
                             new TypeToken<List<MomentBean>>(){}.getType());
                     listener.onSuccess(list);
                 }else{

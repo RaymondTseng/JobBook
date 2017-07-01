@@ -1,9 +1,11 @@
 package com.example.jobbook.feedback.view;
 
+import com.example.jobbook.base.IBaseView;
+
 /**
  * Created by Xu on 2016/7/17.
  */
-public interface FeedBackView {
+public interface FeedBackView extends IBaseView {
 
     void showError();
 
@@ -13,7 +15,4 @@ public interface FeedBackView {
 
     void back();
 
-    void showProgress();
-
-    void hideProgress();
 }

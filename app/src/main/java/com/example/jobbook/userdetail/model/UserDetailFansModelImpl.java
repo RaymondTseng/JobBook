@@ -32,7 +32,7 @@ public class UserDetailFansModelImpl implements UserDetailFansModel{
                 L.i("userdetailfans", response);
                 ResultBean resultBean = new Gson().fromJson(response, ResultBean.class);
                 if(resultBean.getStatus().equals("true")){
-                    List<TypePersonBean> list = new Gson().fromJson(resultBean.getResponse(),
+                    List<TypePersonBean> list = new Gson().fromJson((String)resultBean.getResponse(),
                             new TypeToken<List<TypePersonBean>>(){}.getType());
                     listener.onSuccess(list);
                 }else{
