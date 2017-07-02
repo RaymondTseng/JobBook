@@ -146,6 +146,7 @@ public class JobFragment extends LazyLoadFragment implements JobView,
                     }
                     pageIndex = 0;
                     list = null;
+                    isRecommend = false;
                     L.i("jobfragment", "category spinner:" + "isRecommend:" + isRecommend + " mCurrentCategory:" + mCurrentCategory + " mCurrentLocation:" + mCurrentLocation + " pageIndex:" + pageIndex);
                     mJobPresenter.loadJobs(pageIndex, isRecommend, mCurrentCategory, mCurrentLocation);
                 }
@@ -173,6 +174,7 @@ public class JobFragment extends LazyLoadFragment implements JobView,
                     }
                     pageIndex = 0;
                     list = null;
+                    isRecommend = false;
                     L.i("jobfragment", "location spinner:" + "isRecommend:" + isRecommend + " mCurrentCategory:" + mCurrentCategory + " mCurrentLocation:" + mCurrentLocation + " pageIndex:" + pageIndex);
                     mJobPresenter.loadJobs(pageIndex, isRecommend, mCurrentCategory, mCurrentLocation);
                 }
@@ -193,7 +195,6 @@ public class JobFragment extends LazyLoadFragment implements JobView,
             pageIndex = 0;
             list = null;
             mJobPresenter.loadJobs(pageIndex, isRecommend, mCurrentCategory, mCurrentLocation);
-            isRecommend = false;
             isFirst = false;
         }
 

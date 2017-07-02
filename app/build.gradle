@@ -19,6 +19,12 @@ android {
         release.setRoot('build-types/release')
     }
 
+    configurations{
+        all*.exclude module: 'okhttp'
+        all*.exclude module: 'okio'
+        all*.exclude module: 'gson'
+    }
+
     //签名
     signingConfigs {
         release {

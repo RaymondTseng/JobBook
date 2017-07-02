@@ -5,10 +5,13 @@ import android.support.annotation.NonNull;
 import com.example.jobbook.MyApplication;
 import com.example.jobbook.api.IArticlesApi;
 import com.example.jobbook.api.IFeedBackApi;
+import com.example.jobbook.api.IJobsApi;
 import com.example.jobbook.api.ISquareApi;
 import com.example.jobbook.api.bean.ResultBean;
 import com.example.jobbook.bean.ArticleBean;
 import com.example.jobbook.bean.FeedBackBean;
+import com.example.jobbook.bean.JobBean;
+import com.example.jobbook.bean.JobDetailBean;
 import com.example.jobbook.bean.MomentBean;
 import com.example.jobbook.commons.Urls;
 import com.example.jobbook.util.L;
@@ -51,7 +54,8 @@ public class RetrofitService {
     private static final String CACHE_CONTROL_CACHE = "only-if-cached, max-stale=" + CACHE_STALE_SEC;
     //查询网络的Cache-Control设置
     //(假如请求了服务器并在a时刻返回响应结果，则在max-age规定的秒数内，浏览器将不会发送对应的请求到服务器，数据由缓存直接返回)
-    public static final String CACHE_CONTROL_NETWORK = "Cache-Control: public, max-age=300";
+    public static final String CACHE_CONTROL_NETWORK_300 = "Cache-Control: public, max-age=300";
+    public static final String CACHE_CONTROL_NETWORK_3000 = "Cache-Control: public, max-age=3000";
     // 避免出现 HTTP 403 Forbidden，参考：http://stackoverflow.com/questions/13670692/403-forbidden-with-java-but-not-web-browser
     static final String AVOID_HTTP403_FORBIDDEN = "User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11";
 
@@ -62,6 +66,7 @@ public class RetrofitService {
     private static IArticlesApi articlesService;
     private static IFeedBackApi feedBackService;
     private static ISquareApi squareService;
+    private static IJobsApi jobsService;
 
     private RetrofitService() {
         throw new AssertionError();
@@ -83,14 +88,6 @@ public class RetrofitService {
                 .build();
 
         getService(okHttpClient);
-
-//        retrofit = new Retrofit.Builder()
-//                .client(okHttpClient)
-//                .addConverterFactory(GsonConverterFactory.create())
-//                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-//                .baseUrl(Urls.IP)
-//                .build();
-//        sWelfareService = retrofit.create(IWelfareApi.class);
     }
 
     private static void getService(OkHttpClient okHttpClient) {
@@ -103,6 +100,7 @@ public class RetrofitService {
         articlesService = retrofit.create(IArticlesApi.class);
         feedBackService = retrofit.create(IFeedBackApi.class);
         squareService = retrofit.create(ISquareApi.class);
+        jobsService = retrofit.create(IJobsApi.class);
     }
 
     /**
@@ -289,6 +287,78 @@ public class RetrofitService {
                 .flatMap(_flatMaplikeSquare());
     }
 
+    /**
+     * 获取所有岗位
+     * @param index
+     * @return
+     */
+    public static Observable<List<JobBean>> getRecommendJobsList(int index) {
+        return jobsService.getRecommendJobsList(index)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .flatMap(_flatMapJobs());
+    }
+
+    /**
+     * 搜索岗位
+     * @param type
+     * @param location
+     * @return
+     */
+    public static Observable<List<JobBean>> search(int index, String type, String location) {
+        return jobsService.search(index, type, location)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .flatMap(_flatMapJobs());
+    }
+
+    /**
+     * 获取岗位详情
+     * @param jobid
+     * @param account
+     * @return
+     */
+    public static Observable<JobDetailBean> getJobDetail(String jobid, String account) {
+        return jobsService.getJobDetail(jobid, account)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .flatMap(_flatMapJobDetail());
+    }
+
+    /**
+     * 岗位收藏
+     * @param job_id
+     * @param account
+     * @return
+     */
+    public static Observable<ResultBean<String>> likeJob(String job_id, String account) {
+        return jobsService.like(job_id, account)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    /**
+     * 取消岗位收藏
+     * @param job_id
+     * @param account
+     * @return
+     */
+    public static Observable<ResultBean<String>> unlikeJob(String job_id, String account) {
+        return jobsService.unlike(job_id, account)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
     /************************************ 类型转换 *******************************************/
 
     /**
@@ -355,6 +425,41 @@ public class RetrofitService {
                     return Observable.empty();
                 }
                 L.i("square_like_response", resultBean.getResponse().toString() + "");
+                return Observable.just(resultBean.getResponse());
+            }
+        };
+    }
+
+    /**
+     * 类型转换
+     * @return
+     */
+    private static Func1<ResultBean<List<JobBean>>, Observable<List<JobBean>>> _flatMapJobs() {
+        return new Func1<ResultBean<List<JobBean>>, Observable<List<JobBean>>>() {
+            @Override
+            public Observable<List<JobBean>> call(ResultBean<List<JobBean>> resultBean) {
+                if (!resultBean.getStatus().equals("true")) {
+                    Logger.i("error", resultBean.getResponse());
+                    return Observable.empty();
+                }
+                L.i("square_like_response", resultBean.getResponse().toString() + "");
+                return Observable.just(resultBean.getResponse());
+            }
+        };
+    }
+
+    /**
+     * 类型转换
+     *
+     * @return
+     */
+    private static Func1<ResultBean<JobDetailBean>, Observable<JobDetailBean>> _flatMapJobDetail() {
+        return new Func1<ResultBean<JobDetailBean>, Observable<JobDetailBean>>() {
+            @Override
+            public Observable<JobDetailBean> call(ResultBean<JobDetailBean> resultBean) {
+                if (!resultBean.getStatus().equals("true")) {
+                    return Observable.empty();
+                }
                 return Observable.just(resultBean.getResponse());
             }
         };

@@ -10,7 +10,7 @@ import retrofit2.http.Headers;
 import retrofit2.http.Path;
 import rx.Observable;
 
-import static com.example.jobbook.network.RetrofitService.CACHE_CONTROL_NETWORK;
+import static com.example.jobbook.network.RetrofitService.CACHE_CONTROL_NETWORK_300;
 
 /**
  * Created by Xu on 2017/6/29.
@@ -26,7 +26,7 @@ public interface IArticlesApi {
      * @param index 页码
      * @return
      */
-    @Headers(CACHE_CONTROL_NETWORK)
+    @Headers(CACHE_CONTROL_NETWORK_300)
     @GET("article/allArticle/type/{type}/index/{index}")
     Observable<ResultBean<List<ArticleBean>>> getArticlesList(@Path("type") int type, @Path("index") int index);
 
