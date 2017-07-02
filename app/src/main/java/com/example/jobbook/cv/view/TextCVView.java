@@ -1,12 +1,13 @@
 package com.example.jobbook.cv.view;
 
+import com.example.jobbook.base.IBaseView;
 import com.example.jobbook.bean.PersonBean;
 import com.example.jobbook.bean.TextCVBean;
 
 /**
  * Created by 椰树 on 2016/9/4.
  */
-public interface TextCVView {
+public interface TextCVView extends IBaseView {
     /**
      * 成功
      */
@@ -15,15 +16,6 @@ public interface TextCVView {
      * 网络错误
      */
     void networkError();
-    /**
-     * 进度出现
-     */
-    void showProgress();
-
-    /**
-     * 隐藏进度
-     */
-    void hideProgress();
 
     /**
      * 头像为空错误

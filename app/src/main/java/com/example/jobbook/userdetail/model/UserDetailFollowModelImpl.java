@@ -1,6 +1,6 @@
 package com.example.jobbook.userdetail.model;
 
-import com.example.jobbook.bean.ResultBean;
+import com.example.jobbook.api.bean.ResultBean;
 import com.example.jobbook.bean.TypePersonBean;
 import com.example.jobbook.commons.Urls;
 import com.example.jobbook.util.L;
@@ -31,12 +31,12 @@ public class UserDetailFollowModelImpl implements UserDetailFollowModel {
             public void onResponse(String response, int i) {
                 ResultBean resultBean = new Gson().fromJson(response, ResultBean.class);
                 if(resultBean.getStatus().equals("true")){
-                    List<TypePersonBean> list = new Gson().fromJson(resultBean.getResponse(),
+                    List<TypePersonBean> list = new Gson().fromJson((String)resultBean.getResponse(),
                             new TypeToken<List<TypePersonBean>>(){}.getType());
                     L.i("user_detail_follow", response);
                     listener.onSuccess(list);
                 }else{
-                    listener.onFailure(resultBean.getResponse(), new Exception());
+                    listener.onFailure((String)resultBean.getResponse(), new Exception());
                 }
             }
         });

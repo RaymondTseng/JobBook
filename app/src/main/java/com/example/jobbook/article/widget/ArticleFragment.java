@@ -268,7 +268,7 @@ public class ArticleFragment extends LazyLoadFragment implements ArticleView, Vi
         public void onItemClick(View view, int position) {
             ArticleBean article = adapter.getItem(position);
             Bundle bundle = new Bundle();
-            bundle.putSerializable("article_detail", article);
+            bundle.putParcelable("article_detail", article);
             Util.toAnotherActivity(getActivity(), ArticleDetailActivity.class, bundle);
         }
     };

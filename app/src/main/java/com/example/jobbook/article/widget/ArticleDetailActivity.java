@@ -67,7 +67,7 @@ public class ArticleDetailActivity extends Activity implements ArticleDetailView
         mLikeImageButton.setOnClickListener(this);
         mBackImageButton.setOnClickListener(this);
         mPresenter = new ArticleDetailPresenterImpl(this);
-        mArticleBean = (ArticleBean) getIntent().getExtras().getSerializable("article_detail");
+        mArticleBean = getIntent().getExtras().getParcelable("article_detail");
         mPresenter.loadArticle(mArticleBean.getArticle_id());
     }
 
@@ -122,12 +122,16 @@ public class ArticleDetailActivity extends Activity implements ArticleDetailView
     @Override
     public void likeSuccess() {
         mLikeImageButton.setImageResource(R.mipmap.favourite_tapped);
+        bean.setIfLike(1);
+        addArticle(bean);
         Util.showSnackBar(view, "收藏成功！");
     }
 
     @Override
     public void unlikeSuccess() {
         mLikeImageButton.setImageResource(R.mipmap.favourite);
+        bean.setIfLike(0);
+        addArticle(bean);
         Util.showSnackBar(view, "取消收藏成功！");
     }
 

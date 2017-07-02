@@ -105,7 +105,7 @@ public class UserDetailFansFragment extends Fragment implements UserDetailFansVi
     public void onFanItemClick(TypePersonBean personBean) {
         Bundle bundle = new Bundle();
         L.i("userdetailfans", personBean.toString());
-        bundle.putSerializable("person_bean", personBean);
+        bundle.putParcelable("person_bean", personBean);
         Util.toAnotherActivity(getActivity(), UserDetailActivity.class, bundle);
     }
 

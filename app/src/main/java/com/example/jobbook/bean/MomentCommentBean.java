@@ -1,12 +1,14 @@
 package com.example.jobbook.bean;
 
-import java.io.Serializable;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 /**
  * Created by 椰树 on 2016/7/16.
  */
-public class MomentCommentBean implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class MomentCommentBean implements Parcelable {
+//    private static final long serialVersionUID = 1L;
+
     /**
      * 评论id
      */
@@ -98,4 +100,45 @@ public class MomentCommentBean implements Serializable {
         return "applier" + applier.toString() + ",good" + good + ",bad" + bad + ",ask_time" + ask_time +
                 ",content" + content;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.comment_id);
+        dest.writeInt(this.q_id);
+        dest.writeParcelable(this.applier, flags);
+        dest.writeInt(this.good);
+        dest.writeInt(this.bad);
+        dest.writeString(this.ask_time);
+        dest.writeString(this.content);
+    }
+
+    public MomentCommentBean() {
+    }
+
+    protected MomentCommentBean(Parcel in) {
+        this.comment_id = in.readInt();
+        this.q_id = in.readInt();
+        this.applier = (PersonBean) in.readSerializable();
+        this.good = in.readInt();
+        this.bad = in.readInt();
+        this.ask_time = in.readString();
+        this.content = in.readString();
+    }
+
+    public static final Creator<MomentCommentBean> CREATOR = new Creator<MomentCommentBean>() {
+        @Override
+        public MomentCommentBean createFromParcel(Parcel source) {
+            return new MomentCommentBean(source);
+        }
+
+        @Override
+        public MomentCommentBean[] newArray(int size) {
+            return new MomentCommentBean[size];
+        }
+    };
 }

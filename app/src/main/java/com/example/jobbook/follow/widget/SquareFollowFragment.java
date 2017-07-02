@@ -97,7 +97,7 @@ public class SquareFollowFragment extends LazyLoadFragment implements SquareFoll
             public void onHeadClick(View view, int position) {
                 Bundle bundle = new Bundle();
                 L.i("square_person", mData.get(position).getAuthor().toString());
-                bundle.putSerializable("person_bean", mData.get(position).getAuthor());
+                bundle.putParcelable("person_bean", mData.get(position).getAuthor());
                 Util.toAnotherActivity(getActivity(), UserDetailActivity.class, bundle);
             }
         });
@@ -164,7 +164,7 @@ public class SquareFollowFragment extends LazyLoadFragment implements SquareFoll
         public void onContentClick(View view, int position) {
             MomentBean square = mAdapter.getItem(position);
             Bundle bundle = new Bundle();
-            bundle.putSerializable("square_detail", square);
+            bundle.putParcelable("square_detail", square);
             myApplication.setHandler(handler);
             Util.toAnotherActivity(getActivity(), MomentDetailActivity.class, bundle);
         }
@@ -194,6 +194,7 @@ public class SquareFollowFragment extends LazyLoadFragment implements SquareFoll
 //            }
             mAdapter.notifyDataSetChanged();
         }
+        L.i("data0", mData.get(0).getIfLike() + "");
         pageIndex += Urls.PAZE_SIZE;
     }
 

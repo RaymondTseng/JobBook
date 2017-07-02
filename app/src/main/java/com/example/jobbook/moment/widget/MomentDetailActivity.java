@@ -113,7 +113,7 @@ public class MomentDetailActivity extends Activity implements MomentDetailView, 
         mInputLayoutHeight = mTitleBarHeight;
         mPresenter = new MomentDetailPresenterImpl(this);
 
-        mMomentBean = (MomentBean) getIntent().getSerializableExtra("square_detail");
+        mMomentBean = getIntent().getParcelableExtra("square_detail");
         if (mMomentBean != null) {
             id = mMomentBean.getId();
             L.i("squaredetail_activity", "123:" + mMomentBean.getId());

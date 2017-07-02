@@ -1,12 +1,13 @@
 package com.example.jobbook.bean;
 
-import java.io.Serializable;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 /**
  * Created by Xu on 2016/7/6.
  */
-public class PersonWithDeviceTokenBean implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class PersonWithDeviceTokenBean implements Parcelable {
+//    private static final long serialVersionUID = 1L;
 
     /**
      * 用户账号
@@ -156,4 +157,53 @@ public class PersonWithDeviceTokenBean implements Serializable {
     public void setDevicetoken(String devicetoken) {
         this.devicetoken = devicetoken;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.account);
+        dest.writeString(this.head);
+        dest.writeString(this.password);
+        dest.writeString(this.telephone);
+        dest.writeString(this.username);
+        dest.writeString(this.follow);
+        dest.writeString(this.fans);
+        dest.writeString(this.moment);
+        dest.writeString(this.workspace);
+        dest.writeString(this.workposition);
+        dest.writeString(this.devicetoken);
+    }
+
+    public PersonWithDeviceTokenBean() {
+    }
+
+    protected PersonWithDeviceTokenBean(Parcel in) {
+        this.account = in.readString();
+        this.head = in.readString();
+        this.password = in.readString();
+        this.telephone = in.readString();
+        this.username = in.readString();
+        this.follow = in.readString();
+        this.fans = in.readString();
+        this.moment = in.readString();
+        this.workspace = in.readString();
+        this.workposition = in.readString();
+        this.devicetoken = in.readString();
+    }
+
+    public static final Creator<PersonWithDeviceTokenBean> CREATOR = new Creator<PersonWithDeviceTokenBean>() {
+        @Override
+        public PersonWithDeviceTokenBean createFromParcel(Parcel source) {
+            return new PersonWithDeviceTokenBean(source);
+        }
+
+        @Override
+        public PersonWithDeviceTokenBean[] newArray(int size) {
+            return new PersonWithDeviceTokenBean[size];
+        }
+    };
 }

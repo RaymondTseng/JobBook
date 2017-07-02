@@ -1,12 +1,16 @@
 package com.example.jobbook.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.io.Serializable;
 
 /**
  * Created by 椰树 on 2016/8/27.
  */
-public class EducationExpBean implements Serializable{
-    private static final long serialVersionUID = 1L;
+public class EducationExpBean implements Parcelable{
+//    private static final long serialVersionUID = 1L;
+
 
     /**
      * 入学年月
@@ -61,4 +65,39 @@ public class EducationExpBean implements Serializable{
     public void setMajor(String major) {
         this.major = major;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.major);
+        dest.writeString(this.graduationdate);
+        dest.writeString(this.school);
+        dest.writeString(this.admissiondate);
+    }
+
+    public EducationExpBean() {
+    }
+
+    protected EducationExpBean(Parcel in) {
+        this.major = in.readString();
+        this.graduationdate = in.readString();
+        this.school = in.readString();
+        this.admissiondate = in.readString();
+    }
+
+    public static final Creator<EducationExpBean> CREATOR = new Creator<EducationExpBean>() {
+        @Override
+        public EducationExpBean createFromParcel(Parcel source) {
+            return new EducationExpBean(source);
+        }
+
+        @Override
+        public EducationExpBean[] newArray(int size) {
+            return new EducationExpBean[size];
+        }
+    };
 }

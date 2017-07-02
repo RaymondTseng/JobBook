@@ -1,6 +1,6 @@
 package com.example.jobbook.userdetail.model;
 
-import com.example.jobbook.bean.ResultBean;
+import com.example.jobbook.api.bean.ResultBean;
 import com.example.jobbook.bean.TypePersonBean;
 import com.example.jobbook.commons.Urls;
 import com.example.jobbook.util.L;
@@ -32,7 +32,7 @@ public class UserDetailFansModelImpl implements UserDetailFansModel{
                 L.i("userdetailfans", response);
                 ResultBean resultBean = new Gson().fromJson(response, ResultBean.class);
                 if(resultBean.getStatus().equals("true")){
-                    List<TypePersonBean> list = new Gson().fromJson(resultBean.getResponse(),
+                    List<TypePersonBean> list = new Gson().fromJson((String)resultBean.getResponse(),
                             new TypeToken<List<TypePersonBean>>(){}.getType());
                     listener.onSuccess(list);
                 }else{

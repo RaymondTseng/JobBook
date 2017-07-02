@@ -1,7 +1,7 @@
 package com.example.jobbook.search.model;
 
 import com.example.jobbook.bean.JobBean;
-import com.example.jobbook.bean.ResultBean;
+import com.example.jobbook.api.bean.ResultBean;
 import com.example.jobbook.commons.Urls;
 import com.example.jobbook.util.L;
 import com.google.gson.Gson;
@@ -46,14 +46,14 @@ public class SearchModelImpl implements SearchModel {
                 ResultBean resultBean = new Gson().fromJson(response, ResultBean.class);
                 if (resultBean.getStatus().equals("true")) {
                     if (resultBean.getResponse() != null) {
-                        List<JobBean> list = new Gson().fromJson(resultBean.getResponse(), new TypeToken<List<JobBean>>() {
+                        List<JobBean> list = new Gson().fromJson((String)resultBean.getResponse(), new TypeToken<List<JobBean>>() {
                         }.getType());
                         listener.onSuccess(list);
                     } else {
                         listener.onSearchEmpty("", new Exception());
                     }
                 } else {
-                    listener.onSearchFaliure(resultBean.getResponse(), new Exception());
+                    listener.onSearchFaliure((String)resultBean.getResponse(), new Exception());
                 }
             }
         });

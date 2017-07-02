@@ -126,7 +126,7 @@ public class ShowFanListActivity extends Activity implements ShowFanListView, Vi
     public void onFanItemClick(TypePersonBean personBean) {
         Bundle bundle = new Bundle();
         L.i("showfanlista", personBean.toString());
-        bundle.putSerializable("person_bean", personBean);
+        bundle.putParcelable("person_bean", personBean);
         Util.toAnotherActivity(this, UserDetailActivity.class, bundle);
     }
 

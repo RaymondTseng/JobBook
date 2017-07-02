@@ -1,14 +1,15 @@
 package com.example.jobbook.bean;
 
-import java.io.Serializable;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 /**
  * Created by 椰树 on 2016/8/28.
  * 职位详情类型
  */
-public class JobDetailBean implements Serializable{
+public class JobDetailBean implements Parcelable {
 
-    private static final long serialVersionUID = 1L;
+//    private static final long serialVersionUID = 1L;
 
     public int getId() {
         return job_id;
@@ -57,6 +58,7 @@ public class JobDetailBean implements Serializable{
     public void setRequirements(String requirements) {
         this.requirements = requirements;
     }
+
     public String getTime() {
         return time;
     }
@@ -126,4 +128,48 @@ public class JobDetailBean implements Serializable{
     private int ifLike;
 
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.job_id);
+        dest.writeString(this.name);
+        dest.writeString(this.salary);
+        dest.writeString(this.location);
+        dest.writeString(this.time);
+        dest.writeString(this.responsibilities);
+        dest.writeString(this.requirements);
+        dest.writeParcelable(this.company, flags);
+        dest.writeInt(this.ifLike);
+    }
+
+    public JobDetailBean() {
+    }
+
+    protected JobDetailBean(Parcel in) {
+        this.job_id = in.readInt();
+        this.name = in.readString();
+        this.salary = in.readString();
+        this.location = in.readString();
+        this.time = in.readString();
+        this.responsibilities = in.readString();
+        this.requirements = in.readString();
+        this.company = in.readParcelable(CompanyBean.class.getClassLoader());
+        this.ifLike = in.readInt();
+    }
+
+    public static final Creator<JobDetailBean> CREATOR = new Creator<JobDetailBean>() {
+        @Override
+        public JobDetailBean createFromParcel(Parcel source) {
+            return new JobDetailBean(source);
+        }
+
+        @Override
+        public JobDetailBean[] newArray(int size) {
+            return new JobDetailBean[size];
+        }
+    };
 }

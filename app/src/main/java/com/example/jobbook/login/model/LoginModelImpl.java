@@ -1,12 +1,11 @@
 package com.example.jobbook.login.model;
 
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.example.jobbook.MyApplication;
 import com.example.jobbook.bean.PersonBean;
 import com.example.jobbook.bean.PersonWithDeviceTokenBean;
-import com.example.jobbook.bean.ResultBean;
+import com.example.jobbook.api.bean.ResultBean;
 import com.example.jobbook.commons.Urls;
 import com.example.jobbook.util.L;
 import com.example.jobbook.util.Util;
@@ -47,7 +46,7 @@ public class LoginModelImpl implements LoginModel {
                     L.i("login_response", response);
                     ResultBean resultBean = new Gson().fromJson(response, ResultBean.class);
                     if(resultBean.getStatus().equals("true")){
-                        PersonBean personBean = new Gson().fromJson(resultBean.getResponse(), PersonBean.class);
+                        PersonBean personBean = new Gson().fromJson((String)resultBean.getResponse(), PersonBean.class);
                         listener.onSuccess(personBean);
                     }else{
                         if (resultBean.getResponse().equals("Login Error!")) {

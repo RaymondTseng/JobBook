@@ -1,13 +1,16 @@
 package com.example.jobbook.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by 椰树 on 2016/9/5.
  */
-public class TextCVBean implements Serializable{
-    private static final long serialVersionUID = 1L;
+public class TextCVBean implements Parcelable{
+//    private static final long serialVersionUID = 1L;
 
     /**
      * 姓名
@@ -222,4 +225,65 @@ public class TextCVBean implements Serializable{
     public void setExpectSalary(String expectSalary) {
         this.expectsalary = expectSalary;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.name);
+        dest.writeString(this.head);
+        dest.writeString(this.sex);
+        dest.writeString(this.status);
+        dest.writeString(this.workspace);
+        dest.writeString(this.workposition);
+        dest.writeString(this.city);
+        dest.writeString(this.disabilitytype);
+        dest.writeString(this.disabilitylevel);
+        dest.writeString(this.havedisabilitycard);
+        dest.writeString(this.telephone);
+        dest.writeString(this.email);
+        dest.writeString(this.expectposition);
+        dest.writeString(this.expectsalary);
+        dest.writeString(this.expectlocation);
+        dest.writeTypedList(this.education);
+        dest.writeTypedList(this.work);
+    }
+
+    public TextCVBean() {
+    }
+
+    protected TextCVBean(Parcel in) {
+        this.name = in.readString();
+        this.head = in.readString();
+        this.sex = in.readString();
+        this.status = in.readString();
+        this.workspace = in.readString();
+        this.workposition = in.readString();
+        this.city = in.readString();
+        this.disabilitytype = in.readString();
+        this.disabilitylevel = in.readString();
+        this.havedisabilitycard = in.readString();
+        this.telephone = in.readString();
+        this.email = in.readString();
+        this.expectposition = in.readString();
+        this.expectsalary = in.readString();
+        this.expectlocation = in.readString();
+        this.education = in.createTypedArrayList(EducationExpBean.CREATOR);
+        this.work = in.createTypedArrayList(JobExpBean.CREATOR);
+    }
+
+    public static final Creator<TextCVBean> CREATOR = new Creator<TextCVBean>() {
+        @Override
+        public TextCVBean createFromParcel(Parcel source) {
+            return new TextCVBean(source);
+        }
+
+        @Override
+        public TextCVBean[] newArray(int size) {
+            return new TextCVBean[size];
+        }
+    };
 }

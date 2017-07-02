@@ -1,15 +1,18 @@
 package com.example.jobbook.bean;
 
-import java.io.Serializable;
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Xu on 2016/7/5.
  * 文章模型类
  */
-public class ArticleBean implements Serializable {
+public class ArticleBean implements Parcelable {
 
-    private static final long serialVersionUID = 1L;
+//    private static final long serialVersionUID = 1L;
 
     /**
      * 文章id
@@ -127,4 +130,50 @@ public class ArticleBean implements Serializable {
     public void setImage(String image) {
         this.image = image;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.article_id);
+        dest.writeInt(this.type);
+        dest.writeString(this.image);
+        dest.writeString(this.title);
+        dest.writeString(this.content);
+        dest.writeString(this.date);
+        dest.writeInt(this.readingquantity);
+        dest.writeList(this.comments);
+        dest.writeInt(this.ifLike);
+    }
+
+    public ArticleBean() {
+    }
+
+    protected ArticleBean(Parcel in) {
+        this.article_id = in.readString();
+        this.type = in.readInt();
+        this.image = in.readString();
+        this.title = in.readString();
+        this.content = in.readString();
+        this.date = in.readString();
+        this.readingquantity = in.readInt();
+        this.comments = new ArrayList<ArticleCommentBean>();
+        in.readList(this.comments, ArticleCommentBean.class.getClassLoader());
+        this.ifLike = in.readInt();
+    }
+
+    public static final Creator<ArticleBean> CREATOR = new Creator<ArticleBean>() {
+        @Override
+        public ArticleBean createFromParcel(Parcel source) {
+            return new ArticleBean(source);
+        }
+
+        @Override
+        public ArticleBean[] newArray(int size) {
+            return new ArticleBean[size];
+        }
+    };
 }

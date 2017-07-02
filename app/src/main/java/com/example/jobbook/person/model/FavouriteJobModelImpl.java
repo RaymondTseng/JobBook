@@ -3,7 +3,7 @@ package com.example.jobbook.person.model;
 import com.example.jobbook.util.L;
 
 import com.example.jobbook.bean.JobBean;
-import com.example.jobbook.bean.ResultBean;
+import com.example.jobbook.api.bean.ResultBean;
 import com.example.jobbook.commons.Urls;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -34,11 +34,11 @@ public class FavouriteJobModelImpl implements FavouriteJobModel {
                 L.i("loadfavourite", "result:" + response);
                 ResultBean resultBean = new Gson().fromJson(response, ResultBean.class);
                 if (resultBean.getStatus().equals("true")) {
-                    List<JobBean> list = new Gson().fromJson(resultBean.getResponse(), new TypeToken<List<JobBean>>() {
+                    List<JobBean> list = new Gson().fromJson((String)resultBean.getResponse(), new TypeToken<List<JobBean>>() {
                     }.getType());
                     listener.onSuccess(list);
                 } else {
-                    listener.onFailure(resultBean.getResponse(), new Exception());
+                    listener.onFailure((String)resultBean.getResponse(), new Exception());
                 }
             }
         });

@@ -1,7 +1,7 @@
 package com.example.jobbook.person.model;
 
 import com.example.jobbook.MyApplication;
-import com.example.jobbook.bean.ResultBean;
+import com.example.jobbook.api.bean.ResultBean;
 import com.example.jobbook.bean.TypePersonBean;
 import com.example.jobbook.commons.Urls;
 import com.example.jobbook.util.L;
@@ -35,7 +35,7 @@ public class ShowFantListModelImpl implements ShowFanListModel {
                 L.i("showfanlist", response);
                 ResultBean resultBean = new Gson().fromJson(response, ResultBean.class);
                 if (resultBean.getStatus().equals("true")) {
-                    List<TypePersonBean> list = new Gson().fromJson(resultBean.getResponse(),
+                    List<TypePersonBean> list = new Gson().fromJson((String)resultBean.getResponse(),
                             new TypeToken<List<TypePersonBean>>() {
                             }.getType());
                     listener.onSuccess(list);

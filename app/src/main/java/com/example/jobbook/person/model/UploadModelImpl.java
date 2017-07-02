@@ -6,7 +6,7 @@ import android.util.Base64;
 import com.example.jobbook.util.L;
 
 import com.example.jobbook.MyApplication;
-import com.example.jobbook.bean.ResultBean;
+import com.example.jobbook.api.bean.ResultBean;
 import com.example.jobbook.commons.Urls;
 import com.example.jobbook.upload.UploadManager;
 import com.google.gson.Gson;
@@ -49,7 +49,7 @@ public class UploadModelImpl implements UploadModel {
                     if (resultBean.getStatus().equals("true")) {
                         listener.onSuccess(bm);
                     } else {
-                        listener.onFailure(resultBean.getResponse(), null);
+                        listener.onFailure((String)resultBean.getResponse(), null);
                         L.i("photo", "result:failure");
                     }
                 }

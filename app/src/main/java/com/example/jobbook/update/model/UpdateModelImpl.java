@@ -5,7 +5,7 @@ import android.text.TextUtils;
 
 import com.example.jobbook.MyApplication;
 import com.example.jobbook.bean.PersonBean;
-import com.example.jobbook.bean.ResultBean;
+import com.example.jobbook.api.bean.ResultBean;
 import com.example.jobbook.commons.Urls;
 import com.example.jobbook.util.L;
 import com.example.jobbook.util.SMSSDKManager;
@@ -51,7 +51,7 @@ public class UpdateModelImpl implements UpdateModel {
                     L.i("update_pwd", response);
                     ResultBean resultBean = new Gson().fromJson(response, ResultBean.class);
                     if (resultBean.getStatus().equals("true")) {
-                        PersonBean personBean = new Gson().fromJson(resultBean.getResponse(), PersonBean.class);
+                        PersonBean personBean = new Gson().fromJson((String)resultBean.getResponse(), PersonBean.class);
                         MyApplication.setmPersonBean(context, personBean);
                         listener.onUpdatePwdSuccess();
                     } else {
@@ -83,7 +83,7 @@ public class UpdateModelImpl implements UpdateModel {
                             L.i("update_phone", response);
                             ResultBean resultBean = new Gson().fromJson(response, ResultBean.class);
                             if (resultBean.getStatus().equals("true")) {
-                                PersonBean personBean = new Gson().fromJson(resultBean.getResponse(), PersonBean.class);
+                                PersonBean personBean = new Gson().fromJson((String)resultBean.getResponse(), PersonBean.class);
                                 MyApplication.setmPersonBean(mContext, personBean);
                                 listener.onUpdatePhoneSuccess();
                             }else {
@@ -117,7 +117,7 @@ public class UpdateModelImpl implements UpdateModel {
                 public void onResponse(String response, int id) {
                     ResultBean resultBean = new Gson().fromJson(response, ResultBean.class);
                     if (resultBean.getStatus().equals("true")) {
-                        PersonBean personBean = new Gson().fromJson(resultBean.getResponse(), PersonBean.class);
+                        PersonBean personBean = new Gson().fromJson((String)resultBean.getResponse(), PersonBean.class);
                         MyApplication.setmPersonBean(context, personBean);
                         listener.onUpdateUserNameSuccess();
                     } else {

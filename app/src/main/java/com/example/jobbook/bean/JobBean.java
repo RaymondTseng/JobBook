@@ -1,13 +1,16 @@
 package com.example.jobbook.bean;
 
-import java.io.Serializable;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 /**
  * Created by Xu on 2016/7/5.
  * 职位模型类
  */
-public class JobBean implements Serializable{
-    private static final long serialVersionUID = 1L;
+public class JobBean implements Parcelable {
+
+
+//    private static final long serialVersionUID = 1L;
 
     /**
      * id
@@ -100,4 +103,45 @@ public class JobBean implements Serializable{
     public void setSalary(String salary) {
         this.salary = salary;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.salary);
+        dest.writeString(this.comlogo);
+        dest.writeString(this.name);
+        dest.writeString(this.companyname);
+        dest.writeString(this.location);
+        dest.writeString(this.time);
+        dest.writeString(this.job_id);
+    }
+
+    public JobBean() {
+    }
+
+    protected JobBean(Parcel in) {
+        this.salary = in.readString();
+        this.comlogo = in.readString();
+        this.name = in.readString();
+        this.companyname = in.readString();
+        this.location = in.readString();
+        this.time = in.readString();
+        this.job_id = in.readString();
+    }
+
+    public static final Creator<JobBean> CREATOR = new Creator<JobBean>() {
+        @Override
+        public JobBean createFromParcel(Parcel source) {
+            return new JobBean(source);
+        }
+
+        @Override
+        public JobBean[] newArray(int size) {
+            return new JobBean[size];
+        }
+    };
 }

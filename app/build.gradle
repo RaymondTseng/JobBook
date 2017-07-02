@@ -19,6 +19,12 @@ android {
         release.setRoot('build-types/release')
     }
 
+    configurations{
+        all*.exclude module: 'okhttp'
+        all*.exclude module: 'okio'
+        all*.exclude module: 'gson'
+    }
+
     //签名
     signingConfigs {
         release {
@@ -89,4 +95,18 @@ dependencies {
 //    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.4'
 //    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4'
 //    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4'
+
+    // rxjava
+    compile 'io.reactivex:rxjava:1.1.9'
+    compile 'io.reactivex:rxandroid:1.2.1'
+    compile 'com.jakewharton.rxbinding:rxbinding:0.4.0'
+    compile 'com.trello:rxlifecycle:1.0'
+    compile 'com.trello:rxlifecycle-components:1.0'
+    compile 'com.tbruyelle.rxpermissions:rxpermissions:0.9.1@aar'
+    // retrofit
+    compile 'com.squareup.retrofit2:retrofit:2.1.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
+    compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
+    // logger
+    compile 'com.orhanobut:logger:1.15'
 }

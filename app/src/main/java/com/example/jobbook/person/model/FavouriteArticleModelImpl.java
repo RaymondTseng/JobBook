@@ -1,7 +1,7 @@
 package com.example.jobbook.person.model;
 
 import com.example.jobbook.bean.ArticleBean;
-import com.example.jobbook.bean.ResultBean;
+import com.example.jobbook.api.bean.ResultBean;
 import com.example.jobbook.commons.Urls;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -30,7 +30,7 @@ public class FavouriteArticleModelImpl implements FavouriteArticleModel{
             public void onResponse(String response, int i) {
                 ResultBean resultBean = new Gson().fromJson(response, ResultBean.class);
                 if(resultBean.getStatus().equals("true")){
-                    List<ArticleBean> mData = new Gson().fromJson(resultBean.getResponse(), new
+                    List<ArticleBean> mData = new Gson().fromJson((String)resultBean.getResponse(), new
                             TypeToken<List<ArticleBean>>(){}.getType());
                     listener.onSuccess(mData);
                 }else{

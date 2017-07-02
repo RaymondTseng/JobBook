@@ -4,7 +4,7 @@ import com.example.jobbook.util.L;
 
 import com.example.jobbook.MyApplication;
 import com.example.jobbook.bean.JobDetailBean;
-import com.example.jobbook.bean.ResultBean;
+import com.example.jobbook.api.bean.ResultBean;
 import com.example.jobbook.commons.Urls;
 import com.google.gson.Gson;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -36,10 +36,10 @@ public class JobDetailModelImpl implements JobDetailModel {
                 L.i("job detail response", "result:" + response);
                 ResultBean resultBean = new Gson().fromJson(response, ResultBean.class);
                 if (resultBean.getStatus().equals("true")) {
-                    JobDetailBean jobDetailBean = new Gson().fromJson(resultBean.getResponse(), JobDetailBean.class);
+                    JobDetailBean jobDetailBean = new Gson().fromJson((String)resultBean.getResponse(), JobDetailBean.class);
                     listener.onSuccess(jobDetailBean);
                 } else {
-                    listener.onLoadJobFailure(resultBean.getResponse(), null);
+                    listener.onLoadJobFailure((String)resultBean.getResponse(), null);
                 }
             }
         });
@@ -65,7 +65,7 @@ public class JobDetailModelImpl implements JobDetailModel {
                         L.i("job_detail_like", response);
                         listener.onLikeSuccess();
                     } else {
-                        listener.onLikeJobFailure(resultBean.getResponse(), null);
+                        listener.onLikeJobFailure((String)resultBean.getResponse(), null);
                     }
                 }
             });
@@ -92,7 +92,7 @@ public class JobDetailModelImpl implements JobDetailModel {
                         L.i("job_detail_unlike", response);
                         listener.onUnlikeSuccess();
                     } else {
-                        listener.onUnlikeJobFailure(resultBean.getResponse(), null);
+                        listener.onUnlikeJobFailure((String)resultBean.getResponse(), null);
                     }
                 }
             });

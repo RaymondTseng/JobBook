@@ -4,7 +4,7 @@ package com.example.jobbook.job.model;
 import android.text.TextUtils;
 
 import com.example.jobbook.bean.JobBean;
-import com.example.jobbook.bean.ResultBean;
+import com.example.jobbook.api.bean.ResultBean;
 import com.example.jobbook.commons.Urls;
 import com.example.jobbook.util.L;
 import com.google.gson.Gson;
@@ -56,10 +56,10 @@ public class JobModelImpl implements JobModel{
                 L.i("job_response:", response);
                 ResultBean resultBean = new Gson().fromJson(response, ResultBean.class);
                 if (resultBean.getStatus().equals("true")) {
-                    List<JobBean> jobBeanList = new Gson().fromJson(resultBean.getResponse(), new TypeToken<List<JobBean>>(){}.getType());
+                    List<JobBean> jobBeanList = new Gson().fromJson((String)resultBean.getResponse(), new TypeToken<List<JobBean>>(){}.getType());
                     listener.onSuccess(jobBeanList);
                 } else {
-                    listener.onFailure(resultBean.getResponse(), new Exception());
+                    listener.onFailure((String)resultBean.getResponse(), new Exception());
                 }
             }
         });

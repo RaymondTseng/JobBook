@@ -1,6 +1,7 @@
 package com.example.jobbook.follow.view;
 
 
+import com.example.jobbook.base.IBaseView;
 import com.example.jobbook.bean.MomentBean;
 
 import java.util.List;
@@ -8,13 +9,9 @@ import java.util.List;
 /**
  * Created by Xu on 2016/7/5.
  */
-public interface SquareFollowView {
-
-    void showProgress();
+public interface SquareFollowView extends IBaseView {
 
     void addSquareFollows(List<MomentBean> squareFollowList);
-
-    void hideProgress();
 
     void showLoadFailMsg();
 

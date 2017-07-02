@@ -1,15 +1,19 @@
 package com.example.jobbook.bean;
 
-import java.io.Serializable;
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Xu on 2016/7/15.
  * 公司详情模型类
  */
-public class CompanyBean implements Serializable {
+public class CompanyBean implements Parcelable {
 
-    private static final long serialVersionUID = 1L;
+//    private static final long serialVersionUID = 1L;
+
 
     /**
      * id
@@ -125,5 +129,55 @@ public class CompanyBean implements Serializable {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.com_id);
+        dest.writeString(this.name);
+        dest.writeString(this.location);
+        dest.writeString(this.scale);
+        dest.writeString(this.welfare);
+        dest.writeString(this.introduction);
+        dest.writeList(this.comments);
+        dest.writeString(this.website);
+    }
+
+    public CompanyBean() {
+    }
+
+    protected CompanyBean(Parcel in) {
+        this.com_id = in.readString();
+        this.name = in.readString();
+        this.location = in.readString();
+        this.scale = in.readString();
+        this.welfare = in.readString();
+        this.introduction = in.readString();
+        this.comments = new ArrayList<CompanyCommentBean>();
+        in.readList(this.comments, CompanyCommentBean.class.getClassLoader());
+        this.website = in.readString();
+    }
+
+    public static final Creator<CompanyBean> CREATOR = new Creator<CompanyBean>() {
+        @Override
+        public CompanyBean createFromParcel(Parcel source) {
+            return new CompanyBean(source);
+        }
+
+        @Override
+        public CompanyBean[] newArray(int size) {
+            return new CompanyBean[size];
+        }
+    };
+
+    @Override
+    public String toString() {
+        return "[com_id:" + com_id + ", name:" + name + ", location:" + location + ", scale:" + scale
+                + ", welfare:" + welfare + ", introduction:" + introduction + ", website:" + website;
     }
 }

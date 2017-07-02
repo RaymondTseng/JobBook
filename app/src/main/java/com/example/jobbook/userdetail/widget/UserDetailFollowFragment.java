@@ -109,7 +109,7 @@ public class UserDetailFollowFragment extends Fragment implements UserDetailFoll
     @Override
     public void onFollowerItemClick(TypePersonBean personBean) {
         Bundle bundle = new Bundle();
-        bundle.putSerializable("person_bean", personBean);
+        bundle.putParcelable("person_bean", personBean);
         Util.toAnotherActivity(getActivity(), UserDetailActivity.class, bundle);
     }
 }
