@@ -6,6 +6,7 @@ import com.example.jobbook.MyApplication;
 import com.example.jobbook.api.IArticlesApi;
 import com.example.jobbook.api.IFeedBackApi;
 import com.example.jobbook.api.IJobsApi;
+import com.example.jobbook.api.IPersonApi;
 import com.example.jobbook.api.ISquareApi;
 import com.example.jobbook.api.bean.ResultBean;
 import com.example.jobbook.bean.ArticleBean;
@@ -13,6 +14,8 @@ import com.example.jobbook.bean.FeedBackBean;
 import com.example.jobbook.bean.JobBean;
 import com.example.jobbook.bean.JobDetailBean;
 import com.example.jobbook.bean.MomentBean;
+import com.example.jobbook.bean.PersonBean;
+import com.example.jobbook.bean.PersonWithDeviceTokenBean;
 import com.example.jobbook.commons.Urls;
 import com.example.jobbook.util.L;
 import com.orhanobut.logger.Logger;
@@ -67,6 +70,7 @@ public class RetrofitService {
     private static IFeedBackApi feedBackService;
     private static ISquareApi squareService;
     private static IJobsApi jobsService;
+    private static IPersonApi personService;
 
     private RetrofitService() {
         throw new AssertionError();
@@ -101,6 +105,7 @@ public class RetrofitService {
         feedBackService = retrofit.create(IFeedBackApi.class);
         squareService = retrofit.create(ISquareApi.class);
         jobsService = retrofit.create(IJobsApi.class);
+        personService = retrofit.create(IPersonApi.class);
     }
 
     /**
@@ -359,6 +364,33 @@ public class RetrofitService {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
+    /**
+     * 发送简历
+     * @param account
+     * @param com_id
+     * @return
+     */
+    public static Observable<ResultBean<String>> sendCV(String account, String com_id) {
+        return jobsService.sendCV(account, com_id)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    /**
+     * 用户登录
+     * @param bean
+     * @return
+     */
+    public static Observable<ResultBean<PersonBean>> login(PersonWithDeviceTokenBean bean) {
+        return personService.login(bean)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
     /************************************ 类型转换 *******************************************/
 
     /**
@@ -457,6 +489,23 @@ public class RetrofitService {
         return new Func1<ResultBean<JobDetailBean>, Observable<JobDetailBean>>() {
             @Override
             public Observable<JobDetailBean> call(ResultBean<JobDetailBean> resultBean) {
+                if (!resultBean.getStatus().equals("true")) {
+                    return Observable.empty();
+                }
+                return Observable.just(resultBean.getResponse());
+            }
+        };
+    }
+
+    /**
+     * 类型转换
+     *
+     * @return
+     */
+    private static Func1<ResultBean<PersonBean>, Observable<PersonBean>> _flatMapLogin() {
+        return new Func1<ResultBean<PersonBean>, Observable<PersonBean>>() {
+            @Override
+            public Observable<PersonBean> call(ResultBean<PersonBean> resultBean) {
                 if (!resultBean.getStatus().equals("true")) {
                     return Observable.empty();
                 }

@@ -1,27 +1,82 @@
 package com.example.jobbook.login.presenter;
 
+import android.text.TextUtils;
+
+import com.example.jobbook.MyApplication;
+import com.example.jobbook.api.bean.ResultBean;
 import com.example.jobbook.bean.PersonBean;
-import com.example.jobbook.login.model.LoginModel;
-import com.example.jobbook.login.model.LoginModelImpl;
+import com.example.jobbook.bean.PersonWithDeviceTokenBean;
 import com.example.jobbook.login.view.LoginView;
+import com.example.jobbook.network.RetrofitService;
+import com.example.jobbook.util.Util;
+
+import rx.Subscriber;
+import rx.functions.Action0;
 
 /**
  * Created by Xu on 2016/7/7.
  */
-public class LoginPresenterImpl implements LoginPresenter, LoginModelImpl.OnLoginFinishedListener {
+public class LoginPresenterImpl implements LoginPresenter {
 
-    private LoginModel mLoginModel;
     private LoginView mLoginView;
 
     public LoginPresenterImpl(LoginView view) {
         mLoginView = view;
-        mLoginModel = new LoginModelImpl();
     }
 
     @Override
     public void loginCheck(String account, String password) {
-        mLoginView.showProgress();
-        mLoginModel.login(account, password, this);
+        if (TextUtils.isEmpty(account)) {
+            mLoginView.setAccountError();
+            return;
+        } else if (TextUtils.isEmpty(password)) {
+            mLoginView.setPasswordError();
+            return;
+        }
+        PersonWithDeviceTokenBean personBean = new PersonWithDeviceTokenBean();
+        personBean.setAccount(account);
+        personBean.setPassword(Util.getMD5(password));
+        personBean.setDevicetoken(MyApplication.mDevicetoken);
+        RetrofitService.login(personBean)
+                .doOnSubscribe(new Action0() {
+                    @Override
+                    public void call() {
+                        mLoginView.showProgress();
+                    }
+                })
+                .subscribe(new Subscriber<ResultBean<PersonBean>>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable throwable) {
+                        mLoginView.hideProgress();
+                        if (throwable.getMessage().contains("java.lang.IllegalStateException: Expected BEGIN_OBJECT")) {
+                            mLoginView.setUserError();
+                        } else {
+                            mLoginView.setNetworkError();
+                        }
+
+                    }
+
+                    @Override
+                    public void onNext(ResultBean<PersonBean> resultBean) {
+                        if (resultBean.getStatus().equals("true")) {
+                            mLoginView.hideProgress();
+                            mLoginView.switch2Person(resultBean.getResponse());
+                        } else {
+                            if (resultBean.getResponse().equals("Login Error!")) {
+                                mLoginView.setUserError();
+                            } else {
+                                mLoginView.setNetworkError();
+                            }
+                        }
+
+                    }
+                });
+
     }
 
     @Override
@@ -29,39 +84,4 @@ public class LoginPresenterImpl implements LoginPresenter, LoginModelImpl.OnLogi
         mLoginView = null;
     }
 
-//    @Override
-//    public void onUsernameError() {
-//        mLoginView.setUserError();
-//    }
-
-
-    @Override
-    public void onUserError() {
-        mLoginView.hideProgress();
-        mLoginView.setUserError();
-    }
-
-    @Override
-    public void onAccountError() {
-        mLoginView.hideProgress();
-        mLoginView.setAccountError();
-    }
-
-    @Override
-    public void onPasswordError() {
-        mLoginView.hideProgress();
-        mLoginView.setPasswordError();
-    }
-
-    @Override
-    public void onSuccess(PersonBean personBean) {
-        mLoginView.hideProgress();
-        mLoginView.switch2Person(personBean);
-    }
-
-    @Override
-    public void onNetWorkError() {
-        mLoginView.hideProgress();
-        mLoginView.setNetworkError();
-    }
 }

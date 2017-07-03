@@ -13,17 +13,7 @@ public class Urls {
 
     public static final String LOGIN_URL = IP + "/enter/doLogin";
 
-    public static final String JOB_URL = IP + "/job/getAll";
-
-    public static final String JOB_DETAIL_URL = IP + "/job/getDetail/job_id/";
-
-    public static final String JOB_LIKE_URL = IP + "/job/liked/job_id/";
-
-    public static final String JOB_UNLIKE_URL = IP + "/job/unliked/job_id/";
-
     public static final String SQUARE_URL = IP + "/question/allQuestions";
-
-    public static final String SQUARE_FOLLOW_URL = IP + "/question/focusQuestion";
 
     public static final String SQUARE_LIKE_URL = IP + "/question/likeQuestion/q_id/";
 
