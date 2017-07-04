@@ -20,6 +20,6 @@ public interface IFeedBackApi {
      * @param feedBackBean
      * @return
      */
-    @POST("/suggestion/postSuggestion/account/{account}")
+    @POST("suggestion/postSuggestion/account/{account}")
     Observable<ResultBean<String>> feedBack(@Path("account") String account, @Body FeedBackBean feedBackBean);
 }

@@ -65,4 +65,14 @@ public interface IJobsApi {
      */
     @GET("job/unliked/job_id/{job_id}/account/{account}")
     Observable<ResultBean<String>> unlike(@Path("job_id") String jobId, @Path("account") String account);
+
+    /**
+     * 发送简历
+     * @param account
+     * @param companyId
+     * @return
+     */
+    @GET("mail/check/account/{account}/com_id/{com_id}")
+    Observable<ResultBean<String>> sendCV(@Path("account") String account, @Path("com_id") String companyId);
+
 }
