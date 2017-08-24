@@ -1,5 +1,6 @@
 package com.example.jobbook.network;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.example.jobbook.MyApplication;
@@ -385,6 +386,33 @@ public class RetrofitService {
      */
     public static Observable<ResultBean<PersonBean>> login(PersonWithDeviceTokenBean bean) {
         return personService.login(bean)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    /**
+     * 检查账户有效性
+     * @param phone
+     * @return
+     */
+    public static Observable<ResultBean<String>> checkAccount(String phone) {
+        return personService.checkAccount(phone)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    /**
+     * 修改密码
+     * @param account
+     * @param newpsd
+     * @return
+     */
+    public static Observable<ResultBean<String>> changePwdComplete(String account, String newpsd) {
+        return personService.changePwdComplete(account, newpsd)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())
