@@ -1,6 +1,5 @@
 package com.example.jobbook.network;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.example.jobbook.MyApplication;
@@ -413,6 +412,14 @@ public class RetrofitService {
      */
     public static Observable<ResultBean<String>> changePwdComplete(String account, String newpsd) {
         return personService.changePwdComplete(account, newpsd)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public static Observable<ResultBean<PersonBean>> register(PersonWithDeviceTokenBean bean) {
+        return personService.register(bean)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())

@@ -51,5 +51,8 @@ public interface IPersonApi {
      */
     void checkCode(Context mContext, String code, String phone);
 
+    @POST("enter/doRegister")
+    Observable<ResultBean<PersonBean>> register(@Body PersonWithDeviceTokenBean bean);
+
 
 }
