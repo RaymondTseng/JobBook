@@ -19,7 +19,7 @@ import okhttp3.Call;
 public class MainModelImpl implements MainModel {
     @Override
     public void loginCheck(final PersonBean personBean, final OnLoginCheckListener listener) {
-        OkHttpUtils.get().url(Urls.LOGIN_CHECK_URL + personBean.getAccount()).addParams("","").build().execute(new StringCallback() {
+        OkHttpUtils.get().url(Urls.LOGIN_CHECK_URL + personBean.getAccount()).build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int i) {
                 listener.onError();

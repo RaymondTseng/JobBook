@@ -6,6 +6,7 @@ import com.example.jobbook.MyApplication;
 import com.example.jobbook.api.IArticlesApi;
 import com.example.jobbook.api.IFeedBackApi;
 import com.example.jobbook.api.IJobsApi;
+import com.example.jobbook.api.IMainApi;
 import com.example.jobbook.api.IPersonApi;
 import com.example.jobbook.api.ISquareApi;
 import com.example.jobbook.api.bean.ResultBean;
@@ -70,6 +71,7 @@ public class RetrofitService {
     private static IFeedBackApi feedBackService;
     private static ISquareApi squareService;
     private static IJobsApi jobsService;
+    private static IMainApi mainService;
     private static IPersonApi personService;
 
     private RetrofitService() {
@@ -105,6 +107,7 @@ public class RetrofitService {
         feedBackService = retrofit.create(IFeedBackApi.class);
         squareService = retrofit.create(ISquareApi.class);
         jobsService = retrofit.create(IJobsApi.class);
+        mainService = retrofit.create(IMainApi.class);
         personService = retrofit.create(IPersonApi.class);
     }
 
@@ -418,8 +421,17 @@ public class RetrofitService {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
-    public static Observable<ResultBean<PersonBean>> register(PersonWithDeviceTokenBean bean) {
+    public static Observable<ResultBean<String>> loginCheck(String account) {
+        return mainService.loginCheck(account)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public static Observable<PersonBean> register(PersonWithDeviceTokenBean bean) {
         return personService.register(bean)
+                .map(new HttpResultFunc<PersonBean>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())
@@ -553,16 +565,16 @@ public class RetrofitService {
      * 错误统一处理
      * @param <T>
      */
-//    private class HttpResultFunc<T> implements Func1<ResultBean<T>, T> {
-//
-//        @Override
-//        public T call(ResultBean<T> resultBean){
-//            if (!resultBean.getStatus().equals("true")) {
-//                throw new Exception();
-//            }
-//            return resultBean.getResponse();
-//        }
-//    }
+    private static class HttpResultFunc<T> implements Func1<ResultBean<T>, T> {
+
+        @Override
+        public T call(ResultBean<T> resultBean){
+            if (!resultBean.getStatus().equals("true")) {
+                throw new RuntimeException();
+            }
+            return resultBean.getResponse();
+        }
+    }
 
 
 }

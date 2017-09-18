@@ -3,12 +3,10 @@ package com.example.jobbook.register.presenter;
 import android.content.Context;
 import android.text.TextUtils;
 
-import com.example.jobbook.api.bean.ResultBean;
 import com.example.jobbook.bean.PersonBean;
 import com.example.jobbook.bean.PersonWithDeviceTokenBean;
+import com.example.jobbook.network.NetWorkException;
 import com.example.jobbook.network.RetrofitService;
-import com.example.jobbook.register.model.RegisterModel;
-import com.example.jobbook.register.model.RegisterModelImpl;
 import com.example.jobbook.register.view.RegisterView;
 import com.example.jobbook.util.SMSSDKManager;
 import com.example.jobbook.util.Util;
@@ -17,14 +15,12 @@ import rx.Subscriber;
 import rx.functions.Action0;
 
 
-public class RegisterPresenterImpl implements RegisterPresenter, RegisterModelImpl.OnRegisterFinishedListener {
+public class RegisterPresenterImpl implements RegisterPresenter {
 
-    private RegisterModel mRegisterModel;
     private RegisterView mRegisterView;
 
     public RegisterPresenterImpl(RegisterView view) {
         mRegisterView = view;
-        mRegisterModel = new RegisterModelImpl();
     }
 
     @Override
@@ -71,7 +67,7 @@ public class RegisterPresenterImpl implements RegisterPresenter, RegisterModelIm
                             public void call() {
                                 mRegisterView.showProgress();
                             }
-                        }).subscribe(new Subscriber<ResultBean<PersonBean>>() {
+                        }).subscribe(new Subscriber<PersonBean>() {
                     @Override
                     public void onCompleted() {
 
@@ -79,36 +75,38 @@ public class RegisterPresenterImpl implements RegisterPresenter, RegisterModelIm
 
                     @Override
                     public void onError(Throwable throwable) {
-                        mRegisterView.hideProgress();
-                        mRegisterView.networkError();
-                        throwable.printStackTrace();
+                        if (throwable instanceof NetWorkException) {
+                            mRegisterView.hideProgress();
+                            mRegisterView.networkError();
+                            throwable.printStackTrace();
+                        }
                     }
 
                     @Override
-                    public void onNext(ResultBean<PersonBean> resultBean) {
-                        if (resultBean.getStatus().equals("false")) {
-                            if (resultBean.getResponse().equals("Have Registered!")) {
-                                mRegisterView.hideProgress();
-                                mRegisterView.accountExistError();
-                            } else if (resultBean.getResponse().equals("Verify Wrong!")) {
-                                mRegisterView.hideProgress();
-                                mRegisterView.codeError();
-                            } else {
-                                mRegisterView.hideProgress();
-                                mRegisterView.networkError();
-                            }
-                        } else {
-                            mRegisterView.hideProgress();
-                            mRegisterView.success();
-                            mRegisterView.switch2Person(resultBean.getResponse());
-                        }
+                    public void onNext(PersonBean personBean) {
+//                        if (resultBean.getStatus().equals("false")) {
+//                            if (resultBean.getResponse().equals("Have Registered!")) {
+//                                mRegisterView.hideProgress();
+//                                mRegisterView.accountExistError();
+//                            } else if (resultBean.getResponse().equals("Verify Wrong!")) {
+//                                mRegisterView.hideProgress();
+//                                mRegisterView.codeError();
+//                            } else {
+//                                mRegisterView.hideProgress();
+//                                mRegisterView.networkError();
+//                            }
+//                        } else {
+                        mRegisterView.hideProgress();
+                        mRegisterView.success();
+                        mRegisterView.switch2Person(personBean);
                     }
                 });
             }
 
             @Override
             public void error(Throwable error) {
-
+                mRegisterView.hideProgress();
+                mRegisterView.codeError();
             }
         });
 
@@ -118,62 +116,5 @@ public class RegisterPresenterImpl implements RegisterPresenter, RegisterModelIm
     public void destroy() {
         mRegisterView = null;
     }
-
-
-    @Override
-    public void onAccountIllegalError() {
-
-    }
-
-    @Override
-    public void onAccountBlankError() {
-
-    }
-
-    @Override
-    public void onUserNameBlankError() {
-
-    }
-
-    @Override
-    public void onPwdBlankError() {
-
-    }
-
-    @Override
-    public void onPwdConfirmBlankError() {
-
-    }
-
-    @Override
-    public void onPwdNotEqualError() {
-
-    }
-
-    @Override
-    public void onCodeBlankError() {
-
-    }
-
-    @Override
-    public void onCodeError() {
-
-    }
-
-    @Override
-    public void onAccountExistError() {
-
-    }
-
-    @Override
-    public void onSuccess(PersonBean personBean) {
-
-    }
-
-    @Override
-    public void onNetworkError() {
-
-    }
-
 
 }
