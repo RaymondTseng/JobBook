@@ -1,10 +1,11 @@
 package com.example.jobbook.api;
 
-import android.content.Context;
-
 import com.example.jobbook.api.bean.ResultBean;
+import com.example.jobbook.bean.ArticleBean;
 import com.example.jobbook.bean.PersonBean;
 import com.example.jobbook.bean.PersonWithDeviceTokenBean;
+
+import java.util.List;
 
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -44,15 +45,14 @@ public interface IPersonApi {
     Observable<ResultBean<String>> changePwdComplete(@Path("account") String account, @Path("newpsw") String newpsw);
 
     /**
-     * 检查code
-     * @param mContext
-     * @param code
-     * @param phone
+     * 用户注册
+     * @param bean
+     * @return
      */
-    void checkCode(Context mContext, String code, String phone);
-
     @POST("enter/doRegister")
     Observable<ResultBean<PersonBean>> register(@Body PersonWithDeviceTokenBean bean);
 
+    @GET("person/MyArticle/account/{account}")
+    Observable<ResultBean<List<ArticleBean>>> loadFavouriteArticles(@Path("account") String account);
 
 }

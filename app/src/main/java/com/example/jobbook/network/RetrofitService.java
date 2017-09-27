@@ -421,8 +421,9 @@ public class RetrofitService {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
-    public static Observable<ResultBean<String>> loginCheck(String account) {
+    public static Observable<String> loginCheck(String account) {
         return mainService.loginCheck(account)
+                .map(new HttpResultFunc<String>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())
@@ -432,6 +433,15 @@ public class RetrofitService {
     public static Observable<PersonBean> register(PersonWithDeviceTokenBean bean) {
         return personService.register(bean)
                 .map(new HttpResultFunc<PersonBean>())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public static Observable<List<ArticleBean>> loadFavouriteArticles(String account) {
+        return personService.loadFavouriteArticles(account)
+                .map(new HttpResultFunc<List<ArticleBean>>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())
