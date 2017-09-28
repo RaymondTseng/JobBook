@@ -14,9 +14,11 @@ import com.example.jobbook.bean.ArticleBean;
 import com.example.jobbook.bean.FeedBackBean;
 import com.example.jobbook.bean.JobBean;
 import com.example.jobbook.bean.JobDetailBean;
+import com.example.jobbook.bean.MessageBean;
 import com.example.jobbook.bean.MomentBean;
 import com.example.jobbook.bean.PersonBean;
 import com.example.jobbook.bean.PersonWithDeviceTokenBean;
+import com.example.jobbook.bean.TypePersonBean;
 import com.example.jobbook.commons.Urls;
 import com.example.jobbook.util.L;
 import com.orhanobut.logger.Logger;
@@ -448,6 +450,33 @@ public class RetrofitService {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
+    public static Observable<List<MessageBean>> getMessages(String account) {
+        return personService.getMessages(account)
+                .map(new HttpResultFunc<List<MessageBean>>())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public static Observable<List<TypePersonBean>> loadFanList(String account, String myAccount) {
+        return personService.loadFanList(account, myAccount)
+                .map(new HttpResultFunc<List<TypePersonBean>>())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public static Observable<String> follow(String myAccount, String hisAccount) {
+        return personService.follow(myAccount, hisAccount)
+                .map(new HttpResultFunc<String>())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
     /************************************ 类型转换 *******************************************/
 
     /**
@@ -580,7 +609,7 @@ public class RetrofitService {
         @Override
         public T call(ResultBean<T> resultBean){
             if (!resultBean.getStatus().equals("true")) {
-                throw new RuntimeException();
+                throw new RuntimeException((String)resultBean.getResponse());
             }
             return resultBean.getResponse();
         }

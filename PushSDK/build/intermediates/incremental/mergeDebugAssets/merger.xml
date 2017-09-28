@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="D:\Workspace\Android Studio\JobBook\PushSDK\assets"/><source path="D:\Workspace\Android Studio\JobBook\PushSDK\build\generated\assets\shaders\debug"/></dataSet><dataSet config="debug"><source path="D:\Workspace\Android Studio\JobBook\PushSDK\build-types\debug\assets"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="D:\Project\JobBook\PushSDK\assets"/><source path="D:\Project\JobBook\PushSDK\build\generated\assets\shaders\debug"/></dataSet><dataSet config="debug"><source path="D:\Project\JobBook\PushSDK\build-types\debug\assets"/></dataSet></merger>

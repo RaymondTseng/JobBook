@@ -2,8 +2,10 @@ package com.example.jobbook.api;
 
 import com.example.jobbook.api.bean.ResultBean;
 import com.example.jobbook.bean.ArticleBean;
+import com.example.jobbook.bean.MessageBean;
 import com.example.jobbook.bean.PersonBean;
 import com.example.jobbook.bean.PersonWithDeviceTokenBean;
+import com.example.jobbook.bean.TypePersonBean;
 
 import java.util.List;
 
@@ -55,4 +57,12 @@ public interface IPersonApi {
     @GET("person/MyArticle/account/{account}")
     Observable<ResultBean<List<ArticleBean>>> loadFavouriteArticles(@Path("account") String account);
 
+    @GET("person/myMessage/account/{account}")
+    Observable<ResultBean<List<MessageBean>>> getMessages(@Path("account") String account);
+
+    @GET("person/focusMe/account/{account}/my/{myAccount}")
+    Observable<ResultBean<List<TypePersonBean>>> loadFanList(@Path("account") String account, @Path("myAccount") String myAccount);
+
+    @GET("person/focus/my/{myAccount}/you/{hisAccount}")
+    Observable<ResultBean<String>> follow(@Path("myAccount") String myAccount, @Path("hisAccount") String hisAccount);
 }
