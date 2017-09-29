@@ -477,6 +477,33 @@ public class RetrofitService {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
+    public static Observable<List<JobBean>> loadFavouriteJobs(String account) {
+        return personService.loadFavouriteJobs(account)
+                .map(new HttpResultFunc<List<JobBean>>())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public static Observable<List<TypePersonBean>> loadFollowerList(String account, String myAccount) {
+        return personService.loadFollowerList(account, myAccount)
+                .map(new HttpResultFunc<List<TypePersonBean>>())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public static Observable<List<MomentBean>> loadMomentList(String hisAccount, String myAccount) {
+        return personService.loadMomentList(hisAccount, myAccount)
+                .map(new HttpResultFunc<List<MomentBean>>())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
     /************************************ 类型转换 *******************************************/
 
     /**
