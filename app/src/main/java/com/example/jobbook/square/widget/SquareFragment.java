@@ -214,12 +214,12 @@ public class SquareFragment extends LazyLoadFragment implements SquareView,
 
     @Override
     public void like(int position) {
-        mSquarePresenter.like(mData.get(position).getId(), position);
+        mSquarePresenter.like(mData.get(position).getS_id(), position);
     }
 
     @Override
     public void unlike(int position) {
-        mSquarePresenter.unlike(mData.get(position).getId(), position);
+        mSquarePresenter.unlike(mData.get(position).getS_id(), position);
     }
 
     @Override

@@ -19,7 +19,6 @@ import com.example.jobbook.bean.MomentBean;
 import com.example.jobbook.bean.PersonBean;
 import com.example.jobbook.bean.PersonWithDeviceTokenBean;
 import com.example.jobbook.bean.TypePersonBean;
-import com.example.jobbook.commons.Urls;
 import com.example.jobbook.util.L;
 import com.orhanobut.logger.Logger;
 
@@ -52,7 +51,8 @@ import rx.schedulers.Schedulers;
  */
 
 public class RetrofitService {
-
+    // Urls.IP
+    public static String base_url = "http://192.168.199.195/jobBook/index.php/";
 
     //设缓存有效期为1天
     static final long CACHE_STALE_SEC = 60 * 60 * 24 * 1;
@@ -103,7 +103,7 @@ public class RetrofitService {
                 .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .baseUrl(Urls.IP)
+                .baseUrl(base_url)
                 .build();
         articlesService = retrofit.create(IArticlesApi.class);
         feedBackService = retrofit.create(IFeedBackApi.class);
@@ -269,32 +269,32 @@ public class RetrofitService {
 
     /**
      * 点赞工作圈
-     * @param q_id
+     * @param s_id
      * @param account
      * @return
      */
-    public static Observable<MomentBean> likeSquare(int q_id, String account) {
-        return squareService.likeSquare(q_id, account)
+    public static Observable<MomentBean> likeSquare(int s_id, String account) {
+        return squareService.likeSquare(s_id, account)
+                .map(new HttpResultFunc<MomentBean>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .flatMap(_flatMaplikeSquare());
+                .observeOn(AndroidSchedulers.mainThread());
     }
 
     /**
      * 取消点赞工作圈
-     * @param q_id
+     * @param s_id
      * @param account
      * @return
      */
-    public static Observable<MomentBean> unlikeSquare(int q_id, String account) {
-        return squareService.unlikeSquare(q_id, account)
+    public static Observable<MomentBean> unlikeSquare(int s_id, String account) {
+        return squareService.unlikeSquare(s_id, account)
+                .map(new HttpResultFunc<MomentBean>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .flatMap(_flatMaplikeSquare());
+                .observeOn(AndroidSchedulers.mainThread());
     }
 
     /**
@@ -496,7 +496,16 @@ public class RetrofitService {
     }
 
     public static Observable<List<MomentBean>> loadMomentList(String hisAccount, String myAccount) {
-        return personService.loadMomentList(hisAccount, myAccount)
+        return squareService.loadMomentList(hisAccount, myAccount)
+                .map(new HttpResultFunc<List<MomentBean>>())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public static Observable<List<MomentBean>> loadSquares(String account, int index) {
+        return squareService.loadSquares(account, index)
                 .map(new HttpResultFunc<List<MomentBean>>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())

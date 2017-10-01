@@ -219,12 +219,12 @@ public class SquareFollowFragment extends LazyLoadFragment implements SquareFoll
 
     @Override
     public void like(int position) {
-        mSquareFollowPresenter.like(mData.get(position).getId(), position);
+        mSquareFollowPresenter.like(mData.get(position).getS_id(), position);
     }
 
     @Override
     public void unlike(int position) {
-        mSquareFollowPresenter.unlike(mData.get(position).getId(), position);
+        mSquareFollowPresenter.unlike(mData.get(position).getS_id(), position);
     }
 
     @Override

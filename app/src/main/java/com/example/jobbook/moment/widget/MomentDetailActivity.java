@@ -115,8 +115,8 @@ public class MomentDetailActivity extends Activity implements MomentDetailView, 
 
         mMomentBean = getIntent().getParcelableExtra("square_detail");
         if (mMomentBean != null) {
-            id = mMomentBean.getId();
-            L.i("squaredetail_activity", "123:" + mMomentBean.getId());
+            id = mMomentBean.getS_id();
+            L.i("squaredetail_activity", "123:" + mMomentBean.getS_id());
             mPresenter.loadMoment(mMomentBean);
         } else {
             String id = getIntent().getStringExtra("moment_id_from_message");
@@ -273,7 +273,7 @@ public class MomentDetailActivity extends Activity implements MomentDetailView, 
             noLoginError();
         } else {
             MomentCommentBean momentCommentBean = new MomentCommentBean();
-            momentCommentBean.setQ_id(id);
+            momentCommentBean.setS_id(id);
             momentCommentBean.setApplier(MyApplication.getmPersonBean());
             momentCommentBean.setContent(comment);
 //            L.i("square_detail", momentBean.getId() + "");
@@ -335,10 +335,10 @@ public class MomentDetailActivity extends Activity implements MomentDetailView, 
 
             case R.id.moment_detail_favourite_ib:
                 if (mMomentBean.getIfLike() == 0) {
-                    mPresenter.commentLike(mMomentBean.getId(), myApplication.getAccount());
+                    mPresenter.commentLike(mMomentBean.getS_id(), myApplication.getAccount());
 
                 } else {
-                    mPresenter.commentUnlike(mMomentBean.getId(), myApplication.getAccount());
+                    mPresenter.commentUnlike(mMomentBean.getS_id(), myApplication.getAccount());
                 }
                 break;
         }

@@ -4,7 +4,6 @@ import com.example.jobbook.api.bean.ResultBean;
 import com.example.jobbook.bean.ArticleBean;
 import com.example.jobbook.bean.JobBean;
 import com.example.jobbook.bean.MessageBean;
-import com.example.jobbook.bean.MomentBean;
 import com.example.jobbook.bean.PersonBean;
 import com.example.jobbook.bean.PersonWithDeviceTokenBean;
 import com.example.jobbook.bean.TypePersonBean;
@@ -73,8 +72,5 @@ public interface IPersonApi {
 
     @GET("person/myFocus/account/{account}/my/{myAccount}")
     Observable<ResultBean<List<TypePersonBean>>> loadFollowerList(@Path("account") String account, @Path("myAccount") String myAccount);
-
-    @GET("question/getHisQuestion/his/{hisAccount}/my/{myAccount}")
-    Observable<ResultBean<List<MomentBean>>> loadMomentList(@Path("hisAccount") String hisAccount, @Path("myAccount") String myAccount);
 
 }
