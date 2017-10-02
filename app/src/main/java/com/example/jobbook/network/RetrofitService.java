@@ -16,6 +16,7 @@ import com.example.jobbook.bean.JobBean;
 import com.example.jobbook.bean.JobDetailBean;
 import com.example.jobbook.bean.MessageBean;
 import com.example.jobbook.bean.MomentBean;
+import com.example.jobbook.bean.MomentCommentBean;
 import com.example.jobbook.bean.PersonBean;
 import com.example.jobbook.bean.PersonWithDeviceTokenBean;
 import com.example.jobbook.bean.TypePersonBean;
@@ -507,6 +508,42 @@ public class RetrofitService {
     public static Observable<List<MomentBean>> loadSquares(String account, int index) {
         return squareService.loadSquares(account, index)
                 .map(new HttpResultFunc<List<MomentBean>>())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public static Observable<String> newMoment(MomentBean momentBean) {
+        return squareService.newMoment(momentBean)
+                .map(new HttpResultFunc<String>())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public static Observable<List<MomentCommentBean>> loadMomentComments(int s_id, int index) {
+        return squareService.loadMomentComments(s_id, index)
+                .map(new HttpResultFunc<List<MomentCommentBean>>())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public static Observable<MomentBean> loadMomentById(String account, int s_id) {
+        return squareService.loadMomentById(account, s_id)
+                .map(new HttpResultFunc<MomentBean>())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public static Observable<MomentBean> sendComment(MomentCommentBean momentCommentBean) {
+        return squareService.sendComment(momentCommentBean)
+                .map(new HttpResultFunc<MomentBean>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())

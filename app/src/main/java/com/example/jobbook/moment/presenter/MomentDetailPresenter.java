@@ -9,7 +9,7 @@ import com.example.jobbook.bean.MomentCommentBean;
 public interface MomentDetailPresenter {
     void loadMoment(MomentBean momentBean);
 
-    void loadMomentById(String id, String account);
+    void loadMomentById(int id, String account);
 
     void loadMomentComments(int id, int index);
 

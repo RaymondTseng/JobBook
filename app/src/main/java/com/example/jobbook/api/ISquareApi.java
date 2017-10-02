@@ -2,6 +2,7 @@ package com.example.jobbook.api;
 
 import com.example.jobbook.api.bean.ResultBean;
 import com.example.jobbook.bean.MomentBean;
+import com.example.jobbook.bean.MomentCommentBean;
 
 import java.util.List;
 
@@ -53,4 +54,13 @@ public interface ISquareApi {
 
     @POST("square/releaseSquare")
     Observable<ResultBean<String>> newMoment(@Body MomentBean momentBean);
+
+    @GET("square/getComments/s_id/{s_id}/index/{index}")
+    Observable<ResultBean<List<MomentCommentBean>>> loadMomentComments(@Path("s_id") int s_id, @Path("index") int index);
+
+    @GET("square/getSingleMoment/account/{account}/s_id/{s_id}")
+    Observable<ResultBean<MomentBean>> loadMomentById(@Path("account") String account, @Path("s_id") int s_id);
+
+    @POST("square/comment")
+    Observable<ResultBean<MomentBean>> sendComment(@Body MomentCommentBean momentCommentBean);
 }

@@ -120,7 +120,7 @@ public class MomentDetailActivity extends Activity implements MomentDetailView, 
             mPresenter.loadMoment(mMomentBean);
         } else {
             String id = getIntent().getStringExtra("moment_id_from_message");
-            mPresenter.loadMomentById(id, MyApplication.getAccount());
+            mPresenter.loadMomentById(Integer.valueOf(id), MyApplication.getAccount());
         }
 
 //        mPresenter.loadMomentComments(momentBean.getId());
