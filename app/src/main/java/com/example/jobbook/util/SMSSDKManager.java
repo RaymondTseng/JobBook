@@ -7,6 +7,8 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 
+import com.mob.MobSDK;
+
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -76,7 +78,7 @@ public class SMSSDKManager {
             appSecret = appInfo.metaData.getString("SMS_MOB_APPSECRET").trim();
         }
         log("appkey:"+appKey+"  appsecret:"+appSecret);
-        SMSSDK.initSDK(ctx, appKey, appSecret);
+        MobSDK.init(ctx, appKey, appSecret);
         inited = true;
         SMSSDK.registerEventHandler(mHandler);
     }

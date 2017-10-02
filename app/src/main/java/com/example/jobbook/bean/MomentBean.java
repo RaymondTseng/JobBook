@@ -14,7 +14,7 @@ public class MomentBean implements Parcelable {
     /**
      * id
      */
-    private int q_id;
+    private int s_id;
     /**
      * 工作圈作者
      */
@@ -48,12 +48,12 @@ public class MomentBean implements Parcelable {
         this.likesNum = likesNum;
     }
 
-    public int getId() {
-        return q_id;
+    public int getS_id() {
+        return s_id;
     }
 
-    public void setId(int id) {
-        this.q_id = id;
+    public void setS_id(int id) {
+        this.s_id = id;
     }
 
     public PersonBean getAuthor() {
@@ -117,7 +117,7 @@ public class MomentBean implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(this.q_id);
+        dest.writeInt(this.s_id);
         dest.writeParcelable(this.author, flags);
         dest.writeString(this.content);
         dest.writeString(this.date);
@@ -130,7 +130,7 @@ public class MomentBean implements Parcelable {
     }
 
     protected MomentBean(Parcel in) {
-        this.q_id = in.readInt();
+        this.s_id = in.readInt();
         this.author = in.readParcelable(TypePersonBean.class.getClassLoader());
         this.content = in.readString();
         this.date = in.readString();

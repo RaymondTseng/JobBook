@@ -16,7 +16,7 @@ public class MomentCommentBean implements Parcelable {
     /**
      * 问问id
      */
-    private int q_id;
+    private int s_id;
     /**
      * 文章评论者
      */
@@ -48,12 +48,12 @@ public class MomentCommentBean implements Parcelable {
         this.comment_id = comment_id;
     }
 
-    public int getQ_id() {
-        return q_id;
+    public int getS_id() {
+        return s_id;
     }
 
-    public void setQ_id(int q_id) {
-        this.q_id = q_id;
+    public void setS_id(int q_id) {
+        this.s_id = q_id;
     }
 
     public PersonBean getApplier() {
@@ -109,7 +109,7 @@ public class MomentCommentBean implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(this.comment_id);
-        dest.writeInt(this.q_id);
+        dest.writeInt(this.s_id);
         dest.writeParcelable(this.applier, flags);
         dest.writeInt(this.good);
         dest.writeInt(this.bad);
@@ -122,7 +122,7 @@ public class MomentCommentBean implements Parcelable {
 
     protected MomentCommentBean(Parcel in) {
         this.comment_id = in.readInt();
-        this.q_id = in.readInt();
+        this.s_id = in.readInt();
         this.applier = (PersonBean) in.readSerializable();
         this.good = in.readInt();
         this.bad = in.readInt();

@@ -211,7 +211,6 @@ public class MyApplication extends Application {
         // 内存泄漏检测工具
 //        LeakCanary.install(this);
 
-
 //        Context context = this.getApplicationContext();
 //        SharedPreferences sharedPreferences = context.getSharedPreferences("user", MODE_PRIVATE);
 //        MyApplication.setmPersonBean(context, Util.loadPersonBean(sharedPreferences));

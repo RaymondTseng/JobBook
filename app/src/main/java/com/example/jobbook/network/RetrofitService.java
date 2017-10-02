@@ -6,6 +6,7 @@ import com.example.jobbook.MyApplication;
 import com.example.jobbook.api.IArticlesApi;
 import com.example.jobbook.api.IFeedBackApi;
 import com.example.jobbook.api.IJobsApi;
+import com.example.jobbook.api.IMainApi;
 import com.example.jobbook.api.IPersonApi;
 import com.example.jobbook.api.ISquareApi;
 import com.example.jobbook.api.bean.ResultBean;
@@ -13,10 +14,11 @@ import com.example.jobbook.bean.ArticleBean;
 import com.example.jobbook.bean.FeedBackBean;
 import com.example.jobbook.bean.JobBean;
 import com.example.jobbook.bean.JobDetailBean;
+import com.example.jobbook.bean.MessageBean;
 import com.example.jobbook.bean.MomentBean;
 import com.example.jobbook.bean.PersonBean;
 import com.example.jobbook.bean.PersonWithDeviceTokenBean;
-import com.example.jobbook.commons.Urls;
+import com.example.jobbook.bean.TypePersonBean;
 import com.example.jobbook.util.L;
 import com.orhanobut.logger.Logger;
 
@@ -49,7 +51,8 @@ import rx.schedulers.Schedulers;
  */
 
 public class RetrofitService {
-
+    // Urls.IP
+    public static String base_url = "http://192.168.199.195/jobBook/index.php/";
 
     //设缓存有效期为1天
     static final long CACHE_STALE_SEC = 60 * 60 * 24 * 1;
@@ -70,6 +73,7 @@ public class RetrofitService {
     private static IFeedBackApi feedBackService;
     private static ISquareApi squareService;
     private static IJobsApi jobsService;
+    private static IMainApi mainService;
     private static IPersonApi personService;
 
     private RetrofitService() {
@@ -99,12 +103,13 @@ public class RetrofitService {
                 .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .baseUrl(Urls.IP)
+                .baseUrl(base_url)
                 .build();
         articlesService = retrofit.create(IArticlesApi.class);
         feedBackService = retrofit.create(IFeedBackApi.class);
         squareService = retrofit.create(ISquareApi.class);
         jobsService = retrofit.create(IJobsApi.class);
+        mainService = retrofit.create(IMainApi.class);
         personService = retrofit.create(IPersonApi.class);
     }
 
@@ -264,32 +269,32 @@ public class RetrofitService {
 
     /**
      * 点赞工作圈
-     * @param q_id
+     * @param s_id
      * @param account
      * @return
      */
-    public static Observable<MomentBean> likeSquare(int q_id, String account) {
-        return squareService.likeSquare(q_id, account)
+    public static Observable<MomentBean> likeSquare(int s_id, String account) {
+        return squareService.likeSquare(s_id, account)
+                .map(new HttpResultFunc<MomentBean>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .flatMap(_flatMaplikeSquare());
+                .observeOn(AndroidSchedulers.mainThread());
     }
 
     /**
      * 取消点赞工作圈
-     * @param q_id
+     * @param s_id
      * @param account
      * @return
      */
-    public static Observable<MomentBean> unlikeSquare(int q_id, String account) {
-        return squareService.unlikeSquare(q_id, account)
+    public static Observable<MomentBean> unlikeSquare(int s_id, String account) {
+        return squareService.unlikeSquare(s_id, account)
+                .map(new HttpResultFunc<MomentBean>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .flatMap(_flatMaplikeSquare());
+                .observeOn(AndroidSchedulers.mainThread());
     }
 
     /**
@@ -385,6 +390,123 @@ public class RetrofitService {
      */
     public static Observable<ResultBean<PersonBean>> login(PersonWithDeviceTokenBean bean) {
         return personService.login(bean)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    /**
+     * 检查账户有效性
+     * @param phone
+     * @return
+     */
+    public static Observable<ResultBean<String>> checkAccount(String phone) {
+        return personService.checkAccount(phone)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    /**
+     * 修改密码
+     * @param account
+     * @param newpsd
+     * @return
+     */
+    public static Observable<ResultBean<String>> changePwdComplete(String account, String newpsd) {
+        return personService.changePwdComplete(account, newpsd)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public static Observable<String> loginCheck(String account) {
+        return mainService.loginCheck(account)
+                .map(new HttpResultFunc<String>())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public static Observable<PersonBean> register(PersonWithDeviceTokenBean bean) {
+        return personService.register(bean)
+                .map(new HttpResultFunc<PersonBean>())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public static Observable<List<ArticleBean>> loadFavouriteArticles(String account) {
+        return personService.loadFavouriteArticles(account)
+                .map(new HttpResultFunc<List<ArticleBean>>())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public static Observable<List<MessageBean>> getMessages(String account) {
+        return personService.getMessages(account)
+                .map(new HttpResultFunc<List<MessageBean>>())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public static Observable<List<TypePersonBean>> loadFanList(String account, String myAccount) {
+        return personService.loadFanList(account, myAccount)
+                .map(new HttpResultFunc<List<TypePersonBean>>())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public static Observable<String> follow(String myAccount, String hisAccount) {
+        return personService.follow(myAccount, hisAccount)
+                .map(new HttpResultFunc<String>())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public static Observable<List<JobBean>> loadFavouriteJobs(String account) {
+        return personService.loadFavouriteJobs(account)
+                .map(new HttpResultFunc<List<JobBean>>())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public static Observable<List<TypePersonBean>> loadFollowerList(String account, String myAccount) {
+        return personService.loadFollowerList(account, myAccount)
+                .map(new HttpResultFunc<List<TypePersonBean>>())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public static Observable<List<MomentBean>> loadMomentList(String hisAccount, String myAccount) {
+        return squareService.loadMomentList(hisAccount, myAccount)
+                .map(new HttpResultFunc<List<MomentBean>>())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public static Observable<List<MomentBean>> loadSquares(String account, int index) {
+        return squareService.loadSquares(account, index)
+                .map(new HttpResultFunc<List<MomentBean>>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())
@@ -518,16 +640,16 @@ public class RetrofitService {
      * 错误统一处理
      * @param <T>
      */
-//    private class HttpResultFunc<T> implements Func1<ResultBean<T>, T> {
-//
-//        @Override
-//        public T call(ResultBean<T> resultBean){
-//            if (!resultBean.getStatus().equals("true")) {
-//                throw new Exception();
-//            }
-//            return resultBean.getResponse();
-//        }
-//    }
+    private static class HttpResultFunc<T> implements Func1<ResultBean<T>, T> {
+
+        @Override
+        public T call(ResultBean<T> resultBean){
+            if (!resultBean.getStatus().equals("true")) {
+                throw new RuntimeException((String)resultBean.getResponse());
+            }
+            return resultBean.getResponse();
+        }
+    }
 
 
 }
