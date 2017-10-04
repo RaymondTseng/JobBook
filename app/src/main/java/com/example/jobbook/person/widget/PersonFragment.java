@@ -43,6 +43,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import okhttp3.MultipartBody;
 
 
 /**
@@ -169,7 +170,7 @@ public class PersonFragment extends LazyLoadFragment implements PersonView, View
         if (MyApplication.getmLoginStatus() != 0) {
             personBean = MyApplication.getmPersonBean();
             mNameTextView.setText(personBean.getUsername());
-//            L.i("showpersondata", "lalalaalala,关注：" + personBean.getFollow());
+//            L.i("person-head", personBean.getHead());
             ImageLoadUtils.display(getActivity(), mCircleHeadImageView, personBean.getHead(), 0);
             ImageLoadUtils.display(getActivity(), mHeadBackGround, personBean.getHead(), 0);
             mMomentTextView.setText(personBean.getMoment());
@@ -265,8 +266,8 @@ public class PersonFragment extends LazyLoadFragment implements PersonView, View
         @Override
         public void handleCropResult(Uri uri, int tag) {
             //send Image to Server
-            L.i("person_head", "handler");
-            sendImage(UploadManager.getBitmapFromUri(getActivity().getApplicationContext(), uri));
+            MultipartBody.Part pic = UploadManager.getMutilPartBodyFromUri(uri, "multipart/form-data");
+            sendImage(pic);
             mUri = uri;
 //            ImageLoadUtils.display(getActivity() , mCircleHeadImageView, uri);
 //            ImageLoadUtils.display(getActivity(), mHeadBackGround, uri);
@@ -283,9 +284,9 @@ public class PersonFragment extends LazyLoadFragment implements PersonView, View
         CropUtils.handleResult(getContext(), PersonFragment.this, cropHandler, requestCode, resultCode, data);
     }
 
-    private void sendImage(Bitmap bm) {
+    private void sendImage(MultipartBody.Part pic) {
         L.i("photo", "sendImage");
-        presenter.uploadImage(bm);
+        presenter.uploadAvatar(pic);
     }
 
     @Override
@@ -375,14 +376,14 @@ public class PersonFragment extends LazyLoadFragment implements PersonView, View
     }
 
     @Override
-    public void loadHead(Bitmap bm) {
-        L.i("photo", "loadHead1:" + mUri.toString());
+    public void loadHead() {
+        L.i("photo", "loadHead:" + mUri.toString());
 //        mMyApplication.getHandler().sendEmptyMessage(2);
 //        mCircleHeadImageView.setImageBitmap(bm);
 //        mHeadBackGround.setImageBitmap(bm);
-        mCircleHeadImageView.setImageURI(mUri);
-        mHeadBackGround.setImageURI(mUri);
-        bm.recycle();
+        Bitmap bm = UploadManager.getBitmapFromUri(getContext(), mUri);
+        mCircleHeadImageView.setImageBitmap(bm);
+        mHeadBackGround.setImageBitmap(bm);
 //        this.onCreate(null);
     }
 

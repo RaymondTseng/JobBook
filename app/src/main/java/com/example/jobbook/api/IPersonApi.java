@@ -10,9 +10,12 @@ import com.example.jobbook.bean.TypePersonBean;
 
 import java.util.List;
 
+import okhttp3.MultipartBody;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 import rx.Observable;
 
@@ -72,5 +75,9 @@ public interface IPersonApi {
 
     @GET("person/myFocus/account/{account}/my/{myAccount}")
     Observable<ResultBean<List<TypePersonBean>>> loadFollowerList(@Path("account") String account, @Path("myAccount") String myAccount);
+
+    @Multipart
+    @POST("person/upload/account/{account}")
+    Observable<ResultBean<String>> uploadAvatar(@Path("account") String account, @Part MultipartBody.Part pic);
 
 }

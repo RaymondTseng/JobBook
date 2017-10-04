@@ -52,6 +52,7 @@ public class LoginPresenterImpl implements LoginPresenter {
 
                     @Override
                     public void onError(Throwable throwable) {
+                        throwable.printStackTrace();
                         mLoginView.hideProgress();
                         if (throwable.getMessage().contains("java.lang.IllegalStateException: Expected BEGIN_OBJECT")) {
                             mLoginView.setUserError();

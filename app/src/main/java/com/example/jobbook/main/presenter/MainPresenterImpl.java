@@ -59,7 +59,7 @@ public class MainPresenterImpl implements MainPresenter {
 
     @Override
     public void loginCheck(Context context) {
-        SharedPreferences share = context.getSharedPreferences("user", context.MODE_PRIVATE);
+        SharedPreferences share = context.getSharedPreferences("user", Context.MODE_PRIVATE);
         final PersonBean personBean;
         if (share != null) {
             personBean = Util.loadPersonBean(share);

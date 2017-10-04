@@ -33,6 +33,7 @@ import java.util.concurrent.TimeUnit;
 import okhttp3.Cache;
 import okhttp3.CacheControl;
 import okhttp3.Interceptor;
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -544,6 +545,15 @@ public class RetrofitService {
     public static Observable<MomentBean> sendComment(MomentCommentBean momentCommentBean) {
         return squareService.sendComment(momentCommentBean)
                 .map(new HttpResultFunc<MomentBean>())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public static Observable<String> uploadAvatar(String account, MultipartBody.Part pic) {
+        return personService.uploadAvatar(account, pic)
+                .map(new HttpResultFunc<String>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())

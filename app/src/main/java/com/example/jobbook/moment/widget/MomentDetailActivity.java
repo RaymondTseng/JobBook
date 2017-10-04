@@ -335,10 +335,10 @@ public class MomentDetailActivity extends Activity implements MomentDetailView, 
 
             case R.id.moment_detail_favourite_ib:
                 if (mMomentBean.getIfLike() == 0) {
-                    mPresenter.commentLike(mMomentBean.getS_id(), myApplication.getAccount());
+                    mPresenter.commentLike(mMomentBean.getS_id(), MyApplication.getAccount());
 
                 } else {
-                    mPresenter.commentUnlike(mMomentBean.getS_id(), myApplication.getAccount());
+                    mPresenter.commentUnlike(mMomentBean.getS_id(), MyApplication.getAccount());
                 }
                 break;
         }

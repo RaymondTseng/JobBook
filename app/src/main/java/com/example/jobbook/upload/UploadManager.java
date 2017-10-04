@@ -16,6 +16,11 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 /**
  * Created by Xu on 2016/9/5.
@@ -108,6 +113,34 @@ public class UploadManager {
             e.printStackTrace();
             return null;
         }
+    }
+
+    /**
+     * uri转file
+     * @param uri
+     * @return
+     */
+    public static File getFileFromUri(Uri uri) {
+        try {
+            return new File(new URI(uri.toString()));
+        } catch (Exception e) {
+            L.e("[Android]", e.getMessage());
+            L.e("[Android]", "目录为：" + uri);
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    /**
+     * uri转MultipartBody.Part
+     * @param uri
+     * @param mediaType
+     * @return
+     */
+    public static MultipartBody.Part getMutilPartBodyFromUri(Uri uri, String mediaType) {
+        File file = getFileFromUri(uri);
+        RequestBody requestBody = RequestBody.create(MediaType.parse(mediaType), file);
+        return MultipartBody.Part.createFormData("image", file.getName(), requestBody);
     }
 
 }

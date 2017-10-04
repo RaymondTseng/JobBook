@@ -1,39 +1,54 @@
 package com.example.jobbook.person.presenter;
 
-import android.graphics.Bitmap;
-import com.example.jobbook.person.model.UploadModel;
-import com.example.jobbook.person.model.UploadModelImpl;
+import com.example.jobbook.MyApplication;
+import com.example.jobbook.network.RetrofitService;
 import com.example.jobbook.person.view.UploadView;
+
+import okhttp3.MultipartBody;
+import rx.Subscriber;
+import rx.functions.Action0;
 
 /**
  * Created by Xu on 2016/9/5.
  */
-public class UploadPresenterImpl implements UploadPresenter, UploadModelImpl.OnUploadImageListener {
+public class UploadPresenterImpl implements UploadPresenter {
 
-    private UploadModel model;
     private UploadView view;
 
     public UploadPresenterImpl(UploadView view) {
-        model = new UploadModelImpl();
         this.view = view;
     }
 
     @Override
-    public void uploadImage(Bitmap bm) {
-        view.showProgress();
-        model.uploadImage(bm, this);
+    public void uploadAvatar(MultipartBody.Part pic) {
+        String account = MyApplication.getAccount();
+        RetrofitService.uploadAvatar(account, pic)
+                .doOnSubscribe(new Action0() {
+                    @Override
+                    public void call() {
+                        view.showProgress();
+                    }
+                })
+                .subscribe(new Subscriber<String>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable throwable) {
+                        view.hideProgress();
+                        view.uploadFailure();
+                        throwable.printStackTrace();
+                    }
+
+                    @Override
+                    public void onNext(String s) {
+                        view.hideProgress();
+                        view.uploadSuccess();
+                        view.loadHead();
+                    }
+                });
     }
 
-    @Override
-    public void onSuccess(Bitmap bm) {
-        view.hideProgress();
-        view.uploadSuccess();
-        view.loadHead(bm);
-    }
-
-    @Override
-    public void onFailure(String msg, Exception e) {
-        view.hideProgress();
-        view.uploadFailure();
-    }
 }

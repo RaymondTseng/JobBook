@@ -303,7 +303,9 @@ public class SquareFragment extends LazyLoadFragment implements SquareView,
     @Override
     public void onDestroy() {
         super.onDestroy();
-        handler.removeCallbacksAndMessages(null);
+        if (handler != null) {
+            handler.removeCallbacksAndMessages(null);
+        }
     }
 
     public class SquareHandler extends Handler {

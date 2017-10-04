@@ -46,6 +46,7 @@ import java.util.Date;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import okhttp3.MultipartBody;
 
 import static com.example.jobbook.R.id.text_cv_activity_ll;
 
@@ -356,7 +357,8 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
         @Override
         public void handleCropResult(Uri uri, int tag) {
             //send Image to Server
-            sendImage(UploadManager.getBitmapFromUri(getApplicationContext(), uri));
+            MultipartBody.Part pic = UploadManager.getMutilPartBodyFromUri(uri, "multipart/form-data");
+            sendImage(pic);
             mUri = uri;
             ImageLoadUtils.display(TextCVActivity.this , mUserHeadImageView, mUri);
         }
@@ -372,9 +374,9 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
         CropUtils.handleResult(this, cropHandler, requestCode, resultCode, data);
     }
 
-    private void sendImage(Bitmap bm) {
+    private void sendImage(MultipartBody.Part pic) {
         L.i("photo", "sendImage");
-        uploadPresenter.uploadImage(bm);
+        uploadPresenter.uploadAvatar(pic);
     }
 
     @Override
@@ -415,12 +417,13 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
     }
 
     @Override
-    public void loadHead(Bitmap bm) {
+    public void loadHead() {
         L.i("photo", "loadHead1:" + mUri.toString());
         myApplication.getHandler().sendEmptyMessage(2);
 //        mUserHeadImageView.setImageBitmap(bm);
-        mUserHeadImageView.setImageURI(mUri);
-        bm.recycle();
+        Bitmap bm = UploadManager.getBitmapFromUri(getApplication(), mUri);
+        mUserHeadImageView.setImageBitmap(bm);
+//        bm.recycle();
     }
 
     @Override

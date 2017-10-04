@@ -1,11 +1,11 @@
 package com.example.jobbook.person.presenter;
 
-import android.graphics.Bitmap;
+import okhttp3.MultipartBody;
 
 /**
  * Created by Xu on 2016/9/5.
  */
 public interface UploadPresenter {
 
-    void uploadImage(Bitmap bm);
+    void uploadAvatar(MultipartBody.Part pic);
 }
