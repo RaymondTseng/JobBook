@@ -80,4 +80,7 @@ public interface IPersonApi {
     @POST("person/upload/account/{account}")
     Observable<ResultBean<String>> uploadAvatar(@Path("account") String account, @Part MultipartBody.Part pic);
 
+    @GET("person/updatepsw/account/{account}/oldpwd/{oldpwd}/newpwd/{newpwd}")
+    Observable<ResultBean<String>> updatePwd(@Path("account") String account, @Path("oldpwd") String oldpwd, @Path("newpwd") String newpwd);
+
 }

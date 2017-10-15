@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.example.jobbook.MyApplication;
 import com.example.jobbook.R;
+import com.example.jobbook.login.widget.LoginActivity;
 import com.example.jobbook.update.presenter.UpdatePwdPresenter;
 import com.example.jobbook.update.presenter.UpdatePwdPresenterImpl;
 import com.example.jobbook.update.view.UpdatePwdView;
@@ -70,6 +71,13 @@ public class UpdatePwdActivity extends Activity implements View.OnClickListener,
 
     @Override
     public void close() {
+        Util.showSnackBar(view, "更新密码成功，请重新登录！");
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        Util.toAnotherActivity(this, LoginActivity.class);
         finish();
     }
 

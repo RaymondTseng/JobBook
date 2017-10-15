@@ -242,6 +242,7 @@ public class RetrofitService {
 
     /**
      * 发送反馈
+     *
      * @param account
      * @param feedBackBean
      * @return
@@ -256,6 +257,7 @@ public class RetrofitService {
 
     /**
      * 获取已关注人的工作圈
+     *
      * @param account
      * @param index
      * @return
@@ -271,6 +273,7 @@ public class RetrofitService {
 
     /**
      * 点赞工作圈
+     *
      * @param s_id
      * @param account
      * @return
@@ -286,6 +289,7 @@ public class RetrofitService {
 
     /**
      * 取消点赞工作圈
+     *
      * @param s_id
      * @param account
      * @return
@@ -301,6 +305,7 @@ public class RetrofitService {
 
     /**
      * 获取所有岗位
+     *
      * @param index
      * @return
      */
@@ -315,6 +320,7 @@ public class RetrofitService {
 
     /**
      * 搜索岗位
+     *
      * @param type
      * @param location
      * @return
@@ -330,6 +336,7 @@ public class RetrofitService {
 
     /**
      * 获取岗位详情
+     *
      * @param jobid
      * @param account
      * @return
@@ -345,6 +352,7 @@ public class RetrofitService {
 
     /**
      * 岗位收藏
+     *
      * @param job_id
      * @param account
      * @return
@@ -359,6 +367,7 @@ public class RetrofitService {
 
     /**
      * 取消岗位收藏
+     *
      * @param job_id
      * @param account
      * @return
@@ -373,6 +382,7 @@ public class RetrofitService {
 
     /**
      * 发送简历
+     *
      * @param account
      * @param com_id
      * @return
@@ -387,6 +397,7 @@ public class RetrofitService {
 
     /**
      * 用户登录
+     *
      * @param bean
      * @return
      */
@@ -400,6 +411,7 @@ public class RetrofitService {
 
     /**
      * 检查账户有效性
+     *
      * @param phone
      * @return
      */
@@ -413,6 +425,7 @@ public class RetrofitService {
 
     /**
      * 修改密码
+     *
      * @param account
      * @param newpsd
      * @return
@@ -560,6 +573,15 @@ public class RetrofitService {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
+    public static Observable<String> updatePwd(String account, String oldpwd, String newpwd) {
+        return personService.updatePwd(account, oldpwd, newpwd)
+                .map(new HttpResultFunc<String>())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
     /************************************ 类型转换 *******************************************/
 
     /**
@@ -615,6 +637,7 @@ public class RetrofitService {
 
     /**
      * 类型转换
+     *
      * @return
      */
     private static Func1<ResultBean<MomentBean>, Observable<MomentBean>> _flatMaplikeSquare() {
@@ -633,6 +656,7 @@ public class RetrofitService {
 
     /**
      * 类型转换
+     *
      * @return
      */
     private static Func1<ResultBean<List<JobBean>>, Observable<List<JobBean>>> _flatMapJobs() {
@@ -685,14 +709,15 @@ public class RetrofitService {
 
     /**
      * 错误统一处理
+     *
      * @param <T>
      */
     private static class HttpResultFunc<T> implements Func1<ResultBean<T>, T> {
 
         @Override
-        public T call(ResultBean<T> resultBean){
+        public T call(ResultBean<T> resultBean) {
             if (!resultBean.getStatus().equals("true")) {
-                throw new RuntimeException((String)resultBean.getResponse());
+                throw new RuntimeException((String) resultBean.getResponse());
             }
             return resultBean.getResponse();
         }
