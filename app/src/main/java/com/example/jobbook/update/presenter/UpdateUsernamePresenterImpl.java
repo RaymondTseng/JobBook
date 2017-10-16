@@ -1,46 +1,58 @@
 package com.example.jobbook.update.presenter;
 
 import android.content.Context;
+import android.text.TextUtils;
 
-import com.example.jobbook.update.model.UpdateModel;
-import com.example.jobbook.update.model.UpdateModelImpl;
+import com.example.jobbook.network.RetrofitService;
 import com.example.jobbook.update.view.UpdateUsernameView;
+
+import rx.Subscriber;
+import rx.functions.Action0;
 
 /**
  * Created by Xu on 2016/9/5.
  */
-public class UpdateUsernamePresenterImpl implements UpdateUsernamePresenter, UpdateModelImpl.OnUpdateUserNameListener {
+public class UpdateUsernamePresenterImpl implements UpdateUsernamePresenter {
 
-    private UpdateModel model;
     private UpdateUsernameView view;
 
     public UpdateUsernamePresenterImpl(UpdateUsernameView view) {
         this.view = view;
-        model = new UpdateModelImpl();
     }
 
     @Override
     public void update(Context context, String account, String username) {
-        view.showProgress();
-        model.updateUserName(context, account, username, this);
-    }
+        if (TextUtils.isEmpty(username)) {
+            view.hideProgress();
+            view.usernameBlankError();
+            return;
+        } else {
+            RetrofitService.updateUserName(account, username)
+                    .doOnSubscribe(new Action0() {
+                        @Override
+                        public void call() {
+                            view.showProgress();
+                        }
+                    })
+                    .subscribe(new Subscriber<String>() {
+                        @Override
+                        public void onCompleted() {
 
-    @Override
-    public void onUpdateUserNameSuccess() {
-        view.hideProgress();
-        view.success();
-        view.close();
-    }
+                        }
 
-    @Override
-    public void onUpdateUserNameFailure() {
-        view.hideProgress();
-        view.networkError();
-    }
+                        @Override
+                        public void onError(Throwable e) {
+                            view.hideProgress();
+                            view.networkError();
+                        }
 
-    @Override
-    public void onUserNameBlankError() {
-        view.hideProgress();
-        view.usernameBlankError();
+                        @Override
+                        public void onNext(String s) {
+                            view.hideProgress();
+                            view.success();
+                            view.close();
+                        }
+                    });
+        }
     }
 }

@@ -83,4 +83,9 @@ public interface IPersonApi {
     @GET("person/updatepsw/account/{account}/oldpwd/{oldpwd}/newpwd/{newpwd}")
     Observable<ResultBean<String>> updatePwd(@Path("account") String account, @Path("oldpwd") String oldpwd, @Path("newpwd") String newpwd);
 
+    @GET("person/updateTel/account/{account}/newTel/{newTel}")
+    Observable<ResultBean<String>> updateTel(@Path("account") String account, @Path("newTel") String newTel);
+
+    @GET("person/updateName/account/{account}/newName/{newName}")
+    Observable<ResultBean<String>> updateUserName(@Path("account") String account, @Path("newName") String newName);
 }
