@@ -510,6 +510,15 @@ public class RetrofitService {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
+    public static Observable<TypePersonBean> loadUserDetailByAccount(String account) {
+        return personService.loadUserDetailByAccount(account)
+                .map(new HttpResultFunc<TypePersonBean>())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
     public static Observable<List<MomentBean>> loadMomentList(String hisAccount, String myAccount) {
         return squareService.loadMomentList(hisAccount, myAccount)
                 .map(new HttpResultFunc<List<MomentBean>>())

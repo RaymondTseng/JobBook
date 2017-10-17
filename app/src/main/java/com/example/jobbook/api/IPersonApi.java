@@ -76,6 +76,9 @@ public interface IPersonApi {
     @GET("person/myFocus/account/{account}/my/{myAccount}")
     Observable<ResultBean<List<TypePersonBean>>> loadFollowerList(@Path("account") String account, @Path("myAccount") String myAccount);
 
+    @GET("person/getPersonBean/account/{account}")
+    Observable<ResultBean<TypePersonBean>> loadUserDetailByAccount(@Path("account") String account);
+
     @Multipart
     @POST("person/upload/account/{account}")
     Observable<ResultBean<String>> uploadAvatar(@Path("account") String account, @Part MultipartBody.Part pic);
