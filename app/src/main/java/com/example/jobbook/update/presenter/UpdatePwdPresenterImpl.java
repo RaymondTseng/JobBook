@@ -24,32 +24,27 @@ public class UpdatePwdPresenterImpl implements UpdatePwdPresenter {
 
     @Override
     public void updatePwd(Context context, String account, String oPwd, String nPwd, String nPwdConfirm) {
+        view.showProgress();
         if (TextUtils.isEmpty(oPwd)) {
             view.hideProgress();
             view.oPwdBlankError();
-            return;
         } else if (TextUtils.isEmpty(nPwd)) {
             view.hideProgress();
             view.nPwdBlankError();
-            return;
         } else if (TextUtils.isEmpty(nPwdConfirm)) {
             view.hideProgress();
             view.nPwdConfirmBlankError();
-            return;
         } else if (!Util.getMD5(oPwd).equals(MyApplication.getmPersonBean().getPassword())) {
 //            L.i("update_pwd", Util.getMD5(oPwd));
 //            L.i("update_pwd", MyApplication.getmPersonBean().getPassword());
             view.hideProgress();
             view.oPwdError();
-            return;
         } else if (!nPwd.equals(nPwdConfirm)) {
             view.hideProgress();
             view.pwdConfirmError();
-            return;
         } else if (Util.getMD5(oPwd).equals(Util.getMD5(nPwd))) {
             view.hideProgress();
             view.oPwdEqualnPwdError();
-            return;
         } else {
             RetrofitService.updatePwd(account, oPwd, nPwd)
                     .doOnSubscribe(new Action0() {

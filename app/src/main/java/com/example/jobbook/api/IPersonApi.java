@@ -70,6 +70,9 @@ public interface IPersonApi {
     @GET("person/focus/my/{myAccount}/you/{hisAccount}")
     Observable<ResultBean<String>> follow(@Path("myAccount") String myAccount, @Path("hisAccount") String hisAccount);
 
+    @GET("person/unfocus/my/{myAccount}/you/{hisAccount}")
+    Observable<ResultBean<String>> unfollow(@Path("myAccount") String myAccount, @Path("hisAccount") String hisAccount);
+
     @GET("person/MyFavourite/account/{account}")
     Observable<ResultBean<List<JobBean>>> loadFavouriteJobs(@Path("account") String account);
 

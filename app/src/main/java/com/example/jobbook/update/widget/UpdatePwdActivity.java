@@ -71,13 +71,6 @@ public class UpdatePwdActivity extends Activity implements View.OnClickListener,
 
     @Override
     public void close() {
-        Util.showSnackBar(view, "更新密码成功，请重新登录！");
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        Util.toAnotherActivity(this, LoginActivity.class);
         finish();
     }
 
@@ -109,7 +102,14 @@ public class UpdatePwdActivity extends Activity implements View.OnClickListener,
 
     @Override
     public void success() {
-        Util.showSnackBar(view, "修改密码成功");
+        Util.showSnackBar(view, "更新密码成功，请重新登录！");
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        Util.toAnotherActivity(this, LoginActivity.class);
+        finish();
     }
 
     @Override

@@ -9,6 +9,7 @@ import com.example.jobbook.api.IJobsApi;
 import com.example.jobbook.api.IMainApi;
 import com.example.jobbook.api.IPersonApi;
 import com.example.jobbook.api.ISquareApi;
+import com.example.jobbook.api.ITextCVApi;
 import com.example.jobbook.api.bean.ResultBean;
 import com.example.jobbook.bean.ArticleBean;
 import com.example.jobbook.bean.FeedBackBean;
@@ -19,6 +20,7 @@ import com.example.jobbook.bean.MomentBean;
 import com.example.jobbook.bean.MomentCommentBean;
 import com.example.jobbook.bean.PersonBean;
 import com.example.jobbook.bean.PersonWithDeviceTokenBean;
+import com.example.jobbook.bean.TextCVBean;
 import com.example.jobbook.bean.TypePersonBean;
 import com.example.jobbook.util.L;
 import com.orhanobut.logger.Logger;
@@ -54,7 +56,7 @@ import rx.schedulers.Schedulers;
 
 public class RetrofitService {
     // Urls.IP
-    public static String base_url = "http://192.168.199.195/jobBook/index.php/";
+    public static String base_url = "http://192.168.0.108/jobBook/index.php/";
 
     //设缓存有效期为1天
     static final long CACHE_STALE_SEC = 60 * 60 * 24 * 1;
@@ -77,6 +79,7 @@ public class RetrofitService {
     private static IJobsApi jobsService;
     private static IMainApi mainService;
     private static IPersonApi personService;
+    private static ITextCVApi textCVService;
 
     private RetrofitService() {
         throw new AssertionError();
@@ -113,6 +116,7 @@ public class RetrofitService {
         jobsService = retrofit.create(IJobsApi.class);
         mainService = retrofit.create(IMainApi.class);
         personService = retrofit.create(IPersonApi.class);
+        textCVService = retrofit.create(ITextCVApi.class);
     }
 
     /**
@@ -492,6 +496,15 @@ public class RetrofitService {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
+    public static Observable<String> unfollow(String myAccount, String hisAccount) {
+        return personService.unfollow(myAccount, hisAccount)
+                .map(new HttpResultFunc<String>())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
     public static Observable<List<JobBean>> loadFavouriteJobs(String account) {
         return personService.loadFavouriteJobs(account)
                 .map(new HttpResultFunc<List<JobBean>>())
@@ -603,6 +616,24 @@ public class RetrofitService {
     public static Observable<String> updateUserName(String account, String newName) {
         return personService.updateUserName(account, newName)
                 .map(new HttpResultFunc<String>())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public static Observable<PersonBean> postCV(String account, TextCVBean textCVBean) {
+        return textCVService.postCV(account, textCVBean)
+                .map(new HttpResultFunc<PersonBean>())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public static Observable<TextCVBean> loadCV(String account) {
+        return textCVService.loadCV(account)
+                .map(new HttpResultFunc<TextCVBean>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())
