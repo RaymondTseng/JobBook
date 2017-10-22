@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewStub;
 import android.widget.ImageButton;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.jobbook.MyApplication;
@@ -24,46 +23,64 @@ import org.sufficientlysecure.htmltextview.HtmlTextView;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 /**
  * Created by 椰树 on 2016/7/15.
  */
 public class ArticleDetailActivity extends Activity implements ArticleDetailView, View.OnClickListener {
-    private ListView mListView;
+    //    private ListView mListView;
     private ArticleDetailPresenter mPresenter;
-    private ImageButton mLikeImageButton;
-    private ImageButton mBackImageButton;
-    private ArticleBean mArticleBean;
-    private TextView mReadingQuantityTextView;
-    private TextView mArticleTitleTextView;
-    private TextView mTimeTextView;
-    private HtmlTextView mArticleContentTextView;
-    private ViewStub mLoadingViewStub;
     private ArticleBean bean;
+    private ArticleBean mArticleBean;
     private View view;
+
+    @BindView(R.id.article_detail_like_ib)
+    private ImageButton mLikeImageButton;
+
+    @BindView(R.id.article_detail_back_ib)
+    private ImageButton mBackImageButton;
+
+    @BindView(R.id.article_detail_content_reading_tv)
+    private TextView mReadingQuantityTextView;
+
+    @BindView(R.id.article_detail_title_tv)
+    private TextView mArticleTitleTextView;
+
+    @BindView(R.id.article_detail_content_time_tv)
+    private TextView mTimeTextView;
+
+    @BindView(R.id.article_detail_content_tv)
+    private HtmlTextView mArticleContentTextView;
+    @BindView(R.id.article_detail_loading)
+    private ViewStub mLoadingViewStub;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_article_detail);
+        ButterKnife.bind(this);
         view = getWindow().getDecorView();
         initViews();
         initEvents();
     }
 
     private void initViews() {
-        mLikeImageButton = (ImageButton) findViewById(R.id.article_detail_like_ib);
-        mBackImageButton = (ImageButton) findViewById(R.id.article_detail_back_ib);
-//        mListView = (ListView) findViewById(R.id.article_detail_lv);
-        mReadingQuantityTextView = (TextView) findViewById(R.id.article_detail_content_reading_tv);
-        mArticleTitleTextView = (TextView) findViewById(R.id.article_detail_title_tv);
-        mArticleContentTextView = (HtmlTextView) findViewById(R.id.article_detail_content_tv);
-        mTimeTextView = (TextView) findViewById(R.id.article_detail_content_time_tv);
-        mLoadingViewStub = (ViewStub) findViewById(R.id.article_detail_loading);
+//        mLikeImageButton = (ImageButton) findViewById(R.id.article_detail_like_ib);
+//        mBackImageButton = (ImageButton) findViewById(R.id.article_detail_back_ib);
+////        mListView = (ListView) findViewById(R.id.article_detail_lv);
+//        mReadingQuantityTextView = (TextView) findViewById(R.id.article_detail_content_reading_tv);
+//        mArticleTitleTextView = (TextView) findViewById(R.id.article_detail_title_tv);
+//        mArticleContentTextView = (HtmlTextView) findViewById(R.id.article_detail_content_tv);
+//        mTimeTextView = (TextView) findViewById(R.id.article_detail_content_time_tv);
+//        mLoadingViewStub = (ViewStub) findViewById(R.id.article_detail_loading);
         mLoadingViewStub.inflate();
     }
 
     private void initEvents() {
-        Util.setListViewHeightBasedOnChildren(mListView);
+//        Util.setListViewHeightBasedOnChildren(mListView);
         mLikeImageButton.setOnClickListener(this);
         mBackImageButton.setOnClickListener(this);
         mPresenter = new ArticleDetailPresenterImpl(this);
@@ -143,6 +160,26 @@ public class ArticleDetailActivity extends Activity implements ArticleDetailView
     @Override
     public void unlikeError() {
         Util.showSnackBar(view, "取消收藏失败，请重试！");
+    }
+
+    @OnClick(R.id.article_detail_back_ib)
+    public void click_back() {
+        finish();
+    }
+
+    @OnClick(R.id.article_detail_like_ib)
+    public void click_like() {
+        L.i("like_ib_click", "status:" + bean.isIfLike());
+        if (bean.isIfLike() == 0) {
+            L.i("like_ib_click", "click like");
+//                    mLikeImageButton.setImageResource(R.mipmap.favourite);
+            like(bean.getArticle_id());
+        } else {
+            L.i("like_ib_click", "click unlike");
+//                    mLikeImageButton.setImageResource(R.mipmap.favourite_white);
+            unlike(bean.getArticle_id());
+        }
+        refresh();
     }
 
     @Override
