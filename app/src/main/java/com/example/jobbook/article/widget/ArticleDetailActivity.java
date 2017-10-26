@@ -54,6 +54,7 @@ public class ArticleDetailActivity extends Activity implements ArticleDetailView
 
     @BindView(R.id.article_detail_content_tv)
     private HtmlTextView mArticleContentTextView;
+
     @BindView(R.id.article_detail_loading)
     private ViewStub mLoadingViewStub;
 

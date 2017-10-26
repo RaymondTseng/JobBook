@@ -99,7 +99,7 @@
             android:name="com.taobao.agoo.AgooCommondReceiver"
             android:exported="true" >
             <intent-filter>
-                <action android:name="dollar_openBracket_applicationId_closeBracket" />
+                <action android:name="dollar_openBracket_applicationId_closeBracket.intent.action.COMMAND" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.PACKAGE_REMOVED" />
@@ -141,7 +141,7 @@
 
         <provider
             android:name="com.umeng.message.provider.MessageProvider"
-            android:authorities="dollar_openBracket_applicationId_closeBracket"
+            android:authorities="dollar_openBracket_applicationId_closeBracket.umeng.message"
             android:exported="false" >
             <grant-uri-permission android:pathPattern=".*" />
         </provider>
