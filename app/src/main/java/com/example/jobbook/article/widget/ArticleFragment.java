@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
@@ -34,6 +35,10 @@ import com.example.jobbook.util.Util;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.OnCheckedChanged;
+import butterknife.OnClick;
+
 /**
  * Created by Xu on 2016/7/5.
  */
@@ -43,25 +48,35 @@ public class ArticleFragment extends LazyLoadFragment implements ArticleView, Vi
     private int pageIndex = 0;
     private int currentType = Constants.INDEX_ARTICLE_ALL;
 
-    private TextView mTitleTextView;
-    private LinearLayout mArticleTitleLayout;
-    private LinearLayout mBlankLayout;
     private Animation mListViewHideAnimation;
     private Animation mListViewShowAnimation;
     private Animation mBlankLayoutShowAnimation;
     private Animation mBlankLayoutHideAnimation;
     private Animation mDropImageButtonAnimation;
+
+    @BindView(R.id.article_title_tv)
+    private TextView mTitleTextView;
+
+    @BindView(R.id.article_title_ll)
+    private LinearLayout mArticleTitleLayout;
+
+    @BindView(R.id.article_blank_ll)
+    private LinearLayout mBlankLayout;
+
+    @BindView(R.id.article_title_drop_ib)
+    private ImageButton mDropImageButton;
+
+    @BindView(R.id.article_rv)
+    private RecyclerView mRecyclerView;
+
     private PopupWindow mMenuPopupWindow;
     private View mMenuView;
-    private ImageButton mDropImageButton;
     private ArticlePresenter presenter;
     private List<ArticleBean> list;
     private ArticlesAdapter adapter;
     private RadioGroup radioGroup;
-    private RecyclerView mRecyclerView;
     private LinearLayoutManager mLayoutManager;
     private SwipeRefreshLayout mSwipeRefreshLayout;
-
 
     @Override
     protected int setContentView() {
@@ -74,14 +89,15 @@ public class ArticleFragment extends LazyLoadFragment implements ArticleView, Vi
         initAnimation();
     }
 
+    @Override
     protected void initViews() {
         mMenuView = inflater.inflate(R.layout.article_title_bar_rg, null);
-        mArticleTitleLayout = findViewById(R.id.article_title_ll);
-        mBlankLayout = findViewById(R.id.article_blank_ll);
-        mTitleTextView = findViewById(R.id.article_title_tv);
-        mRecyclerView = findViewById(R.id.article_rv);
-        mSwipeRefreshLayout = findViewById(R.id.article_swipe_container);
-        mDropImageButton = findViewById(R.id.article_title_drop_ib);
+//        mArticleTitleLayout = findViewById(R.id.article_title_ll);
+//        mBlankLayout = findViewById(R.id.article_blank_ll);
+//        mTitleTextView = findViewById(R.id.article_title_tv);
+//        mRecyclerView = findViewById(R.id.article_rv);
+//        mSwipeRefreshLayout = findViewById(R.id.article_swipe_container);
+//        mDropImageButton = findViewById(R.id.article_title_drop_ib);
         radioGroup = (RadioGroup) mMenuView.findViewById(R.id.article_title_rg);
         L.i("article", "initViews");
     }
@@ -138,7 +154,7 @@ public class ArticleFragment extends LazyLoadFragment implements ArticleView, Vi
             list = new ArrayList<>();
         }
         list = articlesList;
-        if(articlesList == null || articlesList.size() < Urls.PAZE_SIZE){
+        if (articlesList == null || articlesList.size() < Urls.PAZE_SIZE) {
             adapter.setmShowFooter(false);
         }
         if (pageIndex == 0) {
@@ -175,6 +191,21 @@ public class ArticleFragment extends LazyLoadFragment implements ArticleView, Vi
         });
     }
 
+    @OnClick(R.id.article_title_ll)
+    public void click_top_title(View v) {
+        int visible = mBlankLayout.getVisibility();
+        if (mMenuPopupWindow.isShowing() && visible == View.VISIBLE) {
+            mMenuPopupWindow.dismiss();
+        } else {
+            mDropImageButton.startAnimation(mDropImageButtonAnimation);
+            mRecyclerView.startAnimation(mListViewShowAnimation);
+            mMenuPopupWindow.showAsDropDown(v, 0, 0);
+//                    mMenuPopupWindow.showAsDropDown(v, 0, (Util.getHeight(getActivity()) / 720) * 20);
+            mBlankLayout.startAnimation(mBlankLayoutShowAnimation);
+            mBlankLayout.setVisibility(View.VISIBLE);
+            mDropImageButton.setImageResource(R.mipmap.down_white);
+        }
+    }
 
     @Override
     public void onClick(View v) {
@@ -196,14 +227,45 @@ public class ArticleFragment extends LazyLoadFragment implements ArticleView, Vi
         }
     }
 
-    @Override
-    public void onDismiss() {
-        mDropImageButton.startAnimation(mDropImageButtonAnimation);
-        mBlankLayout.startAnimation(mBlankLayoutHideAnimation);
-        mRecyclerView.startAnimation(mListViewHideAnimation);
-        mDropImageButton.setImageResource(R.mipmap.up_white);
-        mBlankLayout.setVisibility(View.GONE);
+    @OnCheckedChanged({R.id.article_title_all_rb, R.id.article_title_engagement_rb,
+            R.id.article_title_politic_rb, R.id.article_title_life_rb})
+    public void onRadioButtonCheckChanged(CompoundButton button, boolean checked) {
+        if (checked) {
+            switch (button.getId()) {
+                case R.id.article_title_all_rb:
+                    mTitleTextView.setText(Constants.ARTICLE_ALL);
+//                presenter.loadArticles(pageIndex, Constants.INDEX_ARTICLE_ALL);
+                    currentType = Constants.INDEX_ARTICLE_ALL;
+                    onRefresh();
+                    L.i("all", "change");
+                    break;
+                case R.id.article_title_engagement_rb:
+                    mTitleTextView.setText(Constants.ARTICLE_ENGAGEMENT);
+//                presenter.loadArticles(pageIndex, Constants.INDEX_ARTICLE_ENGAGEMENT);
+                    currentType = Constants.INDEX_ARTICLE_ENGAGEMENT;
+                    onRefresh();
+                    L.i("engagement", "change");
+                    break;
+                case R.id.article_title_politic_rb:
+                    mTitleTextView.setText(Constants.ARTICLE_POLITIC);
+//                presenter.loadArticles(pageIndex, Constants.INDEX_ARTICLE_POLITIC);
+                    currentType = Constants.INDEX_ARTICLE_POLITIC;
+                    onRefresh();
+                    L.i("politic", "change");
+                    break;
+                case R.id.article_title_life_rb:
+                    mTitleTextView.setText(Constants.ARTICLE_LIFE);
+//                presenter.loadArticles(pageIndex, Constants.INDEX_ARTICLE_LIFE);
+                    currentType = Constants.INDEX_ARTICLE_LIFE;
+                    onRefresh();
+                    L.i("life", "change");
+                    break;
+                default:
+                    break;
+            }
+        }
     }
+
 
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -237,6 +299,15 @@ public class ArticleFragment extends LazyLoadFragment implements ArticleView, Vi
                 L.i("life", "change");
                 break;
         }
+    }
+
+    @Override
+    public void onDismiss() {
+        mDropImageButton.startAnimation(mDropImageButtonAnimation);
+        mBlankLayout.startAnimation(mBlankLayoutHideAnimation);
+        mRecyclerView.startAnimation(mListViewHideAnimation);
+        mDropImageButton.setImageResource(R.mipmap.up_white);
+        mBlankLayout.setVisibility(View.GONE);
     }
 
 

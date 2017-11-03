@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import butterknife.ButterKnife;
+
 /**
  * Created by Xu on 2017/1/30.
  */
@@ -31,6 +33,7 @@ public abstract class LazyLoadFragment extends Fragment {
         this.inflater = inflater;
         initViews();
         isInit = true;
+        ButterKnife.bind(this, view);
         /**初始化的时候去加载数据**/
         isCanLoadData();
         return view;
@@ -106,9 +109,9 @@ public abstract class LazyLoadFragment extends Fragment {
      * @param <T>
      * @return
      */
-    protected <T extends View> T findViewById(int id) {
-        return (T) getContentView().findViewById(id);
-    }
+//    protected <T extends View> T findViewById(int id) {
+//        return (T) getContentView().findViewById(id);
+//    }
 
     /**
      * 当视图初始化并且对用户可见的时候去真正的加载数据
