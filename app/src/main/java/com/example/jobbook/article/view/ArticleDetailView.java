@@ -19,8 +19,6 @@ public interface ArticleDetailView extends IBaseView {
 
     void addArticle(ArticleBean mArticle);
 
-    void showLoadFailMsg();
-
     void close();
 
     void NoLoginError();

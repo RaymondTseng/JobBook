@@ -197,11 +197,11 @@ public class RetrofitService {
      */
     public static Observable<List<ArticleBean>> getArticlesList(int type, int page) {
         return articlesService.getArticlesList(type, page)
+                .map(new HttpResultFunc<List<ArticleBean>>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .flatMap(_flatMapArticles());
+                .observeOn(AndroidSchedulers.mainThread());
     }
 
     /**
@@ -211,11 +211,11 @@ public class RetrofitService {
      */
     public static Observable<ArticleBean> getArticleDetail(String a_id, String account) {
         return articlesService.getArticleDetail(a_id, account)
+                .map(new HttpResultFunc<ArticleBean>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .flatMap(_flatMapArticleDetail());
+                .observeOn(AndroidSchedulers.mainThread());
     }
 
     /**
@@ -223,8 +223,9 @@ public class RetrofitService {
      *
      * @return
      */
-    public static Observable<ResultBean<String>> like(String a_id, String account) {
+    public static Observable<String> like(String a_id, String account) {
         return articlesService.like(a_id, account)
+                .map(new HttpResultFunc<String>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())
@@ -236,8 +237,9 @@ public class RetrofitService {
      *
      * @return
      */
-    public static Observable<ResultBean<String>> unlike(String a_id, String account) {
+    public static Observable<String> unlike(String a_id, String account) {
         return articlesService.unlike(a_id, account)
+                .map(new HttpResultFunc<String>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())
@@ -251,8 +253,9 @@ public class RetrofitService {
      * @param feedBackBean
      * @return
      */
-    public static Observable<ResultBean<String>> feedback(String account, FeedBackBean feedBackBean) {
+    public static Observable<String> feedback(String account, FeedBackBean feedBackBean) {
         return feedBackService.feedBack(account, feedBackBean)
+                .map(new HttpResultFunc<String>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())
@@ -268,11 +271,11 @@ public class RetrofitService {
      */
     public static Observable<List<MomentBean>> getFollowSquare(String account, int index) {
         return squareService.getFollowSquare(account, index)
+                .map(new HttpResultFunc<List<MomentBean>>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .flatMap(_flatMapSquareFollow());
+                .observeOn(AndroidSchedulers.mainThread());
     }
 
     /**
@@ -315,11 +318,11 @@ public class RetrofitService {
      */
     public static Observable<List<JobBean>> getRecommendJobsList(int index) {
         return jobsService.getRecommendJobsList(index)
+                .map(new HttpResultFunc<List<JobBean>>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .flatMap(_flatMapJobs());
+                .observeOn(AndroidSchedulers.mainThread());
     }
 
     /**
@@ -331,11 +334,11 @@ public class RetrofitService {
      */
     public static Observable<List<JobBean>> search(int index, String type, String location) {
         return jobsService.search(index, type, location)
+                .map(new HttpResultFunc<List<JobBean>>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .flatMap(_flatMapJobs());
+                .observeOn(AndroidSchedulers.mainThread());
     }
 
     /**
@@ -347,11 +350,11 @@ public class RetrofitService {
      */
     public static Observable<JobDetailBean> getJobDetail(String jobid, String account) {
         return jobsService.getJobDetail(jobid, account)
+                .map(new HttpResultFunc<JobDetailBean>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .flatMap(_flatMapJobDetail());
+                .observeOn(AndroidSchedulers.mainThread());
     }
 
     /**
@@ -361,8 +364,9 @@ public class RetrofitService {
      * @param account
      * @return
      */
-    public static Observable<ResultBean<String>> likeJob(String job_id, String account) {
+    public static Observable<String> likeJob(String job_id, String account) {
         return jobsService.like(job_id, account)
+                .map(new HttpResultFunc<String>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())
@@ -376,8 +380,9 @@ public class RetrofitService {
      * @param account
      * @return
      */
-    public static Observable<ResultBean<String>> unlikeJob(String job_id, String account) {
+    public static Observable<String> unlikeJob(String job_id, String account) {
         return jobsService.unlike(job_id, account)
+                .map(new HttpResultFunc<String>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())
@@ -391,8 +396,9 @@ public class RetrofitService {
      * @param com_id
      * @return
      */
-    public static Observable<ResultBean<String>> sendCV(String account, String com_id) {
+    public static Observable<String> sendCV(String account, String com_id) {
         return jobsService.sendCV(account, com_id)
+                .map(new HttpResultFunc<String>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())
@@ -405,8 +411,9 @@ public class RetrofitService {
      * @param bean
      * @return
      */
-    public static Observable<ResultBean<PersonBean>> login(PersonWithDeviceTokenBean bean) {
+    public static Observable<PersonBean> login(PersonWithDeviceTokenBean bean) {
         return personService.login(bean)
+                .map(new HttpResultFunc<PersonBean>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())
@@ -419,8 +426,9 @@ public class RetrofitService {
      * @param phone
      * @return
      */
-    public static Observable<ResultBean<String>> checkAccount(String phone) {
+    public static Observable<String> checkAccount(String phone) {
         return personService.checkAccount(phone)
+                .map(new HttpResultFunc<String>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())
@@ -434,8 +442,9 @@ public class RetrofitService {
      * @param newpsd
      * @return
      */
-    public static Observable<ResultBean<String>> changePwdComplete(String account, String newpsd) {
+    public static Observable<String> changePwdComplete(String account, String newpsd) {
         return personService.changePwdComplete(account, newpsd)
+                .map(new HttpResultFunc<String>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())
@@ -643,129 +652,6 @@ public class RetrofitService {
     /************************************ 类型转换 *******************************************/
 
     /**
-     * 类型转换
-     *
-     * @return
-     */
-    private static Func1<ResultBean<List<ArticleBean>>, Observable<List<ArticleBean>>> _flatMapArticles() {
-        return new Func1<ResultBean<List<ArticleBean>>, Observable<List<ArticleBean>>>() {
-            @Override
-            public Observable<List<ArticleBean>> call(ResultBean<List<ArticleBean>> articleListWrapper) {
-                if (!articleListWrapper.getStatus().equals("true")) {
-                    return Observable.empty();
-                }
-                return Observable.just(articleListWrapper.getResponse());
-            }
-        };
-    }
-
-    /**
-     * 类型转换
-     *
-     * @return
-     */
-    private static Func1<ResultBean<ArticleBean>, Observable<ArticleBean>> _flatMapArticleDetail() {
-        return new Func1<ResultBean<ArticleBean>, Observable<ArticleBean>>() {
-            @Override
-            public Observable<ArticleBean> call(ResultBean<ArticleBean> articleWrapper) {
-                if (!articleWrapper.getStatus().equals("true")) {
-                    return Observable.empty();
-                }
-                return Observable.just(articleWrapper.getResponse());
-            }
-        };
-    }
-
-    /**
-     * 类型转换
-     *
-     * @return
-     */
-    private static Func1<ResultBean<List<MomentBean>>, Observable<List<MomentBean>>> _flatMapSquareFollow() {
-        return new Func1<ResultBean<List<MomentBean>>, Observable<List<MomentBean>>>() {
-            @Override
-            public Observable<List<MomentBean>> call(ResultBean<List<MomentBean>> resultBean) {
-                if (!resultBean.getStatus().equals("true")) {
-                    return Observable.empty();
-                }
-                return Observable.just(resultBean.getResponse());
-            }
-        };
-    }
-
-    /**
-     * 类型转换
-     *
-     * @return
-     */
-    private static Func1<ResultBean<MomentBean>, Observable<MomentBean>> _flatMaplikeSquare() {
-        return new Func1<ResultBean<MomentBean>, Observable<MomentBean>>() {
-            @Override
-            public Observable<MomentBean> call(ResultBean<MomentBean> resultBean) {
-                if (!resultBean.getStatus().equals("true")) {
-                    Logger.i("error", resultBean.getResponse());
-                    return Observable.empty();
-                }
-                L.i("square_like_response", resultBean.getResponse().toString() + "");
-                return Observable.just(resultBean.getResponse());
-            }
-        };
-    }
-
-    /**
-     * 类型转换
-     *
-     * @return
-     */
-    private static Func1<ResultBean<List<JobBean>>, Observable<List<JobBean>>> _flatMapJobs() {
-        return new Func1<ResultBean<List<JobBean>>, Observable<List<JobBean>>>() {
-            @Override
-            public Observable<List<JobBean>> call(ResultBean<List<JobBean>> resultBean) {
-                if (!resultBean.getStatus().equals("true")) {
-                    Logger.i("error", resultBean.getResponse());
-                    return Observable.empty();
-                }
-                L.i("square_like_response", resultBean.getResponse().toString() + "");
-                return Observable.just(resultBean.getResponse());
-            }
-        };
-    }
-
-    /**
-     * 类型转换
-     *
-     * @return
-     */
-    private static Func1<ResultBean<JobDetailBean>, Observable<JobDetailBean>> _flatMapJobDetail() {
-        return new Func1<ResultBean<JobDetailBean>, Observable<JobDetailBean>>() {
-            @Override
-            public Observable<JobDetailBean> call(ResultBean<JobDetailBean> resultBean) {
-                if (!resultBean.getStatus().equals("true")) {
-                    return Observable.empty();
-                }
-                return Observable.just(resultBean.getResponse());
-            }
-        };
-    }
-
-    /**
-     * 类型转换
-     *
-     * @return
-     */
-    private static Func1<ResultBean<PersonBean>, Observable<PersonBean>> _flatMapLogin() {
-        return new Func1<ResultBean<PersonBean>, Observable<PersonBean>>() {
-            @Override
-            public Observable<PersonBean> call(ResultBean<PersonBean> resultBean) {
-                if (!resultBean.getStatus().equals("true")) {
-                    return Observable.empty();
-                }
-                return Observable.just(resultBean.getResponse());
-            }
-        };
-    }
-
-    /**
      * 错误统一处理
      *
      * @param <T>
@@ -774,8 +660,9 @@ public class RetrofitService {
 
         @Override
         public T call(ResultBean<T> resultBean) {
-            if (!resultBean.getStatus().equals("true")) {
-                throw new RuntimeException((String) resultBean.getResponse());
+            String TRUE_KEY = "true";
+            if (!TRUE_KEY.equals(resultBean.getStatus())) {
+                throw new ApiException(Integer.valueOf(resultBean.getResponse().toString()));
             }
             return resultBean.getResponse();
         }

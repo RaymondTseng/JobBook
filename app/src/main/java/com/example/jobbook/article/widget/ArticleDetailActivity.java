@@ -38,25 +38,25 @@ public class ArticleDetailActivity extends Activity implements ArticleDetailView
     private View view;
 
     @BindView(R.id.article_detail_like_ib)
-    private ImageButton mLikeImageButton;
+    ImageButton mLikeImageButton;
 
     @BindView(R.id.article_detail_back_ib)
-    private ImageButton mBackImageButton;
+    ImageButton mBackImageButton;
 
     @BindView(R.id.article_detail_content_reading_tv)
-    private TextView mReadingQuantityTextView;
+    TextView mReadingQuantityTextView;
 
     @BindView(R.id.article_detail_title_tv)
-    private TextView mArticleTitleTextView;
+    TextView mArticleTitleTextView;
 
     @BindView(R.id.article_detail_content_time_tv)
-    private TextView mTimeTextView;
+    TextView mTimeTextView;
 
     @BindView(R.id.article_detail_content_tv)
-    private HtmlTextView mArticleContentTextView;
+    HtmlTextView mArticleContentTextView;
 
     @BindView(R.id.article_detail_loading)
-    private ViewStub mLoadingViewStub;
+    ViewStub mLoadingViewStub;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,8 +123,8 @@ public class ArticleDetailActivity extends Activity implements ArticleDetailView
     }
 
     @Override
-    public void showLoadFailMsg() {
-        Util.showSnackBar(view, "干货读取错误，请重试！");
+    public void showLoadFailMsg(String msg) {
+        Util.showSnackBar(view, msg);
     }
 
     @Override

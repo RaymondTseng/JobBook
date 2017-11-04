@@ -55,19 +55,19 @@ public class ArticleFragment extends LazyLoadFragment implements ArticleView, Vi
     private Animation mDropImageButtonAnimation;
 
     @BindView(R.id.article_title_tv)
-    private TextView mTitleTextView;
+    TextView mTitleTextView;
 
     @BindView(R.id.article_title_ll)
-    private LinearLayout mArticleTitleLayout;
+    LinearLayout mArticleTitleLayout;
 
     @BindView(R.id.article_blank_ll)
-    private LinearLayout mBlankLayout;
+    LinearLayout mBlankLayout;
 
     @BindView(R.id.article_title_drop_ib)
-    private ImageButton mDropImageButton;
+    ImageButton mDropImageButton;
 
     @BindView(R.id.article_rv)
-    private RecyclerView mRecyclerView;
+    RecyclerView mRecyclerView;
 
     private PopupWindow mMenuPopupWindow;
     private View mMenuView;
@@ -175,7 +175,7 @@ public class ArticleFragment extends LazyLoadFragment implements ArticleView, Vi
     }
 
     @Override
-    public void showLoadFailMsg() {
+    public void showLoadFailMsg(String msg) {
 //        if (pageIndex == 0) {
 //            adapter.setmShowFooter(false);
 //            adapter.notifyDataSetChanged();
@@ -183,7 +183,7 @@ public class ArticleFragment extends LazyLoadFragment implements ArticleView, Vi
 //        Util.showSnackBar(getActivity().findViewById(R.id.article_fragment), "网络无法连接！", "重试");
 
 //        View parentview = getActivity().findViewById(android.R.id.content);
-        Util.showSnackBar(MyApplication.mSnackBarView, "网络无法连接！", "重试", new View.OnClickListener() {
+        Util.showSnackBar(MyApplication.mSnackBarView, msg, "重试", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onRefresh();

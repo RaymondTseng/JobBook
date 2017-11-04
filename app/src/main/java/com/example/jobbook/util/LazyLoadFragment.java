@@ -109,9 +109,9 @@ public abstract class LazyLoadFragment extends Fragment {
      * @param <T>
      * @return
      */
-//    protected <T extends View> T findViewById(int id) {
-//        return (T) getContentView().findViewById(id);
-//    }
+    protected <T extends View> T findViewById(int id) {
+        return (T) getContentView().findViewById(id);
+    }
 
     /**
      * 当视图初始化并且对用户可见的时候去真正的加载数据

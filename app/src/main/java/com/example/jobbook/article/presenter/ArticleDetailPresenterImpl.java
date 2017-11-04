@@ -1,11 +1,13 @@
 package com.example.jobbook.article.presenter;
 
 import com.example.jobbook.MyApplication;
-import com.example.jobbook.api.bean.ResultBean;
 import com.example.jobbook.article.view.ArticleDetailView;
 import com.example.jobbook.bean.ArticleBean;
+import com.example.jobbook.network.ApiException;
 import com.example.jobbook.network.RetrofitService;
-import com.orhanobut.logger.Logger;
+
+import java.net.ConnectException;
+import java.net.SocketTimeoutException;
 
 import rx.Subscriber;
 import rx.functions.Action0;
@@ -42,9 +44,16 @@ public class ArticleDetailPresenterImpl implements ArticleDetailPresenter {
                     }
 
                     @Override
-                    public void onError(Throwable throwable) {
-                        Logger.e(throwable.getMessage(), throwable);
-                        mView.showLoadFailMsg();
+                    public void onError(Throwable e) {
+//                        Logger.e(throwable.getMessage(), throwable);
+                        mView.hideProgress();
+                        if (e instanceof SocketTimeoutException) {
+                            mView.showLoadFailMsg(ApiException.NETWORK_ERROR_WORD);
+                        } else if (e instanceof ConnectException) {
+                            mView.showLoadFailMsg(ApiException.NETWORK_ERROR_WORD);
+                        } else {
+                            mView.showLoadFailMsg(e.getMessage());
+                        }
                     }
 
                     @Override
@@ -73,33 +82,29 @@ public class ArticleDetailPresenterImpl implements ArticleDetailPresenter {
                         mView.showProgress();
                     }
                 })
-                .subscribe(new Subscriber<ResultBean>() {
+                .subscribe(new Subscriber<String>() {
                     @Override
                     public void onCompleted() {
 
                     }
 
                     @Override
-                    public void onError(Throwable throwable) {
-                        Logger.e(throwable.getMessage(), throwable);
+                    public void onError(Throwable e) {
                         mView.hideProgress();
+                        if (e instanceof SocketTimeoutException) {
+                            mView.showLoadFailMsg(ApiException.NETWORK_ERROR_WORD);
+                        } else if (e instanceof ConnectException) {
+                            mView.showLoadFailMsg(ApiException.NETWORK_ERROR_WORD);
+                        } else {
+                            mView.showLoadFailMsg(e.getMessage());
+                        }
                         mView.likeError();
                     }
 
                     @Override
-                    public void onNext(ResultBean resultBean) {
-                        if (resultBean.getStatus().equals("true")) {
-                            mView.hideProgress();
-                            mView.likeSuccess();
-                        } else {
-                            if (resultBean.getResponse().equals("please login first!")) {
-                                mView.hideProgress();
-                                mView.NoLoginError();
-                            } else if (resultBean.getResponse().equals("like failed")) {
-                                mView.hideProgress();
-                                mView.likeError();
-                            }
-                        }
+                    public void onNext(String response) {
+                        mView.hideProgress();
+                        mView.likeSuccess();
                     }
                 });
     }
@@ -118,33 +123,37 @@ public class ArticleDetailPresenterImpl implements ArticleDetailPresenter {
                         mView.showProgress();
                     }
                 })
-                .subscribe(new Subscriber<ResultBean>() {
+                .subscribe(new Subscriber<String>() {
                     @Override
                     public void onCompleted() {
 
                     }
 
                     @Override
-                    public void onError(Throwable throwable) {
-                        Logger.e(throwable.getMessage(), throwable);
+                    public void onError(Throwable e) {
+//                        Logger.e(throwable.getMessage(), throwable);
                         mView.hideProgress();
+                        if (e instanceof SocketTimeoutException) {
+                            mView.showLoadFailMsg(ApiException.NETWORK_ERROR_WORD);
+                        } else if (e instanceof ConnectException) {
+                            mView.showLoadFailMsg(ApiException.NETWORK_ERROR_WORD);
+                        } else {
+                            mView.showLoadFailMsg(e.getMessage());
+                        }
                         mView.unlikeError();
                     }
 
                     @Override
-                    public void onNext(ResultBean resultBean) {
-                        if (resultBean.getStatus().equals("true")) {
-                            mView.hideProgress();
-                            mView.unlikeSuccess();
-                        } else {
-                            if (resultBean.getResponse().equals("please login first!")){
-                                mView.hideProgress();
-                                mView.NoLoginError();
-                            } else if (resultBean.getResponse().equals("like failed")) {
-                                mView.hideProgress();
-                                mView.unlikeError();
-                            }
-                        }
+                    public void onNext(String response) {
+                        mView.hideProgress();
+                        mView.unlikeSuccess();
+//                        if (resultBean.getResponse().equals("please login first!")) {
+//                            mView.hideProgress();
+//                            mView.NoLoginError();
+//                        } else if (resultBean.getResponse().equals("like failed")) {
+//                            mView.hideProgress();
+//                            mView.unlikeError();
+//                        }
                     }
                 });
     }

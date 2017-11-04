@@ -12,5 +12,4 @@ public interface ArticleView extends IBaseView {
 
     void addArticles(List<ArticleBean> articlesList);
 
-    void showLoadFailMsg();
 }
