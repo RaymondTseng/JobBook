@@ -3,7 +3,7 @@ package com.example.jobbook.article.presenter;
 import com.example.jobbook.MyApplication;
 import com.example.jobbook.article.view.ArticleDetailView;
 import com.example.jobbook.bean.ArticleBean;
-import com.example.jobbook.network.ApiException;
+import com.example.jobbook.commons.NetConstants;
 import com.example.jobbook.network.RetrofitService;
 
 import java.net.ConnectException;
@@ -24,8 +24,6 @@ public class ArticleDetailPresenterImpl implements ArticleDetailPresenter {
 
     @Override
     public void loadArticle(String articleId) {
-//        mView.showProgress();
-//        mModel.loadArticle(articleId, this);
         String account = "";
         if (MyApplication.getmLoginStatus() == 1) {
             account = MyApplication.getAccount();
@@ -48,9 +46,9 @@ public class ArticleDetailPresenterImpl implements ArticleDetailPresenter {
 //                        Logger.e(throwable.getMessage(), throwable);
                         mView.hideProgress();
                         if (e instanceof SocketTimeoutException) {
-                            mView.showLoadFailMsg(ApiException.NETWORK_ERROR_WORD);
+                            mView.showLoadFailMsg(NetConstants.NETWORK_ERROR_WORD);
                         } else if (e instanceof ConnectException) {
-                            mView.showLoadFailMsg(ApiException.NETWORK_ERROR_WORD);
+                            mView.showLoadFailMsg(NetConstants.NETWORK_ERROR_WORD);
                         } else {
                             mView.showLoadFailMsg(e.getMessage());
                         }
@@ -92,13 +90,12 @@ public class ArticleDetailPresenterImpl implements ArticleDetailPresenter {
                     public void onError(Throwable e) {
                         mView.hideProgress();
                         if (e instanceof SocketTimeoutException) {
-                            mView.showLoadFailMsg(ApiException.NETWORK_ERROR_WORD);
+                            mView.showLoadFailMsg(NetConstants.NETWORK_ERROR_WORD);
                         } else if (e instanceof ConnectException) {
-                            mView.showLoadFailMsg(ApiException.NETWORK_ERROR_WORD);
+                            mView.showLoadFailMsg(NetConstants.NETWORK_ERROR_WORD);
                         } else {
                             mView.showLoadFailMsg(e.getMessage());
                         }
-                        mView.likeError();
                     }
 
                     @Override
@@ -134,26 +131,18 @@ public class ArticleDetailPresenterImpl implements ArticleDetailPresenter {
 //                        Logger.e(throwable.getMessage(), throwable);
                         mView.hideProgress();
                         if (e instanceof SocketTimeoutException) {
-                            mView.showLoadFailMsg(ApiException.NETWORK_ERROR_WORD);
+                            mView.showLoadFailMsg(NetConstants.NETWORK_ERROR_WORD);
                         } else if (e instanceof ConnectException) {
-                            mView.showLoadFailMsg(ApiException.NETWORK_ERROR_WORD);
+                            mView.showLoadFailMsg(NetConstants.NETWORK_ERROR_WORD);
                         } else {
                             mView.showLoadFailMsg(e.getMessage());
                         }
-                        mView.unlikeError();
                     }
 
                     @Override
                     public void onNext(String response) {
                         mView.hideProgress();
                         mView.unlikeSuccess();
-//                        if (resultBean.getResponse().equals("please login first!")) {
-//                            mView.hideProgress();
-//                            mView.NoLoginError();
-//                        } else if (resultBean.getResponse().equals("like failed")) {
-//                            mView.hideProgress();
-//                            mView.unlikeError();
-//                        }
                     }
                 });
     }

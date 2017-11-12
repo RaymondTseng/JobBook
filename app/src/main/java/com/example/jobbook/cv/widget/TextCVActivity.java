@@ -407,6 +407,11 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
     }
 
     @Override
+    public void showLoadFailMsg(String msg) {
+
+    }
+
+    @Override
     public void uploadSuccess() {
         Util.showSnackBar(getWindow().getDecorView(), "上传成功！");
     }

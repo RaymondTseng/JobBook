@@ -13,15 +13,12 @@ import com.example.jobbook.article.presenter.ArticleDetailPresenter;
 import com.example.jobbook.article.presenter.ArticleDetailPresenterImpl;
 import com.example.jobbook.article.view.ArticleDetailView;
 import com.example.jobbook.bean.ArticleBean;
-import com.example.jobbook.bean.ArticleCommentBean;
 import com.example.jobbook.util.L;
 import com.example.jobbook.util.Util;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.sufficientlysecure.htmltextview.HtmlHttpImageGetter;
 import org.sufficientlysecure.htmltextview.HtmlTextView;
-
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -94,10 +91,10 @@ public class ArticleDetailActivity extends Activity implements ArticleDetailView
         mLoadingViewStub.setVisibility(View.VISIBLE);
     }
 
-    @Override
-    public void addComments(List<ArticleCommentBean> mComments) {
-//        mListView.setAdapter(new ArticleDetailListViewAdapter(this));
-    }
+//    @Override
+//    public void addComments(List<ArticleCommentBean> mComments) {
+////        mListView.setAdapter(new ArticleDetailListViewAdapter(this));
+//    }
 
     @Override
     public void addArticle(ArticleBean mArticle) {
@@ -132,10 +129,10 @@ public class ArticleDetailActivity extends Activity implements ArticleDetailView
         finish();
     }
 
-    @Override
-    public void NoLoginError() {
-        Util.showSnackBar(view, "请先登录");
-    }
+//    @Override
+//    public void NoLoginError() {
+//        Util.showSnackBar(view, "请先登录");
+//    }
 
     @Override
     public void likeSuccess() {
@@ -153,15 +150,15 @@ public class ArticleDetailActivity extends Activity implements ArticleDetailView
         Util.showSnackBar(view, "取消收藏成功！");
     }
 
-    @Override
-    public void likeError() {
-        Util.showSnackBar(view, "收藏失败，请重试！");
-    }
-
-    @Override
-    public void unlikeError() {
-        Util.showSnackBar(view, "取消收藏失败，请重试！");
-    }
+//    @Override
+//    public void likeError() {
+//        Util.showSnackBar(view, "收藏失败，请重试！");
+//    }
+//
+//    @Override
+//    public void unlikeError() {
+//        Util.showSnackBar(view, "取消收藏失败，请重试！");
+//    }
 
     @OnClick(R.id.article_detail_back_ib)
     public void click_back() {

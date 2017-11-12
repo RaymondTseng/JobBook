@@ -2,12 +2,13 @@ package com.example.jobbook.article.presenter;
 
 import com.example.jobbook.article.view.ArticleView;
 import com.example.jobbook.bean.ArticleBean;
+import com.example.jobbook.commons.NetConstants;
 import com.example.jobbook.network.RetrofitService;
-import com.orhanobut.logger.Logger;
 
+import java.net.ConnectException;
+import java.net.SocketTimeoutException;
 import java.util.List;
 
-import rx.Observable;
 import rx.Subscriber;
 import rx.functions.Action0;
 
@@ -17,16 +18,16 @@ import rx.functions.Action0;
 public class ArticlePresenterImpl implements ArticlePresenter {
 
 //    private ArticleModel mArticleModel;
-    private ArticleView mArticleView;
+    private ArticleView mView;
 
     public ArticlePresenterImpl(ArticleView view) {
-        mArticleView = view;
+        mView = view;
 //        mArticleModel = new ArticleModelImpl();
     }
 
     @Override
     public void loadArticles(int pageIndex, int type) {
-//        mArticleView.showProgress();
+//        mView.showProgress();
 //        mArticleModel.loadArticles(pageIndex, type, this);
 
         RetrofitService.getArticlesList(type, pageIndex)
@@ -34,7 +35,7 @@ public class ArticlePresenterImpl implements ArticlePresenter {
                 .doOnSubscribe(new Action0() {
                     @Override
                     public void call() {
-                        mArticleView.showProgress();
+                        mView.showProgress();
                     }
                 })
                 .subscribe(new Subscriber<List<ArticleBean>>() {
@@ -44,42 +45,24 @@ public class ArticlePresenterImpl implements ArticlePresenter {
                     }
 
                     @Override
-                    public void onError(Throwable throwable) {
-                        Logger.e(throwable.getMessage(), throwable);
-                        mArticleView.hideProgress();
-                        mArticleView.showLoadFailMsg();
+                    public void onError(Throwable e) {
+                        mView.hideProgress();
+                        if (e instanceof SocketTimeoutException) {
+                            mView.showLoadFailMsg(NetConstants.NETWORK_ERROR_WORD);
+                        } else if (e instanceof ConnectException) {
+                            mView.showLoadFailMsg(NetConstants.NETWORK_ERROR_WORD);
+                        } else {
+                            mView.showLoadFailMsg(e.getMessage());
+                        }
                     }
 
                     @Override
                     public void onNext(List<ArticleBean> list) {
-                        mArticleView.hideProgress();
-                        mArticleView.addArticles(list);
+                        mView.hideProgress();
+                        mView.addArticles(list);
                     }
                 });
 
     }
 
-//    @Override
-//    public void onSuccess(List<ArticleBean> list) {
-////        mArticleView.hideProgress();
-////        mArticleView.addArticles(list);
-//    }
-//
-//    @Override
-//    public void onFailure(String msg, Exception e) {
-////        mArticleView.hideProgress();
-////        mArticleView.showLoadFailMsg();
-//    }
-
-    /**
-     * 统一变换
-     */
-    private Observable.Transformer<ArticleBean, List<ArticleBean>> mTransformer = new Observable.Transformer<ArticleBean, List<ArticleBean>>() {
-
-        @Override
-        public Observable<List<ArticleBean>> call(Observable<ArticleBean> articleBeanObservable) {
-            return articleBeanObservable
-                    .toList();
-        }
-    };
 }

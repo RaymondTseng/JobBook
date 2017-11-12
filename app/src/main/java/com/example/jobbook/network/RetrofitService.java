@@ -56,7 +56,7 @@ import rx.schedulers.Schedulers;
 
 public class RetrofitService {
     // Urls.IP
-    public static String base_url = "http://192.168.0.108/jobBook/index.php/";
+    public static String base_url = "http://192.168.0.101/jobBook/index.php/";
 
     //设缓存有效期为1天
     static final long CACHE_STALE_SEC = 60 * 60 * 24 * 1;
@@ -660,11 +660,10 @@ public class RetrofitService {
 
         @Override
         public T call(ResultBean<T> resultBean) {
-            String TRUE_KEY = "true";
-            if (!TRUE_KEY.equals(resultBean.getStatus())) {
-                throw new ApiException(Integer.valueOf(resultBean.getResponse().toString()));
+            if (resultBean.getCode() != 0) {
+                throw new ApiException(resultBean.getCode());
             }
-            return resultBean.getResponse();
+            return resultBean.getData();
         }
     }
 

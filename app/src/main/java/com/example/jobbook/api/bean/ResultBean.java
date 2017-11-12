@@ -6,23 +6,33 @@ package com.example.jobbook.api.bean;
  */
 public class ResultBean<T> {
 
-    private String status;
+    private int code;
 
-    private T response;
+    private String message;
 
-    public T getResponse() {
-        return response;
+    private T data;
+
+    public int getCode() {
+        return code;
     }
 
-    public void setResponse(T response) {
-        this.response = response;
+    public void setCode(int code) {
+        this.code = code;
     }
 
-    public String getStatus() {
-        return status;
+    public String getMessage() {
+        return message;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public T getData() {
+        return data;
+    }
+
+    public void setData(T data) {
+        this.data = data;
     }
 }

@@ -2,33 +2,28 @@ package com.example.jobbook.network;
 
 import android.util.SparseArray;
 
+import com.example.jobbook.commons.NetConstants;
+
 /**
  * Created by zhaoxuzhang on 2017/11/4.
  * @author zhaoxuzhang
  */
 
 public class ApiException extends RuntimeException {
-    /**
-     * {
-          "resultCode": 0,
-          "resultMessage": "成功",
-          "data": {}
-       }
-     */
 
-    public static final int SUCCESS = 000;
-
-    public static final int NETWORK_ERROR_CODE = 100;
-    public static final String NETWORK_ERROR_WORD = "网络错误，请检查您的网络状态!";
-    public static final int LOGIN_ERROR_CODE = 201;
-    public static final String LOGIN_ERROR_WORD = "网络错误，请检查您的网络状态!";
-    public static final int WRONG_PASSWORD = 101;
     private static SparseArray<String> errors;
+
+    static {
+        errors = new SparseArray<>();
+        errors.append(NetConstants.NETWORK_ERROR_CODE, NetConstants.NETWORK_ERROR_WORD);
+        errors.append(NetConstants.LOGIN_ERROR_CODE, NetConstants.LOGIN_ERROR_WORD);
+        errors.append(NetConstants.LOGIN_FIRST_ERROR_CODE, NetConstants.LOGIN_FIRST_ERROR_WORD);
+        errors.append(NetConstants.ARTICLE_LIKE_ERROR_CODE, NetConstants.ARTICLE_LIKE_ERROR_WORD);
+        errors.append(NetConstants.ARTICLE_UNLIKE_ERROR_CODE, NetConstants.ARTICLE_UNLIKE_ERROR_WORD);
+    }
 
     public ApiException(int resultCode) {
         this(getApiExceptionMessage(resultCode));
-        errors = new SparseArray<>();
-        errors.append(NETWORK_ERROR_CODE, NETWORK_ERROR_WORD);
     }
 
     private ApiException(String detailMessage) {
