@@ -16,10 +16,16 @@ public class ApiException extends RuntimeException {
     static {
         errors = new SparseArray<>();
         errors.append(NetConstants.NETWORK_ERROR_CODE, NetConstants.NETWORK_ERROR_WORD);
-        errors.append(NetConstants.LOGIN_ERROR_CODE, NetConstants.LOGIN_ERROR_WORD);
-        errors.append(NetConstants.LOGIN_FIRST_ERROR_CODE, NetConstants.LOGIN_FIRST_ERROR_WORD);
+        errors.append(NetConstants.PERSON_LOGIN_ERROR_CODE, NetConstants.PERSON_LOGIN_ERROR_WORD);
+        errors.append(NetConstants.PERSON_AUTO_LOGIN_ERROR_CODE, NetConstants.PERSON_AUTO_LOGIN_ERROR_WORD);
+        errors.append(NetConstants.PERSON_LOGIN_FIRST_ERROR_CODE, NetConstants.PERSON_LOGIN_FIRST_ERROR_WORD);
         errors.append(NetConstants.ARTICLE_LIKE_ERROR_CODE, NetConstants.ARTICLE_LIKE_ERROR_WORD);
         errors.append(NetConstants.ARTICLE_UNLIKE_ERROR_CODE, NetConstants.ARTICLE_UNLIKE_ERROR_WORD);
+        errors.append(NetConstants.CV_UPDATE_ERROR_CODE, NetConstants.CV_UPDATE_ERROR_WORD);
+        errors.append(NetConstants.CV_GET_ERROR_CODE, NetConstants.CV_GET_ERROR_WORD);
+        errors.append(NetConstants.PERSON_REGISTER_ERROR_CODE, NetConstants.PERSON_REGISTER_ERROR_WORD);
+        errors.append(NetConstants.JOB_LIKE_ERROR_CODE, NetConstants.JOB_LIKE_ERROR_WORD);
+        errors.append(NetConstants.JOB_UNLIKE_ERROR_CODE, NetConstants.JOB_UNLIKE_ERROR_WORD);
     }
 
     public ApiException(int resultCode) {
