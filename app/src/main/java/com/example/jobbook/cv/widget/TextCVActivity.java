@@ -300,7 +300,7 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
                 close();
                 break;
             case R.id.text_cv_save_tv:
-                L.i("text_cv", "save");
+                L.i("save");
                 save();
                 break;
             case R.id.text_cv_add_edu_exp_ib:
@@ -375,7 +375,7 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
     }
 
     private void sendImage(MultipartBody.Part pic) {
-        L.i("photo", "sendImage");
+        L.i("sendImage");
         uploadPresenter.uploadAvatar(pic);
     }
 
@@ -423,7 +423,7 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
 
     @Override
     public void loadHead() {
-        L.i("photo", "loadHead1:" + mUri.toString());
+        L.i("loadHead1:" + mUri.toString());
         myApplication.getHandler().sendEmptyMessage(2);
 //        mUserHeadImageView.setImageBitmap(bm);
         Bitmap bm = UploadManager.getBitmapFromUri(getApplication(), mUri);
@@ -493,7 +493,7 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
 
     @Override
     public void eduExpAdmissionError(int id) {
-        L.i("TextCV", "eduExpAdmissionError/" + id);
+        L.i("eduExpAdmissionError/" + id);
         View view = mEduContainerLayout.getChildAt(id);
         mEduDivider = (TextView) view.findViewById(R.id.edu_exp_divider);
         mEduDivider.setBackgroundColor(ContextCompat.getColor(this, R.color.colorPink));
@@ -671,7 +671,7 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
 
     private void setBackgroundRed(final EditText editText, final TextView textView) {
         if (editText == null) {
-            L.i("TextCV", "arguments error!");
+            L.i("arguments error!");
         } else {
 //            editText.setBackground(ContextCompat.getDrawable(this, R.drawable.text_cv_et_red_bg));
             editText.setBackgroundResource(R.drawable.text_cv_et_red_bg);
@@ -681,7 +681,7 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
             if (textView.getText().toString().length() > 2) {
                 editText.setPadding(Util.dip2px(editText.getContext(), 72), 0, 0, Util.dip2px(editText.getContext(), 8));
             } else {
-                L.i("bgred", "<=2");
+                L.i("<=2");
                 editText.setPadding(Util.dip2px(editText.getContext(), 40), 0, 0, Util.dip2px(editText.getContext(), 8));
             }
             editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {

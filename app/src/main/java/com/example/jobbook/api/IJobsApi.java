@@ -10,7 +10,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
-import rx.Observable;
+import io.reactivex.Observable;
 
 import static com.example.jobbook.network.RetrofitService.CACHE_CONTROL_NETWORK_300;
 

@@ -19,7 +19,6 @@ import com.example.jobbook.userdetail.UserDetailMomentAdapter;
 import com.example.jobbook.userdetail.presenter.UserDetailMomentPresenterImpl;
 import com.example.jobbook.userdetail.view.UserDetailMomentView;
 import com.example.jobbook.util.DividerItemDecoration;
-import com.example.jobbook.util.L;
 import com.example.jobbook.util.Util;
 
 import java.util.ArrayList;
@@ -90,7 +89,6 @@ public class UserDetailMomentFragment extends Fragment implements UserDetailMome
     @Override
     public void getAccount(String account) {
         this.account = account;
-        L.i("user_detail_moment", "account:" + this.account);
 //        mPresenter.loadMoments(account);
     }
 

@@ -116,7 +116,6 @@ public class MomentDetailActivity extends Activity implements MomentDetailView, 
         mMomentBean = getIntent().getParcelableExtra("square_detail");
         if (mMomentBean != null) {
             id = mMomentBean.getS_id();
-            L.i("squaredetail_activity", "123:" + mMomentBean.getS_id());
             mPresenter.loadMoment(mMomentBean);
         } else {
             String id = getIntent().getStringExtra("moment_id_from_message");
@@ -173,7 +172,6 @@ public class MomentDetailActivity extends Activity implements MomentDetailView, 
 
     @Override
     public void addMoment(MomentBean mMoment) {
-        L.i("momentdetail", "result:" + mMoment.toString());
         mMomentContentTextView.setText(mMoment.getContent());
         mMomentUserNameTextView.setText(mMoment.getAuthor().getUsername());
         mMomentTimeTextView.setText(mMoment.getDate());
@@ -194,7 +192,7 @@ public class MomentDetailActivity extends Activity implements MomentDetailView, 
 //        mListView.addHeaderView(mHeadView);
 //        Util.setListViewHeightBasedOnChildren(mListView);
         // 加载数据的地方
-        L.i("momentdetailacti", "size:" + mComments.size());
+        L.i("size:" + mComments.size());
         mAdapter.setmShowFooter(true);
         if (list == null) {
             list = new ArrayList<>();
@@ -349,7 +347,7 @@ public class MomentDetailActivity extends Activity implements MomentDetailView, 
         if (oldBottom != 0 && bottom != 0 && (oldBottom - bottom > mKeyBoardHeight)) {
             int dValue = oldBottom - bottom;
             int newHeight = mScreenHeight - dValue;
-            L.i("square_detail", "newHeight:" + newHeight + "Height:" + mScreenHeight + "mTitleBarHeight:" + mTitleBarHeight);
+            L.i("newHeight:" + newHeight + "Height:" + mScreenHeight + "mTitleBarHeight:" + mTitleBarHeight);
 //            mTitleBarLayout.setLayoutParams(new RelativeLayout.LayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.
 //                    MATCH_PARENT, 0, (mTitleBarHeight / newHeight) * 568)));
             mTitleBarLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.
@@ -361,10 +359,6 @@ public class MomentDetailActivity extends Activity implements MomentDetailView, 
             mTitleBarLayout.invalidate();
             mRecyclerView.invalidate();
             mInputLayout.invalidate();
-            L.i("square_detail", "mTitleBarLayout:" + mTitleBarLayout.getHeight());
-            L.i("square_detail", "mRecyclerView:" + mRecyclerView.getHeight());
-            L.i("square_detail", "mInputLayout:" + mInputLayout.getHeight());
-            L.i("square_detail", "软键盘弹起");
 
         } else if (oldBottom != 0 && bottom != 0 && (bottom - oldBottom > mKeyBoardHeight)) {
             mTitleBarLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, 56));
@@ -373,11 +367,6 @@ public class MomentDetailActivity extends Activity implements MomentDetailView, 
             mTitleBarLayout.invalidate();
             mRecyclerView.invalidate();
             mInputLayout.invalidate();
-            L.i("square_detail", "mTitleBarLayout:" + mTitleBarLayout.getHeight());
-            L.i("square_detail", "mRecyclerView:" + mRecyclerView.getHeight());
-            L.i("square_detail", "mInputLayout:" + mInputLayout.getHeight());
-            L.i("square_detail", "软键盘关闭");
-
         }
     }
 
@@ -392,8 +381,6 @@ public class MomentDetailActivity extends Activity implements MomentDetailView, 
             if (newState == RecyclerView.SCROLL_STATE_IDLE
                     && lastVisiableItem + 1 == mAdapter.getItemCount()
                     && mAdapter.ismShowFooter()) {
-                //加载更多
-                L.i("article_fragment", "loading more data");
                 mPresenter.loadMomentComments(id, pageIndex);
             }
         }
@@ -417,7 +404,6 @@ public class MomentDetailActivity extends Activity implements MomentDetailView, 
 
     @Override
     public void onRefresh() {
-        L.i("TAG", "onRefresh");
         pageIndex = 0;
         if (list != null) {
             list.clear();

@@ -31,7 +31,7 @@ public class NotificationBroadcast extends BroadcastReceiver {
         String message = intent.getStringExtra(EXTRA_KEY_MSG);
         int action = intent.getIntExtra(EXTRA_KEY_ACTION,
                 EXTRA_ACTION_NOT_EXIST);
-        L.i("broadcast notification", "receive");
+        L.i("receive");
         try {
             UMessage msg = new UMessage(new JSONObject(message));
             switch (action) {

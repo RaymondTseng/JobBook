@@ -97,7 +97,7 @@ public class SquareFragment extends LazyLoadFragment implements SquareView,
             @Override
             public void onHeadClick(View view, int position) {
                 Bundle bundle = new Bundle();
-                L.i("square_person", mData.get(position).getAuthor().toString());
+                L.i(mData.get(position).getAuthor().toString());
                 bundle.putParcelable("person_bean", mData.get(position).getAuthor());
                 Util.toAnotherActivity(getActivity(), UserDetailActivity.class, bundle);
             }
@@ -149,7 +149,7 @@ public class SquareFragment extends LazyLoadFragment implements SquareView,
                     && lastVisibleItem + 1 == mAdapter.getItemCount()
                     && mAdapter.ismShowFooter()) {
                 //加载更多
-                L.i("square_fragment", "loading more data");
+                L.i("loading more data");
                 mSquarePresenter.loadSquare(pageIndex, MyApplication.getAccount());
             }
         }
@@ -262,7 +262,6 @@ public class SquareFragment extends LazyLoadFragment implements SquareView,
     @Override
     public void onRefresh() {
         mSquarePresenter = new SquarePresenterImpl(this);
-        L.i("TAG", "onRefresh");
         pageIndex = 0;
         if (mData != null) {
             mData.clear();

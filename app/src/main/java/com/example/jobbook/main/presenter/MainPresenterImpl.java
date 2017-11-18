@@ -4,12 +4,12 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.example.jobbook.R;
+import com.example.jobbook.base.IBaseView;
 import com.example.jobbook.bean.PersonBean;
 import com.example.jobbook.main.view.MainView;
+import com.example.jobbook.network.BaseObserver;
 import com.example.jobbook.network.RetrofitService;
 import com.example.jobbook.util.Util;
-
-import rx.Subscriber;
 
 /**
  * Created by Xu on 2016/7/5.
@@ -65,19 +65,14 @@ public class MainPresenterImpl implements MainPresenter {
             personBean = Util.loadPersonBean(share);
             if (personBean != null) {
                 RetrofitService.loginCheck(personBean.getAccount())
-                        .subscribe(new Subscriber<String>() {
+                        .subscribe(new BaseObserver<String>() {
                             @Override
-                            public void onCompleted() {
-
+                            public IBaseView getBaseView() {
+                                return mMainView;
                             }
 
                             @Override
-                            public void onError(Throwable e) {
-                                e.printStackTrace();
-                            }
-
-                            @Override
-                            public void onNext(String resultBean) {
+                            public void onNext(String s) {
                                 mMainView.loginCheckSuccess(personBean);
                             }
                         });

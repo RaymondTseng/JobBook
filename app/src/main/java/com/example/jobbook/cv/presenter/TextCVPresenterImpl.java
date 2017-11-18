@@ -3,18 +3,17 @@ package com.example.jobbook.cv.presenter;
 import android.text.TextUtils;
 
 import com.example.jobbook.MyApplication;
+import com.example.jobbook.base.IBaseView;
 import com.example.jobbook.bean.EducationExpBean;
 import com.example.jobbook.bean.JobExpBean;
 import com.example.jobbook.bean.PersonBean;
 import com.example.jobbook.bean.TextCVBean;
 import com.example.jobbook.commons.Constants;
 import com.example.jobbook.cv.view.TextCVView;
+import com.example.jobbook.network.BaseObserver;
 import com.example.jobbook.network.RetrofitService;
 
 import java.util.List;
-
-import rx.Subscriber;
-import rx.functions.Action0;
 
 /**
  * Created by 椰树 on 2016/9/4.
@@ -77,30 +76,20 @@ public class TextCVPresenterImpl implements TextCVPresenter {
             return;
         }
         RetrofitService.loadCV(account)
-                .doOnSubscribe(new Action0() {
+                .subscribe(new BaseObserver<TextCVBean>() {
                     @Override
-                    public void call() {
-                        mTextCVView.showProgress();
-                    }
-                })
-                .subscribe(new Subscriber<TextCVBean>() {
-                    @Override
-                    public void onCompleted() {
-
+                    public IBaseView getBaseView() {
+                        return mTextCVView;
                     }
 
                     @Override
-                    public void onError(Throwable throwable) {
-                        mTextCVView.hideProgress();
-//                        if(throwable.getMessage().equals("network")){
-                        mTextCVView.networkError();
-//                        }
+                    public void onError(Throwable e) {
+                        super.onError(e);
                         refresh();
                     }
 
                     @Override
                     public void onNext(TextCVBean textCVBean) {
-                        mTextCVView.hideProgress();
                         mTextCVView.load(textCVBean);
                     }
                 });
@@ -116,30 +105,20 @@ public class TextCVPresenterImpl implements TextCVPresenter {
                 return;
             }
             RetrofitService.postCV(account, textCVBean)
-                    .doOnSubscribe(new Action0() {
+                    .subscribe(new BaseObserver<PersonBean>() {
                         @Override
-                        public void call() {
-                            mTextCVView.showProgress();
-                        }
-                    })
-                    .subscribe(new Subscriber<PersonBean>() {
-                        @Override
-                        public void onCompleted() {
-
+                        public IBaseView getBaseView() {
+                            return mTextCVView;
                         }
 
                         @Override
-                        public void onError(Throwable throwable) {
-                            mTextCVView.hideProgress();
-//                        if(throwable.getMessage().equals("network")){
-                            mTextCVView.networkError();
-//                        }
+                        public void onError(Throwable e) {
+                            super.onError(e);
                             refresh();
                         }
 
                         @Override
                         public void onNext(PersonBean personBean) {
-                            mTextCVView.hideProgress();
                             mTextCVView.success(personBean);
                             refresh();
                         }

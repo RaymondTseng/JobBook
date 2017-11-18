@@ -3,15 +3,13 @@ package com.example.jobbook.login.presenter;
 import android.text.TextUtils;
 
 import com.example.jobbook.MyApplication;
-import com.example.jobbook.api.bean.ResultBean;
+import com.example.jobbook.base.IBaseView;
 import com.example.jobbook.bean.PersonBean;
 import com.example.jobbook.bean.PersonWithDeviceTokenBean;
 import com.example.jobbook.login.view.LoginView;
+import com.example.jobbook.network.BaseObserver;
 import com.example.jobbook.network.RetrofitService;
 import com.example.jobbook.util.Util;
-
-import rx.Subscriber;
-import rx.functions.Action0;
 
 /**
  * Created by Xu on 2016/7/7.
@@ -38,43 +36,15 @@ public class LoginPresenterImpl implements LoginPresenter {
         personBean.setPassword(Util.getMD5(password));
         personBean.setDevicetoken(MyApplication.mDevicetoken);
         RetrofitService.login(personBean)
-                .doOnSubscribe(new Action0() {
+                .subscribe(new BaseObserver<PersonBean>() {
                     @Override
-                    public void call() {
-                        mLoginView.showProgress();
-                    }
-                })
-                .subscribe(new Subscriber<ResultBean<PersonBean>>() {
-                    @Override
-                    public void onCompleted() {
-
+                    public IBaseView getBaseView() {
+                        return mLoginView;
                     }
 
                     @Override
-                    public void onError(Throwable throwable) {
-                        throwable.printStackTrace();
-                        mLoginView.hideProgress();
-                        if (throwable.getMessage().contains("java.lang.IllegalStateException: Expected BEGIN_OBJECT")) {
-                            mLoginView.setUserError();
-                        } else {
-                            mLoginView.setNetworkError();
-                        }
-
-                    }
-
-                    @Override
-                    public void onNext(ResultBean<PersonBean> resultBean) {
-                        if (resultBean.getStatus().equals("true")) {
-                            mLoginView.hideProgress();
-                            mLoginView.switch2Person(resultBean.getResponse());
-                        } else {
-                            if (resultBean.getResponse().equals("Login Error!")) {
-                                mLoginView.setUserError();
-                            } else {
-                                mLoginView.setNetworkError();
-                            }
-                        }
-
+                    public void onNext(PersonBean personBean) {
+                        mLoginView.switch2Person(personBean);
                     }
                 });
 

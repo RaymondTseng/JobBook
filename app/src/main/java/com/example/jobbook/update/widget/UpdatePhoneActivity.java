@@ -61,7 +61,7 @@ public class UpdatePhoneActivity extends Activity implements View.OnClickListene
         mCompleteTextView.setOnClickListener(this);
         if(MyApplication.getmLoginStatus() != 0){
             personBean = MyApplication.getmPersonBean();
-            L.i("phone", "result:" + personBean.getAccount());
+            L.i("result:" + personBean.getAccount());
             mOriginalPhoneTextView.setText(personBean.getAccount());
             SMSSDKManager.getInstance().setDefaultDelay(60);
             SMSSDKManager.getInstance().registerTimeListener(this);

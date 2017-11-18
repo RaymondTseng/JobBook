@@ -14,13 +14,8 @@ import com.example.jobbook.util.L;
 import com.example.jobbook.util.Util;
 import com.umeng.message.IUmengRegisterCallback;
 import com.umeng.message.PushAgent;
-import com.zhy.http.okhttp.OkHttpUtils;
 
 import org.litepal.LitePal;
-
-import java.util.concurrent.TimeUnit;
-
-import okhttp3.OkHttpClient;
 
 /**
  * Created by Xu on 2016/8/24.
@@ -140,19 +135,21 @@ public class MyApplication extends Application {
 
         RetrofitService.init();
 
-        OkHttpClient okHttpClient = new OkHttpClient.Builder()
-//                .addInterceptor(new LoggerInterceptor("TAG"))
-                .connectTimeout(50000L, TimeUnit.MILLISECONDS)
-                .readTimeout(50000L, TimeUnit.MILLISECONDS)
-                //其他配置
-                .build();
-
-        OkHttpUtils.initClient(okHttpClient);
+//        OkHttpClient okHttpClient = new OkHttpClient.Builder()
+////                .addInterceptor(new LoggerInterceptor("TAG"))
+//                .connectTimeout(50000L, TimeUnit.MILLISECONDS)
+//                .readTimeout(50000L, TimeUnit.MILLISECONDS)
+//                //其他配置
+//                .build();
+//
+//        OkHttpUtils.initClient(okHttpClient);
 
         CrashHandler crashHandler = CrashHandler.getInstance();
         crashHandler.init(getApplicationContext());
 
         LitePal.initialize(this);
+
+        L.init(true);
 
         mPushAgent = PushAgent.getInstance(this);
 
@@ -167,13 +164,13 @@ public class MyApplication extends Application {
                     @Override
                     public void onSuccess(String deviceToken) {
                         //注册成功会返回device token
-                        L.d("devicetoken", deviceToken);
+                        L.d(deviceToken);
                         mDevicetoken = deviceToken;
                     }
 
                     @Override
                     public void onFailure(String s, String s1) {
-                        L.d("devicetoken", s + s1);
+                        L.d(s + s1);
                     }
                 });
             }

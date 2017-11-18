@@ -13,7 +13,6 @@ import com.example.jobbook.R;
 import com.example.jobbook.bean.PersonBean;
 import com.example.jobbook.bean.TypePersonBean;
 import com.example.jobbook.util.ImageLoadUtils;
-import com.example.jobbook.util.L;
 
 import java.util.List;
 
@@ -52,7 +51,6 @@ public class UserDetailFollowAdapter extends RecyclerView.Adapter<RecyclerView.V
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if(holder instanceof ViewHolder) {
-            L.i("showfanlistadapter", position + "");
             TypePersonBean personBean = mData.get(position);
             if(personBean == null){
                 return;

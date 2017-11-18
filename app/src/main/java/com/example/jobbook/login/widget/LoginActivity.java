@@ -176,6 +176,11 @@ public class LoginActivity extends Activity implements View.OnClickListener, Log
     }
 
     @Override
+    public void showLoadFailMsg(String msg) {
+
+    }
+
+    @Override
     public void setNetworkError() {
         Util.showSnackBar(view, "网络连接错误！", "重试");
     }
@@ -201,7 +206,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, Log
         MyApplication.setmPersonBean(LoginActivity.this, personBean);
         binder.refresh(personBean);
         Util.toAnotherActivity(LoginActivity.this, MainActivity.class);
-        L.i("login", "refresh");
+        L.i("refresh");
         finish();
     }
 

@@ -44,7 +44,7 @@ public class FavouriteArticleFragment extends Fragment implements FavouriteArtic
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_base_lv, container, false);
-        L.i("momentfragment", "create");
+        L.i("create");
         init(view);
         return view;
     }

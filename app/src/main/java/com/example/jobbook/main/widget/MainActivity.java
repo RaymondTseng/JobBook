@@ -202,7 +202,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
 
     @Override
     public void loginCheckTimeOut() {
-        L.i("logincheck", "timeout");
+        L.i("timeout");
     }
 
     @Override
@@ -214,7 +214,6 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        L.i("main", "ondestory");
         MyPushIntentService.listeners.remove(this);
         MyApplication.mSnackBarView = null;
         mBadgeView = null;
@@ -244,7 +243,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        L.i("person_head", "onActivityResult");
+        L.i("onActivityResult");
         super.onActivityResult(requestCode, resultCode, data);
     }
 
@@ -272,6 +271,11 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
 
     @Override
     public void hideProgress() {
+
+    }
+
+    @Override
+    public void showLoadFailMsg(String msg) {
 
     }
 }

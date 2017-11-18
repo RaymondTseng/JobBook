@@ -64,6 +64,11 @@ public class ForgetPwdSecondActivity extends Activity implements ForgetPwdSecond
     }
 
     @Override
+    public void showLoadFailMsg(String msg) {
+
+    }
+
+    @Override
     public void phoneBlankError() {
         Util.showSnackBar(view, "密码不能为空！");
     }

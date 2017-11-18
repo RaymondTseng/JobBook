@@ -125,7 +125,7 @@ public class ShowFanListActivity extends Activity implements ShowFanListView, Vi
     @Override
     public void onFanItemClick(TypePersonBean personBean) {
         Bundle bundle = new Bundle();
-        L.i("showfanlista", personBean.toString());
+        L.i(personBean.toString());
         bundle.putParcelable("person_bean", personBean);
         Util.toAnotherActivity(this, UserDetailActivity.class, bundle);
     }

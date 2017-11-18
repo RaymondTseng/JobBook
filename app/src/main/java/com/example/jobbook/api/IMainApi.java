@@ -4,7 +4,7 @@ import com.example.jobbook.api.bean.ResultBean;
 
 import retrofit2.http.GET;
 import retrofit2.http.Path;
-import rx.Observable;
+import io.reactivex.Observable;
 
 /**
  * Created by zhaoxuzhang on 2017/9/5.

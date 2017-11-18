@@ -22,7 +22,9 @@ import com.example.jobbook.bean.PersonBean;
 import com.example.jobbook.bean.PersonWithDeviceTokenBean;
 import com.example.jobbook.bean.TextCVBean;
 import com.example.jobbook.bean.TypePersonBean;
+import com.example.jobbook.util.JsonUtil;
 import com.example.jobbook.util.L;
+import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import com.orhanobut.logger.Logger;
 
 import java.io.File;
@@ -32,6 +34,12 @@ import java.net.URLDecoder;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import io.reactivex.Observable;
+import io.reactivex.ObservableSource;
+import io.reactivex.ObservableTransformer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
 import okhttp3.Cache;
 import okhttp3.CacheControl;
 import okhttp3.Interceptor;
@@ -40,14 +48,10 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import okhttp3.logging.HttpLoggingInterceptor;
 import okio.Buffer;
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Func1;
-import rx.schedulers.Schedulers;
 
 /**
  * Created by Xu on 2017/6/29.
@@ -56,7 +60,7 @@ import rx.schedulers.Schedulers;
 
 public class RetrofitService {
     // Urls.IP
-    public static String base_url = "http://192.168.0.101/jobBook/index.php/";
+    public static String base_url = "http://192.168.199.195/jobBook/index.php/";
 
     //设缓存有效期为1天
     static final long CACHE_STALE_SEC = 60 * 60 * 24 * 1;
@@ -68,6 +72,9 @@ public class RetrofitService {
     public static final String CACHE_CONTROL_NETWORK_3000 = "Cache-Control: public, max-age=3000";
     // 避免出现 HTTP 403 Forbidden，参考：http://stackoverflow.com/questions/13670692/403-forbidden-with-java-but-not-web-browser
     static final String AVOID_HTTP403_FORBIDDEN = "User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11";
+
+
+    private static ErrorTransformer transformer = new ErrorTransformer();
 
     // 递增页码
     private static final int INCREASE_PAGE = 10;
@@ -92,8 +99,11 @@ public class RetrofitService {
         // 指定缓存路径,缓存大小100Mb
         Cache cache = new Cache(new File(MyApplication.getContext().getCacheDir(), "JobbookCache"),
                 1024 * 1024 * 100);
+        HttpLoggingInterceptor logInterceptor = new HttpLoggingInterceptor(new HttpLogger());
+        logInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient okHttpClient = new OkHttpClient.Builder().cache(cache)
                 .retryOnConnectionFailure(true)
+                .addInterceptor(logInterceptor)
                 .addInterceptor(sLoggingInterceptor)
                 .addInterceptor(sRewriteCacheControlInterceptor)
                 .addNetworkInterceptor(sRewriteCacheControlInterceptor)
@@ -103,11 +113,33 @@ public class RetrofitService {
         getService(okHttpClient);
     }
 
+    private static class HttpLogger implements HttpLoggingInterceptor.Logger {
+        private StringBuilder mMessage = new StringBuilder();
+
+        @Override
+        public void log(String message) {
+            // 请求或者响应开始
+            if (message.startsWith("--> POST")) {
+                mMessage.setLength(0);
+            }
+            // 以{}或者[]形式的说明是响应结果的json数据，需要进行格式化
+            if ((message.startsWith("{") && message.endsWith("}"))
+                    || (message.startsWith("[") && message.endsWith("]"))) {
+                message = JsonUtil.formatJson(message);
+            }
+            mMessage.append(message.concat("\n"));
+            // 请求或者响应结束，打印整条日志
+            if (message.startsWith("<-- END HTTP")) {
+                L.d(mMessage.toString());
+            }
+        }
+    }
+
     private static void getService(OkHttpClient okHttpClient) {
         Retrofit retrofit = new Retrofit.Builder()
                 .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .baseUrl(base_url)
                 .build();
         articlesService = retrofit.create(IArticlesApi.class);
@@ -137,9 +169,9 @@ public class RetrofitService {
             if (NetUtil.isNetworkAvailable(MyApplication.getContext())) {
                 //有网的时候读接口上的@Headers里的配置，你可以在这里进行统一的设置
                 String cacheControl = request.cacheControl().toString();
-                L.i("cacheControl", "is:" + cacheControl);
+                L.i(cacheControl);
                 if ("".equals(cacheControl)) {
-                    L.i("cacheControl", "nocache");
+                    L.i("nocache");
                     return originalResponse.newBuilder()
                             .header("Cache-Control", "no-cache")
                             .removeHeader("Pragma")
@@ -197,11 +229,8 @@ public class RetrofitService {
      */
     public static Observable<List<ArticleBean>> getArticlesList(int type, int page) {
         return articlesService.getArticlesList(type, page)
-                .map(new HttpResultFunc<List<ArticleBean>>())
-                .subscribeOn(Schedulers.io())
-                .unsubscribeOn(Schedulers.io())
-                .subscribeOn(AndroidSchedulers.mainThread())
-                .observeOn(AndroidSchedulers.mainThread());
+                .compose(schedulersTransformer)
+                .compose(transformer);
     }
 
     /**
@@ -211,11 +240,8 @@ public class RetrofitService {
      */
     public static Observable<ArticleBean> getArticleDetail(String a_id, String account) {
         return articlesService.getArticleDetail(a_id, account)
-                .map(new HttpResultFunc<ArticleBean>())
-                .subscribeOn(Schedulers.io())
-                .unsubscribeOn(Schedulers.io())
-                .subscribeOn(AndroidSchedulers.mainThread())
-                .observeOn(AndroidSchedulers.mainThread());
+                .compose(schedulersTransformer)
+                .compose(transformer);
     }
 
     /**
@@ -225,7 +251,7 @@ public class RetrofitService {
      */
     public static Observable<String> like(String a_id, String account) {
         return articlesService.like(a_id, account)
-                .map(new HttpResultFunc<String>())
+                .map(new HandleFunc<String>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())
@@ -239,7 +265,7 @@ public class RetrofitService {
      */
     public static Observable<String> unlike(String a_id, String account) {
         return articlesService.unlike(a_id, account)
-                .map(new HttpResultFunc<String>())
+                .map(new HandleFunc<String>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())
@@ -255,7 +281,7 @@ public class RetrofitService {
      */
     public static Observable<String> feedback(String account, FeedBackBean feedBackBean) {
         return feedBackService.feedBack(account, feedBackBean)
-                .map(new HttpResultFunc<String>())
+                .map(new HandleFunc<String>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())
@@ -271,7 +297,7 @@ public class RetrofitService {
      */
     public static Observable<List<MomentBean>> getFollowSquare(String account, int index) {
         return squareService.getFollowSquare(account, index)
-                .map(new HttpResultFunc<List<MomentBean>>())
+                .map(new HandleFunc<List<MomentBean>>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())
@@ -287,7 +313,7 @@ public class RetrofitService {
      */
     public static Observable<MomentBean> likeSquare(int s_id, String account) {
         return squareService.likeSquare(s_id, account)
-                .map(new HttpResultFunc<MomentBean>())
+                .map(new HandleFunc<MomentBean>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())
@@ -303,7 +329,7 @@ public class RetrofitService {
      */
     public static Observable<MomentBean> unlikeSquare(int s_id, String account) {
         return squareService.unlikeSquare(s_id, account)
-                .map(new HttpResultFunc<MomentBean>())
+                .map(new HandleFunc<MomentBean>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())
@@ -318,7 +344,7 @@ public class RetrofitService {
      */
     public static Observable<List<JobBean>> getRecommendJobsList(int index) {
         return jobsService.getRecommendJobsList(index)
-                .map(new HttpResultFunc<List<JobBean>>())
+                .map(new HandleFunc<List<JobBean>>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())
@@ -334,7 +360,7 @@ public class RetrofitService {
      */
     public static Observable<List<JobBean>> search(int index, String type, String location) {
         return jobsService.search(index, type, location)
-                .map(new HttpResultFunc<List<JobBean>>())
+                .map(new HandleFunc<List<JobBean>>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())
@@ -350,7 +376,7 @@ public class RetrofitService {
      */
     public static Observable<JobDetailBean> getJobDetail(String jobid, String account) {
         return jobsService.getJobDetail(jobid, account)
-                .map(new HttpResultFunc<JobDetailBean>())
+                .map(new HandleFunc<JobDetailBean>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())
@@ -366,7 +392,7 @@ public class RetrofitService {
      */
     public static Observable<String> likeJob(String job_id, String account) {
         return jobsService.like(job_id, account)
-                .map(new HttpResultFunc<String>())
+                .map(new HandleFunc<String>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())
@@ -382,7 +408,7 @@ public class RetrofitService {
      */
     public static Observable<String> unlikeJob(String job_id, String account) {
         return jobsService.unlike(job_id, account)
-                .map(new HttpResultFunc<String>())
+                .map(new HandleFunc<String>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())
@@ -398,7 +424,7 @@ public class RetrofitService {
      */
     public static Observable<String> sendCV(String account, String com_id) {
         return jobsService.sendCV(account, com_id)
-                .map(new HttpResultFunc<String>())
+                .map(new HandleFunc<String>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())
@@ -413,7 +439,7 @@ public class RetrofitService {
      */
     public static Observable<PersonBean> login(PersonWithDeviceTokenBean bean) {
         return personService.login(bean)
-                .map(new HttpResultFunc<PersonBean>())
+                .map(new HandleFunc<PersonBean>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())
@@ -428,7 +454,7 @@ public class RetrofitService {
      */
     public static Observable<String> checkAccount(String phone) {
         return personService.checkAccount(phone)
-                .map(new HttpResultFunc<String>())
+                .map(new HandleFunc<String>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())
@@ -444,7 +470,7 @@ public class RetrofitService {
      */
     public static Observable<String> changePwdComplete(String account, String newpsd) {
         return personService.changePwdComplete(account, newpsd)
-                .map(new HttpResultFunc<String>())
+                .map(new HandleFunc<String>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())
@@ -453,7 +479,7 @@ public class RetrofitService {
 
     public static Observable<String> loginCheck(String account) {
         return mainService.loginCheck(account)
-                .map(new HttpResultFunc<String>())
+                .map(new HandleFunc<String>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())
@@ -462,7 +488,7 @@ public class RetrofitService {
 
     public static Observable<PersonBean> register(PersonWithDeviceTokenBean bean) {
         return personService.register(bean)
-                .map(new HttpResultFunc<PersonBean>())
+                .map(new HandleFunc<PersonBean>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())
@@ -471,7 +497,7 @@ public class RetrofitService {
 
     public static Observable<List<ArticleBean>> loadFavouriteArticles(String account) {
         return personService.loadFavouriteArticles(account)
-                .map(new HttpResultFunc<List<ArticleBean>>())
+                .map(new HandleFunc<List<ArticleBean>>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())
@@ -480,7 +506,7 @@ public class RetrofitService {
 
     public static Observable<List<MessageBean>> getMessages(String account) {
         return personService.getMessages(account)
-                .map(new HttpResultFunc<List<MessageBean>>())
+                .map(new HandleFunc<List<MessageBean>>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())
@@ -489,7 +515,7 @@ public class RetrofitService {
 
     public static Observable<List<TypePersonBean>> loadFanList(String account, String myAccount) {
         return personService.loadFanList(account, myAccount)
-                .map(new HttpResultFunc<List<TypePersonBean>>())
+                .map(new HandleFunc<List<TypePersonBean>>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())
@@ -498,7 +524,7 @@ public class RetrofitService {
 
     public static Observable<String> follow(String myAccount, String hisAccount) {
         return personService.follow(myAccount, hisAccount)
-                .map(new HttpResultFunc<String>())
+                .map(new HandleFunc<String>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())
@@ -507,7 +533,7 @@ public class RetrofitService {
 
     public static Observable<String> unfollow(String myAccount, String hisAccount) {
         return personService.unfollow(myAccount, hisAccount)
-                .map(new HttpResultFunc<String>())
+                .map(new HandleFunc<String>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())
@@ -516,7 +542,7 @@ public class RetrofitService {
 
     public static Observable<List<JobBean>> loadFavouriteJobs(String account) {
         return personService.loadFavouriteJobs(account)
-                .map(new HttpResultFunc<List<JobBean>>())
+                .map(new HandleFunc<List<JobBean>>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())
@@ -525,7 +551,7 @@ public class RetrofitService {
 
     public static Observable<List<TypePersonBean>> loadFollowerList(String account, String myAccount) {
         return personService.loadFollowerList(account, myAccount)
-                .map(new HttpResultFunc<List<TypePersonBean>>())
+                .map(new HandleFunc<List<TypePersonBean>>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())
@@ -534,7 +560,7 @@ public class RetrofitService {
 
     public static Observable<TypePersonBean> loadUserDetailByAccount(String account) {
         return personService.loadUserDetailByAccount(account)
-                .map(new HttpResultFunc<TypePersonBean>())
+                .map(new HandleFunc<TypePersonBean>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())
@@ -543,7 +569,7 @@ public class RetrofitService {
 
     public static Observable<List<MomentBean>> loadMomentList(String hisAccount, String myAccount) {
         return squareService.loadMomentList(hisAccount, myAccount)
-                .map(new HttpResultFunc<List<MomentBean>>())
+                .map(new HandleFunc<List<MomentBean>>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())
@@ -552,7 +578,7 @@ public class RetrofitService {
 
     public static Observable<List<MomentBean>> loadSquares(String account, int index) {
         return squareService.loadSquares(account, index)
-                .map(new HttpResultFunc<List<MomentBean>>())
+                .map(new HandleFunc<List<MomentBean>>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())
@@ -561,7 +587,7 @@ public class RetrofitService {
 
     public static Observable<String> newMoment(MomentBean momentBean) {
         return squareService.newMoment(momentBean)
-                .map(new HttpResultFunc<String>())
+                .map(new HandleFunc<String>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())
@@ -570,7 +596,7 @@ public class RetrofitService {
 
     public static Observable<List<MomentCommentBean>> loadMomentComments(int s_id, int index) {
         return squareService.loadMomentComments(s_id, index)
-                .map(new HttpResultFunc<List<MomentCommentBean>>())
+                .map(new HandleFunc<List<MomentCommentBean>>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())
@@ -579,7 +605,7 @@ public class RetrofitService {
 
     public static Observable<MomentBean> loadMomentById(String account, int s_id) {
         return squareService.loadMomentById(account, s_id)
-                .map(new HttpResultFunc<MomentBean>())
+                .map(new HandleFunc<MomentBean>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())
@@ -588,7 +614,7 @@ public class RetrofitService {
 
     public static Observable<MomentBean> sendComment(MomentCommentBean momentCommentBean) {
         return squareService.sendComment(momentCommentBean)
-                .map(new HttpResultFunc<MomentBean>())
+                .map(new HandleFunc<MomentBean>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())
@@ -597,7 +623,7 @@ public class RetrofitService {
 
     public static Observable<String> uploadAvatar(String account, MultipartBody.Part pic) {
         return personService.uploadAvatar(account, pic)
-                .map(new HttpResultFunc<String>())
+                .map(new HandleFunc<String>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())
@@ -606,7 +632,7 @@ public class RetrofitService {
 
     public static Observable<String> updatePwd(String account, String oldpwd, String newpwd) {
         return personService.updatePwd(account, oldpwd, newpwd)
-                .map(new HttpResultFunc<String>())
+                .map(new HandleFunc<String>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())
@@ -615,7 +641,7 @@ public class RetrofitService {
 
     public static Observable<String> updateTel(String account, String newTel) {
         return personService.updateTel(account, newTel)
-                .map(new HttpResultFunc<String>())
+                .map(new HandleFunc<String>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())
@@ -624,7 +650,7 @@ public class RetrofitService {
 
     public static Observable<String> updateUserName(String account, String newName) {
         return personService.updateUserName(account, newName)
-                .map(new HttpResultFunc<String>())
+                .map(new HandleFunc<String>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())
@@ -633,7 +659,7 @@ public class RetrofitService {
 
     public static Observable<PersonBean> postCV(String account, TextCVBean textCVBean) {
         return textCVService.postCV(account, textCVBean)
-                .map(new HttpResultFunc<PersonBean>())
+                .map(new HandleFunc<PersonBean>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())
@@ -642,7 +668,7 @@ public class RetrofitService {
 
     public static Observable<TextCVBean> loadCV(String account) {
         return textCVService.loadCV(account)
-                .map(new HttpResultFunc<TextCVBean>())
+                .map(new HandleFunc<TextCVBean>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())
@@ -652,18 +678,50 @@ public class RetrofitService {
     /************************************ 类型转换 *******************************************/
 
     /**
+     * 处理线程调度的变换
+     */
+    static ObservableTransformer schedulersTransformer = new ObservableTransformer() {
+        @Override
+        public ObservableSource apply(Observable upstream) {
+            return upstream.subscribeOn(Schedulers.io())
+                    .unsubscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread());
+        }
+    };
+
+    /**
+     * 处理错误的变换
+     * @param <T>
+     */
+    private static class ErrorTransformer<T> implements ObservableTransformer {
+
+        @Override
+        public ObservableSource apply(Observable upstream) {
+            //onErrorResumeNext当发生错误的时候，由另外一个Observable来代替当前的Observable并继续发射数据
+            return upstream.map(new HandleFunc<T>()).onErrorResumeNext(new HttpResponseFunc<T>());
+        }
+    }
+
+    /**
      * 错误统一处理
      *
      * @param <T>
      */
-    private static class HttpResultFunc<T> implements Func1<ResultBean<T>, T> {
+    private static class HandleFunc<T> implements Function<ResultBean<T>, T> {
 
         @Override
-        public T call(ResultBean<T> resultBean) {
+        public T apply(ResultBean<T> resultBean) throws Exception {
             if (resultBean.getCode() != 0) {
-                throw new ApiException(resultBean.getCode());
+                throw new RuntimeException(resultBean.getCode() + "");
             }
             return resultBean.getData();
+        }
+    }
+
+    public static class HttpResponseFunc<T> implements Function<Throwable, Observable<T>> {
+        @Override
+        public Observable<T> apply(Throwable throwable) throws Exception {
+            return Observable.error(ApiException.handleException(throwable));
         }
     }
 

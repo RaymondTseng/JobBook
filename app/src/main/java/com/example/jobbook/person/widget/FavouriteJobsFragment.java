@@ -20,7 +20,6 @@ import com.example.jobbook.person.presenter.FavouriteJobPresenter;
 import com.example.jobbook.person.presenter.FavouriteJobPresenterImpl;
 import com.example.jobbook.person.view.FavouriteJobView;
 import com.example.jobbook.util.DividerItemDecoration;
-import com.example.jobbook.util.L;
 import com.example.jobbook.util.Util;
 
 import java.util.ArrayList;
@@ -44,7 +43,6 @@ public class FavouriteJobsFragment extends Fragment implements FavouriteJobView,
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_base_lv, container, false);
-        L.i("momentfragment", "create");
         init(view);
         return view;
     }

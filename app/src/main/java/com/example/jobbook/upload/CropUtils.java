@@ -56,7 +56,7 @@ public class CropUtils {
                     .buildUpon()
                     .appendPath(name)
                     .build();
-            L.e("crop", uri.toString());
+            L.i(uri.toString());
         }
         return uri;
     }

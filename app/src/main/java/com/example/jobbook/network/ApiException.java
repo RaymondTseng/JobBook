@@ -9,7 +9,7 @@ import com.example.jobbook.commons.NetConstants;
  * @author zhaoxuzhang
  */
 
-public class ApiException extends RuntimeException {
+public class ApiException {
 
     private static SparseArray<String> errors;
 
@@ -28,13 +28,24 @@ public class ApiException extends RuntimeException {
         errors.append(NetConstants.JOB_UNLIKE_ERROR_CODE, NetConstants.JOB_UNLIKE_ERROR_WORD);
     }
 
-    public ApiException(int resultCode) {
-        this(getApiExceptionMessage(resultCode));
+    public static Throwable handleException(Throwable e) {
+        int code = Integer.valueOf(e.getMessage());
+        String message = getApiExceptionMessage(code);
+        ResponseThrowable ex = new ResponseThrowable(e, code);
+        ex.message = message;
+        return ex;
     }
 
-    private ApiException(String detailMessage) {
-        super(detailMessage);
+    public static class ResponseThrowable extends Exception {
+        public int code;
+        public String message;
+
+        public ResponseThrowable(Throwable e, int code) {
+            super(e);
+            this.code = code;
+        }
     }
+
 
     /**
      * 需要根据错误码对错误信息进行一个转换

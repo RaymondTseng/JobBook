@@ -22,7 +22,6 @@ import com.example.jobbook.job.SpinnerTitleAdapter;
 import com.example.jobbook.job.presenter.JobPresenter;
 import com.example.jobbook.job.presenter.JobPresenterImpl;
 import com.example.jobbook.job.view.JobView;
-import com.example.jobbook.search.widget.SearchDialogFragment;
 import com.example.jobbook.util.DividerItemDecoration;
 import com.example.jobbook.util.L;
 import com.example.jobbook.util.LazyLoadFragment;
@@ -75,6 +74,7 @@ public class JobFragment extends LazyLoadFragment implements JobView,
         initEvents();
     }
 
+    @Override
     protected void initViews() {
         mRecyclerView = findViewById(R.id.job_rv);
 //        mSearchImageButton = findViewById(R.id.job_fragment_search_ib);
@@ -132,7 +132,7 @@ public class JobFragment extends LazyLoadFragment implements JobView,
         mCategorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                L.i("category", "itemselected");
+                L.i("itemselected");
                 currentSelection = 1;
                 cursorCheckStatus(currentSelection);
                 if (position == 0) {
@@ -147,7 +147,7 @@ public class JobFragment extends LazyLoadFragment implements JobView,
                     pageIndex = 0;
                     list = null;
                     isRecommend = false;
-                    L.i("jobfragment", "category spinner:" + "isRecommend:" + isRecommend + " mCurrentCategory:" + mCurrentCategory + " mCurrentLocation:" + mCurrentLocation + " pageIndex:" + pageIndex);
+                    L.i("category spinner:" + "isRecommend:" + isRecommend + " mCurrentCategory:" + mCurrentCategory + " mCurrentLocation:" + mCurrentLocation + " pageIndex:" + pageIndex);
                     mJobPresenter.loadJobs(pageIndex, isRecommend, mCurrentCategory, mCurrentLocation);
                 }
             }
@@ -160,7 +160,7 @@ public class JobFragment extends LazyLoadFragment implements JobView,
         mLocationSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                L.i("location", "itemselected");
+                L.i("itemselected");
                 currentSelection = 2;
                 cursorCheckStatus(currentSelection);
                 if (position == 0) {
@@ -175,7 +175,7 @@ public class JobFragment extends LazyLoadFragment implements JobView,
                     pageIndex = 0;
                     list = null;
                     isRecommend = false;
-                    L.i("jobfragment", "location spinner:" + "isRecommend:" + isRecommend + " mCurrentCategory:" + mCurrentCategory + " mCurrentLocation:" + mCurrentLocation + " pageIndex:" + pageIndex);
+                    L.i("location spinner:" + "isRecommend:" + isRecommend + " mCurrentCategory:" + mCurrentCategory + " mCurrentLocation:" + mCurrentLocation + " pageIndex:" + pageIndex);
                     mJobPresenter.loadJobs(pageIndex, isRecommend, mCurrentCategory, mCurrentLocation);
                 }
             }
@@ -223,8 +223,6 @@ public class JobFragment extends LazyLoadFragment implements JobView,
                     && lastVisibleItem + 1 == mAdapter.getItemCount()
                     && mAdapter.ismShowFooter()) {
                 //加载更多
-                L.i("job_fragment", "loading more data");
-                L.i("jobfragment", "scroll:" + "isRecommend:" + isRecommend + " mCurrentCategory:" + mCurrentCategory + " mCurrentLocation:" + mCurrentLocation + " pageIndex:" + pageIndex);
                 mJobPresenter.loadJobs(pageIndex, isRecommend, mCurrentCategory, mCurrentLocation);
             }
         }
@@ -254,13 +252,17 @@ public class JobFragment extends LazyLoadFragment implements JobView,
 //            }
             mAdapter.notifyDataSetChanged();
         }
-        L.i("pageIndex", pageIndex + "");
         pageIndex += Urls.PAZE_SIZE;
     }
 
     @Override
     public void hideProgress() {
         mSwipeRefreshLayout.setRefreshing(false);
+    }
+
+    @Override
+    public void showLoadFailMsg(String msg) {
+
     }
 
     @Override
@@ -279,9 +281,9 @@ public class JobFragment extends LazyLoadFragment implements JobView,
 
     @Override
     public void search() {
-        SearchDialogFragment fragment = new SearchDialogFragment();
-        fragment.show(getActivity().getFragmentManager(), "search_dialog");
-        L.i("jobfragment", "createSearchDialog");
+//        SearchDialogFragment fragment = new SearchDialogFragment();
+//        fragment.show(getActivity().getFragmentManager(), "search_dialog");
+//        L.i("createSearchDialog");
     }
 
 //    @Override
@@ -333,12 +335,10 @@ public class JobFragment extends LazyLoadFragment implements JobView,
 
     @Override
     public void onRefresh() {
-        L.i("TAG", "onRefresh");
         pageIndex = 0;
         if (list != null) {
             list.clear();
         }
-        L.i("jobfragment", "onRefresh:" + "isRecommend:" + isRecommend + " mCurrentCategory:" + mCurrentCategory + " mCurrentLocation:" + mCurrentLocation + " pageIndex:" + pageIndex);
         mJobPresenter.loadJobs(pageIndex, isRecommend, mCurrentCategory, mCurrentLocation);
         mAdapter.notifyDataSetChanged();
     }
@@ -363,7 +363,7 @@ public class JobFragment extends LazyLoadFragment implements JobView,
 ////                    cursorOne.setImageMatrix(matrix);
 //                    animation = new TranslateAnimation(one + offset, offset, 0, 0);  // 设置动画位置
 //                }
-                L.i("JobFragement", "click 0");
+                L.i("click 0");
 //                currentSelection = 0;
                 break;
 
@@ -382,7 +382,6 @@ public class JobFragment extends LazyLoadFragment implements JobView,
 ////                    cursorOne.scrollBy(-one, cursorHeight);
 //                    animation = new TranslateAnimation(two + offset, one + offset, 0, 0);  // 设置动画位置
 //                }
-                L.i("JobFragement", "click 1");
 //                currentSelection = 1;
                 break;
             case 2:
@@ -400,7 +399,7 @@ public class JobFragment extends LazyLoadFragment implements JobView,
 ////                    cursorOne.scrollBy(-one, cursorHeight);
 //                    animation = new TranslateAnimation(one + offset, two + offset, 0, 0);  // 设置动画位置
 //                }
-                L.i("JobFragement", "click 2");
+                L.i("click 2");
 //                currentSelection = 2;
                 if (isInitCursorFirst) {
                     cursorOne.setVisibility(View.VISIBLE);

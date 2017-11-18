@@ -93,7 +93,7 @@ public class GetMessageListViewAdapter extends BaseAdapter {
         }
         viewHolder.content.setText("点击查看");
         viewHolder.time.setText(messageBean.getTime());
-        L.i("getmessage" , "success");
+        L.i("success");
         return view;
     }
 

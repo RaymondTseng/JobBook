@@ -8,10 +8,6 @@ import android.os.Build;
 import android.os.Looper;
 import android.widget.Toast;
 
-import com.example.jobbook.commons.Urls;
-import com.zhy.http.okhttp.OkHttpUtils;
-
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.io.Writer;
@@ -109,7 +105,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
         try {
             Thread.sleep(3000);
         } catch (InterruptedException e) {
-            L.e(TAG, "error : " + e.getMessage());
+            L.e(e, "error : " + e.getMessage());
         }
         return true;
     }
@@ -129,16 +125,16 @@ public class CrashHandler implements UncaughtExceptionHandler {
                 infos.put("versionCode", versionCode);
             }
         } catch (NameNotFoundException e) {
-            L.e(TAG, "an error occured when collect package info" + e.getMessage());
+            L.e(e, "an error occured when collect package info" + e.getMessage());
         }
         Field[] fields = Build.class.getDeclaredFields();
         for (Field field : fields) {
             try {
                 field.setAccessible(true);
                 infos.put(field.getName(), field.get(null).toString());
-                L.d(TAG, field.getName() + " : " + field.get(null));
+                L.d(field.getName() + " : " + field.get(null));
             } catch (Exception e) {
-                L.e(TAG, "an error occured when collect crash info" + e.getMessage());
+                L.e(e, "an error occured when collect crash info" + e.getMessage());
             }
         }
     }
@@ -169,7 +165,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
         printWriter.close();
         String result = writer.toString();
         sb.append(result);
-        L.i(TAG, sb.toString());
+        L.i(sb.toString());
         try {
 //            long timestamp = System.currentTimeMillis();
 //            String time = formatter.format(new Date());
@@ -200,25 +196,25 @@ public class CrashHandler implements UncaughtExceptionHandler {
 //                            }
 //                        });
 //            }
-            L.i(TAG, "start to upload");
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        OkHttpUtils
-                                .postString()
-                                .url(Urls.UPLOAD_ERROR_URL)
-                                .content(sb.toString())
-                                .build()
-                                .execute();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }).start();
-            L.i(TAG, "end to upload");
+            L.i("start to upload");
+//            new Thread(new Runnable() {
+//                @Override
+//                public void run() {
+//                    try {
+//                        OkHttpUtils
+//                                .postString()
+//                                .url(Urls.UPLOAD_ERROR_URL)
+//                                .content(sb.toString())
+//                                .build()
+//                                .execute();
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            }).start();
+            L.i("end to upload");
         } catch (Exception e) {
-            L.e(TAG, "an error occured" + e.getMessage());
+            L.e(e, "an error occured" + e.getMessage());
         }
     }
 }

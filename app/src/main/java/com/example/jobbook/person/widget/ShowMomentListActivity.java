@@ -45,7 +45,7 @@ public class ShowMomentListActivity extends Activity implements ShowMomentListVi
         setContentView(R.layout.activity_momentlist);
         initViews();
         initEvents();
-        L.i("showmoment", "create");
+        L.i("create");
     }
 
     private void initViews() {
@@ -107,7 +107,7 @@ public class ShowMomentListActivity extends Activity implements ShowMomentListVi
     public void onMomentItemClick(MomentBean momentBean) {
         Bundle bundle = new Bundle();
         bundle.putParcelable("square_detail", momentBean);
-        L.i("showmomenlist", momentBean.toString());
+        L.i(momentBean.toString());
         Util.toAnotherActivity(this, MomentDetailActivity.class, bundle);
     }
 }

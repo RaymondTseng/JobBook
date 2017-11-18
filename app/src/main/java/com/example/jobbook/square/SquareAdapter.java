@@ -124,7 +124,7 @@ public class SquareAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             onBindViewHolder(holder, position);
         }else if (holder instanceof ItemViewHolder){
             String playload = (String)playloads.get(0);
-            L.i("playload", playload);
+            L.i(playload);
             MomentBean moment = mData.get(position);
             ((ItemViewHolder) holder).mFavouriteNumbers.setText(moment.getLikesNum() + "");
             ((ItemViewHolder) holder).mCommentNumbers.setText(moment.getCommentNum() + "");
@@ -136,7 +136,7 @@ public class SquareAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 //            viewHolder.mFavouriteNumbers.setText("1");
         }else if (holder instanceof ItemOverSizeViewHolder) {
             String playload = (String)playloads.get(0);
-            L.i("playload", playload);
+            L.i(playload);
             MomentBean moment = mData.get(position);
             ((ItemOverSizeViewHolder) holder).mFavouriteNumbers.setText(moment.getLikesNum() + "");
             ((ItemOverSizeViewHolder) holder).mCommentNumbers.setText(moment.getCommentNum() + "");

@@ -75,7 +75,7 @@ public class RegisterActivity extends Activity implements RegisterView, View.OnC
         mCloseImageButton.setOnClickListener(this);
         mGetCodeButton.setOnClickListener(this);
         mParentLayout.setOnClickListener(this);
-        L.i("registerfragment", "load code:" + Urls.GET_CODE_URL);
+        L.i("load code:" + Urls.GET_CODE_URL);
         SMSSDKManager.getInstance().registerTimeListener(this);
         mLoadingLinearLayout.setVisibility(View.GONE);
     }
@@ -110,7 +110,7 @@ public class RegisterActivity extends Activity implements RegisterView, View.OnC
 
     @Override
     public void networkError() {
-        L.i("registerfragment", "error");
+        L.i("error");
     }
 
     @Override

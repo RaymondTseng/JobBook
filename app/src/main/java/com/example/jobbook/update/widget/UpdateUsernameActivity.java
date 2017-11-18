@@ -71,7 +71,7 @@ public class UpdateUsernameActivity extends Activity implements View.OnClickList
     @Override
     public void close() {
         mMyApplication.getHandler().sendEmptyMessage(1);
-        L.i("updateusername", MyApplication.getmPersonBean().getUsername());
+        L.i(MyApplication.getmPersonBean().getUsername());
         finish();
     }
 

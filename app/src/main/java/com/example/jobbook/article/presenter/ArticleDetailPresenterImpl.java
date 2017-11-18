@@ -2,18 +2,14 @@ package com.example.jobbook.article.presenter;
 
 import com.example.jobbook.MyApplication;
 import com.example.jobbook.article.view.ArticleDetailView;
+import com.example.jobbook.base.IBaseView;
 import com.example.jobbook.bean.ArticleBean;
-import com.example.jobbook.commons.NetConstants;
+import com.example.jobbook.network.BaseObserver;
 import com.example.jobbook.network.RetrofitService;
 
-import java.net.ConnectException;
-import java.net.SocketTimeoutException;
-
-import rx.Subscriber;
-import rx.functions.Action0;
 
 /**
- * Created by 椰树 on 2016/7/16.
+ * @author Xu
  */
 public class ArticleDetailPresenterImpl implements ArticleDetailPresenter {
     private ArticleDetailView mView;
@@ -29,34 +25,15 @@ public class ArticleDetailPresenterImpl implements ArticleDetailPresenter {
             account = MyApplication.getAccount();
         }
         RetrofitService.getArticleDetail(articleId, account)
-                .doOnSubscribe(new Action0() {
-                    @Override
-                    public void call() {
-                        mView.showProgress();
-                    }
-                })
-                .subscribe(new Subscriber<ArticleBean>() {
-                    @Override
-                    public void onCompleted() {
-
-                    }
+                .subscribe(new BaseObserver<ArticleBean>() {
 
                     @Override
-                    public void onError(Throwable e) {
-//                        Logger.e(throwable.getMessage(), throwable);
-                        mView.hideProgress();
-                        if (e instanceof SocketTimeoutException) {
-                            mView.showLoadFailMsg(NetConstants.NETWORK_ERROR_WORD);
-                        } else if (e instanceof ConnectException) {
-                            mView.showLoadFailMsg(NetConstants.NETWORK_ERROR_WORD);
-                        } else {
-                            mView.showLoadFailMsg(e.getMessage());
-                        }
+                    public IBaseView getBaseView() {
+                        return mView;
                     }
 
                     @Override
                     public void onNext(ArticleBean articleBean) {
-                        mView.hideProgress();
                         mView.addArticle(articleBean);
                     }
                 });
@@ -68,39 +45,19 @@ public class ArticleDetailPresenterImpl implements ArticleDetailPresenter {
 
     @Override
     public void like(String articleId) {
-        //        mModel.like(articleId, this);
         String account = "";
         if (MyApplication.getmLoginStatus() == 1) {
             account = MyApplication.getAccount();
         }
         RetrofitService.like(articleId, account)
-                .doOnSubscribe(new Action0() {
+                .subscribe(new BaseObserver<String>() {
                     @Override
-                    public void call() {
-                        mView.showProgress();
-                    }
-                })
-                .subscribe(new Subscriber<String>() {
-                    @Override
-                    public void onCompleted() {
-
+                    public IBaseView getBaseView() {
+                        return mView;
                     }
 
                     @Override
-                    public void onError(Throwable e) {
-                        mView.hideProgress();
-                        if (e instanceof SocketTimeoutException) {
-                            mView.showLoadFailMsg(NetConstants.NETWORK_ERROR_WORD);
-                        } else if (e instanceof ConnectException) {
-                            mView.showLoadFailMsg(NetConstants.NETWORK_ERROR_WORD);
-                        } else {
-                            mView.showLoadFailMsg(e.getMessage());
-                        }
-                    }
-
-                    @Override
-                    public void onNext(String response) {
-                        mView.hideProgress();
+                    public void onNext(String s) {
                         mView.likeSuccess();
                     }
                 });
@@ -108,40 +65,19 @@ public class ArticleDetailPresenterImpl implements ArticleDetailPresenter {
 
     @Override
     public void unlike(String articleId) {
-//        mModel.unlike(articleId, this);
         String account = "";
         if (MyApplication.getmLoginStatus() == 1) {
             account = MyApplication.getAccount();
         }
         RetrofitService.unlike(articleId, account)
-                .doOnSubscribe(new Action0() {
+                .subscribe(new BaseObserver<String>() {
                     @Override
-                    public void call() {
-                        mView.showProgress();
-                    }
-                })
-                .subscribe(new Subscriber<String>() {
-                    @Override
-                    public void onCompleted() {
-
+                    public IBaseView getBaseView() {
+                        return mView;
                     }
 
                     @Override
-                    public void onError(Throwable e) {
-//                        Logger.e(throwable.getMessage(), throwable);
-                        mView.hideProgress();
-                        if (e instanceof SocketTimeoutException) {
-                            mView.showLoadFailMsg(NetConstants.NETWORK_ERROR_WORD);
-                        } else if (e instanceof ConnectException) {
-                            mView.showLoadFailMsg(NetConstants.NETWORK_ERROR_WORD);
-                        } else {
-                            mView.showLoadFailMsg(e.getMessage());
-                        }
-                    }
-
-                    @Override
-                    public void onNext(String response) {
-                        mView.hideProgress();
+                    public void onNext(String s) {
                         mView.unlikeSuccess();
                     }
                 });

@@ -105,7 +105,6 @@ public class ArticleDetailActivity extends Activity implements ArticleDetailView
         mArticleContentTextView.setHtml(StringEscapeUtils.unescapeHtml4(mArticle.getContent()), new HtmlHttpImageGetter(mArticleContentTextView));
         mTimeTextView.setText(mArticle.getDate());
         if (MyApplication.getmLoginStatus() == 1) {
-            L.i("like_status", bean.isIfLike() + "");
             if (bean.isIfLike() == 0) {
                 mLikeImageButton.setImageResource(R.mipmap.favourite);
             } else {
@@ -167,13 +166,13 @@ public class ArticleDetailActivity extends Activity implements ArticleDetailView
 
     @OnClick(R.id.article_detail_like_ib)
     public void click_like() {
-        L.i("like_ib_click", "status:" + bean.isIfLike());
+        L.i("status:" + bean.isIfLike());
         if (bean.isIfLike() == 0) {
-            L.i("like_ib_click", "click like");
+            L.i("click like");
 //                    mLikeImageButton.setImageResource(R.mipmap.favourite);
             like(bean.getArticle_id());
         } else {
-            L.i("like_ib_click", "click unlike");
+            L.i("click unlike");
 //                    mLikeImageButton.setImageResource(R.mipmap.favourite_white);
             unlike(bean.getArticle_id());
         }
@@ -187,14 +186,14 @@ public class ArticleDetailActivity extends Activity implements ArticleDetailView
                 finish();
                 break;
             case R.id.article_detail_like_ib:
-                L.i("like_ib_click", "status:" + bean.isIfLike());
+                L.i("status:" + bean.isIfLike());
                 if (bean.isIfLike() == 0) {
-                    L.i("like_ib_click", "click like");
+                    L.i("click like");
 //                    mLikeImageButton.setImageResource(R.mipmap.favourite);
                     like(bean.getArticle_id());
 
                 } else {
-                    L.i("like_ib_click", "click unlike");
+                    L.i("click unlike");
 //                    mLikeImageButton.setImageResource(R.mipmap.favourite_white);
                     unlike(bean.getArticle_id());
                 }

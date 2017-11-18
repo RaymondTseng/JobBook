@@ -11,7 +11,6 @@ import android.widget.TextView;
 import com.example.jobbook.R;
 import com.example.jobbook.bean.MomentCommentBean;
 import com.example.jobbook.util.ImageLoadUtils;
-import com.example.jobbook.util.L;
 
 import java.util.List;
 
@@ -78,7 +77,6 @@ public class MomentDetailCommentListViewAdapter extends RecyclerView.Adapter<Rec
         if(getItemViewType(position) == TYPE_HEADER) return;
         if(getItemViewType(position) == TYPE_FOOTER) return;
         if(holder instanceof ItemViewHolder) {
-            L.i("commentadpterposition", position + "");
             position = getRealPosition(holder);
             MomentCommentBean comment = mData.get(position);
             if(comment == null){
@@ -92,7 +90,6 @@ public class MomentDetailCommentListViewAdapter extends RecyclerView.Adapter<Rec
 
     private int getRealPosition(RecyclerView.ViewHolder holder){
         int position = holder.getLayoutPosition();
-        L.i("commentadpter", "result:" + position);
 //        if(mShowHeader && mShowFooter){
 //            return position - 2;
 //        }else if(mShowFooter || mShowHeader){

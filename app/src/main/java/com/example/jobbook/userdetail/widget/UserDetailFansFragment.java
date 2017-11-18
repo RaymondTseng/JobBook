@@ -19,7 +19,6 @@ import com.example.jobbook.userdetail.presenter.UserDetailFansPresenter;
 import com.example.jobbook.userdetail.presenter.UserDetailFansPresenterImpl;
 import com.example.jobbook.userdetail.view.UserDetailFansView;
 import com.example.jobbook.util.DividerItemDecoration;
-import com.example.jobbook.util.L;
 import com.example.jobbook.util.Util;
 
 import java.util.ArrayList;
@@ -104,7 +103,6 @@ public class UserDetailFansFragment extends Fragment implements UserDetailFansVi
     @Override
     public void onFanItemClick(TypePersonBean personBean) {
         Bundle bundle = new Bundle();
-        L.i("userdetailfans", personBean.toString());
         bundle.putParcelable("person_bean", personBean);
         Util.toAnotherActivity(getActivity(), UserDetailActivity.class, bundle);
     }

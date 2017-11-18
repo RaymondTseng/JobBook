@@ -1,14 +1,13 @@
 package com.example.jobbook.moment.presenter;
 
+import com.example.jobbook.base.IBaseView;
 import com.example.jobbook.bean.MomentBean;
 import com.example.jobbook.bean.MomentCommentBean;
 import com.example.jobbook.moment.view.MomentDetailView;
+import com.example.jobbook.network.BaseObserver;
 import com.example.jobbook.network.RetrofitService;
 
 import java.util.List;
-
-import rx.Subscriber;
-import rx.functions.Action0;
 
 /**
  * Created by 椰树 on 2016/7/16.
@@ -27,7 +26,7 @@ public class MomentDetailPresenterImpl implements MomentDetailPresenter {
             mView.addMoment(momentBean);
             mView.hideProgress();
         } else {
-            mView.showLoadFailMsg(0);
+            mView.showLoadFailMsg("123");
             mView.hideProgress();
         }
     }
@@ -35,27 +34,14 @@ public class MomentDetailPresenterImpl implements MomentDetailPresenter {
     @Override
     public void loadMomentById(int id, String account) {
         RetrofitService.loadMomentById(account, id)
-                .doOnSubscribe(new Action0() {
+                .subscribe(new BaseObserver<MomentBean>() {
                     @Override
-                    public void call() {
-                        mView.showProgress();
-                    }
-                })
-                .subscribe(new Subscriber<MomentBean>() {
-                    @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable throwable) {
-                        mView.hideProgress();
-                        mView.showLoadFailMsg(0);
+                    public IBaseView getBaseView() {
+                        return mView;
                     }
 
                     @Override
                     public void onNext(MomentBean momentBean) {
-                        mView.hideProgress();
                         mView.addMoment(momentBean);
                     }
                 });
@@ -65,28 +51,15 @@ public class MomentDetailPresenterImpl implements MomentDetailPresenter {
     @Override
     public void loadMomentComments(int id, int index) {
         RetrofitService.loadMomentComments(id, index)
-                .doOnSubscribe(new Action0() {
+                .subscribe(new BaseObserver<List<MomentCommentBean>>() {
                     @Override
-                    public void call() {
-                        mView.showProgress();
-                    }
-                })
-                .subscribe(new Subscriber<List<MomentCommentBean>>() {
-                    @Override
-                    public void onCompleted() {
-
+                    public IBaseView getBaseView() {
+                        return mView;
                     }
 
                     @Override
-                    public void onError(Throwable throwable) {
-                        mView.hideProgress();
-                        mView.showLoadFailMsg(0);
-                    }
-
-                    @Override
-                    public void onNext(List<MomentCommentBean> mComments) {
-                        mView.hideProgress();
-                        mView.addComments(mComments);
+                    public void onNext(List<MomentCommentBean> momentCommentBeans) {
+                        mView.addComments(momentCommentBeans);
                     }
                 });
     }
@@ -94,27 +67,14 @@ public class MomentDetailPresenterImpl implements MomentDetailPresenter {
     @Override
     public void sendComment(MomentCommentBean momentCommentBean) {
         RetrofitService.sendComment(momentCommentBean)
-                .doOnSubscribe(new Action0() {
+                .subscribe(new BaseObserver<MomentBean>() {
                     @Override
-                    public void call() {
-                        mView.showProgress();
-                    }
-                })
-                .subscribe(new Subscriber<MomentBean>() {
-                    @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable throwable) {
-                        mView.hideProgress();
-                        mView.showLoadFailMsg(0);
+                    public IBaseView getBaseView() {
+                        return mView;
                     }
 
                     @Override
                     public void onNext(MomentBean momentBean) {
-                        mView.hideProgress();
                         mView.sendSuccess(momentBean);
                     }
                 });
@@ -123,27 +83,14 @@ public class MomentDetailPresenterImpl implements MomentDetailPresenter {
     @Override
     public void commentLike(int s_id, String account) {
         RetrofitService.likeSquare(s_id, account)
-                .doOnSubscribe(new Action0() {
+                .subscribe(new BaseObserver<MomentBean>() {
                     @Override
-                    public void call() {
-                        mView.showProgress();
-                    }
-                })
-                .subscribe(new Subscriber<MomentBean>() {
-                    @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable throwable) {
-                        mView.hideProgress();
-                        mView.likeFailure(throwable.getMessage());
+                    public IBaseView getBaseView() {
+                        return mView;
                     }
 
                     @Override
                     public void onNext(MomentBean momentBean) {
-                        mView.hideProgress();
                         mView.likeSuccess(momentBean);
                     }
                 });
@@ -152,27 +99,14 @@ public class MomentDetailPresenterImpl implements MomentDetailPresenter {
     @Override
     public void commentUnlike(int s_id, String account) {
         RetrofitService.unlikeSquare(s_id, account)
-                .doOnSubscribe(new Action0() {
+                .subscribe(new BaseObserver<MomentBean>() {
                     @Override
-                    public void call() {
-                        mView.showProgress();
-                    }
-                })
-                .subscribe(new Subscriber<MomentBean>() {
-                    @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable throwable) {
-                        mView.hideProgress();
-                        mView.unlikeFailure(throwable.getMessage());
+                    public IBaseView getBaseView() {
+                        return mView;
                     }
 
                     @Override
                     public void onNext(MomentBean momentBean) {
-                        mView.hideProgress();
                         mView.unlikeSuccess(momentBean);
                     }
                 });

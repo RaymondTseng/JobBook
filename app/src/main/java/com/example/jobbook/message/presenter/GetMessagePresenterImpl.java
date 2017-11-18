@@ -1,13 +1,12 @@
 package com.example.jobbook.message.presenter;
 
+import com.example.jobbook.base.IBaseView;
 import com.example.jobbook.bean.MessageBean;
 import com.example.jobbook.message.view.GetMessageView;
+import com.example.jobbook.network.BaseObserver;
 import com.example.jobbook.network.RetrofitService;
 
 import java.util.List;
-
-import rx.Subscriber;
-import rx.functions.Action0;
 
 /**
  * Created by Xu on 2016/12/9.
@@ -24,28 +23,15 @@ public class GetMessagePresenterImpl implements GetMessagePresenter {
     @Override
     public void getMessage(String account) {
         RetrofitService.getMessages(account)
-                .doOnSubscribe(new Action0() {
+                .subscribe(new BaseObserver<List<MessageBean>>() {
                     @Override
-                    public void call() {
-                        view.showProgress();
-                    }
-                })
-                .subscribe(new Subscriber<List<MessageBean>>() {
-                    @Override
-                    public void onCompleted() {
-
+                    public IBaseView getBaseView() {
+                        return view;
                     }
 
                     @Override
-                    public void onError(Throwable e) {
-                        view.showLoadFailMsg();
-                        view.hideProgress();
-                    }
-
-                    @Override
-                    public void onNext(List<MessageBean> messageBeen) {
-                        view.hideProgress();
-                        view.getMessage(messageBeen);
+                    public void onNext(List<MessageBean> messageBeans) {
+                        view.getMessage(messageBeans);
                     }
                 });
     }

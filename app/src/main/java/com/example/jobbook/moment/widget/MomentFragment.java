@@ -57,7 +57,7 @@ public class MomentFragment extends Fragment implements View.OnClickListener, Vi
         view = inflater.inflate(R.layout.fragment_moment, container, false);
         initViews(view);
         initEvents();
-        L.i("momentfragment", "create");
+        L.i("create");
         return view;
     }
 

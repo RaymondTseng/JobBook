@@ -113,12 +113,12 @@ public class JobDetailActivity extends Activity implements View.OnClickListener,
                 break;
             case R.id.job_detail_like_ib:
                 if (jobDetailBean.isIfLike() == 0) {
-                    L.i("like_ib_click", "click like");
+                    L.i("click like");
 //                    mLikeImageButton.setImageResource(R.mipmap.favourite);
                     like(jobBean.getId());
 
                 } else {
-                    L.i("like_ib_click", "click unlike");
+                    L.i("click unlike");
 //                    mLikeImageButton.setImageResource(R.mipmap.favourite_white);
                     unlike(jobBean.getId());
                 }
@@ -158,7 +158,7 @@ public class JobDetailActivity extends Activity implements View.OnClickListener,
     @Override
     public void addJob(JobDetailBean jobDetailBean) {
         this.jobDetailBean = jobDetailBean;
-        L.i("job_detail", jobDetailBean.getCompany().toString());
+        L.i(jobDetailBean.getCompany().toString());
 //        ImageLoadUtils.display(this, mCompanyImageView, jobDetailBean.getCompany().getLogo());
         mJobNameTextView.setText(jobDetailBean.getName());
         mJobLocationTextView.setText(jobDetailBean.getLocation());
@@ -172,7 +172,7 @@ public class JobDetailActivity extends Activity implements View.OnClickListener,
         String welfare = jobDetailBean.getCompany().getWelfare().replace(",", " • ");
         mBenefitTextView.setText(welfare);
         if (MyApplication.getmLoginStatus() == 1) {
-            L.i("like_status", jobDetailBean.isIfLike() + "");
+            L.i(jobDetailBean.isIfLike() + "");
             if (jobDetailBean.isIfLike() == 0) {
                 mLikeImageButton.setImageResource(R.mipmap.favourite_white);
             } else {
@@ -184,6 +184,11 @@ public class JobDetailActivity extends Activity implements View.OnClickListener,
     @Override
     public void hideProgress() {
         mLoadingLinearLayout.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showLoadFailMsg(String msg) {
+
     }
 
     @Override

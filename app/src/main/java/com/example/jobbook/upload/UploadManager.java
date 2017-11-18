@@ -108,8 +108,8 @@ public class UploadManager {
             return MediaStore.Images.Media.getBitmap(
                     context.getContentResolver(), uri);
         } catch (Exception e) {
-            L.e("[Android]", e.getMessage());
-            L.e("[Android]", "目录为：" + uri);
+            L.e(e, e.getMessage());
+            L.e(e, "目录为：" + uri);
             e.printStackTrace();
             return null;
         }
@@ -124,8 +124,8 @@ public class UploadManager {
         try {
             return new File(new URI(uri.toString()));
         } catch (Exception e) {
-            L.e("[Android]", e.getMessage());
-            L.e("[Android]", "目录为：" + uri);
+            L.e(e, e.getMessage());
+            L.e(e, "目录为：" + uri);
             e.printStackTrace();
             return null;
         }

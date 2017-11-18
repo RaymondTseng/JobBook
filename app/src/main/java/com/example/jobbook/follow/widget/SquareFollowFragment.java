@@ -96,7 +96,7 @@ public class SquareFollowFragment extends LazyLoadFragment implements SquareFoll
             @Override
             public void onHeadClick(View view, int position) {
                 Bundle bundle = new Bundle();
-                L.i("square_person", mData.get(position).getAuthor().toString());
+                L.i(mData.get(position).getAuthor().toString());
                 bundle.putParcelable("person_bean", mData.get(position).getAuthor());
                 Util.toAnotherActivity(getActivity(), UserDetailActivity.class, bundle);
             }
@@ -148,7 +148,6 @@ public class SquareFollowFragment extends LazyLoadFragment implements SquareFoll
                     && lastVisibleItem + 1 == mAdapter.getItemCount()
                     && mAdapter.ismShowFooter()) {
                 //加载更多
-                L.i("square_fragment", "loading more data");
                 if(MyApplication.getmLoginStatus() != 0){
                     mSquareFollowPresenter.loadSquareFollows(pageIndex);
                 }else{
@@ -194,13 +193,17 @@ public class SquareFollowFragment extends LazyLoadFragment implements SquareFoll
 //            }
             mAdapter.notifyDataSetChanged();
         }
-        L.i("data0", mData.get(0).getIfLike() + "");
         pageIndex += Urls.PAZE_SIZE;
     }
 
     @Override
     public void hideProgress() {
         mSwipeRefreshLayout.setRefreshing(false);
+    }
+
+    @Override
+    public void showLoadFailMsg(String msg) {
+
     }
 
     @Override
@@ -260,7 +263,6 @@ public class SquareFollowFragment extends LazyLoadFragment implements SquareFoll
 
     @Override
     public void onRefresh() {
-        L.i("TAG", "onRefresh");
         pageIndex = 0;
         if (mData != null) {
             mData.clear();

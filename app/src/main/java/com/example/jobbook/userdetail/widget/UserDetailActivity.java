@@ -137,7 +137,6 @@ public class UserDetailActivity extends AppCompatActivity implements View.OnClic
         mPresenter = new UserDetailPresenterImpl(this);
         mPersonBean = getIntent().getParcelableExtra("person_bean");
         if (mPersonBean != null) {
-            L.i("userdetail", mPersonBean.toString());
             ((UserDetailMomentFragment) mFragemnts.get(0)).getAccount(mPersonBean.getAccount());
             ((UserDetailFollowFragment) mFragemnts.get(1)).getAccount(mPersonBean.getAccount());
             ((UserDetailFansFragment) mFragemnts.get(2)).getAccount(mPersonBean.getAccount());
@@ -181,7 +180,6 @@ public class UserDetailActivity extends AppCompatActivity implements View.OnClic
                 break;
             case R.id.user_detail_follow_ll:
                 if (MyApplication.getmLoginStatus() != 0) {
-                    L.i("userdetail", "personbean: " + mPersonBean.getAccount() + " localaccount:" + MyApplication.getAccount());
                     if (mPersonBean.getAccount().equals(MyApplication.getAccount())) {
                         Util.showSnackBar(view, "不能关注自己~");
                     } else {
@@ -250,7 +248,7 @@ public class UserDetailActivity extends AppCompatActivity implements View.OnClic
 
     @Override
     public void followSuccess() {
-        L.i("user_detail", "follow success");
+        L.i("follow success");
         mPresenter.loadUserDetailByAccount(MyApplication.getAccount());
         mFocusTextView.setText("取消关注");
         mFocusTextView.setTextColor(this.getResources().getColor(R.color.colorPink));
@@ -267,7 +265,6 @@ public class UserDetailActivity extends AppCompatActivity implements View.OnClic
     @Override
     public void unfollowSuccess() {
         mPresenter.loadUserDetailByAccount(MyApplication.getAccount());
-        L.i("user_detail", "unfollow success");
         mFocusTextView.setText("关注");
         mFocusTextView.setTextColor(this.getResources().getColor(R.color.colorBlue));
         mFocusImageView.setImageResource(R.mipmap.add_24_dp);
@@ -298,8 +295,6 @@ public class UserDetailActivity extends AppCompatActivity implements View.OnClic
 
 
     private void setData(TypePersonBean personBean) {
-        L.i("userdetail", "typeperson: " + personBean.toString());
-        L.i("userdetail", "person:" + personBean.getAccount() + " myapp:" + MyApplication.getAccount());
         if (personBean.getAccount().equals(MyApplication.getAccount())) {
             MyApplication.setmPersonBean(this, personBean);
             if (isSelf) {

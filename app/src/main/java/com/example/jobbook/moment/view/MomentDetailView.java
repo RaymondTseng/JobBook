@@ -1,5 +1,6 @@
 package com.example.jobbook.moment.view;
 
+import com.example.jobbook.base.IBaseView;
 import com.example.jobbook.bean.MomentBean;
 import com.example.jobbook.bean.MomentCommentBean;
 
@@ -8,19 +9,13 @@ import java.util.List;
 /**
  * Created by 椰树 on 2016/7/16.
  */
-public interface MomentDetailView {
-
-    void showProgress();
+public interface MomentDetailView extends IBaseView {
 
     void addMoment(MomentBean mMoment);
 
     void addComments(List<MomentCommentBean> mComments);
 
     void sendSuccess(MomentBean momentBean);
-
-    void hideProgress();
-
-    void showLoadFailMsg(int error);
 
     String getComment();
 

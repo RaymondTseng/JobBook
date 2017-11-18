@@ -96,10 +96,10 @@ public class ArticleFragment extends LazyLoadFragment implements ArticleView, Vi
 //        mBlankLayout = findViewById(R.id.article_blank_ll);
 //        mTitleTextView = findViewById(R.id.article_title_tv);
 //        mRecyclerView = findViewById(R.id.article_rv);
-//        mSwipeRefreshLayout = findViewById(R.id.article_swipe_container);
+        mSwipeRefreshLayout = findViewById(R.id.article_swipe_container);
 //        mDropImageButton = findViewById(R.id.article_title_drop_ib);
         radioGroup = (RadioGroup) mMenuView.findViewById(R.id.article_title_rg);
-        L.i("article", "initViews");
+        L.i("initViews");
     }
 
     private void initEvents() {
@@ -237,28 +237,28 @@ public class ArticleFragment extends LazyLoadFragment implements ArticleView, Vi
 //                presenter.loadArticles(pageIndex, Constants.INDEX_ARTICLE_ALL);
                     currentType = Constants.INDEX_ARTICLE_ALL;
                     onRefresh();
-                    L.i("all", "change");
+                    L.i("change");
                     break;
                 case R.id.article_title_engagement_rb:
                     mTitleTextView.setText(Constants.ARTICLE_ENGAGEMENT);
 //                presenter.loadArticles(pageIndex, Constants.INDEX_ARTICLE_ENGAGEMENT);
                     currentType = Constants.INDEX_ARTICLE_ENGAGEMENT;
                     onRefresh();
-                    L.i("engagement", "change");
+                    L.i("change");
                     break;
                 case R.id.article_title_politic_rb:
                     mTitleTextView.setText(Constants.ARTICLE_POLITIC);
 //                presenter.loadArticles(pageIndex, Constants.INDEX_ARTICLE_POLITIC);
                     currentType = Constants.INDEX_ARTICLE_POLITIC;
                     onRefresh();
-                    L.i("politic", "change");
+                    L.i("change");
                     break;
                 case R.id.article_title_life_rb:
                     mTitleTextView.setText(Constants.ARTICLE_LIFE);
 //                presenter.loadArticles(pageIndex, Constants.INDEX_ARTICLE_LIFE);
                     currentType = Constants.INDEX_ARTICLE_LIFE;
                     onRefresh();
-                    L.i("life", "change");
+                    L.i("change");
                     break;
                 default:
                     break;
@@ -275,28 +275,28 @@ public class ArticleFragment extends LazyLoadFragment implements ArticleView, Vi
 //                presenter.loadArticles(pageIndex, Constants.INDEX_ARTICLE_ALL);
                 currentType = Constants.INDEX_ARTICLE_ALL;
                 onRefresh();
-                L.i("all", "change");
+                L.i("change");
                 break;
             case R.id.article_title_engagement_rb:
                 mTitleTextView.setText(Constants.ARTICLE_ENGAGEMENT);
 //                presenter.loadArticles(pageIndex, Constants.INDEX_ARTICLE_ENGAGEMENT);
                 currentType = Constants.INDEX_ARTICLE_ENGAGEMENT;
                 onRefresh();
-                L.i("engagement", "change");
+                L.i("change");
                 break;
             case R.id.article_title_politic_rb:
                 mTitleTextView.setText(Constants.ARTICLE_POLITIC);
 //                presenter.loadArticles(pageIndex, Constants.INDEX_ARTICLE_POLITIC);
                 currentType = Constants.INDEX_ARTICLE_POLITIC;
                 onRefresh();
-                L.i("politic", "change");
+                L.i("change");
                 break;
             case R.id.article_title_life_rb:
                 mTitleTextView.setText(Constants.ARTICLE_LIFE);
 //                presenter.loadArticles(pageIndex, Constants.INDEX_ARTICLE_LIFE);
                 currentType = Constants.INDEX_ARTICLE_LIFE;
                 onRefresh();
-                L.i("life", "change");
+                L.i("change");
                 break;
         }
     }
@@ -322,7 +322,7 @@ public class ArticleFragment extends LazyLoadFragment implements ArticleView, Vi
                     && lastVisiableItem + 1 == adapter.getItemCount()
                     && adapter.ismShowFooter()) {
                 //加载更多
-                L.i("article_fragment", "loading more data");
+                L.i("loading more data");
                 presenter.loadArticles(pageIndex, Constants.INDEX_ARTICLE_ALL);
             }
         }
@@ -353,7 +353,7 @@ public class ArticleFragment extends LazyLoadFragment implements ArticleView, Vi
 
     @Override
     public void onRefresh() {
-        L.i("Article_TAG", "onRefresh");
+        L.i("onRefresh");
         pageIndex = 0;
         if (list != null) {
             list.clear();

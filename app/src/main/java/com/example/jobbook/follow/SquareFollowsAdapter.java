@@ -110,7 +110,6 @@ public class SquareFollowsAdapter extends RecyclerView.Adapter<RecyclerView.View
             onBindViewHolder(holder, position);
         } else if (holder instanceof ItemViewHolder){
             String playload = (String) playloads.get(0);
-            L.i("playload", playload);
             MomentBean moment = mData.get(position);
             ((ItemViewHolder) holder).mFavouriteNumbers.setText(moment.getLikesNum() + "");
             ((ItemViewHolder) holder).mCommentNumbers.setText(moment.getCommentNum() + "");
@@ -122,7 +121,6 @@ public class SquareFollowsAdapter extends RecyclerView.Adapter<RecyclerView.View
 //            viewHolder.mFavouriteNumbers.setText("1");
         } else if (holder instanceof ItemOverSizeViewHolder) {
             String playload = (String) playloads.get(0);
-            L.i("playload", playload);
             MomentBean moment = mData.get(position);
             ((ItemOverSizeViewHolder) holder).mFavouriteNumbers.setText(moment.getLikesNum() + "");
             ((ItemOverSizeViewHolder) holder).mCommentNumbers.setText(moment.getCommentNum() + "");

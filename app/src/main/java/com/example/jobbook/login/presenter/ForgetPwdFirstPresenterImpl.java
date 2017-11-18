@@ -3,13 +3,11 @@ package com.example.jobbook.login.presenter;
 import android.content.Context;
 import android.text.TextUtils;
 
-import com.example.jobbook.api.bean.ResultBean;
+import com.example.jobbook.base.IBaseView;
 import com.example.jobbook.login.view.ForgetPwdFirstView;
+import com.example.jobbook.network.BaseObserver;
 import com.example.jobbook.network.RetrofitService;
 import com.example.jobbook.util.SMSSDKManager;
-
-import rx.Subscriber;
-import rx.functions.Action0;
 
 /**
  * Created by 椰树 on 2016/9/14.
@@ -17,44 +15,28 @@ import rx.functions.Action0;
 public class ForgetPwdFirstPresenterImpl implements ForgetPwdFirstPresenter {
     private ForgetPwdFirstView mView;
 
-    public ForgetPwdFirstPresenterImpl(ForgetPwdFirstView mView){
+    public ForgetPwdFirstPresenterImpl(ForgetPwdFirstView mView) {
         this.mView = mView;
     }
 
     @Override
     public void checkAccount(String phone) {
-        if(TextUtils.isEmpty(phone)) {
+        mView.showProgress();
+        if (TextUtils.isEmpty(phone)) {
             mView.hideProgress();
             mView.phoneBlankError();
+            return;
         } else {
             RetrofitService.checkAccount(phone)
-                    .doOnSubscribe(new Action0() {
+                    .subscribe(new BaseObserver<String>() {
                         @Override
-                        public void call() {
-                            mView.showProgress();
-                        }
-                    })
-                    .subscribe(new Subscriber<ResultBean<String>>() {
-                        @Override
-                        public void onCompleted() {
-
+                        public IBaseView getBaseView() {
+                            return mView;
                         }
 
                         @Override
-                        public void onError(Throwable e) {
-                            mView.hideProgress();
-                            mView.checkFailure(1);
-                        }
-
-                        @Override
-                        public void onNext(ResultBean<String> resultBean) {
-                            if (resultBean.getStatus().equals("true")) {
-                                mView.hideProgress();
-                                mView.checkSuccess();
-                            } else {
-                                mView.hideProgress();
-                                mView.checkFailure(1);
-                            }
+                        public void onNext(String s) {
+                            mView.checkSuccess();
                         }
                     });
         }
@@ -64,10 +46,10 @@ public class ForgetPwdFirstPresenterImpl implements ForgetPwdFirstPresenter {
     @Override
     public void next(Context mContext, String code, String phone) {
         mView.showProgress();
-        if(TextUtils.isEmpty(code)){
+        if (TextUtils.isEmpty(code)) {
             mView.hideProgress();
             mView.codeBlankError();
-        }else{
+        } else {
             SMSSDKManager.getInstance().verifyCode(mContext, "86", phone, code, new SMSSDKManager.Callback() {
                 @Override
                 public void success() {

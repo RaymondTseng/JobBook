@@ -208,7 +208,7 @@ public class PersonFragment extends LazyLoadFragment implements PersonView, View
                 break;
             case R.id.person_moment_num_ll:
                 Util.toAnotherActivity(getActivity(), ShowMomentListActivity.class);
-                L.i("showmoment", "click");
+                L.i("click");
                 break;
             case R.id.person_follow_num_ll:
                 Util.toAnotherActivity(getActivity(), ShowFollowerListActivity.class);
@@ -285,14 +285,14 @@ public class PersonFragment extends LazyLoadFragment implements PersonView, View
     }
 
     private void sendImage(MultipartBody.Part pic) {
-        L.i("photo", "sendImage");
+        L.i("sendImage");
         presenter.uploadAvatar(pic);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        L.i("personfragment", "on resume");
+        L.i("on resume");
         refreshUnread();
         showPersonData();
 //        onRefreshHead();
@@ -317,7 +317,7 @@ public class PersonFragment extends LazyLoadFragment implements PersonView, View
 
     private void onRefreshHead() {
         mCircleHeadImageView.setImageResource(R.mipmap.default_78px);
-        L.i("onRefreshHead", personBean.getHead());
+        L.i(personBean.getHead());
         ImageLoadUtils.display(getActivity(), mCircleHeadImageView, personBean.getHead(), 0);
         ImageLoadUtils.display(getActivity(), mHeadBackGround, personBean.getHead(), 0);
     }
@@ -377,7 +377,7 @@ public class PersonFragment extends LazyLoadFragment implements PersonView, View
 
     @Override
     public void loadHead() {
-        L.i("photo", "loadHead:" + mUri.toString());
+        L.i("loadHead:" + mUri.toString());
 //        mMyApplication.getHandler().sendEmptyMessage(2);
 //        mCircleHeadImageView.setImageBitmap(bm);
 //        mHeadBackGround.setImageBitmap(bm);
@@ -409,7 +409,7 @@ public class PersonFragment extends LazyLoadFragment implements PersonView, View
                 refreshUnread();
                 if (personBean != null && MyApplication.getmPersonBean() != null) {
                     if (!personBean.toString().equals(MyApplication.getmPersonBean().toString())) {
-                        L.i("handler", "refresh");
+                        L.i("refresh");
                         showPersonData();
                     }
                 }

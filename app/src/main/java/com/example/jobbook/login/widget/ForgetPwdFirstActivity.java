@@ -74,6 +74,11 @@ public class ForgetPwdFirstActivity extends Activity implements ForgetPwdFirstVi
     }
 
     @Override
+    public void showLoadFailMsg(String msg) {
+
+    }
+
+    @Override
     public void close() {
         finish();
     }
