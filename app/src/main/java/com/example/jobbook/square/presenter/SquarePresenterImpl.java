@@ -1,14 +1,13 @@
 package com.example.jobbook.square.presenter;
 
 import com.example.jobbook.MyApplication;
+import com.example.jobbook.base.IBaseView;
 import com.example.jobbook.bean.MomentBean;
+import com.example.jobbook.network.BaseObserver;
 import com.example.jobbook.network.RetrofitService;
 import com.example.jobbook.square.view.SquareView;
 
 import java.util.List;
-
-import rx.Subscriber;
-import rx.functions.Action0;
 
 /**
  * Created by Xu on 2016/7/5.
@@ -24,28 +23,15 @@ public class SquarePresenterImpl implements SquarePresenter {
     @Override
     public void loadSquare(int pageIndex, String account) {
         RetrofitService.loadSquares(account, pageIndex)
-                .doOnSubscribe(new Action0() {
+                .subscribe(new BaseObserver<List<MomentBean>>() {
                     @Override
-                    public void call() {
-                        mSquareView.showProgress();
-                    }
-                })
-                .subscribe(new Subscriber<List<MomentBean>>() {
-                    @Override
-                    public void onCompleted() {
-
+                    public IBaseView getBaseView() {
+                        return mSquareView;
                     }
 
                     @Override
-                    public void onError(Throwable throwable) {
-                        mSquareView.hideProgress();
-                        mSquareView.showLoadFailMsg();
-                    }
-
-                    @Override
-                    public void onNext(List<MomentBean> list) {
-                        mSquareView.hideProgress();
-                        mSquareView.addSquares(list);
+                    public void onNext(List<MomentBean> momentBeans) {
+                        mSquareView.addSquares(momentBeans);
                     }
                 });
     }
@@ -61,16 +47,10 @@ public class SquarePresenterImpl implements SquarePresenter {
             account = MyApplication.getAccount();
         }
         RetrofitService.likeSquare(squareId, account)
-                .subscribe(new Subscriber<MomentBean>() {
+                .subscribe(new BaseObserver<MomentBean>() {
                     @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable throwable) {
-                        mSquareView.hideProgress();
-                        mSquareView.likeError();
+                    public IBaseView getBaseView() {
+                        return mSquareView;
                     }
 
                     @Override
@@ -91,16 +71,10 @@ public class SquarePresenterImpl implements SquarePresenter {
             account = MyApplication.getAccount();
         }
         RetrofitService.unlikeSquare(squareId, account)
-                .subscribe(new Subscriber<MomentBean>() {
+                .subscribe(new BaseObserver<MomentBean>() {
                     @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable throwable) {
-                        mSquareView.hideProgress();
-                        mSquareView.unlikeError();
+                    public IBaseView getBaseView() {
+                        return mSquareView;
                     }
 
                     @Override

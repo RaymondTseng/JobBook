@@ -1,5 +1,6 @@
 package com.example.jobbook.person.view;
 
+import com.example.jobbook.base.IBaseView;
 import com.example.jobbook.bean.MomentBean;
 
 import java.util.List;
@@ -8,13 +9,7 @@ import java.util.List;
  * Created by Xu on 2016/12/8.
  */
 
-public interface ShowMomentListView {
-
-    void showProgress();
-
-    void hideProgress();
-
-    void showLoadFailMsg();
+public interface ShowMomentListView extends IBaseView {
 
     void loadFanList(List<MomentBean> list);
 }

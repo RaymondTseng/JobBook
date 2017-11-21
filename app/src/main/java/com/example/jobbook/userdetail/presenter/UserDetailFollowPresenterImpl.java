@@ -1,6 +1,9 @@
 package com.example.jobbook.userdetail.presenter;
 
+import com.example.jobbook.base.IBaseView;
 import com.example.jobbook.bean.TypePersonBean;
+import com.example.jobbook.main.view.MainView;
+import com.example.jobbook.network.BaseObserver;
 import com.example.jobbook.network.RetrofitService;
 import com.example.jobbook.userdetail.view.UserDetailFollowView;
 
@@ -24,28 +27,15 @@ public class UserDetailFollowPresenterImpl implements UserDetailFollowPresenter 
     @Override
     public void loadFollow(String account) {
         RetrofitService.loadFollowerList(account, "")
-                .doOnSubscribe(new Action0() {
+                .subscribe(new BaseObserver<List<TypePersonBean>>() {
                     @Override
-                    public void call() {
-                        mView.showProgress();
-                    }
-                })
-                .subscribe(new Subscriber<List<TypePersonBean>>() {
-                    @Override
-                    public void onCompleted() {
-
+                    public IBaseView getBaseView() {
+                        return mView;
                     }
 
                     @Override
-                    public void onError(Throwable throwable) {
-                        mView.onError(throwable.getMessage());
-                        mView.hideProgress();
-                    }
-
-                    @Override
-                    public void onNext(List<TypePersonBean> list) {
-                        mView.loadFollow(list);
-                        mView.hideProgress();
+                    public void onNext(List<TypePersonBean> typePersonBeans) {
+                        mView.loadFollow(typePersonBeans);
                     }
                 });
     }

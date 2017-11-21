@@ -1,9 +1,11 @@
 package com.example.jobbook.update.view;
 
+import com.example.jobbook.base.IBaseView;
+
 /**
  * Created by Xu on 2016/9/5.
  */
-public interface UpdatePwdView {
+public interface UpdatePwdView extends IBaseView {
 
     void close();
 
@@ -25,7 +27,4 @@ public interface UpdatePwdView {
 
     void oPwdEqualnPwdError();
 
-    void showProgress();
-
-    void hideProgress();
 }

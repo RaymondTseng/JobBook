@@ -38,7 +38,7 @@ public class UpdatePhonePresenterImpl implements UpdatePhonePresenter {
         } else {
             naiveObserveVerifyCode(mContext, account, tel, code)
                     .observeOn(Schedulers.computation())
-                    .flatMap(new Func1<String, Observable<String>>() {
+                    .flatMap(new Func<String, Observable<String>>() {
                         @Override
                         public Observable<String> call(String s) {
                             return RetrofitService.updateTel(account, tel);

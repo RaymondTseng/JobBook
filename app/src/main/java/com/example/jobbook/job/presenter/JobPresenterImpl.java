@@ -1,13 +1,12 @@
 package com.example.jobbook.job.presenter;
 
+import com.example.jobbook.base.IBaseView;
 import com.example.jobbook.bean.JobBean;
 import com.example.jobbook.job.view.JobView;
+import com.example.jobbook.network.BaseObserver;
 import com.example.jobbook.network.RetrofitService;
 
 import java.util.List;
-
-import rx.Subscriber;
-import rx.functions.Action0;
 
 /**
  * Created by Xu on 2016/7/5.
@@ -22,60 +21,30 @@ public class JobPresenterImpl implements JobPresenter {
 
     @Override
     public void loadJobs(int pageIndex, boolean isRecommend, String type, String location) {
-//        mJobView.showProgress();
-//        mJobModel.loadJobs(pageIndex, isRecommend, type, location, this);
         if (isRecommend) {
             RetrofitService.getRecommendJobsList(pageIndex)
-                    .doOnSubscribe(new Action0() {
+                    .subscribe(new BaseObserver<List<JobBean>>() {
                         @Override
-                        public void call() {
-                            mJobView.showProgress();
-                        }
-                    })
-                    .subscribe(new Subscriber<List<JobBean>>() {
-                        @Override
-                        public void onCompleted() {
-
+                        public IBaseView getBaseView() {
+                            return mJobView;
                         }
 
                         @Override
-                        public void onError(Throwable throwable) {
-                            mJobView.hideProgress();
-                            mJobView.showLoadingFailMsg();
-                            throwable.printStackTrace();
-                        }
-
-                        @Override
-                        public void onNext(List<JobBean> list) {
-                            mJobView.hideProgress();
-                            mJobView.addJobs(list);
+                        public void onNext(List<JobBean> jobBeans) {
+                            mJobView.addJobs(jobBeans);
                         }
                     });
         } else {
             RetrofitService.search(pageIndex, type, location)
-                    .doOnSubscribe(new Action0() {
+                    .subscribe(new BaseObserver<List<JobBean>>() {
                         @Override
-                        public void call() {
-                            mJobView.showProgress();
-                        }
-                    })
-                    .subscribe(new Subscriber<List<JobBean>>() {
-                        @Override
-                        public void onCompleted() {
-
+                        public IBaseView getBaseView() {
+                            return mJobView;
                         }
 
                         @Override
-                        public void onError(Throwable throwable) {
-                            mJobView.hideProgress();
-                            mJobView.showLoadingFailMsg();
-                            throwable.printStackTrace();
-                        }
-
-                        @Override
-                        public void onNext(List<JobBean> list) {
-                            mJobView.hideProgress();
-                            mJobView.addJobs(list);
+                        public void onNext(List<JobBean> jobBeans) {
+                            mJobView.addJobs(jobBeans);
                         }
                     });
         }

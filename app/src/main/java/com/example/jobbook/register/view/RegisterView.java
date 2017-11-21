@@ -1,26 +1,17 @@
 package com.example.jobbook.register.view;
 
+import com.example.jobbook.base.IBaseView;
 import com.example.jobbook.bean.PersonBean;
 
 /**
  * Created by Xu on 2016/7/7.
  */
-public interface RegisterView {
+public interface RegisterView extends IBaseView {
 
     /**
      * 登录成功
      */
     void success();
-
-    /**
-     * 隐藏进度
-     */
-    void hideProgress();
-
-    /**
-     * 显示进度
-     */
-    void showProgress();
 
     /**
      * 网络错误

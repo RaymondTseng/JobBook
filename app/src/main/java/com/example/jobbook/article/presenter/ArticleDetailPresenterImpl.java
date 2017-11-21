@@ -7,6 +7,8 @@ import com.example.jobbook.bean.ArticleBean;
 import com.example.jobbook.network.BaseObserver;
 import com.example.jobbook.network.RetrofitService;
 
+import io.reactivex.functions.Consumer;
+
 
 /**
  * @author Xu
@@ -50,6 +52,12 @@ public class ArticleDetailPresenterImpl implements ArticleDetailPresenter {
             account = MyApplication.getAccount();
         }
         RetrofitService.like(articleId, account)
+                .doOnNext(new Consumer<String>() {
+                    @Override
+                    public void accept(String s) throws Exception {
+
+                    }
+                })
                 .subscribe(new BaseObserver<String>() {
                     @Override
                     public IBaseView getBaseView() {

@@ -26,6 +26,7 @@ public abstract class BaseObserver<T> implements Observer<T> {
         } else {
             getBaseView().showLoadFailMsg(e.getMessage());
         }
+        getBaseView().hideProgress();
     }
 
     @Override

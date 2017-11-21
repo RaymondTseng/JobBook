@@ -4,12 +4,11 @@ import android.content.Context;
 import android.text.TextUtils;
 
 import com.example.jobbook.MyApplication;
+import com.example.jobbook.base.IBaseView;
+import com.example.jobbook.network.BaseObserver;
 import com.example.jobbook.network.RetrofitService;
 import com.example.jobbook.update.view.UpdatePwdView;
 import com.example.jobbook.util.Util;
-
-import rx.Subscriber;
-import rx.functions.Action0;
 
 /**
  * Created by Xu on 2016/9/5.
@@ -35,8 +34,6 @@ public class UpdatePwdPresenterImpl implements UpdatePwdPresenter {
             view.hideProgress();
             view.nPwdConfirmBlankError();
         } else if (!Util.getMD5(oPwd).equals(MyApplication.getmPersonBean().getPassword())) {
-//            L.i("update_pwd", Util.getMD5(oPwd));
-//            L.i("update_pwd", MyApplication.getmPersonBean().getPassword());
             view.hideProgress();
             view.oPwdError();
         } else if (!nPwd.equals(nPwdConfirm)) {
@@ -47,27 +44,14 @@ public class UpdatePwdPresenterImpl implements UpdatePwdPresenter {
             view.oPwdEqualnPwdError();
         } else {
             RetrofitService.updatePwd(account, oPwd, nPwd)
-                    .doOnSubscribe(new Action0() {
+                    .subscribe(new BaseObserver<String>() {
                         @Override
-                        public void call() {
-                            view.showProgress();
-                        }
-                    })
-                    .subscribe(new Subscriber<String>() {
-                        @Override
-                        public void onCompleted() {
-
-                        }
-
-                        @Override
-                        public void onError(Throwable throwable) {
-                            view.hideProgress();
-                            view.networkError();
+                        public IBaseView getBaseView() {
+                            return view;
                         }
 
                         @Override
                         public void onNext(String s) {
-                            view.hideProgress();
                             view.success();
                             view.close();
                         }
