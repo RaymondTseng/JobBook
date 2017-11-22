@@ -7,12 +7,12 @@ import android.view.ViewStub;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.example.jobbook.MyApplication;
+import com.example.jobbook.app.MyApplication;
 import com.example.jobbook.R;
 import com.example.jobbook.article.presenter.ArticleDetailPresenter;
 import com.example.jobbook.article.presenter.ArticleDetailPresenterImpl;
 import com.example.jobbook.article.view.ArticleDetailView;
-import com.example.jobbook.bean.ArticleBean;
+import com.example.jobbook.model.bean.ArticleBean;
 import com.example.jobbook.util.L;
 import com.example.jobbook.util.Util;
 

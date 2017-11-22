@@ -1,7 +1,7 @@
 package com.example.jobbook.job.view;
 
 import com.example.jobbook.base.IBaseView;
-import com.example.jobbook.bean.JobDetailBean;
+import com.example.jobbook.model.bean.JobDetailBean;
 
 /**
  * Created by 椰树 on 2016/8/28.

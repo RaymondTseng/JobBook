@@ -13,18 +13,18 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.jobbook.MyApplication;
+import com.example.jobbook.app.MyApplication;
 import com.example.jobbook.R;
-import com.example.jobbook.bean.JobBean;
-import com.example.jobbook.commons.Urls;
+import com.example.jobbook.model.bean.JobBean;
+import com.example.jobbook.app.constants.Urls;
 import com.example.jobbook.job.JobsAdapter;
 import com.example.jobbook.job.SpinnerTitleAdapter;
 import com.example.jobbook.job.presenter.JobPresenter;
 import com.example.jobbook.job.presenter.JobPresenterImpl;
 import com.example.jobbook.job.view.JobView;
-import com.example.jobbook.util.DividerItemDecoration;
+import com.example.jobbook.ui.DividerItemDecoration;
 import com.example.jobbook.util.L;
-import com.example.jobbook.util.LazyLoadFragment;
+import com.example.jobbook.base.LazyLoadFragment;
 import com.example.jobbook.util.Util;
 
 import java.util.ArrayList;

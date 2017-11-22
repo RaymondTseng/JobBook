@@ -14,7 +14,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
-        android:name=".MyApplication"
+        android:name=".app.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -28,7 +28,7 @@
             android:value="ff6619fa904b54a03a9aa892187520d2" />
 
         <meta-data
-            android:name="com.example.jobbook.util.MyGlideModule"
+            android:name="com.example.jobbook.model.img.MyGlideModule"
             android:value="GlideModule" />
 
         <meta-data

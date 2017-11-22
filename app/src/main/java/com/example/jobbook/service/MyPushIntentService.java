@@ -10,12 +10,12 @@ import android.os.Binder;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 
-import com.example.jobbook.MyApplication;
+import com.example.jobbook.app.MyApplication;
 import com.example.jobbook.R;
-import com.example.jobbook.bean.MessageBean;
-import com.example.jobbook.bean.PersonBean;
-import com.example.jobbook.bean.UmengMessageBean;
-import com.example.jobbook.bean.UnreadBean;
+import com.example.jobbook.model.bean.MessageBean;
+import com.example.jobbook.model.bean.PersonBean;
+import com.example.jobbook.model.bean.UmengMessageBean;
+import com.example.jobbook.model.bean.UnreadBean;
 import com.example.jobbook.moment.widget.MomentDetailActivity;
 import com.example.jobbook.receiver.NotificationBroadcast;
 import com.example.jobbook.userdetail.widget.UserDetailActivity;
@@ -35,7 +35,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
-import static com.example.jobbook.MyApplication.getAccount;
+import static com.example.jobbook.app.MyApplication.getAccount;
 
 /**
  * Created by Xu on 2017/1/20.

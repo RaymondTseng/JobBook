@@ -160,7 +160,7 @@
     }
 
     #保持实体类不被混淆
-    -keep class com.example.jobbook.bean.** {*;}
+    -keep class com.example.jobbook.model.bean.** {*;}
 
     #混淆代码行数提示
     -renamesourcefileattribute SourceFile

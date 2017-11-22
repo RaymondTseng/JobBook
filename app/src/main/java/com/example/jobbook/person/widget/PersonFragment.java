@@ -19,9 +19,9 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.example.jobbook.MyApplication;
+import com.example.jobbook.app.MyApplication;
 import com.example.jobbook.R;
-import com.example.jobbook.bean.PersonBean;
+import com.example.jobbook.model.bean.PersonBean;
 import com.example.jobbook.cv.widget.TextCVActivity;
 import com.example.jobbook.login.widget.LoginActivity;
 import com.example.jobbook.main.widget.MainActivity;
@@ -36,7 +36,7 @@ import com.example.jobbook.upload.UploadManager;
 import com.example.jobbook.upload.UploadPopupWindow;
 import com.example.jobbook.util.ImageLoadUtils;
 import com.example.jobbook.util.L;
-import com.example.jobbook.util.LazyLoadFragment;
+import com.example.jobbook.base.LazyLoadFragment;
 import com.example.jobbook.util.Util;
 
 import java.util.Timer;

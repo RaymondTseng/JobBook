@@ -3,7 +3,7 @@ package com.example.jobbook.update.presenter;
 import android.content.Context;
 import android.text.TextUtils;
 
-import com.example.jobbook.network.RetrofitService;
+import com.example.jobbook.model.http.RetrofitService;
 import com.example.jobbook.update.view.UpdatePhoneView;
 import com.example.jobbook.util.SMSSDKManager;
 

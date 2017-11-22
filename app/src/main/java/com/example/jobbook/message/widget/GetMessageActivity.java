@@ -8,9 +8,9 @@ import android.view.ViewStub;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
-import com.example.jobbook.MyApplication;
+import com.example.jobbook.app.MyApplication;
 import com.example.jobbook.R;
-import com.example.jobbook.bean.MessageBean;
+import com.example.jobbook.model.bean.MessageBean;
 import com.example.jobbook.message.GetMessageListViewAdapter;
 import com.example.jobbook.message.presenter.GetMessagePresenter;
 import com.example.jobbook.message.presenter.GetMessagePresenterImpl;

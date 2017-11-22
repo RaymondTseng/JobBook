@@ -4,8 +4,8 @@ import android.content.Context;
 import android.text.TextUtils;
 
 import com.example.jobbook.base.IBaseView;
-import com.example.jobbook.network.BaseObserver;
-import com.example.jobbook.network.RetrofitService;
+import com.example.jobbook.base.BaseObserver;
+import com.example.jobbook.model.http.RetrofitService;
 import com.example.jobbook.update.view.UpdateUsernameView;
 
 /**

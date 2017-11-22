@@ -9,7 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.jobbook.R;
-import com.example.jobbook.bean.MessageBean;
+import com.example.jobbook.model.bean.MessageBean;
 import com.example.jobbook.util.L;
 
 import java.util.List;

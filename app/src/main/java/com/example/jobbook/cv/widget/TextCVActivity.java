@@ -18,12 +18,12 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.example.jobbook.MyApplication;
+import com.example.jobbook.app.MyApplication;
 import com.example.jobbook.R;
-import com.example.jobbook.bean.EducationExpBean;
-import com.example.jobbook.bean.JobExpBean;
-import com.example.jobbook.bean.PersonBean;
-import com.example.jobbook.bean.TextCVBean;
+import com.example.jobbook.model.bean.EducationExpBean;
+import com.example.jobbook.model.bean.JobExpBean;
+import com.example.jobbook.model.bean.PersonBean;
+import com.example.jobbook.model.bean.TextCVBean;
 import com.example.jobbook.cv.presenter.TextCVPresenter;
 import com.example.jobbook.cv.presenter.TextCVPresenterImpl;
 import com.example.jobbook.cv.view.TextCVView;

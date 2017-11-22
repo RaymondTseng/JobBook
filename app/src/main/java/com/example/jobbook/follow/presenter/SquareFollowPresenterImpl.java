@@ -1,11 +1,11 @@
 package com.example.jobbook.follow.presenter;
 
-import com.example.jobbook.MyApplication;
+import com.example.jobbook.app.MyApplication;
 import com.example.jobbook.base.IBaseView;
-import com.example.jobbook.bean.MomentBean;
+import com.example.jobbook.model.bean.MomentBean;
 import com.example.jobbook.follow.view.SquareFollowView;
-import com.example.jobbook.network.BaseObserver;
-import com.example.jobbook.network.RetrofitService;
+import com.example.jobbook.base.BaseObserver;
+import com.example.jobbook.model.http.RetrofitService;
 
 import java.util.List;
 

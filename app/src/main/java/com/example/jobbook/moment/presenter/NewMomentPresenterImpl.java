@@ -1,10 +1,10 @@
 package com.example.jobbook.moment.presenter;
 
 import com.example.jobbook.base.IBaseView;
-import com.example.jobbook.bean.MomentBean;
+import com.example.jobbook.model.bean.MomentBean;
 import com.example.jobbook.moment.view.NewMomentView;
-import com.example.jobbook.network.BaseObserver;
-import com.example.jobbook.network.RetrofitService;
+import com.example.jobbook.base.BaseObserver;
+import com.example.jobbook.model.http.RetrofitService;
 
 /**
  * Created by Xu on 2016/7/16.

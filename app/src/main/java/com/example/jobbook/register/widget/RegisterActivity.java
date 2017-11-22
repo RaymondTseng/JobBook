@@ -12,10 +12,10 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
-import com.example.jobbook.MyApplication;
+import com.example.jobbook.app.MyApplication;
 import com.example.jobbook.R;
-import com.example.jobbook.bean.PersonBean;
-import com.example.jobbook.commons.Urls;
+import com.example.jobbook.model.bean.PersonBean;
+import com.example.jobbook.app.constants.Urls;
 import com.example.jobbook.login.widget.LoginActivity;
 import com.example.jobbook.main.widget.MainActivity;
 import com.example.jobbook.register.presenter.RegisterPresenter;

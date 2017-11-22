@@ -1,16 +1,12 @@
 package com.example.jobbook.userdetail.presenter;
 
 import com.example.jobbook.base.IBaseView;
-import com.example.jobbook.bean.TypePersonBean;
-import com.example.jobbook.main.view.MainView;
-import com.example.jobbook.network.BaseObserver;
-import com.example.jobbook.network.RetrofitService;
+import com.example.jobbook.model.bean.TypePersonBean;
+import com.example.jobbook.base.BaseObserver;
+import com.example.jobbook.model.http.RetrofitService;
 import com.example.jobbook.userdetail.view.UserDetailFollowView;
 
 import java.util.List;
-
-import rx.Subscriber;
-import rx.functions.Action0;
 
 
 /**
@@ -43,22 +39,10 @@ public class UserDetailFollowPresenterImpl implements UserDetailFollowPresenter 
     @Override
     public void follow(String myAccount, String hisAccount) {
         RetrofitService.follow(myAccount, hisAccount)
-                .doOnSubscribe(new Action0() {
+                .subscribe(new BaseObserver<String>() {
                     @Override
-                    public void call() {
-                        mView.showProgress();
-                    }
-                })
-                .subscribe(new Subscriber<String>() {
-                    @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable throwable) {
-                        mView.onError(throwable.getMessage());
-                        mView.hideProgress();
+                    public IBaseView getBaseView() {
+                        return mView;
                     }
 
                     @Override

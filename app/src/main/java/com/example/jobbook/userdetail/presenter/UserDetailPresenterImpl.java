@@ -2,13 +2,12 @@ package com.example.jobbook.userdetail.presenter;
 
 import android.text.TextUtils;
 
-import com.example.jobbook.MyApplication;
-import com.example.jobbook.bean.TypePersonBean;
-import com.example.jobbook.network.RetrofitService;
+import com.example.jobbook.app.MyApplication;
+import com.example.jobbook.base.IBaseView;
+import com.example.jobbook.model.bean.TypePersonBean;
+import com.example.jobbook.base.BaseObserver;
+import com.example.jobbook.model.http.RetrofitService;
 import com.example.jobbook.userdetail.view.UserDetailView;
-
-import rx.Subscriber;
-import rx.functions.Action0;
 
 /**
  * Created by root on 16-12-5.
@@ -24,22 +23,10 @@ public class UserDetailPresenterImpl implements UserDetailPresenter {
     @Override
     public void follow(String myAccount, String hisAccount) {
         RetrofitService.follow(myAccount, hisAccount)
-                .doOnSubscribe(new Action0() {
+                .subscribe(new BaseObserver<String>() {
                     @Override
-                    public void call() {
-                        mView.showProgress();
-                    }
-                })
-                .subscribe(new Subscriber<String>() {
-                    @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable throwable) {
-                        mView.onFail(throwable.getMessage());
-                        mView.hideProgress();
+                    public IBaseView getBaseView() {
+                        return mView;
                     }
 
                     @Override
@@ -52,27 +39,14 @@ public class UserDetailPresenterImpl implements UserDetailPresenter {
     @Override
     public void loadUserDetailByAccount(String account) {
         RetrofitService.loadUserDetailByAccount(account)
-                .doOnSubscribe(new Action0() {
+                .subscribe(new BaseObserver<TypePersonBean>() {
                     @Override
-                    public void call() {
-                        mView.showProgress();
-                    }
-                })
-                .subscribe(new Subscriber<TypePersonBean>() {
-                    @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        mView.hideProgress();
-                        mView.onFail(e.getMessage());
+                    public IBaseView getBaseView() {
+                        return mView;
                     }
 
                     @Override
                     public void onNext(TypePersonBean typePersonBean) {
-                        mView.hideProgress();
                         mView.loadSuccess(typePersonBean);
                     }
                 });
@@ -81,27 +55,14 @@ public class UserDetailPresenterImpl implements UserDetailPresenter {
     @Override
     public void unfollow(String myAccount, String hisAccount) {
         RetrofitService.unfollow(myAccount, hisAccount)
-                .doOnSubscribe(new Action0() {
+                .subscribe(new BaseObserver<String>() {
                     @Override
-                    public void call() {
-                        mView.showProgress();
-                    }
-                })
-                .subscribe(new Subscriber<String>() {
-                    @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        mView.hideProgress();
-                        mView.onFail(e.getMessage());
+                    public IBaseView getBaseView() {
+                        return mView;
                     }
 
                     @Override
                     public void onNext(String s) {
-                        mView.hideProgress();
                         mView.unfollowSuccess();
                     }
                 });
@@ -114,27 +75,14 @@ public class UserDetailPresenterImpl implements UserDetailPresenter {
             return;
         }
         RetrofitService.loadUserDetailByAccount(account)
-                .doOnSubscribe(new Action0() {
+                .subscribe(new BaseObserver<TypePersonBean>() {
                     @Override
-                    public void call() {
-                        mView.showProgress();
-                    }
-                })
-                .subscribe(new Subscriber<TypePersonBean>() {
-                    @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        mView.hideProgress();
-                        mView.onFail(e.getMessage());
+                    public IBaseView getBaseView() {
+                        return mView;
                     }
 
                     @Override
                     public void onNext(TypePersonBean typePersonBean) {
-                        mView.hideProgress();
                         mView.onRefreshSuccess(typePersonBean);
                     }
                 });

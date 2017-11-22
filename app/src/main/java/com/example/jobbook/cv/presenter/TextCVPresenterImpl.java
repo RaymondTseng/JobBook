@@ -2,16 +2,16 @@ package com.example.jobbook.cv.presenter;
 
 import android.text.TextUtils;
 
-import com.example.jobbook.MyApplication;
+import com.example.jobbook.app.MyApplication;
 import com.example.jobbook.base.IBaseView;
-import com.example.jobbook.bean.EducationExpBean;
-import com.example.jobbook.bean.JobExpBean;
-import com.example.jobbook.bean.PersonBean;
-import com.example.jobbook.bean.TextCVBean;
-import com.example.jobbook.commons.Constants;
+import com.example.jobbook.model.bean.EducationExpBean;
+import com.example.jobbook.model.bean.JobExpBean;
+import com.example.jobbook.model.bean.PersonBean;
+import com.example.jobbook.model.bean.TextCVBean;
+import com.example.jobbook.app.constants.Constants;
 import com.example.jobbook.cv.view.TextCVView;
-import com.example.jobbook.network.BaseObserver;
-import com.example.jobbook.network.RetrofitService;
+import com.example.jobbook.base.BaseObserver;
+import com.example.jobbook.model.http.RetrofitService;
 
 import java.util.List;
 

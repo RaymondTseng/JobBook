@@ -10,10 +10,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.jobbook.R;
-import com.example.jobbook.bean.MomentBean;
-import com.example.jobbook.commons.Urls;
+import com.example.jobbook.model.bean.MomentBean;
+import com.example.jobbook.app.constants.Urls;
 import com.example.jobbook.util.ImageLoadUtils;
-import com.example.jobbook.util.L;
 
 import java.util.List;
 

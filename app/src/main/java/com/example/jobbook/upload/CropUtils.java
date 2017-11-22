@@ -12,7 +12,7 @@ import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.example.jobbook.MyApplication;
+import com.example.jobbook.app.MyApplication;
 import com.example.jobbook.util.L;
 import com.yalantis.ucrop.UCrop;
 import com.yalantis.ucrop.UCropActivity;

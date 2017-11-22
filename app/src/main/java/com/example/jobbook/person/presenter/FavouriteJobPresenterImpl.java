@@ -1,9 +1,9 @@
 package com.example.jobbook.person.presenter;
 
 import com.example.jobbook.base.IBaseView;
-import com.example.jobbook.bean.JobBean;
-import com.example.jobbook.network.BaseObserver;
-import com.example.jobbook.network.RetrofitService;
+import com.example.jobbook.model.bean.JobBean;
+import com.example.jobbook.base.BaseObserver;
+import com.example.jobbook.model.http.RetrofitService;
 import com.example.jobbook.person.view.FavouriteJobView;
 
 import java.util.List;

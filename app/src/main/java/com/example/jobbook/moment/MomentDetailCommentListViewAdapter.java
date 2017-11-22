@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.jobbook.R;
-import com.example.jobbook.bean.MomentCommentBean;
+import com.example.jobbook.model.bean.MomentCommentBean;
 import com.example.jobbook.util.ImageLoadUtils;
 
 import java.util.List;

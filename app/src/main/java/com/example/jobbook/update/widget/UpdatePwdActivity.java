@@ -8,7 +8,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.example.jobbook.MyApplication;
+import com.example.jobbook.app.MyApplication;
 import com.example.jobbook.R;
 import com.example.jobbook.login.widget.LoginActivity;
 import com.example.jobbook.update.presenter.UpdatePwdPresenter;

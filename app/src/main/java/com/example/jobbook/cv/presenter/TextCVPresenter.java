@@ -1,7 +1,7 @@
 package com.example.jobbook.cv.presenter;
 
-import com.example.jobbook.bean.EducationExpBean;
-import com.example.jobbook.bean.JobExpBean;
+import com.example.jobbook.model.bean.EducationExpBean;
+import com.example.jobbook.model.bean.JobExpBean;
 
 import java.util.List;
 

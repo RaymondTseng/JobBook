@@ -1,10 +1,10 @@
 package com.example.jobbook.message.presenter;
 
 import com.example.jobbook.base.IBaseView;
-import com.example.jobbook.bean.MessageBean;
+import com.example.jobbook.model.bean.MessageBean;
 import com.example.jobbook.message.view.GetMessageView;
-import com.example.jobbook.network.BaseObserver;
-import com.example.jobbook.network.RetrofitService;
+import com.example.jobbook.base.BaseObserver;
+import com.example.jobbook.model.http.RetrofitService;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
 package com.example.jobbook.userdetail.view;
 
 import com.example.jobbook.base.IBaseView;
-import com.example.jobbook.bean.TypePersonBean;
+import com.example.jobbook.model.bean.TypePersonBean;
 
 import java.util.List;
 

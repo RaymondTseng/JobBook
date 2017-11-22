@@ -4,8 +4,8 @@ import android.text.TextUtils;
 
 import com.example.jobbook.base.IBaseView;
 import com.example.jobbook.login.view.ForgetPwdSecondView;
-import com.example.jobbook.network.BaseObserver;
-import com.example.jobbook.network.RetrofitService;
+import com.example.jobbook.base.BaseObserver;
+import com.example.jobbook.model.http.RetrofitService;
 
 /**
  * Created by 椰树 on 2016/9/14.

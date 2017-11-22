@@ -15,10 +15,10 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.jobbook.MyApplication;
+import com.example.jobbook.app.MyApplication;
 import com.example.jobbook.R;
-import com.example.jobbook.bean.PersonBean;
-import com.example.jobbook.commons.Constants;
+import com.example.jobbook.model.bean.PersonBean;
+import com.example.jobbook.app.constants.Constants;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;

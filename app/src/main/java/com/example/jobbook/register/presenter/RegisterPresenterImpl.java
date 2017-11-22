@@ -4,10 +4,10 @@ import android.content.Context;
 import android.text.TextUtils;
 
 import com.example.jobbook.base.IBaseView;
-import com.example.jobbook.bean.PersonBean;
-import com.example.jobbook.bean.PersonWithDeviceTokenBean;
-import com.example.jobbook.network.BaseObserver;
-import com.example.jobbook.network.RetrofitService;
+import com.example.jobbook.model.bean.PersonBean;
+import com.example.jobbook.model.bean.PersonWithDeviceTokenBean;
+import com.example.jobbook.base.BaseObserver;
+import com.example.jobbook.model.http.RetrofitService;
 import com.example.jobbook.register.view.RegisterView;
 import com.example.jobbook.util.SMSSDKManager;
 import com.example.jobbook.util.Util;

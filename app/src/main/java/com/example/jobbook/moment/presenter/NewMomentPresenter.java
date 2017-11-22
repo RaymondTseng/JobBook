@@ -1,6 +1,6 @@
 package com.example.jobbook.moment.presenter;
 
-import com.example.jobbook.bean.MomentBean;
+import com.example.jobbook.model.bean.MomentBean;
 
 /**
  * Created by Xu on 2016/7/16.

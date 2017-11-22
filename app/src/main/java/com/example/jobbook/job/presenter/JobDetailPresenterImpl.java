@@ -1,11 +1,11 @@
 package com.example.jobbook.job.presenter;
 
-import com.example.jobbook.MyApplication;
+import com.example.jobbook.app.MyApplication;
 import com.example.jobbook.base.IBaseView;
-import com.example.jobbook.bean.JobDetailBean;
+import com.example.jobbook.model.bean.JobDetailBean;
 import com.example.jobbook.job.view.JobDetailView;
-import com.example.jobbook.network.BaseObserver;
-import com.example.jobbook.network.RetrofitService;
+import com.example.jobbook.base.BaseObserver;
+import com.example.jobbook.model.http.RetrofitService;
 
 /**
  * Created by 椰树 on 2016/8/28.

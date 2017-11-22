@@ -10,8 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.jobbook.R;
-import com.example.jobbook.bean.PersonBean;
-import com.example.jobbook.bean.TypePersonBean;
+import com.example.jobbook.model.bean.PersonBean;
+import com.example.jobbook.model.bean.TypePersonBean;
 import com.example.jobbook.util.ImageLoadUtils;
 
 import java.util.List;

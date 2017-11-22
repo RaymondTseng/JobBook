@@ -11,14 +11,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewStub;
 
-import com.example.jobbook.MyApplication;
+import com.example.jobbook.app.MyApplication;
 import com.example.jobbook.R;
-import com.example.jobbook.bean.MomentBean;
+import com.example.jobbook.model.bean.MomentBean;
 import com.example.jobbook.moment.widget.MomentDetailActivity;
 import com.example.jobbook.userdetail.UserDetailMomentAdapter;
 import com.example.jobbook.userdetail.presenter.UserDetailMomentPresenterImpl;
 import com.example.jobbook.userdetail.view.UserDetailMomentView;
-import com.example.jobbook.util.DividerItemDecoration;
+import com.example.jobbook.ui.DividerItemDecoration;
 import com.example.jobbook.util.Util;
 
 import java.util.ArrayList;

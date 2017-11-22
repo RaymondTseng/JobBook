@@ -1,7 +1,7 @@
 package com.example.jobbook.register.view;
 
 import com.example.jobbook.base.IBaseView;
-import com.example.jobbook.bean.PersonBean;
+import com.example.jobbook.model.bean.PersonBean;
 
 /**
  * Created by Xu on 2016/7/7.

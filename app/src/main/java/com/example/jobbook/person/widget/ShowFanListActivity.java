@@ -9,15 +9,15 @@ import android.view.View;
 import android.view.ViewStub;
 import android.widget.ImageButton;
 
-import com.example.jobbook.MyApplication;
+import com.example.jobbook.app.MyApplication;
 import com.example.jobbook.R;
-import com.example.jobbook.bean.TypePersonBean;
+import com.example.jobbook.model.bean.TypePersonBean;
 import com.example.jobbook.person.presenter.ShowFanListPresenter;
 import com.example.jobbook.person.presenter.ShowFanListPresenterImpl;
 import com.example.jobbook.person.view.ShowFanListView;
 import com.example.jobbook.userdetail.UserDetailFansAdapter;
 import com.example.jobbook.userdetail.widget.UserDetailActivity;
-import com.example.jobbook.util.DividerItemDecoration;
+import com.example.jobbook.ui.DividerItemDecoration;
 import com.example.jobbook.util.L;
 import com.example.jobbook.util.Util;
 

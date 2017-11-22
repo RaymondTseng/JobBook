@@ -17,7 +17,7 @@ import android.widget.ImageView;
 import android.widget.TabWidget;
 import android.widget.TextView;
 
-import com.example.jobbook.MyApplication;
+import com.example.jobbook.app.MyApplication;
 import com.example.jobbook.R;
 import com.example.jobbook.follow.widget.SquareFollowFragment;
 import com.example.jobbook.login.widget.LoginActivity;

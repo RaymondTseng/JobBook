@@ -2,9 +2,9 @@ package com.example.jobbook.article.presenter;
 
 import com.example.jobbook.article.view.ArticleView;
 import com.example.jobbook.base.IBaseView;
-import com.example.jobbook.bean.ArticleBean;
-import com.example.jobbook.network.BaseObserver;
-import com.example.jobbook.network.RetrofitService;
+import com.example.jobbook.model.bean.ArticleBean;
+import com.example.jobbook.base.BaseObserver;
+import com.example.jobbook.model.http.RetrofitService;
 
 import java.util.List;
 

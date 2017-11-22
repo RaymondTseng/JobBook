@@ -1,8 +1,8 @@
 package com.example.jobbook.moment.view;
 
 import com.example.jobbook.base.IBaseView;
-import com.example.jobbook.bean.MomentBean;
-import com.example.jobbook.bean.MomentCommentBean;
+import com.example.jobbook.model.bean.MomentBean;
+import com.example.jobbook.model.bean.MomentCommentBean;
 
 import java.util.List;
 

@@ -11,15 +11,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewStub;
 
-import com.example.jobbook.MyApplication;
+import com.example.jobbook.app.MyApplication;
 import com.example.jobbook.R;
-import com.example.jobbook.bean.JobBean;
+import com.example.jobbook.model.bean.JobBean;
 import com.example.jobbook.job.widget.JobDetailActivity;
 import com.example.jobbook.person.FavouriteJobAdapter;
 import com.example.jobbook.person.presenter.FavouriteJobPresenter;
 import com.example.jobbook.person.presenter.FavouriteJobPresenterImpl;
 import com.example.jobbook.person.view.FavouriteJobView;
-import com.example.jobbook.util.DividerItemDecoration;
+import com.example.jobbook.ui.DividerItemDecoration;
 import com.example.jobbook.util.Util;
 
 import java.util.ArrayList;

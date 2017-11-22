@@ -15,10 +15,10 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.example.jobbook.MyApplication;
+import com.example.jobbook.app.MyApplication;
 import com.example.jobbook.R;
-import com.example.jobbook.bean.MomentBean;
-import com.example.jobbook.bean.TypePersonBean;
+import com.example.jobbook.model.bean.MomentBean;
+import com.example.jobbook.model.bean.TypePersonBean;
 import com.example.jobbook.moment.presenter.NewMomentPresenter;
 import com.example.jobbook.moment.presenter.NewMomentPresenterImpl;
 import com.example.jobbook.moment.view.NewMomentView;
