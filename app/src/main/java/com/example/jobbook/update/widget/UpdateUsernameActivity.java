@@ -105,4 +105,9 @@ public class UpdateUsernameActivity extends Activity implements View.OnClickList
         mLoadingLinearLayout.setVisibility(View.GONE);
     }
 
+    @Override
+    public void showLoadFailMsg(String msg) {
+
+    }
+
 }

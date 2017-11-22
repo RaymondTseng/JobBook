@@ -84,6 +84,11 @@ public class UserDetailFansFragment extends Fragment implements UserDetailFansVi
     }
 
     @Override
+    public void showLoadFailMsg(String msg) {
+
+    }
+
+    @Override
     public void followSuccess() {
         Util.showSnackBar(view , "关注成功!");
     }

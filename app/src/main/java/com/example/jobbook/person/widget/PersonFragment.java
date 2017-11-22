@@ -366,13 +366,13 @@ public class PersonFragment extends LazyLoadFragment implements PersonView, View
     }
 
     @Override
-    public void uploadSuccess() {
-        Util.showSnackBar(MyApplication.mSnackBarView, "上传成功！");
+    public void showLoadFailMsg(String msg) {
+
     }
 
     @Override
-    public void uploadFailure() {
-        Util.showSnackBar(MyApplication.mSnackBarView, "上传失败，请重试！");
+    public void uploadSuccess() {
+        Util.showSnackBar(MyApplication.mSnackBarView, "上传成功！");
     }
 
     @Override

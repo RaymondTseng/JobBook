@@ -87,6 +87,11 @@ public class UserDetailMomentFragment extends Fragment implements UserDetailMome
     }
 
     @Override
+    public void showLoadFailMsg(String msg) {
+
+    }
+
+    @Override
     public void getAccount(String account) {
         this.account = account;
 //        mPresenter.loadMoments(account);

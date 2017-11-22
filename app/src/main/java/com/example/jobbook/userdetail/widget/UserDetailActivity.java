@@ -279,6 +279,11 @@ public class UserDetailActivity extends AppCompatActivity implements View.OnClic
     }
 
     @Override
+    public void showLoadFailMsg(String msg) {
+
+    }
+
+    @Override
     public void showProgress() {
         mLoadingLinearLayout.setVisibility(View.VISIBLE);
     }

@@ -137,4 +137,9 @@ public class UpdatePwdActivity extends Activity implements View.OnClickListener,
         mLoadingLinearLayout.setVisibility(View.GONE);
     }
 
+    @Override
+    public void showLoadFailMsg(String msg) {
+
+    }
+
 }

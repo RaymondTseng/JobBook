@@ -68,21 +68,25 @@ repositories {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:23.3.0'
+//    compile 'com.android.support:appcompat-v7:23.3.0'
     //    compile 'com.zhy:okhttputils:2.6.2'
     compile 'com.android.support:design:23.3.0'
     //    compile 'com.google.android:flexbox:0.2.3'
     compile 'com.android.support:support-v4:23.3.0'
     compile 'com.github.bumptech.glide:okhttp3-integration:1.4.0@aar'
-    compile(name: 'okhttp3-integration-1.4.0', ext: 'aar')
+    compile files('libs/okhttp3-integration-1.4.0.aar')
+//    compile(name: 'okhttp3-integration-1.4.0', ext: 'aar')
     //    compile 'de.hdodenhof:circleimageview:2.1.0'
-    compile(name: 'circleimageview-2.1.0', ext: 'aar')
+    compile files('libs/circleimageview-2.1.0.aar')
+//    compile(name: 'circleimageview-2.1.0', ext: 'aar')
     //    compile 'com.jude:smssdk_mob:1.1.1'
     compile 'com.jzxiang.pickerview:TimePickerDialog:1.0.1'
     //    compile 'com.yalantis:ucrop:2.1.2'
-    compile(name: 'ucrop-2.1.2', ext: 'aar')
+    compile files('libs/ucrop-2.1.2.aar')
+//    compile(name: 'ucrop-2.1.2', ext: 'aar')
     //    compile 'com.lsjwzh:materialloadingprogressbar:0.5.8-RELEASE'
-    compile(name: 'materialloadingprogressbar-0.5.8-RELEASE', ext: 'aar')
+    compile files('libs/materialloadingprogressbar-0.5.8-RELEASE.aar')
+//    compile(name: 'materialloadingprogressbar-0.5.8-RELEASE', ext: 'aar')
     //    compile(name: 'stickylistheaders-2.7.0', ext: 'aar')
     //    compile(name: 'SmartTabLayout-1.6.1', ext: 'aar')
     //    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.3'
@@ -90,7 +94,8 @@ dependencies {
     //    debugCompile(name: 'leakcanary-android-1.3', ext: 'aar')
     //    releaseCompile(name: 'leakcanary-android-no-op-1.3', ext: 'aar')
     compile 'org.sufficientlysecure:html-textview:2.0'
-    compile(name: 'SMSSDK-3.0.0', ext: 'aar')
+    compile files('libs/SMSSDK-3.0.0.aar')
+//    compile(name: 'SMSSDK-3.0.0', ext: 'aar')
     //    compile name:'SMSSDKGUI-2.1.3',ext:'aar'
     //    compile project(':PushSDK')
     compile 'com.zhy:percent-support-extends:1.1.0'

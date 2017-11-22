@@ -199,7 +199,7 @@ public class SquareFragment extends LazyLoadFragment implements SquareView,
     }
 
     @Override
-    public void showLoadFailMsg() {
+    public void showLoadFailMsg(String msg) {
         if (pageIndex == 0) {
             mAdapter.setmShowFooter(false);
             mAdapter.notifyDataSetChanged();

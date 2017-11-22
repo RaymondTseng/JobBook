@@ -133,6 +133,11 @@ public class UpdatePhoneActivity extends Activity implements View.OnClickListene
     }
 
     @Override
+    public void showLoadFailMsg(String msg) {
+
+    }
+
+    @Override
     public void showProgress() {
 
     }

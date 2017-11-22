@@ -3,17 +3,19 @@ package com.example.jobbook.update.presenter;
 import android.content.Context;
 import android.text.TextUtils;
 
+import com.example.jobbook.base.BaseObserver;
+import com.example.jobbook.base.IBaseView;
 import com.example.jobbook.model.http.RetrofitService;
 import com.example.jobbook.update.view.UpdatePhoneView;
 import com.example.jobbook.util.SMSSDKManager;
 
-import rx.AsyncEmitter;
-import rx.Observable;
-import rx.Subscriber;
-import rx.functions.Action0;
-import rx.functions.Action1;
-import rx.functions.Func1;
-import rx.schedulers.Schedulers;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.ObservableSource;
+import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
+
 
 /**
  * Created by Xu on 2016/9/5.
@@ -27,6 +29,7 @@ public class UpdatePhonePresenterImpl implements UpdatePhonePresenter {
 
     @Override
     public void complete(Context mContext, final String account, final String tel, String code) {
+        mView.showProgress();
         if (TextUtils.isEmpty(tel)) {
             mView.hideProgress();
             mView.newPhoneBlankError();
@@ -38,36 +41,24 @@ public class UpdatePhonePresenterImpl implements UpdatePhonePresenter {
         } else {
             naiveObserveVerifyCode(mContext, account, tel, code)
                     .observeOn(Schedulers.computation())
-                    .flatMap(new Func<String, Observable<String>>() {
+                    .flatMap(new Function<String, ObservableSource<String>>() {
                         @Override
-                        public Observable<String> call(String s) {
+                        public ObservableSource<String> apply(String s) throws Exception {
                             return RetrofitService.updateTel(account, tel);
                         }
                     })
-                    .doOnSubscribe(new Action0() {
+                    .subscribe(new BaseObserver<String>() {
                         @Override
-                        public void call() {
-                            mView.showProgress();
+                        public IBaseView getBaseView() {
+                            return mView;
                         }
-                    }).subscribe(new Subscriber<String>() {
-                @Override
-                public void onCompleted() {
 
-                }
-
-                @Override
-                public void onError(Throwable e) {
-                    mView.hideProgress();
-                    mView.networkError();
-                }
-
-                @Override
-                public void onNext(String s) {
-                    mView.hideProgress();
-                    mView.success();
-                    mView.close();
-                }
-            });
+                        @Override
+                        public void onNext(String s) {
+                            mView.success();
+                            mView.close();
+                        }
+                    });
         }
 
 //            SMSSDKManager.getInstance().verifyCode(mContext, "86", tel, code, new SMSSDKManager.Callback() {
@@ -103,13 +94,13 @@ public class UpdatePhonePresenterImpl implements UpdatePhonePresenter {
     }
 
     Observable<String> naiveObserveVerifyCode(final Context mContext, final String country, final String tel, final String code) {
-        return Observable.fromEmitter(new Action1<AsyncEmitter<String>>() {
+        return Observable.create(new ObservableOnSubscribe<String>() {
             @Override
-            public void call(final AsyncEmitter<String> asyncEmitter) {
+            public void subscribe(final ObservableEmitter<String> e) throws Exception {
                 final SMSSDKManager.Callback callback = new SMSSDKManager.Callback() {
                     @Override
                     public void success() {
-                        asyncEmitter.onNext("");
+                        e.onNext("");
                     }
 
                     @Override
@@ -117,14 +108,8 @@ public class UpdatePhonePresenterImpl implements UpdatePhonePresenter {
 
                     }
                 };
-                asyncEmitter.setCancellation(new AsyncEmitter.Cancellable() {
-                    @Override
-                    public void cancel() throws Exception {
-
-                    }
-                });
                 SMSSDKManager.getInstance().verifyCode(mContext, country, tel, code, callback);
             }
-        }, AsyncEmitter.BackpressureMode.BUFFER);
+        });
     }
 }

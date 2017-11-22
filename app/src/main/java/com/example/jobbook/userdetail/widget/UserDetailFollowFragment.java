@@ -85,6 +85,11 @@ public class UserDetailFollowFragment extends Fragment implements UserDetailFoll
     }
 
     @Override
+    public void showLoadFailMsg(String msg) {
+
+    }
+
+    @Override
     public void onError(String msg) {
         Util.showSnackBar(view , msg);
     }

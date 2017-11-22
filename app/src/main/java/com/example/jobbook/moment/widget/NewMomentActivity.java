@@ -118,6 +118,11 @@ public class NewMomentActivity extends Activity implements NewMomentView, View.O
     }
 
     @Override
+    public void showLoadFailMsg(String msg) {
+
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.activity_publish_moment_close_ib:

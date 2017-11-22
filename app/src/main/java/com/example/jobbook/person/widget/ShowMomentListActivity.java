@@ -85,7 +85,7 @@ public class ShowMomentListActivity extends Activity implements ShowMomentListVi
     }
 
     @Override
-    public void showLoadFailMsg() {
+    public void showLoadFailMsg(String msg) {
         Util.showSnackBar(view, "动态列表读取错误，请重试！");
     }
 

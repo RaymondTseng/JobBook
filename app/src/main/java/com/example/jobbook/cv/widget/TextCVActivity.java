@@ -417,11 +417,6 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
     }
 
     @Override
-    public void uploadFailure() {
-        Util.showSnackBar(getWindow().getDecorView(), "上传失败！");
-    }
-
-    @Override
     public void loadHead() {
         L.i("loadHead1:" + mUri.toString());
         myApplication.getHandler().sendEmptyMessage(2);

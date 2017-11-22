@@ -84,7 +84,7 @@ public class FavouriteJobsFragment extends Fragment implements FavouriteJobView,
     }
 
     @Override
-    public void showLoadFailMsg() {
+    public void showLoadFailMsg(String msg) {
         Util.showSnackBar(view, "读取收藏岗位错误，请重试！");
     }
 

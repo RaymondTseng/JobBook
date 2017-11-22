@@ -230,19 +230,24 @@ public class MomentDetailActivity extends Activity implements MomentDetailView, 
     }
 
     @Override
-    public void showLoadFailMsg(int error) {
-        switch (error) {
-            case 0:
-                Util.showSnackBar(view, "工作圈加载错误,请重试!");
-                break;
-            case 1:
-                Util.showSnackBar(view, "评论加载错误,请重试！");
-                break;
-            case 2:
-                Util.showSnackBar(view, "发表评论失败！");
-                break;
-        }
+    public void showLoadFailMsg(String msg) {
+
     }
+
+//    @Override
+//    public void showLoadFailMsg(int error) {
+//        switch (error) {
+//            case 0:
+//                Util.showSnackBar(view, "工作圈加载错误,请重试!");
+//                break;
+//            case 1:
+//                Util.showSnackBar(view, "评论加载错误,请重试！");
+//                break;
+//            case 2:
+//                Util.showSnackBar(view, "发表评论失败！");
+//                break;
+//        }
+//    }
 
     @Override
     public String getComment() {

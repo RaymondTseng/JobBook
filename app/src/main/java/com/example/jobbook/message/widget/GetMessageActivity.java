@@ -102,7 +102,7 @@ public class GetMessageActivity extends Activity implements View.OnClickListener
     }
 
     @Override
-    public void showLoadFailMsg() {
+    public void showLoadFailMsg(String msg) {
         Util.showSnackBar(view, "获取消息错误，请重试！");
     }
 

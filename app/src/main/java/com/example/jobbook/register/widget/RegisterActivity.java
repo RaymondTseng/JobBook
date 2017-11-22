@@ -104,6 +104,11 @@ public class RegisterActivity extends Activity implements RegisterView, View.OnC
     }
 
     @Override
+    public void showLoadFailMsg(String msg) {
+
+    }
+
+    @Override
     public void showProgress() {
         mLoadingLinearLayout.setVisibility(View.VISIBLE);
     }

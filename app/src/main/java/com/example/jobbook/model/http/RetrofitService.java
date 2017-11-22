@@ -3,14 +3,6 @@ package com.example.jobbook.model.http;
 import android.support.annotation.NonNull;
 
 import com.example.jobbook.app.MyApplication;
-import com.example.jobbook.model.http.api.IArticlesApi;
-import com.example.jobbook.model.http.api.IFeedBackApi;
-import com.example.jobbook.model.http.api.IJobsApi;
-import com.example.jobbook.model.http.api.IMainApi;
-import com.example.jobbook.model.http.api.IPersonApi;
-import com.example.jobbook.model.http.api.ISquareApi;
-import com.example.jobbook.model.http.api.ITextCVApi;
-import com.example.jobbook.model.http.api.bean.ResultBean;
 import com.example.jobbook.model.bean.ArticleBean;
 import com.example.jobbook.model.bean.FeedBackBean;
 import com.example.jobbook.model.bean.JobBean;
@@ -22,6 +14,14 @@ import com.example.jobbook.model.bean.PersonBean;
 import com.example.jobbook.model.bean.PersonWithDeviceTokenBean;
 import com.example.jobbook.model.bean.TextCVBean;
 import com.example.jobbook.model.bean.TypePersonBean;
+import com.example.jobbook.model.http.api.IArticlesApi;
+import com.example.jobbook.model.http.api.IFeedBackApi;
+import com.example.jobbook.model.http.api.IJobsApi;
+import com.example.jobbook.model.http.api.IMainApi;
+import com.example.jobbook.model.http.api.IPersonApi;
+import com.example.jobbook.model.http.api.ISquareApi;
+import com.example.jobbook.model.http.api.ITextCVApi;
+import com.example.jobbook.model.http.api.bean.ResultBean;
 import com.example.jobbook.util.JsonUtil;
 import com.example.jobbook.util.L;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -60,7 +60,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitService {
     // Urls.IP
-    public static String base_url = "http://192.168.199.195/jobBook/index.php/";
+    public static String base_url = "http://192.168.0.114/jobBook/index.php/";
 
     //设缓存有效期为1天
     static final long CACHE_STALE_SEC = 60 * 60 * 24 * 1;
