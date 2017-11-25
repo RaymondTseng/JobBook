@@ -1,10 +1,10 @@
 package com.example.jobbook.job.presenter;
 
 import com.example.jobbook.app.MyApplication;
+import com.example.jobbook.base.BaseSubscriber;
 import com.example.jobbook.base.IBaseView;
-import com.example.jobbook.model.bean.JobDetailBean;
 import com.example.jobbook.job.view.JobDetailView;
-import com.example.jobbook.base.BaseObserver;
+import com.example.jobbook.model.bean.JobDetailBean;
 import com.example.jobbook.model.http.RetrofitService;
 
 /**
@@ -25,7 +25,7 @@ public class JobDetailPresenterImpl implements JobDetailPresenter {
             account = MyApplication.getAccount();
         }
         RetrofitService.getJobDetail(jobId, account)
-                .subscribe(new BaseObserver<JobDetailBean>() {
+                .subscribe(new BaseSubscriber<JobDetailBean>() {
                     @Override
                     public IBaseView getBaseView() {
                         return mJobDetailView;
@@ -51,7 +51,7 @@ public class JobDetailPresenterImpl implements JobDetailPresenter {
             return;
         }
         RetrofitService.likeJob(jobId, account)
-                .subscribe(new BaseObserver<String>() {
+                .subscribe(new BaseSubscriber<String>() {
                     @Override
                     public IBaseView getBaseView() {
                         return mJobDetailView;
@@ -77,7 +77,7 @@ public class JobDetailPresenterImpl implements JobDetailPresenter {
             return;
         }
         RetrofitService.unlikeJob(jobId, account)
-                .subscribe(new BaseObserver<String>() {
+                .subscribe(new BaseSubscriber<String>() {
                     @Override
                     public IBaseView getBaseView() {
                         return mJobDetailView;
@@ -103,7 +103,7 @@ public class JobDetailPresenterImpl implements JobDetailPresenter {
             return;
         }
         RetrofitService.sendCV(account, companyId)
-                .subscribe(new BaseObserver<String>() {
+                .subscribe(new BaseSubscriber<String>() {
                     @Override
                     public IBaseView getBaseView() {
                         return mJobDetailView;

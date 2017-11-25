@@ -1,4 +1,4 @@
-package com.example.jobbook.model.http;
+package com.example.jobbook.util;
 
 import android.content.Context;
 import android.net.ConnectivityManager;

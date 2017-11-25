@@ -6,14 +6,18 @@ import com.example.jobbook.util.L;
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
 
-import io.reactivex.Observer;
-import io.reactivex.disposables.Disposable;
+import io.reactivex.subscribers.ResourceSubscriber;
 
 /**
- * Created by Xu on 2017/11/18.
+ * Created by Xu on 2017/11/25.
  */
 
-public abstract class BaseObserver<T> implements Observer<T> {
+public abstract class BaseSubscriber<T> extends ResourceSubscriber<T> {
+
+    @Override
+    public void onComplete() {
+        getBaseView().hideProgress();
+    }
 
     public abstract IBaseView getBaseView();
 
@@ -29,15 +33,4 @@ public abstract class BaseObserver<T> implements Observer<T> {
         }
         getBaseView().hideProgress();
     }
-
-    @Override
-    public void onSubscribe(Disposable d) {
-        getBaseView().showProgress();
-    }
-
-    @Override
-    public void onComplete() {
-        getBaseView().hideProgress();
-    }
-
 }

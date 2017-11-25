@@ -3,6 +3,7 @@ package com.example.jobbook.model.http;
 import android.support.annotation.NonNull;
 
 import com.example.jobbook.app.MyApplication;
+import com.example.jobbook.model.T;
 import com.example.jobbook.model.bean.ArticleBean;
 import com.example.jobbook.model.bean.FeedBackBean;
 import com.example.jobbook.model.bean.JobBean;
@@ -22,10 +23,12 @@ import com.example.jobbook.model.http.api.IPersonApi;
 import com.example.jobbook.model.http.api.ISquareApi;
 import com.example.jobbook.model.http.api.ITextCVApi;
 import com.example.jobbook.model.http.api.bean.ResultBean;
+import com.example.jobbook.model.exception.ApiException;
 import com.example.jobbook.util.JsonUtil;
 import com.example.jobbook.util.L;
+import com.example.jobbook.util.NetUtil;
+import com.example.jobbook.util.RxUtil;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-import com.orhanobut.logger.Logger;
 
 import java.io.File;
 import java.io.IOException;
@@ -34,6 +37,7 @@ import java.net.URLDecoder;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
 import io.reactivex.ObservableTransformer;
@@ -72,10 +76,7 @@ public class RetrofitService {
     public static final String CACHE_CONTROL_NETWORK_3000 = "Cache-Control: public, max-age=3000";
     // 避免出现 HTTP 403 Forbidden，参考：http://stackoverflow.com/questions/13670692/403-forbidden-with-java-but-not-web-browser
     static final String AVOID_HTTP403_FORBIDDEN = "User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11";
-
-
-    private static ErrorTransformer transformer = new ErrorTransformer();
-
+    
     // 递增页码
     private static final int INCREASE_PAGE = 10;
 
@@ -162,7 +163,7 @@ public class RetrofitService {
             Request request = chain.request();
             if (!NetUtil.isNetworkAvailable(MyApplication.getContext())) {
                 request = request.newBuilder().cacheControl(CacheControl.FORCE_CACHE).build();
-                Logger.e("no network");
+                L.i("no network");
             }
             Response originalResponse = chain.proceed(request);
 
@@ -202,10 +203,10 @@ public class RetrofitService {
             if (request.body() != null) {
                 request.body().writeTo(requestBuffer);
             } else {
-                Logger.d("LogTAG", "request.body() == null");
+                L.d("request.body() == null");
             }
             //打印url信息
-            Logger.w(request.url() + (request.body() != null ? "?" + _parseParams(request.body(), requestBuffer) : ""));
+            L.i(request.url() + (request.body() != null ? "?" + _parseParams(request.body(), requestBuffer) : ""));
             final Response response = chain.proceed(request);
 
             return response;
@@ -230,7 +231,7 @@ public class RetrofitService {
     public static Observable<List<ArticleBean>> getArticlesList(int type, int page) {
         return articlesService.getArticlesList(type, page)
                 .compose(schedulersTransformer)
-                .compose(transformer);
+                .compose(errorTransformer);
     }
 
     /**
@@ -241,7 +242,7 @@ public class RetrofitService {
     public static Observable<ArticleBean> getArticleDetail(String a_id, String account) {
         return articlesService.getArticleDetail(a_id, account)
                 .compose(schedulersTransformer)
-                .compose(transformer);
+                .compose(errorTransformer);
     }
 
     /**
@@ -251,11 +252,8 @@ public class RetrofitService {
      */
     public static Observable<String> like(String a_id, String account) {
         return articlesService.like(a_id, account)
-                .map(new HandleFunc<String>())
-                .subscribeOn(Schedulers.io())
-                .unsubscribeOn(Schedulers.io())
-                .subscribeOn(AndroidSchedulers.mainThread())
-                .observeOn(AndroidSchedulers.mainThread());
+                .compose(schedulersTransformer)
+                .compose(errorTransformer);
     }
 
     /**
@@ -265,11 +263,8 @@ public class RetrofitService {
      */
     public static Observable<String> unlike(String a_id, String account) {
         return articlesService.unlike(a_id, account)
-                .map(new HandleFunc<String>())
-                .subscribeOn(Schedulers.io())
-                .unsubscribeOn(Schedulers.io())
-                .subscribeOn(AndroidSchedulers.mainThread())
-                .observeOn(AndroidSchedulers.mainThread());
+                .compose(schedulersTransformer)
+                .compose(errorTransformer);
     }
 
     /**
@@ -281,11 +276,8 @@ public class RetrofitService {
      */
     public static Observable<String> feedback(String account, FeedBackBean feedBackBean) {
         return feedBackService.feedBack(account, feedBackBean)
-                .map(new HandleFunc<String>())
-                .subscribeOn(Schedulers.io())
-                .unsubscribeOn(Schedulers.io())
-                .subscribeOn(AndroidSchedulers.mainThread())
-                .observeOn(AndroidSchedulers.mainThread());
+                .compose(schedulersTransformer)
+                .compose(errorTransformer);
     }
 
     /**
@@ -297,11 +289,8 @@ public class RetrofitService {
      */
     public static Observable<List<MomentBean>> getFollowSquare(String account, int index) {
         return squareService.getFollowSquare(account, index)
-                .map(new HandleFunc<List<MomentBean>>())
-                .subscribeOn(Schedulers.io())
-                .unsubscribeOn(Schedulers.io())
-                .subscribeOn(AndroidSchedulers.mainThread())
-                .observeOn(AndroidSchedulers.mainThread());
+                .compose(schedulersTransformer)
+                .compose(errorTransformer);
     }
 
     /**
@@ -313,11 +302,7 @@ public class RetrofitService {
      */
     public static Observable<MomentBean> likeSquare(int s_id, String account) {
         return squareService.likeSquare(s_id, account)
-                .map(new HandleFunc<MomentBean>())
-                .subscribeOn(Schedulers.io())
-                .unsubscribeOn(Schedulers.io())
-                .subscribeOn(AndroidSchedulers.mainThread())
-                .observeOn(AndroidSchedulers.mainThread());
+                .compose(errorTransformer);
     }
 
     /**
@@ -329,11 +314,8 @@ public class RetrofitService {
      */
     public static Observable<MomentBean> unlikeSquare(int s_id, String account) {
         return squareService.unlikeSquare(s_id, account)
-                .map(new HandleFunc<MomentBean>())
-                .subscribeOn(Schedulers.io())
-                .unsubscribeOn(Schedulers.io())
-                .subscribeOn(AndroidSchedulers.mainThread())
-                .observeOn(AndroidSchedulers.mainThread());
+                .compose(schedulersTransformer)
+                .compose(errorTransformer);
     }
 
     /**
@@ -342,13 +324,10 @@ public class RetrofitService {
      * @param index
      * @return
      */
-    public static Observable<List<JobBean>> getRecommendJobsList(int index) {
+    public static Flowable<List<JobBean>> getRecommendJobsList(int index) {
         return jobsService.getRecommendJobsList(index)
-                .map(new HandleFunc<List<JobBean>>())
-                .subscribeOn(Schedulers.io())
-                .unsubscribeOn(Schedulers.io())
-                .subscribeOn(AndroidSchedulers.mainThread())
-                .observeOn(AndroidSchedulers.mainThread());
+                .compose(RxUtil.<ResultBean<List<JobBean>>>rxSchedulerHelper())
+                .compose(RxUtil.<List<JobBean>>handleResult());
     }
 
     /**
@@ -358,13 +337,10 @@ public class RetrofitService {
      * @param location
      * @return
      */
-    public static Observable<List<JobBean>> search(int index, String type, String location) {
+    public static Flowable<List<JobBean>> search(int index, String type, String location) {
         return jobsService.search(index, type, location)
-                .map(new HandleFunc<List<JobBean>>())
-                .subscribeOn(Schedulers.io())
-                .unsubscribeOn(Schedulers.io())
-                .subscribeOn(AndroidSchedulers.mainThread())
-                .observeOn(AndroidSchedulers.mainThread());
+                .compose(RxUtil.<ResultBean<List<JobBean>>>rxSchedulerHelper())
+                .compose(RxUtil.<List<JobBean>>handleResult());
     }
 
     /**
@@ -374,13 +350,10 @@ public class RetrofitService {
      * @param account
      * @return
      */
-    public static Observable<JobDetailBean> getJobDetail(String jobid, String account) {
+    public static Flowable<JobDetailBean> getJobDetail(String jobid, String account) {
         return jobsService.getJobDetail(jobid, account)
-                .map(new HandleFunc<JobDetailBean>())
-                .subscribeOn(Schedulers.io())
-                .unsubscribeOn(Schedulers.io())
-                .subscribeOn(AndroidSchedulers.mainThread())
-                .observeOn(AndroidSchedulers.mainThread());
+                .compose(RxUtil.<ResultBean<JobDetailBean>>rxSchedulerHelper())
+                .compose(RxUtil.<JobDetailBean>handleResult());
     }
 
     /**
@@ -390,13 +363,10 @@ public class RetrofitService {
      * @param account
      * @return
      */
-    public static Observable<String> likeJob(String job_id, String account) {
+    public static Flowable<String> likeJob(String job_id, String account) {
         return jobsService.like(job_id, account)
-                .map(new HandleFunc<String>())
-                .subscribeOn(Schedulers.io())
-                .unsubscribeOn(Schedulers.io())
-                .subscribeOn(AndroidSchedulers.mainThread())
-                .observeOn(AndroidSchedulers.mainThread());
+                .compose(RxUtil.<ResultBean<String>>rxSchedulerHelper())
+                .compose(RxUtil.<String>handleResult());
     }
 
     /**
@@ -406,13 +376,10 @@ public class RetrofitService {
      * @param account
      * @return
      */
-    public static Observable<String> unlikeJob(String job_id, String account) {
+    public static Flowable<String> unlikeJob(String job_id, String account) {
         return jobsService.unlike(job_id, account)
-                .map(new HandleFunc<String>())
-                .subscribeOn(Schedulers.io())
-                .unsubscribeOn(Schedulers.io())
-                .subscribeOn(AndroidSchedulers.mainThread())
-                .observeOn(AndroidSchedulers.mainThread());
+                .compose(RxUtil.<ResultBean<String>>rxSchedulerHelper())
+                .compose(RxUtil.<String>handleResult());
     }
 
     /**
@@ -422,13 +389,10 @@ public class RetrofitService {
      * @param com_id
      * @return
      */
-    public static Observable<String> sendCV(String account, String com_id) {
+    public static Flowable<String> sendCV(String account, String com_id) {
         return jobsService.sendCV(account, com_id)
-                .map(new HandleFunc<String>())
-                .subscribeOn(Schedulers.io())
-                .unsubscribeOn(Schedulers.io())
-                .subscribeOn(AndroidSchedulers.mainThread())
-                .observeOn(AndroidSchedulers.mainThread());
+                .compose(RxUtil.<ResultBean<String>>rxSchedulerHelper())
+                .compose(RxUtil.<String>handleResult());
     }
 
     /**
@@ -439,11 +403,8 @@ public class RetrofitService {
      */
     public static Observable<PersonBean> login(PersonWithDeviceTokenBean bean) {
         return personService.login(bean)
-                .map(new HandleFunc<PersonBean>())
-                .subscribeOn(Schedulers.io())
-                .unsubscribeOn(Schedulers.io())
-                .subscribeOn(AndroidSchedulers.mainThread())
-                .observeOn(AndroidSchedulers.mainThread());
+                .compose(schedulersTransformer)
+                .compose(errorTransformer);
     }
 
     /**
@@ -454,11 +415,8 @@ public class RetrofitService {
      */
     public static Observable<String> checkAccount(String phone) {
         return personService.checkAccount(phone)
-                .map(new HandleFunc<String>())
-                .subscribeOn(Schedulers.io())
-                .unsubscribeOn(Schedulers.io())
-                .subscribeOn(AndroidSchedulers.mainThread())
-                .observeOn(AndroidSchedulers.mainThread());
+                .compose(schedulersTransformer)
+                .compose(errorTransformer);
     }
 
     /**
@@ -470,209 +428,140 @@ public class RetrofitService {
      */
     public static Observable<String> changePwdComplete(String account, String newpsd) {
         return personService.changePwdComplete(account, newpsd)
-                .map(new HandleFunc<String>())
-                .subscribeOn(Schedulers.io())
-                .unsubscribeOn(Schedulers.io())
-                .subscribeOn(AndroidSchedulers.mainThread())
-                .observeOn(AndroidSchedulers.mainThread());
+                .compose(schedulersTransformer)
+                .compose(errorTransformer);
     }
 
     public static Observable<String> loginCheck(String account) {
         return mainService.loginCheck(account)
-                .map(new HandleFunc<String>())
-                .subscribeOn(Schedulers.io())
-                .unsubscribeOn(Schedulers.io())
-                .subscribeOn(AndroidSchedulers.mainThread())
-                .observeOn(AndroidSchedulers.mainThread());
+                .compose(schedulersTransformer)
+                .compose(errorTransformer);
     }
 
     public static Observable<PersonBean> register(PersonWithDeviceTokenBean bean) {
         return personService.register(bean)
-                .map(new HandleFunc<PersonBean>())
-                .subscribeOn(Schedulers.io())
-                .unsubscribeOn(Schedulers.io())
-                .subscribeOn(AndroidSchedulers.mainThread())
-                .observeOn(AndroidSchedulers.mainThread());
+                .compose(schedulersTransformer)
+                .compose(errorTransformer);
     }
 
     public static Observable<List<ArticleBean>> loadFavouriteArticles(String account) {
         return personService.loadFavouriteArticles(account)
-                .map(new HandleFunc<List<ArticleBean>>())
-                .subscribeOn(Schedulers.io())
-                .unsubscribeOn(Schedulers.io())
-                .subscribeOn(AndroidSchedulers.mainThread())
-                .observeOn(AndroidSchedulers.mainThread());
+                .compose(schedulersTransformer)
+                .compose(errorTransformer);
     }
 
     public static Observable<List<MessageBean>> getMessages(String account) {
         return personService.getMessages(account)
-                .map(new HandleFunc<List<MessageBean>>())
-                .subscribeOn(Schedulers.io())
-                .unsubscribeOn(Schedulers.io())
-                .subscribeOn(AndroidSchedulers.mainThread())
-                .observeOn(AndroidSchedulers.mainThread());
+                .compose(schedulersTransformer)
+                .compose(errorTransformer);
     }
 
     public static Observable<List<TypePersonBean>> loadFanList(String account, String myAccount) {
         return personService.loadFanList(account, myAccount)
-                .map(new HandleFunc<List<TypePersonBean>>())
-                .subscribeOn(Schedulers.io())
-                .unsubscribeOn(Schedulers.io())
-                .subscribeOn(AndroidSchedulers.mainThread())
-                .observeOn(AndroidSchedulers.mainThread());
+                .compose(schedulersTransformer)
+                .compose(errorTransformer);
     }
 
     public static Observable<String> follow(String myAccount, String hisAccount) {
         return personService.follow(myAccount, hisAccount)
-                .map(new HandleFunc<String>())
-                .subscribeOn(Schedulers.io())
-                .unsubscribeOn(Schedulers.io())
-                .subscribeOn(AndroidSchedulers.mainThread())
-                .observeOn(AndroidSchedulers.mainThread());
+                .compose(schedulersTransformer)
+                .compose(errorTransformer);
     }
 
     public static Observable<String> unfollow(String myAccount, String hisAccount) {
         return personService.unfollow(myAccount, hisAccount)
-                .map(new HandleFunc<String>())
-                .subscribeOn(Schedulers.io())
-                .unsubscribeOn(Schedulers.io())
-                .subscribeOn(AndroidSchedulers.mainThread())
-                .observeOn(AndroidSchedulers.mainThread());
+                .compose(schedulersTransformer)
+                .compose(errorTransformer);
     }
 
     public static Observable<List<JobBean>> loadFavouriteJobs(String account) {
         return personService.loadFavouriteJobs(account)
-                .map(new HandleFunc<List<JobBean>>())
-                .subscribeOn(Schedulers.io())
-                .unsubscribeOn(Schedulers.io())
-                .subscribeOn(AndroidSchedulers.mainThread())
-                .observeOn(AndroidSchedulers.mainThread());
+                .compose(schedulersTransformer)
+                .compose(errorTransformer);
     }
 
     public static Observable<List<TypePersonBean>> loadFollowerList(String account, String myAccount) {
         return personService.loadFollowerList(account, myAccount)
-                .map(new HandleFunc<List<TypePersonBean>>())
-                .subscribeOn(Schedulers.io())
-                .unsubscribeOn(Schedulers.io())
-                .subscribeOn(AndroidSchedulers.mainThread())
-                .observeOn(AndroidSchedulers.mainThread());
+                .compose(schedulersTransformer)
+                .compose(errorTransformer);
     }
 
     public static Observable<TypePersonBean> loadUserDetailByAccount(String account) {
         return personService.loadUserDetailByAccount(account)
-                .map(new HandleFunc<TypePersonBean>())
-                .subscribeOn(Schedulers.io())
-                .unsubscribeOn(Schedulers.io())
-                .subscribeOn(AndroidSchedulers.mainThread())
-                .observeOn(AndroidSchedulers.mainThread());
+                .compose(schedulersTransformer)
+                .compose(errorTransformer);
     }
 
     public static Observable<List<MomentBean>> loadMomentList(String hisAccount, String myAccount) {
         return squareService.loadMomentList(hisAccount, myAccount)
-                .map(new HandleFunc<List<MomentBean>>())
-                .subscribeOn(Schedulers.io())
-                .unsubscribeOn(Schedulers.io())
-                .subscribeOn(AndroidSchedulers.mainThread())
-                .observeOn(AndroidSchedulers.mainThread());
+                .compose(schedulersTransformer)
+                .compose(errorTransformer);
     }
 
     public static Observable<List<MomentBean>> loadSquares(String account, int index) {
         return squareService.loadSquares(account, index)
-                .map(new HandleFunc<List<MomentBean>>())
-                .subscribeOn(Schedulers.io())
-                .unsubscribeOn(Schedulers.io())
-                .subscribeOn(AndroidSchedulers.mainThread())
-                .observeOn(AndroidSchedulers.mainThread());
+                .compose(schedulersTransformer)
+                .compose(errorTransformer);
     }
 
     public static Observable<String> newMoment(MomentBean momentBean) {
         return squareService.newMoment(momentBean)
-                .map(new HandleFunc<String>())
-                .subscribeOn(Schedulers.io())
-                .unsubscribeOn(Schedulers.io())
-                .subscribeOn(AndroidSchedulers.mainThread())
-                .observeOn(AndroidSchedulers.mainThread());
+                .compose(schedulersTransformer)
+                .compose(errorTransformer);
     }
 
     public static Observable<List<MomentCommentBean>> loadMomentComments(int s_id, int index) {
         return squareService.loadMomentComments(s_id, index)
-                .map(new HandleFunc<List<MomentCommentBean>>())
-                .subscribeOn(Schedulers.io())
-                .unsubscribeOn(Schedulers.io())
-                .subscribeOn(AndroidSchedulers.mainThread())
-                .observeOn(AndroidSchedulers.mainThread());
+                .compose(schedulersTransformer)
+                .compose(errorTransformer);
     }
 
     public static Observable<MomentBean> loadMomentById(String account, int s_id) {
         return squareService.loadMomentById(account, s_id)
-                .map(new HandleFunc<MomentBean>())
-                .subscribeOn(Schedulers.io())
-                .unsubscribeOn(Schedulers.io())
-                .subscribeOn(AndroidSchedulers.mainThread())
-                .observeOn(AndroidSchedulers.mainThread());
+                .compose(schedulersTransformer)
+                .compose(errorTransformer);
     }
 
     public static Observable<MomentBean> sendComment(MomentCommentBean momentCommentBean) {
         return squareService.sendComment(momentCommentBean)
-                .map(new HandleFunc<MomentBean>())
-                .subscribeOn(Schedulers.io())
-                .unsubscribeOn(Schedulers.io())
-                .subscribeOn(AndroidSchedulers.mainThread())
-                .observeOn(AndroidSchedulers.mainThread());
+                .compose(schedulersTransformer)
+                .compose(errorTransformer);
     }
 
     public static Observable<String> uploadAvatar(String account, MultipartBody.Part pic) {
         return personService.uploadAvatar(account, pic)
-                .map(new HandleFunc<String>())
-                .subscribeOn(Schedulers.io())
-                .unsubscribeOn(Schedulers.io())
-                .subscribeOn(AndroidSchedulers.mainThread())
-                .observeOn(AndroidSchedulers.mainThread());
+                .compose(schedulersTransformer)
+                .compose(errorTransformer);
     }
 
     public static Observable<String> updatePwd(String account, String oldpwd, String newpwd) {
         return personService.updatePwd(account, oldpwd, newpwd)
-                .map(new HandleFunc<String>())
-                .subscribeOn(Schedulers.io())
-                .unsubscribeOn(Schedulers.io())
-                .subscribeOn(AndroidSchedulers.mainThread())
-                .observeOn(AndroidSchedulers.mainThread());
+                .compose(schedulersTransformer)
+                .compose(errorTransformer);
     }
 
     public static Observable<String> updateTel(String account, String newTel) {
         return personService.updateTel(account, newTel)
-                .map(new HandleFunc<String>())
-                .subscribeOn(Schedulers.io())
-                .unsubscribeOn(Schedulers.io())
-                .subscribeOn(AndroidSchedulers.mainThread())
-                .observeOn(AndroidSchedulers.mainThread());
+                .compose(schedulersTransformer)
+                .compose(errorTransformer);
     }
 
     public static Observable<String> updateUserName(String account, String newName) {
         return personService.updateUserName(account, newName)
-                .map(new HandleFunc<String>())
-                .subscribeOn(Schedulers.io())
-                .unsubscribeOn(Schedulers.io())
-                .subscribeOn(AndroidSchedulers.mainThread())
-                .observeOn(AndroidSchedulers.mainThread());
+                .compose(schedulersTransformer)
+                .compose(errorTransformer);
     }
 
     public static Observable<PersonBean> postCV(String account, TextCVBean textCVBean) {
         return textCVService.postCV(account, textCVBean)
-                .map(new HandleFunc<PersonBean>())
-                .subscribeOn(Schedulers.io())
-                .unsubscribeOn(Schedulers.io())
-                .subscribeOn(AndroidSchedulers.mainThread())
-                .observeOn(AndroidSchedulers.mainThread());
+                .compose(schedulersTransformer)
+                .compose(errorTransformer);
     }
 
     public static Observable<TextCVBean> loadCV(String account) {
         return textCVService.loadCV(account)
-                .map(new HandleFunc<TextCVBean>())
-                .subscribeOn(Schedulers.io())
-                .unsubscribeOn(Schedulers.io())
-                .subscribeOn(AndroidSchedulers.mainThread())
-                .observeOn(AndroidSchedulers.mainThread());
+                .compose(schedulersTransformer)
+                .compose(errorTransformer);
     }
 
     /************************************ 类型转换 *******************************************/
@@ -693,14 +582,13 @@ public class RetrofitService {
      * 处理错误的变换
      * @param <T>
      */
-    private static class ErrorTransformer<T> implements ObservableTransformer {
-
+    static ObservableTransformer errorTransformer = new ObservableTransformer() {
         @Override
         public ObservableSource apply(Observable upstream) {
-            //onErrorResumeNext当发生错误的时候，由另外一个Observable来代替当前的Observable并继续发射数据
             return upstream.map(new HandleFunc<T>()).onErrorResumeNext(new HttpResponseFunc<T>());
         }
-    }
+    };
+
 
     /**
      * 错误统一处理
@@ -721,6 +609,7 @@ public class RetrofitService {
     public static class HttpResponseFunc<T> implements Function<Throwable, Observable<T>> {
         @Override
         public Observable<T> apply(Throwable throwable) throws Exception {
+            throwable.printStackTrace();
             return Observable.error(ApiException.handleException(throwable));
         }
     }

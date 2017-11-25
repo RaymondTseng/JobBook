@@ -262,7 +262,12 @@ public class JobFragment extends LazyLoadFragment implements JobView,
 
     @Override
     public void showLoadFailMsg(String msg) {
-
+        Util.showSnackBar(MyApplication.mSnackBarView, msg, "重试", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mJobPresenter.loadJobs(pageIndex, isRecommend, mCurrentCategory, mCurrentLocation);
+            }
+        });
     }
 
     @Override

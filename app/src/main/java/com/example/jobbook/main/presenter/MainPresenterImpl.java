@@ -76,6 +76,8 @@ public class MainPresenterImpl implements MainPresenter {
                                 mMainView.loginCheckSuccess(personBean);
                             }
                         });
+            } else {
+                return;
             }
         }
     }

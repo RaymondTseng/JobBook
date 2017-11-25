@@ -12,7 +12,7 @@ public class L {
 
     public static void init(final boolean isLogEnable) {
         FormatStrategy formatStrategy = PrettyFormatStrategy.newBuilder()
-                .showThreadInfo(false)
+                .showThreadInfo(true)
                 .methodCount(2)
                 .methodOffset(7)
                 .tag("JobBook_LOG")

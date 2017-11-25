@@ -1,9 +1,9 @@
 package com.example.jobbook.job.presenter;
 
+import com.example.jobbook.base.BaseSubscriber;
 import com.example.jobbook.base.IBaseView;
-import com.example.jobbook.model.bean.JobBean;
 import com.example.jobbook.job.view.JobView;
-import com.example.jobbook.base.BaseObserver;
+import com.example.jobbook.model.bean.JobBean;
 import com.example.jobbook.model.http.RetrofitService;
 
 import java.util.List;
@@ -23,7 +23,7 @@ public class JobPresenterImpl implements JobPresenter {
     public void loadJobs(int pageIndex, boolean isRecommend, String type, String location) {
         if (isRecommend) {
             RetrofitService.getRecommendJobsList(pageIndex)
-                    .subscribe(new BaseObserver<List<JobBean>>() {
+                    .subscribe(new BaseSubscriber<List<JobBean>>() {
                         @Override
                         public IBaseView getBaseView() {
                             return mJobView;
@@ -36,7 +36,7 @@ public class JobPresenterImpl implements JobPresenter {
                     });
         } else {
             RetrofitService.search(pageIndex, type, location)
-                    .subscribe(new BaseObserver<List<JobBean>>() {
+                    .subscribe(new BaseSubscriber<List<JobBean>>() {
                         @Override
                         public IBaseView getBaseView() {
                             return mJobView;

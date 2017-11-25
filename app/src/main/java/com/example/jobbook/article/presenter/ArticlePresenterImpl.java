@@ -25,7 +25,7 @@ public class ArticlePresenterImpl implements ArticlePresenter {
                 .subscribe(new BaseObserver<List<ArticleBean>>() {
                     @Override
                     public IBaseView getBaseView() {
-                        return null;
+                        return mView;
                     }
 
                     @Override
