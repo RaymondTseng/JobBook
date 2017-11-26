@@ -3,7 +3,6 @@ package com.example.jobbook.model.http;
 import android.support.annotation.NonNull;
 
 import com.example.jobbook.app.MyApplication;
-import com.example.jobbook.model.T;
 import com.example.jobbook.model.bean.ArticleBean;
 import com.example.jobbook.model.bean.FeedBackBean;
 import com.example.jobbook.model.bean.JobBean;
@@ -23,7 +22,6 @@ import com.example.jobbook.model.http.api.IPersonApi;
 import com.example.jobbook.model.http.api.ISquareApi;
 import com.example.jobbook.model.http.api.ITextCVApi;
 import com.example.jobbook.model.http.api.bean.ResultBean;
-import com.example.jobbook.model.exception.ApiException;
 import com.example.jobbook.util.JsonUtil;
 import com.example.jobbook.util.L;
 import com.example.jobbook.util.NetUtil;
@@ -38,12 +36,6 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Flowable;
-import io.reactivex.Observable;
-import io.reactivex.ObservableSource;
-import io.reactivex.ObservableTransformer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Function;
-import io.reactivex.schedulers.Schedulers;
 import okhttp3.Cache;
 import okhttp3.CacheControl;
 import okhttp3.Interceptor;
@@ -73,6 +65,7 @@ public class RetrofitService {
     //查询网络的Cache-Control设置
     //(假如请求了服务器并在a时刻返回响应结果，则在max-age规定的秒数内，浏览器将不会发送对应的请求到服务器，数据由缓存直接返回)
     public static final String CACHE_CONTROL_NETWORK_300 = "Cache-Control: public, max-age=300";
+    public static final String CACHE_CONTROL_NETWORK_120 = "Cache-Control: public, max-age=120";
     public static final String CACHE_CONTROL_NETWORK_3000 = "Cache-Control: public, max-age=3000";
     // 避免出现 HTTP 403 Forbidden，参考：http://stackoverflow.com/questions/13670692/403-forbidden-with-java-but-not-web-browser
     static final String AVOID_HTTP403_FORBIDDEN = "User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11";
@@ -228,10 +221,10 @@ public class RetrofitService {
      *
      * @return
      */
-    public static Observable<List<ArticleBean>> getArticlesList(int type, int page) {
+    public static Flowable<List<ArticleBean>> getArticlesList(int type, int page) {
         return articlesService.getArticlesList(type, page)
-                .compose(schedulersTransformer)
-                .compose(errorTransformer);
+                .compose(RxUtil.<ResultBean<List<ArticleBean>>>rxSchedulerHelper())
+                .compose(RxUtil.<List<ArticleBean>>handleResult());
     }
 
     /**
@@ -239,10 +232,10 @@ public class RetrofitService {
      *
      * @return
      */
-    public static Observable<ArticleBean> getArticleDetail(String a_id, String account) {
+    public static Flowable<ArticleBean> getArticleDetail(String a_id, String account) {
         return articlesService.getArticleDetail(a_id, account)
-                .compose(schedulersTransformer)
-                .compose(errorTransformer);
+                .compose(RxUtil.<ResultBean<ArticleBean>>rxSchedulerHelper())
+                .compose(RxUtil.<ArticleBean>handleResult());
     }
 
     /**
@@ -250,10 +243,10 @@ public class RetrofitService {
      *
      * @return
      */
-    public static Observable<String> like(String a_id, String account) {
+    public static Flowable<String> like(String a_id, String account) {
         return articlesService.like(a_id, account)
-                .compose(schedulersTransformer)
-                .compose(errorTransformer);
+                .compose(RxUtil.<ResultBean<String>>rxSchedulerHelper())
+                .compose(RxUtil.<String>handleResult());
     }
 
     /**
@@ -261,10 +254,10 @@ public class RetrofitService {
      *
      * @return
      */
-    public static Observable<String> unlike(String a_id, String account) {
+    public static Flowable<String> unlike(String a_id, String account) {
         return articlesService.unlike(a_id, account)
-                .compose(schedulersTransformer)
-                .compose(errorTransformer);
+                .compose(RxUtil.<ResultBean<String>>rxSchedulerHelper())
+                .compose(RxUtil.<String>handleResult());
     }
 
     /**
@@ -274,10 +267,10 @@ public class RetrofitService {
      * @param feedBackBean
      * @return
      */
-    public static Observable<String> feedback(String account, FeedBackBean feedBackBean) {
+    public static Flowable<String> feedback(String account, FeedBackBean feedBackBean) {
         return feedBackService.feedBack(account, feedBackBean)
-                .compose(schedulersTransformer)
-                .compose(errorTransformer);
+                .compose(RxUtil.<ResultBean<String>>rxSchedulerHelper())
+                .compose(RxUtil.<String>handleResult());
     }
 
     /**
@@ -287,10 +280,10 @@ public class RetrofitService {
      * @param index
      * @return
      */
-    public static Observable<List<MomentBean>> getFollowSquare(String account, int index) {
+    public static Flowable<List<MomentBean>> getFollowSquare(String account, int index) {
         return squareService.getFollowSquare(account, index)
-                .compose(schedulersTransformer)
-                .compose(errorTransformer);
+                .compose(RxUtil.<ResultBean<List<MomentBean>>>rxSchedulerHelper())
+                .compose(RxUtil.<List<MomentBean>>handleResult());
     }
 
     /**
@@ -300,9 +293,10 @@ public class RetrofitService {
      * @param account
      * @return
      */
-    public static Observable<MomentBean> likeSquare(int s_id, String account) {
+    public static Flowable<MomentBean> likeSquare(int s_id, String account) {
         return squareService.likeSquare(s_id, account)
-                .compose(errorTransformer);
+                .compose(RxUtil.<ResultBean<MomentBean>>rxSchedulerHelper())
+                .compose(RxUtil.<MomentBean>handleResult());
     }
 
     /**
@@ -312,10 +306,10 @@ public class RetrofitService {
      * @param account
      * @return
      */
-    public static Observable<MomentBean> unlikeSquare(int s_id, String account) {
+    public static Flowable<MomentBean> unlikeSquare(int s_id, String account) {
         return squareService.unlikeSquare(s_id, account)
-                .compose(schedulersTransformer)
-                .compose(errorTransformer);
+                .compose(RxUtil.<ResultBean<MomentBean>>rxSchedulerHelper())
+                .compose(RxUtil.<MomentBean>handleResult());
     }
 
     /**
@@ -401,10 +395,10 @@ public class RetrofitService {
      * @param bean
      * @return
      */
-    public static Observable<PersonBean> login(PersonWithDeviceTokenBean bean) {
+    public static Flowable<PersonBean> login(PersonWithDeviceTokenBean bean) {
         return personService.login(bean)
-                .compose(schedulersTransformer)
-                .compose(errorTransformer);
+                .compose(RxUtil.<ResultBean<PersonBean>>rxSchedulerHelper())
+                .compose(RxUtil.<PersonBean>handleResult());
     }
 
     /**
@@ -413,10 +407,10 @@ public class RetrofitService {
      * @param phone
      * @return
      */
-    public static Observable<String> checkAccount(String phone) {
+    public static Flowable<String> checkAccount(String phone) {
         return personService.checkAccount(phone)
-                .compose(schedulersTransformer)
-                .compose(errorTransformer);
+                .compose(RxUtil.<ResultBean<String>>rxSchedulerHelper())
+                .compose(RxUtil.<String>handleResult());
     }
 
     /**
@@ -426,193 +420,142 @@ public class RetrofitService {
      * @param newpsd
      * @return
      */
-    public static Observable<String> changePwdComplete(String account, String newpsd) {
+    public static Flowable<String> changePwdComplete(String account, String newpsd) {
         return personService.changePwdComplete(account, newpsd)
-                .compose(schedulersTransformer)
-                .compose(errorTransformer);
+                .compose(RxUtil.<ResultBean<String>>rxSchedulerHelper())
+                .compose(RxUtil.<String>handleResult());
     }
 
-    public static Observable<String> loginCheck(String account) {
+    public static Flowable<String> loginCheck(String account) {
         return mainService.loginCheck(account)
-                .compose(schedulersTransformer)
-                .compose(errorTransformer);
+                .compose(RxUtil.<ResultBean<String>>rxSchedulerHelper())
+                .compose(RxUtil.<String>handleResult());
     }
 
-    public static Observable<PersonBean> register(PersonWithDeviceTokenBean bean) {
+    public static Flowable<PersonBean> register(PersonWithDeviceTokenBean bean) {
         return personService.register(bean)
-                .compose(schedulersTransformer)
-                .compose(errorTransformer);
+                .compose(RxUtil.<ResultBean<PersonBean>>rxSchedulerHelper())
+                .compose(RxUtil.<PersonBean>handleResult());
     }
 
-    public static Observable<List<ArticleBean>> loadFavouriteArticles(String account) {
+    public static Flowable<List<ArticleBean>> loadFavouriteArticles(String account) {
         return personService.loadFavouriteArticles(account)
-                .compose(schedulersTransformer)
-                .compose(errorTransformer);
+                .compose(RxUtil.<ResultBean<List<ArticleBean>>>rxSchedulerHelper())
+                .compose(RxUtil.<List<ArticleBean>>handleResult());
     }
 
-    public static Observable<List<MessageBean>> getMessages(String account) {
+    public static Flowable<List<MessageBean>> getMessages(String account) {
         return personService.getMessages(account)
-                .compose(schedulersTransformer)
-                .compose(errorTransformer);
+                .compose(RxUtil.<ResultBean<List<MessageBean>>>rxSchedulerHelper())
+                .compose(RxUtil.<List<MessageBean>>handleResult());
     }
 
-    public static Observable<List<TypePersonBean>> loadFanList(String account, String myAccount) {
+    public static Flowable<List<TypePersonBean>> loadFanList(String account, String myAccount) {
         return personService.loadFanList(account, myAccount)
-                .compose(schedulersTransformer)
-                .compose(errorTransformer);
+                .compose(RxUtil.<ResultBean<List<TypePersonBean>>>rxSchedulerHelper())
+                .compose(RxUtil.<List<TypePersonBean>>handleResult());
     }
 
-    public static Observable<String> follow(String myAccount, String hisAccount) {
+    public static Flowable<String> follow(String myAccount, String hisAccount) {
         return personService.follow(myAccount, hisAccount)
-                .compose(schedulersTransformer)
-                .compose(errorTransformer);
+                .compose(RxUtil.<ResultBean<String>>rxSchedulerHelper())
+                .compose(RxUtil.<String>handleResult());
     }
 
-    public static Observable<String> unfollow(String myAccount, String hisAccount) {
+    public static Flowable<String> unfollow(String myAccount, String hisAccount) {
         return personService.unfollow(myAccount, hisAccount)
-                .compose(schedulersTransformer)
-                .compose(errorTransformer);
+                .compose(RxUtil.<ResultBean<String>>rxSchedulerHelper())
+                .compose(RxUtil.<String>handleResult());
     }
 
-    public static Observable<List<JobBean>> loadFavouriteJobs(String account) {
+    public static Flowable<List<JobBean>> loadFavouriteJobs(String account) {
         return personService.loadFavouriteJobs(account)
-                .compose(schedulersTransformer)
-                .compose(errorTransformer);
+                .compose(RxUtil.<ResultBean<List<JobBean>>>rxSchedulerHelper())
+                .compose(RxUtil.<List<JobBean>>handleResult());
     }
 
-    public static Observable<List<TypePersonBean>> loadFollowerList(String account, String myAccount) {
+    public static Flowable<List<TypePersonBean>> loadFollowerList(String account, String myAccount) {
         return personService.loadFollowerList(account, myAccount)
-                .compose(schedulersTransformer)
-                .compose(errorTransformer);
+                .compose(RxUtil.<ResultBean<List<TypePersonBean>>>rxSchedulerHelper())
+                .compose(RxUtil.<List<TypePersonBean>>handleResult());
     }
 
-    public static Observable<TypePersonBean> loadUserDetailByAccount(String account) {
+    public static Flowable<TypePersonBean> loadUserDetailByAccount(String account) {
         return personService.loadUserDetailByAccount(account)
-                .compose(schedulersTransformer)
-                .compose(errorTransformer);
+                .compose(RxUtil.<ResultBean<TypePersonBean>>rxSchedulerHelper())
+                .compose(RxUtil.<TypePersonBean>handleResult());
     }
 
-    public static Observable<List<MomentBean>> loadMomentList(String hisAccount, String myAccount) {
+    public static Flowable<List<MomentBean>> loadMomentList(String hisAccount, String myAccount) {
         return squareService.loadMomentList(hisAccount, myAccount)
-                .compose(schedulersTransformer)
-                .compose(errorTransformer);
+                .compose(RxUtil.<ResultBean<List<MomentBean>>>rxSchedulerHelper())
+                .compose(RxUtil.<List<MomentBean>>handleResult());
     }
 
-    public static Observable<List<MomentBean>> loadSquares(String account, int index) {
-        return squareService.loadSquares(account, index)
-                .compose(schedulersTransformer)
-                .compose(errorTransformer);
+    public static Flowable<List<MomentBean>> loadSquares(int index) {
+        return squareService.loadSquares(index)
+                .compose(RxUtil.<ResultBean<List<MomentBean>>>rxSchedulerHelper())
+                .compose(RxUtil.<List<MomentBean>>handleResult());
     }
 
-    public static Observable<String> newMoment(MomentBean momentBean) {
+    public static Flowable<String> newMoment(MomentBean momentBean) {
         return squareService.newMoment(momentBean)
-                .compose(schedulersTransformer)
-                .compose(errorTransformer);
+                .compose(RxUtil.<ResultBean<String>>rxSchedulerHelper())
+                .compose(RxUtil.<String>handleResult());
     }
 
-    public static Observable<List<MomentCommentBean>> loadMomentComments(int s_id, int index) {
+    public static Flowable<List<MomentCommentBean>> loadMomentComments(int s_id, int index) {
         return squareService.loadMomentComments(s_id, index)
-                .compose(schedulersTransformer)
-                .compose(errorTransformer);
+                .compose(RxUtil.<ResultBean<List<MomentCommentBean>>>rxSchedulerHelper())
+                .compose(RxUtil.<List<MomentCommentBean>>handleResult());
     }
 
-    public static Observable<MomentBean> loadMomentById(String account, int s_id) {
+    public static Flowable<MomentBean> loadMomentById(String account, int s_id) {
         return squareService.loadMomentById(account, s_id)
-                .compose(schedulersTransformer)
-                .compose(errorTransformer);
+                .compose(RxUtil.<ResultBean<MomentBean>>rxSchedulerHelper())
+                .compose(RxUtil.<MomentBean>handleResult());
     }
 
-    public static Observable<MomentBean> sendComment(MomentCommentBean momentCommentBean) {
+    public static Flowable<MomentBean> sendComment(MomentCommentBean momentCommentBean) {
         return squareService.sendComment(momentCommentBean)
-                .compose(schedulersTransformer)
-                .compose(errorTransformer);
+                .compose(RxUtil.<ResultBean<MomentBean>>rxSchedulerHelper())
+                .compose(RxUtil.<MomentBean>handleResult());
     }
 
-    public static Observable<String> uploadAvatar(String account, MultipartBody.Part pic) {
+    public static Flowable<String> uploadAvatar(String account, MultipartBody.Part pic) {
         return personService.uploadAvatar(account, pic)
-                .compose(schedulersTransformer)
-                .compose(errorTransformer);
+                .compose(RxUtil.<ResultBean<String>>rxSchedulerHelper())
+                .compose(RxUtil.<String>handleResult());
     }
 
-    public static Observable<String> updatePwd(String account, String oldpwd, String newpwd) {
+    public static Flowable<String> updatePwd(String account, String oldpwd, String newpwd) {
         return personService.updatePwd(account, oldpwd, newpwd)
-                .compose(schedulersTransformer)
-                .compose(errorTransformer);
+                .compose(RxUtil.<ResultBean<String>>rxSchedulerHelper())
+                .compose(RxUtil.<String>handleResult());
     }
 
-    public static Observable<String> updateTel(String account, String newTel) {
+    public static Flowable<String> updateTel(String account, String newTel) {
         return personService.updateTel(account, newTel)
-                .compose(schedulersTransformer)
-                .compose(errorTransformer);
+                .compose(RxUtil.<ResultBean<String>>rxSchedulerHelper())
+                .compose(RxUtil.<String>handleResult());
     }
 
-    public static Observable<String> updateUserName(String account, String newName) {
+    public static Flowable<String> updateUserName(String account, String newName) {
         return personService.updateUserName(account, newName)
-                .compose(schedulersTransformer)
-                .compose(errorTransformer);
+                .compose(RxUtil.<ResultBean<String>>rxSchedulerHelper())
+                .compose(RxUtil.<String>handleResult());
     }
 
-    public static Observable<PersonBean> postCV(String account, TextCVBean textCVBean) {
+    public static Flowable<PersonBean> postCV(String account, TextCVBean textCVBean) {
         return textCVService.postCV(account, textCVBean)
-                .compose(schedulersTransformer)
-                .compose(errorTransformer);
+                .compose(RxUtil.<ResultBean<PersonBean>>rxSchedulerHelper())
+                .compose(RxUtil.<PersonBean>handleResult());
     }
 
-    public static Observable<TextCVBean> loadCV(String account) {
+    public static Flowable<TextCVBean> loadCV(String account) {
         return textCVService.loadCV(account)
-                .compose(schedulersTransformer)
-                .compose(errorTransformer);
+                .compose(RxUtil.<ResultBean<TextCVBean>>rxSchedulerHelper())
+                .compose(RxUtil.<TextCVBean>handleResult());
     }
-
-    /************************************ 类型转换 *******************************************/
-
-    /**
-     * 处理线程调度的变换
-     */
-    static ObservableTransformer schedulersTransformer = new ObservableTransformer() {
-        @Override
-        public ObservableSource apply(Observable upstream) {
-            return upstream.subscribeOn(Schedulers.io())
-                    .unsubscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread());
-        }
-    };
-
-    /**
-     * 处理错误的变换
-     * @param <T>
-     */
-    static ObservableTransformer errorTransformer = new ObservableTransformer() {
-        @Override
-        public ObservableSource apply(Observable upstream) {
-            return upstream.map(new HandleFunc<T>()).onErrorResumeNext(new HttpResponseFunc<T>());
-        }
-    };
-
-
-    /**
-     * 错误统一处理
-     *
-     * @param <T>
-     */
-    private static class HandleFunc<T> implements Function<ResultBean<T>, T> {
-
-        @Override
-        public T apply(ResultBean<T> resultBean) throws Exception {
-            if (resultBean.getCode() != 0) {
-                throw new RuntimeException(resultBean.getCode() + "");
-            }
-            return resultBean.getData();
-        }
-    }
-
-    public static class HttpResponseFunc<T> implements Function<Throwable, Observable<T>> {
-        @Override
-        public Observable<T> apply(Throwable throwable) throws Exception {
-            throwable.printStackTrace();
-            return Observable.error(ApiException.handleException(throwable));
-        }
-    }
-
 
 }

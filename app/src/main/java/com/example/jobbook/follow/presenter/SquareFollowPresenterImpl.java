@@ -4,7 +4,7 @@ import com.example.jobbook.app.MyApplication;
 import com.example.jobbook.base.IBaseView;
 import com.example.jobbook.model.bean.MomentBean;
 import com.example.jobbook.follow.view.SquareFollowView;
-import com.example.jobbook.base.BaseObserver;
+import com.example.jobbook.base.BaseSubscriber;
 import com.example.jobbook.model.http.RetrofitService;
 
 import java.util.List;
@@ -27,7 +27,7 @@ public class SquareFollowPresenterImpl implements SquareFollowPresenter {
             account = MyApplication.getAccount();
         }
         RetrofitService.getFollowSquare(account, pageIndex)
-                .subscribe(new BaseObserver<List<MomentBean>>() {
+                .subscribe(new BaseSubscriber<List<MomentBean>>() {
                     @Override
                     public IBaseView getBaseView() {
                         return mSquareFollowView;
@@ -49,7 +49,7 @@ public class SquareFollowPresenterImpl implements SquareFollowPresenter {
             mSquareFollowView.NoLoginError();
         }
         RetrofitService.likeSquare(squareId, account)
-                .subscribe(new BaseObserver<MomentBean>() {
+                .subscribe(new BaseSubscriber<MomentBean>() {
                     @Override
                     public IBaseView getBaseView() {
                         return mSquareFollowView;
@@ -71,7 +71,7 @@ public class SquareFollowPresenterImpl implements SquareFollowPresenter {
             mSquareFollowView.NoLoginError();
         }
         RetrofitService.unlikeSquare(squareId, account)
-                .subscribe(new BaseObserver<MomentBean>() {
+                .subscribe(new BaseSubscriber<MomentBean>() {
                     @Override
                     public IBaseView getBaseView() {
                         return mSquareFollowView;

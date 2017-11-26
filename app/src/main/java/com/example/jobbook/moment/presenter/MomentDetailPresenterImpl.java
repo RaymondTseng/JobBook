@@ -4,7 +4,7 @@ import com.example.jobbook.base.IBaseView;
 import com.example.jobbook.model.bean.MomentBean;
 import com.example.jobbook.model.bean.MomentCommentBean;
 import com.example.jobbook.moment.view.MomentDetailView;
-import com.example.jobbook.base.BaseObserver;
+import com.example.jobbook.base.BaseSubscriber;
 import com.example.jobbook.model.http.RetrofitService;
 
 import java.util.List;
@@ -34,7 +34,7 @@ public class MomentDetailPresenterImpl implements MomentDetailPresenter {
     @Override
     public void loadMomentById(int id, String account) {
         RetrofitService.loadMomentById(account, id)
-                .subscribe(new BaseObserver<MomentBean>() {
+                .subscribe(new BaseSubscriber<MomentBean>() {
                     @Override
                     public IBaseView getBaseView() {
                         return mView;
@@ -51,7 +51,7 @@ public class MomentDetailPresenterImpl implements MomentDetailPresenter {
     @Override
     public void loadMomentComments(int id, int index) {
         RetrofitService.loadMomentComments(id, index)
-                .subscribe(new BaseObserver<List<MomentCommentBean>>() {
+                .subscribe(new BaseSubscriber<List<MomentCommentBean>>() {
                     @Override
                     public IBaseView getBaseView() {
                         return mView;
@@ -67,7 +67,7 @@ public class MomentDetailPresenterImpl implements MomentDetailPresenter {
     @Override
     public void sendComment(MomentCommentBean momentCommentBean) {
         RetrofitService.sendComment(momentCommentBean)
-                .subscribe(new BaseObserver<MomentBean>() {
+                .subscribe(new BaseSubscriber<MomentBean>() {
                     @Override
                     public IBaseView getBaseView() {
                         return mView;
@@ -83,7 +83,7 @@ public class MomentDetailPresenterImpl implements MomentDetailPresenter {
     @Override
     public void commentLike(int s_id, String account) {
         RetrofitService.likeSquare(s_id, account)
-                .subscribe(new BaseObserver<MomentBean>() {
+                .subscribe(new BaseSubscriber<MomentBean>() {
                     @Override
                     public IBaseView getBaseView() {
                         return mView;
@@ -99,7 +99,7 @@ public class MomentDetailPresenterImpl implements MomentDetailPresenter {
     @Override
     public void commentUnlike(int s_id, String account) {
         RetrofitService.unlikeSquare(s_id, account)
-                .subscribe(new BaseObserver<MomentBean>() {
+                .subscribe(new BaseSubscriber<MomentBean>() {
                     @Override
                     public IBaseView getBaseView() {
                         return mView;

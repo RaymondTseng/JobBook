@@ -1,9 +1,9 @@
 package com.example.jobbook.model.http.api;
 
-import com.example.jobbook.model.http.api.bean.ResultBean;
 import com.example.jobbook.model.bean.FeedBackBean;
+import com.example.jobbook.model.http.api.bean.ResultBean;
 
-import io.reactivex.Observable;
+import io.reactivex.Flowable;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -21,5 +21,5 @@ public interface IFeedBackApi {
      * @return
      */
     @POST("suggestion/postSuggestion/account/{account}")
-    Observable<ResultBean<String>> feedBack(@Path("account") String account, @Body FeedBackBean feedBackBean);
+    Flowable<ResultBean<String>> feedBack(@Path("account") String account, @Body FeedBackBean feedBackBean);
 }

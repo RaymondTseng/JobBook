@@ -6,7 +6,7 @@ import android.text.TextUtils;
 import com.example.jobbook.base.IBaseView;
 import com.example.jobbook.model.bean.PersonBean;
 import com.example.jobbook.model.bean.PersonWithDeviceTokenBean;
-import com.example.jobbook.base.BaseObserver;
+import com.example.jobbook.base.BaseSubscriber;
 import com.example.jobbook.model.http.RetrofitService;
 import com.example.jobbook.register.view.RegisterView;
 import com.example.jobbook.util.SMSSDKManager;
@@ -60,7 +60,7 @@ public class RegisterPresenterImpl implements RegisterPresenter {
             @Override
             public void success() {
                 RetrofitService.register(bean)
-                        .subscribe(new BaseObserver<PersonBean>() {
+                        .subscribe(new BaseSubscriber<PersonBean>() {
                             @Override
                             public IBaseView getBaseView() {
                                 return mRegisterView;

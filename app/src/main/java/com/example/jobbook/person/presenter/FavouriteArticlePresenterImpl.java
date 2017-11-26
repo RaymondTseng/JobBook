@@ -2,7 +2,7 @@ package com.example.jobbook.person.presenter;
 
 import com.example.jobbook.base.IBaseView;
 import com.example.jobbook.model.bean.ArticleBean;
-import com.example.jobbook.base.BaseObserver;
+import com.example.jobbook.base.BaseSubscriber;
 import com.example.jobbook.model.http.RetrofitService;
 import com.example.jobbook.person.view.FavouriteArticleView;
 
@@ -22,7 +22,7 @@ public class FavouriteArticlePresenterImpl implements FavouriteArticlePresenter 
     @Override
     public void loadArticle(String account) {
         RetrofitService.loadFavouriteArticles(account)
-                .subscribe(new BaseObserver<List<ArticleBean>>() {
+                .subscribe(new BaseSubscriber<List<ArticleBean>>() {
                     @Override
                     public IBaseView getBaseView() {
                         return mView;

@@ -10,7 +10,7 @@ import com.example.jobbook.model.bean.PersonBean;
 import com.example.jobbook.model.bean.TextCVBean;
 import com.example.jobbook.app.constants.Constants;
 import com.example.jobbook.cv.view.TextCVView;
-import com.example.jobbook.base.BaseObserver;
+import com.example.jobbook.base.BaseSubscriber;
 import com.example.jobbook.model.http.RetrofitService;
 
 import java.util.List;
@@ -76,7 +76,7 @@ public class TextCVPresenterImpl implements TextCVPresenter {
             return;
         }
         RetrofitService.loadCV(account)
-                .subscribe(new BaseObserver<TextCVBean>() {
+                .subscribe(new BaseSubscriber<TextCVBean>() {
                     @Override
                     public IBaseView getBaseView() {
                         return mTextCVView;
@@ -105,7 +105,7 @@ public class TextCVPresenterImpl implements TextCVPresenter {
                 return;
             }
             RetrofitService.postCV(account, textCVBean)
-                    .subscribe(new BaseObserver<PersonBean>() {
+                    .subscribe(new BaseSubscriber<PersonBean>() {
                         @Override
                         public IBaseView getBaseView() {
                             return mTextCVView;

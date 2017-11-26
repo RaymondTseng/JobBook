@@ -4,7 +4,7 @@ import android.text.TextUtils;
 
 import com.example.jobbook.base.IBaseView;
 import com.example.jobbook.login.view.ForgetPwdSecondView;
-import com.example.jobbook.base.BaseObserver;
+import com.example.jobbook.base.BaseSubscriber;
 import com.example.jobbook.model.http.RetrofitService;
 
 /**
@@ -36,7 +36,7 @@ public class ForgetPwdSecondPresenterImpl implements ForgetPwdSecondPresenter {
             return;
         } else {
             RetrofitService.changePwdComplete(account, password)
-                    .subscribe(new BaseObserver<String>() {
+                    .subscribe(new BaseSubscriber<String>() {
                         @Override
                         public IBaseView getBaseView() {
                             return mView;

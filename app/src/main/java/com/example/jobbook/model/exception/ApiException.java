@@ -1,13 +1,8 @@
 package com.example.jobbook.model.exception;
 
-import android.util.Log;
 import android.util.SparseArray;
 
 import com.example.jobbook.app.constants.NetConstants;
-import com.example.jobbook.util.L;
-
-import java.net.ConnectException;
-import java.net.SocketTimeoutException;
 
 /**
  * Created by zhaoxuzhang on 2017/11/4.
@@ -31,26 +26,6 @@ public class ApiException extends RuntimeException {
         errors.append(NetConstants.PERSON_REGISTER_ERROR_CODE, NetConstants.PERSON_REGISTER_ERROR_WORD);
         errors.append(NetConstants.JOB_LIKE_ERROR_CODE, NetConstants.JOB_LIKE_ERROR_WORD);
         errors.append(NetConstants.JOB_UNLIKE_ERROR_CODE, NetConstants.JOB_UNLIKE_ERROR_WORD);
-    }
-
-    public static Throwable handleException(Throwable e) {
-        if (e instanceof SocketTimeoutException) {
-            return e;
-        } else if (e instanceof ConnectException) {
-            return e;
-        }
-        int code = Integer.valueOf(e.getMessage());
-        L.i("code: " + code);
-        String message = getApiExceptionMessage(code);
-        Log.i("handleException", "message: " + message);
-        ResponseThrowable ex = new ResponseThrowable(e, message);
-        return ex;
-    }
-
-    public static class ResponseThrowable extends Exception {
-        public ResponseThrowable(Throwable e, String msg) {
-            super(msg, e);
-        }
     }
 
     public ApiException(int code) {

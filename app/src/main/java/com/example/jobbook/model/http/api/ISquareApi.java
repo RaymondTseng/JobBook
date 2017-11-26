@@ -10,7 +10,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
-import io.reactivex.Observable;
+import io.reactivex.Flowable;
 
 /**
  * Created by Xu on 2017/7/1.
@@ -26,7 +26,7 @@ public interface ISquareApi {
      */
 //    @Headers(CACHE_CONTROL_NETWORK)
     @GET("square/focusSquare/account/{account}/index/{index}")
-    Observable<ResultBean<List<MomentBean>>> getFollowSquare(@Path("account") String account, @Path("index") int index);
+    Flowable<ResultBean<List<MomentBean>>> getFollowSquare(@Path("account") String account, @Path("index") int index);
 
     /**
      * 工作圈点赞
@@ -35,7 +35,7 @@ public interface ISquareApi {
      * @return
      */
     @GET("square/likeSquare/s_id/{s_id}/account/{account}")
-    Observable<ResultBean<MomentBean>> likeSquare(@Path("s_id") int s_id, @Path("account") String account);
+    Flowable<ResultBean<MomentBean>> likeSquare(@Path("s_id") int s_id, @Path("account") String account);
 
     /**
      * 工作圈取消点赞
@@ -44,23 +44,23 @@ public interface ISquareApi {
      * @return
      */
     @GET("square/unlikeSquare/s_id/{s_id}/account/{account}")
-    Observable<ResultBean<MomentBean>> unlikeSquare(@Path("s_id") int s_id, @Path("account") String account);
+    Flowable<ResultBean<MomentBean>> unlikeSquare(@Path("s_id") int s_id, @Path("account") String account);
 
-    @GET("square/allSquares/account/{account}/index/{index}")
-    Observable<ResultBean<List<MomentBean>>> loadSquares(@Path("account") String account, @Path("index") int index);
+    @GET("square/allSquares/index/{index}")
+    Flowable<ResultBean<List<MomentBean>>> loadSquares(@Path("index") int index);
 
     @GET("square/getHisSquare/his/{hisAccount}/my/{myAccount}")
-    Observable<ResultBean<List<MomentBean>>> loadMomentList(@Path("hisAccount") String hisAccount, @Path("myAccount") String myAccount);
+    Flowable<ResultBean<List<MomentBean>>> loadMomentList(@Path("hisAccount") String hisAccount, @Path("myAccount") String myAccount);
 
     @POST("square/releaseSquare")
-    Observable<ResultBean<String>> newMoment(@Body MomentBean momentBean);
+    Flowable<ResultBean<String>> newMoment(@Body MomentBean momentBean);
 
     @GET("square/getComments/s_id/{s_id}/index/{index}")
-    Observable<ResultBean<List<MomentCommentBean>>> loadMomentComments(@Path("s_id") int s_id, @Path("index") int index);
+    Flowable<ResultBean<List<MomentCommentBean>>> loadMomentComments(@Path("s_id") int s_id, @Path("index") int index);
 
     @GET("square/getSingleMoment/account/{account}/s_id/{s_id}")
-    Observable<ResultBean<MomentBean>> loadMomentById(@Path("account") String account, @Path("s_id") int s_id);
+    Flowable<ResultBean<MomentBean>> loadMomentById(@Path("account") String account, @Path("s_id") int s_id);
 
     @POST("square/comment")
-    Observable<ResultBean<MomentBean>> sendComment(@Body MomentCommentBean momentCommentBean);
+    Flowable<ResultBean<MomentBean>> sendComment(@Body MomentCommentBean momentCommentBean);
 }

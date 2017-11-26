@@ -5,7 +5,7 @@ import android.text.TextUtils;
 
 import com.example.jobbook.base.IBaseView;
 import com.example.jobbook.login.view.ForgetPwdFirstView;
-import com.example.jobbook.base.BaseObserver;
+import com.example.jobbook.base.BaseSubscriber;
 import com.example.jobbook.model.http.RetrofitService;
 import com.example.jobbook.util.SMSSDKManager;
 
@@ -28,7 +28,7 @@ public class ForgetPwdFirstPresenterImpl implements ForgetPwdFirstPresenter {
             return;
         } else {
             RetrofitService.checkAccount(phone)
-                    .subscribe(new BaseObserver<String>() {
+                    .subscribe(new BaseSubscriber<String>() {
                         @Override
                         public IBaseView getBaseView() {
                             return mView;

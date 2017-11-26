@@ -4,7 +4,7 @@ import android.content.Context;
 import android.text.TextUtils;
 
 import com.example.jobbook.base.IBaseView;
-import com.example.jobbook.base.BaseObserver;
+import com.example.jobbook.base.BaseSubscriber;
 import com.example.jobbook.model.http.RetrofitService;
 import com.example.jobbook.update.view.UpdateUsernameView;
 
@@ -28,7 +28,7 @@ public class UpdateUsernamePresenterImpl implements UpdateUsernamePresenter {
             return;
         } else {
             RetrofitService.updateUserName(account, username)
-                    .subscribe(new BaseObserver<String>() {
+                    .subscribe(new BaseSubscriber<String>() {
                         @Override
                         public IBaseView getBaseView() {
                             return view;

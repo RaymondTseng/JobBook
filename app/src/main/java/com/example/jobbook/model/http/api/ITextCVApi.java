@@ -4,7 +4,7 @@ import com.example.jobbook.model.bean.PersonBean;
 import com.example.jobbook.model.bean.TextCVBean;
 import com.example.jobbook.model.http.api.bean.ResultBean;
 
-import io.reactivex.Observable;
+import io.reactivex.Flowable;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
@@ -17,9 +17,9 @@ import retrofit2.http.Path;
 public interface ITextCVApi {
 
     @POST("cv/postCV/account/{account}")
-    Observable<ResultBean<PersonBean>> postCV(@Path("account") String account, @Body TextCVBean textCVBean);
+    Flowable<ResultBean<PersonBean>> postCV(@Path("account") String account, @Body TextCVBean textCVBean);
 
     @GET("cv/getcv/account/{account}")
-    Observable<ResultBean<TextCVBean>> loadCV(@Path("account") String account);
+    Flowable<ResultBean<TextCVBean>> loadCV(@Path("account") String account);
 
 }

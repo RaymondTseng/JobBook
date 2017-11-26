@@ -2,7 +2,7 @@ package com.example.jobbook.person.presenter;
 
 import com.example.jobbook.app.MyApplication;
 import com.example.jobbook.base.IBaseView;
-import com.example.jobbook.base.BaseObserver;
+import com.example.jobbook.base.BaseSubscriber;
 import com.example.jobbook.model.http.RetrofitService;
 import com.example.jobbook.person.view.UploadView;
 
@@ -23,7 +23,7 @@ public class UploadPresenterImpl implements UploadPresenter {
     public void uploadAvatar(MultipartBody.Part pic) {
         String account = MyApplication.getAccount();
         RetrofitService.uploadAvatar(account, pic)
-                .subscribe(new BaseObserver<String>() {
+                .subscribe(new BaseSubscriber<String>() {
                     @Override
                     public IBaseView getBaseView() {
                         return view;

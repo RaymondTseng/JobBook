@@ -3,16 +3,16 @@ package com.example.jobbook.update.presenter;
 import android.content.Context;
 import android.text.TextUtils;
 
-import com.example.jobbook.base.BaseObserver;
+import com.example.jobbook.base.BaseSubscriber;
 import com.example.jobbook.base.IBaseView;
 import com.example.jobbook.model.http.RetrofitService;
 import com.example.jobbook.update.view.UpdatePhoneView;
 import com.example.jobbook.util.SMSSDKManager;
 
-import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
-import io.reactivex.ObservableSource;
+import io.reactivex.BackpressureStrategy;
+import io.reactivex.Flowable;
+import io.reactivex.FlowableEmitter;
+import io.reactivex.FlowableOnSubscribe;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
@@ -41,13 +41,13 @@ public class UpdatePhonePresenterImpl implements UpdatePhonePresenter {
         } else {
             naiveObserveVerifyCode(mContext, account, tel, code)
                     .observeOn(Schedulers.computation())
-                    .flatMap(new Function<String, ObservableSource<String>>() {
+                    .flatMap(new Function<String, Flowable<String>>() {
                         @Override
-                        public ObservableSource<String> apply(String s) throws Exception {
+                        public Flowable<String> apply(String s) throws Exception {
                             return RetrofitService.updateTel(account, tel);
                         }
                     })
-                    .subscribe(new BaseObserver<String>() {
+                    .subscribe(new BaseSubscriber<String>() {
                         @Override
                         public IBaseView getBaseView() {
                             return mView;
@@ -93,10 +93,10 @@ public class UpdatePhonePresenterImpl implements UpdatePhonePresenter {
 //            });
     }
 
-    Observable<String> naiveObserveVerifyCode(final Context mContext, final String country, final String tel, final String code) {
-        return Observable.create(new ObservableOnSubscribe<String>() {
+    Flowable<String> naiveObserveVerifyCode(final Context mContext, final String country, final String tel, final String code) {
+        return Flowable.create(new FlowableOnSubscribe<String>() {
             @Override
-            public void subscribe(final ObservableEmitter<String> e) throws Exception {
+            public void subscribe(final FlowableEmitter<String> e) throws Exception {
                 final SMSSDKManager.Callback callback = new SMSSDKManager.Callback() {
                     @Override
                     public void success() {
@@ -110,6 +110,6 @@ public class UpdatePhonePresenterImpl implements UpdatePhonePresenter {
                 };
                 SMSSDKManager.getInstance().verifyCode(mContext, country, tel, code, callback);
             }
-        });
+        }, BackpressureStrategy.LATEST);
     }
 }

@@ -7,7 +7,7 @@ import com.example.jobbook.base.IBaseView;
 import com.example.jobbook.model.bean.PersonBean;
 import com.example.jobbook.model.bean.PersonWithDeviceTokenBean;
 import com.example.jobbook.login.view.LoginView;
-import com.example.jobbook.base.BaseObserver;
+import com.example.jobbook.base.BaseSubscriber;
 import com.example.jobbook.model.http.RetrofitService;
 import com.example.jobbook.util.Util;
 
@@ -36,7 +36,7 @@ public class LoginPresenterImpl implements LoginPresenter {
         personBean.setPassword(Util.getMD5(password));
         personBean.setDevicetoken(MyApplication.mDevicetoken);
         RetrofitService.login(personBean)
-                .subscribe(new BaseObserver<PersonBean>() {
+                .subscribe(new BaseSubscriber<PersonBean>() {
                     @Override
                     public IBaseView getBaseView() {
                         return mLoginView;

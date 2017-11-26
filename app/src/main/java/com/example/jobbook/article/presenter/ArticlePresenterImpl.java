@@ -3,7 +3,7 @@ package com.example.jobbook.article.presenter;
 import com.example.jobbook.article.view.ArticleView;
 import com.example.jobbook.base.IBaseView;
 import com.example.jobbook.model.bean.ArticleBean;
-import com.example.jobbook.base.BaseObserver;
+import com.example.jobbook.base.BaseSubscriber;
 import com.example.jobbook.model.http.RetrofitService;
 
 import java.util.List;
@@ -22,7 +22,7 @@ public class ArticlePresenterImpl implements ArticlePresenter {
     @Override
     public void loadArticles(int pageIndex, int type) {
         RetrofitService.getArticlesList(type, pageIndex)
-                .subscribe(new BaseObserver<List<ArticleBean>>() {
+                .subscribe(new BaseSubscriber<List<ArticleBean>>() {
                     @Override
                     public IBaseView getBaseView() {
                         return mView;

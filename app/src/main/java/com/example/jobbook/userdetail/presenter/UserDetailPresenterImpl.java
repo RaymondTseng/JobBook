@@ -5,7 +5,7 @@ import android.text.TextUtils;
 import com.example.jobbook.app.MyApplication;
 import com.example.jobbook.base.IBaseView;
 import com.example.jobbook.model.bean.TypePersonBean;
-import com.example.jobbook.base.BaseObserver;
+import com.example.jobbook.base.BaseSubscriber;
 import com.example.jobbook.model.http.RetrofitService;
 import com.example.jobbook.userdetail.view.UserDetailView;
 
@@ -23,7 +23,7 @@ public class UserDetailPresenterImpl implements UserDetailPresenter {
     @Override
     public void follow(String myAccount, String hisAccount) {
         RetrofitService.follow(myAccount, hisAccount)
-                .subscribe(new BaseObserver<String>() {
+                .subscribe(new BaseSubscriber<String>() {
                     @Override
                     public IBaseView getBaseView() {
                         return mView;
@@ -39,7 +39,7 @@ public class UserDetailPresenterImpl implements UserDetailPresenter {
     @Override
     public void loadUserDetailByAccount(String account) {
         RetrofitService.loadUserDetailByAccount(account)
-                .subscribe(new BaseObserver<TypePersonBean>() {
+                .subscribe(new BaseSubscriber<TypePersonBean>() {
                     @Override
                     public IBaseView getBaseView() {
                         return mView;
@@ -55,7 +55,7 @@ public class UserDetailPresenterImpl implements UserDetailPresenter {
     @Override
     public void unfollow(String myAccount, String hisAccount) {
         RetrofitService.unfollow(myAccount, hisAccount)
-                .subscribe(new BaseObserver<String>() {
+                .subscribe(new BaseSubscriber<String>() {
                     @Override
                     public IBaseView getBaseView() {
                         return mView;
@@ -75,7 +75,7 @@ public class UserDetailPresenterImpl implements UserDetailPresenter {
             return;
         }
         RetrofitService.loadUserDetailByAccount(account)
-                .subscribe(new BaseObserver<TypePersonBean>() {
+                .subscribe(new BaseSubscriber<TypePersonBean>() {
                     @Override
                     public IBaseView getBaseView() {
                         return mView;

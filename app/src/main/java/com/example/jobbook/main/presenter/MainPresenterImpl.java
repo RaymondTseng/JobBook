@@ -7,7 +7,7 @@ import com.example.jobbook.R;
 import com.example.jobbook.base.IBaseView;
 import com.example.jobbook.model.bean.PersonBean;
 import com.example.jobbook.main.view.MainView;
-import com.example.jobbook.base.BaseObserver;
+import com.example.jobbook.base.BaseSubscriber;
 import com.example.jobbook.model.http.RetrofitService;
 import com.example.jobbook.util.Util;
 
@@ -65,7 +65,7 @@ public class MainPresenterImpl implements MainPresenter {
             personBean = Util.loadPersonBean(share);
             if (personBean != null) {
                 RetrofitService.loginCheck(personBean.getAccount())
-                        .subscribe(new BaseObserver<String>() {
+                        .subscribe(new BaseSubscriber<String>() {
                             @Override
                             public IBaseView getBaseView() {
                                 return mMainView;

@@ -2,7 +2,7 @@ package com.example.jobbook.userdetail.presenter;
 
 import com.example.jobbook.base.IBaseView;
 import com.example.jobbook.model.bean.MomentBean;
-import com.example.jobbook.base.BaseObserver;
+import com.example.jobbook.base.BaseSubscriber;
 import com.example.jobbook.model.http.RetrofitService;
 import com.example.jobbook.userdetail.view.UserDetailMomentView;
 
@@ -22,7 +22,7 @@ public class UserDetailMomentPresenterImpl implements UserDetailMomentPresenter 
     @Override
     public void loadMoments(String hisAccount, String myAccount) {
         RetrofitService.loadMomentList(hisAccount, myAccount)
-                .subscribe(new BaseObserver<List<MomentBean>>() {
+                .subscribe(new BaseSubscriber<List<MomentBean>>() {
                     @Override
                     public IBaseView getBaseView() {
                         return mView;

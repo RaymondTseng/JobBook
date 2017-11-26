@@ -3,7 +3,7 @@ package com.example.jobbook.moment.presenter;
 import com.example.jobbook.base.IBaseView;
 import com.example.jobbook.model.bean.MomentBean;
 import com.example.jobbook.moment.view.NewMomentView;
-import com.example.jobbook.base.BaseObserver;
+import com.example.jobbook.base.BaseSubscriber;
 import com.example.jobbook.model.http.RetrofitService;
 
 /**
@@ -20,7 +20,7 @@ public class NewMomentPresenterImpl implements NewMomentPresenter {
     @Override
     public void newmoment(final MomentBean momentBean) {
         RetrofitService.newMoment(momentBean)
-                .subscribe(new BaseObserver<String>() {
+                .subscribe(new BaseSubscriber<String>() {
                     @Override
                     public IBaseView getBaseView() {
                         return mNewMomentView;

@@ -2,7 +2,7 @@ package com.example.jobbook.userdetail.presenter;
 
 import com.example.jobbook.base.IBaseView;
 import com.example.jobbook.model.bean.TypePersonBean;
-import com.example.jobbook.base.BaseObserver;
+import com.example.jobbook.base.BaseSubscriber;
 import com.example.jobbook.model.http.RetrofitService;
 import com.example.jobbook.userdetail.view.UserDetailFollowView;
 
@@ -23,7 +23,7 @@ public class UserDetailFollowPresenterImpl implements UserDetailFollowPresenter 
     @Override
     public void loadFollow(String account) {
         RetrofitService.loadFollowerList(account, "")
-                .subscribe(new BaseObserver<List<TypePersonBean>>() {
+                .subscribe(new BaseSubscriber<List<TypePersonBean>>() {
                     @Override
                     public IBaseView getBaseView() {
                         return mView;
@@ -39,7 +39,7 @@ public class UserDetailFollowPresenterImpl implements UserDetailFollowPresenter 
     @Override
     public void follow(String myAccount, String hisAccount) {
         RetrofitService.follow(myAccount, hisAccount)
-                .subscribe(new BaseObserver<String>() {
+                .subscribe(new BaseSubscriber<String>() {
                     @Override
                     public IBaseView getBaseView() {
                         return mView;

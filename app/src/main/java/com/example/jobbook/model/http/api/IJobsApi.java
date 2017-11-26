@@ -25,7 +25,7 @@ public interface IJobsApi {
      * @param index
      * @return
      */
-//    @Headers(CACHE_CONTROL_NETWORK_300)
+    @Headers(CACHE_CONTROL_NETWORK_300)
     @GET("job/getRecommend/index/{index}")
     Flowable<ResultBean<List<JobBean>>> getRecommendJobsList(@Path("index") int index);
 

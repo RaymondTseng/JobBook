@@ -3,7 +3,7 @@ package com.example.jobbook.square.presenter;
 import com.example.jobbook.app.MyApplication;
 import com.example.jobbook.base.IBaseView;
 import com.example.jobbook.model.bean.MomentBean;
-import com.example.jobbook.base.BaseObserver;
+import com.example.jobbook.base.BaseSubscriber;
 import com.example.jobbook.model.http.RetrofitService;
 import com.example.jobbook.square.view.SquareView;
 
@@ -22,8 +22,8 @@ public class SquarePresenterImpl implements SquarePresenter {
 
     @Override
     public void loadSquare(int pageIndex, String account) {
-        RetrofitService.loadSquares(account, pageIndex)
-                .subscribe(new BaseObserver<List<MomentBean>>() {
+        RetrofitService.loadSquares(pageIndex)
+                .subscribe(new BaseSubscriber<List<MomentBean>>() {
                     @Override
                     public IBaseView getBaseView() {
                         return mSquareView;
@@ -47,7 +47,7 @@ public class SquarePresenterImpl implements SquarePresenter {
             account = MyApplication.getAccount();
         }
         RetrofitService.likeSquare(squareId, account)
-                .subscribe(new BaseObserver<MomentBean>() {
+                .subscribe(new BaseSubscriber<MomentBean>() {
                     @Override
                     public IBaseView getBaseView() {
                         return mSquareView;
@@ -71,7 +71,7 @@ public class SquarePresenterImpl implements SquarePresenter {
             account = MyApplication.getAccount();
         }
         RetrofitService.unlikeSquare(squareId, account)
-                .subscribe(new BaseObserver<MomentBean>() {
+                .subscribe(new BaseSubscriber<MomentBean>() {
                     @Override
                     public IBaseView getBaseView() {
                         return mSquareView;

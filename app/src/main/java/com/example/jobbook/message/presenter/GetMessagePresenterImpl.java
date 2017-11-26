@@ -3,7 +3,7 @@ package com.example.jobbook.message.presenter;
 import com.example.jobbook.base.IBaseView;
 import com.example.jobbook.model.bean.MessageBean;
 import com.example.jobbook.message.view.GetMessageView;
-import com.example.jobbook.base.BaseObserver;
+import com.example.jobbook.base.BaseSubscriber;
 import com.example.jobbook.model.http.RetrofitService;
 
 import java.util.List;
@@ -23,7 +23,7 @@ public class GetMessagePresenterImpl implements GetMessagePresenter {
     @Override
     public void getMessage(String account) {
         RetrofitService.getMessages(account)
-                .subscribe(new BaseObserver<List<MessageBean>>() {
+                .subscribe(new BaseSubscriber<List<MessageBean>>() {
                     @Override
                     public IBaseView getBaseView() {
                         return view;
