@@ -18,7 +18,7 @@ import android.widget.TextView;
 import com.example.jobbook.app.MyApplication;
 import com.example.jobbook.R;
 import com.example.jobbook.model.bean.PersonBean;
-import com.example.jobbook.app.constants.Constants;
+import com.example.jobbook.app.Constants;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;

@@ -1,4 +1,4 @@
-package com.example.jobbook.article;
+package com.example.jobbook.ui.article.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;

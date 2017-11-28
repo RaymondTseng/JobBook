@@ -17,7 +17,7 @@ import android.widget.Toast;
 
 import com.example.jobbook.app.MyApplication;
 import com.example.jobbook.R;
-import com.example.jobbook.article.widget.ArticleFragment;
+import com.example.jobbook.ui.article.fragment.ArticleFragment;
 import com.example.jobbook.model.bean.PersonBean;
 import com.example.jobbook.job.widget.JobFragment;
 import com.example.jobbook.login.widget.LoginActivity;
@@ -28,7 +28,7 @@ import com.example.jobbook.main.view.MainView;
 import com.example.jobbook.moment.widget.MomentFragment;
 import com.example.jobbook.person.widget.PersonFragment;
 import com.example.jobbook.service.MyPushIntentService;
-import com.example.jobbook.ui.BadgeView;
+import com.example.jobbook.widget.BadgeView;
 import com.example.jobbook.util.L;
 import com.example.jobbook.util.Util;
 

@@ -68,7 +68,7 @@
             android:name=".job.widget.JobDetailActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".article.widget.ArticleDetailActivity"
+            android:name=".ui.article.activity.ArticleDetailActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".person.widget.SettingActivity"

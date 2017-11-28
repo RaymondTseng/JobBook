@@ -1,4 +1,4 @@
-package com.example.jobbook.ui;
+package com.example.jobbook.widget;
 
 import android.content.Context;
 import android.graphics.Color;

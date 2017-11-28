@@ -19,7 +19,7 @@ import com.example.jobbook.person.presenter.ShowFollowerListPresenterImpl;
 import com.example.jobbook.person.view.ShowFollowerListView;
 import com.example.jobbook.userdetail.UserDetailFollowAdapter;
 import com.example.jobbook.userdetail.widget.UserDetailActivity;
-import com.example.jobbook.ui.DividerItemDecoration;
+import com.example.jobbook.widget.DividerItemDecoration;
 import com.example.jobbook.util.Util;
 
 import java.util.ArrayList;

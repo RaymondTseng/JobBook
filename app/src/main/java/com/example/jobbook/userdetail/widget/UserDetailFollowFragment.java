@@ -18,7 +18,7 @@ import com.example.jobbook.userdetail.UserDetailFollowAdapter;
 import com.example.jobbook.userdetail.presenter.UserDetailFollowPresenter;
 import com.example.jobbook.userdetail.presenter.UserDetailFollowPresenterImpl;
 import com.example.jobbook.userdetail.view.UserDetailFollowView;
-import com.example.jobbook.ui.DividerItemDecoration;
+import com.example.jobbook.widget.DividerItemDecoration;
 import com.example.jobbook.util.Util;
 
 import java.util.ArrayList;

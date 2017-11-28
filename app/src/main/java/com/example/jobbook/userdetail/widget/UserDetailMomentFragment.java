@@ -18,7 +18,7 @@ import com.example.jobbook.moment.widget.MomentDetailActivity;
 import com.example.jobbook.userdetail.UserDetailMomentAdapter;
 import com.example.jobbook.userdetail.presenter.UserDetailMomentPresenterImpl;
 import com.example.jobbook.userdetail.view.UserDetailMomentView;
-import com.example.jobbook.ui.DividerItemDecoration;
+import com.example.jobbook.widget.DividerItemDecoration;
 import com.example.jobbook.util.Util;
 
 import java.util.ArrayList;

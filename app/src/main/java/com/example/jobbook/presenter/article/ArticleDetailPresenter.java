@@ -1,21 +1,21 @@
-package com.example.jobbook.article.presenter;
+package com.example.jobbook.presenter.article;
 
 import com.example.jobbook.app.MyApplication;
-import com.example.jobbook.article.view.ArticleDetailView;
 import com.example.jobbook.base.BaseSubscriber;
 import com.example.jobbook.base.IBaseView;
+import com.example.jobbook.base.RxPresenter;
+import com.example.jobbook.base.contract.article.ArticleDetailContract;
 import com.example.jobbook.model.bean.ArticleBean;
 import com.example.jobbook.model.http.RetrofitService;
 
-
 /**
- * @author Xu
+ * Created by zhaoxuzhang on 2017/11/28.
  */
-public class ArticleDetailPresenterImpl implements ArticleDetailPresenter {
-    private ArticleDetailView mView;
 
-    public ArticleDetailPresenterImpl(ArticleDetailView mView) {
-        this.mView = mView;
+public class ArticleDetailPresenter extends RxPresenter<ArticleDetailContract.View> implements ArticleDetailContract.Presenter {
+
+    public ArticleDetailPresenter(ArticleDetailContract.View view) {
+        attach(view);
     }
 
     @Override
@@ -24,8 +24,8 @@ public class ArticleDetailPresenterImpl implements ArticleDetailPresenter {
         if (MyApplication.getmLoginStatus() == 1) {
             account = MyApplication.getAccount();
         }
-        RetrofitService.getArticleDetail(articleId, account)
-                .subscribe(new BaseSubscriber<ArticleBean>() {
+        addSubscribe(RetrofitService.getArticleDetail(articleId, account)
+                .subscribeWith(new BaseSubscriber<ArticleBean>() {
 
                     @Override
                     public IBaseView getBaseView() {
@@ -36,11 +36,13 @@ public class ArticleDetailPresenterImpl implements ArticleDetailPresenter {
                     public void onNext(ArticleBean articleBean) {
                         mView.addArticle(articleBean);
                     }
-                });
+                })
+        );
     }
 
     @Override
     public void loadComments() {
+
     }
 
     @Override
@@ -49,8 +51,8 @@ public class ArticleDetailPresenterImpl implements ArticleDetailPresenter {
         if (MyApplication.getmLoginStatus() == 1) {
             account = MyApplication.getAccount();
         }
-        RetrofitService.like(articleId, account)
-                .subscribe(new BaseSubscriber<String>() {
+        addSubscribe(RetrofitService.like(articleId, account)
+                .subscribeWith(new BaseSubscriber<String>() {
                     @Override
                     public IBaseView getBaseView() {
                         return mView;
@@ -60,7 +62,8 @@ public class ArticleDetailPresenterImpl implements ArticleDetailPresenter {
                     public void onNext(String s) {
                         mView.likeSuccess();
                     }
-                });
+                })
+        );
     }
 
     @Override
@@ -69,8 +72,8 @@ public class ArticleDetailPresenterImpl implements ArticleDetailPresenter {
         if (MyApplication.getmLoginStatus() == 1) {
             account = MyApplication.getAccount();
         }
-        RetrofitService.unlike(articleId, account)
-                .subscribe(new BaseSubscriber<String>() {
+        addSubscribe(RetrofitService.unlike(articleId, account)
+                .subscribeWith(new BaseSubscriber<String>() {
                     @Override
                     public IBaseView getBaseView() {
                         return mView;
@@ -80,6 +83,7 @@ public class ArticleDetailPresenterImpl implements ArticleDetailPresenter {
                     public void onNext(String s) {
                         mView.unlikeSuccess();
                     }
-                });
+                })
+        );
     }
 }

@@ -1,4 +1,4 @@
-package com.example.jobbook.article.widget;
+package com.example.jobbook.ui.article.fragment;
 
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -20,14 +20,15 @@ import android.widget.TextView;
 
 import com.example.jobbook.app.MyApplication;
 import com.example.jobbook.R;
-import com.example.jobbook.article.ArticlesAdapter;
+import com.example.jobbook.ui.article.adapter.ArticlesAdapter;
 import com.example.jobbook.article.presenter.ArticlePresenter;
 import com.example.jobbook.article.presenter.ArticlePresenterImpl;
 import com.example.jobbook.article.view.ArticleView;
 import com.example.jobbook.model.bean.ArticleBean;
-import com.example.jobbook.app.constants.Constants;
-import com.example.jobbook.app.constants.Urls;
-import com.example.jobbook.ui.DividerItemDecoration;
+import com.example.jobbook.app.Constants;
+import com.example.jobbook.app.Urls;
+import com.example.jobbook.ui.article.activity.ArticleDetailActivity;
+import com.example.jobbook.widget.DividerItemDecoration;
 import com.example.jobbook.util.L;
 import com.example.jobbook.base.LazyLoadFragment;
 import com.example.jobbook.util.Util;

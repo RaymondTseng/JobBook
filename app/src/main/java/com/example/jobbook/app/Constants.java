@@ -1,4 +1,4 @@
-package com.example.jobbook.app.constants;
+package com.example.jobbook.app;
 
 /**
  * Created by 椰树 on 2016/8/26.

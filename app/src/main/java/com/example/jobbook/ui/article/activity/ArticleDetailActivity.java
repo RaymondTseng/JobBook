@@ -1,4 +1,4 @@
-package com.example.jobbook.article.widget;
+package com.example.jobbook.ui.article.activity;
 
 import android.app.Activity;
 import android.os.Bundle;

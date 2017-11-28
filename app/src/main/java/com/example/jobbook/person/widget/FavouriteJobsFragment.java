@@ -19,7 +19,7 @@ import com.example.jobbook.person.FavouriteJobAdapter;
 import com.example.jobbook.person.presenter.FavouriteJobPresenter;
 import com.example.jobbook.person.presenter.FavouriteJobPresenterImpl;
 import com.example.jobbook.person.view.FavouriteJobView;
-import com.example.jobbook.ui.DividerItemDecoration;
+import com.example.jobbook.widget.DividerItemDecoration;
 import com.example.jobbook.util.Util;
 
 import java.util.ArrayList;

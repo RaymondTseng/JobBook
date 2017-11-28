@@ -2,7 +2,7 @@ package com.example.jobbook.model.exception;
 
 import android.util.SparseArray;
 
-import com.example.jobbook.app.constants.NetConstants;
+import com.example.jobbook.app.NetConstants;
 
 /**
  * Created by zhaoxuzhang on 2017/11/4.

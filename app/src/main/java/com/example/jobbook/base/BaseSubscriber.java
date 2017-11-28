@@ -1,6 +1,6 @@
 package com.example.jobbook.base;
 
-import com.example.jobbook.app.constants.NetConstants;
+import com.example.jobbook.app.NetConstants;
 import com.example.jobbook.util.L;
 
 import java.net.ConnectException;

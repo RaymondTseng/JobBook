@@ -17,7 +17,7 @@ import com.example.jobbook.person.presenter.ShowFanListPresenterImpl;
 import com.example.jobbook.person.view.ShowFanListView;
 import com.example.jobbook.userdetail.UserDetailFansAdapter;
 import com.example.jobbook.userdetail.widget.UserDetailActivity;
-import com.example.jobbook.ui.DividerItemDecoration;
+import com.example.jobbook.widget.DividerItemDecoration;
 import com.example.jobbook.util.L;
 import com.example.jobbook.util.Util;
 
