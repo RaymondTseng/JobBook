@@ -1,4 +1,4 @@
-package com.example.jobbook.cv.widget;
+package com.example.jobbook.ui.cv.activity;
 
 import android.content.Context;
 import android.content.Intent;

@@ -22,7 +22,7 @@ import android.widget.TextView;
 import com.example.jobbook.app.MyApplication;
 import com.example.jobbook.R;
 import com.example.jobbook.model.bean.PersonBean;
-import com.example.jobbook.cv.widget.TextCVActivity;
+import com.example.jobbook.ui.cv.activity.TextCVActivity;
 import com.example.jobbook.login.widget.LoginActivity;
 import com.example.jobbook.main.widget.MainActivity;
 import com.example.jobbook.message.widget.GetMessageActivity;
