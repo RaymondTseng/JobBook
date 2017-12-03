@@ -46,11 +46,7 @@ public class ArticleDetailPresenter extends RxPresenter<ArticleDetailContract.Vi
     }
 
     @Override
-    public void like(String articleId) {
-        String account = "";
-        if (MyApplication.getmLoginStatus() == 1) {
-            account = MyApplication.getAccount();
-        }
+    public void like(String articleId, String account) {
         addSubscribe(RetrofitService.like(articleId, account)
                 .subscribeWith(new BaseSubscriber<String>() {
                     @Override
@@ -67,11 +63,11 @@ public class ArticleDetailPresenter extends RxPresenter<ArticleDetailContract.Vi
     }
 
     @Override
-    public void unlike(String articleId) {
-        String account = "";
-        if (MyApplication.getmLoginStatus() == 1) {
-            account = MyApplication.getAccount();
-        }
+    public void unlike(String articleId, String account) {
+//        String account = "";
+//        if (MyApplication.getmLoginStatus() == 1) {
+//            account = MyApplication.getAccount();
+//        }
         addSubscribe(RetrofitService.unlike(articleId, account)
                 .subscribeWith(new BaseSubscriber<String>() {
                     @Override

@@ -31,8 +31,8 @@ public interface ArticleDetailContract {
 
         void loadComments();
 
-        void like(String articleId);
+        void like(String articleId, String account);
 
-        void unlike(String articleId);
+        void unlike(String articleId, String account);
     }
 }

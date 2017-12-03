@@ -18,20 +18,19 @@ import android.widget.PopupWindow;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.example.jobbook.app.MyApplication;
 import com.example.jobbook.R;
-import com.example.jobbook.ui.article.adapter.ArticlesAdapter;
-import com.example.jobbook.article.presenter.ArticlePresenter;
-import com.example.jobbook.article.presenter.ArticlePresenterImpl;
-import com.example.jobbook.article.view.ArticleView;
-import com.example.jobbook.model.bean.ArticleBean;
 import com.example.jobbook.app.Constants;
+import com.example.jobbook.app.MyApplication;
 import com.example.jobbook.app.Urls;
-import com.example.jobbook.ui.article.activity.ArticleDetailActivity;
-import com.example.jobbook.widget.DividerItemDecoration;
-import com.example.jobbook.util.L;
 import com.example.jobbook.base.LazyLoadFragment;
+import com.example.jobbook.base.contract.article.ArticleContract;
+import com.example.jobbook.model.bean.ArticleBean;
+import com.example.jobbook.presenter.article.ArticlePresenter;
+import com.example.jobbook.ui.article.activity.ArticleDetailActivity;
+import com.example.jobbook.ui.article.adapter.ArticlesAdapter;
+import com.example.jobbook.util.L;
 import com.example.jobbook.util.Util;
+import com.example.jobbook.widget.DividerItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +42,7 @@ import butterknife.OnClick;
 /**
  * Created by Xu on 2016/7/5.
  */
-public class ArticleFragment extends LazyLoadFragment implements ArticleView, View.OnClickListener,
+public class ArticleFragment extends LazyLoadFragment implements ArticleContract.View,
         PopupWindow.OnDismissListener, RadioGroup.OnCheckedChangeListener, SwipeRefreshLayout.OnRefreshListener {
 
     private int pageIndex = 0;
@@ -70,14 +69,17 @@ public class ArticleFragment extends LazyLoadFragment implements ArticleView, Vi
     @BindView(R.id.article_rv)
     RecyclerView mRecyclerView;
 
+    @BindView(R.id.article_swipe_container)
+    SwipeRefreshLayout mSwipeRefreshLayout;
+
     private PopupWindow mMenuPopupWindow;
     private View mMenuView;
-    private ArticlePresenter presenter;
+    private ArticleContract.Presenter presenter;
     private List<ArticleBean> list;
     private ArticlesAdapter adapter;
     private RadioGroup radioGroup;
     private LinearLayoutManager mLayoutManager;
-    private SwipeRefreshLayout mSwipeRefreshLayout;
+
 
     @Override
     protected int setContentView() {
@@ -97,7 +99,7 @@ public class ArticleFragment extends LazyLoadFragment implements ArticleView, Vi
 //        mBlankLayout = findViewById(R.id.article_blank_ll);
 //        mTitleTextView = findViewById(R.id.article_title_tv);
 //        mRecyclerView = findViewById(R.id.article_rv);
-        mSwipeRefreshLayout = findViewById(R.id.article_swipe_container);
+//        mSwipeRefreshLayout = findViewById(R.id.article_swipe_container);
 //        mDropImageButton = findViewById(R.id.article_title_drop_ib);
         radioGroup = (RadioGroup) mMenuView.findViewById(R.id.article_title_rg);
         L.i("initViews");
@@ -105,7 +107,7 @@ public class ArticleFragment extends LazyLoadFragment implements ArticleView, Vi
 
     private void initEvents() {
 //        list = new ArrayList<>();
-        presenter = new ArticlePresenterImpl(this);
+        presenter = new ArticlePresenter(this);
         mTitleTextView.setText(Constants.ARTICLE_ALL);
         mMenuPopupWindow = new PopupWindow(mMenuView, ViewGroup.LayoutParams.MATCH_PARENT,
                 (int) ((Util.getHeight(getActivity()) / (double) 556) * 192), true);
@@ -113,8 +115,8 @@ public class ArticleFragment extends LazyLoadFragment implements ArticleView, Vi
                 Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888)));
         mMenuPopupWindow.setOutsideTouchable(true);
         mMenuPopupWindow.setOnDismissListener(this);
-        mArticleTitleLayout.setOnClickListener(this);
-        radioGroup.setOnCheckedChangeListener(this);
+//        mArticleTitleLayout.setOnClickListener(this);
+//        radioGroup.setOnCheckedChangeListener(this);
         mSwipeRefreshLayout.setColorSchemeResources(R.color.colorBlue);
         mSwipeRefreshLayout.setOnRefreshListener(this);
         mLayoutManager = new LinearLayoutManager(getActivity());
@@ -208,25 +210,25 @@ public class ArticleFragment extends LazyLoadFragment implements ArticleView, Vi
         }
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.article_title_ll:
-                int visible = mBlankLayout.getVisibility();
-                if (mMenuPopupWindow.isShowing() && visible == View.VISIBLE) {
-                    mMenuPopupWindow.dismiss();
-                } else {
-                    mDropImageButton.startAnimation(mDropImageButtonAnimation);
-                    mRecyclerView.startAnimation(mListViewShowAnimation);
-                    mMenuPopupWindow.showAsDropDown(v, 0, 0);
-//                    mMenuPopupWindow.showAsDropDown(v, 0, (Util.getHeight(getActivity()) / 720) * 20);
-                    mBlankLayout.startAnimation(mBlankLayoutShowAnimation);
-                    mBlankLayout.setVisibility(View.VISIBLE);
-                    mDropImageButton.setImageResource(R.mipmap.down_white);
-                }
-                break;
-        }
-    }
+//    @Override
+//    public void onClick(View v) {
+//        switch (v.getId()) {
+//            case R.id.article_title_ll:
+//                int visible = mBlankLayout.getVisibility();
+//                if (mMenuPopupWindow.isShowing() && visible == View.VISIBLE) {
+//                    mMenuPopupWindow.dismiss();
+//                } else {
+//                    mDropImageButton.startAnimation(mDropImageButtonAnimation);
+//                    mRecyclerView.startAnimation(mListViewShowAnimation);
+//                    mMenuPopupWindow.showAsDropDown(v, 0, 0);
+////                    mMenuPopupWindow.showAsDropDown(v, 0, (Util.getHeight(getActivity()) / 720) * 20);
+//                    mBlankLayout.startAnimation(mBlankLayoutShowAnimation);
+//                    mBlankLayout.setVisibility(View.VISIBLE);
+//                    mDropImageButton.setImageResource(R.mipmap.down_white);
+//                }
+//                break;
+//        }
+//    }
 
     @OnCheckedChanged({R.id.article_title_all_rb, R.id.article_title_engagement_rb,
             R.id.article_title_politic_rb, R.id.article_title_life_rb})
@@ -323,7 +325,6 @@ public class ArticleFragment extends LazyLoadFragment implements ArticleView, Vi
                     && lastVisiableItem + 1 == adapter.getItemCount()
                     && adapter.ismShowFooter()) {
                 //加载更多
-                L.i("loading more data");
                 presenter.loadArticles(pageIndex, Constants.INDEX_ARTICLE_ALL);
             }
         }

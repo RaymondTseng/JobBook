@@ -7,12 +7,11 @@ import android.view.ViewStub;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.example.jobbook.app.MyApplication;
 import com.example.jobbook.R;
-import com.example.jobbook.article.presenter.ArticleDetailPresenter;
-import com.example.jobbook.article.presenter.ArticleDetailPresenterImpl;
-import com.example.jobbook.article.view.ArticleDetailView;
+import com.example.jobbook.app.MyApplication;
+import com.example.jobbook.base.contract.article.ArticleDetailContract;
 import com.example.jobbook.model.bean.ArticleBean;
+import com.example.jobbook.presenter.article.ArticleDetailPresenter;
 import com.example.jobbook.util.L;
 import com.example.jobbook.util.Util;
 
@@ -27,12 +26,12 @@ import butterknife.OnClick;
 /**
  * Created by 椰树 on 2016/7/15.
  */
-public class ArticleDetailActivity extends Activity implements ArticleDetailView, View.OnClickListener {
-    //    private ListView mListView;
-    private ArticleDetailPresenter mPresenter;
+public class ArticleDetailActivity extends Activity implements ArticleDetailContract.View {
+    private ArticleDetailContract.Presenter mPresenter;
     private ArticleBean bean;
     private ArticleBean mArticleBean;
     private View view;
+    private String cur_article_id;
 
     @BindView(R.id.article_detail_like_ib)
     ImageButton mLikeImageButton;
@@ -66,23 +65,14 @@ public class ArticleDetailActivity extends Activity implements ArticleDetailView
     }
 
     private void initViews() {
-//        mLikeImageButton = (ImageButton) findViewById(R.id.article_detail_like_ib);
-//        mBackImageButton = (ImageButton) findViewById(R.id.article_detail_back_ib);
-////        mListView = (ListView) findViewById(R.id.article_detail_lv);
-//        mReadingQuantityTextView = (TextView) findViewById(R.id.article_detail_content_reading_tv);
-//        mArticleTitleTextView = (TextView) findViewById(R.id.article_detail_title_tv);
-//        mArticleContentTextView = (HtmlTextView) findViewById(R.id.article_detail_content_tv);
-//        mTimeTextView = (TextView) findViewById(R.id.article_detail_content_time_tv);
-//        mLoadingViewStub = (ViewStub) findViewById(R.id.article_detail_loading);
         mLoadingViewStub.inflate();
     }
 
     private void initEvents() {
 //        Util.setListViewHeightBasedOnChildren(mListView);
-        mLikeImageButton.setOnClickListener(this);
-        mBackImageButton.setOnClickListener(this);
-        mPresenter = new ArticleDetailPresenterImpl(this);
+        mPresenter = new ArticleDetailPresenter(this);
         mArticleBean = getIntent().getExtras().getParcelable("article_detail");
+        cur_article_id = mArticleBean.getArticle_id();
         mPresenter.loadArticle(mArticleBean.getArticle_id());
     }
 
@@ -101,7 +91,6 @@ public class ArticleDetailActivity extends Activity implements ArticleDetailView
         bean = mArticle;
         mReadingQuantityTextView.setText(mArticle.getReadingquantity() + "");
         mArticleTitleTextView.setText(mArticle.getTitle());
-//        mArticleContentTextView.setText(mArticle.getContent());
         mArticleContentTextView.setHtml(StringEscapeUtils.unescapeHtml4(mArticle.getContent()), new HtmlHttpImageGetter(mArticleContentTextView));
         mTimeTextView.setText(mArticle.getDate());
         if (MyApplication.getmLoginStatus() == 1) {
@@ -127,11 +116,6 @@ public class ArticleDetailActivity extends Activity implements ArticleDetailView
     public void close() {
         finish();
     }
-
-//    @Override
-//    public void NoLoginError() {
-//        Util.showSnackBar(view, "请先登录");
-//    }
 
     @Override
     public void likeSuccess() {
@@ -166,50 +150,41 @@ public class ArticleDetailActivity extends Activity implements ArticleDetailView
 
     @OnClick(R.id.article_detail_like_ib)
     public void click_like() {
-        L.i("status:" + bean.isIfLike());
         if (bean.isIfLike() == 0) {
             L.i("click like");
-//                    mLikeImageButton.setImageResource(R.mipmap.favourite);
             like(bean.getArticle_id());
         } else {
             L.i("click unlike");
-//                    mLikeImageButton.setImageResource(R.mipmap.favourite_white);
             unlike(bean.getArticle_id());
-        }
-        refresh();
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.article_detail_back_ib:
-                finish();
-                break;
-            case R.id.article_detail_like_ib:
-                L.i("status:" + bean.isIfLike());
-                if (bean.isIfLike() == 0) {
-                    L.i("click like");
-//                    mLikeImageButton.setImageResource(R.mipmap.favourite);
-                    like(bean.getArticle_id());
-
-                } else {
-                    L.i("click unlike");
-//                    mLikeImageButton.setImageResource(R.mipmap.favourite_white);
-                    unlike(bean.getArticle_id());
-                }
-                refresh();
-                break;
         }
     }
 
     @Override
     public void like(String articleId) {
-        mPresenter.like(articleId);
+        String account = "";
+        if (MyApplication.getmLoginStatus() == 1) {
+            account = MyApplication.getAccount();
+        }
+        if (account != "") {
+            mPresenter.like(articleId, account);
+            refresh();
+        } else {
+            showLoadFailMsg("请先登录!");
+        }
     }
 
     @Override
     public void unlike(String articleId) {
-        mPresenter.unlike(articleId);
+        String account = "";
+        if (MyApplication.getmLoginStatus() == 1) {
+            account = MyApplication.getAccount();
+        }
+        if (account != "") {
+            mPresenter.unlike(articleId, account);
+            refresh();
+        } else {
+            showLoadFailMsg("请先登录!");
+        }
     }
 
     private void refresh() {
@@ -218,6 +193,6 @@ public class ArticleDetailActivity extends Activity implements ArticleDetailView
         } catch (Exception e) {
             e.printStackTrace();
         }
-        onCreate(null);
+        mPresenter.loadArticle(cur_article_id);
     }
 }

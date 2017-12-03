@@ -270,19 +270,19 @@ public class JobFragment extends LazyLoadFragment implements JobView,
         });
     }
 
-    @Override
-    public void showLoadingFailMsg() {
-        if (pageIndex == 0) {
-            mAdapter.setmShowFooter(false);
-            mAdapter.notifyDataSetChanged();
-        }
-        Util.showSnackBar(MyApplication.mSnackBarView, "网络无法连接！", "重试", new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mJobPresenter.loadJobs(pageIndex, isRecommend, mCurrentCategory, mCurrentLocation);
-            }
-        });
-    }
+//    @Override
+//    public void showLoadFailMsg(String msg) {
+//        if (pageIndex == 0) {
+//            mAdapter.setmShowFooter(false);
+//            mAdapter.notifyDataSetChanged();
+//        }
+//        Util.showSnackBar(MyApplication.mSnackBarView, "网络无法连接！", "重试", new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                mJobPresenter.loadJobs(pageIndex, isRecommend, mCurrentCategory, mCurrentLocation);
+//            }
+//        });
+//    }
 
     @Override
     public void search() {

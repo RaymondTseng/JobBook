@@ -12,8 +12,6 @@ public interface JobView extends IBaseView{
 
     void addJobs(List<JobBean> jobList);
 
-    void showLoadingFailMsg();
-
     void search();
 
 }
