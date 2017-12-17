@@ -20,5 +20,4 @@ public interface LoginView extends IBaseView {
 
     void switch2Register();
 
-//    void changeViewPager();
 }
