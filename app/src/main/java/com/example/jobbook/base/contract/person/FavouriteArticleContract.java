@@ -17,6 +17,6 @@ public interface FavouriteArticleContract {
     }
 
     interface Presenter extends IBasePresenter<View> {
-        void loadArticle(String account);
+        void loadArticles(String account);
     }
 }
