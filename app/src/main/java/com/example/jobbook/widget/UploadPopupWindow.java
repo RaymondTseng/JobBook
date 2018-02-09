@@ -1,4 +1,4 @@
-package com.example.jobbook.upload;
+package com.example.jobbook.widget;
 
 import android.app.Activity;
 import android.content.Context;

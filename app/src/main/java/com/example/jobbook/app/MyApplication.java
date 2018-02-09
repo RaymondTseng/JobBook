@@ -9,7 +9,6 @@ import android.view.View;
 import com.example.jobbook.model.bean.PersonBean;
 import com.example.jobbook.model.http.RetrofitService;
 import com.example.jobbook.service.MyPushIntentService;
-import com.example.jobbook.util.CrashHandler;
 import com.example.jobbook.util.L;
 import com.example.jobbook.util.Util;
 import com.umeng.message.IUmengRegisterCallback;

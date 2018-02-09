@@ -1,4 +1,4 @@
-package com.example.jobbook.upload;
+package com.example.jobbook.util;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -6,9 +6,6 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
-
-import com.example.jobbook.util.L;
-import com.example.jobbook.util.Util;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -25,7 +22,7 @@ import okhttp3.RequestBody;
 /**
  * Created by Xu on 2016/9/5.
  */
-public class UploadManager {
+public class UploadUtil {
 
     public static Uri saveBitmap(Context context, Bitmap bm, String userAccount) {
         File file;

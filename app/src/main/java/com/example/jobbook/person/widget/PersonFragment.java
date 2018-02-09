@@ -32,8 +32,8 @@ import com.example.jobbook.person.view.PersonView;
 import com.example.jobbook.person.view.UploadView;
 import com.example.jobbook.service.MyPushIntentService;
 import com.example.jobbook.upload.CropUtils;
-import com.example.jobbook.upload.UploadManager;
-import com.example.jobbook.upload.UploadPopupWindow;
+import com.example.jobbook.util.UploadUtil;
+import com.example.jobbook.widget.UploadPopupWindow;
 import com.example.jobbook.util.ImageLoadUtils;
 import com.example.jobbook.util.L;
 import com.example.jobbook.base.LazyLoadFragment;
@@ -266,7 +266,7 @@ public class PersonFragment extends LazyLoadFragment implements PersonView, View
         @Override
         public void handleCropResult(Uri uri, int tag) {
             //send Image to Server
-            MultipartBody.Part pic = UploadManager.getMutilPartBodyFromUri(uri, "multipart/form-data");
+            MultipartBody.Part pic = UploadUtil.getMutilPartBodyFromUri(uri, "multipart/form-data");
             sendImage(pic);
             mUri = uri;
 //            ImageLoadUtils.display(getActivity() , mCircleHeadImageView, uri);
@@ -381,7 +381,7 @@ public class PersonFragment extends LazyLoadFragment implements PersonView, View
 //        mMyApplication.getHandler().sendEmptyMessage(2);
 //        mCircleHeadImageView.setImageBitmap(bm);
 //        mHeadBackGround.setImageBitmap(bm);
-        Bitmap bm = UploadManager.getBitmapFromUri(getContext(), mUri);
+        Bitmap bm = UploadUtil.getBitmapFromUri(getContext(), mUri);
         mCircleHeadImageView.setImageBitmap(bm);
         mHeadBackGround.setImageBitmap(bm);
 //        this.onCreate(null);

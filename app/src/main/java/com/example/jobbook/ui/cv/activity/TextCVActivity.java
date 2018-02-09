@@ -31,8 +31,8 @@ import com.example.jobbook.person.presenter.UploadPresenter;
 import com.example.jobbook.person.presenter.UploadPresenterImpl;
 import com.example.jobbook.person.view.UploadView;
 import com.example.jobbook.upload.CropUtils;
-import com.example.jobbook.upload.UploadManager;
-import com.example.jobbook.upload.UploadPopupWindow;
+import com.example.jobbook.util.UploadUtil;
+import com.example.jobbook.widget.UploadPopupWindow;
 import com.example.jobbook.util.ImageLoadUtils;
 import com.example.jobbook.util.L;
 import com.example.jobbook.util.Util;
@@ -327,7 +327,7 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
                 break;
             case R.id.text_cv_head_iv:
                 mPopupWindow = new UploadPopupWindow(this, itemsOnClick);
-                mPopupWindow.showAtLocation(this.findViewById(text_cv_activity_ll),
+                mPopupWindow.showAtLocation(this.findViewById(R.id.text_cv_activity_ll),
                         Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
                 break;
 
@@ -357,7 +357,7 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
         @Override
         public void handleCropResult(Uri uri, int tag) {
             //send Image to Server
-            MultipartBody.Part pic = UploadManager.getMutilPartBodyFromUri(uri, "multipart/form-data");
+            MultipartBody.Part pic = UploadUtil.getMutilPartBodyFromUri(uri, "multipart/form-data");
             sendImage(pic);
             mUri = uri;
             ImageLoadUtils.display(TextCVActivity.this , mUserHeadImageView, mUri);
@@ -421,7 +421,7 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
         L.i("loadHead1:" + mUri.toString());
         myApplication.getHandler().sendEmptyMessage(2);
 //        mUserHeadImageView.setImageBitmap(bm);
-        Bitmap bm = UploadManager.getBitmapFromUri(getApplication(), mUri);
+        Bitmap bm = UploadUtil.getBitmapFromUri(getApplication(), mUri);
         mUserHeadImageView.setImageBitmap(bm);
 //        bm.recycle();
     }

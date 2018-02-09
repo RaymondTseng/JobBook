@@ -1,4 +1,4 @@
-package com.example.jobbook.util;
+package com.example.jobbook.app;
 
 import android.content.Context;
 import android.content.pm.PackageInfo;
@@ -7,6 +7,8 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Build;
 import android.os.Looper;
 import android.widget.Toast;
+
+import com.example.jobbook.util.L;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
