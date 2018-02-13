@@ -12,15 +12,15 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
-import com.example.jobbook.app.MyApplication;
 import com.example.jobbook.R;
-import com.example.jobbook.model.bean.PersonBean;
+import com.example.jobbook.app.MyApplication;
 import com.example.jobbook.app.Urls;
 import com.example.jobbook.login.widget.LoginActivity;
-import com.example.jobbook.main.widget.MainActivity;
+import com.example.jobbook.model.bean.PersonBean;
 import com.example.jobbook.register.presenter.RegisterPresenter;
 import com.example.jobbook.register.presenter.RegisterPresenterImpl;
 import com.example.jobbook.register.view.RegisterView;
+import com.example.jobbook.ui.main.activity.MainActivity;
 import com.example.jobbook.util.L;
 import com.example.jobbook.util.SMSSDKManager;
 import com.example.jobbook.util.Util;

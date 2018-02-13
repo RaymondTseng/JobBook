@@ -17,15 +17,15 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.jobbook.app.MyApplication;
 import com.example.jobbook.R;
-import com.example.jobbook.model.bean.PersonBean;
+import com.example.jobbook.app.MyApplication;
 import com.example.jobbook.login.presenter.LoginPresenter;
 import com.example.jobbook.login.presenter.LoginPresenterImpl;
 import com.example.jobbook.login.view.LoginView;
-import com.example.jobbook.main.widget.MainActivity;
+import com.example.jobbook.model.bean.PersonBean;
 import com.example.jobbook.register.widget.RegisterActivity;
 import com.example.jobbook.service.MyPushIntentService;
+import com.example.jobbook.ui.main.activity.MainActivity;
 import com.example.jobbook.util.L;
 import com.example.jobbook.util.Util;
 

@@ -30,28 +30,45 @@ import com.example.jobbook.widget.DividerItemDecoration;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+
 /**
  * Created by Xu on 2016/7/5.
  */
 public class JobFragment extends LazyLoadFragment implements JobContract.View,
         View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
 
+    @BindView(R.id.job_rv)
+    RecyclerView mRecyclerView;
+
+    @BindView(R.id.job_swipe_container)
+    SwipeRefreshLayout mSwipeRefreshLayout;
+    //    private ImageButton mSearchImageButton;
+
+    @BindView(R.id.job_fragment_recommend_tv)
+    TextView mRecommendTextView;
+
+    @BindView(R.id.job_fragment_category_sp)
+    AppCompatSpinner mCategorySpinner;
+
+    @BindView(R.id.job_fragment_location_sp)
+    AppCompatSpinner mLocationSpinner;
+
+    @BindView(R.id.job_cursor_one)
+    ImageView cursorOne;
+
+    @BindView(R.id.job_cursor_two)
+    ImageView cursorTwo;
+
+    @BindView(R.id.job_cursor_three)
+    ImageView cursorThree;
+
     private JobPresenter mJobPresenter;
     private List<JobBean> list;
     private JobsAdapter mAdapter;
-    private RecyclerView mRecyclerView;
     private LinearLayoutManager mLayoutManager;
-    private SwipeRefreshLayout mSwipeRefreshLayout;
-//    private ImageButton mSearchImageButton;
-    private TextView mRecommendTextView;
-    private AppCompatSpinner mCategorySpinner;
     private ArrayAdapter mCategoryAdapter;
-    private AppCompatSpinner mLocationSpinner;
     private ArrayAdapter mLocationAdapter;
-
-    private ImageView cursorOne;
-    private ImageView cursorTwo;
-    private ImageView cursorThree;
 
     private int pageIndex = 0;
 
@@ -76,16 +93,7 @@ public class JobFragment extends LazyLoadFragment implements JobContract.View,
 
     @Override
     protected void initViews() {
-        mRecyclerView = findViewById(R.id.job_rv);
-//        mSearchImageButton = findViewById(R.id.job_fragment_search_ib);
-        mSwipeRefreshLayout = findViewById(R.id.job_swipe_container);
-        mRecommendTextView = findViewById(R.id.job_fragment_recommend_tv);
-        mCategorySpinner = findViewById(R.id.job_fragment_category_sp);
-        mLocationSpinner = findViewById(R.id.job_fragment_location_sp);
 
-        cursorOne = findViewById(R.id.job_cursor_one);
-        cursorTwo = findViewById(R.id.job_cursor_two);
-        cursorThree = findViewById(R.id.job_cursor_three);
     }
 
     private void initEvents() {

@@ -1,4 +1,4 @@
-package com.example.jobbook.message;
+package com.example.jobbook.ui.message.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;

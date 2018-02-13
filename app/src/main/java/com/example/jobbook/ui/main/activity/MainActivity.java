@@ -34,20 +34,37 @@ import com.example.jobbook.widget.BadgeView;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class MainActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener,
         ViewPager.OnPageChangeListener, MainContract.View, MyPushIntentService.OnRefreshPersonBadgeViewListener {
 
-    private ViewPager mFragmentContainer;
-    private RadioButton mJobRadioButton;
-    private RadioButton mArticleRadioButton;
-    private RadioButton mQuestionRadioButton;
-    private RadioButton mPersonRadioButton;
-    private RadioGroup mRadioGroup;
+    @BindView(R.id.fragment_container)
+    ViewPager mFragmentContainer;
+
+    @BindView(R.id.job_rb)
+    RadioButton mJobRadioButton;
+
+    @BindView(R.id.article_rb)
+    RadioButton mArticleRadioButton;
+
+    @BindView(R.id.question_rb)
+    RadioButton mQuestionRadioButton;
+
+    @BindView(R.id.person_rb)
+    RadioButton mPersonRadioButton;
+
+    @BindView(R.id.bottom_bar_rg)
+    RadioGroup mRadioGroup;
+
+    @BindView(R.id.main_bt)
+    Button mButton;
+
     private MainFragmentPagerAdapter mFragmentPagerAdapter;
     private List<Fragment> mFragments = new ArrayList<>();
     private MainPresenter mMainPresenter;
     public static BadgeView mBadgeView;
-    private Button mButton;
 
     // 定义一个变量，来标识是否退出
     private static boolean isExit = false;
@@ -65,6 +82,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
         getWindow().setBackgroundDrawable(null);
         MyApplication.mSnackBarView = findViewById(R.id.main_layout);
         initViews();
@@ -84,13 +102,6 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
 //    }
 
     private void initViews() {
-        mFragmentContainer = (ViewPager) findViewById(R.id.fragment_container);
-        mJobRadioButton = (RadioButton) findViewById(R.id.job_rb);
-        mArticleRadioButton = (RadioButton) findViewById(R.id.article_rb);
-        mQuestionRadioButton = (RadioButton) findViewById(R.id.question_rb);
-        mPersonRadioButton = (RadioButton) findViewById(R.id.person_rb);
-        mRadioGroup = (RadioGroup) findViewById(R.id.bottom_bar_rg);
-        mButton = (Button) findViewById(R.id.main_bt);
         mMainPresenter = new MainPresenter(this);
         mBadgeView = new BadgeView(this);
     }
