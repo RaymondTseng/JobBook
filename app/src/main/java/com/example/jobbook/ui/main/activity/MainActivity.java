@@ -1,4 +1,4 @@
-package com.example.jobbook.main.widget;
+package com.example.jobbook.ui.main.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,28 +15,27 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import com.example.jobbook.app.MyApplication;
 import com.example.jobbook.R;
-import com.example.jobbook.ui.article.fragment.ArticleFragment;
-import com.example.jobbook.model.bean.PersonBean;
-import com.example.jobbook.job.widget.JobFragment;
+import com.example.jobbook.app.MyApplication;
+import com.example.jobbook.base.contract.main.MainContract;
 import com.example.jobbook.login.widget.LoginActivity;
-import com.example.jobbook.main.MainFragmentPagerAdapter;
-import com.example.jobbook.main.presenter.MainPresenter;
-import com.example.jobbook.main.presenter.MainPresenterImpl;
-import com.example.jobbook.main.view.MainView;
+import com.example.jobbook.model.bean.PersonBean;
 import com.example.jobbook.moment.widget.MomentFragment;
 import com.example.jobbook.person.widget.PersonFragment;
+import com.example.jobbook.presenter.main.MainPresenter;
 import com.example.jobbook.service.MyPushIntentService;
-import com.example.jobbook.widget.BadgeView;
+import com.example.jobbook.ui.article.fragment.ArticleFragment;
+import com.example.jobbook.ui.job.fragment.JobFragment;
+import com.example.jobbook.ui.main.adapter.MainFragmentPagerAdapter;
 import com.example.jobbook.util.L;
 import com.example.jobbook.util.Util;
+import com.example.jobbook.widget.BadgeView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener,
-        ViewPager.OnPageChangeListener, MainView, MyPushIntentService.OnRefreshPersonBadgeViewListener {
+        ViewPager.OnPageChangeListener, MainContract.View, MyPushIntentService.OnRefreshPersonBadgeViewListener {
 
     private ViewPager mFragmentContainer;
     private RadioButton mJobRadioButton;
@@ -92,7 +91,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         mPersonRadioButton = (RadioButton) findViewById(R.id.person_rb);
         mRadioGroup = (RadioGroup) findViewById(R.id.bottom_bar_rg);
         mButton = (Button) findViewById(R.id.main_bt);
-        mMainPresenter = new MainPresenterImpl(this);
+        mMainPresenter = new MainPresenter(this);
         mBadgeView = new BadgeView(this);
     }
 

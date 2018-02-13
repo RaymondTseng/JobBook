@@ -7,7 +7,7 @@ public class Urls {
 
     public static final int PAZE_SIZE = 10;
 
-    public static final String IP = "http://192.168.203.196/jobBook/index.php/";
+    public static final String IP = "http://192.168.199.195/jobBook/index.php/";
 
     public static final String REGISTER_URL = IP + "/enter/doRegister/";
 

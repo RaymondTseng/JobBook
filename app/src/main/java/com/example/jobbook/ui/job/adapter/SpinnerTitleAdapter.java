@@ -1,4 +1,4 @@
-package com.example.jobbook.job;
+package com.example.jobbook.ui.job.adapter;
 
 import android.content.Context;
 import android.database.DataSetObserver;

@@ -20,22 +20,20 @@ import android.widget.TextView;
 
 import com.example.jobbook.R;
 import com.example.jobbook.app.MyApplication;
-import com.example.jobbook.cv.presenter.TextCVPresenter;
-import com.example.jobbook.cv.presenter.TextCVPresenterImpl;
-import com.example.jobbook.cv.view.TextCVView;
+import com.example.jobbook.base.contract.cv.TextCVContract;
+import com.example.jobbook.base.contract.person.UploadContract;
 import com.example.jobbook.model.bean.EducationExpBean;
 import com.example.jobbook.model.bean.JobExpBean;
 import com.example.jobbook.model.bean.PersonBean;
 import com.example.jobbook.model.bean.TextCVBean;
-import com.example.jobbook.person.presenter.UploadPresenter;
-import com.example.jobbook.person.presenter.UploadPresenterImpl;
-import com.example.jobbook.person.view.UploadView;
+import com.example.jobbook.presenter.cv.TextCVPresenter;
+import com.example.jobbook.presenter.person.UploadPresenter;
 import com.example.jobbook.upload.CropUtils;
-import com.example.jobbook.util.UploadUtil;
-import com.example.jobbook.widget.UploadPopupWindow;
 import com.example.jobbook.util.ImageLoadUtils;
 import com.example.jobbook.util.L;
+import com.example.jobbook.util.UploadUtil;
 import com.example.jobbook.util.Util;
+import com.example.jobbook.widget.UploadPopupWindow;
 import com.jzxiang.pickerview.TimePickerDialog;
 import com.jzxiang.pickerview.data.Type;
 import com.jzxiang.pickerview.listener.OnDateSetListener;
@@ -45,60 +43,120 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 import okhttp3.MultipartBody;
-
-import static com.example.jobbook.R.id.text_cv_activity_ll;
 
 /**
  * Created by 椰树 on 2016/8/25.
  */
-public class TextCVActivity extends AppCompatActivity implements OnDateSetListener, View.OnClickListener,
-        TextCVView, UploadView {
+public class TextCVActivity extends AppCompatActivity implements OnDateSetListener,
+        TextCVContract.View, UploadContract.View, View.OnClickListener {
     private static final String EDU_ADMISSION = "1";
     private static final String EDU_GRADUATION = "2";
     private static final String JOB_INAUGURATION = "3";
     private static final String JOB_DIMISSION = "4";
-    private LinearLayout mParentLayout;
+
+    @BindView(R.id.text_cv_activity_ll)
+    LinearLayout mParentLayout;
+
     private TimePickerDialog mJobExpInaugurationDialog;
     private TimePickerDialog mJobExpDimissionDialog;
     private TimePickerDialog mEduExpAdmissionDialog;
     private TimePickerDialog mEduExpGraduationDialog;
-    private TextView mJobExpInaugurationTextView;
-    private TextView mJobExpDimissionTextView;
-    private TextView mEduExpAdmissionTextView;
-    private TextView mEduExpGraduationTextView;
-    private LinearLayout mEduContainerLayout;
-    private LinearLayout mJobContainerLayout;
-    private ImageButton mAddEduExpImageButton;
-    private ImageButton mAddJobExpImageButton;
-    private ImageButton mCloseImageButton;
-    private TextView mSaveTextView;
-    private EditText mNameEditText;
-    private Spinner mSexSpinner;
-    private EditText mStatusEditText;
-    private EditText mCompanyEditText;
-    private EditText mPositionEditText;
-    private EditText mCityEditText;
-    private Spinner mTypeSpinner;
-    private Spinner mLevelSpinner;
-    private Spinner mCertificationSpinner;
-    private EditText mTelEditText;
-    private EditText mEmailEditText;
-    private EditText mExpectJobEditText;
-    private EditText mExpectSalaryEditText;
-    private EditText mExpectLocationEditText;
-    private TextView mEduDivider;
-    private TextView mJobDivider;
-    private CircleImageView mUserHeadImageView;
+
+    @BindView(R.id.job_exp_inauguration_tv)
+    TextView mJobExpInaugurationTextView;
+
+    @BindView(R.id.job_exp_dimission_tv)
+    TextView mJobExpDimissionTextView;
+
+    @BindView(R.id.education_exp_admission_tv)
+    TextView mEduExpAdmissionTextView;
+
+    @BindView(R.id.education_exp_graduation_tv)
+    TextView mEduExpGraduationTextView;
+
+    @BindView(R.id.text_cv_edu_container)
+    LinearLayout mEduContainerLayout;
+
+    @BindView(R.id.text_cv_job_container)
+    LinearLayout mJobContainerLayout;
+
+    @BindView(R.id.text_cv_add_edu_exp_ib)
+    ImageButton mAddEduExpImageButton;
+
+    @BindView(R.id.text_cv_add_job_exp_ib)
+    ImageButton mAddJobExpImageButton;
+
+    @BindView(R.id.text_cv_close_ib)
+    ImageButton mCloseImageButton;
+
+    @BindView(R.id.text_cv_save_tv)
+    TextView mSaveTextView;
+
+    @BindView(R.id.text_cv_name_et)
+    EditText mNameEditText;
+
+    @BindView(R.id.text_cv_sex_spinner)
+    Spinner mSexSpinner;
+
+    @BindView(R.id.text_cv_status_et)
+    EditText mStatusEditText;
+
+    @BindView(R.id.text_cv_company_et)
+    EditText mCompanyEditText;
+
+    @BindView(R.id.text_cv_position_et)
+    EditText mPositionEditText;
+
+    @BindView(R.id.text_cv_location_et)
+    EditText mCityEditText;
+
+    @BindView(R.id.text_cv_type_spinner)
+    Spinner mTypeSpinner;
+
+    @BindView(R.id.text_cv_level_spinner)
+    Spinner mLevelSpinner;
+
+    @BindView(R.id.text_cv_certificate_spinner)
+    Spinner mCertificationSpinner;
+
+    @BindView(R.id.text_cv_tel_et)
+    EditText mTelEditText;
+
+    @BindView(R.id.text_cv_email_et)
+    EditText mEmailEditText;
+
+    @BindView(R.id.text_cv_expect_job_positon_et)
+    EditText mExpectJobEditText;
+
+    @BindView(R.id.text_cv_expect_job_salary_et)
+    EditText mExpectSalaryEditText;
+
+    @BindView(R.id.text_cv_expect_job_location_et)
+    EditText mExpectLocationEditText;
+
+    @BindView(R.id.edu_exp_divider)
+    TextView mEduDivider;
+
+    @BindView(R.id.job_exp_divider)
+    TextView mJobDivider;
+
+    @BindView(R.id.text_cv_head_iv)
+    CircleImageView mUserHeadImageView;
+
+    @BindView(R.id.activity_text_cv_loading)
+    ViewStub mLoadingLayout;
+
     private UploadPopupWindow mPopupWindow;
-    private ViewStub mLoadingLayout;
     private TextCVPresenter mPresenter;
     private UploadPresenter uploadPresenter;
     private Uri mUri;
     private MyApplication myApplication;
     private TextCVBean mTextCVBean;
-    
 
     SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM");
 
@@ -106,60 +164,22 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_text_cv);
+        ButterKnife.bind(this);
         initView();
         initEvents();
     }
 
     private void initView() {
-        mParentLayout = (LinearLayout) findViewById(R.id.text_cv_activity_ll);
-        mNameEditText = (EditText) findViewById(R.id.text_cv_name_et);
-        mSexSpinner = (Spinner) findViewById(R.id.text_cv_sex_spinner);
-        mStatusEditText = (EditText) findViewById(R.id.text_cv_status_et);
-        mCompanyEditText = (EditText) findViewById(R.id.text_cv_company_et);
-        mPositionEditText = (EditText) findViewById(R.id.text_cv_position_et);
-        mCityEditText = (EditText) findViewById(R.id.text_cv_location_et);
-        mTypeSpinner = (Spinner) findViewById(R.id.text_cv_type_spinner);
-        mLevelSpinner = (Spinner) findViewById(R.id.text_cv_level_spinner);
-        mCertificationSpinner = (Spinner) findViewById(R.id.text_cv_certificate_spinner);
-        mTelEditText = (EditText) findViewById(R.id.text_cv_tel_et);
-        mEmailEditText = (EditText) findViewById(R.id.text_cv_email_et);
-        mExpectJobEditText = (EditText) findViewById(R.id.text_cv_expect_job_positon_et);
-        mExpectSalaryEditText = (EditText) findViewById(R.id.text_cv_expect_job_salary_et);
-        mExpectLocationEditText = (EditText) findViewById(R.id.text_cv_expect_job_location_et);
-        mJobExpInaugurationTextView = (TextView) findViewById(R.id.job_exp_inauguration_tv);
-        mJobExpDimissionTextView = (TextView) findViewById(R.id.job_exp_dimission_tv);
-        mEduExpAdmissionTextView = (TextView) findViewById(R.id.education_exp_admission_tv);
-        mEduExpGraduationTextView = (TextView) findViewById(R.id.education_exp_graduation_tv);
-        mEduContainerLayout = (LinearLayout) findViewById(R.id.text_cv_edu_container);
-        mJobContainerLayout = (LinearLayout) findViewById(R.id.text_cv_job_container);
-        mAddEduExpImageButton = (ImageButton) findViewById(R.id.text_cv_add_edu_exp_ib);
-        mAddJobExpImageButton = (ImageButton) findViewById(R.id.text_cv_add_job_exp_ib);
-        mCloseImageButton = (ImageButton) findViewById(R.id.text_cv_close_ib);
-        mSaveTextView = (TextView) findViewById(R.id.text_cv_save_tv);
-        mEduDivider = (TextView) findViewById(R.id.edu_exp_divider);
-        mJobDivider = (TextView) findViewById(R.id.job_exp_divider);
-        mUserHeadImageView = (CircleImageView) findViewById(R.id.text_cv_head_iv);
-        mLoadingLayout = (ViewStub) findViewById(R.id.activity_text_cv_loading);
         mLoadingLayout.inflate();
     }
 
     @SuppressWarnings("ResourceType")
     private void initEvents() {
         mUri = null;
-        myApplication = (MyApplication)getApplication();
-        mPresenter = new TextCVPresenterImpl(this);
-        uploadPresenter = new UploadPresenterImpl(this);
+        myApplication = (MyApplication) getApplication();
+        mPresenter = new TextCVPresenter(this);
+        uploadPresenter = new UploadPresenter(this);
         mPresenter.load();
-        mParentLayout.setOnClickListener(this);
-        mUserHeadImageView.setOnClickListener(this);
-        mJobExpInaugurationTextView.setOnClickListener(this);
-        mJobExpDimissionTextView.setOnClickListener(this);
-        mEduExpAdmissionTextView.setOnClickListener(this);
-        mEduExpGraduationTextView.setOnClickListener(this);
-        mAddEduExpImageButton.setOnClickListener(this);
-        mAddJobExpImageButton.setOnClickListener(this);
-        mCloseImageButton.setOnClickListener(this);
-        mSaveTextView.setOnClickListener(this);
         mJobExpInaugurationTextView.setTag(0);
         mJobExpDimissionTextView.setTag(0);
         mEduExpAdmissionTextView.setTag(0);
@@ -215,7 +235,7 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
         }
     }
 
-    private View addJobView(LinearLayout mJobContainerLayout){
+    private View addJobView(LinearLayout mJobContainerLayout) {
         LinearLayout jobView = (LinearLayout) View.inflate(this, R.layout.job_experiment_layout, null);
         View jobDeleteView = View.inflate(this, R.layout.delete_exp_layout, null);
         LinearLayout.LayoutParams jobParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
@@ -225,25 +245,24 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
         return jobView;
     }
 
-    private void initJobView(View jobView){
+    private void initJobView(View jobView) {
         TextView mInaugurationTextView = (TextView) jobView.findViewById(R.id.job_exp_inauguration_tv);
         TextView mDimissionTextView = (TextView) jobView.findViewById(R.id.job_exp_dimission_tv);
 //        EditText mCompantEditText = (EditText) jobView.findViewById(R.id.job_exp_company_et);
 //        EditText mPositionEditText = (EditText) jobView.findViewById(R.id.job_exp_position_et);
         mInaugurationTextView.setTag(mJobContainerLayout.getChildCount() - 1);
         mDimissionTextView.setTag(mJobContainerLayout.getChildCount() - 1);
-        mInaugurationTextView.setOnClickListener(this);
-        mDimissionTextView.setOnClickListener(this);
-    }
-    private void initJobView(View jobView, JobExpBean jobExpBean){
-        initJobView(jobView);
-        ((TextView)jobView.findViewById(R.id.job_exp_inauguration_tv)).setText(jobExpBean.getInaugurationDate());
-        ((TextView)jobView.findViewById(R.id.job_exp_dimission_tv)).setText(jobExpBean.getDimissionDate());
-        ((EditText)jobView.findViewById(R.id.job_exp_company_et)).setText(jobExpBean.getCompany());
-        ((EditText)jobView.findViewById(R.id.job_exp_position_et)).setText(jobExpBean.getPosition());
     }
 
-    private View addEduView(LinearLayout mEduContainerLayout){
+    private void initJobView(View jobView, JobExpBean jobExpBean) {
+        initJobView(jobView);
+        ((TextView) jobView.findViewById(R.id.job_exp_inauguration_tv)).setText(jobExpBean.getInaugurationDate());
+        ((TextView) jobView.findViewById(R.id.job_exp_dimission_tv)).setText(jobExpBean.getDimissionDate());
+        ((EditText) jobView.findViewById(R.id.job_exp_company_et)).setText(jobExpBean.getCompany());
+        ((EditText) jobView.findViewById(R.id.job_exp_position_et)).setText(jobExpBean.getPosition());
+    }
+
+    private View addEduView(LinearLayout mEduContainerLayout) {
         LinearLayout eduView = (LinearLayout) View.inflate(this, R.layout.education_experiment_layout, null);
         View eduDeleteView = View.inflate(this, R.layout.delete_exp_layout, null);
         LinearLayout.LayoutParams eduParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
@@ -253,85 +272,87 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
         return eduView;
     }
 
-    private void initEduView(View eduView){
+    private void initEduView(View eduView) {
         TextView mAdmissionTextView = (TextView) eduView.findViewById(R.id.education_exp_admission_tv);
         TextView mGraduationTextView = (TextView) eduView.findViewById(R.id.education_exp_graduation_tv);
 //        EditText mSchoolEditText = (EditText) eduView.findViewById(R.id.education_school_et);
 //        EditText mMajorEditText = (EditText) eduView.findViewById(R.id.education_major_et);
         mAdmissionTextView.setTag(mEduContainerLayout.getChildCount() - 1);
         mGraduationTextView.setTag(mEduContainerLayout.getChildCount() - 1);
-        mAdmissionTextView.setOnClickListener(this);
-        mGraduationTextView.setOnClickListener(this);
     }
 
-    private void initEduView(View eduView, EducationExpBean educationExpBean){
+    private void initEduView(View eduView, EducationExpBean educationExpBean) {
         initEduView(eduView);
-        ((TextView)eduView.findViewById(R.id.education_exp_admission_tv)).setText(educationExpBean.getAdmissionDate());
-        ((TextView)eduView.findViewById(R.id.education_exp_graduation_tv)).setText(educationExpBean.getGraduationDate());
-        ((EditText)eduView.findViewById(R.id.education_school_et)).setText(educationExpBean.getSchool());
-        ((EditText)eduView.findViewById(R.id.education_major_et)).setText(educationExpBean.getMajor());
+        ((TextView) eduView.findViewById(R.id.education_exp_admission_tv)).setText(educationExpBean.getAdmissionDate());
+        ((TextView) eduView.findViewById(R.id.education_exp_graduation_tv)).setText(educationExpBean.getGraduationDate());
+        ((EditText) eduView.findViewById(R.id.education_school_et)).setText(educationExpBean.getSchool());
+        ((EditText) eduView.findViewById(R.id.education_major_et)).setText(educationExpBean.getMajor());
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case text_cv_activity_ll:
-                InputMethodManager imm = (InputMethodManager)
-                        getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-                break;
-            case R.id.job_exp_inauguration_tv:
-                mJobExpInaugurationDialog.show(getSupportFragmentManager(), JOB_INAUGURATION + ";" + v.getTag());
-                mJobDivider.setBackgroundColor(ContextCompat.getColor(v.getContext(), R.color.colorBackgroundGray));
-                break;
-            case R.id.job_exp_dimission_tv:
-                mJobExpDimissionDialog.show(getSupportFragmentManager(), JOB_DIMISSION + ";" + v.getTag());
-                mJobDivider.setBackgroundColor(ContextCompat.getColor(v.getContext(), R.color.colorBackgroundGray));
-                break;
-            case R.id.education_exp_admission_tv:
-                mEduExpAdmissionDialog.show(getSupportFragmentManager(), EDU_ADMISSION + ";" + v.getTag());
-                mEduDivider.setBackgroundColor(ContextCompat.getColor(v.getContext(), R.color.colorBackgroundGray));
-                break;
-            case R.id.education_exp_graduation_tv:
-                mEduExpGraduationDialog.show(getSupportFragmentManager(), EDU_GRADUATION + ";" + v.getTag());
-                mEduDivider.setBackgroundColor(ContextCompat.getColor(v.getContext(), R.color.colorBackgroundGray));
-                break;
-            case R.id.text_cv_close_ib:
-                close();
-                break;
-            case R.id.text_cv_save_tv:
-                L.i("save");
-                save();
-                break;
-            case R.id.text_cv_add_edu_exp_ib:
-                View eduView = addEduView(mEduContainerLayout);
-                initEduView(eduView);
-                ImageButton mEduDeleteImageButton = (ImageButton) eduView.findViewById(R.id.delete_exp_ib);
-                mEduDeleteImageButton.setTag(EDU_ADMISSION + ";" + (mEduContainerLayout.getChildCount() - 1));
-                mEduDeleteImageButton.setOnClickListener(this);
-                break;
-            case R.id.text_cv_add_job_exp_ib:
-                View jobView = addJobView(mJobContainerLayout);
-                initJobView(jobView);
-                ImageButton mJobDeleteImageButton = (ImageButton) jobView.findViewById(R.id.delete_exp_ib);
-                mJobDeleteImageButton.setTag(JOB_INAUGURATION + ";" + (mJobContainerLayout.getChildCount() - 1));
-                mJobDeleteImageButton.setOnClickListener(this);
-                break;
-            case R.id.delete_exp_ib:
-                String position = (String)v.getTag();
-                if(position.startsWith(JOB_INAUGURATION)){
-                    mJobContainerLayout.removeViewAt(Integer.valueOf(position.split(";")[1]));
-                }else{
-                    mEduContainerLayout.removeViewAt(Integer.valueOf(position.split(";")[1]));
-                }
-                break;
-            case R.id.text_cv_head_iv:
-                mPopupWindow = new UploadPopupWindow(this, itemsOnClick);
-                mPopupWindow.showAtLocation(this.findViewById(R.id.text_cv_activity_ll),
-                        Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
-                break;
+    @OnClick(R.id.text_cv_activity_ll)
+    public void click_text_cv_activity_ll(View v) {
+        InputMethodManager imm = (InputMethodManager)
+                getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+    }
 
-        }
+    @OnClick(R.id.job_exp_inauguration_tv)
+    public void click_job_exp_inauguration_tv(View v) {
+        mJobExpInaugurationDialog.show(getSupportFragmentManager(), JOB_INAUGURATION + ";" + v.getTag());
+        mJobDivider.setBackgroundColor(ContextCompat.getColor(v.getContext(), R.color.colorBackgroundGray));
+    }
+
+    @OnClick(R.id.job_exp_dimission_tv)
+    public void click_job_exp_dimission_tv(View v) {
+        mJobExpDimissionDialog.show(getSupportFragmentManager(), JOB_DIMISSION + ";" + v.getTag());
+        mJobDivider.setBackgroundColor(ContextCompat.getColor(v.getContext(), R.color.colorBackgroundGray));
+    }
+
+    @OnClick(R.id.education_exp_admission_tv)
+    public void click_education_exp_admission_tv(View v) {
+        mEduExpAdmissionDialog.show(getSupportFragmentManager(), EDU_ADMISSION + ";" + v.getTag());
+        mEduDivider.setBackgroundColor(ContextCompat.getColor(v.getContext(), R.color.colorBackgroundGray));
+    }
+
+    @OnClick(R.id.education_exp_graduation_tv)
+    public void click_education_exp_graduation_tv(View v) {
+        mEduExpGraduationDialog.show(getSupportFragmentManager(), EDU_GRADUATION + ";" + v.getTag());
+        mEduDivider.setBackgroundColor(ContextCompat.getColor(v.getContext(), R.color.colorBackgroundGray));
+    }
+
+    @OnClick(R.id.text_cv_close_ib)
+    public void click_close_ib() {
+        close();
+    }
+
+    @OnClick(R.id.text_cv_save_tv)
+    public void click_save_tv() {
+        save();
+    }
+
+    @OnClick(R.id.text_cv_add_edu_exp_ib)
+    public void click_text_cv_add_edu_exp_ib() {
+        View eduView = addEduView(mEduContainerLayout);
+        initEduView(eduView);
+        ImageButton mEduDeleteImageButton = (ImageButton) eduView.findViewById(R.id.delete_exp_ib);
+        mEduDeleteImageButton.setTag(EDU_ADMISSION + ";" + (mEduContainerLayout.getChildCount() - 1));
+        mEduDeleteImageButton.setOnClickListener(this);
+    }
+
+    @OnClick(R.id.text_cv_add_job_exp_ib)
+    public void click_text_cv_add_job_exp_ib() {
+        View jobView = addJobView(mJobContainerLayout);
+        initJobView(jobView);
+        ImageButton mJobDeleteImageButton = (ImageButton) jobView.findViewById(R.id.delete_exp_ib);
+        mJobDeleteImageButton.setTag(JOB_INAUGURATION + ";" + (mJobContainerLayout.getChildCount() - 1));
+        mJobDeleteImageButton.setOnClickListener(this);
+    }
+
+    @OnClick(R.id.text_cv_head_iv)
+    public void click_text_cv_head_iv() {
+        mPopupWindow = new UploadPopupWindow(this, itemsOnClick);
+        mPopupWindow.showAtLocation(this.findViewById(R.id.text_cv_activity_ll),
+                Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
     }
 
     //为弹出窗口实现监听类
@@ -360,7 +381,7 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
             MultipartBody.Part pic = UploadUtil.getMutilPartBodyFromUri(uri, "multipart/form-data");
             sendImage(pic);
             mUri = uri;
-            ImageLoadUtils.display(TextCVActivity.this , mUserHeadImageView, mUri);
+            ImageLoadUtils.display(TextCVActivity.this, mUserHeadImageView, mUri);
         }
 
         @Override
@@ -384,7 +405,7 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
         MyApplication.setmPersonBean(this, personBean);
         MyApplication myApplication = (MyApplication) getApplication();
         Handler handler = myApplication.getHandler();
-        if(handler != null){
+        if (handler != null) {
             handler.sendEmptyMessage(1);
             myApplication.setHandler(null);
         }
@@ -608,7 +629,7 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
         mPresenter.jobExpCheck(jobExpBeanList);
     }
 
-    private void setSelection(Spinner mSpinner, String[] array, String content){
+    private void setSelection(Spinner mSpinner, String[] array, String content) {
         for (int i = 0; i < array.length; i++) {
             String str = array[i];
             if (content.equals(str)) {
@@ -641,7 +662,7 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
         mExpectSalaryEditText.setText(textCVBean.getExpectSalary());
         mExpectLocationEditText.setText(textCVBean.getExpectLocation());
         for (int i = 0; i < textCVBean.getEducationExpBeanList().size(); i++) {
-            if(i != 0){
+            if (i != 0) {
                 View view = addEduView(mEduContainerLayout);
                 ImageButton mEduDeleteImageButton = (ImageButton) view.findViewById(R.id.delete_exp_ib);
                 mEduDeleteImageButton.setTag(EDU_ADMISSION + ";" + (mEduContainerLayout.getChildCount() - 1));
@@ -652,7 +673,7 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
             initEduView(view, educationExpBean);
         }
         for (int i = 0; i < textCVBean.getJobExpBeanList().size(); i++) {
-            if(i != 0){
+            if (i != 0) {
                 View view = addJobView(mJobContainerLayout);
                 ImageButton mJobDeleteImageButton = (ImageButton) view.findViewById(R.id.delete_exp_ib);
                 mJobDeleteImageButton.setTag(JOB_INAUGURATION + ";" + (mJobContainerLayout.getChildCount() - 1));
@@ -693,6 +714,20 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
                     }
                 }
             });
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.delete_exp_ib:
+                String position = (String) v.getTag();
+                if (position.startsWith(JOB_INAUGURATION)) {
+                    mJobContainerLayout.removeViewAt(Integer.valueOf(position.split(";")[1]));
+                } else {
+                    mEduContainerLayout.removeViewAt(Integer.valueOf(position.split(";")[1]));
+                }
+                break;
         }
     }
 }

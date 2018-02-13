@@ -1,4 +1,4 @@
-package com.example.jobbook.job.widget;
+package com.example.jobbook.ui.job.activity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -14,39 +14,71 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.jobbook.app.MyApplication;
 import com.example.jobbook.R;
+import com.example.jobbook.app.MyApplication;
+import com.example.jobbook.base.contract.job.JobDetailContract;
+import com.example.jobbook.login.widget.LoginActivity;
 import com.example.jobbook.model.bean.JobBean;
 import com.example.jobbook.model.bean.JobDetailBean;
-import com.example.jobbook.job.presenter.JobDetailPresenter;
-import com.example.jobbook.job.presenter.JobDetailPresenterImpl;
-import com.example.jobbook.job.view.JobDetailView;
-import com.example.jobbook.login.widget.LoginActivity;
+import com.example.jobbook.presenter.job.JobDetailPresenter;
 import com.example.jobbook.util.L;
 import com.example.jobbook.util.Util;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by 椰树 on 2016/7/13.
  */
-public class JobDetailActivity extends Activity implements View.OnClickListener, JobDetailView {
-    private ImageButton mBackImageButton;
-    private TextView mToCompanyDetailTextView;
-    private ImageButton mLikeImageButton;
-    private ViewStub mLoadingLinearLayout;
-    private TextView mJobNameTextView;
-    private TextView mJobLocationTextView;
-    private TextView mJobTimeTextView;
-    private TextView mSalaryTextView;
-    //    private ImageView mCompanyImageView;
-    private TextView mCompanyNameTextView;
-    private TextView mCompanyLocationTextView;
-    private TextView mCompanyDescriptionTextView;
-    private TextView mJobDutyTextView;
-    private TextView mJobRequireTextView;
-    //    private FlexboxLayout mBenefitLayout;
-    private TextView mBenefitTextView;
+public class JobDetailActivity extends Activity implements JobDetailContract.View {
+
+    @BindView(R.id.job_detail_back_ib)
+    ImageButton mBackImageButton;
+
+    @BindView(R.id.job_detail_tocompany_tv)
+    TextView mToCompanyDetailTextView;
+
+    @BindView(R.id.job_detail_like_ib)
+    ImageButton mLikeImageButton;
+
+    @BindView(R.id.activity_job_detail_loading)
+    ViewStub mLoadingLinearLayout;
+
+    @BindView(R.id.job_detail_name_tv)
+    TextView mJobNameTextView;
+
+    @BindView(R.id.job_detail_location_tv)
+    TextView mJobLocationTextView;
+
+    @BindView(R.id.job_detail_time_tv)
+    TextView mJobTimeTextView;
+
+    @BindView(R.id.job_detail_salary_tv)
+    TextView mSalaryTextView;
+
+    @BindView(R.id.job_detail_company_name_tv)
+    TextView mCompanyNameTextView;
+
+    @BindView(R.id.job_detail_company_location_tv)
+    TextView mCompanyLocationTextView;
+
+    @BindView(R.id.job_detail_company_description_tv)
+    TextView mCompanyDescriptionTextView;
+
+    @BindView(R.id.job_detail_description_duty_content_tv)
+    TextView mJobDutyTextView;
+
+    @BindView(R.id.job_detail_description_require_content_tv)
+    TextView mJobRequireTextView;
+
+    @BindView(R.id.job_detail_benefit_tv)
+    TextView mBenefitTextView;
+
+    @BindView(R.id.job_detail_send_cv_ll)
+    LinearLayout mSendCVLayout;
+
     private JobDetailPresenter mPresenter;
-    private LinearLayout mSendCVLayout;
     private View view;
     private JobBean jobBean;
     private JobDetailBean jobDetailBean;
@@ -55,6 +87,7 @@ public class JobDetailActivity extends Activity implements View.OnClickListener,
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_job_detail);
+        ButterKnife.bind(this);
         view = getWindow().getDecorView();
         jobDetailBean = new JobDetailBean();
         initViews();
@@ -62,81 +95,59 @@ public class JobDetailActivity extends Activity implements View.OnClickListener,
     }
 
     private void initViews() {
-        mBackImageButton = (ImageButton) findViewById(R.id.job_detail_back_ib);
-        mToCompanyDetailTextView = (TextView) findViewById(R.id.job_detail_tocompany_tv);
-        mJobTimeTextView = (TextView) findViewById(R.id.job_detail_time_tv);
-        mLikeImageButton = (ImageButton) findViewById(R.id.job_detail_like_ib);
-//        mCompanyImageView = (ImageView) findViewById(R.id.job_detail_company_logo_iv);
-        mJobNameTextView = (TextView) findViewById(R.id.job_detail_name_tv);
-        mJobLocationTextView = (TextView) findViewById(R.id.job_detail_location_tv);
-        mSalaryTextView = (TextView) findViewById(R.id.job_detail_salary_tv);
-        mCompanyNameTextView = (TextView) findViewById(R.id.job_detail_company_name_tv);
-        mCompanyLocationTextView = (TextView) findViewById(R.id.job_detail_company_location_tv);
-        mCompanyDescriptionTextView = (TextView) findViewById(R.id.job_detail_company_description_tv);
-        mJobDutyTextView = (TextView) findViewById(R.id.job_detail_description_duty_content_tv);
-        mJobRequireTextView = (TextView) findViewById(R.id.job_detail_description_require_content_tv);
-        mBenefitTextView = (TextView) findViewById(R.id.job_detail_benefit_tv);
-        mSendCVLayout = (LinearLayout) findViewById(R.id.job_detail_send_cv_ll);
-        mLoadingLinearLayout = (ViewStub) findViewById(R.id.activity_job_detail_loading);
         mLoadingLinearLayout.inflate();
     }
 
     private void initEvents() {
         jobBean = getIntent().getExtras().getParcelable("job_detail");
-        mPresenter = new JobDetailPresenterImpl(this);
+        mPresenter = new JobDetailPresenter(this);
         mPresenter.loadJob(jobBean.getId());
-        mToCompanyDetailTextView.setOnClickListener(this);
-        mBackImageButton.setOnClickListener(this);
-        mLikeImageButton.setOnClickListener(this);
-        mSendCVLayout.setOnClickListener(this);
+//        mToCompanyDetailTextView.setOnClickListener(this);
+//        mBackImageButton.setOnClickListener(this);
+//        mLikeImageButton.setOnClickListener(this);
+//        mSendCVLayout.setOnClickListener(this);
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.job_detail_back_ib:
-                finish();
-                break;
-            case R.id.job_detail_tocompany_tv:
-//                Bundle bundle = new Bundle();
-//                bundle.putSerializable("company", jobDetailBean.getCompany());
-//                Util.toAnotherActivity(this, CompanyDetailActivity.class, bundle);
-//                Toast.makeText(this, "website:" + jobDetailBean.getCompany().getWebsite(), Toast.LENGTH_SHORT).show();
-                try {
-                    Intent intent = new Intent(Intent.ACTION_VIEW);
-                    intent.setData(Uri.parse(jobDetailBean.getCompany().getWebsite()));
-                    startActivity(intent);
-                } catch (Exception e) {
-                    Util.showSnackBar(view, "打开公司网址失败！");
-                }
+    @OnClick(R.id.job_detail_back_ib)
+    public void click_back() {
+        finish();
+    }
 
-                break;
-            case R.id.job_detail_like_ib:
-                if (jobDetailBean.isIfLike() == 0) {
-                    L.i("click like");
-//                    mLikeImageButton.setImageResource(R.mipmap.favourite);
-                    like(jobBean.getId());
+    @OnClick(R.id.job_detail_tocompany_tv)
+    public void click_job_detail_tocompany_tv() {
+        try {
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse(jobDetailBean.getCompany().getWebsite()));
+            startActivity(intent);
+        } catch (Exception e) {
+            Util.showSnackBar(view, "打开公司网址失败！");
+        }
+    }
 
-                } else {
-                    L.i("click unlike");
-//                    mLikeImageButton.setImageResource(R.mipmap.favourite_white);
-                    unlike(jobBean.getId());
+    @OnClick(R.id.job_detail_like_ib)
+    public void click_job_detail_like_ib() {
+        if (jobDetailBean.isIfLike() == 0) {
+            L.i("click like");
+            like(jobBean.getId());
+        } else {
+            L.i("click unlike");
+            unlike(jobBean.getId());
+        }
+        refresh();
+    }
+
+    @OnClick(R.id.job_detail_send_cv_ll)
+    public void send_cv() {
+        if (MyApplication.getmLoginStatus() == 0) {
+            Util.showSnackBar(view, "请先登录", "现在登录", new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Util.toAnotherActivity(JobDetailActivity.this, LoginActivity.class);
+                    finish();
                 }
-                refresh();
-                break;
-            case R.id.job_detail_send_cv_ll:
-                if (MyApplication.getmLoginStatus() == 0) {
-                    Util.showSnackBar(view, "请先登录", "现在登录", new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Util.toAnotherActivity(JobDetailActivity.this, LoginActivity.class);
-                            finish();
-                        }
-                    });
-                } else {
-                    sendCVCheckDialog();
-                }
-                break;
+            });
+        } else {
+            sendCVCheckDialog();
         }
     }
 
@@ -188,11 +199,6 @@ public class JobDetailActivity extends Activity implements View.OnClickListener,
 
     @Override
     public void showLoadFailMsg(String msg) {
-
-    }
-
-    @Override
-    public void showLoadFailMsg() {
         Util.showSnackBar(view, "岗位详情读取错误，请重试！");
     }
 

@@ -56,7 +56,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitService {
     // Urls.IP
-    public static String base_url = "http://192.168.0.114/jobBook/index.php/";
+    public static String base_url = "http://192.168.199.195/jobBook/index.php/";
 
     //设缓存有效期为1天
     static final long CACHE_STALE_SEC = 60 * 60 * 24 * 1;

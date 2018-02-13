@@ -1,4 +1,4 @@
-package com.example.jobbook.job.widget;
+package com.example.jobbook.ui.job.fragment;
 
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -13,19 +13,19 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.jobbook.app.MyApplication;
 import com.example.jobbook.R;
-import com.example.jobbook.model.bean.JobBean;
+import com.example.jobbook.app.MyApplication;
 import com.example.jobbook.app.Urls;
-import com.example.jobbook.job.JobsAdapter;
-import com.example.jobbook.job.SpinnerTitleAdapter;
-import com.example.jobbook.job.presenter.JobPresenter;
-import com.example.jobbook.job.presenter.JobPresenterImpl;
-import com.example.jobbook.job.view.JobView;
-import com.example.jobbook.widget.DividerItemDecoration;
-import com.example.jobbook.util.L;
 import com.example.jobbook.base.LazyLoadFragment;
+import com.example.jobbook.base.contract.job.JobContract;
+import com.example.jobbook.model.bean.JobBean;
+import com.example.jobbook.presenter.job.JobPresenter;
+import com.example.jobbook.ui.job.activity.JobDetailActivity;
+import com.example.jobbook.ui.job.adapter.JobsAdapter;
+import com.example.jobbook.ui.job.adapter.SpinnerTitleAdapter;
+import com.example.jobbook.util.L;
 import com.example.jobbook.util.Util;
+import com.example.jobbook.widget.DividerItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +33,7 @@ import java.util.List;
 /**
  * Created by Xu on 2016/7/5.
  */
-public class JobFragment extends LazyLoadFragment implements JobView,
+public class JobFragment extends LazyLoadFragment implements JobContract.View,
         View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
 
     private JobPresenter mJobPresenter;
@@ -100,7 +100,7 @@ public class JobFragment extends LazyLoadFragment implements JobView,
         mSwipeRefreshLayout.setProgressViewOffset(false, 0, (int) TypedValue
                 .applyDimension(TypedValue.COMPLEX_UNIT_DIP, 24, getResources()
                         .getDisplayMetrics()));
-        mJobPresenter = new JobPresenterImpl(this);
+        mJobPresenter = new JobPresenter(this);
         mAdapter.setOnItemClickListener(mOnItemClickListener);
         mAdapter.setOnFooterItemClickListener(mOnFooterItemClickListener);
         mRecyclerView.setAdapter(mAdapter);
