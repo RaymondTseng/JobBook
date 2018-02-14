@@ -17,12 +17,12 @@ import android.widget.ImageView;
 import android.widget.TabWidget;
 import android.widget.TextView;
 
-import com.example.jobbook.app.MyApplication;
 import com.example.jobbook.R;
+import com.example.jobbook.app.MyApplication;
 import com.example.jobbook.follow.widget.SquareFollowFragment;
-import com.example.jobbook.login.widget.LoginActivity;
 import com.example.jobbook.moment.MomentPagerAdapter;
 import com.example.jobbook.square.widget.SquareFragment;
+import com.example.jobbook.ui.person.activity.LoginActivity;
 import com.example.jobbook.util.L;
 import com.example.jobbook.util.Util;
 

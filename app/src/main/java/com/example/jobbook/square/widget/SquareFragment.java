@@ -15,21 +15,21 @@ import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.example.jobbook.app.MyApplication;
 import com.example.jobbook.R;
-import com.example.jobbook.model.bean.MomentBean;
+import com.example.jobbook.app.MyApplication;
 import com.example.jobbook.app.Urls;
-import com.example.jobbook.login.widget.LoginActivity;
+import com.example.jobbook.base.LazyLoadFragment;
+import com.example.jobbook.model.bean.MomentBean;
 import com.example.jobbook.moment.widget.MomentDetailActivity;
 import com.example.jobbook.square.SquareAdapter;
 import com.example.jobbook.square.presenter.SquarePresenter;
 import com.example.jobbook.square.presenter.SquarePresenterImpl;
 import com.example.jobbook.square.view.SquareView;
+import com.example.jobbook.ui.person.activity.LoginActivity;
 import com.example.jobbook.userdetail.widget.UserDetailActivity;
-import com.example.jobbook.widget.DividerItemDecoration;
 import com.example.jobbook.util.L;
-import com.example.jobbook.base.LazyLoadFragment;
 import com.example.jobbook.util.Util;
+import com.example.jobbook.widget.DividerItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;

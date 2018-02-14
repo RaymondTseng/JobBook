@@ -17,10 +17,10 @@ import android.widget.TextView;
 import com.example.jobbook.R;
 import com.example.jobbook.app.MyApplication;
 import com.example.jobbook.base.contract.job.JobDetailContract;
-import com.example.jobbook.login.widget.LoginActivity;
 import com.example.jobbook.model.bean.JobBean;
 import com.example.jobbook.model.bean.JobDetailBean;
 import com.example.jobbook.presenter.job.JobDetailPresenter;
+import com.example.jobbook.ui.person.activity.LoginActivity;
 import com.example.jobbook.util.L;
 import com.example.jobbook.util.Util;
 
