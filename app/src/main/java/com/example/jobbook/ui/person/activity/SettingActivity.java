@@ -13,7 +13,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.jobbook.R;
-import com.example.jobbook.update.widget.UpdatePwdActivity;
 import com.example.jobbook.util.DataCleanManager;
 import com.example.jobbook.util.Util;
 

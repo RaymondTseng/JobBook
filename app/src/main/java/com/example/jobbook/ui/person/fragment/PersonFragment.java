@@ -29,7 +29,7 @@ import com.example.jobbook.ui.cv.activity.TextCVActivity;
 import com.example.jobbook.ui.main.activity.MainActivity;
 import com.example.jobbook.ui.message.activity.GetMessageActivity;
 import com.example.jobbook.ui.person.activity.FavouriteActivity;
-import com.example.jobbook.ui.person.activity.LoginActivity;
+import com.example.jobbook.ui.account.activity.LoginActivity;
 import com.example.jobbook.ui.person.activity.SettingActivity;
 import com.example.jobbook.ui.person.activity.ShowFanListActivity;
 import com.example.jobbook.ui.person.activity.ShowFollowerListActivity;

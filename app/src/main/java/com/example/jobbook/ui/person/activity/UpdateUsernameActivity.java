@@ -1,4 +1,4 @@
-package com.example.jobbook.update.widget;
+package com.example.jobbook.ui.person.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -8,64 +8,62 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.example.jobbook.app.MyApplication;
 import com.example.jobbook.R;
-import com.example.jobbook.update.presenter.UpdateUsernamePresenter;
-import com.example.jobbook.update.presenter.UpdateUsernamePresenterImpl;
-import com.example.jobbook.update.view.UpdateUsernameView;
+import com.example.jobbook.app.MyApplication;
+import com.example.jobbook.base.contract.person.UpdateContract;
+import com.example.jobbook.presenter.person.UpdateUsernamePresenter;
 import com.example.jobbook.util.L;
 import com.example.jobbook.util.Util;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by Xu on 2016/9/5.
  */
-public class UpdateUsernameActivity extends Activity implements View.OnClickListener, UpdateUsernameView {
+public class UpdateUsernameActivity extends Activity implements UpdateContract.UpdateUsernameView {
 
-    private ImageButton mBackImageButton;
-    private EditText mUserNameEditText;
-    private TextView mCompleteTextView;
+    @BindView(R.id.person_change_username_back_ib)
+    ImageButton mBackImageButton;
+
+    @BindView(R.id.person_change_username_et)
+    EditText mUserNameEditText;
+
+    @BindView(R.id.person_change_username_complete_tv)
+    TextView mCompleteTextView;
+
+    @BindView(R.id.activity_person_change_username_loading)
+    ViewStub mLoadingLinearLayout;
+
     private UpdateUsernamePresenter presenter;
-    private ViewStub mLoadingLinearLayout;
     private MyApplication mMyApplication;
-
     private View view;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_person_change_username);
+        ButterKnife.bind(this);
         view = getWindow().getDecorView();
-        initViews();
         initEvents();
     }
 
-    private void initViews() {
-        mBackImageButton = (ImageButton) findViewById(R.id.person_change_username_back_ib);
-        mUserNameEditText = (EditText) findViewById(R.id.person_change_username_et);
-        mCompleteTextView = (TextView) findViewById(R.id.person_change_username_complete_tv);
-        mLoadingLinearLayout = (ViewStub) findViewById(R.id.activity_person_change_username_loading);
-        mLoadingLinearLayout.inflate();
-    }
-
-
     private void initEvents() {
-        mBackImageButton.setOnClickListener(this);
-        mCompleteTextView.setOnClickListener(this);
-        presenter = new UpdateUsernamePresenterImpl(this);
+        mLoadingLinearLayout.inflate();
+        presenter = new UpdateUsernamePresenter(this);
         mMyApplication = (MyApplication) getApplication();
         mLoadingLinearLayout.setVisibility(View.GONE);
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.person_change_username_back_ib:
-                close();
-                break;
-            case R.id.person_change_username_complete_tv:
-                complete();
-                break;
-        }
+    @OnClick(R.id.person_change_username_back_ib)
+    public void back() {
+        close();
+    }
+
+    @OnClick(R.id.person_change_username_complete_tv)
+    public void change_complete() {
+        complete();
     }
 
     @Override

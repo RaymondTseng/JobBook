@@ -1,4 +1,4 @@
-package com.example.jobbook.base.contract.person;
+package com.example.jobbook.base.contract.account;
 
 import android.content.Context;
 

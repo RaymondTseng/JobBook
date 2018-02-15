@@ -1,4 +1,4 @@
-package com.example.jobbook.presenter.person;
+package com.example.jobbook.presenter.account;
 
 import android.text.TextUtils;
 
@@ -6,7 +6,7 @@ import com.example.jobbook.app.MyApplication;
 import com.example.jobbook.base.BaseSubscriber;
 import com.example.jobbook.base.IBaseView;
 import com.example.jobbook.base.RxPresenter;
-import com.example.jobbook.base.contract.person.LoginContract;
+import com.example.jobbook.base.contract.account.LoginContract;
 import com.example.jobbook.model.bean.PersonBean;
 import com.example.jobbook.model.bean.PersonWithDeviceTokenBean;
 import com.example.jobbook.model.http.RetrofitService;

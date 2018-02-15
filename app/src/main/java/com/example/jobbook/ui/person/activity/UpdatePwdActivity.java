@@ -1,4 +1,4 @@
-package com.example.jobbook.update.widget;
+package com.example.jobbook.ui.person.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -10,63 +10,64 @@ import android.widget.TextView;
 
 import com.example.jobbook.R;
 import com.example.jobbook.app.MyApplication;
-import com.example.jobbook.ui.person.activity.LoginActivity;
-import com.example.jobbook.update.presenter.UpdatePwdPresenter;
-import com.example.jobbook.update.presenter.UpdatePwdPresenterImpl;
-import com.example.jobbook.update.view.UpdatePwdView;
+import com.example.jobbook.base.contract.person.UpdateContract;
+import com.example.jobbook.presenter.person.UpdatePwdPresenter;
+import com.example.jobbook.ui.account.activity.LoginActivity;
 import com.example.jobbook.util.Util;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by Xu on 2016/9/5.
  */
-public class UpdatePwdActivity extends Activity implements View.OnClickListener, UpdatePwdView {
+public class UpdatePwdActivity extends Activity implements UpdateContract.UpdatePwdView {
 
-    private ImageButton mBackImageButton;
-    private EditText mOriginalPwdEditText;
-    private EditText mNewPwdEditText;
-    private EditText mNewPwdConfirmEditText;
-    private TextView mCompleteTextView;
+    @BindView(R.id.person_change_pwd_back_ib)
+    ImageButton mBackImageButton;
+
+    @BindView(R.id.person_change_pwd_original_pwd_et)
+    EditText mOriginalPwdEditText;
+
+    @BindView(R.id.person_change_pwd_new_pwd_et)
+    EditText mNewPwdEditText;
+
+    @BindView(R.id.person_change_pwd_new_pwd_confirm_et)
+    EditText mNewPwdConfirmEditText;
+
+    @BindView(R.id.person_change_pwd_complete_tv)
+    TextView mCompleteTextView;
+
+    @BindView(R.id.activity_person_change_pwd_loading)
+    ViewStub mLoadingLinearLayout;
+
     private UpdatePwdPresenter presenter;
-    private ViewStub mLoadingLinearLayout;
-
     private View view;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_person_change_pwd);
+        ButterKnife.bind(this);
         view = getWindow().getDecorView();
-        initViews();
         initEvents();
     }
 
-    private void initViews() {
-        mBackImageButton = (ImageButton) findViewById(R.id.person_change_pwd_back_ib);
-        mOriginalPwdEditText = (EditText) findViewById(R.id.person_change_pwd_original_pwd_et);
-        mNewPwdEditText = (EditText) findViewById(R.id.person_change_pwd_new_pwd_et);
-        mNewPwdConfirmEditText = (EditText) findViewById(R.id.person_change_pwd_new_pwd_confirm_et);
-        mCompleteTextView = (TextView) findViewById(R.id.person_change_pwd_complete_tv);
-        mLoadingLinearLayout = (ViewStub) findViewById(R.id.activity_person_change_pwd_loading);
-        mLoadingLinearLayout.inflate();
-    }
-
     private void initEvents() {
-        mBackImageButton.setOnClickListener(this);
-        mCompleteTextView.setOnClickListener(this);
-        presenter = new UpdatePwdPresenterImpl(this);
+        mLoadingLinearLayout.inflate();
+        presenter = new UpdatePwdPresenter(this);
         mLoadingLinearLayout.setVisibility(View.GONE);
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.person_change_pwd_back_ib:
-                close();
-                break;
-            case R.id.person_change_pwd_complete_tv:
-                complete();
-                break;
-        }
+    @OnClick(R.id.person_change_pwd_back_ib)
+    public void back() {
+        close();
+    }
+
+    @OnClick(R.id.person_change_pwd_complete_tv)
+    public void change_complete() {
+        complete();
     }
 
     @Override

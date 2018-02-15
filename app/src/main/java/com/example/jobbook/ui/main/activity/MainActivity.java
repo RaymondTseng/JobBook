@@ -25,7 +25,7 @@ import com.example.jobbook.service.MyPushIntentService;
 import com.example.jobbook.ui.article.fragment.ArticleFragment;
 import com.example.jobbook.ui.job.fragment.JobFragment;
 import com.example.jobbook.ui.main.adapter.MainFragmentPagerAdapter;
-import com.example.jobbook.ui.person.activity.LoginActivity;
+import com.example.jobbook.ui.account.activity.LoginActivity;
 import com.example.jobbook.ui.person.fragment.PersonFragment;
 import com.example.jobbook.util.L;
 import com.example.jobbook.util.Util;

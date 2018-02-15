@@ -25,7 +25,7 @@ import com.example.jobbook.square.SquareAdapter;
 import com.example.jobbook.square.presenter.SquarePresenter;
 import com.example.jobbook.square.presenter.SquarePresenterImpl;
 import com.example.jobbook.square.view.SquareView;
-import com.example.jobbook.ui.person.activity.LoginActivity;
+import com.example.jobbook.ui.account.activity.LoginActivity;
 import com.example.jobbook.userdetail.widget.UserDetailActivity;
 import com.example.jobbook.util.L;
 import com.example.jobbook.util.Util;

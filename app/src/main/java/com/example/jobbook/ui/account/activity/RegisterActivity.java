@@ -1,4 +1,4 @@
-package com.example.jobbook.register.widget;
+package com.example.jobbook.ui.account.activity;
 
 import android.app.Activity;
 import android.content.Context;
@@ -14,68 +14,69 @@ import android.widget.LinearLayout;
 
 import com.example.jobbook.R;
 import com.example.jobbook.app.MyApplication;
-import com.example.jobbook.app.Urls;
+import com.example.jobbook.base.contract.account.RegisterContract;
 import com.example.jobbook.model.bean.PersonBean;
-import com.example.jobbook.register.presenter.RegisterPresenter;
-import com.example.jobbook.register.presenter.RegisterPresenterImpl;
-import com.example.jobbook.register.view.RegisterView;
+import com.example.jobbook.presenter.account.RegisterPresenter;
 import com.example.jobbook.ui.main.activity.MainActivity;
-import com.example.jobbook.ui.person.activity.LoginActivity;
 import com.example.jobbook.util.L;
 import com.example.jobbook.util.SMSSDKManager;
 import com.example.jobbook.util.Util;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 
 /**
  * Created by 椰树 on 2016/6/2.
  */
-public class RegisterActivity extends Activity implements RegisterView, View.OnClickListener, SMSSDKManager.TimeListener {
+public class RegisterActivity extends Activity implements RegisterContract.View, SMSSDKManager.TimeListener {
 
-    private Button mRegisterButton;
-    private EditText mAccountEditText;
-    private EditText mUserNameEditText;
-    private EditText mPwdEditText;
-    private EditText mPwdAgainEditText;
-    private EditText mCodeEditText;
-    private Button mGetCodeButton;
-    private ImageButton mCloseImageButton;
-    private ViewStub mLoadingLinearLayout;
-    private RegisterPresenter presenter;
-    private LinearLayout mParentLayout;
+    @BindView(R.id.register_register_bt)
+    Button mRegisterButton;
+
+    @BindView(R.id.register_account_et)
+    EditText mAccountEditText;
+
+    @BindView(R.id.register_username_et)
+    EditText mUserNameEditText;
+
+    @BindView(R.id.register_password_et)
+    EditText mPwdEditText;
+
+    @BindView(R.id.register_confirm_password_et)
+    EditText mPwdAgainEditText;
+
+    @BindView(R.id.register_code_et)
+    EditText mCodeEditText;
+
+    @BindView(R.id.register_code_bt)
+    Button mGetCodeButton;
+
+    @BindView(R.id.register_close_ib)
+    ImageButton mCloseImageButton;
+
+    @BindView(R.id.activity_register_loading)
+    ViewStub mLoadingLinearLayout;
+
+    @BindView(R.id.activity_register_layout)
+    LinearLayout mParentLayout;
 
     private View view;
+    private RegisterPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        ButterKnife.bind(this);
         view = getWindow().getDecorView();
-        initViews();
         initEvents();
     }
 
-    private void initViews() {
-        mParentLayout = (LinearLayout) findViewById(R.id.activity_register_layout);
-        mRegisterButton = (Button) findViewById(R.id.register_register_bt);
-        mAccountEditText = (EditText) findViewById(R.id.register_account_et);
-        mUserNameEditText = (EditText) findViewById(R.id.register_username_et);
-        mPwdEditText = (EditText) findViewById(R.id.register_password_et);
-        mPwdAgainEditText = (EditText) findViewById(R.id.register_confirm_password_et);
-        mCodeEditText = (EditText) findViewById(R.id.register_code_et);
-        mCloseImageButton = (ImageButton) findViewById(R.id.register_close_ib);
-        mGetCodeButton = (Button) findViewById(R.id.register_code_bt);
-        mLoadingLinearLayout = (ViewStub) findViewById(R.id.activity_register_loading);
-        mLoadingLinearLayout.inflate();
-    }
-
     private void initEvents() {
-        presenter = new RegisterPresenterImpl(this);
-        mRegisterButton.setOnClickListener(this);
-        mCloseImageButton.setOnClickListener(this);
-        mGetCodeButton.setOnClickListener(this);
-        mParentLayout.setOnClickListener(this);
-        L.i("load code:" + Urls.GET_CODE_URL);
+        mLoadingLinearLayout.inflate();
+        presenter = new RegisterPresenter(this);
         SMSSDKManager.getInstance().registerTimeListener(this);
         mLoadingLinearLayout.setVisibility(View.GONE);
     }
@@ -182,30 +183,32 @@ public class RegisterActivity extends Activity implements RegisterView, View.OnC
 //        refreshCode();
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.register_register_bt:
-                presenter.registerCheck(RegisterActivity.this, mAccountEditText.getText().toString(),
-                        mUserNameEditText.getText().toString(), mPwdEditText.getText().toString(), mPwdAgainEditText.getText().toString(),
-                        mCodeEditText.getText().toString());
-                break;
-            case R.id.register_close_ib:
-                switch2Login();
-                break;
-            case R.id.register_code_bt:
-                if (!TextUtils.isEmpty(mAccountEditText.getText().toString())) {
-                    SMSSDKManager.getInstance().sendMessage(RegisterActivity.this, "86", mAccountEditText.getText().toString());
-                } else {
-                    codeBlankError();
-                }
-                break;
-            case R.id.activity_register_layout:
-                InputMethodManager imm = (InputMethodManager)
-                        getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-                break;
+    @OnClick(R.id.register_register_bt)
+    public void register() {
+        presenter.registerCheck(RegisterActivity.this, mAccountEditText.getText().toString(),
+                mUserNameEditText.getText().toString(), mPwdEditText.getText().toString(), mPwdAgainEditText.getText().toString(),
+                mCodeEditText.getText().toString());
+    }
+
+    @OnClick(R.id.register_close_ib)
+    public void register_close() {
+        switch2Login();
+    }
+
+    @OnClick(R.id.register_code_bt)
+    public void get_code() {
+        if (!TextUtils.isEmpty(mAccountEditText.getText().toString())) {
+            SMSSDKManager.getInstance().sendMessage(RegisterActivity.this, "86", mAccountEditText.getText().toString());
+        } else {
+            codeBlankError();
         }
+    }
+
+    @OnClick(R.id.activity_register_layout)
+    public void click_layout(View v) {
+        InputMethodManager imm = (InputMethodManager)
+                getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
     }
 
     @Override

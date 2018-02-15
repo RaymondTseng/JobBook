@@ -1,4 +1,4 @@
-package com.example.jobbook.update.widget;
+package com.example.jobbook.ui.person.activity;
 
 import android.app.Activity;
 import android.content.Context;
@@ -9,82 +9,83 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.example.jobbook.app.MyApplication;
 import com.example.jobbook.R;
+import com.example.jobbook.app.MyApplication;
+import com.example.jobbook.base.contract.person.UpdateContract;
 import com.example.jobbook.model.bean.PersonBean;
-import com.example.jobbook.update.presenter.UpdatePhonePresenter;
-import com.example.jobbook.update.presenter.UpdatePhonePresenterImpl;
-import com.example.jobbook.update.view.UpdatePhoneView;
+import com.example.jobbook.presenter.person.UpdatePhonePresenter;
 import com.example.jobbook.util.L;
 import com.example.jobbook.util.SMSSDKManager;
 import com.example.jobbook.util.Util;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 
 /**
  * Created by Xu on 2016/9/5.
  */
-public class UpdatePhoneActivity extends Activity implements View.OnClickListener, UpdatePhoneView, SMSSDKManager.TimeListener {
+public class UpdatePhoneActivity extends Activity implements UpdateContract.UpdatePhoneView, SMSSDKManager.TimeListener {
 
-    private ImageButton mBackImageButton;
-    private TextView mOriginalPhoneTextView;
-    private EditText mCodeEditText;
-    private Button mGetCodeButton;
-    private EditText mNewPhoneEditText;
-    private TextView mCompleteTextView;
+    @BindView(R.id.person_change_phone_back_ib)
+    ImageButton mBackImageButton;
+
+    @BindView(R.id.person_change_phone_original_phone_tv)
+    TextView mOriginalPhoneTextView;
+
+    @BindView(R.id.person_change_phone_code_et)
+    EditText mCodeEditText;
+
+    @BindView(R.id.person_change_phone_code_bt)
+    Button mGetCodeButton;
+
+    @BindView(R.id.person_change_phone_new_phone_et)
+    EditText mNewPhoneEditText;
+
+    @BindView(R.id.person_change_phone_complete_tv)
+    TextView mCompleteTextView;
+
     private PersonBean personBean;
     private UpdatePhonePresenter mPresenter;
-
     private View view;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_person_change_phone);
+        ButterKnife.bind(this);
         view = getWindow().getDecorView();
-        initViews();
         initEvents();
     }
 
-    private void initViews() {
-        mBackImageButton = (ImageButton) findViewById(R.id.person_change_phone_back_ib);
-        mOriginalPhoneTextView = (TextView) findViewById(R.id.person_change_phone_original_phone_tv);
-        mCodeEditText = (EditText) findViewById(R.id.person_change_phone_code_et);
-        mGetCodeButton = (Button) findViewById(R.id.person_change_phone_code_bt);
-        mNewPhoneEditText = (EditText) findViewById(R.id.person_change_phone_new_phone_et);
-        mCompleteTextView = (TextView) findViewById(R.id.person_change_phone_complete_tv);
-    }
-
     private void initEvents() {
-        mPresenter = new UpdatePhonePresenterImpl(this);
-        mBackImageButton.setOnClickListener(this);
-        mGetCodeButton.setOnClickListener(this);
-        mCompleteTextView.setOnClickListener(this);
-        if(MyApplication.getmLoginStatus() != 0){
+        mPresenter = new UpdatePhonePresenter(this);
+        if (MyApplication.getmLoginStatus() != 0) {
             personBean = MyApplication.getmPersonBean();
             L.i("result:" + personBean.getAccount());
             mOriginalPhoneTextView.setText(personBean.getAccount());
             SMSSDKManager.getInstance().setDefaultDelay(60);
             SMSSDKManager.getInstance().registerTimeListener(this);
-        }else{
+        } else {
             finish();
         }
 
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.person_change_phone_back_ib:
-                close();
-                break;
+    @OnClick(R.id.person_change_phone_back_ib)
+    public void back() {
+        close();
+    }
 
-            case R.id.person_change_phone_code_bt:
-                getCode();
-                break;
-            case R.id.person_change_phone_complete_tv:
-                complete(this);
-                break;
-        }
+    @OnClick(R.id.person_change_phone_code_bt)
+    public void get_code() {
+        getCode();
+    }
+
+    @OnClick(R.id.person_change_phone_complete_tv)
+    public void complete() {
+        complete(this);
     }
 
     @Override

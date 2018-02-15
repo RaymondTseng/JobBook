@@ -1,4 +1,4 @@
-package com.example.jobbook.ui.person.activity;
+package com.example.jobbook.ui.account.activity;
 
 import android.app.Activity;
 import android.content.ComponentName;
@@ -19,10 +19,9 @@ import android.widget.TextView;
 
 import com.example.jobbook.R;
 import com.example.jobbook.app.MyApplication;
-import com.example.jobbook.base.contract.person.LoginContract;
+import com.example.jobbook.base.contract.account.LoginContract;
 import com.example.jobbook.model.bean.PersonBean;
-import com.example.jobbook.presenter.person.LoginPresenter;
-import com.example.jobbook.register.widget.RegisterActivity;
+import com.example.jobbook.presenter.account.LoginPresenter;
 import com.example.jobbook.service.MyPushIntentService;
 import com.example.jobbook.ui.main.activity.MainActivity;
 import com.example.jobbook.util.L;

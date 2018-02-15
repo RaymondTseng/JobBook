@@ -1,4 +1,4 @@
-package com.example.jobbook.ui.person.activity;
+package com.example.jobbook.ui.account.activity;
 
 import android.app.Activity;
 import android.content.Context;
@@ -13,8 +13,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.jobbook.R;
-import com.example.jobbook.base.contract.person.ForgetPwdContract;
-import com.example.jobbook.presenter.person.ForgetPwdFirstPresenter;
+import com.example.jobbook.base.contract.account.ForgetPwdContract;
+import com.example.jobbook.presenter.account.ForgetPwdFirstPresenter;
 import com.example.jobbook.util.SMSSDKManager;
 import com.example.jobbook.util.Util;
 

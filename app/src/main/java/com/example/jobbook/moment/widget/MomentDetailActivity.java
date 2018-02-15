@@ -29,7 +29,7 @@ import com.example.jobbook.moment.MomentDetailCommentListViewAdapter;
 import com.example.jobbook.moment.presenter.MomentDetailPresenter;
 import com.example.jobbook.moment.presenter.MomentDetailPresenterImpl;
 import com.example.jobbook.moment.view.MomentDetailView;
-import com.example.jobbook.ui.person.activity.LoginActivity;
+import com.example.jobbook.ui.account.activity.LoginActivity;
 import com.example.jobbook.util.ImageLoadUtils;
 import com.example.jobbook.util.L;
 import com.example.jobbook.util.Util;

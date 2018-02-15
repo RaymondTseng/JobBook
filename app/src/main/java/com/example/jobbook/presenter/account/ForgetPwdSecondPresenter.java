@@ -1,11 +1,11 @@
-package com.example.jobbook.presenter.person;
+package com.example.jobbook.presenter.account;
 
 import android.text.TextUtils;
 
 import com.example.jobbook.base.BaseSubscriber;
 import com.example.jobbook.base.IBaseView;
 import com.example.jobbook.base.RxPresenter;
-import com.example.jobbook.base.contract.person.ForgetPwdContract;
+import com.example.jobbook.base.contract.account.ForgetPwdContract;
 import com.example.jobbook.model.http.RetrofitService;
 
 /**

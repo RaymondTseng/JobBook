@@ -11,10 +11,10 @@ import android.widget.ImageButton;
 
 import com.example.jobbook.R;
 import com.example.jobbook.app.MyApplication;
-import com.example.jobbook.base.contract.person.MomentListContract;
+import com.example.jobbook.base.contract.moment.MomentListContract;
 import com.example.jobbook.model.bean.MomentBean;
 import com.example.jobbook.moment.widget.MomentDetailActivity;
-import com.example.jobbook.presenter.person.MomentListPresenter;
+import com.example.jobbook.presenter.moment.MomentListPresenter;
 import com.example.jobbook.userdetail.UserDetailMomentAdapter;
 import com.example.jobbook.util.L;
 import com.example.jobbook.util.Util;

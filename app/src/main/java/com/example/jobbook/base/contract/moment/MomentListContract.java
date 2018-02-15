@@ -1,4 +1,4 @@
-package com.example.jobbook.base.contract.person;
+package com.example.jobbook.base.contract.moment;
 
 import com.example.jobbook.base.IBasePresenter;
 import com.example.jobbook.base.IBaseView;
