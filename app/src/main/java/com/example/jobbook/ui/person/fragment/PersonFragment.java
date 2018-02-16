@@ -102,9 +102,6 @@ public class PersonFragment extends LazyLoadFragment implements PersonContract.V
     @BindView(R.id.person_fans_num_ll)
     LinearLayout mFanLL;
 
-    @BindView(R.id.fragment_person_loading)
-    ViewStub mLoadingLayout;
-
     @BindView(R.id.person_title_head_iv)
     CircleImageView mCircleHeadImageView;
 
@@ -114,6 +111,7 @@ public class PersonFragment extends LazyLoadFragment implements PersonContract.V
     @BindView(R.id.unread_address_number)
     TextView mUnReadTextView;
 
+    private ViewStub mLoadingLayout;
     private UploadPresenter presenter;
     private MyApplication mMyApplication;
     private PersonBean personBean;
@@ -152,7 +150,11 @@ public class PersonFragment extends LazyLoadFragment implements PersonContract.V
     }
 
     private void initEvents() {
-        mLoadingLayout.inflate();
+        mLoadingLayout = findViewById(R.id.fragment_person_loading);
+        if (mLoadingLayout != null) {
+            mLoadingLayout.inflate();
+            mLoadingLayout.setVisibility(View.GONE);
+        }
         mUri = null;
         handler = new PersonHandler();
         mMyApplication = (MyApplication) getActivity().getApplication();
@@ -166,7 +168,6 @@ public class PersonFragment extends LazyLoadFragment implements PersonContract.V
             };
             timer.schedule(timerTask, 0, 1000);
         }
-        mLoadingLayout.setVisibility(View.GONE);
     }
 
     @Override

@@ -37,7 +37,7 @@ import butterknife.ButterKnife;
  * Created by Xu on 16-11-8.
  */
 
-public class MomentFragment extends Fragment implements View.OnClickListener, ViewPager.OnPageChangeListener{
+public class MomentFragment extends Fragment implements View.OnClickListener, ViewPager.OnPageChangeListener {
 
     private static int REFRESH = 1;
 
@@ -55,7 +55,7 @@ public class MomentFragment extends Fragment implements View.OnClickListener, Vi
 
     private View view;
     private MomentPagerAdapter mPagerAdapter;
-    private String[] addresses = { "广场", "关注"};
+    private String[] addresses = {"广场", "关注"};
     private TextView[] mTextTabs = new TextView[addresses.length];
     private List<Fragment> mFragemnts = new ArrayList<>();
     private MyApplication myApplication;
@@ -73,22 +73,22 @@ public class MomentFragment extends Fragment implements View.OnClickListener, Vi
         return view;
     }
 
-    private void initCursor(){
+    private void initCursor() {
         mCursorWidth = BitmapFactory.decodeResource(getResources(),
                 R.mipmap.line).getWidth();
         DisplayMetrics dm = new DisplayMetrics();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
         int screenW = dm.widthPixels;
-        initPosition = (int)(((((double)screenW / 360) * 248) / 4) - ((double)mCursorWidth / 2));
+        initPosition = (int) (((((double) screenW / 360) * 248) / 4) - ((double) mCursorWidth / 2));
         Matrix matrix = new Matrix();
         matrix.postTranslate(initPosition, 0);
         mCursorImageView.setImageMatrix(matrix);
     }
 
-    private void initEvents(){
+    private void initEvents() {
         initCursor();
         mTabWidget.setStripEnabled(false);
-        for(int i = 0; i < mTextTabs.length; i++){
+        for (int i = 0; i < mTextTabs.length; i++) {
             mTextTabs[i] = new TextView(getActivity());
             mTextTabs[i].setTag(i);
             mTextTabs[i].setId(i);
@@ -113,16 +113,16 @@ public class MomentFragment extends Fragment implements View.OnClickListener, Vi
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case 0:
 //                List<MomentBean> list = new ArrayList<>();
 //                ((SquareFollowFragment)mFragemnts.get(0)).refreshData(list);
                 mViewPager.setCurrentItem(0);
                 break;
             case 1:
-                if(MyApplication.getmLoginStatus() == 1){
+                if (MyApplication.getmLoginStatus() == 1) {
                     mViewPager.setCurrentItem(1);
-                }else{
+                } else {
                     Util.showSnackBar(view, "请先登录", "现在登录", new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -133,10 +133,10 @@ public class MomentFragment extends Fragment implements View.OnClickListener, Vi
                 }
                 break;
             case R.id.moment_publish_tv:
-                if(MyApplication.getmLoginStatus() == 1){
-                    myApplication.setHandler(((SquareFragment)mFragemnts.get(0)).handler);
+                if (MyApplication.getmLoginStatus() == 1) {
+                    myApplication.setHandler(((SquareFragment) mFragemnts.get(0)).handler);
                     Util.toAnotherActivity(getActivity(), NewMomentActivity.class);
-                }else{
+                } else {
                     Util.showSnackBar(view, "请先登录", "现在登录", new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -158,14 +158,14 @@ public class MomentFragment extends Fragment implements View.OnClickListener, Vi
     public void onPageSelected(int position) {
         int offset = (initPosition + (mCursorWidth / 2)) * 2;
         Animation animation = null;
-        switch (position){
+        switch (position) {
             case 0:
-                if(mCurrentIndex == 1){
+                if (mCurrentIndex == 1) {
                     animation = new TranslateAnimation(offset, 0, 0, 0);
                 }
                 break;
             case 1:
-                if(mCurrentIndex == 0){
+                if (mCurrentIndex == 0) {
                     animation = new TranslateAnimation(0, offset, 0, 0);
                 }
                 break;
@@ -184,7 +184,6 @@ public class MomentFragment extends Fragment implements View.OnClickListener, Vi
     public void onPageScrollStateChanged(int state) {
 
     }
-
 
 
 }

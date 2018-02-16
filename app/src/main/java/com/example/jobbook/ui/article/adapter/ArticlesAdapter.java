@@ -9,8 +9,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.jobbook.R;
-import com.example.jobbook.model.bean.ArticleBean;
 import com.example.jobbook.app.Constants;
+import com.example.jobbook.model.bean.ArticleBean;
 import com.example.jobbook.util.ImageLoadUtils;
 import com.example.jobbook.util.Util;
 
@@ -55,7 +55,8 @@ public class ArticlesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             if(article == null){
                 return;
             }
-            ((ItemViewHolder) holder).mContent.setText(Util.subContent(article.getContent(), 40));
+//            ((ItemViewHolder) holder).mContent.setText(Util.subContent(article.getContent(), 40));
+            ((ItemViewHolder) holder).mContent.setText("点击查看详情");
             switch (article.getType()) {
                 case Constants.INDEX_ARTICLE_ENGAGEMENT:
                     ((ItemViewHolder) holder).mLabel.setText("就业技巧");
