@@ -17,20 +17,20 @@ import com.example.jobbook.util.ImageLoadUtils;
 import java.util.List;
 
 /**
- * Created by Xu on 16-11-30.
+ * Created by Xu on 16-11-28.
  */
 
-public class ShowFanListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class UserDetailFollowAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context mContext;
     private List<TypePersonBean> mData;
     private boolean mShowFooter = true;
-    private OnFanItemClickListener onFanItemClickListener;
-    private OnFollowFanClickListener onFollowFanClickListener;
+    private OnFollowerItemClickListener onFollwerItemClickListener;
+    private OnFollowClickListener onFollowClickListener;
 
-    private static int UNFOLLOW_TYPE = 0;
-    private static int FOLLOW_TYPE = 1;
+    private static int UNFOLLOW_TYPE = 1;
+    private static int FOLLOW_TYPE = 0;
 
-    public ShowFanListAdapter(Context mContext, List<TypePersonBean> mData) {
+    public UserDetailFollowAdapter(Context mContext, List<TypePersonBean> mData) {
         this.mContext = mContext;
         this.mData = mData;
     }
@@ -39,11 +39,11 @@ public class ShowFanListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if(viewType == UNFOLLOW_TYPE){
             View v = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.user_detail_fan_lv_item, parent, false);
+                    .inflate(R.layout.user_detail_follow_lv_item, parent, false);
             return new ViewHolder(v, UNFOLLOW_TYPE);
         }else{
             View v = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.user_detail_fan_lv_item, parent, false);
+                    .inflate(R.layout.user_detail_follow_lv_item, parent, false);
             return new ViewHolder(v, FOLLOW_TYPE);
         }
     }
@@ -94,11 +94,11 @@ public class ShowFanListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         public ViewHolder(View view, int type) {
             super(view);
-            mHeadImageView = (ImageView) view.findViewById(R.id.user_detail_fan_lv_item_head_iv);
-            mNameTextView = (TextView) view.findViewById(R.id.user_detail_fan_lv_item_name_tv);
-            mWorkSpacePositionTextView = (TextView) view.findViewById(R.id.user_detail_fan_lv_item_space_position_tv);
-            itemView = view.findViewById(R.id.user_detail_fan_lv_item_ll);
-            mFollowImageButton = (ImageButton) view.findViewById(R.id.user_detail_fan_lv_item_follow_ib);
+            mHeadImageView = (ImageView) view.findViewById(R.id.user_detail_follow_lv_item_head_iv);
+            mNameTextView = (TextView) view.findViewById(R.id.user_detail_follow_lv_item_name_tv);
+            mWorkSpacePositionTextView = (TextView) view.findViewById(R.id.user_detail_follow_lv_item_space_position_tv);
+            itemView = view.findViewById(R.id.user_detail_follow_lv_item_ll);
+            mFollowImageButton = (ImageButton) view.findViewById(R.id.user_detail_follow_lv_item_follow_ib);
             itemView.setOnClickListener(this);
             if(type == UNFOLLOW_TYPE){
                 mFollowImageButton.setOnClickListener(this);
@@ -111,14 +111,14 @@ public class ShowFanListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         @Override
         public void onClick(View v) {
             switch (v.getId()){
-                case R.id.user_detail_fan_lv_item_ll:
-                    if(onFanItemClickListener != null){
-                        onFanItemClickListener.onFanItemClick(mData.get(getLayoutPosition()));
+                case R.id.user_detail_follow_lv_item_ll:
+                    if(onFollwerItemClickListener != null){
+                        onFollwerItemClickListener.onFollowerItemClick(mData.get(getLayoutPosition()));
                     }
                     break;
-                case R.id.user_detail_fan_lv_item_follow_ib:
-                    if(onFollowFanClickListener != null){
-                        onFollowFanClickListener.onFollowFanClick(mData.get(getLayoutPosition()));
+                case R.id.user_detail_follow_lv_item_follow_ib:
+                    if(onFollowClickListener != null){
+                        onFollowClickListener.onFollowClick(mData.get(getLayoutPosition()));
                     }
                     break;
             }
@@ -142,27 +142,19 @@ public class ShowFanListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         notifyDataSetChanged();
     }
 
-    public interface OnFanItemClickListener{
-        void onFanItemClick(TypePersonBean personBean);
+    public interface OnFollowerItemClickListener{
+        void onFollowerItemClick(TypePersonBean personBean);
     }
 
-    public interface OnFollowFanClickListener{
-        void onFollowFanClick(TypePersonBean personBean);
+    public interface OnFollowClickListener{
+        void onFollowClick(TypePersonBean personBean);
     }
 
-    public void setOnFanItemClickListener(OnFanItemClickListener onFanItemClickListener) {
-        this.onFanItemClickListener = onFanItemClickListener;
+    public void setOnFollwerItemClickListener(OnFollowerItemClickListener onFollwerItemClickListener) {
+        this.onFollwerItemClickListener = onFollwerItemClickListener;
     }
 
-    public void setOnFollowFanClickListener(OnFollowFanClickListener onFollowFanClickListener) {
-        this.onFollowFanClickListener = onFollowFanClickListener;
-    }
-
-    public class FooterViewHolder extends RecyclerView.ViewHolder {
-
-        public FooterViewHolder(View view) {
-            super(view);
-        }
-
+    public void setOnFollowClickListener(OnFollowClickListener onFollowClickListener) {
+        this.onFollowClickListener = onFollowClickListener;
     }
 }

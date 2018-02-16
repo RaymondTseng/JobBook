@@ -28,7 +28,7 @@ import com.example.jobbook.model.bean.PersonBean;
 import com.example.jobbook.model.bean.TextCVBean;
 import com.example.jobbook.presenter.cv.TextCVPresenter;
 import com.example.jobbook.presenter.person.UploadPresenter;
-import com.example.jobbook.upload.CropUtils;
+import com.example.jobbook.util.CropUtil;
 import com.example.jobbook.util.ImageLoadUtils;
 import com.example.jobbook.util.L;
 import com.example.jobbook.util.UploadUtil;
@@ -363,10 +363,10 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
             mPopupWindow.dismiss();
             switch (v.getId()) {
                 case R.id.person_upload_takePhoto_bt:// 拍照
-                    CropUtils.pickAvatarFromCamera(TextCVActivity.this);
+                    CropUtil.pickAvatarFromCamera(TextCVActivity.this);
                     break;
                 case R.id.person_upload_pickPhoto_bt:// 相册选择图片
-                    CropUtils.pickAvatarFromGallery(TextCVActivity.this);
+                    CropUtil.pickAvatarFromGallery(TextCVActivity.this);
                     break;
                 case R.id.person_upload_cancel_bt:// 取消
 //                    finish();
@@ -374,7 +374,7 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
             }
         }
     };
-    private CropUtils.CropHandler cropHandler = new CropUtils.CropHandler() {
+    private CropUtil.CropHandler cropHandler = new CropUtil.CropHandler() {
         @Override
         public void handleCropResult(Uri uri, int tag) {
             //send Image to Server
@@ -392,7 +392,7 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        CropUtils.handleResult(this, cropHandler, requestCode, resultCode, data);
+        CropUtil.handleResult(this, cropHandler, requestCode, resultCode, data);
     }
 
     private void sendImage(MultipartBody.Part pic) {

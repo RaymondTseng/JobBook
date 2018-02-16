@@ -12,10 +12,10 @@ import com.example.jobbook.R;
 import com.example.jobbook.app.MyApplication;
 import com.example.jobbook.base.contract.message.GetMessageContract;
 import com.example.jobbook.model.bean.MessageBean;
-import com.example.jobbook.moment.widget.MomentDetailActivity;
+import com.example.jobbook.ui.moment.activity.MomentDetailActivity;
 import com.example.jobbook.presenter.message.GetMessagePresenter;
 import com.example.jobbook.ui.message.adapter.GetMessageListViewAdapter;
-import com.example.jobbook.userdetail.widget.UserDetailActivity;
+import com.example.jobbook.ui.person.activity.UserDetailActivity;
 import com.example.jobbook.util.Util;
 
 import java.util.ArrayList;

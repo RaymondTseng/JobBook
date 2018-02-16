@@ -13,11 +13,12 @@ import android.view.ViewStub;
 
 import com.example.jobbook.R;
 import com.example.jobbook.app.MyApplication;
-import com.example.jobbook.base.contract.person.FavouriteJobContract;
-import com.example.jobbook.model.bean.JobBean;
-import com.example.jobbook.presenter.person.FavouriteJobPresenter;
-import com.example.jobbook.ui.job.activity.JobDetailActivity;
-import com.example.jobbook.ui.person.adapter.FavouriteJobAdapter;
+import com.example.jobbook.base.contract.person.UserDetailMomentContract;
+import com.example.jobbook.model.bean.MomentBean;
+import com.example.jobbook.presenter.person.UserDetailMomentPresenter;
+import com.example.jobbook.ui.moment.activity.MomentDetailActivity;
+import com.example.jobbook.ui.person.activity.UserDetailActivity;
+import com.example.jobbook.ui.person.adapter.UserDetailMomentAdapter;
 import com.example.jobbook.util.Util;
 import com.example.jobbook.widget.DividerItemDecoration;
 
@@ -28,11 +29,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by Xu on 16-12-7.
+ * Created by Xu on 16-11-25.
  */
 
-public class FavouriteJobsFragment extends Fragment implements FavouriteJobContract.View, FavouriteJobAdapter.OnJobItemClickListener{
-    private View view;
+public class UserDetailMomentFragment extends Fragment implements UserDetailMomentContract.View,
+        UserDetailActivity.OnGetAccountListener, UserDetailMomentAdapter.OnMomentItemClickListener {
 
     @BindView(R.id.base_rv)
     RecyclerView mRecyclerView;
@@ -40,25 +41,27 @@ public class FavouriteJobsFragment extends Fragment implements FavouriteJobContr
     @BindView(R.id.fragment_base_lv_loading)
     ViewStub mLoadingLayout;
 
-    private FavouriteJobAdapter mAdapter;
-    private List<JobBean> mData;
-    private FavouriteJobPresenter mPresenter;
+    private View view;
+    private List<MomentBean> mData;
+    private UserDetailMomentAdapter mAdapter;
+    private UserDetailMomentPresenter mPresenter;
     private LinearLayoutManager mLayoutManager;
+    private String account;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_base_lv, container, false);
         ButterKnife.bind(this, view);
-        init(view);
+        init();
         return view;
     }
 
-    private void init(View view){
+    private void init(){
         mLoadingLayout.inflate();
         mData = new ArrayList<>();
-        mPresenter = new FavouriteJobPresenter(this);
-        mAdapter = new FavouriteJobAdapter(getActivity(), mData);
+        mPresenter = new UserDetailMomentPresenter(this);
+        mAdapter = new UserDetailMomentAdapter(getActivity(), mData);
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(),
                 DividerItemDecoration.VERTICAL_LIST));
@@ -66,16 +69,19 @@ public class FavouriteJobsFragment extends Fragment implements FavouriteJobContr
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setAdapter(mAdapter);
-        mAdapter.setOnJobItemClickListener(this);
+        mAdapter.setOnMomentItemClickListener(this);
         if(MyApplication.getmLoginStatus() != 0){
-            mPresenter.loadFavouriteJobs(MyApplication.getAccount());
+            mPresenter.loadMoments(account, MyApplication.getAccount());
+        }else{
+            mPresenter.loadMoments(account, "");
         }
+        mLoadingLayout.setVisibility(View.GONE);
     }
 
     @Override
-    public void loadJobs(List<JobBean> mJobs) {
-        mData = mJobs;
-        mAdapter.onRefreshData(mData);
+    public void loadMoments(List<MomentBean> moments) {
+        mData = moments;
+        mAdapter.refreshData(mData);
     }
 
     @Override
@@ -90,21 +96,19 @@ public class FavouriteJobsFragment extends Fragment implements FavouriteJobContr
 
     @Override
     public void showLoadFailMsg(String msg) {
-        Util.showSnackBar(view, "读取收藏岗位错误，请重试！");
+
     }
 
     @Override
-    public void onJobItemClick(JobBean jobBean) {
+    public void getAccount(String account) {
+        this.account = account;
+//        mPresenter.loadMoments(account);
+    }
+
+    @Override
+    public void onMomentItemClick(MomentBean momentBean) {
         Bundle bundle = new Bundle();
-        bundle.putParcelable("job_detail", jobBean);
-        Util.toAnotherActivity(getActivity(), JobDetailActivity.class, bundle);
-    }
-
-    @Override
-    public void onResume(){
-        super.onResume();
-        if(MyApplication.getmLoginStatus() != 0){
-            mPresenter.loadFavouriteJobs(MyApplication.getAccount());
-        }
+        bundle.putParcelable("square_detail", momentBean);
+        Util.toAnotherActivity(getActivity(), MomentDetailActivity.class, bundle);
     }
 }

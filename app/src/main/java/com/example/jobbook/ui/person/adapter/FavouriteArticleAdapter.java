@@ -18,7 +18,7 @@ import com.example.jobbook.util.Util;
 import java.util.List;
 
 /**
- * Created by root on 16-12-9.
+ * Created by Xu on 16-12-9.
  */
 
 public class FavouriteArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {

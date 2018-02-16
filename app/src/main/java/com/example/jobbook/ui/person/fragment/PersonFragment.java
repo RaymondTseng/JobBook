@@ -34,7 +34,7 @@ import com.example.jobbook.ui.person.activity.SettingActivity;
 import com.example.jobbook.ui.person.activity.ShowFanListActivity;
 import com.example.jobbook.ui.person.activity.ShowFollowerListActivity;
 import com.example.jobbook.ui.person.activity.ShowMomentListActivity;
-import com.example.jobbook.upload.CropUtils;
+import com.example.jobbook.util.CropUtil;
 import com.example.jobbook.util.ImageLoadUtils;
 import com.example.jobbook.util.L;
 import com.example.jobbook.util.UploadUtil;
@@ -250,10 +250,10 @@ public class PersonFragment extends LazyLoadFragment implements PersonContract.V
             mPopupWindow.dismissPopupWindow(getActivity());
             switch (v.getId()) {
                 case R.id.person_upload_takePhoto_bt:// 拍照
-                    CropUtils.pickAvatarFromCamera(PersonFragment.this);
+                    CropUtil.pickAvatarFromCamera(PersonFragment.this);
                     break;
                 case R.id.person_upload_pickPhoto_bt:// 相册选择图片
-                    CropUtils.pickAvatarFromGallery(PersonFragment.this);
+                    CropUtil.pickAvatarFromGallery(PersonFragment.this);
                     break;
                 case R.id.person_upload_cancel_bt:// 取消
 //                    finish();
@@ -262,7 +262,7 @@ public class PersonFragment extends LazyLoadFragment implements PersonContract.V
         }
     };
 
-    private CropUtils.CropHandler cropHandler = new CropUtils.CropHandler() {
+    private CropUtil.CropHandler cropHandler = new CropUtil.CropHandler() {
         @Override
         public void handleCropResult(Uri uri, int tag) {
             //send Image to Server
@@ -281,7 +281,7 @@ public class PersonFragment extends LazyLoadFragment implements PersonContract.V
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        CropUtils.handleResult(getContext(), PersonFragment.this, cropHandler, requestCode, resultCode, data);
+        CropUtil.handleResult(getContext(), PersonFragment.this, cropHandler, requestCode, resultCode, data);
     }
 
     private void sendImage(MultipartBody.Part pic) {

@@ -13,11 +13,11 @@ import android.view.ViewStub;
 
 import com.example.jobbook.R;
 import com.example.jobbook.app.MyApplication;
-import com.example.jobbook.base.contract.person.FavouriteArticleContract;
-import com.example.jobbook.model.bean.ArticleBean;
-import com.example.jobbook.presenter.person.FavouriteArticlePresenter;
-import com.example.jobbook.ui.article.activity.ArticleDetailActivity;
-import com.example.jobbook.ui.person.adapter.FavouriteArticleAdapter;
+import com.example.jobbook.base.contract.person.UserDetailFollowContract;
+import com.example.jobbook.model.bean.TypePersonBean;
+import com.example.jobbook.presenter.person.UserDetailFollowPresenter;
+import com.example.jobbook.ui.person.activity.UserDetailActivity;
+import com.example.jobbook.ui.person.adapter.UserDetailFollowAdapter;
 import com.example.jobbook.util.Util;
 import com.example.jobbook.widget.DividerItemDecoration;
 
@@ -28,12 +28,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by Xu on 16-12-7.
+ * Created by Xu on 16-11-28.
  */
 
-public class FavouriteArticleFragment extends Fragment implements FavouriteArticleContract.View,
-        FavouriteArticleAdapter.OnArticleItemClickListener {
-    private View view;
+public class UserDetailFollowFragment extends Fragment implements UserDetailFollowContract.View,
+        UserDetailActivity.OnGetAccountListener, UserDetailFollowAdapter.OnFollowClickListener,
+        UserDetailFollowAdapter.OnFollowerItemClickListener{
 
     @BindView(R.id.base_rv)
     RecyclerView mRecyclerView;
@@ -41,25 +41,27 @@ public class FavouriteArticleFragment extends Fragment implements FavouriteArtic
     @BindView(R.id.fragment_base_lv_loading)
     ViewStub mLoadingLayout;
 
-    private FavouriteArticleAdapter mAdapter;
-    private FavouriteArticlePresenter mPresenter;
-    private List<ArticleBean> mData;
+    private View view;
+    private List<TypePersonBean> mData;
+    private UserDetailFollowAdapter mAdapter;
+    private UserDetailFollowPresenter mPresenter;
     private LinearLayoutManager mLayoutManager;
+    private String account;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_base_lv, container, false);
         ButterKnife.bind(this, view);
-        init(view);
+        init();
         return view;
     }
 
-    private void init(View view){
-        mLoadingLayout.inflate();
+    private void init(){
         mData = new ArrayList<>();
-        mPresenter = new FavouriteArticlePresenter(this);
-        mAdapter = new FavouriteArticleAdapter(getActivity(), mData);
+        mLoadingLayout.inflate();
+        mAdapter = new UserDetailFollowAdapter(getActivity(), mData);
+        mPresenter = new UserDetailFollowPresenter(this);
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(),
                 DividerItemDecoration.VERTICAL_LIST));
@@ -67,16 +69,16 @@ public class FavouriteArticleFragment extends Fragment implements FavouriteArtic
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setAdapter(mAdapter);
-        mAdapter.setOnArticleItemClickListener(this);
-        if(MyApplication.getmLoginStatus() != 0){
-            mPresenter.loadArticles(MyApplication.getAccount());
-        }
+        mAdapter.setOnFollowClickListener(this);
+        mAdapter.setOnFollwerItemClickListener(this);
+        mPresenter.loadFollow(account);
+        mLoadingLayout.setVisibility(View.GONE);
     }
 
     @Override
-    public void loadArticles(List<ArticleBean> mArticles) {
-        mData = mArticles;
-        mAdapter.onRefreshData(mData);
+    public void loadFollow(List<TypePersonBean> mFollow) {
+        mData = mFollow;
+        mAdapter.refreshData(mData);
     }
 
     @Override
@@ -91,22 +93,35 @@ public class FavouriteArticleFragment extends Fragment implements FavouriteArtic
 
     @Override
     public void showLoadFailMsg(String msg) {
+
+    }
+
+    @Override
+    public void onError(String msg) {
         Util.showSnackBar(view , msg);
     }
 
     @Override
-    public void onArticleItemClick(ArticleBean articleBean) {
-        Bundle bundle = new Bundle();
-        bundle.putParcelable("article_detail", articleBean);
-        Util.toAnotherActivity(getActivity(), ArticleDetailActivity.class, bundle);
+    public void followSuccess() {
+        Util.showSnackBar(view, "关注成功!");
     }
 
     @Override
-    public void onResume(){
-        super.onResume();
-        if(MyApplication.getmLoginStatus() != 0){
-            mPresenter.loadArticles(MyApplication.getAccount());
-        }
+    public void getAccount(String account) {
+        this.account = account;
+//        mPresenter.loadFollow(account);
     }
 
+
+    @Override
+    public void onFollowClick(TypePersonBean personBean) {
+        mPresenter.follow(MyApplication.getAccount(), personBean.getAccount());
+    }
+
+    @Override
+    public void onFollowerItemClick(TypePersonBean personBean) {
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("person_bean", personBean);
+        Util.toAnotherActivity(getActivity(), UserDetailActivity.class, bundle);
+    }
 }

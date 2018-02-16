@@ -4,7 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 /**
- * Created by root on 17-1-19.
+ * Created by Xu on 17-1-19.
  */
 
 public class TypePersonBean extends PersonBean implements Parcelable{

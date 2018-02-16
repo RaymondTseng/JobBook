@@ -19,7 +19,7 @@ import com.example.jobbook.R;
 import com.example.jobbook.app.MyApplication;
 import com.example.jobbook.base.contract.main.MainContract;
 import com.example.jobbook.model.bean.PersonBean;
-import com.example.jobbook.moment.widget.MomentFragment;
+import com.example.jobbook.ui.moment.fragment.MomentFragment;
 import com.example.jobbook.presenter.main.MainPresenter;
 import com.example.jobbook.service.MyPushIntentService;
 import com.example.jobbook.ui.article.fragment.ArticleFragment;

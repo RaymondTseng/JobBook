@@ -16,8 +16,7 @@ import com.example.jobbook.app.MyApplication;
 import com.example.jobbook.base.contract.person.FollowerListContract;
 import com.example.jobbook.model.bean.TypePersonBean;
 import com.example.jobbook.presenter.person.FollowerListPresenter;
-import com.example.jobbook.userdetail.UserDetailFollowAdapter;
-import com.example.jobbook.userdetail.widget.UserDetailActivity;
+import com.example.jobbook.ui.person.adapter.UserDetailFollowAdapter;
 import com.example.jobbook.util.Util;
 import com.example.jobbook.widget.DividerItemDecoration;
 

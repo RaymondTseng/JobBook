@@ -20,17 +20,17 @@ import java.util.List;
  * Created by Xu on 16-11-30.
  */
 
-public class ShowFanListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class UserDetailFansAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context mContext;
     private List<TypePersonBean> mData;
     private boolean mShowFooter = true;
     private OnFanItemClickListener onFanItemClickListener;
     private OnFollowFanClickListener onFollowFanClickListener;
 
-    private static int UNFOLLOW_TYPE = 0;
-    private static int FOLLOW_TYPE = 1;
+    private static int UNFOLLOW_TYPE = 1;
+    private static int FOLLOW_TYPE = 0;
 
-    public ShowFanListAdapter(Context mContext, List<TypePersonBean> mData) {
+    public UserDetailFansAdapter(Context mContext, List<TypePersonBean> mData) {
         this.mContext = mContext;
         this.mData = mData;
     }
@@ -158,11 +158,5 @@ public class ShowFanListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         this.onFollowFanClickListener = onFollowFanClickListener;
     }
 
-    public class FooterViewHolder extends RecyclerView.ViewHolder {
 
-        public FooterViewHolder(View view) {
-            super(view);
-        }
-
-    }
 }
