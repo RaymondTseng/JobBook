@@ -102,10 +102,6 @@ public class JobDetailActivity extends Activity implements JobDetailContract.Vie
         jobBean = getIntent().getExtras().getParcelable("job_detail");
         mPresenter = new JobDetailPresenter(this);
         mPresenter.loadJob(jobBean.getId());
-//        mToCompanyDetailTextView.setOnClickListener(this);
-//        mBackImageButton.setOnClickListener(this);
-//        mLikeImageButton.setOnClickListener(this);
-//        mSendCVLayout.setOnClickListener(this);
     }
 
     @OnClick(R.id.job_detail_back_ib)

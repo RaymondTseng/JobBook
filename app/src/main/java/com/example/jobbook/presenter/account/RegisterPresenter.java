@@ -3,6 +3,7 @@ package com.example.jobbook.presenter.account;
 import android.content.Context;
 import android.text.TextUtils;
 
+import com.example.jobbook.app.MyApplication;
 import com.example.jobbook.base.BaseSubscriber;
 import com.example.jobbook.base.IBaseView;
 import com.example.jobbook.base.RxPresenter;
@@ -55,6 +56,11 @@ public class RegisterPresenter extends RxPresenter<RegisterContract.View> implem
             mView.accountIllegalError();
             return;
         }
+        bean.setAccount(account);
+        bean.setUsername(userName);
+        bean.setPassword(password);
+        bean.setDevicetoken(MyApplication.mDevicetoken);
+        // todo 注册逻辑优化！
         SMSSDKManager.getInstance().verifyCode(mContext, "86", account, code, new SMSSDKManager.Callback() {
             @Override
             public void success() {
@@ -82,8 +88,4 @@ public class RegisterPresenter extends RxPresenter<RegisterContract.View> implem
         });
     }
 
-    @Override
-    public void destroy() {
-        mView = null;
-    }
 }

@@ -81,6 +81,7 @@ public class LoginActivity extends Activity implements LoginContract.View {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
+        mLoadingLinearLayout.inflate();
         view = getWindow().getDecorView();
         initEvents();
         presenter = new LoginPresenter(this);
@@ -120,7 +121,6 @@ public class LoginActivity extends Activity implements LoginContract.View {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        presenter.destroy();
         unbindService(connection);
     }
 

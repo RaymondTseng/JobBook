@@ -214,7 +214,6 @@ public class RegisterActivity extends Activity implements RegisterContract.View,
     @Override
     public void onDestroy() {
         super.onDestroy();
-        presenter.destroy();
         SMSSDKManager.getInstance().unRegisterTimeListener(this);
     }
 

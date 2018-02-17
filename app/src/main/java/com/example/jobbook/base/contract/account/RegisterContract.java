@@ -87,7 +87,5 @@ public interface RegisterContract {
     interface Presenter extends IBasePresenter<View> {
         void registerCheck(Context mContext, String account, String userName, String password,
                            String passwordConfirm, String code);
-
-        void destroy();
     }
 }

@@ -28,6 +28,5 @@ public interface LoginContract {
     interface Presenter extends IBasePresenter<View> {
         void loginCheck(String account, String password);
 
-        void destroy();
     }
 }

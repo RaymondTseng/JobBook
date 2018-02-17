@@ -19,6 +19,12 @@ public abstract class BaseSubscriber<T> extends ResourceSubscriber<T> {
         getBaseView().hideProgress();
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        getBaseView().showProgress();
+    }
+
     public abstract IBaseView getBaseView();
 
     @Override

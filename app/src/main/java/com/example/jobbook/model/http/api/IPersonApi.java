@@ -1,15 +1,16 @@
 package com.example.jobbook.model.http.api;
 
-import com.example.jobbook.model.http.api.bean.ResultBean;
 import com.example.jobbook.model.bean.ArticleBean;
 import com.example.jobbook.model.bean.JobBean;
 import com.example.jobbook.model.bean.MessageBean;
 import com.example.jobbook.model.bean.PersonBean;
 import com.example.jobbook.model.bean.PersonWithDeviceTokenBean;
 import com.example.jobbook.model.bean.TypePersonBean;
+import com.example.jobbook.model.http.api.bean.ResultBean;
 
 import java.util.List;
 
+import io.reactivex.Flowable;
 import okhttp3.MultipartBody;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -17,7 +18,6 @@ import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
-import io.reactivex.Flowable;
 
 /**
  * Created by Xu on 2017/7/3.

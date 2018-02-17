@@ -49,8 +49,4 @@ public class LoginPresenter extends RxPresenter<LoginContract.View> implements L
                 });
     }
 
-    @Override
-    public void destroy() {
-        mView = null;
-    }
 }
