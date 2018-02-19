@@ -24,7 +24,6 @@ import com.example.jobbook.model.bean.PersonBean;
 import com.example.jobbook.presenter.account.LoginPresenter;
 import com.example.jobbook.service.MyPushIntentService;
 import com.example.jobbook.ui.main.activity.MainActivity;
-import com.example.jobbook.util.L;
 import com.example.jobbook.util.Util;
 
 import butterknife.BindView;
@@ -61,7 +60,6 @@ public class LoginActivity extends Activity implements LoginContract.View {
     LinearLayout mParentLayout;
 
     private LoginPresenter presenter;
-    private View view;
     private MyPushIntentService.MyRefreshBinder binder;
 
     private ServiceConnection connection = new ServiceConnection() {
@@ -81,16 +79,14 @@ public class LoginActivity extends Activity implements LoginContract.View {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-        mLoadingLinearLayout.inflate();
-        view = getWindow().getDecorView();
         initEvents();
-        presenter = new LoginPresenter(this);
-        mLoadingLinearLayout.setVisibility(View.GONE);
+
         Intent intent = new Intent(LoginActivity.this, MyPushIntentService.class);
         bindService(intent, connection, BIND_AUTO_CREATE);
     }
 
     private void initEvents() {
+        presenter = new LoginPresenter(this);
         mAccountEditText.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -131,7 +127,7 @@ public class LoginActivity extends Activity implements LoginContract.View {
 
     @OnClick(R.id.login_register_tv)
     public void register() {
-        switch2Register();
+        Util.toAnotherActivity(LoginActivity.this, RegisterActivity.class);
     }
 
     @OnClick(R.id.login_close_ib)
@@ -145,7 +141,6 @@ public class LoginActivity extends Activity implements LoginContract.View {
     @OnClick(R.id.login_forget_tv)
     public void login_forget() {
         Util.toAnotherActivity(LoginActivity.this, ForgetPwdFirstActivity.class);
-        finish();
     }
 
     @OnClick(R.id.activity_login_layout)
@@ -178,43 +173,25 @@ public class LoginActivity extends Activity implements LoginContract.View {
 
     @Override
     public void showLoadFailMsg(String msg) {
-
-    }
-
-    @Override
-    public void setNetworkError() {
-        Util.showSnackBar(view, "网络连接错误！", "重试");
-    }
-
-    @Override
-    public void setUserError() {
-        Util.showSnackBar(view, "账号或密码错误");
+        Util.showSnackBar(this, msg);
     }
 
     @Override
     public void setAccountError() {
-        Util.showSnackBar(view, "账号不能为空");
+        Util.showSnackBar(this, "账号不能为空");
     }
 
     @Override
     public void setPasswordError() {
-        Util.showSnackBar(view, "密码不能为空");
+        Util.showSnackBar(this, "密码不能为空");
     }
-
 
     @Override
     public void switch2Person(PersonBean personBean) {
         MyApplication.setmPersonBean(LoginActivity.this, personBean);
         binder.refresh(personBean);
         Util.toAnotherActivity(LoginActivity.this, MainActivity.class);
-        L.i("refresh");
         finish();
     }
-
-    @Override
-    public void switch2Register() {
-        Util.toAnotherActivity(LoginActivity.this, RegisterActivity.class);
-    }
-
 
 }

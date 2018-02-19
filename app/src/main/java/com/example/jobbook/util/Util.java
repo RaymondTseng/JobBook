@@ -1,5 +1,6 @@
 package com.example.jobbook.util;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -15,10 +16,10 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.jobbook.app.MyApplication;
 import com.example.jobbook.R;
-import com.example.jobbook.model.bean.PersonBean;
 import com.example.jobbook.app.Constants;
+import com.example.jobbook.app.MyApplication;
+import com.example.jobbook.model.bean.PersonBean;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
@@ -294,6 +295,15 @@ public class Util {
      */
     public static void showSnackBar(View view, String content) {
 //        View view = activity.getWindow().getDecorView();
+        final Snackbar snackbar = Snackbar.make(view, content, Snackbar.LENGTH_SHORT);
+        View demo = snackbar.getView();
+        ((TextView)demo.findViewById(R.id.snackbar_text)).setTextColor(Color.WHITE);
+        snackbar.show();
+    }
+
+    public static void showSnackBar(Activity activity, String content) {
+//        View view = activity.getWindow().getDecorView();
+        View view = activity.findViewById(android.R.id.content);
         final Snackbar snackbar = Snackbar.make(view, content, Snackbar.LENGTH_SHORT);
         View demo = snackbar.getView();
         ((TextView)demo.findViewById(R.id.snackbar_text)).setTextColor(Color.WHITE);

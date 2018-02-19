@@ -12,23 +12,15 @@ import com.example.jobbook.base.IBaseView;
 public interface ForgetPwdContract {
 
     interface ForgetPwdFirstView extends IBaseView {
-        void close();
-
         void phoneBlankError();
 
         void codeBlankError();
 
         void checkSuccess();
 
-        void checkFailure(int error);
-
         void codeSuccess();
 
         void codeFailure();
-
-        void checkAccount();
-
-        void next(Context mContext);
     }
 
     interface ForgetPwdFirstPresenter extends IBasePresenter<ForgetPwdFirstView> {
@@ -45,10 +37,6 @@ public interface ForgetPwdContract {
         void differentError();
 
         void success();
-
-        void failure();
-
-        void complete();
     }
 
     interface ForgetPwdSecondPresenter extends IBasePresenter<ForgetPwdSecondView> {

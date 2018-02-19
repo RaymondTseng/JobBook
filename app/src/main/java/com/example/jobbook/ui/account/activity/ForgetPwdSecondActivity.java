@@ -34,21 +34,19 @@ public class ForgetPwdSecondActivity extends Activity implements ForgetPwdContra
 
     @BindView(R.id.activity_forget_pwd_second_loading)
     ViewStub mLoadingLayout;
+
     private String account;
     private ForgetPwdSecondPresenter mPresenter;
-    private View view;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forget_pwd_second);
         ButterKnife.bind(this);
-        view = getWindow().getDecorView();
         initEvents();
     }
 
     private void initEvents() {
-        hideProgress();
         Bundle bundle = this.getIntent().getExtras();
         account = bundle.getString("PHONE");
         mPresenter = new ForgetPwdSecondPresenter(this);
@@ -66,44 +64,34 @@ public class ForgetPwdSecondActivity extends Activity implements ForgetPwdContra
 
     @Override
     public void showLoadFailMsg(String msg) {
-
+        Util.showSnackBar(this, msg);
     }
 
     @Override
     public void phoneBlankError() {
-        Util.showSnackBar(view, "密码不能为空！");
+        Util.showSnackBar(this, "密码不能为空！");
     }
 
     @Override
     public void confirmPhoneBlankError() {
-        Util.showSnackBar(view, "确认密码不能为空！");
+        Util.showSnackBar(this, "确认密码不能为空！");
     }
 
     @Override
     public void differentError() {
-        Util.showSnackBar(view, "两次密码不一致！");
+        Util.showSnackBar(this, "两次密码不一致！");
     }
 
     @Override
     public void success() {
-        Util.showSnackBar(view, "保存成功！");
+        Util.showSnackBar(this, "保存成功！");
         Util.toAnotherActivity(ForgetPwdSecondActivity.this, LoginActivity.class);
         finish();
     }
 
-    @Override
-    public void failure() {
-        Util.showSnackBar(view, "保存失败！");
-    }
-
-    @Override
-    public void complete() {
-        mPresenter.complete(account, mNewPwdEditText.getText().toString(), mConfirmEditText.getText().toString());
-    }
-
     @OnClick(R.id.forget_pwd_second_finish_tv)
     public void click_finish() {
-        complete();
+        mPresenter.complete(account, mNewPwdEditText.getText().toString(), mConfirmEditText.getText().toString());
     }
 
     @OnClick(R.id.activity_forget_pwd_second_layout)

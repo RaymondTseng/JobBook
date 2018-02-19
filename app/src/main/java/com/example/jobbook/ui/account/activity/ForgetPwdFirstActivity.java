@@ -49,19 +49,16 @@ public class ForgetPwdFirstActivity extends Activity implements ForgetPwdContrac
     @BindView(R.id.activity_forget_pwd_first_loading)
     ViewStub mLoadingLayout;
     private ForgetPwdFirstPresenter mPresenter;
-    private View view;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forget_pwd_first);
         ButterKnife.bind(this);
-        view = getWindow().getDecorView();
         initEvents();
     }
 
     private void initEvents() {
-        hideProgress();
         mPresenter = new ForgetPwdFirstPresenter(this);
         SMSSDKManager.getInstance().registerTimeListener(this);
     }
@@ -78,39 +75,22 @@ public class ForgetPwdFirstActivity extends Activity implements ForgetPwdContrac
 
     @Override
     public void showLoadFailMsg(String msg) {
-
-    }
-
-    @Override
-    public void close() {
-        finish();
+        Util.showSnackBar(this, msg);
     }
 
     @Override
     public void phoneBlankError() {
-        Util.showSnackBar(view, "手机号码不能为空！");
+        Util.showSnackBar(this, "手机号码不能为空！");
     }
 
     @Override
     public void codeBlankError() {
-        Util.showSnackBar(view, "验证码不能为空！");
+        Util.showSnackBar(this, "验证码不能为空！");
     }
 
     @Override
     public void checkSuccess() {
         SMSSDKManager.getInstance().sendMessage(this, "86", mPhoneEditText.getText().toString());
-    }
-
-    @Override
-    public void checkFailure(int error) {
-        switch (error) {
-            case 0:
-                Util.showSnackBar(view, "网络错误！");
-                break;
-            case 1:
-                Util.showSnackBar(view, "该手机号未注册！");
-                break;
-        }
     }
 
     @Override
@@ -122,34 +102,23 @@ public class ForgetPwdFirstActivity extends Activity implements ForgetPwdContrac
 
     @Override
     public void codeFailure() {
-        Util.showSnackBar(view, "验证码错误!");
-    }
-
-
-    @Override
-    public void checkAccount() {
-        mPresenter.checkAccount(mPhoneEditText.getText().toString());
-    }
-
-    @Override
-    public void next(Context mContext) {
-        mPresenter.next(mContext, mCodeEditText.getText().toString(), mPhoneEditText.getText().toString());
+        Util.showSnackBar(this, "验证码错误!");
     }
 
     @OnClick(R.id.forget_pwd_first_code_bt)
     public void click_code() {
-        checkAccount();
+        mPresenter.checkAccount(mPhoneEditText.getText().toString());
     }
 
     @OnClick(R.id.forget_pwd_first_next_tv)
     public void next() {
-        next(this);
+        mPresenter.next(this, mCodeEditText.getText().toString(), mPhoneEditText.getText().toString());
     }
 
     @OnClick(R.id.forget_pwd_first_back_ib)
     public void back() {
         Util.toAnotherActivity(ForgetPwdFirstActivity.this, LoginActivity.class);
-        close();
+        finish();
     }
 
     @OnClick(R.id.activity_forget_pwd_first_layout)
@@ -175,7 +144,7 @@ public class ForgetPwdFirstActivity extends Activity implements ForgetPwdContrac
 
     @Override
     public void onDestroy() {
-        SMSSDKManager.getInstance().unRegisterTimeListener(this);
         super.onDestroy();
+        SMSSDKManager.getInstance().unRegisterTimeListener(this);
     }
 }

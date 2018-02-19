@@ -25,11 +25,6 @@ public class PersonWithDeviceTokenBean implements Parcelable {
     private String password;
 
     /**
-     * 手机号码
-     */
-    private String telephone;
-
-    /**
      * 用户姓名
      */
     private String username;
@@ -121,14 +116,6 @@ public class PersonWithDeviceTokenBean implements Parcelable {
         this.password = password;
     }
 
-    public String getTelephone() {
-        return telephone;
-    }
-
-    public void setTelephone(String telephone) {
-        this.telephone = telephone;
-    }
-
     public String getUsername() {
         return username;
     }
@@ -145,8 +132,9 @@ public class PersonWithDeviceTokenBean implements Parcelable {
         this.account = account;
     }
 
+    @Override
     public String toString(){
-        return "account" + account + ",head" + head + ",password" + password + ",telephone" + telephone +
+        return "account" + account + ",head" + head + ",password" + password +
                 ",userName" + username + ",follow" + follow + ",fans" + fans + ",devicetoken" + devicetoken;
     }
 
@@ -168,7 +156,6 @@ public class PersonWithDeviceTokenBean implements Parcelable {
         dest.writeString(this.account);
         dest.writeString(this.head);
         dest.writeString(this.password);
-        dest.writeString(this.telephone);
         dest.writeString(this.username);
         dest.writeString(this.follow);
         dest.writeString(this.fans);
@@ -185,7 +172,6 @@ public class PersonWithDeviceTokenBean implements Parcelable {
         this.account = in.readString();
         this.head = in.readString();
         this.password = in.readString();
-        this.telephone = in.readString();
         this.username = in.readString();
         this.follow = in.readString();
         this.fans = in.readString();

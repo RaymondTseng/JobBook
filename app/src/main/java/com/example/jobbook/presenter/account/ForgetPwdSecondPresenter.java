@@ -20,7 +20,6 @@ public class ForgetPwdSecondPresenter extends RxPresenter<ForgetPwdContract.Forg
 
     @Override
     public void complete(String account, String password, String confirm) {
-        mView.showProgress();
         if (TextUtils.isEmpty(account)) {
             return;
         } else if (TextUtils.isEmpty(password)) {

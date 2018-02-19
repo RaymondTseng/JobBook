@@ -18,14 +18,12 @@ import com.example.jobbook.base.contract.account.RegisterContract;
 import com.example.jobbook.model.bean.PersonBean;
 import com.example.jobbook.presenter.account.RegisterPresenter;
 import com.example.jobbook.ui.main.activity.MainActivity;
-import com.example.jobbook.util.L;
 import com.example.jobbook.util.SMSSDKManager;
 import com.example.jobbook.util.Util;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
 
 /**
  * Created by 椰树 on 2016/6/2.
@@ -62,7 +60,6 @@ public class RegisterActivity extends Activity implements RegisterContract.View,
     @BindView(R.id.activity_register_layout)
     LinearLayout mParentLayout;
 
-    private View view;
     private RegisterPresenter presenter;
 
     @Override
@@ -70,33 +67,17 @@ public class RegisterActivity extends Activity implements RegisterContract.View,
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         ButterKnife.bind(this);
-        view = getWindow().getDecorView();
         initEvents();
     }
 
     private void initEvents() {
-        mLoadingLinearLayout.inflate();
         presenter = new RegisterPresenter(this);
         SMSSDKManager.getInstance().registerTimeListener(this);
-        mLoadingLinearLayout.setVisibility(View.GONE);
     }
-
-//    @Override
-//    public void onAttach(Activity activity) {
-//        // TODO Auto-generated method stub
-//        super.onAttach(activity);
-//        try {
-////            mIRegisterChanged = (IRegisterChanged) activity;
-//            mIRegisterChanged = (IRegisterChanged) getParentFragment();
-//        } catch (ClassCastException e) {
-//            throw new ClassCastException(activity.toString()
-//                    + "must implement OnGridViewSelectedListener");
-//        }
-//    }
 
     @Override
     public void success() {
-        Util.showSnackBar(view, "连接成功");
+        Util.showSnackBar(this, "连接成功");
     }
 
     @Override
@@ -106,7 +87,7 @@ public class RegisterActivity extends Activity implements RegisterContract.View,
 
     @Override
     public void showLoadFailMsg(String msg) {
-
+        Util.showSnackBar(this, msg);
     }
 
     @Override
@@ -115,33 +96,23 @@ public class RegisterActivity extends Activity implements RegisterContract.View,
     }
 
     @Override
-    public void networkError() {
-        L.i("error");
-    }
-
-    @Override
     public void accountBlankError() {
-        Util.showSnackBar(view, "手机号为空");
+        Util.showSnackBar(this, "账号为空");
     }
 
     @Override
     public void pwdBlankError() {
-        Util.showSnackBar(view, "密码为空");
+        Util.showSnackBar(this, "密码为空");
     }
 
     @Override
     public void pwdConfirmBlankError() {
-        Util.showSnackBar(view, "确认密码为空");
+        Util.showSnackBar(this, "确认密码为空");
     }
 
     @Override
     public void pwdNotEqualError() {
-        Util.showSnackBar(view, "密码与确认密码不一致");
-    }
-
-    @Override
-    public void accountExistError() {
-        Util.showSnackBar(view, "手机号已存在");
+        Util.showSnackBar(this, "密码与确认密码不一致");
     }
 
     @Override
@@ -152,34 +123,23 @@ public class RegisterActivity extends Activity implements RegisterContract.View,
     }
 
     @Override
-    public void switch2Login() {
-        Util.toAnotherActivity(RegisterActivity.this, LoginActivity.class);
-        finish();
-    }
-
-    @Override
     public void accountIllegalError() {
-        Util.showSnackBar(view, "账号存在非法字符");
+        Util.showSnackBar(this, "账号存在非法字符");
     }
 
     @Override
     public void userNameBlankError() {
-        Util.showSnackBar(view, "昵称为空");
-    }
-
-    @Override
-    public void telephoneBlankError() {
-        Util.showSnackBar(view, "手机号码为空");
+        Util.showSnackBar(this, "昵称为空");
     }
 
     @Override
     public void codeBlankError() {
-        Util.showSnackBar(view, "验证码为空");
+        Util.showSnackBar(this, "验证码为空");
     }
 
     @Override
     public void codeError() {
-        Util.showSnackBar(view, "验证码错误");
+        Util.showSnackBar(this, "验证码错误");
 //        refreshCode();
     }
 
@@ -192,7 +152,8 @@ public class RegisterActivity extends Activity implements RegisterContract.View,
 
     @OnClick(R.id.register_close_ib)
     public void register_close() {
-        switch2Login();
+        Util.toAnotherActivity(RegisterActivity.this, LoginActivity.class);
+        finish();
     }
 
     @OnClick(R.id.register_code_bt)

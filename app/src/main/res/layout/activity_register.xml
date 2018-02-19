@@ -44,7 +44,7 @@
 
         <TextView
             style="@style/Black12sptv"
-            android:text="手机号码" />
+            android:text="账号（手机号码）" />
 
         <EditText
             android:id="@+id/register_account_et"

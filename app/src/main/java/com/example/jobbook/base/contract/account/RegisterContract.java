@@ -19,11 +19,6 @@ public interface RegisterContract {
         void success();
 
         /**
-         * 网络错误
-         */
-        void networkError();
-
-        /**
          * 用户名为空错误
          */
         void accountBlankError();
@@ -44,19 +39,9 @@ public interface RegisterContract {
         void pwdNotEqualError();
 
         /**
-         * 用户名已存在错误
-         */
-        void accountExistError();
-
-        /**
          * 跳转至Person界面
          */
         void switch2Person(PersonBean personBean);
-
-        /**
-         * 跳转至登录界面
-         */
-        void switch2Login();
 
         /**
          * 账号非法字符错误
@@ -67,11 +52,6 @@ public interface RegisterContract {
          * 用户名为空错误
          */
         void userNameBlankError();
-
-        /**
-         * 邮箱为空错误
-         */
-        void telephoneBlankError();
 
         /**
          * 验证码为空

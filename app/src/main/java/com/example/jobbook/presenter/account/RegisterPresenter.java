@@ -73,7 +73,6 @@ public class RegisterPresenter extends RxPresenter<RegisterContract.View> implem
 
                             @Override
                             public void onNext(PersonBean personBean) {
-                                mView.hideProgress();
                                 mView.success();
                                 mView.switch2Person(personBean);
                             }

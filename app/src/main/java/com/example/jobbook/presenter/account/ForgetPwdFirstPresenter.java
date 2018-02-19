@@ -22,7 +22,6 @@ public class ForgetPwdFirstPresenter extends RxPresenter<ForgetPwdContract.Forge
 
     @Override
     public void checkAccount(String phone) {
-        mView.showProgress();
         if (TextUtils.isEmpty(phone)) {
             mView.hideProgress();
             mView.phoneBlankError();
@@ -45,7 +44,6 @@ public class ForgetPwdFirstPresenter extends RxPresenter<ForgetPwdContract.Forge
 
     @Override
     public void next(Context mContext, String code, String phone) {
-        mView.showProgress();
         if (TextUtils.isEmpty(code)) {
             mView.hideProgress();
             mView.codeBlankError();
