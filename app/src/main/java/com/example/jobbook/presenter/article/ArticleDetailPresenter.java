@@ -64,10 +64,6 @@ public class ArticleDetailPresenter extends RxPresenter<ArticleDetailContract.Vi
 
     @Override
     public void unlike(String articleId, String account) {
-//        String account = "";
-//        if (MyApplication.getmLoginStatus() == 1) {
-//            account = MyApplication.getAccount();
-//        }
         addSubscribe(RetrofitService.unlike(articleId, account)
                 .subscribeWith(new BaseSubscriber<String>() {
                     @Override

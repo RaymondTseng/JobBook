@@ -31,8 +31,9 @@ import com.example.jobbook.presenter.person.UploadPresenter;
 import com.example.jobbook.util.CropUtil;
 import com.example.jobbook.util.ImageLoadUtils;
 import com.example.jobbook.util.L;
+import com.example.jobbook.util.ScreenUtil;
+import com.example.jobbook.util.SnackBarUtil;
 import com.example.jobbook.util.UploadUtil;
-import com.example.jobbook.util.Util;
 import com.example.jobbook.widget.UploadPopupWindow;
 import com.jzxiang.pickerview.TimePickerDialog;
 import com.jzxiang.pickerview.data.Type;
@@ -165,15 +166,9 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_text_cv);
         ButterKnife.bind(this);
-        initView();
         initEvents();
     }
 
-    private void initView() {
-        mLoadingLayout.inflate();
-    }
-
-    @SuppressWarnings("ResourceType")
     private void initEvents() {
         mUri = null;
         myApplication = (MyApplication) getApplication();
@@ -322,7 +317,7 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
 
     @OnClick(R.id.text_cv_close_ib)
     public void click_close_ib() {
-        close();
+        this.finish();
     }
 
     @OnClick(R.id.text_cv_save_tv)
@@ -402,19 +397,14 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
 
     @Override
     public void success(PersonBean personBean) {
-        MyApplication.setmPersonBean(this, personBean);
-        MyApplication myApplication = (MyApplication) getApplication();
-        Handler handler = myApplication.getHandler();
-        if (handler != null) {
-            handler.sendEmptyMessage(1);
-            myApplication.setHandler(null);
+        if (myApplication != null) {
+            Handler handler = myApplication.getHandler();
+            if (handler != null) {
+                handler.sendEmptyMessage(1);
+                myApplication.setHandler(null);
+            }
         }
-        close();
-    }
-
-    @Override
-    public void networkError() {
-        Util.showSnackBar(getWindow().getDecorView(), "网络错误！");
+        this.finish();
     }
 
     @Override
@@ -429,12 +419,12 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
 
     @Override
     public void showLoadFailMsg(String msg) {
-
+        SnackBarUtil.showSnackBar(this, msg);
     }
 
     @Override
     public void uploadSuccess() {
-        Util.showSnackBar(getWindow().getDecorView(), "上传成功！");
+        SnackBarUtil.showSnackBar(this, "上传成功！");
     }
 
     @Override
@@ -583,12 +573,6 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
         setBackgroundRed(mExpectLocationEditText, textView);
     }
 
-    @Override
-    public void close() {
-        this.finish();
-    }
-
-    @Override
     public void save() {
         mPresenter.basedInformationCheck(MyApplication.getmPersonBean().getHead(),
                 mNameEditText.getText().toString(), mSexSpinner.getSelectedItem().toString(),
@@ -695,10 +679,10 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
             textView.setCompoundDrawablesWithIntrinsicBounds(null, null, ContextCompat.
                     getDrawable(this, R.drawable.text_cv_vertical_red_line), null);
             if (textView.getText().toString().length() > 2) {
-                editText.setPadding(Util.dip2px(editText.getContext(), 72), 0, 0, Util.dip2px(editText.getContext(), 8));
+                editText.setPadding(ScreenUtil.dip2px(editText.getContext(), 72), 0, 0, ScreenUtil.dip2px(editText.getContext(), 8));
             } else {
                 L.i("<=2");
-                editText.setPadding(Util.dip2px(editText.getContext(), 40), 0, 0, Util.dip2px(editText.getContext(), 8));
+                editText.setPadding(ScreenUtil.dip2px(editText.getContext(), 40), 0, 0, ScreenUtil.dip2px(editText.getContext(), 8));
             }
             editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                 @Override
@@ -708,9 +692,9 @@ public class TextCVActivity extends AppCompatActivity implements OnDateSetListen
                     textView.setCompoundDrawablesWithIntrinsicBounds(null, null, ContextCompat.
                             getDrawable(v.getContext(), R.drawable.text_cv_vertical_gray_line), null);
                     if (textView.getText().toString().length() > 2) {
-                        editText.setPadding(Util.dip2px(v.getContext(), 72), 0, 0, Util.dip2px(v.getContext(), 8));
+                        editText.setPadding(ScreenUtil.dip2px(v.getContext(), 72), 0, 0, ScreenUtil.dip2px(v.getContext(), 8));
                     } else {
-                        editText.setPadding(Util.dip2px(v.getContext(), 40), 0, 0, Util.dip2px(v.getContext(), 8));
+                        editText.setPadding(ScreenUtil.dip2px(v.getContext(), 40), 0, 0, ScreenUtil.dip2px(v.getContext(), 8));
                     }
                 }
             });

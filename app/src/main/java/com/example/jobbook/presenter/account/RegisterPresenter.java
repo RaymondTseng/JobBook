@@ -64,19 +64,19 @@ public class RegisterPresenter extends RxPresenter<RegisterContract.View> implem
         SMSSDKManager.getInstance().verifyCode(mContext, "86", account, code, new SMSSDKManager.Callback() {
             @Override
             public void success() {
-                RetrofitService.register(bean)
-                        .subscribe(new BaseSubscriber<PersonBean>() {
-                            @Override
-                            public IBaseView getBaseView() {
-                                return mView;
-                            }
-
+                addSubscribe(RetrofitService.register(bean)
+                        .subscribeWith(new BaseSubscriber<PersonBean>() {
                             @Override
                             public void onNext(PersonBean personBean) {
                                 mView.success();
                                 mView.switch2Person(personBean);
                             }
-                        });
+
+                            @Override
+                            public IBaseView getBaseView() {
+                                return mView;
+                            }
+                        }));
             }
 
             @Override

@@ -1,22 +1,17 @@
 package com.example.jobbook.util;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.design.widget.Snackbar;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 
-import com.example.jobbook.R;
 import com.example.jobbook.app.Constants;
 import com.example.jobbook.app.MyApplication;
 import com.example.jobbook.model.bean.PersonBean;
@@ -63,32 +58,6 @@ public class Util {
         ViewGroup.LayoutParams params = listView.getLayoutParams();
         params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
         listView.setLayoutParams(params);
-    }
-
-    /**
-     * 根据手机的分辨率从 dp 的单位 转成为 px(像素)
-     */
-    public static int dip2px(Context context, float dpValue) {
-        final float scale = context.getResources().getDisplayMetrics().density;
-        return (int) (dpValue * scale + 0.5f);
-    }
-
-    /**
-     * 根据手机的分辨率从 px(像素) 的单位 转成为 dp
-     */
-    public static int px2dip(Context context, float pxValue) {
-        final float scale = context.getResources().getDisplayMetrics().density;
-        return (int) (pxValue / scale + 0.5f);
-    }
-
-    /**
-     * 检测错误类型
-     *
-     * @param error
-     * @return
-     */
-    public static boolean checkError(String error) {
-        return false;
     }
 
     /**
@@ -287,98 +256,5 @@ public class Util {
         }
         return hex.toString();
     }
-
-    /**
-     * 显示弹出窗口
-     * @param view
-     * @param content
-     */
-    public static void showSnackBar(View view, String content) {
-//        View view = activity.getWindow().getDecorView();
-        final Snackbar snackbar = Snackbar.make(view, content, Snackbar.LENGTH_SHORT);
-        View demo = snackbar.getView();
-        ((TextView)demo.findViewById(R.id.snackbar_text)).setTextColor(Color.WHITE);
-        snackbar.show();
-    }
-
-    public static void showSnackBar(Activity activity, String content) {
-//        View view = activity.getWindow().getDecorView();
-        View view = activity.findViewById(android.R.id.content);
-        final Snackbar snackbar = Snackbar.make(view, content, Snackbar.LENGTH_SHORT);
-        View demo = snackbar.getView();
-        ((TextView)demo.findViewById(R.id.snackbar_text)).setTextColor(Color.WHITE);
-        snackbar.show();
-    }
-
-    /**
-     * 显示弹出窗口
-     * @param view
-     * @param content
-     */
-    public static void showSnackBar(View view, String content, String buttonText) {
-        final Snackbar snackbar = Snackbar.make(view, content, Snackbar.LENGTH_SHORT);
-        View demo = snackbar.getView();
-        ((TextView)demo.findViewById(R.id.snackbar_text)).setTextColor(Color.WHITE);
-        //R.color.colorBlue
-        snackbar.setActionTextColor(Color.parseColor("#457ff4"));
-        snackbar.setAction(buttonText, new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                snackbar.dismiss();
-            }
-        });
-        snackbar.show();
-    }
-
-    /**
-     * 显示弹出窗口
-     * @param view
-     * @param content
-     */
-    public static void showSnackBar(View view, String content, String buttonText, View.OnClickListener listener) {
-//        View view = activity.getWindow().getDecorView();
-        final Snackbar snackbar = Snackbar.make(view, content, Snackbar.LENGTH_SHORT);
-        View demo = snackbar.getView();
-        ((TextView)demo.findViewById(R.id.snackbar_text)).setTextColor(Color.WHITE);
-        //R.color.colorBlue
-        snackbar.setActionTextColor(Color.parseColor("#457ff4"));
-        snackbar.setAction(buttonText, listener);
-        snackbar.show();
-    }
-
-
-    /**
-     * 返回“几分钟前”的字符串，最大为"24小时前"
-     * @param currentTime
-     * @param originalTime
-     * @return
-     */
-//    public static String getTime(long currentTime, long originalTime) {
-//        long delta = currentTime - originalTime;
-//        if (delta < 0) {
-//            return null;
-//        }
-//        if (delta < 1L * 60000L) {
-////            long seconds = toSeconds(delta);
-////            return (seconds <= 0 ? 1 : seconds) + ONE_SECOND_AGO;
-//            return "刚刚";
-//        }
-//        if (delta < 60L * 60000L) {
-//            long minutes = delta / 60L / 1000L;
-//            return (minutes <= 0 ? 1 : minutes) + "分钟前";
-//        }
-//        if (delta < 24L * 3600000L) {
-//            long hours = delta / 60L / 60L / 1000L;
-//            return (hours <= 0 ? 1 : hours) + "小时前";
-//        }
-//        Date date = new Date(originalTime);
-//        Calendar calendar = Calendar.getInstance();
-//        calendar.setTimeZone(TimeZone.getTimeZone("GMT"));
-//        calendar.setTime(date);
-//        String time = (calendar.get(Calendar.MONTH) + 1) + "/" + calendar.get(Calendar.DAY_OF_MONTH);
-//        return time;
-//
-//    }
 
 }

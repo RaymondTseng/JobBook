@@ -12,7 +12,6 @@ import com.example.jobbook.app.MyApplication;
 import com.example.jobbook.base.contract.article.ArticleDetailContract;
 import com.example.jobbook.model.bean.ArticleBean;
 import com.example.jobbook.presenter.article.ArticleDetailPresenter;
-import com.example.jobbook.util.L;
 import com.example.jobbook.util.Util;
 
 import org.apache.commons.lang3.StringEscapeUtils;
@@ -27,10 +26,10 @@ import butterknife.OnClick;
  * Created by 椰树 on 2016/7/15.
  */
 public class ArticleDetailActivity extends Activity implements ArticleDetailContract.View {
-    private ArticleDetailContract.Presenter mPresenter;
+
+    private ArticleDetailPresenter mPresenter;
     private ArticleBean bean;
     private ArticleBean mArticleBean;
-    private View view;
     private String cur_article_id;
 
     @BindView(R.id.article_detail_like_ib)
@@ -59,13 +58,7 @@ public class ArticleDetailActivity extends Activity implements ArticleDetailCont
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_article_detail);
         ButterKnife.bind(this);
-        view = getWindow().getDecorView();
-        initViews();
         initEvents();
-    }
-
-    private void initViews() {
-        mLoadingViewStub.inflate();
     }
 
     private void initEvents() {
@@ -109,12 +102,7 @@ public class ArticleDetailActivity extends Activity implements ArticleDetailCont
 
     @Override
     public void showLoadFailMsg(String msg) {
-        Util.showSnackBar(view, msg);
-    }
-
-    @Override
-    public void close() {
-        finish();
+        Util.showSnackBar(this, msg);
     }
 
     @Override
@@ -122,7 +110,7 @@ public class ArticleDetailActivity extends Activity implements ArticleDetailCont
         mLikeImageButton.setImageResource(R.mipmap.favourite_tapped);
         bean.setIfLike(1);
         addArticle(bean);
-        Util.showSnackBar(view, "收藏成功！");
+        Util.showSnackBar(this, "收藏成功！");
     }
 
     @Override
@@ -130,18 +118,8 @@ public class ArticleDetailActivity extends Activity implements ArticleDetailCont
         mLikeImageButton.setImageResource(R.mipmap.favourite);
         bean.setIfLike(0);
         addArticle(bean);
-        Util.showSnackBar(view, "取消收藏成功！");
+        Util.showSnackBar(this, "取消收藏成功！");
     }
-
-//    @Override
-//    public void likeError() {
-//        Util.showSnackBar(view, "收藏失败，请重试！");
-//    }
-//
-//    @Override
-//    public void unlikeError() {
-//        Util.showSnackBar(view, "取消收藏失败，请重试！");
-//    }
 
     @OnClick(R.id.article_detail_back_ib)
     public void click_back() {
@@ -151,15 +129,12 @@ public class ArticleDetailActivity extends Activity implements ArticleDetailCont
     @OnClick(R.id.article_detail_like_ib)
     public void click_like() {
         if (bean.isIfLike() == 0) {
-            L.i("click like");
             like(bean.getArticle_id());
         } else {
-            L.i("click unlike");
             unlike(bean.getArticle_id());
         }
     }
 
-    @Override
     public void like(String articleId) {
         String account = "";
         if (MyApplication.getmLoginStatus() == 1) {
@@ -173,7 +148,6 @@ public class ArticleDetailActivity extends Activity implements ArticleDetailCont
         }
     }
 
-    @Override
     public void unlike(String articleId) {
         String account = "";
         if (MyApplication.getmLoginStatus() == 1) {

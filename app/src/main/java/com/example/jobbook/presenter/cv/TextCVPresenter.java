@@ -20,14 +20,14 @@ import java.util.List;
  * Created by zhaoxuzhang on 2017/12/1.
  */
 
-public class TextCVPresenter extends RxPresenter<TextCVContract.View> implements TextCVContract.Presenter{
+public class TextCVPresenter extends RxPresenter<TextCVContract.View> implements TextCVContract.Presenter {
     private TextCVBean textCVBean = new TextCVBean();
     private int TAG = 0;
-    
+
     public TextCVPresenter(TextCVContract.View view) {
         attach(view);
     }
-    
+
     private void refresh() {
         textCVBean = null;
         TAG = 0;
@@ -75,8 +75,8 @@ public class TextCVPresenter extends RxPresenter<TextCVContract.View> implements
         if (TextUtils.isEmpty(account)) {
             return;
         }
-        RetrofitService.loadCV(account)
-                .subscribe(new BaseSubscriber<TextCVBean>() {
+        addSubscribe(RetrofitService.loadCV(account)
+                .subscribeWith(new BaseSubscriber<TextCVBean>() {
                     @Override
                     public IBaseView getBaseView() {
                         return mView;
@@ -92,7 +92,7 @@ public class TextCVPresenter extends RxPresenter<TextCVContract.View> implements
                     public void onNext(TextCVBean textCVBean) {
                         mView.load(textCVBean);
                     }
-                });
+                }));
     }
 
     private void toModel() {
@@ -178,43 +178,43 @@ public class TextCVPresenter extends RxPresenter<TextCVContract.View> implements
     }
 
     private boolean postCheckSecond(TextCVBean textCVBean) {
-        for(int i = 0; i < textCVBean.getEducationExpBeanList().size(); i++){
+        for (int i = 0; i < textCVBean.getEducationExpBeanList().size(); i++) {
             EducationExpBean educationExpBean = textCVBean.getEducationExpBeanList().get(i);
-            if(!ifNumber(educationExpBean.getAdmissionDate())){
+            if (!ifNumber(educationExpBean.getAdmissionDate())) {
                 mView.hideProgress();
                 mView.eduExpAdmissionError(i);
                 refresh();
                 return false;
-            }else if(!ifNumber(educationExpBean.getGraduationDate())){
+            } else if (!ifNumber(educationExpBean.getGraduationDate())) {
                 mView.hideProgress();
                 mView.eduExpGraduationError(i);
                 refresh();
                 return false;
-            }else if(TextUtils.isEmpty(educationExpBean.getSchool())){
+            } else if (TextUtils.isEmpty(educationExpBean.getSchool())) {
                 mView.hideProgress();
                 mView.eduExpSchoolBlankError(i);
                 refresh();
                 return false;
             }
         }
-        for(int i = 0; i < textCVBean.getJobExpBeanList().size(); i++){
+        for (int i = 0; i < textCVBean.getJobExpBeanList().size(); i++) {
             JobExpBean jobExpBean = textCVBean.getJobExpBeanList().get(i);
-            if(!ifNumber(jobExpBean.getInaugurationDate())){
+            if (!ifNumber(jobExpBean.getInaugurationDate())) {
                 mView.hideProgress();
                 mView.jobExpInaugurationBlankError(i);
                 refresh();
                 return false;
-            }else if(!ifNumber(jobExpBean.getDimissionDate())){
+            } else if (!ifNumber(jobExpBean.getDimissionDate())) {
                 mView.hideProgress();
                 mView.jobExpDimissionBlankError(i);
                 refresh();
                 return false;
-            }else if(TextUtils.isEmpty(jobExpBean.getCompany())){
+            } else if (TextUtils.isEmpty(jobExpBean.getCompany())) {
                 mView.hideProgress();
                 mView.jobExpCompanyBlankError(i);
                 refresh();
                 return false;
-            }else if(TextUtils.isEmpty(jobExpBean.getPosition())){
+            } else if (TextUtils.isEmpty(jobExpBean.getPosition())) {
                 mView.hideProgress();
                 mView.jobExpPositionBlankError(i);
                 refresh();
@@ -224,9 +224,9 @@ public class TextCVPresenter extends RxPresenter<TextCVContract.View> implements
         return true;
     }
 
-    private boolean ifNumber(String date){
-        for(String number : Constants.numbers){
-            if(date.startsWith(number)){
+    private boolean ifNumber(String date) {
+        for (String number : Constants.numbers) {
+            if (date.startsWith(number)) {
                 return true;
             }
         }

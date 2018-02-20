@@ -11,15 +11,8 @@ import com.example.jobbook.model.bean.ArticleBean;
 public interface ArticleDetailContract {
 
     interface View extends IBaseView {
-        void like(String articleId);
-
-        void unlike(String articleId);
-
 //    void addComments(List<ArticleCommentBean> mComments);
-
         void addArticle(ArticleBean mArticle);
-
-        void close();
 
         void likeSuccess();
 

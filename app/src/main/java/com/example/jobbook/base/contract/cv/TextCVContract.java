@@ -20,10 +20,6 @@ public interface TextCVContract {
          * 成功
          */
         void success(PersonBean personBean);
-        /**
-         * 网络错误
-         */
-        void networkError();
 
         /**
          * 头像为空错误
@@ -129,10 +125,6 @@ public interface TextCVContract {
          * 期待工作地址为空错误
          */
         void expectJobLocationBlankError();
-
-        void close();
-
-        void save();
 
         void load(TextCVBean textCVBean);
     }

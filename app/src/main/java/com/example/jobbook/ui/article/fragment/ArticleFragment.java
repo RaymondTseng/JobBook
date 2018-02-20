@@ -20,7 +20,6 @@ import android.widget.TextView;
 
 import com.example.jobbook.R;
 import com.example.jobbook.app.Constants;
-import com.example.jobbook.app.MyApplication;
 import com.example.jobbook.app.Urls;
 import com.example.jobbook.base.LazyLoadFragment;
 import com.example.jobbook.base.contract.article.ArticleContract;
@@ -29,6 +28,7 @@ import com.example.jobbook.presenter.article.ArticlePresenter;
 import com.example.jobbook.ui.article.activity.ArticleDetailActivity;
 import com.example.jobbook.ui.article.adapter.ArticlesAdapter;
 import com.example.jobbook.util.L;
+import com.example.jobbook.util.SnackBarUtil;
 import com.example.jobbook.util.Util;
 import com.example.jobbook.widget.DividerItemDecoration;
 
@@ -80,7 +80,6 @@ public class ArticleFragment extends LazyLoadFragment implements ArticleContract
     private RadioGroup radioGroup;
     private LinearLayoutManager mLayoutManager;
 
-
     @Override
     protected int setContentView() {
         return R.layout.fragment_article;
@@ -102,7 +101,6 @@ public class ArticleFragment extends LazyLoadFragment implements ArticleContract
 //        mSwipeRefreshLayout = findViewById(R.id.article_swipe_container);
 //        mDropImageButton = findViewById(R.id.article_title_drop_ib);
         radioGroup = (RadioGroup) mMenuView.findViewById(R.id.article_title_rg);
-        L.i("initViews");
     }
 
     private void initEvents() {
@@ -186,7 +184,7 @@ public class ArticleFragment extends LazyLoadFragment implements ArticleContract
 //        Util.showSnackBar(getActivity().findViewById(R.id.article_fragment), "网络无法连接！", "重试");
 
 //        View parentview = getActivity().findViewById(android.R.id.content);
-        Util.showSnackBar(MyApplication.mSnackBarView, msg, "重试", new View.OnClickListener() {
+        SnackBarUtil.showSnackBar(getActivity(), msg, "重试", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onRefresh();
@@ -355,7 +353,6 @@ public class ArticleFragment extends LazyLoadFragment implements ArticleContract
 
     @Override
     public void onRefresh() {
-        L.i("onRefresh");
         pageIndex = 0;
         if (list != null) {
             list.clear();

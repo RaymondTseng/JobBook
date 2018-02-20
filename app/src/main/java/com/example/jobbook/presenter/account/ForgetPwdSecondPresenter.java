@@ -35,8 +35,8 @@ public class ForgetPwdSecondPresenter extends RxPresenter<ForgetPwdContract.Forg
             mView.differentError();
             return;
         } else {
-            RetrofitService.changePwdComplete(account, password)
-                    .subscribe(new BaseSubscriber<String>() {
+            addSubscribe(RetrofitService.changePwdComplete(account, password)
+                    .subscribeWith((new BaseSubscriber<String>() {
                         @Override
                         public IBaseView getBaseView() {
                             return mView;
@@ -46,7 +46,7 @@ public class ForgetPwdSecondPresenter extends RxPresenter<ForgetPwdContract.Forg
                         public void onNext(String s) {
                             mView.success();
                         }
-                    });
+                    })));
         }
     }
 }

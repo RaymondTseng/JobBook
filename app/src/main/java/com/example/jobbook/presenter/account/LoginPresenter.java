@@ -35,8 +35,8 @@ public class LoginPresenter extends RxPresenter<LoginContract.View> implements L
         personBean.setAccount(account);
         personBean.setPassword(Util.getMD5(password));
         personBean.setDevicetoken(MyApplication.mDevicetoken);
-        RetrofitService.login(personBean)
-                .subscribe(new BaseSubscriber<PersonBean>() {
+        addSubscribe(RetrofitService.login(personBean)
+                .subscribeWith(new BaseSubscriber<PersonBean>() {
                     @Override
                     public IBaseView getBaseView() {
                         return mView;
@@ -46,7 +46,6 @@ public class LoginPresenter extends RxPresenter<LoginContract.View> implements L
                     public void onNext(PersonBean personBean) {
                         mView.switch2Person(personBean);
                     }
-                });
+                }));
     }
-
 }

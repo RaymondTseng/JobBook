@@ -14,7 +14,7 @@ import com.example.jobbook.util.SMSSDKManager;
  * Created by zhaoxuzhang on 2018/1/27.
  */
 
-public class ForgetPwdFirstPresenter extends RxPresenter<ForgetPwdContract.ForgetPwdFirstView> implements ForgetPwdContract.ForgetPwdFirstPresenter{
+public class ForgetPwdFirstPresenter extends RxPresenter<ForgetPwdContract.ForgetPwdFirstView> implements ForgetPwdContract.ForgetPwdFirstPresenter {
 
     public ForgetPwdFirstPresenter(ForgetPwdContract.ForgetPwdFirstView view) {
         attach(view);
@@ -27,18 +27,18 @@ public class ForgetPwdFirstPresenter extends RxPresenter<ForgetPwdContract.Forge
             mView.phoneBlankError();
             return;
         } else {
-            RetrofitService.checkAccount(phone)
-                    .subscribe(new BaseSubscriber<String>() {
-                        @Override
-                        public IBaseView getBaseView() {
-                            return mView;
-                        }
+            addSubscribe(RetrofitService.checkAccount(phone)
+                    .subscribeWith(new BaseSubscriber<String>() {
+                @Override
+                public IBaseView getBaseView() {
+                    return mView;
+                }
 
-                        @Override
-                        public void onNext(String s) {
-                            mView.checkSuccess();
-                        }
-                    });
+                @Override
+                public void onNext(String s) {
+                    mView.checkSuccess();
+                }
+            }));
         }
     }
 
