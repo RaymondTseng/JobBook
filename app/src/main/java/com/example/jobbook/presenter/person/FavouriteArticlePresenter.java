@@ -21,8 +21,8 @@ public class FavouriteArticlePresenter extends RxPresenter<FavouriteArticleContr
 
     @Override
     public void loadArticles(String account) {
-        RetrofitService.loadFavouriteArticles(account)
-                .subscribe(new BaseSubscriber<List<ArticleBean>>() {
+        addSubscribe(RetrofitService.loadFavouriteArticles(account)
+                .subscribeWith(new BaseSubscriber<List<ArticleBean>>() {
                     @Override
                     public IBaseView getBaseView() {
                         return mView;
@@ -32,6 +32,6 @@ public class FavouriteArticlePresenter extends RxPresenter<FavouriteArticleContr
                     public void onNext(List<ArticleBean> articleBeans) {
                         mView.loadArticles(articleBeans);
                     }
-                });
+                }));
     }
 }

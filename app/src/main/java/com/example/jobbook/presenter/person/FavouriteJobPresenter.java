@@ -21,8 +21,8 @@ public class FavouriteJobPresenter extends RxPresenter<FavouriteJobContract.View
 
     @Override
     public void loadFavouriteJobs(String accountName) {
-        RetrofitService.loadFavouriteJobs(accountName)
-                .subscribe(new BaseSubscriber<List<JobBean>>() {
+        addSubscribe(RetrofitService.loadFavouriteJobs(accountName)
+                .subscribeWith(new BaseSubscriber<List<JobBean>>() {
                     @Override
                     public IBaseView getBaseView() {
                         return mView;
@@ -32,6 +32,6 @@ public class FavouriteJobPresenter extends RxPresenter<FavouriteJobContract.View
                     public void onNext(List<JobBean> jobBeans) {
                         mView.loadJobs(jobBeans);
                     }
-                });
+                }));
     }
 }

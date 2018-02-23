@@ -39,7 +39,7 @@ public class UpdatePhonePresenter extends RxPresenter<UpdateContract.UpdatePhone
             mView.codeBlankError();
             return;
         } else {
-            naiveObserveVerifyCode(mContext, account, tel, code)
+            addSubscribe(naiveObserveVerifyCode(mContext, account, tel, code)
                     .observeOn(Schedulers.computation())
                     .flatMap(new Function<String, Flowable<String>>() {
                         @Override
@@ -47,7 +47,7 @@ public class UpdatePhonePresenter extends RxPresenter<UpdateContract.UpdatePhone
                             return RetrofitService.updateTel(account, tel);
                         }
                     })
-                    .subscribe(new BaseSubscriber<String>() {
+                    .subscribeWith(new BaseSubscriber<String>() {
                         @Override
                         public IBaseView getBaseView() {
                             return mView;
@@ -58,7 +58,7 @@ public class UpdatePhonePresenter extends RxPresenter<UpdateContract.UpdatePhone
                             mView.success();
                             mView.close();
                         }
-                    });
+                    }));
         }
     }
 
@@ -74,7 +74,7 @@ public class UpdatePhonePresenter extends RxPresenter<UpdateContract.UpdatePhone
 
                     @Override
                     public void error(Throwable error) {
-
+                        e.onError(error);
                     }
                 };
                 SMSSDKManager.getInstance().verifyCode(mContext, country, tel, code, callback);

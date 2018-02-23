@@ -22,8 +22,8 @@ public class UploadPresenter extends RxPresenter<UploadContract.View> implements
     @Override
     public void uploadAvatar(MultipartBody.Part pic) {
         String account = MyApplication.getAccount();
-        RetrofitService.uploadAvatar(account, pic)
-                .subscribe(new BaseSubscriber<String>() {
+        addSubscribe(RetrofitService.uploadAvatar(account, pic)
+                .subscribeWith(new BaseSubscriber<String>() {
                     @Override
                     public IBaseView getBaseView() {
                         return mView;
@@ -34,6 +34,6 @@ public class UploadPresenter extends RxPresenter<UploadContract.View> implements
                         mView.uploadSuccess();
                         mView.loadHead();
                     }
-                });
+                }));
     }
 }

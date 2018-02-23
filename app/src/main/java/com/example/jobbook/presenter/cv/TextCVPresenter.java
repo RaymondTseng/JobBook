@@ -104,25 +104,25 @@ public class TextCVPresenter extends RxPresenter<TextCVContract.View> implements
             if (!postCheckFirst(textCVBean) || !postCheckSecond(textCVBean)) {
                 return;
             }
-            RetrofitService.postCV(account, textCVBean)
-                    .subscribe(new BaseSubscriber<PersonBean>() {
-                        @Override
-                        public IBaseView getBaseView() {
-                            return mView;
-                        }
+            addSubscribe(RetrofitService.postCV(account, textCVBean)
+            .subscribeWith(new BaseSubscriber<PersonBean>() {
+                @Override
+                public IBaseView getBaseView() {
+                    return mView;
+                }
 
-                        @Override
-                        public void onError(Throwable e) {
-                            super.onError(e);
-                            refresh();
-                        }
+                @Override
+                public void onError(Throwable e) {
+                    super.onError(e);
+                    refresh();
+                }
 
-                        @Override
-                        public void onNext(PersonBean personBean) {
-                            mView.success(personBean);
-                            refresh();
-                        }
-                    });
+                @Override
+                public void onNext(PersonBean personBean) {
+                    mView.success(personBean);
+                    refresh();
+                }
+            }));
         }
     }
 

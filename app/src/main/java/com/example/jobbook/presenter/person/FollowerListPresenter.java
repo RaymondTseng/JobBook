@@ -23,8 +23,8 @@ public class FollowerListPresenter extends RxPresenter<FollowerListContract.View
     @Override
     public void loadFollwers(String account) {
         String myAccount = MyApplication.getAccount() == null ? "" : MyApplication.getAccount();
-        RetrofitService.loadFollowerList(account, myAccount)
-                .subscribe(new BaseSubscriber<List<TypePersonBean>>() {
+        addSubscribe(RetrofitService.loadFollowerList(account, myAccount)
+                .subscribeWith(new BaseSubscriber<List<TypePersonBean>>() {
                     @Override
                     public IBaseView getBaseView() {
                         return mView;
@@ -34,13 +34,13 @@ public class FollowerListPresenter extends RxPresenter<FollowerListContract.View
                     public void onNext(List<TypePersonBean> typePersonBeans) {
                         mView.loadFanList(typePersonBeans);
                     }
-                });
+                }));
     }
 
     @Override
     public void follow(String myAccount, String hisAccount) {
-        RetrofitService.follow(myAccount, hisAccount)
-                .subscribe(new BaseSubscriber<String>() {
+        addSubscribe(RetrofitService.follow(myAccount, hisAccount)
+                .subscribeWith(new BaseSubscriber<String>() {
                     @Override
                     public IBaseView getBaseView() {
                         return mView;
@@ -50,6 +50,6 @@ public class FollowerListPresenter extends RxPresenter<FollowerListContract.View
                     public void onNext(String s) {
                         mView.followSuccess();
                     }
-                });
+                }));
     }
 }

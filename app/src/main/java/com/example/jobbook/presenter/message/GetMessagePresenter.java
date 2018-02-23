@@ -21,8 +21,8 @@ public class GetMessagePresenter extends RxPresenter<GetMessageContract.View> im
 
     @Override
     public void getMessage(String account) {
-        RetrofitService.getMessages(account)
-                .subscribe(new BaseSubscriber<List<MessageBean>>() {
+        addSubscribe(RetrofitService.getMessages(account)
+                .subscribeWith(new BaseSubscriber<List<MessageBean>>() {
                     @Override
                     public IBaseView getBaseView() {
                         return mView;
@@ -32,6 +32,6 @@ public class GetMessagePresenter extends RxPresenter<GetMessageContract.View> im
                     public void onNext(List<MessageBean> messageBeans) {
                         mView.getMessage(messageBeans);
                     }
-                });
+                }));
     }
 }

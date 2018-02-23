@@ -21,8 +21,8 @@ public class UserDetailFanPresenter extends RxPresenter<UserDetailFanContract.Vi
 
     @Override
     public void loadFans(String account) {
-        RetrofitService.loadFanList(account, "")
-                .subscribe(new BaseSubscriber<List<TypePersonBean>>() {
+        addSubscribe(RetrofitService.loadFanList(account, "")
+                .subscribeWith(new BaseSubscriber<List<TypePersonBean>>() {
                     @Override
                     public IBaseView getBaseView() {
                         return mView;
@@ -32,13 +32,13 @@ public class UserDetailFanPresenter extends RxPresenter<UserDetailFanContract.Vi
                     public void onNext(List<TypePersonBean> typePersonBeans) {
                         mView.loadFans(typePersonBeans);
                     }
-                });
+                }));
     }
 
     @Override
     public void follow(String myAccount, String hisAccount) {
-        RetrofitService.follow(myAccount, hisAccount)
-                .subscribe(new BaseSubscriber<String>() {
+        addSubscribe(RetrofitService.follow(myAccount, hisAccount)
+                .subscribeWith(new BaseSubscriber<String>() {
                     @Override
                     public IBaseView getBaseView() {
                         return mView;
@@ -48,6 +48,6 @@ public class UserDetailFanPresenter extends RxPresenter<UserDetailFanContract.Vi
                     public void onNext(String s) {
                         mView.followSuccess();
                     }
-                });
+                }));
     }
 }

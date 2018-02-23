@@ -47,8 +47,8 @@ public class MainPresenter extends RxPresenter<MainContract.View> implements Mai
         if (share != null) {
             personBean = Util.loadPersonBean(share);
             if (personBean != null) {
-                RetrofitService.loginCheck(personBean.getAccount())
-                        .subscribe(new BaseSubscriber<String>() {
+                addSubscribe(RetrofitService.loginCheck(personBean.getAccount())
+                        .subscribeWith(new BaseSubscriber<String>() {
                             @Override
                             public IBaseView getBaseView() {
                                 return mView;
@@ -58,7 +58,7 @@ public class MainPresenter extends RxPresenter<MainContract.View> implements Mai
                             public void onNext(String s) {
                                 mView.loginCheckSuccess(personBean);
                             }
-                        });
+                        }));
             } else {
                 return;
             }

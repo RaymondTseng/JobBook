@@ -27,8 +27,8 @@ public class UpdateUsernamePresenter extends RxPresenter<UpdateContract.UpdateUs
             mView.usernameBlankError();
             return;
         } else {
-            RetrofitService.updateUserName(account, username)
-                    .subscribe(new BaseSubscriber<String>() {
+            addSubscribe(RetrofitService.updateUserName(account, username)
+                    .subscribeWith(new BaseSubscriber<String>() {
                         @Override
                         public IBaseView getBaseView() {
                             return mView;
@@ -39,7 +39,7 @@ public class UpdateUsernamePresenter extends RxPresenter<UpdateContract.UpdateUs
                             mView.success();
                             mView.close();
                         }
-                    });
+                    }));
         }
     }
 }

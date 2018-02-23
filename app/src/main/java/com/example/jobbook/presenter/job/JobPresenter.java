@@ -22,8 +22,8 @@ public class JobPresenter extends RxPresenter<JobContract.View> implements JobCo
     @Override
     public void loadJobs(int pageIndex, boolean isRecommend, String type, String location) {
         if (isRecommend) {
-            RetrofitService.getRecommendJobsList(pageIndex)
-                    .subscribe(new BaseSubscriber<List<JobBean>>() {
+            addSubscribe(RetrofitService.getRecommendJobsList(pageIndex)
+                    .subscribeWith(new BaseSubscriber<List<JobBean>>() {
                         @Override
                         public IBaseView getBaseView() {
                             return mView;
@@ -33,10 +33,10 @@ public class JobPresenter extends RxPresenter<JobContract.View> implements JobCo
                         public void onNext(List<JobBean> jobBeans) {
                             mView.addJobs(jobBeans);
                         }
-                    });
+                    }));
         } else {
-            RetrofitService.search(pageIndex, type, location)
-                    .subscribe(new BaseSubscriber<List<JobBean>>() {
+            addSubscribe(RetrofitService.search(pageIndex, type, location)
+                    .subscribeWith(new BaseSubscriber<List<JobBean>>() {
                         @Override
                         public IBaseView getBaseView() {
                             return mView;
@@ -46,7 +46,7 @@ public class JobPresenter extends RxPresenter<JobContract.View> implements JobCo
                         public void onNext(List<JobBean> jobBeans) {
                             mView.addJobs(jobBeans);
                         }
-                    });
+                    }));
         }
     }
 

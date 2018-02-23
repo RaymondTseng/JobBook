@@ -24,8 +24,8 @@ public class JobDetailPresenter extends RxPresenter<JobDetailContract.View> impl
         if (MyApplication.getmLoginStatus() == 1) {
             account = MyApplication.getAccount();
         }
-        RetrofitService.getJobDetail(jobId, account)
-                .subscribe(new BaseSubscriber<JobDetailBean>() {
+        addSubscribe(RetrofitService.getJobDetail(jobId, account)
+                .subscribeWith(new BaseSubscriber<JobDetailBean>() {
                     @Override
                     public IBaseView getBaseView() {
                         return mView;
@@ -35,7 +35,7 @@ public class JobDetailPresenter extends RxPresenter<JobDetailContract.View> impl
                     public void onNext(JobDetailBean jobDetailBean) {
                         mView.addJob(jobDetailBean);
                     }
-                });
+                }));
     }
 
     @Override
@@ -50,8 +50,8 @@ public class JobDetailPresenter extends RxPresenter<JobDetailContract.View> impl
             mView.hideProgress();
             return;
         }
-        RetrofitService.likeJob(jobId, account)
-                .subscribe(new BaseSubscriber<String>() {
+        addSubscribe(RetrofitService.likeJob(jobId, account)
+                .subscribeWith(new BaseSubscriber<String>() {
                     @Override
                     public IBaseView getBaseView() {
                         return mView;
@@ -61,7 +61,7 @@ public class JobDetailPresenter extends RxPresenter<JobDetailContract.View> impl
                     public void onNext(String s) {
                         mView.likeSuccess();
                     }
-                });
+                }));
     }
 
     @Override
@@ -76,8 +76,8 @@ public class JobDetailPresenter extends RxPresenter<JobDetailContract.View> impl
             mView.hideProgress();
             return;
         }
-        RetrofitService.unlikeJob(jobId, account)
-                .subscribe(new BaseSubscriber<String>() {
+        addSubscribe(RetrofitService.unlikeJob(jobId, account)
+                .subscribeWith(new BaseSubscriber<String>() {
                     @Override
                     public IBaseView getBaseView() {
                         return mView;
@@ -87,7 +87,7 @@ public class JobDetailPresenter extends RxPresenter<JobDetailContract.View> impl
                     public void onNext(String s) {
                         mView.unlikeSuccess();
                     }
-                });
+                }));
     }
 
     @Override
@@ -102,8 +102,8 @@ public class JobDetailPresenter extends RxPresenter<JobDetailContract.View> impl
             mView.hideProgress();
             return;
         }
-        RetrofitService.sendCV(account, companyId)
-                .subscribe(new BaseSubscriber<String>() {
+        addSubscribe(RetrofitService.sendCV(account, companyId)
+                .subscribeWith(new BaseSubscriber<String>() {
                     @Override
                     public IBaseView getBaseView() {
                         return mView;
@@ -113,6 +113,6 @@ public class JobDetailPresenter extends RxPresenter<JobDetailContract.View> impl
                     public void onNext(String s) {
                         mView.sendCVSuccess();
                     }
-                });
+                }));
     }
 }

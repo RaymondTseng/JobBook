@@ -34,8 +34,8 @@ public class MomentDetailPresenter extends RxPresenter<MomentDetailContract.View
 
     @Override
     public void loadMomentById(int id, String account) {
-        RetrofitService.loadMomentById(account, id)
-                .subscribe(new BaseSubscriber<MomentBean>() {
+        addSubscribe(RetrofitService.loadMomentById(account, id)
+                .subscribeWith(new BaseSubscriber<MomentBean>() {
                     @Override
                     public IBaseView getBaseView() {
                         return mView;
@@ -45,14 +45,13 @@ public class MomentDetailPresenter extends RxPresenter<MomentDetailContract.View
                     public void onNext(MomentBean momentBean) {
                         mView.addMoment(momentBean);
                     }
-                });
-
+                }));
     }
 
     @Override
     public void loadMomentComments(int id, int index) {
-        RetrofitService.loadMomentComments(id, index)
-                .subscribe(new BaseSubscriber<List<MomentCommentBean>>() {
+        addSubscribe(RetrofitService.loadMomentComments(id, index)
+                .subscribeWith(new BaseSubscriber<List<MomentCommentBean>>() {
                     @Override
                     public IBaseView getBaseView() {
                         return mView;
@@ -62,13 +61,13 @@ public class MomentDetailPresenter extends RxPresenter<MomentDetailContract.View
                     public void onNext(List<MomentCommentBean> momentCommentBeans) {
                         mView.addComments(momentCommentBeans);
                     }
-                });
+                }));
     }
 
     @Override
     public void sendComment(MomentCommentBean momentCommentBean) {
-        RetrofitService.sendComment(momentCommentBean)
-                .subscribe(new BaseSubscriber<MomentBean>() {
+        addSubscribe(RetrofitService.sendComment(momentCommentBean)
+                .subscribeWith(new BaseSubscriber<MomentBean>() {
                     @Override
                     public IBaseView getBaseView() {
                         return mView;
@@ -78,13 +77,13 @@ public class MomentDetailPresenter extends RxPresenter<MomentDetailContract.View
                     public void onNext(MomentBean momentBean) {
                         mView.sendSuccess(momentBean);
                     }
-                });
+                }));
     }
 
     @Override
     public void commentLike(int s_id, String account) {
-        RetrofitService.likeSquare(s_id, account)
-                .subscribe(new BaseSubscriber<MomentBean>() {
+        addSubscribe(RetrofitService.likeSquare(s_id, account)
+                .subscribeWith(new BaseSubscriber<MomentBean>() {
                     @Override
                     public IBaseView getBaseView() {
                         return mView;
@@ -94,13 +93,13 @@ public class MomentDetailPresenter extends RxPresenter<MomentDetailContract.View
                     public void onNext(MomentBean momentBean) {
                         mView.likeSuccess(momentBean);
                     }
-                });
+                }));
     }
 
     @Override
     public void commentUnlike(int s_id, String account) {
-        RetrofitService.unlikeSquare(s_id, account)
-                .subscribe(new BaseSubscriber<MomentBean>() {
+        addSubscribe(RetrofitService.unlikeSquare(s_id, account)
+                .subscribeWith(new BaseSubscriber<MomentBean>() {
                     @Override
                     public IBaseView getBaseView() {
                         return mView;
@@ -110,6 +109,6 @@ public class MomentDetailPresenter extends RxPresenter<MomentDetailContract.View
                     public void onNext(MomentBean momentBean) {
                         mView.unlikeSuccess(momentBean);
                     }
-                });
+                }));
     }
 }

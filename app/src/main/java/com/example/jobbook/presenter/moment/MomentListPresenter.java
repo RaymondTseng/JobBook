@@ -21,8 +21,8 @@ public class MomentListPresenter extends RxPresenter<MomentListContract.View> im
 
     @Override
     public void loadMomentList(String hisAccount, String myAccount) {
-        RetrofitService.loadMomentList(hisAccount, myAccount)
-                .subscribe(new BaseSubscriber<List<MomentBean>>() {
+        addSubscribe(RetrofitService.loadMomentList(hisAccount, myAccount)
+                .subscribeWith(new BaseSubscriber<List<MomentBean>>() {
                     @Override
                     public IBaseView getBaseView() {
                         return mView;
@@ -32,6 +32,6 @@ public class MomentListPresenter extends RxPresenter<MomentListContract.View> im
                     public void onNext(List<MomentBean> momentBeans) {
                         mView.loadFanList(momentBeans);
                     }
-                });
+                }));
     }
 }

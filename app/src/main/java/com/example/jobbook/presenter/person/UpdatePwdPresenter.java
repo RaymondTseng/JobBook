@@ -27,24 +27,30 @@ public class UpdatePwdPresenter extends RxPresenter<UpdateContract.UpdatePwdView
         if (TextUtils.isEmpty(oPwd)) {
             mView.hideProgress();
             mView.oPwdBlankError();
+            return;
         } else if (TextUtils.isEmpty(nPwd)) {
             mView.hideProgress();
             mView.nPwdBlankError();
+            return;
         } else if (TextUtils.isEmpty(nPwdConfirm)) {
             mView.hideProgress();
             mView.nPwdConfirmBlankError();
+            return;
         } else if (!Util.getMD5(oPwd).equals(MyApplication.getmPersonBean().getPassword())) {
             mView.hideProgress();
             mView.oPwdError();
+            return;
         } else if (!nPwd.equals(nPwdConfirm)) {
             mView.hideProgress();
             mView.pwdConfirmError();
+            return;
         } else if (Util.getMD5(oPwd).equals(Util.getMD5(nPwd))) {
             mView.hideProgress();
             mView.oPwdEqualnPwdError();
+            return;
         } else {
-            RetrofitService.updatePwd(account, oPwd, nPwd)
-                    .subscribe(new BaseSubscriber<String>() {
+            addSubscribe(RetrofitService.updatePwd(account, oPwd, nPwd)
+                    .subscribeWith(new BaseSubscriber<String>() {
                         @Override
                         public IBaseView getBaseView() {
                             return mView;
@@ -55,7 +61,7 @@ public class UpdatePwdPresenter extends RxPresenter<UpdateContract.UpdatePwdView
                             mView.success();
                             mView.close();
                         }
-                    });
+                    }));
         }
     }
 }

@@ -22,8 +22,8 @@ public class UserDetailBriefPresenter extends RxPresenter<UserDetailBriefContrac
 
     @Override
     public void follow(String myAccount, String hisAccount) {
-        RetrofitService.follow(myAccount, hisAccount)
-                .subscribe(new BaseSubscriber<String>() {
+        addSubscribe(RetrofitService.follow(myAccount, hisAccount)
+                .subscribeWith(new BaseSubscriber<String>() {
                     @Override
                     public IBaseView getBaseView() {
                         return mView;
@@ -33,13 +33,13 @@ public class UserDetailBriefPresenter extends RxPresenter<UserDetailBriefContrac
                     public void onNext(String s) {
                         mView.followSuccess();
                     }
-                });
+                }));
     }
 
     @Override
     public void loadUserDetailByAccount(String account) {
-        RetrofitService.loadUserDetailByAccount(account)
-                .subscribe(new BaseSubscriber<TypePersonBean>() {
+        addSubscribe(RetrofitService.loadUserDetailByAccount(account)
+                .subscribeWith(new BaseSubscriber<TypePersonBean>() {
                     @Override
                     public IBaseView getBaseView() {
                         return mView;
@@ -49,13 +49,13 @@ public class UserDetailBriefPresenter extends RxPresenter<UserDetailBriefContrac
                     public void onNext(TypePersonBean typePersonBean) {
                         mView.loadSuccess(typePersonBean);
                     }
-                });
+                }));
     }
 
     @Override
     public void unfollow(String myAccount, String hisAccount) {
-        RetrofitService.unfollow(myAccount, hisAccount)
-                .subscribe(new BaseSubscriber<String>() {
+        addSubscribe(RetrofitService.unfollow(myAccount, hisAccount)
+                .subscribeWith(new BaseSubscriber<String>() {
                     @Override
                     public IBaseView getBaseView() {
                         return mView;
@@ -65,7 +65,7 @@ public class UserDetailBriefPresenter extends RxPresenter<UserDetailBriefContrac
                     public void onNext(String s) {
                         mView.unfollowSuccess();
                     }
-                });
+                }));
     }
 
     @Override
@@ -74,8 +74,8 @@ public class UserDetailBriefPresenter extends RxPresenter<UserDetailBriefContrac
         if (TextUtils.isEmpty(account)) {
             return;
         }
-        RetrofitService.loadUserDetailByAccount(account)
-                .subscribe(new BaseSubscriber<TypePersonBean>() {
+        addSubscribe(RetrofitService.loadUserDetailByAccount(account)
+                .subscribeWith(new BaseSubscriber<TypePersonBean>() {
                     @Override
                     public IBaseView getBaseView() {
                         return mView;
@@ -85,6 +85,6 @@ public class UserDetailBriefPresenter extends RxPresenter<UserDetailBriefContrac
                     public void onNext(TypePersonBean typePersonBean) {
                         mView.onRefreshSuccess(typePersonBean);
                     }
-                });
+                }));
     }
 }

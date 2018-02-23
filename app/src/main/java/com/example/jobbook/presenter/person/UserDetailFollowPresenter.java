@@ -21,8 +21,8 @@ public class UserDetailFollowPresenter extends RxPresenter<UserDetailFollowContr
 
     @Override
     public void loadFollow(String account) {
-        RetrofitService.loadFollowerList(account, "")
-                .subscribe(new BaseSubscriber<List<TypePersonBean>>() {
+        addSubscribe(RetrofitService.loadFollowerList(account, "")
+                .subscribeWith(new BaseSubscriber<List<TypePersonBean>>() {
                     @Override
                     public IBaseView getBaseView() {
                         return mView;
@@ -32,13 +32,13 @@ public class UserDetailFollowPresenter extends RxPresenter<UserDetailFollowContr
                     public void onNext(List<TypePersonBean> typePersonBeans) {
                         mView.loadFollow(typePersonBeans);
                     }
-                });
+                }));
     }
 
     @Override
     public void follow(String myAccount, String hisAccount) {
-        RetrofitService.follow(myAccount, hisAccount)
-                .subscribe(new BaseSubscriber<String>() {
+        addSubscribe(RetrofitService.follow(myAccount, hisAccount)
+                .subscribeWith(new BaseSubscriber<String>() {
                     @Override
                     public IBaseView getBaseView() {
                         return mView;
@@ -48,6 +48,6 @@ public class UserDetailFollowPresenter extends RxPresenter<UserDetailFollowContr
                     public void onNext(String s) {
                         mView.followSuccess();
                     }
-                });
+                }));
     }
 }

@@ -22,8 +22,8 @@ public class SquarePresenter extends RxPresenter<SquareContract.View> implements
 
     @Override
     public void loadSquare(int pageIndex, String account) {
-        RetrofitService.loadSquares(pageIndex)
-                .subscribe(new BaseSubscriber<List<MomentBean>>() {
+        addSubscribe(RetrofitService.loadSquares(pageIndex)
+                .subscribeWith(new BaseSubscriber<List<MomentBean>>() {
                     @Override
                     public IBaseView getBaseView() {
                         return mView;
@@ -33,7 +33,7 @@ public class SquarePresenter extends RxPresenter<SquareContract.View> implements
                     public void onNext(List<MomentBean> momentBeans) {
                         mView.addSquares(momentBeans);
                     }
-                });
+                }));
     }
 
     @Override
@@ -46,8 +46,8 @@ public class SquarePresenter extends RxPresenter<SquareContract.View> implements
         } else {
             account = MyApplication.getAccount();
         }
-        RetrofitService.likeSquare(squareId, account)
-                .subscribe(new BaseSubscriber<MomentBean>() {
+        addSubscribe(RetrofitService.likeSquare(squareId, account)
+                .subscribeWith(new BaseSubscriber<MomentBean>() {
                     @Override
                     public IBaseView getBaseView() {
                         return mView;
@@ -57,7 +57,7 @@ public class SquarePresenter extends RxPresenter<SquareContract.View> implements
                     public void onNext(MomentBean momentBean) {
                         mView.likeSuccess(momentBean, position);
                     }
-                });
+                }));
     }
 
     @Override
@@ -70,8 +70,8 @@ public class SquarePresenter extends RxPresenter<SquareContract.View> implements
         } else {
             account = MyApplication.getAccount();
         }
-        RetrofitService.unlikeSquare(squareId, account)
-                .subscribe(new BaseSubscriber<MomentBean>() {
+        addSubscribe(RetrofitService.unlikeSquare(squareId, account)
+                .subscribeWith(new BaseSubscriber<MomentBean>() {
                     @Override
                     public IBaseView getBaseView() {
                         return mView;
@@ -81,6 +81,6 @@ public class SquarePresenter extends RxPresenter<SquareContract.View> implements
                     public void onNext(MomentBean momentBean) {
                         mView.unlikeSuccess(momentBean, position);
                     }
-                });
+                }));
     }
 }

@@ -3,6 +3,7 @@ package com.example.jobbook.model.http;
 import android.support.annotation.NonNull;
 
 import com.example.jobbook.app.MyApplication;
+import com.example.jobbook.app.NetConstants;
 import com.example.jobbook.model.bean.ArticleBean;
 import com.example.jobbook.model.bean.FeedBackBean;
 import com.example.jobbook.model.bean.JobBean;
@@ -56,7 +57,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitService {
     // Urls.IP
-    public static String base_url = "http://192.168.199.195/jobBook/index.php/";
+    public static String base_url = NetConstants.IP;
 
     //设缓存有效期为1天
     static final long CACHE_STALE_SEC = 60 * 60 * 24 * 1;

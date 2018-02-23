@@ -26,8 +26,8 @@ public class SquareFollowPresenter extends RxPresenter<SquareFollowContract.View
         if (MyApplication.getmLoginStatus() == 1) {
             account = MyApplication.getAccount();
         }
-        RetrofitService.getFollowSquare(account, pageIndex)
-                .subscribe(new BaseSubscriber<List<MomentBean>>() {
+        addSubscribe(RetrofitService.getFollowSquare(account, pageIndex)
+                .subscribeWith(new BaseSubscriber<List<MomentBean>>() {
                     @Override
                     public IBaseView getBaseView() {
                         return mView;
@@ -37,7 +37,7 @@ public class SquareFollowPresenter extends RxPresenter<SquareFollowContract.View
                     public void onNext(List<MomentBean> momentBeans) {
                         mView.addSquareFollows(momentBeans);
                     }
-                });
+                }));
     }
 
     @Override
@@ -47,9 +47,10 @@ public class SquareFollowPresenter extends RxPresenter<SquareFollowContract.View
             account = MyApplication.getAccount();
         } else {
             mView.NoLoginError();
+            return;
         }
-        RetrofitService.likeSquare(squareId, account)
-                .subscribe(new BaseSubscriber<MomentBean>() {
+        addSubscribe(RetrofitService.likeSquare(squareId, account)
+                .subscribeWith(new BaseSubscriber<MomentBean>() {
                     @Override
                     public IBaseView getBaseView() {
                         return mView;
@@ -59,7 +60,7 @@ public class SquareFollowPresenter extends RxPresenter<SquareFollowContract.View
                     public void onNext(MomentBean momentBean) {
                         mView.likeSuccess(momentBean, position);
                     }
-                });
+                }));
     }
 
     @Override
@@ -69,9 +70,10 @@ public class SquareFollowPresenter extends RxPresenter<SquareFollowContract.View
             account = MyApplication.getAccount();
         } else {
             mView.NoLoginError();
+            return;
         }
-        RetrofitService.unlikeSquare(squareId, account)
-                .subscribe(new BaseSubscriber<MomentBean>() {
+        addSubscribe(RetrofitService.unlikeSquare(squareId, account)
+                .subscribeWith(new BaseSubscriber<MomentBean>() {
                     @Override
                     public IBaseView getBaseView() {
                         return mView;
@@ -81,6 +83,6 @@ public class SquareFollowPresenter extends RxPresenter<SquareFollowContract.View
                     public void onNext(MomentBean momentBean) {
                         mView.unlikeSuccess(momentBean, position);
                     }
-                });
+                }));
     }
 }

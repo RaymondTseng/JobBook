@@ -14,6 +14,9 @@ public class NetConstants {
      }
      */
 
+    public static final int PAZE_SIZE = 10;
+    public static final String IP = "http://192.168.199.195/jobBook/index.php";
+
     public static final int SUCCESS_CODE = 000;
     public static final String SUCCESS_WORD = "True";
     public static final int NETWORK_ERROR_CODE = 101;
