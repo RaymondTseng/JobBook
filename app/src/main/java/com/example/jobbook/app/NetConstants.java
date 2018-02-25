@@ -15,7 +15,7 @@ public class NetConstants {
      */
 
     public static final int PAZE_SIZE = 10;
-    public static final String IP = "http://192.168.199.195/jobBook/index.php";
+    public static final String IP = "http://192.168.0.105/jobBook/index.php";
 
     public static final int SUCCESS_CODE = 000;
     public static final String SUCCESS_WORD = "True";
@@ -24,7 +24,7 @@ public class NetConstants {
     public static final int PERSON_LOGIN_ERROR_CODE = 102;
     public static final String PERSON_LOGIN_ERROR_WORD = "账号或密码错误，请重试!";
     public static final int PERSON_AUTO_LOGIN_ERROR_CODE = 103;
-    public static final String PERSON_AUTO_LOGIN_ERROR_WORD = "自动登录失败";
+    public static final String PERSON_AUTO_LOGIN_ERROR_WORD = "登录信息过期，请重新登录!";
     public static final int PERSON_LOGIN_FIRST_ERROR_CODE = 104;
     public static final String PERSON_LOGIN_FIRST_ERROR_WORD = "请先登录!";
     public static final int ARTICLE_LIKE_ERROR_CODE = 105;
@@ -43,6 +43,18 @@ public class NetConstants {
     public static final String JOB_LIKE_ERROR_WORD = "岗位收藏失败，请重试!";
     public static final int JOB_UNLIKE_ERROR_CODE = 112;
     public static final String JOB_UNLIKE_ERROR_WORD = "岗位取消收藏失败，请重试!";
-
-
+    public static final int PERSON_SEND_MAIL_NO_DESTINATION_ERROR_CODE = 113;
+    public static final String PERSON_SEND_MAIL_NO_DESTINATION_ERROR_WORD = "该公司没有官方邮箱，请到官网联系!";
+    public static final int PERSON_SEND_MAIL_ERROR_CODE = 114;
+    public static final String PERSON_SEND_MAIL_ERROR_WORD = "该公司官方邮箱错误，请重试!";
+    public static final int PERSON_SEND_MAIL_NO_DATA_CODE = 115;
+    public static final String PERSON_SEND_MAIL_NO_DATA_WORD= "发送失败，请先完善简历!";
+    public static final int PERSON_SEND_MAIL_HAVE_SENT_CODE = 116;
+    public static final String PERSON_SEND_MAIL_HAVE_SENT_WORD = "您之前已经投递过该公司，请勿重复投递!";
+    public static final int SQUARE_LIKE_ERROR_CODE = 128;
+    public static final String SQUARE_LIKE_ERROR_WORD = "工作圈点赞错误，请重试!";
+    public static final int SQUARE_HAS_LIKED_ERROR_CODE = 129;
+    public static final String SQUARE_HAS_LIKED_ERROR_WORD = "你已经点赞过该工作圈了~";
+    public static final int SQUARE_UNLIKE_ERROR_CODE = 130;
+    public static final String SQUARE_UNLIKE_ERROR_WORD = "工作圈取消点赞错误，请重试!";
 }

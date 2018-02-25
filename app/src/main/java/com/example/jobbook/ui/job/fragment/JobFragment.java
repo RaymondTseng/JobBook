@@ -14,8 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.jobbook.R;
-import com.example.jobbook.app.MyApplication;
-import com.example.jobbook.app.Urls;
+import com.example.jobbook.app.NetConstants;
 import com.example.jobbook.base.LazyLoadFragment;
 import com.example.jobbook.base.contract.job.JobContract;
 import com.example.jobbook.model.bean.JobBean;
@@ -24,6 +23,7 @@ import com.example.jobbook.ui.job.activity.JobDetailActivity;
 import com.example.jobbook.ui.job.adapter.JobsAdapter;
 import com.example.jobbook.ui.job.adapter.SpinnerTitleAdapter;
 import com.example.jobbook.util.L;
+import com.example.jobbook.util.SnackBarUtil;
 import com.example.jobbook.util.Util;
 import com.example.jobbook.widget.DividerItemDecoration;
 
@@ -87,7 +87,6 @@ public class JobFragment extends LazyLoadFragment implements JobContract.View,
 
     @Override
     protected void lazyLoad() {
-        initViews();
         initEvents();
     }
 
@@ -248,7 +247,7 @@ public class JobFragment extends LazyLoadFragment implements JobContract.View,
             list = new ArrayList<>();
         }
         list.addAll(jobList);
-        if(jobList == null || jobList.size() < Urls.PAZE_SIZE){
+        if(jobList == null || jobList.size() < NetConstants.PAZE_SIZE){
             mAdapter.setmShowFooter(false);
         }
         if (pageIndex == 0) {
@@ -260,7 +259,7 @@ public class JobFragment extends LazyLoadFragment implements JobContract.View,
 //            }
             mAdapter.notifyDataSetChanged();
         }
-        pageIndex += Urls.PAZE_SIZE;
+        pageIndex += NetConstants.PAZE_SIZE;
     }
 
     @Override
@@ -270,7 +269,7 @@ public class JobFragment extends LazyLoadFragment implements JobContract.View,
 
     @Override
     public void showLoadFailMsg(String msg) {
-        Util.showSnackBar(MyApplication.mSnackBarView, msg, "重试", new View.OnClickListener() {
+        SnackBarUtil.showSnackBar(getActivity(), msg, "重试", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mJobPresenter.loadJobs(pageIndex, isRecommend, mCurrentCategory, mCurrentLocation);
@@ -278,41 +277,13 @@ public class JobFragment extends LazyLoadFragment implements JobContract.View,
         });
     }
 
-//    @Override
-//    public void showLoadFailMsg(String msg) {
-//        if (pageIndex == 0) {
-//            mAdapter.setmShowFooter(false);
-//            mAdapter.notifyDataSetChanged();
-//        }
-//        Util.showSnackBar(MyApplication.mSnackBarView, "网络无法连接！", "重试", new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                mJobPresenter.loadJobs(pageIndex, isRecommend, mCurrentCategory, mCurrentLocation);
-//            }
-//        });
-//    }
-
-    @Override
-    public void search() {
-//        SearchDialogFragment fragment = new SearchDialogFragment();
-//        fragment.show(getActivity().getFragmentManager(), "search_dialog");
-//        L.i("createSearchDialog");
-    }
-
-//    @Override
-//    public void onFocusChange(View v, boolean hasFocus) {
-//        switch (v.getId()) {
-//            case R.id.job_et:
-//                L.i("jobfragment", "123");
-//                break;
-//        }
-//    }
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
 //            case R.id.job_fragment_search_ib:
-//                search();
+//                SearchDialogFragment fragment = new SearchDialogFragment();
+//                fragment.show(getActivity().getFragmentManager(), "search_dialog");
+//                L.i("createSearchDialog");
 //                break;
 
             case R.id.job_fragment_recommend_tv:
@@ -324,7 +295,6 @@ public class JobFragment extends LazyLoadFragment implements JobContract.View,
                 mJobPresenter.loadJobs(pageIndex, isRecommend, mCurrentCategory, mCurrentLocation);
                 isRecommend = false;
                 break;
-
         }
 
     }
@@ -365,55 +335,17 @@ public class JobFragment extends LazyLoadFragment implements JobContract.View,
                 cursorOne.setVisibility(View.VISIBLE);
                 cursorTwo.setVisibility(View.GONE);
                 cursorThree.setVisibility(View.GONE);
-//                if (currentSelection == 2) {
-////                    matrix.postTranslate(-two, 0);
-////                    cursorOne.scrollBy(two, 0);
-////                    cursorOne.setImageMatrix(matrix);
-//                    animation = new TranslateAnimation(two + offset, offset, 0, 0);  // 设置动画位置
-//                } else if (currentSelection == 1) {
-////                    matrix.postTranslate(-one, 0);
-////                    cursorOne.scrollBy(one, 0);
-////                    cursorOne.setImageMatrix(matrix);
-//                    animation = new TranslateAnimation(one + offset, offset, 0, 0);  // 设置动画位置
-//                }
-                L.i("click 0");
-//                currentSelection = 0;
                 break;
 
             case 1:
                 cursorOne.setVisibility(View.GONE);
                 cursorTwo.setVisibility(View.VISIBLE);
                 cursorThree.setVisibility(View.GONE);
-//                if (currentSelection == 0) {
-////                    matrix.postTranslate(-one, 0);
-////                    cursorOne.setImageMatrix(matrix);// 设置动画位置
-////                    cursorOne.scrollBy(one, cursorHeight);
-//                    animation = new TranslateAnimation(one + offset, offset, 0, 0);  // 设置动画位置
-//                } else if (currentSelection == 2) {
-////                    matrix.postTranslate(one, 0);
-////                    cursorOne.setImageMatrix(matrix);// 设置动画位置
-////                    cursorOne.scrollBy(-one, cursorHeight);
-//                    animation = new TranslateAnimation(two + offset, one + offset, 0, 0);  // 设置动画位置
-//                }
-//                currentSelection = 1;
                 break;
             case 2:
                 cursorOne.setVisibility(View.GONE);
                 cursorTwo.setVisibility(View.GONE);
                 cursorThree.setVisibility(View.VISIBLE);
-//                if (currentSelection == 0) {
-////                    matrix.postTranslate(two, 0);
-////                    cursorOne.setImageMatrix(matrix);// 设置动画位置
-////                    cursorOne.scrollBy(-two, cursorHeight);
-//                    animation = new TranslateAnimation(offset, two + offset, 0, 0);  // 设置动画位置
-//                } else if (currentSelection == 1) {
-////                    matrix.postTranslate(one, 0);
-////                    cursorOne.setImageMatrix(matrix);// 设置动画位置
-////                    cursorOne.scrollBy(-one, cursorHeight);
-//                    animation = new TranslateAnimation(one + offset, two + offset, 0, 0);  // 设置动画位置
-//                }
-                L.i("click 2");
-//                currentSelection = 2;
                 if (isInitCursorFirst) {
                     cursorOne.setVisibility(View.VISIBLE);
                     cursorTwo.setVisibility(View.GONE);

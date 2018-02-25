@@ -24,10 +24,10 @@ public class MomentDetailPresenter extends RxPresenter<MomentDetailContract.View
     public void loadMoment(MomentBean momentBean) {
         mView.showProgress();
         if (momentBean != null) {
-            mView.addMoment(momentBean);
+            mView.loadMoment(momentBean);
             mView.hideProgress();
         } else {
-            mView.showLoadFailMsg("123");
+            mView.showLoadFailMsg("读取工作圈错误!");
             mView.hideProgress();
         }
     }
@@ -43,7 +43,7 @@ public class MomentDetailPresenter extends RxPresenter<MomentDetailContract.View
 
                     @Override
                     public void onNext(MomentBean momentBean) {
-                        mView.addMoment(momentBean);
+                        mView.loadMoment(momentBean);
                     }
                 }));
     }
@@ -59,7 +59,7 @@ public class MomentDetailPresenter extends RxPresenter<MomentDetailContract.View
 
                     @Override
                     public void onNext(List<MomentCommentBean> momentCommentBeans) {
-                        mView.addComments(momentCommentBeans);
+                        mView.loadComments(momentCommentBeans);
                     }
                 }));
     }

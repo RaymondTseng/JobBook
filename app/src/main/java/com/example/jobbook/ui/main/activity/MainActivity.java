@@ -1,6 +1,5 @@
 package com.example.jobbook.ui.main.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -19,15 +18,16 @@ import com.example.jobbook.R;
 import com.example.jobbook.app.MyApplication;
 import com.example.jobbook.base.contract.main.MainContract;
 import com.example.jobbook.model.bean.PersonBean;
-import com.example.jobbook.ui.moment.fragment.MomentFragment;
 import com.example.jobbook.presenter.main.MainPresenter;
 import com.example.jobbook.service.MyPushIntentService;
+import com.example.jobbook.ui.account.activity.LoginActivity;
 import com.example.jobbook.ui.article.fragment.ArticleFragment;
 import com.example.jobbook.ui.job.fragment.JobFragment;
 import com.example.jobbook.ui.main.adapter.MainFragmentPagerAdapter;
-import com.example.jobbook.ui.account.activity.LoginActivity;
+import com.example.jobbook.ui.moment.fragment.MomentFragment;
 import com.example.jobbook.ui.person.fragment.PersonFragment;
 import com.example.jobbook.util.L;
+import com.example.jobbook.util.SnackBarUtil;
 import com.example.jobbook.util.Util;
 import com.example.jobbook.widget.BadgeView;
 
@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     Button mButton;
 
     private MainFragmentPagerAdapter mFragmentPagerAdapter;
-    private List<Fragment> mFragments = new ArrayList<>();
+    private List<Fragment> mFragments;
     private MainPresenter mMainPresenter;
     public static BadgeView mBadgeView;
 
@@ -107,7 +107,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     }
 
     private void initList() {
-//        mFragments = new ArrayList<>();
+        mFragments = new ArrayList<>();
         mFragments.add(new JobFragment());
         mFragments.add(new ArticleFragment());
         mFragments.add(new MomentFragment());
@@ -136,9 +136,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                 }
             }
         }
-
         mBadgeView.setTargetView(mButton);
-
     }
 
     /**
@@ -147,7 +145,22 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
         // TODO Auto-generated method stub
-        mMainPresenter.switchNavigation(checkedId);
+        switch (checkedId) {
+            case R.id.job_rb:
+                switch2Job();
+                break;
+            case R.id.article_rb:
+                switch2Article();
+                break;
+            case R.id.question_rb:
+                switch2Question();
+                break;
+            case R.id.person_rb:
+                switch2Container();
+                break;
+            default:
+                break;
+        }
     }
 
     @Override
@@ -178,27 +191,21 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
 
     }
 
-    @Override
     public void switch2Job() {
         mFragmentContainer.setCurrentItem(0);
     }
 
-    @Override
     public void switch2Article() {
         mFragmentContainer.setCurrentItem(1);
     }
 
-    @Override
     public void switch2Question() {
         mFragmentContainer.setCurrentItem(2);
     }
 
-    @Override
     public void switch2Container() {
-//        mFragmentContainer.setCurrentItem(3);
         if (MyApplication.getmLoginStatus() == 0) {
             Util.toAnotherActivity(MainActivity.this, LoginActivity.class);
-//            mFragmentContainer.setCurrentItem(0);
             finish();
         } else {
             mFragmentContainer.setCurrentItem(3);
@@ -213,12 +220,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     @Override
     public void loginCheckTimeOut() {
         L.i("timeout");
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
+        MyApplication.setmPersonBean(this, null);
     }
 
     @Override
@@ -252,12 +254,6 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        L.i("onActivityResult");
-        super.onActivityResult(requestCode, resultCode, data);
-    }
-
-    @Override
     public void onRefresh(final int num) {
         if (num != 0) {
             runOnUiThread(new Runnable() {
@@ -286,6 +282,6 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
 
     @Override
     public void showLoadFailMsg(String msg) {
-
+        SnackBarUtil.showSnackBar(this, msg);
     }
 }

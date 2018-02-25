@@ -12,11 +12,11 @@ import com.example.jobbook.R;
 import com.example.jobbook.app.MyApplication;
 import com.example.jobbook.base.contract.message.GetMessageContract;
 import com.example.jobbook.model.bean.MessageBean;
-import com.example.jobbook.ui.moment.activity.MomentDetailActivity;
 import com.example.jobbook.presenter.message.GetMessagePresenter;
 import com.example.jobbook.ui.message.adapter.GetMessageListViewAdapter;
+import com.example.jobbook.ui.moment.activity.MomentDetailActivity;
 import com.example.jobbook.ui.person.activity.UserDetailActivity;
-import com.example.jobbook.util.Util;
+import com.example.jobbook.util.SnackBarUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,21 +43,13 @@ public class GetMessageActivity extends Activity implements GetMessageContract.V
 //    private GetMessageRecyclerViewAdapter mAdapter;
     private GetMessageListViewAdapter mAdapter;
     private GetMessagePresenter presenter;
-    private View view;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_getmessage);
         ButterKnife.bind(this);
-        initViews();
         initEvents();
-    }
-
-    private void initViews() {
-        view = findViewById(android.R.id.content);
-//        refreshLayout = (SwipeRefreshLayout) findViewById(R.id.getmessage_refresh_layout);
-        mLoadingLinearLayout.inflate();
     }
 
     private void initEvents() {
@@ -106,7 +98,7 @@ public class GetMessageActivity extends Activity implements GetMessageContract.V
 
     @Override
     public void showLoadFailMsg(String msg) {
-        Util.showSnackBar(view, "获取消息错误，请重试！");
+        SnackBarUtil.showSnackBar(this, "获取消息错误，请重试！");
     }
 
     @OnClick(R.id.getmessage_back_ib)

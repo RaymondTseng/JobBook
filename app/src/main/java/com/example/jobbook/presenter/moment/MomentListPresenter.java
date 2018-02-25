@@ -30,7 +30,7 @@ public class MomentListPresenter extends RxPresenter<MomentListContract.View> im
 
                     @Override
                     public void onNext(List<MomentBean> momentBeans) {
-                        mView.loadFanList(momentBeans);
+                        mView.loadMomentList(momentBeans);
                     }
                 }));
     }

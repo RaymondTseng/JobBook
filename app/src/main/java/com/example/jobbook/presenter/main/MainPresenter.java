@@ -3,7 +3,6 @@ package com.example.jobbook.presenter.main;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.example.jobbook.R;
 import com.example.jobbook.base.BaseSubscriber;
 import com.example.jobbook.base.IBaseView;
 import com.example.jobbook.base.RxPresenter;
@@ -20,24 +19,6 @@ public class MainPresenter extends RxPresenter<MainContract.View> implements Mai
 
     public MainPresenter(MainContract.View view) {
         attach(view);
-    }
-    
-    @Override
-    public void switchNavigation(int id) {
-        switch (id) {
-            case R.id.job_rb:
-                mView.switch2Job();
-                break;
-            case R.id.article_rb:
-                mView.switch2Article();
-                break;
-            case R.id.question_rb:
-                mView.switch2Question();
-                break;
-            case R.id.person_rb:
-                mView.switch2Container();
-                break;
-        }
     }
 
     @Override
@@ -60,6 +41,7 @@ public class MainPresenter extends RxPresenter<MainContract.View> implements Mai
                             }
                         }));
             } else {
+                mView.loginCheckTimeOut();
                 return;
             }
         }

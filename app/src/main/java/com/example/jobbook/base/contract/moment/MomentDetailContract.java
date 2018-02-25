@@ -14,27 +14,15 @@ import java.util.List;
 public interface MomentDetailContract {
 
     interface View extends IBaseView {
-        void addMoment(MomentBean mMoment);
+        void loadMoment(MomentBean momentBean);
 
-        void addComments(List<MomentCommentBean> mComments);
+        void loadComments(List<MomentCommentBean> mComments);
 
         void sendSuccess(MomentBean momentBean);
 
-        String getComment();
-
-        void editTextBlankError();
-
-        void noLoginError();
-
-        void sendComment(String comment);
-
         void likeSuccess(MomentBean momentBean);
 
-        void likeFailure(String msg);
-
         void unlikeSuccess(MomentBean momentBean);
-
-        void unlikeFailure(String msg);
     }
 
     interface Presenter extends IBasePresenter<View> {

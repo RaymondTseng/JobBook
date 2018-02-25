@@ -14,8 +14,6 @@ public interface JobContract {
 
     interface View extends IBaseView {
         void addJobs(List<JobBean> jobList);
-
-        void search();
     }
 
     interface Presenter extends IBasePresenter<View> {

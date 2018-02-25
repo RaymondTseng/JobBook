@@ -11,11 +11,7 @@ import com.example.jobbook.model.bean.JobDetailBean;
 public interface JobDetailContract {
 
     interface View extends IBaseView {
-        void like(String jobId);
-
-        void unlike(String jobId);
-
-        void switch2Chat();
+//        void switch2Chat();
 
         void addJob(JobDetailBean jobDetailBean);
 
@@ -25,23 +21,8 @@ public interface JobDetailContract {
 
         void unlikeSuccess();
 
-        void likeError();
-
-        void unlikeError();
-
-        void sendCV(String companyId);
-
         void sendCVSuccess();
 
-        void sendCVFailure();
-
-        void sendCVEmailFailed();
-
-        void sendCVNoDestination();
-
-        void sendCVRepeated();
-
-        void sendCVNoWrite();
     }
 
     interface Presenter extends IBasePresenter<View> {

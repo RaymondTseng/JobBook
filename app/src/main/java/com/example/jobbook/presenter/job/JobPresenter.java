@@ -52,6 +52,6 @@ public class JobPresenter extends RxPresenter<JobContract.View> implements JobCo
 
     @Override
     public void search() {
-        mView.search();
+//        mView.search();
     }
 }

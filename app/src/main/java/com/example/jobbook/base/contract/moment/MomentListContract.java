@@ -13,7 +13,7 @@ import java.util.List;
 public interface MomentListContract {
 
     interface View extends IBaseView {
-        void loadFanList(List<MomentBean> list);
+        void loadMomentList(List<MomentBean> list);
     }
 
     interface Presenter extends IBasePresenter<View> {

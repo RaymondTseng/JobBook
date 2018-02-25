@@ -25,6 +25,7 @@ import com.example.jobbook.ui.moment.adapter.MomentPagerAdapter;
 import com.example.jobbook.ui.square.fragment.SquareFragment;
 import com.example.jobbook.ui.account.activity.LoginActivity;
 import com.example.jobbook.util.L;
+import com.example.jobbook.util.SnackBarUtil;
 import com.example.jobbook.util.Util;
 
 import java.util.ArrayList;
@@ -123,7 +124,7 @@ public class MomentFragment extends Fragment implements View.OnClickListener, Vi
                 if (MyApplication.getmLoginStatus() == 1) {
                     mViewPager.setCurrentItem(1);
                 } else {
-                    Util.showSnackBar(view, "请先登录", "现在登录", new View.OnClickListener() {
+                    SnackBarUtil.showSnackBar(getActivity(), "请先登录", "现在登录", new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             Util.toAnotherActivity(getActivity(), LoginActivity.class);
@@ -137,7 +138,7 @@ public class MomentFragment extends Fragment implements View.OnClickListener, Vi
                     myApplication.setHandler(((SquareFragment) mFragemnts.get(0)).handler);
                     Util.toAnotherActivity(getActivity(), NewMomentActivity.class);
                 } else {
-                    Util.showSnackBar(view, "请先登录", "现在登录", new View.OnClickListener() {
+                    SnackBarUtil.showSnackBar(getActivity(), "请先登录", "现在登录", new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             Util.toAnotherActivity(getActivity(), LoginActivity.class);

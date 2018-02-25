@@ -22,7 +22,7 @@ import android.widget.Toast;
 
 import com.example.jobbook.R;
 import com.example.jobbook.app.MyApplication;
-import com.example.jobbook.app.Urls;
+import com.example.jobbook.app.NetConstants;
 import com.example.jobbook.base.contract.moment.MomentDetailContract;
 import com.example.jobbook.model.bean.MomentBean;
 import com.example.jobbook.model.bean.MomentCommentBean;
@@ -31,6 +31,7 @@ import com.example.jobbook.ui.account.activity.LoginActivity;
 import com.example.jobbook.ui.moment.adapter.MomentDetailCommentListViewAdapter;
 import com.example.jobbook.util.ImageLoadUtils;
 import com.example.jobbook.util.L;
+import com.example.jobbook.util.SnackBarUtil;
 import com.example.jobbook.util.Util;
 import com.example.jobbook.widget.DividerItemDecoration;
 
@@ -93,7 +94,6 @@ public class MomentDetailActivity extends Activity implements MomentDetailContra
     private float mTitleBarHeight;
     private float mInputLayoutHeight;
     private int id;
-    private View view;
     private int pageIndex = 0;
 
     @Override
@@ -101,7 +101,6 @@ public class MomentDetailActivity extends Activity implements MomentDetailContra
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_moment_detail);
         ButterKnife.bind(this);
-        view = getWindow().getDecorView();
         initViews();
         initEvents();
     }
@@ -114,7 +113,6 @@ public class MomentDetailActivity extends Activity implements MomentDetailContra
         mMomentUserLogoImageView = (ImageView) mHeadView.findViewById(R.id.moment_detail_head_iv);
         mMomentFavouriteTextView = (TextView) mHeadView.findViewById(R.id.moment_detail_favourite_tv);
         mMomentCommentTextView = (TextView) mHeadView.findViewById(R.id.moment_detail_comment_tv);
-        mLoadingLinearLayout.inflate();
     }
 
     private void initEvents() {
@@ -179,7 +177,7 @@ public class MomentDetailActivity extends Activity implements MomentDetailContra
     }
 
     @Override
-    public void addMoment(MomentBean mMoment) {
+    public void loadMoment(MomentBean mMoment) {
         mMomentContentTextView.setText(mMoment.getContent());
         mMomentUserNameTextView.setText(mMoment.getAuthor().getUsername());
         mMomentTimeTextView.setText(mMoment.getDate());
@@ -194,7 +192,7 @@ public class MomentDetailActivity extends Activity implements MomentDetailContra
     }
 
     @Override
-    public void addComments(List<MomentCommentBean> mComments) {
+    public void loadComments(List<MomentCommentBean> mComments) {
 //        mListView.removeHeaderView(mHeadView);
 //        list = mComments;
 //        mListView.addHeaderView(mHeadView);
@@ -206,7 +204,7 @@ public class MomentDetailActivity extends Activity implements MomentDetailContra
             list = new ArrayList<>();
         }
         list.addAll(mComments);
-        if (mComments == null || mComments.size() < Urls.PAZE_SIZE) {
+        if (mComments == null || mComments.size() < NetConstants.PAZE_SIZE) {
             mAdapter.setmShowFooter(false);
         }
         if (pageIndex == 0) {
@@ -218,7 +216,7 @@ public class MomentDetailActivity extends Activity implements MomentDetailContra
 //            }
             mAdapter.notifyDataSetChanged();
         }
-        pageIndex += Urls.PAZE_SIZE;
+        pageIndex += NetConstants.PAZE_SIZE;
     }
 
 
@@ -229,7 +227,7 @@ public class MomentDetailActivity extends Activity implements MomentDetailContra
         mEditText.setText("");
         mMomentCommentTextView.setText(mMomentBean.getCommentNum() + "");
         mMomentFavouriteTextView.setText(mMomentBean.getLikesNum() + "");
-        Util.showSnackBar(view, "评论成功!");
+        SnackBarUtil.showSnackBar(this, "评论成功!");
     }
 
     @Override
@@ -239,37 +237,11 @@ public class MomentDetailActivity extends Activity implements MomentDetailContra
 
     @Override
     public void showLoadFailMsg(String msg) {
-
+        SnackBarUtil.showSnackBar(this, msg);
     }
 
-//    @Override
-//    public void showLoadFailMsg(int error) {
-//        switch (error) {
-//            case 0:
-//                Util.showSnackBar(view, "工作圈加载错误,请重试!");
-//                break;
-//            case 1:
-//                Util.showSnackBar(view, "评论加载错误,请重试！");
-//                break;
-//            case 2:
-//                Util.showSnackBar(view, "发表评论失败！");
-//                break;
-//        }
-//    }
-
-    @Override
-    public String getComment() {
-        return mEditText.getText().toString();
-    }
-
-    @Override
-    public void editTextBlankError() {
-        Util.showSnackBar(view, "评论不能为空！");
-    }
-
-    @Override
     public void noLoginError() {
-        Util.showSnackBar(view, "请先登录", "现在登录", new View.OnClickListener() {
+        SnackBarUtil.showSnackBar(this, "请先登录", "现在登录", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Util.toAnotherActivity(MomentDetailActivity.this, LoginActivity.class);
@@ -278,7 +250,6 @@ public class MomentDetailActivity extends Activity implements MomentDetailContra
         });
     }
 
-    @Override
     public void sendComment(String comment) {
         if (MyApplication.getmLoginStatus() == 0) {
             noLoginError();
@@ -303,22 +274,12 @@ public class MomentDetailActivity extends Activity implements MomentDetailContra
     }
 
     @Override
-    public void likeFailure(String msg) {
-        Toast.makeText(MomentDetailActivity.this, msg, Toast.LENGTH_LONG).show();
-    }
-
-    @Override
     public void unlikeSuccess(MomentBean momentBean) {
         mFavouriteImageButton.setImageResource(R.mipmap.favourite);
         mMomentFavouriteTextView.setText(momentBean.getLikesNum() + "");
         mMomentCommentTextView.setText(momentBean.getCommentNum() + "");
         Toast.makeText(MomentDetailActivity.this, "取消点赞成功！", Toast.LENGTH_LONG).show();
 //        mPresenter.loadMomentComments(momentBean.getId());
-    }
-
-    @Override
-    public void unlikeFailure(String msg) {
-        Toast.makeText(MomentDetailActivity.this, msg, Toast.LENGTH_LONG).show();
     }
 
     @OnClick(R.id.question_detail_root_ll)
@@ -339,10 +300,10 @@ public class MomentDetailActivity extends Activity implements MomentDetailContra
 
     @OnClick(R.id.moment_detail_send_ib)
     public void send() {
-        if (TextUtils.isEmpty(getComment())) {
-            editTextBlankError();
+        if (TextUtils.isEmpty(mEditText.getText().toString())) {
+            SnackBarUtil.showSnackBar(this, "评论不能为空！");
         } else {
-            sendComment(getComment());
+            sendComment(mEditText.getText().toString());
         }
     }
 

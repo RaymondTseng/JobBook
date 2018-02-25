@@ -22,6 +22,8 @@ import com.example.jobbook.model.bean.JobDetailBean;
 import com.example.jobbook.presenter.job.JobDetailPresenter;
 import com.example.jobbook.ui.account.activity.LoginActivity;
 import com.example.jobbook.util.L;
+import com.example.jobbook.util.ScreenUtil;
+import com.example.jobbook.util.SnackBarUtil;
 import com.example.jobbook.util.Util;
 
 import butterknife.BindView;
@@ -79,7 +81,6 @@ public class JobDetailActivity extends Activity implements JobDetailContract.Vie
     LinearLayout mSendCVLayout;
 
     private JobDetailPresenter mPresenter;
-    private View view;
     private JobBean jobBean;
     private JobDetailBean jobDetailBean;
 
@@ -88,14 +89,8 @@ public class JobDetailActivity extends Activity implements JobDetailContract.Vie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_job_detail);
         ButterKnife.bind(this);
-        view = getWindow().getDecorView();
         jobDetailBean = new JobDetailBean();
-        initViews();
         initEvents();
-    }
-
-    private void initViews() {
-        mLoadingLinearLayout.inflate();
     }
 
     private void initEvents() {
@@ -116,7 +111,7 @@ public class JobDetailActivity extends Activity implements JobDetailContract.Vie
             intent.setData(Uri.parse(jobDetailBean.getCompany().getWebsite()));
             startActivity(intent);
         } catch (Exception e) {
-            Util.showSnackBar(view, "打开公司网址失败！");
+            SnackBarUtil.showSnackBar(this, "打开公司网址失败！");
         }
     }
 
@@ -124,10 +119,10 @@ public class JobDetailActivity extends Activity implements JobDetailContract.Vie
     public void click_job_detail_like_ib() {
         if (jobDetailBean.isIfLike() == 0) {
             L.i("click like");
-            like(jobBean.getId());
+            mPresenter.like(jobBean.getId());
         } else {
             L.i("click unlike");
-            unlike(jobBean.getId());
+            mPresenter.unlike(jobBean.getId());
         }
         refresh();
     }
@@ -135,7 +130,7 @@ public class JobDetailActivity extends Activity implements JobDetailContract.Vie
     @OnClick(R.id.job_detail_send_cv_ll)
     public void send_cv() {
         if (MyApplication.getmLoginStatus() == 0) {
-            Util.showSnackBar(view, "请先登录", "现在登录", new View.OnClickListener() {
+            SnackBarUtil.showSnackBar(this, "请先登录", "现在登录", new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Util.toAnotherActivity(JobDetailActivity.this, LoginActivity.class);
@@ -145,21 +140,6 @@ public class JobDetailActivity extends Activity implements JobDetailContract.Vie
         } else {
             sendCVCheckDialog();
         }
-    }
-
-    @Override
-    public void like(String jobId) {
-        mPresenter.like(jobId);
-    }
-
-    @Override
-    public void unlike(String jobId) {
-        mPresenter.unlike(jobId);
-    }
-
-    @Override
-    public void switch2Chat() {
-
     }
 
     @Override
@@ -195,7 +175,7 @@ public class JobDetailActivity extends Activity implements JobDetailContract.Vie
 
     @Override
     public void showLoadFailMsg(String msg) {
-        Util.showSnackBar(view, "岗位详情读取错误，请重试！");
+        SnackBarUtil.showSnackBar(this, msg);
     }
 
     @Override
@@ -205,7 +185,7 @@ public class JobDetailActivity extends Activity implements JobDetailContract.Vie
 
     @Override
     public void NoLoginError() {
-        Util.showSnackBar(view, "请先登录", "现在登录", new View.OnClickListener() {
+        SnackBarUtil.showSnackBar(this, "请先登录", "现在登录", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Util.toAnotherActivity(JobDetailActivity.this, LoginActivity.class);
@@ -217,58 +197,28 @@ public class JobDetailActivity extends Activity implements JobDetailContract.Vie
     @Override
     public void likeSuccess() {
         mLikeImageButton.setImageResource(R.mipmap.favourite);
-        Util.showSnackBar(view, "收藏成功！");
+        SnackBarUtil.showSnackBar(this, "收藏成功！");
     }
 
     @Override
     public void unlikeSuccess() {
         mLikeImageButton.setImageResource(R.mipmap.favourite_white);
-        Util.showSnackBar(view, "取消收藏成功！");
+        SnackBarUtil.showSnackBar(this, "取消收藏成功！");
     }
 
-    @Override
-    public void likeError() {
-        Util.showSnackBar(view, "收藏失败，请重试！");
-    }
-
-    @Override
-    public void unlikeError() {
-        Util.showSnackBar(view, "取消收藏失败，请重试！");
-    }
-
-    @Override
-    public void sendCV(String companyId) {
-        mPresenter.sendCV(companyId);
-    }
+//    @Override
+//    public void likeError() {
+//        SnackBarUtil.showSnackBar(this, "收藏失败，请重试！");
+//    }
+//
+//    @Override
+//    public void unlikeError() {
+//        SnackBarUtil.showSnackBar(this, "取消收藏失败，请重试！");
+//    }
 
     @Override
     public void sendCVSuccess() {
-        Util.showSnackBar(view, "您的简历发送成功！");
-    }
-
-    @Override
-    public void sendCVFailure() {
-        Util.showSnackBar(view, "网络错误，请重试！");
-    }
-
-    @Override
-    public void sendCVEmailFailed() {
-        Util.showSnackBar(view, "公司邮箱错误，请重试！");
-    }
-
-    @Override
-    public void sendCVNoDestination() {
-        Util.showSnackBar(view, "该公司没有官方邮箱，请重试！");
-    }
-
-    @Override
-    public void sendCVRepeated() {
-        Util.showSnackBar(view, "您之前已经投递过该公司！");
-    }
-
-    @Override
-    public void sendCVNoWrite() {
-        Util.showSnackBar(view, "发送失败，请先完善简历");
+        SnackBarUtil.showSnackBar(this, "您的简历发送成功！");
     }
 
     private void refresh() {
@@ -289,8 +239,8 @@ public class JobDetailActivity extends Activity implements JobDetailContract.Vie
         WindowManager.LayoutParams p = window.getAttributes(); // 获取对话框当前的参数值
 //        p.width = Util.dip2px(this, 280);
 //        p.height = Util.dip2px(this, 109);
-        p.width = Util.dip2px(this, 300);
-        p.height = Util.dip2px(this, 140);
+        p.width = ScreenUtil.dip2px(this, 300);
+        p.height = ScreenUtil.dip2px(this, 140);
         window.setAttributes(p);
         window.setContentView(R.layout.send_cv_check_layout);
         TextView mSureTextView = (TextView) window.findViewById(R.id.send_cv_sure_tv);
@@ -298,7 +248,7 @@ public class JobDetailActivity extends Activity implements JobDetailContract.Vie
         mSureTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendCV(jobDetailBean.getCompany().getId());
+                mPresenter.sendCV(jobDetailBean.getCompany().getId());
                 alertDialog.dismiss();
             }
         });
