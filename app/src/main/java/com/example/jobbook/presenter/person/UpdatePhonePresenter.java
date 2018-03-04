@@ -56,7 +56,6 @@ public class UpdatePhonePresenter extends RxPresenter<UpdateContract.UpdatePhone
                         @Override
                         public void onNext(String s) {
                             mView.success();
-                            mView.close();
                         }
                     }));
         }

@@ -31,6 +31,7 @@ public class ApiException extends RuntimeException {
         errors.append(NetConstants.PERSON_SEND_MAIL_ERROR_CODE, NetConstants.PERSON_SEND_MAIL_ERROR_WORD);
         errors.append(NetConstants.PERSON_SEND_MAIL_NO_DATA_CODE, NetConstants.PERSON_SEND_MAIL_NO_DATA_WORD);
         errors.append(NetConstants.PERSON_SEND_MAIL_HAVE_SENT_CODE, NetConstants.PERSON_SEND_MAIL_HAVE_SENT_WORD);
+        errors.append(NetConstants.SQUARE_RELEASE_ERROR_CODE, NetConstants.SQUARE_RELEASE_ERROR_WORD);
         errors.append(NetConstants.SQUARE_LIKE_ERROR_CODE, NetConstants.SQUARE_LIKE_ERROR_WORD);
         errors.append(NetConstants.SQUARE_HAS_LIKED_ERROR_CODE, NetConstants.SQUARE_HAS_LIKED_ERROR_WORD);
         errors.append(NetConstants.SQUARE_UNLIKE_ERROR_CODE, NetConstants.SQUARE_UNLIKE_ERROR_WORD);

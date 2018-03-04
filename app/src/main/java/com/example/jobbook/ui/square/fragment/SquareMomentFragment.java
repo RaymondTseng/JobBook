@@ -38,7 +38,7 @@ import butterknife.BindView;
 /**
  * Created by Xu on 2016/7/5.
  */
-public class SquareFragment extends LazyLoadFragment implements SquareContract.View,
+public class SquareMomentFragment extends LazyLoadFragment implements SquareContract.View,
         SwipeRefreshLayout.OnRefreshListener {
 
     private static int REFRESH = 1;

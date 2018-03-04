@@ -11,12 +11,13 @@ import android.widget.ImageButton;
 
 import com.example.jobbook.R;
 import com.example.jobbook.app.MyApplication;
-import com.example.jobbook.base.contract.moment.MomentListContract;
+import com.example.jobbook.base.contract.person.MomentListContract;
 import com.example.jobbook.model.bean.MomentBean;
 import com.example.jobbook.ui.moment.activity.MomentDetailActivity;
-import com.example.jobbook.presenter.moment.MomentListPresenter;
+import com.example.jobbook.presenter.person.MomentListPresenter;
 import com.example.jobbook.ui.person.adapter.UserDetailMomentAdapter;
 import com.example.jobbook.util.L;
+import com.example.jobbook.util.SnackBarUtil;
 import com.example.jobbook.util.Util;
 import com.example.jobbook.widget.DividerItemDecoration;
 
@@ -46,20 +47,13 @@ public class ShowMomentListActivity extends Activity implements MomentListContra
     private UserDetailMomentAdapter mAdapter;
     private MomentListPresenter presenter;
     private LinearLayoutManager mLayoutManager;
-    private View view;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_momentlist);
         ButterKnife.bind(this);
-        initViews();
         initEvents();
-    }
-
-    private void initViews() {
-        view = findViewById(android.R.id.content);
-        mLoadingLinearLayout.inflate();
     }
 
     private void initEvents() {
@@ -91,12 +85,7 @@ public class ShowMomentListActivity extends Activity implements MomentListContra
 
     @Override
     public void showLoadFailMsg(String msg) {
-        Util.showSnackBar(view, "动态列表读取错误，请重试！");
-    }
-
-    @Override
-    public void loadFanList(List<MomentBean> list) {
-        mAdapter.refreshData(list);
+        SnackBarUtil.showSnackBar(this, msg);
     }
 
     @OnClick(R.id.momentlist_back_ib)
@@ -110,5 +99,10 @@ public class ShowMomentListActivity extends Activity implements MomentListContra
         bundle.putParcelable("square_detail", momentBean);
         L.i(momentBean.toString());
         Util.toAnotherActivity(this, MomentDetailActivity.class, bundle);
+    }
+
+    @Override
+    public void loadMomentList(List<MomentBean> list) {
+        mAdapter.refreshData(list);
     }
 }

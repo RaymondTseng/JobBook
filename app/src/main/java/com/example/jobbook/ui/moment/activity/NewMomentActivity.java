@@ -22,7 +22,7 @@ import com.example.jobbook.model.bean.MomentBean;
 import com.example.jobbook.model.bean.TypePersonBean;
 import com.example.jobbook.presenter.moment.NewMomentPresenter;
 import com.example.jobbook.util.AffectUtil;
-import com.example.jobbook.util.Util;
+import com.example.jobbook.util.SnackBarUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -50,7 +50,6 @@ public class NewMomentActivity extends Activity implements NewMomentContract.Vie
 
     private NewMomentPresenter mNewMomentPresenter;
     private MyApplication myApplication;
-    private View view;
     private NewMomentHandler handler;
 
     @Override
@@ -58,7 +57,6 @@ public class NewMomentActivity extends Activity implements NewMomentContract.Vie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_publish_moment);
         ButterKnife.bind(this);
-        view = getWindow().getDecorView();
         initEvents();
     }
 
@@ -82,22 +80,7 @@ public class NewMomentActivity extends Activity implements NewMomentContract.Vie
     public void showSuccess() {
         MyApplication.getmPersonBean().setMoment(Integer.valueOf(MyApplication.getmPersonBean().
                 getMoment()) + 1 + "");
-        Util.showSnackBar(view, "发表成功!");
-    }
-
-    @Override
-    public void publishNoLoginError() {
-        Util.showSnackBar(view, "请先登录！");
-    }
-
-    @Override
-    public void close() {
-        myApplication = (MyApplication) getApplication();
-        if (myApplication.getHandler() != null) {
-            myApplication.getHandler().sendEmptyMessage(1);
-            myApplication.setHandler(null);
-        }
-        this.finish();
+        SnackBarUtil.showSnackBar(this, "发表成功!");
     }
 
     @Override
@@ -112,25 +95,30 @@ public class NewMomentActivity extends Activity implements NewMomentContract.Vie
 
     @Override
     public void showLoadFailMsg(String msg) {
-        Util.showSnackBar(view, "发表失败,请重试！");
+        SnackBarUtil.showSnackBar(this, msg);
     }
 
     @OnClick(R.id.activity_publish_moment_close_ib)
     public void back() {
-        close();
+        myApplication = (MyApplication) getApplication();
+        if (myApplication.getHandler() != null) {
+            myApplication.getHandler().sendEmptyMessage(1);
+            myApplication.setHandler(null);
+        }
+        finish();
     }
 
     @OnClick(R.id.activity_publish_moment_release_tv)
     public void release() {
         MomentBean momentBean = new MomentBean();
         if (MyApplication.getmLoginStatus() == 0) {
-            publishNoLoginError();
+            SnackBarUtil.showSnackBar(this, "请先登录！");
         } else {
             mNewMomentReleaseTextView.setTextColor(Color.parseColor("#61ffffff"));
             momentBean.setAuthor(new TypePersonBean(MyApplication.getmPersonBean(), 1));
 //                    momentBean.setTitle(mNewMomentTitleEditText.getText().toString());
             momentBean.setContent(mNewMomentContentEditText.getText().toString());
-            mNewMomentPresenter.newmoment(momentBean);
+            mNewMomentPresenter.newMoment(momentBean);
         }
     }
 

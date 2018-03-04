@@ -22,8 +22,8 @@ import com.example.jobbook.app.MyApplication;
 import com.example.jobbook.ui.square.fragment.SquareFollowFragment;
 import com.example.jobbook.ui.moment.activity.NewMomentActivity;
 import com.example.jobbook.ui.moment.adapter.MomentPagerAdapter;
-import com.example.jobbook.ui.square.fragment.SquareFragment;
 import com.example.jobbook.ui.account.activity.LoginActivity;
+import com.example.jobbook.ui.square.fragment.SquareMomentFragment;
 import com.example.jobbook.util.L;
 import com.example.jobbook.util.SnackBarUtil;
 import com.example.jobbook.util.Util;
@@ -38,7 +38,7 @@ import butterknife.ButterKnife;
  * Created by Xu on 16-11-8.
  */
 
-public class MomentFragment extends Fragment implements View.OnClickListener, ViewPager.OnPageChangeListener {
+public class MomentBriefFragment extends Fragment implements View.OnClickListener, ViewPager.OnPageChangeListener {
 
     private static int REFRESH = 1;
 
@@ -102,7 +102,7 @@ public class MomentFragment extends Fragment implements View.OnClickListener, Vi
             mTabWidget.addView(mTextTabs[i]);
             mTextTabs[i].setOnClickListener(this);
         }
-        mFragemnts.add(new SquareFragment());
+        mFragemnts.add(new SquareMomentFragment());
         mFragemnts.add(new SquareFollowFragment());
         mPublishTextView.setOnClickListener(this);
         mPagerAdapter = new MomentPagerAdapter(getChildFragmentManager(), mFragemnts);
@@ -135,7 +135,7 @@ public class MomentFragment extends Fragment implements View.OnClickListener, Vi
                 break;
             case R.id.moment_publish_tv:
                 if (MyApplication.getmLoginStatus() == 1) {
-                    myApplication.setHandler(((SquareFragment) mFragemnts.get(0)).handler);
+                    myApplication.setHandler(((SquareMomentFragment) mFragemnts.get(0)).handler);
                     Util.toAnotherActivity(getActivity(), NewMomentActivity.class);
                 } else {
                     SnackBarUtil.showSnackBar(getActivity(), "请先登录", "现在登录", new View.OnClickListener() {

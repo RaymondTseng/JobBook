@@ -16,6 +16,7 @@ import com.example.jobbook.model.bean.TypePersonBean;
 import com.example.jobbook.presenter.person.FanListPresenter;
 import com.example.jobbook.ui.person.adapter.UserDetailFansAdapter;
 import com.example.jobbook.util.L;
+import com.example.jobbook.util.SnackBarUtil;
 import com.example.jobbook.util.Util;
 import com.example.jobbook.widget.DividerItemDecoration;
 
@@ -45,20 +46,13 @@ public class ShowFanListActivity extends Activity implements FanListContract.Vie
     private UserDetailFansAdapter adapter;
     private FanListPresenter presenter;
     private LinearLayoutManager mLayoutManager;
-    private View view;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fanlist);
         ButterKnife.bind(this);
-        initViews();
         initEvents();
-    }
-
-    private void initViews() {
-        view = findViewById(android.R.id.content);
-        mLoadingViewStub.inflate();
     }
 
     private void initEvents() {
@@ -101,7 +95,7 @@ public class ShowFanListActivity extends Activity implements FanListContract.Vie
 
     @Override
     public void showLoadFailMsg(String msg) {
-        Util.showSnackBar(view, msg);
+        SnackBarUtil.showSnackBar(this, msg);
     }
 
     @Override
@@ -111,7 +105,7 @@ public class ShowFanListActivity extends Activity implements FanListContract.Vie
 
     @Override
     public void followSuccess() {
-        Util.showSnackBar(view, "关注成功!");
+        SnackBarUtil.showSnackBar(this, "关注成功!");
         presenter.loadFans(MyApplication.getAccount());
     }
 

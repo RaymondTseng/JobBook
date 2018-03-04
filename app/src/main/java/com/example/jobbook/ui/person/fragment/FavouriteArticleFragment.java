@@ -18,6 +18,7 @@ import com.example.jobbook.model.bean.ArticleBean;
 import com.example.jobbook.presenter.person.FavouriteArticlePresenter;
 import com.example.jobbook.ui.article.activity.ArticleDetailActivity;
 import com.example.jobbook.ui.person.adapter.FavouriteArticleAdapter;
+import com.example.jobbook.util.SnackBarUtil;
 import com.example.jobbook.util.Util;
 import com.example.jobbook.widget.DividerItemDecoration;
 
@@ -51,12 +52,11 @@ public class FavouriteArticleFragment extends Fragment implements FavouriteArtic
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_base_lv, container, false);
         ButterKnife.bind(this, view);
-        init(view);
+        init();
         return view;
     }
 
-    private void init(View view){
-        mLoadingLayout.inflate();
+    private void init() {
         mData = new ArrayList<>();
         mPresenter = new FavouriteArticlePresenter(this);
         mAdapter = new FavouriteArticleAdapter(getActivity(), mData);
@@ -68,7 +68,7 @@ public class FavouriteArticleFragment extends Fragment implements FavouriteArtic
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setAdapter(mAdapter);
         mAdapter.setOnArticleItemClickListener(this);
-        if(MyApplication.getmLoginStatus() != 0){
+        if (MyApplication.getmLoginStatus() != 0) {
             mPresenter.loadArticles(MyApplication.getAccount());
         }
     }
@@ -91,7 +91,7 @@ public class FavouriteArticleFragment extends Fragment implements FavouriteArtic
 
     @Override
     public void showLoadFailMsg(String msg) {
-        Util.showSnackBar(view , msg);
+        SnackBarUtil.showSnackBar(this.getActivity(), msg);
     }
 
     @Override
@@ -102,9 +102,9 @@ public class FavouriteArticleFragment extends Fragment implements FavouriteArtic
     }
 
     @Override
-    public void onResume(){
+    public void onResume() {
         super.onResume();
-        if(MyApplication.getmLoginStatus() != 0){
+        if (MyApplication.getmLoginStatus() != 0) {
             mPresenter.loadArticles(MyApplication.getAccount());
         }
     }

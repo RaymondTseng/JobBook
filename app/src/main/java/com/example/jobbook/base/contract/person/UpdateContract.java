@@ -12,11 +12,7 @@ import com.example.jobbook.base.IBaseView;
 public interface UpdateContract {
 
     interface UpdatePhoneView extends IBaseView {
-        void close();
-
         void getCode();
-
-        void complete(Context mContext);
 
         void codeBlankError();
 
@@ -25,8 +21,6 @@ public interface UpdateContract {
         void newPhoneBlankError();
 
         void success();
-
-        void networkError();
     }
 
     interface UpdatePhonePresenter extends IBasePresenter<UpdatePhoneView> {

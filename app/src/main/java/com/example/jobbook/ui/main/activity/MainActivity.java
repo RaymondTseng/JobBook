@@ -24,7 +24,7 @@ import com.example.jobbook.ui.account.activity.LoginActivity;
 import com.example.jobbook.ui.article.fragment.ArticleFragment;
 import com.example.jobbook.ui.job.fragment.JobFragment;
 import com.example.jobbook.ui.main.adapter.MainFragmentPagerAdapter;
-import com.example.jobbook.ui.moment.fragment.MomentFragment;
+import com.example.jobbook.ui.moment.fragment.MomentBriefFragment;
 import com.example.jobbook.ui.person.fragment.PersonFragment;
 import com.example.jobbook.util.L;
 import com.example.jobbook.util.SnackBarUtil;
@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         mFragments = new ArrayList<>();
         mFragments.add(new JobFragment());
         mFragments.add(new ArticleFragment());
-        mFragments.add(new MomentFragment());
+        mFragments.add(new MomentBriefFragment());
 //        mFragments.add(new ContainerFragment());
         mFragments.add(new PersonFragment());
     }

@@ -1,9 +1,9 @@
-package com.example.jobbook.presenter.moment;
+package com.example.jobbook.presenter.person;
 
 import com.example.jobbook.base.BaseSubscriber;
 import com.example.jobbook.base.IBaseView;
 import com.example.jobbook.base.RxPresenter;
-import com.example.jobbook.base.contract.moment.MomentListContract;
+import com.example.jobbook.base.contract.person.MomentListContract;
 import com.example.jobbook.model.bean.MomentBean;
 import com.example.jobbook.model.http.RetrofitService;
 

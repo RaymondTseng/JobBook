@@ -51,6 +51,8 @@ public class NetConstants {
     public static final String PERSON_SEND_MAIL_NO_DATA_WORD= "发送失败，请先完善简历!";
     public static final int PERSON_SEND_MAIL_HAVE_SENT_CODE = 116;
     public static final String PERSON_SEND_MAIL_HAVE_SENT_WORD = "您之前已经投递过该公司，请勿重复投递!";
+    public static final int SQUARE_RELEASE_ERROR_CODE = 126;
+    public static final String SQUARE_RELEASE_ERROR_WORD = "发送工作圈失败，请重试!";
     public static final int SQUARE_LIKE_ERROR_CODE = 128;
     public static final String SQUARE_LIKE_ERROR_WORD = "工作圈点赞错误，请重试!";
     public static final int SQUARE_HAS_LIKED_ERROR_CODE = 129;

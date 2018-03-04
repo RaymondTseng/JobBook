@@ -1,9 +1,9 @@
 package com.example.jobbook.ui.person.activity;
 
 import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewStub;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -16,7 +16,7 @@ import com.example.jobbook.model.bean.PersonBean;
 import com.example.jobbook.presenter.person.UpdatePhonePresenter;
 import com.example.jobbook.util.L;
 import com.example.jobbook.util.SMSSDKManager;
-import com.example.jobbook.util.Util;
+import com.example.jobbook.util.SnackBarUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -46,16 +46,17 @@ public class UpdatePhoneActivity extends Activity implements UpdateContract.Upda
     @BindView(R.id.person_change_phone_complete_tv)
     TextView mCompleteTextView;
 
+    @BindView(R.id.activity_person_change_phone_loading)
+    ViewStub mLoadingLinearLayout;
+
     private PersonBean personBean;
     private UpdatePhonePresenter mPresenter;
-    private View view;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_person_change_phone);
         ButterKnife.bind(this);
-        view = getWindow().getDecorView();
         initEvents();
     }
 
@@ -75,7 +76,7 @@ public class UpdatePhoneActivity extends Activity implements UpdateContract.Upda
 
     @OnClick(R.id.person_change_phone_back_ib)
     public void back() {
-        close();
+        finish();
     }
 
     @OnClick(R.id.person_change_phone_code_bt)
@@ -85,12 +86,7 @@ public class UpdatePhoneActivity extends Activity implements UpdateContract.Upda
 
     @OnClick(R.id.person_change_phone_complete_tv)
     public void complete() {
-        complete(this);
-    }
-
-    @Override
-    public void close() {
-        finish();
+        mPresenter.complete(this, MyApplication.getAccount(), mNewPhoneEditText.getText().toString(), mCodeEditText.getText().toString());
     }
 
     @Override
@@ -99,48 +95,39 @@ public class UpdatePhoneActivity extends Activity implements UpdateContract.Upda
     }
 
     @Override
-    public void complete(Context mContext) {
-        mPresenter.complete(mContext, MyApplication.getAccount(), mNewPhoneEditText.getText().toString(), mCodeEditText.getText().toString());
-    }
-
-    @Override
     public void codeBlankError() {
-        Util.showSnackBar(view, "验证码为空！");
+        SnackBarUtil.showSnackBar(this, "验证码为空！");
     }
 
     @Override
     public void codeError() {
-        Util.showSnackBar(view, "手机验证码错误");
+        SnackBarUtil.showSnackBar(this, "手机验证码错误");
     }
 
     @Override
     public void newPhoneBlankError() {
-        Util.showSnackBar(view, "新手机号码为空");
+        SnackBarUtil.showSnackBar(this, "新手机号码为空");
     }
 
     @Override
     public void success() {
-        Util.showSnackBar(view, "保存成功！");
-    }
-
-    @Override
-    public void networkError() {
-        Util.showSnackBar(view, "网络错误！");
+        SnackBarUtil.showSnackBar(this, "保存成功！");
+        finish();
     }
 
     @Override
     public void hideProgress() {
-
+        mLoadingLinearLayout.setVisibility(View.GONE);
     }
 
     @Override
     public void showLoadFailMsg(String msg) {
-
+        SnackBarUtil.showSnackBar(this, msg);
     }
 
     @Override
     public void showProgress() {
-
+        mLoadingLinearLayout.setVisibility(View.VISIBLE);
     }
 
     @Override

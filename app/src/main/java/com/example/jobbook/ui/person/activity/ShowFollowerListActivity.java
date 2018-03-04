@@ -17,6 +17,7 @@ import com.example.jobbook.base.contract.person.FollowerListContract;
 import com.example.jobbook.model.bean.TypePersonBean;
 import com.example.jobbook.presenter.person.FollowerListPresenter;
 import com.example.jobbook.ui.person.adapter.UserDetailFollowAdapter;
+import com.example.jobbook.util.SnackBarUtil;
 import com.example.jobbook.util.Util;
 import com.example.jobbook.widget.DividerItemDecoration;
 
@@ -46,7 +47,6 @@ public class ShowFollowerListActivity extends Activity implements FollowerListCo
     private FollowerListPresenter presenter;
     private LinearLayoutManager mLayoutManager;
     private UserDetailFollowAdapter mAdapter;
-    private View view;
     private MyApplication myApplication;
     private static int REFRESH = 1;
     public Handler handler;
@@ -56,13 +56,7 @@ public class ShowFollowerListActivity extends Activity implements FollowerListCo
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_followerlist);
         ButterKnife.bind(this);
-        initViews();
         initEvents();
-    }
-
-    private void initViews() {
-        view = findViewById(android.R.id.content);
-        mLoadingLinearLayout.inflate();
     }
 
     private void initEvents() {
@@ -103,17 +97,16 @@ public class ShowFollowerListActivity extends Activity implements FollowerListCo
 
     @Override
     public void showLoadFailMsg(String msg) {
-        Util.showSnackBar(view, msg);
+        SnackBarUtil.showSnackBar(this, msg);
     }
-
 
     @Override
     public void followSuccess() {
-        Util.showSnackBar(view, "关注成功!");
+        SnackBarUtil.showSnackBar(this, "关注成功!");
     }
 
     @Override
-    public void loadFanList(List<TypePersonBean> list) {
+    public void loadFollowerList(List<TypePersonBean> list) {
         mAdapter.refreshData(list);
     }
 

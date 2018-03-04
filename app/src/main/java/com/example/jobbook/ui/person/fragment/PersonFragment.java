@@ -20,16 +20,15 @@ import android.widget.TextView;
 import com.example.jobbook.R;
 import com.example.jobbook.app.MyApplication;
 import com.example.jobbook.base.LazyLoadFragment;
-import com.example.jobbook.base.contract.person.PersonContract;
 import com.example.jobbook.base.contract.person.UploadContract;
 import com.example.jobbook.model.bean.PersonBean;
 import com.example.jobbook.presenter.person.UploadPresenter;
 import com.example.jobbook.service.MyPushIntentService;
+import com.example.jobbook.ui.account.activity.LoginActivity;
 import com.example.jobbook.ui.cv.activity.TextCVActivity;
 import com.example.jobbook.ui.main.activity.MainActivity;
 import com.example.jobbook.ui.message.activity.GetMessageActivity;
 import com.example.jobbook.ui.person.activity.FavouriteActivity;
-import com.example.jobbook.ui.account.activity.LoginActivity;
 import com.example.jobbook.ui.person.activity.SettingActivity;
 import com.example.jobbook.ui.person.activity.ShowFanListActivity;
 import com.example.jobbook.ui.person.activity.ShowFollowerListActivity;
@@ -37,6 +36,8 @@ import com.example.jobbook.ui.person.activity.ShowMomentListActivity;
 import com.example.jobbook.util.CropUtil;
 import com.example.jobbook.util.ImageLoadUtils;
 import com.example.jobbook.util.L;
+import com.example.jobbook.util.ScreenUtil;
+import com.example.jobbook.util.SnackBarUtil;
 import com.example.jobbook.util.UploadUtil;
 import com.example.jobbook.util.Util;
 import com.example.jobbook.widget.UploadPopupWindow;
@@ -53,7 +54,7 @@ import okhttp3.MultipartBody;
 /**
  * Created by 椰树 on 2016/5/20.
  */
-public class PersonFragment extends LazyLoadFragment implements PersonContract.View, UploadContract.View {
+public class PersonFragment extends LazyLoadFragment implements UploadContract.View {
     private static int REFRESH = 0;
     private static int REFRESH_NAME = 1;
     private static int REFRESH_HEAD = 2;
@@ -151,10 +152,6 @@ public class PersonFragment extends LazyLoadFragment implements PersonContract.V
 
     private void initEvents() {
         mLoadingLayout = findViewById(R.id.fragment_person_loading);
-        if (mLoadingLayout != null) {
-            mLoadingLayout.inflate();
-            mLoadingLayout.setVisibility(View.GONE);
-        }
         mUri = null;
         handler = new PersonHandler();
         mMyApplication = (MyApplication) getActivity().getApplication();
@@ -170,7 +167,6 @@ public class PersonFragment extends LazyLoadFragment implements PersonContract.V
         }
     }
 
-    @Override
     public boolean showPersonData() {
 //        Bundle bundle = (Bundle) getArguments();
 //        PersonBean personBean = (PersonBean) bundle.getSerializable("PersonBean");
@@ -332,8 +328,8 @@ public class PersonFragment extends LazyLoadFragment implements PersonContract.V
         WindowManager.LayoutParams p = window.getAttributes(); // 获取对话框当前的参数值
 //        p.width = Util.dip2px(this, 280);
 //        p.height = Util.dip2px(this, 109);
-        p.width = Util.dip2px(getActivity(), 300);
-        p.height = Util.dip2px(getActivity(), 140);
+        p.width = ScreenUtil.dip2px(getActivity(), 300);
+        p.height = ScreenUtil.dip2px(getActivity(), 140);
 //        window.setLayout(Util.dip2px(getActivity(), Util.getWidth(getActivity()) * 1 / 4), Util.dip2px(getActivity(), Util.getHeight(getActivity()) * 1 / 13));
         window.setAttributes(p);
         window.setContentView(R.layout.logout_sure_layout);
@@ -368,12 +364,12 @@ public class PersonFragment extends LazyLoadFragment implements PersonContract.V
 
     @Override
     public void showLoadFailMsg(String msg) {
-
+        SnackBarUtil.showSnackBar(this.getActivity(), msg);
     }
 
     @Override
     public void uploadSuccess() {
-        Util.showSnackBar(MyApplication.mSnackBarView, "上传成功！");
+        SnackBarUtil.showSnackBar(this.getActivity(), "上传成功！");
     }
 
     @Override
@@ -401,7 +397,7 @@ public class PersonFragment extends LazyLoadFragment implements PersonContract.V
         @Override
         public void handleMessage(Message msg) {
             if (msg.what == REFRESH) {
-                Util.showSnackBar(MyApplication.mSnackBarView, "保存成功！");
+                SnackBarUtil.showSnackBar(getActivity(), "保存成功！");
             } else if (msg.what == REFRESH_NAME) {
                 showPersonData();
             } else if (msg.what == REFRESH_HEAD) {

@@ -240,19 +240,15 @@ public class MomentDetailActivity extends Activity implements MomentDetailContra
         SnackBarUtil.showSnackBar(this, msg);
     }
 
-    public void noLoginError() {
-        SnackBarUtil.showSnackBar(this, "请先登录", "现在登录", new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Util.toAnotherActivity(MomentDetailActivity.this, LoginActivity.class);
-                finish();
-            }
-        });
-    }
-
     public void sendComment(String comment) {
         if (MyApplication.getmLoginStatus() == 0) {
-            noLoginError();
+            SnackBarUtil.showSnackBar(this, "请先登录", "现在登录", new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Util.toAnotherActivity(MomentDetailActivity.this, LoginActivity.class);
+                    finish();
+                }
+            });
         } else {
             MomentCommentBean momentCommentBean = new MomentCommentBean();
             momentCommentBean.setS_id(id);

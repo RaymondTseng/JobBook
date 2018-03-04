@@ -18,6 +18,7 @@ import com.example.jobbook.model.bean.JobBean;
 import com.example.jobbook.presenter.person.FavouriteJobPresenter;
 import com.example.jobbook.ui.job.activity.JobDetailActivity;
 import com.example.jobbook.ui.person.adapter.FavouriteJobAdapter;
+import com.example.jobbook.util.SnackBarUtil;
 import com.example.jobbook.util.Util;
 import com.example.jobbook.widget.DividerItemDecoration;
 
@@ -50,12 +51,11 @@ public class FavouriteJobsFragment extends Fragment implements FavouriteJobContr
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_base_lv, container, false);
         ButterKnife.bind(this, view);
-        init(view);
+        init();
         return view;
     }
 
-    private void init(View view){
-        mLoadingLayout.inflate();
+    private void init(){
         mData = new ArrayList<>();
         mPresenter = new FavouriteJobPresenter(this);
         mAdapter = new FavouriteJobAdapter(getActivity(), mData);
@@ -90,7 +90,7 @@ public class FavouriteJobsFragment extends Fragment implements FavouriteJobContr
 
     @Override
     public void showLoadFailMsg(String msg) {
-        Util.showSnackBar(view, "读取收藏岗位错误，请重试！");
+        SnackBarUtil.showSnackBar(this.getActivity(), msg);
     }
 
     @Override

@@ -11,15 +11,11 @@ import com.example.jobbook.model.bean.MomentBean;
 public interface NewMomentContract {
 
     interface View extends IBaseView {
-        void publishNoLoginError();
-
         void showSuccess();
-
-        void close();
     }
 
     interface Presenter extends IBasePresenter<View> {
-        void newmoment(MomentBean momentBean);
+        void newMoment(MomentBean momentBean);
     }
 
 }

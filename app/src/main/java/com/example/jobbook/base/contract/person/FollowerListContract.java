@@ -13,7 +13,7 @@ import java.util.List;
 public interface FollowerListContract {
 
     interface View extends IBaseView {
-        void loadFanList(List<TypePersonBean> list);
+        void loadFollowerList(List<TypePersonBean> list);
 
         void followSuccess();
     }

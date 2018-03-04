@@ -18,7 +18,7 @@ public class NewMomentPresenter extends RxPresenter<NewMomentContract.View> impl
     }
 
     @Override
-    public void newmoment(MomentBean momentBean) {
+    public void newMoment(MomentBean momentBean) {
         addSubscribe(RetrofitService.newMoment(momentBean)
                 .subscribeWith(new BaseSubscriber<String>() {
                     @Override
@@ -29,7 +29,6 @@ public class NewMomentPresenter extends RxPresenter<NewMomentContract.View> impl
                     @Override
                     public void onNext(String s) {
                         mView.showSuccess();
-                        mView.close();
                     }
                 }));
     }
