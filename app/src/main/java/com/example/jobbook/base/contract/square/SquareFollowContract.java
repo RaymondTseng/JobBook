@@ -15,21 +15,11 @@ public interface SquareFollowContract {
     interface View extends IBaseView {
         void addSquareFollows(List<MomentBean> squareFollowList);
 
-        void showLoadFailMsg();
-
-        void like(int position);
-
-        void unlike(int position);
-
         void NoLoginError();
 
         void likeSuccess(MomentBean momentBean, int position);
 
         void unlikeSuccess(MomentBean momentBean, int position);
-
-        void likeError();
-
-        void unlikeError();
     }
 
     interface Presenter extends IBasePresenter<View> {

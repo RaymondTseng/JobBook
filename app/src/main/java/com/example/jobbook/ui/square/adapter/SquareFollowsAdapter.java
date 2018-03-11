@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.example.jobbook.R;
 import com.example.jobbook.model.bean.MomentBean;
-import com.example.jobbook.app.Urls;
+import com.example.jobbook.app.NetConstants;
 import com.example.jobbook.util.ImageLoadUtils;
 
 import java.util.List;
@@ -281,7 +281,7 @@ public class SquareFollowsAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     public void updateData(List<MomentBean> mData) {
         this.mData = mData;
-        if (mData.size() % Urls.PAZE_SIZE != 0) {
+        if (mData.size() % NetConstants.PAZE_SIZE != 0) {
             this.setmShowFooter(false);
         }
         this.notifyDataSetChanged();

@@ -19,6 +19,7 @@ import com.example.jobbook.presenter.person.UserDetailMomentPresenter;
 import com.example.jobbook.ui.moment.activity.MomentDetailActivity;
 import com.example.jobbook.ui.person.activity.UserDetailActivity;
 import com.example.jobbook.ui.person.adapter.UserDetailMomentAdapter;
+import com.example.jobbook.util.SnackBarUtil;
 import com.example.jobbook.util.Util;
 import com.example.jobbook.widget.DividerItemDecoration;
 
@@ -58,7 +59,6 @@ public class UserDetailMomentFragment extends Fragment implements UserDetailMome
     }
 
     private void init(){
-        mLoadingLayout.inflate();
         mData = new ArrayList<>();
         mPresenter = new UserDetailMomentPresenter(this);
         mAdapter = new UserDetailMomentAdapter(getActivity(), mData);
@@ -75,7 +75,6 @@ public class UserDetailMomentFragment extends Fragment implements UserDetailMome
         }else{
             mPresenter.loadMoments(account, "");
         }
-        mLoadingLayout.setVisibility(View.GONE);
     }
 
     @Override
@@ -96,7 +95,7 @@ public class UserDetailMomentFragment extends Fragment implements UserDetailMome
 
     @Override
     public void showLoadFailMsg(String msg) {
-
+        SnackBarUtil.showSnackBar(getActivity(), msg);
     }
 
     @Override

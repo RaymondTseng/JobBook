@@ -24,6 +24,7 @@ import com.example.jobbook.model.bean.PersonBean;
 import com.example.jobbook.presenter.account.LoginPresenter;
 import com.example.jobbook.service.MyPushIntentService;
 import com.example.jobbook.ui.main.activity.MainActivity;
+import com.example.jobbook.util.SnackBarUtil;
 import com.example.jobbook.util.Util;
 
 import butterknife.BindView;
@@ -173,17 +174,17 @@ public class LoginActivity extends Activity implements LoginContract.View {
 
     @Override
     public void showLoadFailMsg(String msg) {
-        Util.showSnackBar(this, msg);
+        SnackBarUtil.showSnackBar(this, msg);
     }
 
     @Override
     public void setAccountError() {
-        Util.showSnackBar(this, "账号不能为空");
+        SnackBarUtil.showSnackBar(this, "账号不能为空");
     }
 
     @Override
     public void setPasswordError() {
-        Util.showSnackBar(this, "密码不能为空");
+        SnackBarUtil.showSnackBar(this, "密码不能为空");
     }
 
     @Override

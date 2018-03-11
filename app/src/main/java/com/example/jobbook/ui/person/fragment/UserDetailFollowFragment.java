@@ -18,6 +18,7 @@ import com.example.jobbook.model.bean.TypePersonBean;
 import com.example.jobbook.presenter.person.UserDetailFollowPresenter;
 import com.example.jobbook.ui.person.activity.UserDetailActivity;
 import com.example.jobbook.ui.person.adapter.UserDetailFollowAdapter;
+import com.example.jobbook.util.SnackBarUtil;
 import com.example.jobbook.util.Util;
 import com.example.jobbook.widget.DividerItemDecoration;
 
@@ -93,17 +94,12 @@ public class UserDetailFollowFragment extends Fragment implements UserDetailFoll
 
     @Override
     public void showLoadFailMsg(String msg) {
-
-    }
-
-    @Override
-    public void onError(String msg) {
-        Util.showSnackBar(view , msg);
+        SnackBarUtil.showSnackBar(getActivity(), msg);
     }
 
     @Override
     public void followSuccess() {
-        Util.showSnackBar(view, "关注成功!");
+        SnackBarUtil.showSnackBar(getActivity(), "关注成功!");
     }
 
     @Override

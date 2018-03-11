@@ -59,7 +59,6 @@ public class UpdatePwdPresenter extends RxPresenter<UpdateContract.UpdatePwdView
                         @Override
                         public void onNext(String s) {
                             mView.success();
-                            mView.close();
                         }
                     }));
         }

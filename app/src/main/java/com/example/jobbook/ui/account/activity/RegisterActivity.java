@@ -19,6 +19,7 @@ import com.example.jobbook.model.bean.PersonBean;
 import com.example.jobbook.presenter.account.RegisterPresenter;
 import com.example.jobbook.ui.main.activity.MainActivity;
 import com.example.jobbook.util.SMSSDKManager;
+import com.example.jobbook.util.SnackBarUtil;
 import com.example.jobbook.util.Util;
 
 import butterknife.BindView;
@@ -77,7 +78,7 @@ public class RegisterActivity extends Activity implements RegisterContract.View,
 
     @Override
     public void success() {
-        Util.showSnackBar(this, "连接成功");
+        SnackBarUtil.showSnackBar(this, "连接成功");
     }
 
     @Override
@@ -87,7 +88,7 @@ public class RegisterActivity extends Activity implements RegisterContract.View,
 
     @Override
     public void showLoadFailMsg(String msg) {
-        Util.showSnackBar(this, msg);
+        SnackBarUtil.showSnackBar(this, msg);
     }
 
     @Override
@@ -97,22 +98,22 @@ public class RegisterActivity extends Activity implements RegisterContract.View,
 
     @Override
     public void accountBlankError() {
-        Util.showSnackBar(this, "账号为空");
+        SnackBarUtil.showSnackBar(this, "账号为空");
     }
 
     @Override
     public void pwdBlankError() {
-        Util.showSnackBar(this, "密码为空");
+        SnackBarUtil.showSnackBar(this, "密码为空");
     }
 
     @Override
     public void pwdConfirmBlankError() {
-        Util.showSnackBar(this, "确认密码为空");
+        SnackBarUtil.showSnackBar(this, "确认密码为空");
     }
 
     @Override
     public void pwdNotEqualError() {
-        Util.showSnackBar(this, "密码与确认密码不一致");
+        SnackBarUtil.showSnackBar(this, "密码与确认密码不一致");
     }
 
     @Override
@@ -124,22 +125,22 @@ public class RegisterActivity extends Activity implements RegisterContract.View,
 
     @Override
     public void accountIllegalError() {
-        Util.showSnackBar(this, "账号存在非法字符");
+        SnackBarUtil.showSnackBar(this, "账号存在非法字符");
     }
 
     @Override
     public void userNameBlankError() {
-        Util.showSnackBar(this, "昵称为空");
+        SnackBarUtil.showSnackBar(this, "昵称为空");
     }
 
     @Override
     public void codeBlankError() {
-        Util.showSnackBar(this, "验证码为空");
+        SnackBarUtil.showSnackBar(this, "验证码为空");
     }
 
     @Override
     public void codeError() {
-        Util.showSnackBar(this, "验证码错误");
+        SnackBarUtil.showSnackBar(this, "验证码错误");
 //        refreshCode();
     }
 

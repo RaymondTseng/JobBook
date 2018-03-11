@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.example.jobbook.app.MyApplication;
 import com.example.jobbook.R;
 import com.example.jobbook.model.bean.MomentBean;
-import com.example.jobbook.app.Urls;
+import com.example.jobbook.app.NetConstants;
 import com.example.jobbook.util.ImageLoadUtils;
 import com.example.jobbook.util.L;
 
@@ -310,7 +310,7 @@ public class SquareAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     public void updateData(List<MomentBean> mData) {
         this.mData = mData;
-        if (mData.size() % Urls.PAZE_SIZE != 0) {
+        if (mData.size() % NetConstants.PAZE_SIZE != 0) {
             this.setmShowFooter(false);
         }
         this.notifyDataSetChanged();

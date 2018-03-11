@@ -13,8 +13,6 @@ public interface UserDetailBriefContract {
     interface View extends IBaseView {
         void followSuccess();
 
-        void onFail(String msg);
-
         void unfollowSuccess();
 
         void loadSuccess(TypePersonBean personBean);

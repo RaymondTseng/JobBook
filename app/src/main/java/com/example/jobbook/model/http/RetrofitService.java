@@ -56,7 +56,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class RetrofitService {
-    // Urls.IP
+    // NetConstants.IP
     public static String base_url = NetConstants.IP;
 
     //设缓存有效期为1天

@@ -12,7 +12,6 @@ import com.example.jobbook.base.IBaseView;
 public interface UpdateContract {
 
     interface UpdatePhoneView extends IBaseView {
-        void getCode();
 
         void codeBlankError();
 
@@ -28,10 +27,6 @@ public interface UpdateContract {
     }
 
     interface UpdatePwdView extends IBaseView {
-        void close();
-
-        void complete();
-
         void oPwdBlankError();
 
         void nPwdBlankError();
@@ -41,8 +36,6 @@ public interface UpdateContract {
         void pwdConfirmError();
 
         void success();
-
-        void networkError();
 
         void oPwdError();
 
@@ -54,15 +47,9 @@ public interface UpdateContract {
     }
 
     interface UpdateUsernameView extends IBaseView {
-        void close();
-
-        void complete();
-
         void usernameBlankError();
 
         void success();
-
-        void networkError();
     }
 
     interface UpdateUsernamePresenter extends IBasePresenter<UpdateUsernameView> {

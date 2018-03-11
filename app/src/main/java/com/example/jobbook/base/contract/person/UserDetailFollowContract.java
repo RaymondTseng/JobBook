@@ -15,8 +15,6 @@ public interface UserDetailFollowContract {
     interface View extends IBaseView {
         void loadFollow(List<TypePersonBean> mFollow);
 
-        void onError(String msg);
-
         void followSuccess();
     }
 

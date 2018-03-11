@@ -183,7 +183,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
 //                fos.close();
 //                OkHttpUtils
 //                        .postString()
-//                        .url(Urls.UPLOAD_ERROR_URL)
+//                        .url(NetConstants.UPLOAD_ERROR_URL)
 //                        .content(sb.toString())
 //                        .build()
 //                        .execute(new StringCallback() {
@@ -205,7 +205,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
 //                    try {
 //                        OkHttpUtils
 //                                .postString()
-//                                .url(Urls.UPLOAD_ERROR_URL)
+//                                .url(NetConstants.UPLOAD_ERROR_URL)
 //                                .content(sb.toString())
 //                                .build()
 //                                .execute();

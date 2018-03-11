@@ -20,7 +20,7 @@ import android.widget.TextView;
 
 import com.example.jobbook.R;
 import com.example.jobbook.app.Constants;
-import com.example.jobbook.app.Urls;
+import com.example.jobbook.app.NetConstants;
 import com.example.jobbook.base.LazyLoadFragment;
 import com.example.jobbook.base.contract.article.ArticleContract;
 import com.example.jobbook.model.bean.ArticleBean;
@@ -155,7 +155,7 @@ public class ArticleFragment extends LazyLoadFragment implements ArticleContract
             list = new ArrayList<>();
         }
         list = articlesList;
-        if (articlesList == null || articlesList.size() < Urls.PAZE_SIZE) {
+        if (articlesList == null || articlesList.size() < NetConstants.PAZE_SIZE) {
             adapter.setmShowFooter(false);
         }
         if (pageIndex == 0) {
@@ -167,7 +167,7 @@ public class ArticleFragment extends LazyLoadFragment implements ArticleContract
 //            }
             adapter.notifyDataSetChanged();
         }
-        pageIndex += Urls.PAZE_SIZE;
+        pageIndex += NetConstants.PAZE_SIZE;
     }
 
     @Override

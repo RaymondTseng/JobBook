@@ -18,6 +18,7 @@ import com.example.jobbook.model.bean.TypePersonBean;
 import com.example.jobbook.presenter.person.UserDetailFanPresenter;
 import com.example.jobbook.ui.person.activity.UserDetailActivity;
 import com.example.jobbook.ui.person.adapter.UserDetailFansAdapter;
+import com.example.jobbook.util.SnackBarUtil;
 import com.example.jobbook.util.Util;
 import com.example.jobbook.widget.DividerItemDecoration;
 
@@ -92,12 +93,12 @@ public class UserDetailFansFragment extends Fragment implements UserDetailFanCon
 
     @Override
     public void followSuccess() {
-        Util.showSnackBar(view, "关注成功!");
+        SnackBarUtil.showSnackBar(getActivity(), "关注成功!");
     }
 
     @Override
     public void showLoadFailMsg(String msg) {
-        Util.showSnackBar(view, msg);
+        SnackBarUtil.showSnackBar(getActivity(), msg);
     }
 
     @Override
@@ -105,7 +106,6 @@ public class UserDetailFansFragment extends Fragment implements UserDetailFanCon
         this.account = account;
 //        mPresenter.loadFans(account);
     }
-
 
     @Override
     public void onFanItemClick(TypePersonBean personBean) {

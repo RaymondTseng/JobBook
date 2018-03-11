@@ -29,7 +29,7 @@ import com.example.jobbook.ui.person.fragment.UserDetailFollowFragment;
 import com.example.jobbook.ui.person.fragment.UserDetailMomentFragment;
 import com.example.jobbook.util.ImageLoadUtils;
 import com.example.jobbook.util.L;
-import com.example.jobbook.util.Util;
+import com.example.jobbook.util.SnackBarUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -91,7 +91,6 @@ public class UserDetailActivity extends AppCompatActivity implements ViewPager.O
     private ImageView mFocusImageView;
     private int mCurrentIndex = 0;
     private TypePersonBean mPersonBean;
-    private View view;
     private boolean isSelf = false;
     private static int UNFOLLOW = 1;
     private static int FOLLOW = 0;
@@ -101,7 +100,6 @@ public class UserDetailActivity extends AppCompatActivity implements ViewPager.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_detail);
         ButterKnife.bind(this);
-        view = findViewById(android.R.id.content);
         initEvents();
     }
 
@@ -187,7 +185,7 @@ public class UserDetailActivity extends AppCompatActivity implements ViewPager.O
     public void follow() {
         if (MyApplication.getmLoginStatus() != 0) {
             if (mPersonBean.getAccount().equals(MyApplication.getAccount())) {
-                Util.showSnackBar(view, "不能关注自己~");
+                SnackBarUtil.showSnackBar(this, "不能关注自己~");
             } else {
                 if (mPersonBean.getType() == UNFOLLOW) {
                     mPresenter.follow(MyApplication.getAccount(), mPersonBean.getAccount());
@@ -257,12 +255,7 @@ public class UserDetailActivity extends AppCompatActivity implements ViewPager.O
         mFocusTextView.setTextColor(this.getResources().getColor(R.color.colorPink));
         mFocusImageView.setImageResource(R.mipmap.close_red_24_dp);
         mPersonBean.setType(FOLLOW);
-        Util.showSnackBar(view, "关注成功!");
-    }
-
-    @Override
-    public void onFail(String msg) {
-        Util.showSnackBar(view, msg);
+        SnackBarUtil.showSnackBar(this, "关注成功!");
     }
 
     @Override
@@ -272,7 +265,7 @@ public class UserDetailActivity extends AppCompatActivity implements ViewPager.O
         mFocusTextView.setTextColor(this.getResources().getColor(R.color.colorBlue));
         mFocusImageView.setImageResource(R.mipmap.add_24_dp);
         mPersonBean.setType(UNFOLLOW);
-        Util.showSnackBar(view, "取消关注成功!");
+        SnackBarUtil.showSnackBar(this, "取消关注成功!");
     }
 
 
@@ -283,7 +276,7 @@ public class UserDetailActivity extends AppCompatActivity implements ViewPager.O
 
     @Override
     public void showLoadFailMsg(String msg) {
-
+        SnackBarUtil.showSnackBar(this, msg);
     }
 
     @Override
@@ -300,7 +293,6 @@ public class UserDetailActivity extends AppCompatActivity implements ViewPager.O
     public void onRefreshSuccess(TypePersonBean personBean) {
         MyApplication.setmPersonBean(this, personBean);
     }
-
 
     private void setData(TypePersonBean personBean) {
         if (personBean.getAccount().equals(MyApplication.getAccount())) {

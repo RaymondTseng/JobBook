@@ -12,7 +12,7 @@ import com.example.jobbook.app.MyApplication;
 import com.example.jobbook.base.contract.article.ArticleDetailContract;
 import com.example.jobbook.model.bean.ArticleBean;
 import com.example.jobbook.presenter.article.ArticleDetailPresenter;
-import com.example.jobbook.util.Util;
+import com.example.jobbook.util.SnackBarUtil;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.sufficientlysecure.htmltextview.HtmlHttpImageGetter;
@@ -102,7 +102,7 @@ public class ArticleDetailActivity extends Activity implements ArticleDetailCont
 
     @Override
     public void showLoadFailMsg(String msg) {
-        Util.showSnackBar(this, msg);
+        SnackBarUtil.showSnackBar(this, msg);
     }
 
     @Override
@@ -110,7 +110,7 @@ public class ArticleDetailActivity extends Activity implements ArticleDetailCont
         mLikeImageButton.setImageResource(R.mipmap.favourite_tapped);
         bean.setIfLike(1);
         addArticle(bean);
-        Util.showSnackBar(this, "收藏成功！");
+        SnackBarUtil.showSnackBar(this, "收藏成功！");
     }
 
     @Override
@@ -118,7 +118,7 @@ public class ArticleDetailActivity extends Activity implements ArticleDetailCont
         mLikeImageButton.setImageResource(R.mipmap.favourite);
         bean.setIfLike(0);
         addArticle(bean);
-        Util.showSnackBar(this, "取消收藏成功！");
+        SnackBarUtil.showSnackBar(this, "取消收藏成功！");
     }
 
     @OnClick(R.id.article_detail_back_ib)

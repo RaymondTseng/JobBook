@@ -16,6 +16,7 @@ import com.example.jobbook.R;
 import com.example.jobbook.base.contract.account.ForgetPwdContract;
 import com.example.jobbook.presenter.account.ForgetPwdFirstPresenter;
 import com.example.jobbook.util.SMSSDKManager;
+import com.example.jobbook.util.SnackBarUtil;
 import com.example.jobbook.util.Util;
 
 import butterknife.BindView;
@@ -75,17 +76,17 @@ public class ForgetPwdFirstActivity extends Activity implements ForgetPwdContrac
 
     @Override
     public void showLoadFailMsg(String msg) {
-        Util.showSnackBar(this, msg);
+        SnackBarUtil.showSnackBar(this, msg);
     }
 
     @Override
     public void phoneBlankError() {
-        Util.showSnackBar(this, "手机号码不能为空！");
+        SnackBarUtil.showSnackBar(this, "手机号码不能为空！");
     }
 
     @Override
     public void codeBlankError() {
-        Util.showSnackBar(this, "验证码不能为空！");
+        SnackBarUtil.showSnackBar(this, "验证码不能为空！");
     }
 
     @Override
@@ -102,7 +103,7 @@ public class ForgetPwdFirstActivity extends Activity implements ForgetPwdContrac
 
     @Override
     public void codeFailure() {
-        Util.showSnackBar(this, "验证码错误!");
+        SnackBarUtil.showSnackBar(this, "验证码错误!");
     }
 
     @OnClick(R.id.forget_pwd_first_code_bt)

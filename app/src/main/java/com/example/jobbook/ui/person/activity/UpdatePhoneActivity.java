@@ -80,18 +80,13 @@ public class UpdatePhoneActivity extends Activity implements UpdateContract.Upda
     }
 
     @OnClick(R.id.person_change_phone_code_bt)
-    public void get_code() {
-        getCode();
+    public void getCode() {
+        SMSSDKManager.getInstance().sendMessage(this, "86", mOriginalPhoneTextView.getText().toString());
     }
 
     @OnClick(R.id.person_change_phone_complete_tv)
     public void complete() {
         mPresenter.complete(this, MyApplication.getAccount(), mNewPhoneEditText.getText().toString(), mCodeEditText.getText().toString());
-    }
-
-    @Override
-    public void getCode() {
-        SMSSDKManager.getInstance().sendMessage(this, "86", mOriginalPhoneTextView.getText().toString());
     }
 
     @Override

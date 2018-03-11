@@ -15,7 +15,7 @@ public class NetConstants {
      */
 
     public static final int PAZE_SIZE = 10;
-    public static final String IP = "http://192.168.0.105/jobBook/index.php";
+    public static final String IP = "http://192.168.0.105/jobBook/index.php/";
 
     public static final int SUCCESS_CODE = 000;
     public static final String SUCCESS_WORD = "True";
@@ -51,6 +51,24 @@ public class NetConstants {
     public static final String PERSON_SEND_MAIL_NO_DATA_WORD= "发送失败，请先完善简历!";
     public static final int PERSON_SEND_MAIL_HAVE_SENT_CODE = 116;
     public static final String PERSON_SEND_MAIL_HAVE_SENT_WORD = "您之前已经投递过该公司，请勿重复投递!";
+    public static final int PERSON_UPDATE_TEL_ERROR_CODE = 117;
+    public static final String PERSON_UPDATE_TEL_ERROR_WORD = "更新电话错误，请重试!";
+    public static final int PERSON_UPDATE_PWD_ERROR_CODE = 118;
+    public static final String PERSON_UPDATE_PWD_ERROR_WORD = "更新密码错误，请重试!";
+    public static final int PERSON_UPDATE_PWD_WRONG_PWD_ERROR_CODE = 119;
+    public static final String PERSON_UPDATE_PWD_WRONG_PWD_ERROR_WORD = "原始密码错误，请重试!";
+    public static final int PERSON_UPDATE_NAME_ERROR_CODE = 120;
+    public static final String PERSON_UPDATE_NAME_ERROR_WORD = "更新昵称失败，请重试!";
+    public static final int PERSON_UPDATE_NAME_NAME_EXISTS_CODE = 121;
+    public static final String PERSON_UPDATE_NAME_NAME_EXISTS_WORD = "昵称已存在，请重试!";
+    public static final int PERSON_FOCUS_ERROR_CODE = 122;
+    public static final String PERSON_FOCUS_ERROR_WORD = "关注用户失败，请重试!";
+    public static final int PERSON_FOCUS_HAVED_FOCUSED_ERROR_CODE = 123;
+    public static final String PERSON_FOCUS_HAVED_FOCUSED_ERROR_WORD = "不能重复关注用户!";
+    public static final int PERSON_UNFOCUS_ERROR_CODE = 124;
+    public static final String PERSON_UNFOCUS_ERROR_WORD = "取消关注用户失败，请重试!";
+    public static final int PERSON_UPLOAD_HEAD_ERROR_CODE = 125;
+    public static final String PERSON_UPLOAD_HEAD_ERROR_WORD = "上传头像失败，请重试!";
     public static final int SQUARE_RELEASE_ERROR_CODE = 126;
     public static final String SQUARE_RELEASE_ERROR_WORD = "发送工作圈失败，请重试!";
     public static final int SQUARE_LIKE_ERROR_CODE = 128;

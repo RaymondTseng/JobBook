@@ -32,7 +32,7 @@ public class FollowerListPresenter extends RxPresenter<FollowerListContract.View
 
                     @Override
                     public void onNext(List<TypePersonBean> typePersonBeans) {
-                        mView.loadFanList(typePersonBeans);
+                        mView.loadFollowerList(typePersonBeans);
                     }
                 }));
     }

@@ -15,19 +15,11 @@ public interface SquareContract {
     interface View extends IBaseView {
         void addSquares(List<MomentBean> squareList);
 
-        void like(int position);
-
-        void unlike(int position);
-
         void NoLoginError();
 
         void likeSuccess(MomentBean momentBean, int position);
 
         void unlikeSuccess(MomentBean momentBean, int position);
-
-        void likeError();
-
-        void unlikeError();
     }
 
     interface Presenter extends IBasePresenter<View> {

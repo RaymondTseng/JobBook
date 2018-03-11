@@ -31,6 +31,15 @@ public class ApiException extends RuntimeException {
         errors.append(NetConstants.PERSON_SEND_MAIL_ERROR_CODE, NetConstants.PERSON_SEND_MAIL_ERROR_WORD);
         errors.append(NetConstants.PERSON_SEND_MAIL_NO_DATA_CODE, NetConstants.PERSON_SEND_MAIL_NO_DATA_WORD);
         errors.append(NetConstants.PERSON_SEND_MAIL_HAVE_SENT_CODE, NetConstants.PERSON_SEND_MAIL_HAVE_SENT_WORD);
+        errors.append(NetConstants.PERSON_UPDATE_TEL_ERROR_CODE, NetConstants.PERSON_UPDATE_TEL_ERROR_WORD);
+        errors.append(NetConstants.PERSON_UPDATE_PWD_ERROR_CODE, NetConstants.PERSON_UPDATE_PWD_ERROR_WORD);
+        errors.append(NetConstants.PERSON_UPDATE_PWD_WRONG_PWD_ERROR_CODE, NetConstants.PERSON_UPDATE_PWD_WRONG_PWD_ERROR_WORD);
+        errors.append(NetConstants.PERSON_UPDATE_NAME_ERROR_CODE, NetConstants.PERSON_UPDATE_NAME_ERROR_WORD);
+        errors.append(NetConstants.PERSON_UPDATE_NAME_NAME_EXISTS_CODE, NetConstants.PERSON_UPDATE_NAME_NAME_EXISTS_WORD);
+        errors.append(NetConstants.PERSON_FOCUS_ERROR_CODE, NetConstants.PERSON_FOCUS_ERROR_WORD);
+        errors.append(NetConstants.PERSON_FOCUS_HAVED_FOCUSED_ERROR_CODE, NetConstants.PERSON_FOCUS_HAVED_FOCUSED_ERROR_WORD);
+        errors.append(NetConstants.PERSON_UNFOCUS_ERROR_CODE, NetConstants.PERSON_UNFOCUS_ERROR_WORD);
+        errors.append(NetConstants.PERSON_UPLOAD_HEAD_ERROR_CODE, NetConstants.PERSON_UPLOAD_HEAD_ERROR_WORD);
         errors.append(NetConstants.SQUARE_RELEASE_ERROR_CODE, NetConstants.SQUARE_RELEASE_ERROR_WORD);
         errors.append(NetConstants.SQUARE_LIKE_ERROR_CODE, NetConstants.SQUARE_LIKE_ERROR_WORD);
         errors.append(NetConstants.SQUARE_HAS_LIKED_ERROR_CODE, NetConstants.SQUARE_HAS_LIKED_ERROR_WORD);

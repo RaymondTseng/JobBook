@@ -12,8 +12,7 @@ import com.example.jobbook.R;
 import com.example.jobbook.app.MyApplication;
 import com.example.jobbook.base.contract.person.UpdateContract;
 import com.example.jobbook.presenter.person.UpdateUsernamePresenter;
-import com.example.jobbook.util.L;
-import com.example.jobbook.util.Util;
+import com.example.jobbook.util.SnackBarUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,59 +37,39 @@ public class UpdateUsernameActivity extends Activity implements UpdateContract.U
 
     private UpdateUsernamePresenter presenter;
     private MyApplication mMyApplication;
-    private View view;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_person_change_username);
         ButterKnife.bind(this);
-        view = getWindow().getDecorView();
         initEvents();
     }
 
     private void initEvents() {
-        mLoadingLinearLayout.inflate();
         presenter = new UpdateUsernamePresenter(this);
         mMyApplication = (MyApplication) getApplication();
-        mLoadingLinearLayout.setVisibility(View.GONE);
     }
 
     @OnClick(R.id.person_change_username_back_ib)
     public void back() {
-        close();
+        mMyApplication.getHandler().sendEmptyMessage(1);
+        finish();
     }
 
     @OnClick(R.id.person_change_username_complete_tv)
     public void change_complete() {
-        complete();
-    }
-
-    @Override
-    public void close() {
-        mMyApplication.getHandler().sendEmptyMessage(1);
-        L.i(MyApplication.getmPersonBean().getUsername());
-        finish();
-    }
-
-    @Override
-    public void complete() {
         presenter.update(this, MyApplication.getAccount(), mUserNameEditText.getText().toString());
     }
 
     @Override
     public void usernameBlankError() {
-        Util.showSnackBar(view, "新昵称为空");
+        SnackBarUtil.showSnackBar(this, "新昵称为空");
     }
 
     @Override
     public void success() {
-        Util.showSnackBar(view, "修改昵称成功");
-    }
-
-    @Override
-    public void networkError() {
-        Util.showSnackBar(view, "网络错误！");
+        SnackBarUtil.showSnackBar(this, "修改昵称成功");
     }
 
     @Override
@@ -105,7 +84,7 @@ public class UpdateUsernameActivity extends Activity implements UpdateContract.U
 
     @Override
     public void showLoadFailMsg(String msg) {
-
+        SnackBarUtil.showSnackBar(this, msg);
     }
 
 }

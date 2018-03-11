@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.example.jobbook.R;
 import com.example.jobbook.base.contract.account.ForgetPwdContract;
 import com.example.jobbook.presenter.account.ForgetPwdSecondPresenter;
+import com.example.jobbook.util.SnackBarUtil;
 import com.example.jobbook.util.Util;
 
 import butterknife.BindView;
@@ -64,27 +65,27 @@ public class ForgetPwdSecondActivity extends Activity implements ForgetPwdContra
 
     @Override
     public void showLoadFailMsg(String msg) {
-        Util.showSnackBar(this, msg);
+        SnackBarUtil.showSnackBar(this, msg);
     }
 
     @Override
     public void phoneBlankError() {
-        Util.showSnackBar(this, "密码不能为空！");
+        SnackBarUtil.showSnackBar(this, "密码不能为空！");
     }
 
     @Override
     public void confirmPhoneBlankError() {
-        Util.showSnackBar(this, "确认密码不能为空！");
+        SnackBarUtil.showSnackBar(this, "确认密码不能为空！");
     }
 
     @Override
     public void differentError() {
-        Util.showSnackBar(this, "两次密码不一致！");
+        SnackBarUtil.showSnackBar(this, "两次密码不一致！");
     }
 
     @Override
     public void success() {
-        Util.showSnackBar(this, "保存成功！");
+        SnackBarUtil.showSnackBar(this, "保存成功！");
         Util.toAnotherActivity(ForgetPwdSecondActivity.this, LoginActivity.class);
         finish();
     }

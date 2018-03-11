@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.example.jobbook.R;
 import com.example.jobbook.util.DataCleanManager;
+import com.example.jobbook.util.ScreenUtil;
 import com.example.jobbook.util.Util;
 
 /**
@@ -97,8 +98,8 @@ public class SettingActivity extends Activity implements View.OnClickListener {
         WindowManager.LayoutParams p = window.getAttributes(); // 获取对话框当前的参数值
 //        p.width = Util.dip2px(this, 280);
 //        p.height = Util.dip2px(this, 109);
-        p.width = Util.dip2px(this, 300);
-        p.height = Util.dip2px(this, 140);
+        p.width = ScreenUtil.dip2px(this, 300);
+        p.height = ScreenUtil.dip2px(this, 140);
 //        window.setLayout(Util.dip2px(this, Util.getWidth(this) * 1 / 4), Util.dip2px(this, Util.getHeight(this) * 1 / 13));
         window.setAttributes(p);
         window.setContentView(R.layout.clear_cache_layout);

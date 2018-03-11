@@ -37,7 +37,6 @@ public class UpdateUsernamePresenter extends RxPresenter<UpdateContract.UpdateUs
                         @Override
                         public void onNext(String s) {
                             mView.success();
-                            mView.close();
                         }
                     }));
         }

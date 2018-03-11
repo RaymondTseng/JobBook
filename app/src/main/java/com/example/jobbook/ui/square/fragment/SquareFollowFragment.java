@@ -17,7 +17,7 @@ import android.widget.TextView;
 
 import com.example.jobbook.R;
 import com.example.jobbook.app.MyApplication;
-import com.example.jobbook.app.Urls;
+import com.example.jobbook.app.NetConstants;
 import com.example.jobbook.base.LazyLoadFragment;
 import com.example.jobbook.base.contract.square.SquareFollowContract;
 import com.example.jobbook.model.bean.MomentBean;
@@ -26,6 +26,8 @@ import com.example.jobbook.ui.moment.activity.MomentDetailActivity;
 import com.example.jobbook.ui.person.activity.UserDetailActivity;
 import com.example.jobbook.ui.square.adapter.SquareFollowsAdapter;
 import com.example.jobbook.util.L;
+import com.example.jobbook.util.ScreenUtil;
+import com.example.jobbook.util.SnackBarUtil;
 import com.example.jobbook.util.Util;
 import com.example.jobbook.widget.DividerItemDecoration;
 
@@ -72,7 +74,7 @@ public class SquareFollowFragment extends LazyLoadFragment implements SquareFoll
     }
 
     private void initEvents() {
-        myApplication = (MyApplication)getActivity().getApplication();
+        myApplication = (MyApplication) getActivity().getApplication();
         handler = new SquareFollowHandler();
         mSwipeRefreshLayout.setOnRefreshListener(this);
         mSquareFollowPresenter = new SquareFollowPresenter(this);
@@ -149,9 +151,9 @@ public class SquareFollowFragment extends LazyLoadFragment implements SquareFoll
                     && lastVisibleItem + 1 == mAdapter.getItemCount()
                     && mAdapter.ismShowFooter()) {
                 //加载更多
-                if(MyApplication.getmLoginStatus() != 0){
+                if (MyApplication.getmLoginStatus() != 0) {
                     mSquareFollowPresenter.loadSquareFollows(pageIndex);
-                }else{
+                } else {
                     NoLoginError();
                 }
 
@@ -182,7 +184,7 @@ public class SquareFollowFragment extends LazyLoadFragment implements SquareFoll
             mData = new ArrayList<>();
         }
         mData.addAll(squareList);
-        if(squareList == null || squareList.size() < Urls.PAZE_SIZE){
+        if (squareList == null || squareList.size() < NetConstants.PAZE_SIZE) {
             mAdapter.setmShowFooter(false);
         }
         if (pageIndex == 0) {
@@ -194,7 +196,7 @@ public class SquareFollowFragment extends LazyLoadFragment implements SquareFoll
 //            }
             mAdapter.notifyDataSetChanged();
         }
-        pageIndex += Urls.PAZE_SIZE;
+        pageIndex += NetConstants.PAZE_SIZE;
     }
 
     @Override
@@ -204,16 +206,7 @@ public class SquareFollowFragment extends LazyLoadFragment implements SquareFoll
 
     @Override
     public void showLoadFailMsg(String msg) {
-
-    }
-
-    @Override
-    public void showLoadFailMsg() {
-        if (pageIndex == 0) {
-            mAdapter.setmShowFooter(false);
-            mAdapter.notifyDataSetChanged();
-        }
-        Util.showSnackBar(MyApplication.mSnackBarView, "网络无法连接！", "重试", new View.OnClickListener() {
+        SnackBarUtil.showSnackBar(getActivity(), msg, "重试", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onRefresh();
@@ -221,19 +214,17 @@ public class SquareFollowFragment extends LazyLoadFragment implements SquareFoll
         });
     }
 
-    @Override
-    public void like(int position) {
+    private void like(int position) {
         mSquareFollowPresenter.like(mData.get(position).getS_id(), position);
     }
 
-    @Override
-    public void unlike(int position) {
+    private void unlike(int position) {
         mSquareFollowPresenter.unlike(mData.get(position).getS_id(), position);
     }
 
     @Override
     public void NoLoginError() {
-        Util.showSnackBar(MyApplication.mSnackBarView, "请先登录！");
+        SnackBarUtil.showSnackBar(getActivity(), "请先登录！");
     }
 
     @Override
@@ -241,7 +232,7 @@ public class SquareFollowFragment extends LazyLoadFragment implements SquareFoll
         mAdapter.getmData().set(position, momentBean);
         //RecyclerView局部更新
         mAdapter.notifyItemChanged(position, "refresh");
-        Util.showSnackBar(MyApplication.mSnackBarView, "点赞成功！");
+        SnackBarUtil.showSnackBar(getActivity(), "点赞成功！");
     }
 
     @Override
@@ -249,17 +240,7 @@ public class SquareFollowFragment extends LazyLoadFragment implements SquareFoll
         mAdapter.getmData().set(position, momentBean);
         //RecyclerView局部更新
         mAdapter.notifyItemChanged(position, "refresh");
-        Util.showSnackBar(MyApplication.mSnackBarView, "取消点赞成功！");
-    }
-
-    @Override
-    public void likeError() {
-        Util.showSnackBar(MyApplication.mSnackBarView, "点赞失败！");
-    }
-
-    @Override
-    public void unlikeError() {
-        Util.showSnackBar(MyApplication.mSnackBarView, "取消点赞失败！");
+        SnackBarUtil.showSnackBar(getActivity(), "取消点赞成功！");
     }
 
     @Override
@@ -268,9 +249,9 @@ public class SquareFollowFragment extends LazyLoadFragment implements SquareFoll
         if (mData != null) {
             mData.clear();
         }
-        if(MyApplication.getmLoginStatus() != 0){
+        if (MyApplication.getmLoginStatus() != 0) {
             mSquareFollowPresenter.loadSquareFollows(pageIndex);
-        }else{
+        } else {
             NoLoginError();
         }
     }
@@ -282,10 +263,8 @@ public class SquareFollowFragment extends LazyLoadFragment implements SquareFoll
         Window window = alertDialog.getWindow();
         window.setGravity(Gravity.CENTER);
         WindowManager.LayoutParams p = window.getAttributes(); // 获取对话框当前的参数值
-//        p.width = Util.dip2px(getActivity(), 280);
-//        p.height = Util.dip2px(getActivity(), 109);
-        p.width = Util.dip2px(getActivity(), 300);
-        p.height = Util.dip2px(getActivity(), 140);
+        p.width = ScreenUtil.dip2px(getActivity(), 300);
+        p.height = ScreenUtil.dip2px(getActivity(), 140);
 //        window.setLayout(Util.dip2px(getActivity(), Util.getWidth(getActivity()) * 1 / 4), Util.dip2px(getActivity(), Util.getHeight(getActivity()) * 1 / 13));
         window.setAttributes(p);
         window.setContentView(R.layout.square_no_interest_layout);
