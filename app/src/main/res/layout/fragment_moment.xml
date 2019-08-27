@@ -53,9 +53,9 @@
             android:textSize="16sp" />
     </LinearLayout>
 
-    <android.support.v4.view.ViewPager
+    <androidx.viewpager.widget.ViewPager
         android:id="@+id/moment_vp"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="456"></android.support.v4.view.ViewPager>
+        android:layout_weight="456" />
 </LinearLayout>

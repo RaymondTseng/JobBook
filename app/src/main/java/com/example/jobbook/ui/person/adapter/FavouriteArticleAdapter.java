@@ -1,13 +1,14 @@
 package com.example.jobbook.ui.person.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.jobbook.R;
 import com.example.jobbook.app.Constants;
@@ -27,7 +28,7 @@ public class FavouriteArticleAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     private OnArticleItemClickListener onArticleItemClickListener;
 
-    public FavouriteArticleAdapter(Context mContext, List<ArticleBean> mData){
+    public FavouriteArticleAdapter(Context mContext, List<ArticleBean> mData) {
         this.mContext = mContext;
         this.mData = mData;
     }
@@ -41,9 +42,9 @@ public class FavouriteArticleAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        if(holder instanceof ViewHolder){
+        if (holder instanceof ViewHolder) {
             ArticleBean article = mData.get(position);
-            if(article == null){
+            if (article == null) {
                 return;
             }
             ((ViewHolder) holder).mTime.setText(article.getDate());
@@ -71,14 +72,14 @@ public class FavouriteArticleAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     @Override
     public int getItemCount() {
-        if(mData == null){
+        if (mData == null) {
             return 0;
         }
         return mData.size();
     }
 
 
-    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView mLabel;
         TextView mTitle;
         TextView mContent;
@@ -99,13 +100,13 @@ public class FavouriteArticleAdapter extends RecyclerView.Adapter<RecyclerView.V
 
         @Override
         public void onClick(View v) {
-            if(onArticleItemClickListener != null){
+            if (onArticleItemClickListener != null) {
                 onArticleItemClickListener.onArticleItemClick(mData.get(getLayoutPosition()));
             }
         }
     }
 
-    public interface OnArticleItemClickListener{
+    public interface OnArticleItemClickListener {
         void onArticleItemClick(ArticleBean articleBean);
     }
 
@@ -113,7 +114,7 @@ public class FavouriteArticleAdapter extends RecyclerView.Adapter<RecyclerView.V
         this.onArticleItemClickListener = onArticleItemClickListener;
     }
 
-    public void onRefreshData(List<ArticleBean> mData){
+    public void onRefreshData(List<ArticleBean> mData) {
         this.mData = mData;
         notifyDataSetChanged();
     }

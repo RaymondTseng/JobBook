@@ -17,7 +17,7 @@ public class ImageLoadUtils {
             throw new IllegalArgumentException("argument error");
         }
         Glide.with(context).load(url).placeholder(placeholder)
-                .error(error).crossFade().into(imageView);
+                .error(error).into(imageView);
     }
 
     public static void display(Context context, ImageView imageView, String url) {
@@ -28,7 +28,7 @@ public class ImageLoadUtils {
 //                .error(R.drawable.ic_image_loadfail).crossFade().into(imageView);
 //        Log.i("image_url", url);
 //        Glide.with(context).load(url).diskCacheStrategy(DiskCacheStrategy.ALL).skipMemoryCache(true).crossFade(100).into(imageView);
-        Glide.with(context).load(url).diskCacheStrategy(DiskCacheStrategy.RESULT).skipMemoryCache(false).into(imageView);
+        Glide.with(context).load(url).diskCacheStrategy(DiskCacheStrategy.AUTOMATIC).skipMemoryCache(false).into(imageView);
     }
     public static void display(Context context, ImageView imageView, Uri uri) {
         if (imageView == null) {

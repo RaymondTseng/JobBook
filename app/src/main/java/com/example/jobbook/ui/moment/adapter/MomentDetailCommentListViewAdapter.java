@@ -1,12 +1,13 @@
 package com.example.jobbook.ui.moment.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.jobbook.R;
 import com.example.jobbook.model.bean.MomentCommentBean;
@@ -31,13 +32,13 @@ public class MomentDetailCommentListViewAdapter extends RecyclerView.Adapter<Rec
 
     private OnItemClickListener mOnItemClickListener;
 
-    public MomentDetailCommentListViewAdapter(Context mContext){
+    public MomentDetailCommentListViewAdapter(Context mContext) {
         this.mContext = mContext;
     }
 
     private String calculateSpace(String username) {
         StringBuilder sb = new StringBuilder();
-        if(username != null){
+        if (username != null) {
             for (int i = 0; i < username.length(); i++) {
                 if ((username.charAt(i) >= 'A' && username.charAt(i) <= 'Z') || (username.charAt(i) >= 'a' && username.charAt(i) <= 'z')) {
                     sb.append("   ");
@@ -51,7 +52,7 @@ public class MomentDetailCommentListViewAdapter extends RecyclerView.Adapter<Rec
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        if(viewType == TYPE_HEADER) {
+        if (viewType == TYPE_HEADER) {
 //            View v = LayoutInflater.from(parent.getContext()).
 //                    inflate(R.layout.moment_detail_head_ll, parent, false);
 //            v.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
@@ -59,7 +60,7 @@ public class MomentDetailCommentListViewAdapter extends RecyclerView.Adapter<Rec
             mHeaderView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT));
             return new HeaderViewHolder(mHeaderView);
-        }else if(viewType == TYPE_ITEM) {
+        } else if (viewType == TYPE_ITEM) {
             View v = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.moment_detail_comment_listview_item, parent, false);
             return new ItemViewHolder(v);
@@ -74,21 +75,21 @@ public class MomentDetailCommentListViewAdapter extends RecyclerView.Adapter<Rec
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        if(getItemViewType(position) == TYPE_HEADER) return;
-        if(getItemViewType(position) == TYPE_FOOTER) return;
-        if(holder instanceof ItemViewHolder) {
+        if (getItemViewType(position) == TYPE_HEADER) return;
+        if (getItemViewType(position) == TYPE_FOOTER) return;
+        if (holder instanceof ItemViewHolder) {
             position = getRealPosition(holder);
             MomentCommentBean comment = mData.get(position);
-            if(comment == null){
+            if (comment == null) {
                 return;
             }
-            ImageLoadUtils.display(mContext, ((ItemViewHolder)holder).mLogo, comment.getApplier().getHead());
+            ImageLoadUtils.display(mContext, ((ItemViewHolder) holder).mLogo, comment.getApplier().getHead());
             ((ItemViewHolder) holder).mContent.setText(calculateSpace(comment.getApplier().getUsername()) + comment.getContent());
             ((ItemViewHolder) holder).mName.setText(comment.getApplier().getUsername());
         }
     }
 
-    private int getRealPosition(RecyclerView.ViewHolder holder){
+    private int getRealPosition(RecyclerView.ViewHolder holder) {
         int position = holder.getLayoutPosition();
 //        if(mShowHeader && mShowFooter){
 //            return position - 2;
@@ -98,15 +99,15 @@ public class MomentDetailCommentListViewAdapter extends RecyclerView.Adapter<Rec
         return mShowHeader ? position - 1 : position;
     }
 
-    public void setmHeaderView(View mHeaderView){
-        if(mHeaderView != null){
+    public void setmHeaderView(View mHeaderView) {
+        if (mHeaderView != null) {
             this.mHeaderView = mHeaderView;
             notifyItemInserted(0);
             mShowHeader = true;
         }
     }
 
-    public void updateData(List<MomentCommentBean> mData){
+    public void updateData(List<MomentCommentBean> mData) {
         this.mData = mData;
         this.notifyDataSetChanged();
     }
@@ -114,8 +115,8 @@ public class MomentDetailCommentListViewAdapter extends RecyclerView.Adapter<Rec
     @Override
     public int getItemCount() {
         int begin = mShowHeader ? 1 : 0;
-        begin += mShowFooter?1:0;
-        if(mData == null) {
+        begin += mShowFooter ? 1 : 0;
+        if (mData == null) {
             return begin;
         }
         return mData.size() + begin;
@@ -123,11 +124,11 @@ public class MomentDetailCommentListViewAdapter extends RecyclerView.Adapter<Rec
 
     @Override
     public int getItemViewType(int position) {
-        if(position == 0){
+        if (position == 0) {
             return TYPE_HEADER;
         }
         // 最后一个item设置为footerView
-        if(!mShowFooter) {
+        if (!mShowFooter) {
             return TYPE_ITEM;
         }
         if (mShowHeader && position + 1 == getItemCount()) {
@@ -136,6 +137,7 @@ public class MomentDetailCommentListViewAdapter extends RecyclerView.Adapter<Rec
             return TYPE_ITEM;
         }
     }
+
     public interface OnItemClickListener {
         void onItemClick(View view, int position);
     }
@@ -144,27 +146,28 @@ public class MomentDetailCommentListViewAdapter extends RecyclerView.Adapter<Rec
         this.mOnItemClickListener = onItemClickListener;
     }
 
-    public class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         ImageView mLogo;
         TextView mName;
         TextView mContent;
 
-        public ItemViewHolder(View view){
+        public ItemViewHolder(View view) {
             super(view);
             mLogo = (ImageView) view.findViewById(R.id.moment_detail_comment_lv_head_iv);
             mName = (TextView) view.findViewById(R.id.moment_detail_comment_lv_name_tv);
             mContent = (TextView) view.findViewById(R.id.moment_detail_comment_lv_content_tv);
             itemView.setOnClickListener(this);
         }
+
         @Override
         public void onClick(View v) {
-            if(mOnItemClickListener != null) {
+            if (mOnItemClickListener != null) {
                 mOnItemClickListener.onItemClick(v, this.getLayoutPosition());
             }
         }
     }
 
-    public MomentCommentBean getItem(int position){
+    public MomentCommentBean getItem(int position) {
         return mData == null ? null : mData.get(position);
     }
 
@@ -184,7 +187,7 @@ public class MomentDetailCommentListViewAdapter extends RecyclerView.Adapter<Rec
 
     }
 
-    public class HeaderViewHolder extends RecyclerView.ViewHolder{
+    public class HeaderViewHolder extends RecyclerView.ViewHolder {
         public HeaderViewHolder(View view) {
             super(view);
         }

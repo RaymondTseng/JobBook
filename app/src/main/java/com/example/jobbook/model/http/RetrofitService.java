@@ -1,6 +1,6 @@
 package com.example.jobbook.model.http;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.example.jobbook.app.MyApplication;
 import com.example.jobbook.app.NetConstants;
@@ -70,7 +70,7 @@ public class RetrofitService {
     public static final String CACHE_CONTROL_NETWORK_3000 = "Cache-Control: public, max-age=3000";
     // 避免出现 HTTP 403 Forbidden，参考：http://stackoverflow.com/questions/13670692/403-forbidden-with-java-but-not-web-browser
     static final String AVOID_HTTP403_FORBIDDEN = "User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11";
-    
+
     // 递增页码
     private static final int INCREASE_PAGE = 10;
 

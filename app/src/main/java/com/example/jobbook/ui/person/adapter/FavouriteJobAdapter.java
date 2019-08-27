@@ -1,13 +1,14 @@
 package com.example.jobbook.ui.person.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.jobbook.R;
 import com.example.jobbook.model.bean.JobBean;
@@ -26,7 +27,7 @@ public class FavouriteJobAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     private OnJobItemClickListener onJobItemClickListener;
 
-    public FavouriteJobAdapter(Context mContext, List<JobBean> mData){
+    public FavouriteJobAdapter(Context mContext, List<JobBean> mData) {
         this.mContext = mContext;
         this.mData = mData;
     }
@@ -40,9 +41,9 @@ public class FavouriteJobAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        if(holder instanceof ViewHolder){
+        if (holder instanceof ViewHolder) {
             JobBean job = mData.get(position);
-            if(job == null){
+            if (job == null) {
                 return;
             }
             ImageLoadUtils.display(mContext, ((ViewHolder) holder).mCompanyLogo, job.getLogo());
@@ -61,19 +62,19 @@ public class FavouriteJobAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public int getItemCount() {
-        if(mData == null){
+        if (mData == null) {
             return 0;
         }
         return mData.size();
     }
 
 
-    public void onRefreshData(List<JobBean> mData){
+    public void onRefreshData(List<JobBean> mData) {
         this.mData = mData;
         notifyDataSetChanged();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         ImageView mCompanyLogo;
         TextView mJobName;
         TextView mCompanyName;
@@ -96,13 +97,13 @@ public class FavouriteJobAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
         @Override
         public void onClick(View v) {
-            if(onJobItemClickListener != null){
+            if (onJobItemClickListener != null) {
                 onJobItemClickListener.onJobItemClick(mData.get(getLayoutPosition()));
             }
         }
     }
 
-    public interface OnJobItemClickListener{
+    public interface OnJobItemClickListener {
         void onJobItemClick(JobBean jobBean);
     }
 

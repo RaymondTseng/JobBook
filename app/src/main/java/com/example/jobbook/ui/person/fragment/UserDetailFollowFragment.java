@@ -1,15 +1,16 @@
 package com.example.jobbook.ui.person.fragment;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewStub;
+
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.jobbook.R;
 import com.example.jobbook.app.MyApplication;
@@ -34,7 +35,7 @@ import butterknife.ButterKnife;
 
 public class UserDetailFollowFragment extends Fragment implements UserDetailFollowContract.View,
         UserDetailActivity.OnGetAccountListener, UserDetailFollowAdapter.OnFollowClickListener,
-        UserDetailFollowAdapter.OnFollowerItemClickListener{
+        UserDetailFollowAdapter.OnFollowerItemClickListener {
 
     @BindView(R.id.base_rv)
     RecyclerView mRecyclerView;
@@ -58,7 +59,7 @@ public class UserDetailFollowFragment extends Fragment implements UserDetailFoll
         return view;
     }
 
-    private void init(){
+    private void init() {
         mData = new ArrayList<>();
         mLoadingLayout.inflate();
         mAdapter = new UserDetailFollowAdapter(getActivity(), mData);

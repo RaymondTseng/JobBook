@@ -1,13 +1,14 @@
 package com.example.jobbook.ui.square.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.jobbook.R;
 import com.example.jobbook.model.bean.MomentBean;
@@ -44,13 +45,11 @@ public class SquareFollowsAdapter extends RecyclerView.Adapter<RecyclerView.View
             View v = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.square_follow_rv_item, parent, false);
             return new ItemViewHolder(v);
-        }
-        else if (viewType == TYPE_ITEM_OVER) {
+        } else if (viewType == TYPE_ITEM_OVER) {
             View v = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.square_follow_recycleview_item_oversize, parent, false);
             return new ItemOverSizeViewHolder(v);
-        }
-        else {
+        } else {
             View view = LayoutInflater.from(parent.getContext()).inflate(
                     R.layout.loadingfooter_layout, null);
             view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
@@ -107,7 +106,7 @@ public class SquareFollowsAdapter extends RecyclerView.Adapter<RecyclerView.View
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position, List playloads) {
         if (playloads.isEmpty()) {
             onBindViewHolder(holder, position);
-        } else if (holder instanceof ItemViewHolder){
+        } else if (holder instanceof ItemViewHolder) {
             String playload = (String) playloads.get(0);
             MomentBean moment = mData.get(position);
             ((ItemViewHolder) holder).mFavouriteNumbers.setText(moment.getLikesNum() + "");
@@ -217,7 +216,7 @@ public class SquareFollowsAdapter extends RecyclerView.Adapter<RecyclerView.View
                     break;
 
                 case R.id.square_follow_rv_content_tv:
-                    if(mOnContentClickListener != null){
+                    if (mOnContentClickListener != null) {
                         mOnContentClickListener.onContentClick(v, this.getAdapterPosition());
                     }
                     break;
@@ -271,7 +270,7 @@ public class SquareFollowsAdapter extends RecyclerView.Adapter<RecyclerView.View
                     break;
 
                 case R.id.square_follow_oversize_rv_content_tv:
-                    if(mOnContentClickListener != null){
+                    if (mOnContentClickListener != null) {
                         mOnContentClickListener.onContentClick(v, this.getAdapterPosition());
                     }
                     break;
@@ -295,7 +294,7 @@ public class SquareFollowsAdapter extends RecyclerView.Adapter<RecyclerView.View
         void onHeadClick(View view, int position);
     }
 
-    public interface OnContentClickListener{
+    public interface OnContentClickListener {
         void onContentClick(View view, int position);
     }
 
@@ -319,7 +318,7 @@ public class SquareFollowsAdapter extends RecyclerView.Adapter<RecyclerView.View
         this.mOnFavouriteButtonClickListener = onFavouriteButtonClickListener;
     }
 
-    public void setOnContentClickListener(OnContentClickListener onContentClickListener){
+    public void setOnContentClickListener(OnContentClickListener onContentClickListener) {
         this.mOnContentClickListener = onContentClickListener;
     }
 

@@ -1,15 +1,16 @@
 package com.example.jobbook.ui.person.fragment;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewStub;
+
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.jobbook.R;
 import com.example.jobbook.app.MyApplication;
@@ -32,7 +33,7 @@ import butterknife.ButterKnife;
  * Created by Xu on 16-12-7.
  */
 
-public class FavouriteJobsFragment extends Fragment implements FavouriteJobContract.View, FavouriteJobAdapter.OnJobItemClickListener{
+public class FavouriteJobsFragment extends Fragment implements FavouriteJobContract.View, FavouriteJobAdapter.OnJobItemClickListener {
     private View view;
 
     @BindView(R.id.base_rv)
@@ -55,7 +56,7 @@ public class FavouriteJobsFragment extends Fragment implements FavouriteJobContr
         return view;
     }
 
-    private void init(){
+    private void init() {
         mData = new ArrayList<>();
         mPresenter = new FavouriteJobPresenter(this);
         mAdapter = new FavouriteJobAdapter(getActivity(), mData);
@@ -67,7 +68,7 @@ public class FavouriteJobsFragment extends Fragment implements FavouriteJobContr
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setAdapter(mAdapter);
         mAdapter.setOnJobItemClickListener(this);
-        if(MyApplication.getmLoginStatus() != 0){
+        if (MyApplication.getmLoginStatus() != 0) {
             mPresenter.loadFavouriteJobs(MyApplication.getAccount());
         }
     }
@@ -101,9 +102,9 @@ public class FavouriteJobsFragment extends Fragment implements FavouriteJobContr
     }
 
     @Override
-    public void onResume(){
+    public void onResume() {
         super.onResume();
-        if(MyApplication.getmLoginStatus() != 0){
+        if (MyApplication.getmLoginStatus() != 0) {
             mPresenter.loadFavouriteJobs(MyApplication.getAccount());
         }
     }

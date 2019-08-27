@@ -1,13 +1,14 @@
 package com.example.jobbook.ui.square.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.jobbook.app.MyApplication;
 import com.example.jobbook.R;
@@ -50,8 +51,7 @@ public class SquareAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             View v = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.square_recycleview_item_oversize, parent, false);
             return new ItemOverSizeViewHolder(v);
-        }
-        else {
+        } else {
             View view = LayoutInflater.from(parent.getContext()).inflate(
                     R.layout.loadingfooter_layout, null);
             view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
@@ -71,13 +71,13 @@ public class SquareAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             ((ItemViewHolder) holder).mCommentNumbers.setText(moment.getCommentNum() + "");
             ((ItemViewHolder) holder).mTime.setText(moment.getDate());
             ((ItemViewHolder) holder).mCompanyAndPositionTextView.setText(moment.getAuthor().getWorkSpace() + " "
-                                                + moment.getAuthor().getWorkPosition());
+                    + moment.getAuthor().getWorkPosition());
             if (MyApplication.getAccount() != null) {
-                if(MyApplication.getAccount().equals(moment.getAuthor().getAccount())){
-                    ((ItemViewHolder)holder).mNoInterestButton.setVisibility(View.GONE);
+                if (MyApplication.getAccount().equals(moment.getAuthor().getAccount())) {
+                    ((ItemViewHolder) holder).mNoInterestButton.setVisibility(View.GONE);
                 }
             } else {
-                ((ItemViewHolder)holder).mNoInterestButton.setVisibility(View.GONE);
+                ((ItemViewHolder) holder).mNoInterestButton.setVisibility(View.GONE);
             }
             if (moment.getIfLike() == 0) {
                 ((ItemViewHolder) holder).mFavouriteButton.setImageResource(R.mipmap.favourite);
@@ -95,11 +95,11 @@ public class SquareAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             ((ItemOverSizeViewHolder) holder).mCompanyAndPositionTextView.setText(moment.getAuthor().getWorkSpace() + " "
                     + moment.getAuthor().getWorkPosition());
             if (MyApplication.getAccount() != null) {
-                if(MyApplication.getAccount().equals(moment.getAuthor().getAccount())){
-                    ((ItemOverSizeViewHolder)holder).mNoInterestButton.setVisibility(View.GONE);
+                if (MyApplication.getAccount().equals(moment.getAuthor().getAccount())) {
+                    ((ItemOverSizeViewHolder) holder).mNoInterestButton.setVisibility(View.GONE);
                 }
             } else {
-                ((ItemOverSizeViewHolder)holder).mNoInterestButton.setVisibility(View.GONE);
+                ((ItemOverSizeViewHolder) holder).mNoInterestButton.setVisibility(View.GONE);
             }
             if (moment.getIfLike() == 0) {
                 ((ItemOverSizeViewHolder) holder).mFavouriteButton.setImageResource(R.mipmap.favourite);
@@ -119,11 +119,11 @@ public class SquareAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder , int position , List playloads){
-        if(playloads.isEmpty()){
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position, List playloads) {
+        if (playloads.isEmpty()) {
             onBindViewHolder(holder, position);
-        }else if (holder instanceof ItemViewHolder){
-            String playload = (String)playloads.get(0);
+        } else if (holder instanceof ItemViewHolder) {
+            String playload = (String) playloads.get(0);
             L.i(playload);
             MomentBean moment = mData.get(position);
             ((ItemViewHolder) holder).mFavouriteNumbers.setText(moment.getLikesNum() + "");
@@ -134,8 +134,8 @@ public class SquareAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 ((ItemViewHolder) holder).mFavouriteButton.setImageResource(R.mipmap.favourite_tapped);
             }
 //            viewHolder.mFavouriteNumbers.setText("1");
-        }else if (holder instanceof ItemOverSizeViewHolder) {
-            String playload = (String)playloads.get(0);
+        } else if (holder instanceof ItemOverSizeViewHolder) {
+            String playload = (String) playloads.get(0);
             L.i(playload);
             MomentBean moment = mData.get(position);
             ((ItemOverSizeViewHolder) holder).mFavouriteNumbers.setText(moment.getLikesNum() + "");
@@ -238,7 +238,7 @@ public class SquareAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                     break;
 
                 case R.id.square_rv_content_tv:
-                    if(mOnContentClickListener != null){
+                    if (mOnContentClickListener != null) {
                         mOnContentClickListener.onContentClick(v, this.getAdapterPosition());
                     }
                     break;
@@ -300,7 +300,7 @@ public class SquareAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                     break;
 
                 case R.id.square_oversize_rv_content_tv:
-                    if(mOnContentClickListener != null){
+                    if (mOnContentClickListener != null) {
                         mOnContentClickListener.onContentClick(v, this.getAdapterPosition());
                     }
                     break;
@@ -336,7 +336,7 @@ public class SquareAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         void onFavouriteButtonClick(ImageButton ib, int position);
     }
 
-    public interface OnContentClickListener{
+    public interface OnContentClickListener {
         void onContentClick(View view, int position);
     }
 
@@ -344,7 +344,7 @@ public class SquareAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         void onShowAllOrHideAll(TextView view, TextView contentTextView, String content);
     }
 
-    public void setOnContentClickListener(OnContentClickListener onContentClickListener){
+    public void setOnContentClickListener(OnContentClickListener onContentClickListener) {
         this.mOnContentClickListener = onContentClickListener;
     }
 

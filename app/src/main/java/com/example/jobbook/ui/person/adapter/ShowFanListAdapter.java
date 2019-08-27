@@ -1,13 +1,14 @@
 package com.example.jobbook.ui.person.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.jobbook.R;
 import com.example.jobbook.model.bean.PersonBean;
@@ -37,11 +38,11 @@ public class ShowFanListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        if(viewType == UNFOLLOW_TYPE){
+        if (viewType == UNFOLLOW_TYPE) {
             View v = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.user_detail_fan_lv_item, parent, false);
             return new ViewHolder(v, UNFOLLOW_TYPE);
-        }else{
+        } else {
             View v = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.user_detail_fan_lv_item, parent, false);
             return new ViewHolder(v, FOLLOW_TYPE);
@@ -50,12 +51,12 @@ public class ShowFanListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        if(holder instanceof ViewHolder) {
+        if (holder instanceof ViewHolder) {
             TypePersonBean personBean = mData.get(position);
-            if(personBean == null){
+            if (personBean == null) {
                 return;
             }
-            ImageLoadUtils.display(mContext, ((ViewHolder)holder).mHeadImageView, personBean.getHead());
+            ImageLoadUtils.display(mContext, ((ViewHolder) holder).mHeadImageView, personBean.getHead());
             ((ViewHolder) holder).mNameTextView.setText(personBean.getUsername());
             ((ViewHolder) holder).mWorkSpacePositionTextView.setText(personBean.getWorkSpace()
                     + " " + personBean.getWorkPosition());
@@ -73,7 +74,7 @@ public class ShowFanListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public int getItemViewType(int position) {
-        if(mData.get(position).getType() == UNFOLLOW_TYPE){
+        if (mData.get(position).getType() == UNFOLLOW_TYPE) {
             return UNFOLLOW_TYPE;
         }
         return FOLLOW_TYPE;
@@ -100,9 +101,9 @@ public class ShowFanListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             itemView = view.findViewById(R.id.user_detail_fan_lv_item_ll);
             mFollowImageButton = (ImageButton) view.findViewById(R.id.user_detail_fan_lv_item_follow_ib);
             itemView.setOnClickListener(this);
-            if(type == UNFOLLOW_TYPE){
+            if (type == UNFOLLOW_TYPE) {
                 mFollowImageButton.setOnClickListener(this);
-            }else{
+            } else {
                 mFollowImageButton.setVisibility(View.GONE);
             }
 //            itemView.setOnClickListener(this);
@@ -110,14 +111,14 @@ public class ShowFanListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         @Override
         public void onClick(View v) {
-            switch (v.getId()){
+            switch (v.getId()) {
                 case R.id.user_detail_fan_lv_item_ll:
-                    if(onFanItemClickListener != null){
+                    if (onFanItemClickListener != null) {
                         onFanItemClickListener.onFanItemClick(mData.get(getLayoutPosition()));
                     }
                     break;
                 case R.id.user_detail_fan_lv_item_follow_ib:
-                    if(onFollowFanClickListener != null){
+                    if (onFollowFanClickListener != null) {
                         onFollowFanClickListener.onFollowFanClick(mData.get(getLayoutPosition()));
                     }
                     break;
@@ -137,16 +138,16 @@ public class ShowFanListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         this.mShowFooter = mShowFooter;
     }
 
-    public void refreshData(List<TypePersonBean> mData){
+    public void refreshData(List<TypePersonBean> mData) {
         this.mData = mData;
         notifyDataSetChanged();
     }
 
-    public interface OnFanItemClickListener{
+    public interface OnFanItemClickListener {
         void onFanItemClick(TypePersonBean personBean);
     }
 
-    public interface OnFollowFanClickListener{
+    public interface OnFollowFanClickListener {
         void onFollowFanClick(TypePersonBean personBean);
     }
 

@@ -2,28 +2,27 @@ apply plugin: 'com.android.application'
 //apply plugin: 'com.jakewharton.butterknife'
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion '26.0.2'
+    compileSdkVersion 28
+    buildToolsVersion '28.0.3'
 
     defaultConfig {
         applicationId "com.example.jobbook"
-        minSdkVersion 16
-        targetSdkVersion 22
+        minSdkVersion 21
+        targetSdkVersion 28
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
 
     }
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
     sourceSets {
         debug.setRoot('build-types/debug')
         release.setRoot('build-types/release')
-    }
-
-    configurations{
-        all*.exclude module: 'okhttp'
-        all*.exclude module: 'okio'
-        all*.exclude module: 'gson'
     }
 
     //签名
@@ -56,109 +55,55 @@ android {
 
 }
 
-//this way we can find the .aar file in libs folder
-repositories {
-    flatDir {
-        dirs 'libs'
-    }
-    jcenter()
-    google()
-}
-
 dependencies {
+    testImplementation 'junit:junit:4.12'
 
-    //    compile fileTree(include: ['*.jar'], dir: 'libs')
-    testCompile 'junit:junit:4.12'
-    compile files('libs/commons-lang3-3.5.jar')
-    compile files('libs/glide-3.7.0.jar')
-    compile files('libs/gson-2.8.0.jar')
-    compile files('libs/litepal-1.4.1.jar')
-    compile files('libs/MobCommons-2017.0607.1736.jar')
-    compile files('libs/MobTools-2017.0607.1736.jar')
-    compile files('libs/okhttp-3.5.0.jar')
-    compile files('libs/okio-1.9.0.jar')
-//    compile 'com.android.support:recyclerview-v7:25.3.0'
+    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'com.google.android.material:material:1.1.0-alpha09'
 
-    //    compile 'com.zhy:okhttputils:2.6.2'
-    compile 'com.android.support:design:26.1.0'
+    // Glide
+    implementation "com.github.bumptech.glide:glide:4.9.0"
 
-    //    compile 'com.google.android:flexbox:0.2.3'
+    // network
+    implementation 'com.squareup.retrofit2:retrofit:2.6.1'
+    implementation "com.squareup.okhttp3:okhttp:4.1.0"
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.1.0'
+    implementation "com.squareup.retrofit2:converter-gson:2.6.1"
 
-    //    compile 'com.android.support:support-v4:23.3.0'
-    compile 'com.github.bumptech.glide:okhttp3-integration:1.4.0@aar'
-    compile files('libs/okhttp3-integration-1.4.0.aar')
+    // RxJava
+    implementation 'io.reactivex.rxjava2:rxjava:2.0.7'
 
-    //    compile(name: 'okhttp3-integration-1.4.0', ext: 'aar')
+    // 引入rxjava适配器，方便rxjava与retrofit的结合
+    implementation 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
 
-    //    compile 'de.hdodenhof:circleimageview:2.1.0'
-    compile files('libs/circleimageview-2.1.0.aar')
-
-    //    compile(name: 'circleimageview-2.1.0', ext: 'aar')
-
-    //    compile 'com.jude:smssdk_mob:1.1.1'
-    compile 'com.jzxiang.pickerview:TimePickerDialog:1.0.1'
-
-    //    compile 'com.yalantis:ucrop:2.1.2'
-    compile files('libs/ucrop-2.1.2.aar')
-
-    //    compile(name: 'ucrop-2.1.2', ext: 'aar')
-
-    //    compile 'com.lsjwzh:materialloadingprogressbar:0.5.8-RELEASE'
-    compile files('libs/materialloadingprogressbar-0.5.8-RELEASE.aar')
-
-    //    compile(name: 'materialloadingprogressbar-0.5.8-RELEASE', ext: 'aar')
-
-    //    compile(name: 'stickylistheaders-2.7.0', ext: 'aar')
-
-    //    compile(name: 'SmartTabLayout-1.6.1', ext: 'aar')
-
-    //    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.3'
-
-    //    releaseCompile 'com.squareup.leakcanary:leakcanary-androd-no-op:1.3'
-
-    //    debugCompile(name: 'leakcanary-android-1.3', ext: 'aar')
-
-    //    releaseCompile(name: 'leakcanary-android-no-op-1.3', ext: 'aar')
-    compile 'org.sufficientlysecure:html-textview:2.0'
-    compile files('libs/SMSSDK-3.0.0.aar')
-
-    //    compile(name: 'SMSSDK-3.0.0', ext: 'aar')
-
-    //    compile name:'SMSSDKGUI-2.1.3',ext:'aar'
-
-    //    compile project(':PushSDK')
-    compile 'com.zhy:percent-support-extends:1.1.0'
-
-    //    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.4'
-
-    //    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4'
-
-    //    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4'
-
-    //引入retrofit
-    compile 'com.squareup.retrofit2:retrofit:2.1.0'
-
-    //引入rxjava
-    compile 'io.reactivex.rxjava2:rxjava:2.0.4'
-
-    //引入rxjava适配器，方便rxjava与retrofit的结合
-    compile 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
-
-    // okhttp
-    compile 'com.squareup.okhttp3:logging-interceptor:3.5.0'
-
-    //引入json转换器，方便将返回的数据转换为json格式
-    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
-
-    //引入rxandroid
-    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    // rxandroid
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
 
     // logger
-    compile 'com.orhanobut:logger:2.1.1'
-    compile project(':PushSDK')
+    implementation 'com.orhanobut:logger:2.2.0'
 
     // Butterknife
-    compile 'com.jakewharton:butterknife:8.8.1'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
-    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.jakewharton:butterknife:10.1.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
+
+    // PushSDK
+    implementation project(path: ':pushSDK')
+
+    // LitePal
+    implementation 'org.litepal.android:java:3.0.0'
+    implementation files('libs/MobCommons-2017.0607.1736.jar')
+    implementation files('libs/MobTools-2017.0607.1736.jar')
+    implementation files('libs/utdid4all-1.1.5.3_proguard.jar')
+    implementation files('libs/umeng-common-2.1.0.jar')
+    implementation files('libs/commons-lang3-3.9.jar')
+    implementation files('libs/circleimageview-2.1.0.aar')
+    implementation 'com.jzxiang.pickerview:TimePickerDialog:1.0.1'
+    implementation files('libs/ucrop-2.1.2.aar')
+    implementation files('libs/materialloadingprogressbar-0.5.8-RELEASE.aar')
+    implementation 'org.sufficientlysecure:html-textview:2.0'
+    implementation files('libs/SMSSDK-3.0.0.aar')
+    implementation 'com.zhy:percent-support-extends:1.1.0'
+    //    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.4'
+    //    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4'
+    //    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4'
 }

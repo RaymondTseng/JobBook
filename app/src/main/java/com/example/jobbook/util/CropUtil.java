@@ -7,10 +7,11 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.annotation.ColorInt;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.widget.Toast;
+
+import androidx.annotation.ColorInt;
+import androidx.fragment.app.Fragment;
 
 import com.example.jobbook.app.MyApplication;
 import com.yalantis.ucrop.UCrop;

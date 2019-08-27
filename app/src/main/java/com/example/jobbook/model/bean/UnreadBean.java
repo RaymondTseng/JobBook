@@ -1,12 +1,12 @@
 package com.example.jobbook.model.bean;
 
-import org.litepal.crud.DataSupport;
+import org.litepal.crud.LitePalSupport;
 
 /**
  * Created by Xu on 2017/1/23.
  */
 
-public class UnreadBean extends DataSupport {
+public class UnreadBean extends LitePalSupport {
 
     private String account;
     private int num;

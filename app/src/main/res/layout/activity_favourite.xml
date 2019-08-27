@@ -44,7 +44,7 @@
             <FrameLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="2"></FrameLayout>
+                android:layout_weight="2" />
 
             <TextView
                 android:id="@+id/favourite_job_tv"
@@ -67,7 +67,7 @@
             <FrameLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="2"></FrameLayout>
+                android:layout_weight="2" />
         </LinearLayout>
 
         <ImageView
@@ -79,12 +79,12 @@
             android:src="@mipmap/blue_line" />
     </RelativeLayout>
 
-    <android.support.v4.view.ViewPager
+    <androidx.viewpager.widget.ViewPager
         android:id="@+id/favourite_vp"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="2dp"
         android:layout_weight="480"
-        android:background="@color/colorWhite"></android.support.v4.view.ViewPager>
+        android:background="@color/colorWhite" />
 
 </LinearLayout>

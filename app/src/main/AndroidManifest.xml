@@ -28,16 +28,13 @@
             android:value="ff6619fa904b54a03a9aa892187520d2" />
 
         <meta-data
-            android:name="com.example.jobbook.model.img.MyGlideModule"
-            android:value="GlideModule" />
-
-        <meta-data
             android:name="UMENG_APPKEY"
-            android:value="588392cbf43e481fb7001e56"></meta-data>
+            android:value="5d550d94570df313540003d9" />
 
+        <!-- Channel ID用来标识App的推广渠道，作为推送消息时给用户分组的一个维度。-->
         <meta-data
-            android:name="UMENG_MESSAGE_SECRET"
-            android:value="2c6c373ef77d00228a0060d60e8110ee"></meta-data>
+            android:name="UMENG_CHANNEL"
+            android:value="Unknown" />
 
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
@@ -50,7 +47,7 @@
             android:windowSoftInputMode="adjustPan|adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
+                <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.LAUNCHER" />
 
             </intent-filter>

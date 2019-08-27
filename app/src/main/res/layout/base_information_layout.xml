@@ -26,6 +26,7 @@
             android:drawablePadding="8dp"
             android:drawableRight="@drawable/text_cv_vertical_gray_line"
             />
+
         <Spinner
             android:id="@+id/text_cv_sex_spinner"
             android:popupBackground="@color/colorWhite"
@@ -34,8 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:entries="@array/sex"
-            android:spinnerMode="dropdown"
-            ></Spinner>
+            android:spinnerMode="dropdown" />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="1dp"

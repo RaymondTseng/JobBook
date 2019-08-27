@@ -33,7 +33,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="16"></FrameLayout>
+        android:layout_weight="16" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -60,7 +60,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="16"></FrameLayout>
+        android:layout_weight="16" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -122,7 +122,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="16"></FrameLayout>
+        android:layout_weight="16" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -149,7 +149,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="16"></FrameLayout>
+        android:layout_weight="16" />
     <!--<RelativeLayout-->
     <!--android:layout_width="match_parent"-->
     <!--android:layout_height="0dp"-->
@@ -180,7 +180,6 @@
         <TextView
             style="@style/Black12sptv"
             android:text="密码" />
-        />
 
         <EditText
             android:id="@+id/register_password_et"
@@ -197,7 +196,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="16"></FrameLayout>
+        android:layout_weight="16" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -209,7 +208,7 @@
         <TextView
             style="@style/Black12sptv"
             android:text="确认密码" />
-        />
+
 
         <EditText
             android:id="@+id/register_confirm_password_et"
@@ -226,12 +225,12 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="16"></FrameLayout>
+        android:layout_weight="16" />
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="14"></FrameLayout>
+        android:layout_weight="14" />
 
     <Button
         android:id="@+id/register_register_bt"

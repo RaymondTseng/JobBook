@@ -1,12 +1,13 @@
 package com.example.jobbook.ui.person.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.jobbook.R;
 import com.example.jobbook.model.bean.MomentBean;
@@ -22,7 +23,7 @@ public class UserDetailMomentAdapter extends RecyclerView.Adapter<RecyclerView.V
     private List<MomentBean> mData;
     private OnMomentItemClickListener onMomentItemClickListener;
 
-    public UserDetailMomentAdapter(Context mContext, List<MomentBean> mData){
+    public UserDetailMomentAdapter(Context mContext, List<MomentBean> mData) {
         this.mContext = mContext;
         this.mData = mData;
     }
@@ -37,9 +38,9 @@ public class UserDetailMomentAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        if(holder instanceof ViewHolder){
+        if (holder instanceof ViewHolder) {
             MomentBean moment = mData.get(position);
-            if(moment == null){
+            if (moment == null) {
                 return;
             }
             ((ViewHolder) holder).mContentTextView.setText(moment.getContent());
@@ -54,7 +55,7 @@ public class UserDetailMomentAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     @Override
     public int getItemCount() {
-        if(mData == null){
+        if (mData == null) {
             return 0;
         }
 
@@ -62,12 +63,12 @@ public class UserDetailMomentAdapter extends RecyclerView.Adapter<RecyclerView.V
     }
 
 
-    public void refreshData(List<MomentBean> mData){
+    public void refreshData(List<MomentBean> mData) {
         this.mData = mData;
         notifyDataSetChanged();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView mContentTextView;
         TextView mTimeTextView;
         LinearLayout mParentView;
@@ -82,17 +83,17 @@ public class UserDetailMomentAdapter extends RecyclerView.Adapter<RecyclerView.V
 
         @Override
         public void onClick(View v) {
-            if(onMomentItemClickListener != null){
+            if (onMomentItemClickListener != null) {
                 onMomentItemClickListener.onMomentItemClick(mData.get(getLayoutPosition()));
             }
         }
     }
 
-    public interface OnMomentItemClickListener{
+    public interface OnMomentItemClickListener {
         void onMomentItemClick(MomentBean momentBean);
     }
 
-    public void setOnMomentItemClickListener(OnMomentItemClickListener listener){
+    public void setOnMomentItemClickListener(OnMomentItemClickListener listener) {
         this.onMomentItemClickListener = listener;
     }
 }

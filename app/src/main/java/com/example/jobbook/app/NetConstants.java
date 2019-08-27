@@ -8,10 +8,10 @@ public class NetConstants {
 
     /**
      * {
-     "code": 0,
-     "message": "True" or else,
-     "data": {}
-     }
+     * "code": 0,
+     * "message": "True" or else,
+     * "data": {}
+     * }
      */
 
     public static final int PAZE_SIZE = 10;
@@ -48,7 +48,7 @@ public class NetConstants {
     public static final int PERSON_SEND_MAIL_ERROR_CODE = 114;
     public static final String PERSON_SEND_MAIL_ERROR_WORD = "该公司官方邮箱错误，请重试!";
     public static final int PERSON_SEND_MAIL_NO_DATA_CODE = 115;
-    public static final String PERSON_SEND_MAIL_NO_DATA_WORD= "发送失败，请先完善简历!";
+    public static final String PERSON_SEND_MAIL_NO_DATA_WORD = "发送失败，请先完善简历!";
     public static final int PERSON_SEND_MAIL_HAVE_SENT_CODE = 116;
     public static final String PERSON_SEND_MAIL_HAVE_SENT_WORD = "您之前已经投递过该公司，请勿重复投递!";
     public static final int PERSON_UPDATE_TEL_ERROR_CODE = 117;

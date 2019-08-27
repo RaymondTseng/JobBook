@@ -27,26 +27,26 @@
         android:layout_weight="192"
         android:alpha="0.0"
         android:orientation="horizontal"
-        android:visibility="gone"></LinearLayout>
+        android:visibility="gone" />
 
     <!--<ListView-->
     <!--android:layout_width="match_parent"-->
     <!--android:layout_height="0dp"-->
     <!--android:layout_weight="456"-->
     <!--android:id="@+id/article_lv"></ListView>-->
-    <android.support.v4.widget.SwipeRefreshLayout
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/article_swipe_container"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="456">
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/article_rv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:dividerHeight="2dp"
-            android:scrollbars="vertical"></android.support.v7.widget.RecyclerView>
+            android:scrollbars="vertical" />
 
-    </android.support.v4.widget.SwipeRefreshLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </LinearLayout>

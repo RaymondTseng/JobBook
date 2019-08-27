@@ -1,12 +1,13 @@
 package com.example.jobbook.ui.job.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.jobbook.R;
 import com.example.jobbook.model.bean.JobBean;
@@ -152,7 +153,7 @@ public class JobsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         this.mShowFooter = mShowFooter;
     }
 
-    public class FooterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class FooterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         public FooterViewHolder(View view) {
             super(view);
@@ -161,7 +162,7 @@ public class JobsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         @Override
         public void onClick(View v) {
-            if(mOnFooterItemClickListener != null) {
+            if (mOnFooterItemClickListener != null) {
                 mOnFooterItemClickListener.onFooterItemClick(v, this.getLayoutPosition());
             }
         }

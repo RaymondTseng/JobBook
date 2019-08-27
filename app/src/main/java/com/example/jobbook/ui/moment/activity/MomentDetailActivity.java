@@ -3,10 +3,6 @@ package com.example.jobbook.ui.moment.activity;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewStub;
@@ -19,6 +15,11 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.jobbook.R;
 import com.example.jobbook.app.MyApplication;
@@ -86,7 +87,7 @@ public class MomentDetailActivity extends Activity implements MomentDetailContra
     private MomentBean mMomentBean;
     private LinearLayout mHeadView;
     private List<MomentCommentBean> list;
-//    private LinearLayout mRecyclerViewLayout;
+    //    private LinearLayout mRecyclerViewLayout;
     private LinearLayoutManager mLayoutManager;
     private MyApplication myApplication;
     private int mScreenHeight;

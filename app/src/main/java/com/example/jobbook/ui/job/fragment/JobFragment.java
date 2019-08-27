@@ -1,17 +1,18 @@
 package com.example.jobbook.ui.job.fragment;
 
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.AppCompatSpinner;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.appcompat.widget.AppCompatSpinner;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.jobbook.R;
 import com.example.jobbook.app.NetConstants;
@@ -247,7 +248,7 @@ public class JobFragment extends LazyLoadFragment implements JobContract.View,
             list = new ArrayList<>();
         }
         list.addAll(jobList);
-        if(jobList == null || jobList.size() < NetConstants.PAZE_SIZE){
+        if (jobList == null || jobList.size() < NetConstants.PAZE_SIZE) {
             mAdapter.setmShowFooter(false);
         }
         if (pageIndex == 0) {

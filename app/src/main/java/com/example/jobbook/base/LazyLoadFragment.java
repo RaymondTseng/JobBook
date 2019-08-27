@@ -1,13 +1,14 @@
 package com.example.jobbook.base;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import butterknife.ButterKnife;
 
@@ -34,7 +35,7 @@ public abstract class LazyLoadFragment extends Fragment {
         initViews();
         isInit = true;
         ButterKnife.bind(this, view);
-        /**初始化的时候去加载数据**/
+        // 初始化的时候去加载数据
         isCanLoadData();
         return view;
     }

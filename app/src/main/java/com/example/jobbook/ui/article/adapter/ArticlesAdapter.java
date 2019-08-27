@@ -1,12 +1,13 @@
 package com.example.jobbook.ui.article.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.jobbook.R;
 import com.example.jobbook.app.Constants;
@@ -30,12 +31,13 @@ public class ArticlesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private OnItemClickListener mOnItemClickListener;
     private OnFooterItemClickListener mOnFooterItemClickListener;
 
-    public ArticlesAdapter(Context mContext){
+    public ArticlesAdapter(Context mContext) {
         this.mContext = mContext;
     }
+
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        if(viewType == TYPE_ITEM) {
+        if (viewType == TYPE_ITEM) {
             View v = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.article_recyclerview_item, parent, false);
             return new ItemViewHolder(v);
@@ -50,9 +52,9 @@ public class ArticlesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        if(holder instanceof ItemViewHolder){
+        if (holder instanceof ItemViewHolder) {
             ArticleBean article = mData.get(position);
-            if(article == null){
+            if (article == null) {
                 return;
             }
 //            ((ItemViewHolder) holder).mContent.setText(Util.subContent(article.getContent(), 40));
@@ -68,21 +70,21 @@ public class ArticlesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     ((ItemViewHolder) holder).mLabel.setText("生活资讯");
                     break;
             }
-            ImageLoadUtils.display(mContext, ((ItemViewHolder)holder).mLogo, article.getImage());
+            ImageLoadUtils.display(mContext, ((ItemViewHolder) holder).mLogo, article.getImage());
             ((ItemViewHolder) holder).mTime.setText(article.getDate());
             ((ItemViewHolder) holder).mTitle.setText(Util.subContent(article.getTitle(), 15));
         }
     }
 
-    public void updateData(List<ArticleBean> mData){
+    public void updateData(List<ArticleBean> mData) {
         this.mData = mData;
         this.notifyDataSetChanged();
     }
 
     @Override
     public int getItemCount() {
-        int begin = mShowFooter?1:0;
-        if(mData == null) {
+        int begin = mShowFooter ? 1 : 0;
+        if (mData == null) {
             return begin;
         }
         return mData.size() + begin;
@@ -91,7 +93,7 @@ public class ArticlesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     @Override
     public int getItemViewType(int position) {
         // 最后一个item设置为footerView
-        if(!mShowFooter) {
+        if (!mShowFooter) {
             return TYPE_ITEM;
         }
         if (position + 1 == getItemCount()) {
@@ -117,12 +119,13 @@ public class ArticlesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         this.mOnFooterItemClickListener = onFooterItemClickListener;
     }
 
-    public class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView mLabel;
         TextView mTitle;
         TextView mContent;
         TextView mTime;
         ImageView mLogo;
+
         public ItemViewHolder(View view) {
             super(view);
             mContent = (TextView) view.findViewById(R.id.article_lv_content_tv);
@@ -135,13 +138,13 @@ public class ArticlesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
         @Override
         public void onClick(View v) {
-            if(mOnItemClickListener != null) {
+            if (mOnItemClickListener != null) {
                 mOnItemClickListener.onItemClick(v, this.getLayoutPosition());
             }
         }
     }
 
-    public ArticleBean getItem(int position){
+    public ArticleBean getItem(int position) {
         return mData == null ? null : mData.get(position);
     }
 
@@ -153,7 +156,7 @@ public class ArticlesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         this.mShowFooter = mShowFooter;
     }
 
-    public class FooterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class FooterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         public FooterViewHolder(View view) {
             super(view);
@@ -162,7 +165,7 @@ public class ArticlesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
         @Override
         public void onClick(View v) {
-            if(mOnFooterItemClickListener != null) {
+            if (mOnFooterItemClickListener != null) {
                 mOnFooterItemClickListener.onFooterItemClick(v, this.getLayoutPosition());
             }
         }

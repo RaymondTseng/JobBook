@@ -15,7 +15,9 @@ import android.widget.FrameLayout;
 import android.widget.FrameLayout.LayoutParams;
 import android.widget.TabWidget;
 
-public class BadgeView extends android.support.v7.widget.AppCompatTextView {
+import androidx.appcompat.widget.AppCompatTextView;
+
+public class BadgeView extends AppCompatTextView {
 
     private boolean mHideOnNull = true;
 

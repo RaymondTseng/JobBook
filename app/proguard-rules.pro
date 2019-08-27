@@ -229,5 +229,16 @@
     # Application classes that will be serialized/deserialized over Gson
     -keep class com.google.gson.examples.android.model.** { *; }
 
+    # umeng
+    -dontwarn com.umeng.**
+    -dontwarn com.taobao.**
+    -dontwarn anet.channel.**
+    -dontwarn anetwork.channel.**
+    -dontwarn org.android.**
+    -dontwarn org.apache.thrift.**
+    -dontwarn com.xiaomi.**
+    -dontwarn com.huawei.**
+    -dontwarn com.meizu.**
+
 
 
