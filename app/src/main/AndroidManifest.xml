@@ -14,7 +14,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
-        android:name=".MyApplication"
+        android:name=".app.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -28,16 +28,13 @@
             android:value="ff6619fa904b54a03a9aa892187520d2" />
 
         <meta-data
-            android:name="com.example.jobbook.util.MyGlideModule"
-            android:value="GlideModule" />
-
-        <meta-data
             android:name="UMENG_APPKEY"
-            android:value="588392cbf43e481fb7001e56"></meta-data>
+            android:value="5d550d94570df313540003d9" />
 
+        <!-- Channel ID用来标识App的推广渠道，作为推送消息时给用户分组的一个维度。-->
         <meta-data
-            android:name="UMENG_MESSAGE_SECRET"
-            android:value="2c6c373ef77d00228a0060d60e8110ee"></meta-data>
+            android:name="UMENG_CHANNEL"
+            android:value="Unknown" />
 
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
@@ -45,87 +42,87 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 
         <activity
-            android:name=".main.widget.MainActivity"
+            android:name=".ui.main.activity.MainActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
+                <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.LAUNCHER" />
 
             </intent-filter>
 
         </activity>
         <activity
-            android:name=".login.widget.LoginActivity"
+            android:name=".ui.account.activity.LoginActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".register.widget.RegisterActivity"
+            android:name=".ui.account.activity.RegisterActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".job.widget.JobDetailActivity"
+            android:name=".ui.job.activity.JobDetailActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".article.widget.ArticleDetailActivity"
+            android:name=".ui.article.activity.ArticleDetailActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".person.widget.SettingActivity"
+            android:name=".ui.person.activity.SettingActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".person.widget.FavouriteActivity"
+            android:name=".ui.person.activity.FavouriteActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".moment.widget.MomentDetailActivity"
+            android:name=".ui.moment.activity.MomentDetailActivity"
             android:screenOrientation="portrait" />
         <!--android:windowSoftInputMode="adjustPan" />-->
         <!--<activity-->
             <!--android:name=".feedback.widget.FeedBackActivity"-->
             <!--android:screenOrientation="portrait" />-->
         <activity
-            android:name=".moment.widget.NewMomentActivity"
+            android:name=".ui.moment.activity.NewMomentActivity"
+            android:screenOrientation="portrait" />
+        <!--<activity-->
+            <!--android:name=".search.widget.SearchActivity"-->
+            <!--android:screenOrientation="portrait"-->
+            <!--android:windowSoftInputMode="adjustPan" />-->
+        <activity
+            android:name=".ui.cv.activity.TextCVActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".search.widget.SearchActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
-        <activity
-            android:name=".cv.widget.TextCVActivity"
+            android:name=".ui.person.activity.UpdatePhoneActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".update.widget.UpdatePhoneActivity"
+            android:name=".ui.person.activity.UpdatePwdActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".update.widget.UpdatePwdActivity"
+            android:name=".ui.person.activity.UpdateUsernameActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".update.widget.UpdateUsernameActivity"
+            android:name=".ui.account.activity.ForgetPwdFirstActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".login.widget.ForgetPwdFirstActivity"
+            android:name=".ui.account.activity.ForgetPwdSecondActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".login.widget.ForgetPwdSecondActivity"
+            android:name=".ui.person.activity.ShowFanListActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".person.widget.ShowFanListActivity"
+            android:name=".ui.person.activity.ShowFollowerListActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".person.widget.ShowFollowerListActivity"
+            android:name=".ui.person.activity.ShowMomentListActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".person.widget.ShowMomentListActivity"
+            android:name=".ui.person.activity.UserDetailActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".userdetail.widget.UserDetailActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".message.widget.GetMessageActivity"
+            android:name=".ui.message.activity.GetMessageActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".person.widget.AboutActivity"
+            android:name=".ui.person.activity.AboutActivity"
             android:screenOrientation="portrait" />
 
         <service android:name=".service.MyPushIntentService" />

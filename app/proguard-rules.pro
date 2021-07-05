@@ -160,7 +160,7 @@
     }
 
     #保持实体类不被混淆
-    -keep class com.example.jobbook.bean.** {*;}
+    -keep class com.example.jobbook.model.bean.** {*;}
 
     #混淆代码行数提示
     -renamesourcefileattribute SourceFile
@@ -228,6 +228,17 @@
     -keep class sun.misc.Unsafe { *; }
     # Application classes that will be serialized/deserialized over Gson
     -keep class com.google.gson.examples.android.model.** { *; }
+
+    # umeng
+    -dontwarn com.umeng.**
+    -dontwarn com.taobao.**
+    -dontwarn anet.channel.**
+    -dontwarn anetwork.channel.**
+    -dontwarn org.android.**
+    -dontwarn org.apache.thrift.**
+    -dontwarn com.xiaomi.**
+    -dontwarn com.huawei.**
+    -dontwarn com.meizu.**
 
 
 

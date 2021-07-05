@@ -8,17 +8,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
-import android.support.annotation.Nullable;
 
-import com.example.jobbook.MyApplication;
+import androidx.annotation.Nullable;
+
+import com.example.jobbook.app.MyApplication;
 import com.example.jobbook.R;
-import com.example.jobbook.bean.MessageBean;
-import com.example.jobbook.bean.PersonBean;
-import com.example.jobbook.bean.UmengMessageBean;
-import com.example.jobbook.bean.UnreadBean;
-import com.example.jobbook.moment.widget.MomentDetailActivity;
+import com.example.jobbook.model.bean.MessageBean;
+import com.example.jobbook.model.bean.PersonBean;
+import com.example.jobbook.model.bean.UmengMessageBean;
+import com.example.jobbook.model.bean.UnreadBean;
+import com.example.jobbook.ui.moment.activity.MomentDetailActivity;
 import com.example.jobbook.receiver.NotificationBroadcast;
-import com.example.jobbook.userdetail.widget.UserDetailActivity;
+import com.example.jobbook.ui.person.activity.UserDetailActivity;
 import com.example.jobbook.util.L;
 import com.google.gson.Gson;
 import com.umeng.message.UTrack;
@@ -28,14 +29,14 @@ import com.umeng.message.entity.UMessage;
 import org.android.agoo.common.AgooConstants;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.litepal.crud.DataSupport;
+import org.litepal.LitePal;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
-import static com.example.jobbook.MyApplication.getAccount;
+import static com.example.jobbook.app.MyApplication.getAccount;
 
 /**
  * Created by Xu on 2017/1/20.
@@ -50,14 +51,14 @@ public class MyPushIntentService extends UmengMessageService {
 
     public class MyRefreshBinder extends Binder {
         public void refresh(PersonBean personBean) {
-            L.i("Binder", "refresh");
-            List<UnreadBean> beans = DataSupport.where("account = ?", personBean.getAccount()).find(UnreadBean.class);
+            L.i("refresh");
+            List<UnreadBean> beans = LitePal.where("account = ?", personBean.getAccount()).find(UnreadBean.class);
             if (beans.size() != 0 && beans.get(0).getNum() != 0) {
                 final int unread = beans.get(0).getNum();
                 beans.get(0).setNum(0);
                 beans.get(0).save();
                 num = unread;
-                L.i("Binder", "onRefresh");
+                L.i("onRefresh");
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -66,7 +67,7 @@ public class MyPushIntentService extends UmengMessageService {
                             for (OnRefreshPersonBadgeViewListener listener :
                                     listeners) {
                                 listener.onRefresh(unread);
-                                L.i("Binder", "onRefresh, unread" + unread);
+                                L.i("onRefresh, unread" + unread);
                                 isDone = true;
                             }
                         }
@@ -88,10 +89,10 @@ public class MyPushIntentService extends UmengMessageService {
         try {
             String message = intent.getStringExtra(AgooConstants.MESSAGE_BODY);
             UMessage msg = new UMessage(new JSONObject(message));
-            L.d(TAG, "message=" + message);      //消息体
-            L.d(TAG, "custom=" + msg.custom);    //自定义消息的内容
-            L.d(TAG, "title=" + msg.title);      //通知标题
-            L.d(TAG, "text=" + msg.text);        //通知内容
+            L.d("message=" + message);      //消息体
+            L.d("custom=" + msg.custom);    //自定义消息的内容
+            L.d("title=" + msg.title);      //通知标题
+            L.d("text=" + msg.text);        //通知内容
 
             UmengMessageBean messageBean = new Gson().fromJson(msg.custom, UmengMessageBean.class);
             dealWithMessageOrSaveInDB(messageBean, msg);
@@ -133,7 +134,7 @@ public class MyPushIntentService extends UmengMessageService {
     }
 
     public PendingIntent getClickPendingIntent(Context context, UMessage msg, UmengMessageBean messageBean) {
-        L.d(TAG, "click notification");
+        L.d("click notification");
         UTrack.getInstance(context).setClearPrevMessage(true);
         oldMessage = null;
         UTrack.getInstance(context).trackMsgClick(msg);
@@ -171,12 +172,12 @@ public class MyPushIntentService extends UmengMessageService {
         PendingIntent clickPendingIntent = PendingIntent.getActivity(context,
                 (int) (System.currentTimeMillis()),
                 clickIntent, PendingIntent.FLAG_CANCEL_CURRENT);
-        L.i("intentservice", "receive");
+        L.i("receive");
         return clickPendingIntent;
     }
 
     public PendingIntent getDismissPendingIntent(Context context, UMessage msg) {
-        L.d(TAG, "delete notification");
+        L.d("delete notification");
         Intent deleteIntent = new Intent();
         deleteIntent.setClass(context, NotificationBroadcast.class);
         deleteIntent.putExtra(NotificationBroadcast.EXTRA_KEY_MSG,
@@ -197,12 +198,12 @@ public class MyPushIntentService extends UmengMessageService {
     private void dealWithMessageOrSaveInDB(UmengMessageBean messageBean, UMessage msg) {
         num++;
         if (MyApplication.getmLoginStatus() == 1) {
-            L.i("MyPush", "account" + messageBean.getAccountTo() + " local account:" + MyApplication.getmPersonBean().getAccount());
+            L.i("account" + messageBean.getAccountTo() + " local account:" + MyApplication.getmPersonBean().getAccount());
             if (messageBean.getAccountTo().equals(MyApplication.getmPersonBean().getAccount())) {
                 showNotification(messageBean, msg);
-                L.i("MyPush", "lala");
+                L.i("lala");
                 int unread = 0;
-                List<UnreadBean> beans = DataSupport.where("account = ?", getAccount()).find(UnreadBean.class);
+                List<UnreadBean> beans = LitePal.where("account = ?", getAccount()).find(UnreadBean.class);
                 if (beans.size() != 0 && beans.get(0).getNum() != 0) {
                     unread = beans.get(0).getNum() + 1;
                     beans.get(0).setNum(0);
@@ -215,8 +216,8 @@ public class MyPushIntentService extends UmengMessageService {
                     listener.onRefresh(unread);
                 }
             } else {
-                L.i("MyPush", "haha");
-                List<UnreadBean> beans = DataSupport.where("account = ?", messageBean.getAccountTo()).find(UnreadBean.class);
+                L.i("haha");
+                List<UnreadBean> beans = LitePal.where("account = ?", messageBean.getAccountTo()).find(UnreadBean.class);
                 if (beans.size() == 0) {
                     UnreadBean bean = new UnreadBean();
                     bean.setAccount(messageBean.getAccountTo());
@@ -225,12 +226,12 @@ public class MyPushIntentService extends UmengMessageService {
                 } else {
                     ContentValues values = new ContentValues();
                     values.put("num", beans.get(0).getNum() + 1);
-                    DataSupport.updateAll(UnreadBean.class, values, "account = ?", messageBean.getAccountTo());
+                    LitePal.updateAll(UnreadBean.class, values, "account = ?", messageBean.getAccountTo());
                 }
                 num--;
             }
         } else {
-            List<UnreadBean> beans = DataSupport.where("account = ?", messageBean.getAccountTo()).find(UnreadBean.class);
+            List<UnreadBean> beans = LitePal.where("account = ?", messageBean.getAccountTo()).find(UnreadBean.class);
             if (beans.size() == 0) {
                 UnreadBean bean = new UnreadBean();
                 bean.setAccount(messageBean.getAccountTo());
@@ -239,7 +240,7 @@ public class MyPushIntentService extends UmengMessageService {
             } else {
                 ContentValues values = new ContentValues();
                 values.put("num", beans.get(0).getNum() + 1);
-                DataSupport.updateAll(UnreadBean.class, values, "account = ?", messageBean.getAccountTo());
+                LitePal.updateAll(UnreadBean.class, values, "account = ?", messageBean.getAccountTo());
             }
             num--;
         }

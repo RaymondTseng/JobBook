@@ -17,7 +17,7 @@ import cn.smssdk.EventHandler;
 import cn.smssdk.SMSSDK;
 
 /**
- * Created by root on 17-1-22.
+ * Created by Xu on 17-1-22.
  */
 
 public class SMSSDKManager {

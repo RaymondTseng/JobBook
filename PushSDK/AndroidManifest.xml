@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     package="com.umeng.message.lib"
     android:versionCode="1"
     android:versionName="1.0">
@@ -19,7 +18,7 @@
     <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
 
     <application>
 
@@ -63,7 +62,6 @@
 
         <receiver
             android:name="com.taobao.accs.ServiceReceiver"
-            android:exported="false"
             android:process=":channel">
             <intent-filter>
                 <action android:name="com.taobao.accs.intent.action.COMMAND" />
@@ -74,9 +72,13 @@
         </receiver>
 
         <service
+            android:name="com.taobao.accs.internal.AccsJobService"
+            android:permission="android.permission.BIND_JOB_SERVICE"
+            android:process=":channel"/>
+
+        <service
             android:name="com.taobao.accs.ChannelService$KernelService"
-            android:process=":channel">
-        </service>
+            android:process=":channel" />
 
         <service
             android:name="org.android.agoo.accs.AgooService"
@@ -86,7 +88,17 @@
             </intent-filter>
         </service>
 
-        <service android:name="com.umeng.message.UmengIntentService"
+        <service
+            android:name="com.umeng.message.UmengIntentService"
+            android:exported="true"
+            android:process=":channel">
+            <intent-filter>
+                <action android:name="org.agoo.android.intent.action.RECEIVE" />
+            </intent-filter>
+        </service>
+
+        <service
+            android:name="com.umeng.message.XiaomiIntentService"
             android:exported="true"
             android:process=":channel">
             <intent-filter>
@@ -96,7 +108,8 @@
 
         <receiver
             android:name="com.taobao.agoo.AgooCommondReceiver"
-            android:exported="true">
+            android:exported="true"
+            android:process=":channel">
             <intent-filter>
                 <action android:name="${applicationId}.intent.action.COMMAND" />
             </intent-filter>
@@ -106,11 +119,22 @@
             </intent-filter>
         </receiver>
 
+        <service
+            android:name="com.umeng.message.UmengMessageIntentReceiverService"
+            android:exported="true"
+            android:process=":channel">
+            <intent-filter>
+                <action android:name="org.android.agoo.client.MessageReceiverService" />
+            </intent-filter>
+        </service>
+
         <receiver
             android:name="com.umeng.message.NotificationProxyBroadcastReceiver"
             android:exported="false" />
+
         <service
             android:name="com.umeng.message.UmengMessageCallbackHandlerService"
+            android:permission="android.permission.BIND_JOB_SERVICE"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.umeng.messge.registercallback.action" />
@@ -124,19 +148,16 @@
             <intent-filter>
                 <action android:name="com.umeng.message.message.handler.action" />
             </intent-filter>
+            <intent-filter>
+                <action android:name="com.umeng.message.message.sendmessage.action" />
+            </intent-filter>
         </service>
 
         <service
             android:name="com.umeng.message.UmengDownloadResourceService"
+            android:permission="android.permission.BIND_JOB_SERVICE"
             android:exported="false" />
-        <service
-            android:name="com.umeng.message.UmengMessageIntentReceiverService"
-            android:exported="true"
-            android:process=":channel" >
-            <intent-filter>
-                <action android:name="org.android.agoo.client.MessageReceiverService" />
-            </intent-filter>
-        </service>
+
         <provider
             android:name="com.umeng.message.provider.MessageProvider"
             android:authorities="${applicationId}.umeng.message"

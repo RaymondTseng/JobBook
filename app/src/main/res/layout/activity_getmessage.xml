@@ -44,7 +44,7 @@
         android:id="@+id/getmessage_lv"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="512"></ListView>
+        android:layout_weight="512" />
 
     <!--</android.support.v4.widget.SwipeRefreshLayout>-->
 

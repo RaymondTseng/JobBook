@@ -3,11 +3,11 @@ package com.example.jobbook.receiver;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
 import com.example.jobbook.service.MyPushIntentService;
 import com.example.jobbook.util.L;
 import com.umeng.message.UTrack;
-import com.umeng.message.common.UmLog;
 import com.umeng.message.entity.UMessage;
 
 import org.json.JSONException;
@@ -31,17 +31,17 @@ public class NotificationBroadcast extends BroadcastReceiver {
         String message = intent.getStringExtra(EXTRA_KEY_MSG);
         int action = intent.getIntExtra(EXTRA_KEY_ACTION,
                 EXTRA_ACTION_NOT_EXIST);
-        L.i("broadcast notification", "receive");
+        L.i("receive");
         try {
             UMessage msg = new UMessage(new JSONObject(message));
             switch (action) {
                 case ACTION_DISMISS:
-                    UmLog.d(TAG, "dismiss notification");
+                    Log.d(TAG, "dismiss notification");
                     UTrack.getInstance(context).setClearPrevMessage(true);
                     UTrack.getInstance(context).trackMsgDismissed(msg);
                     break;
                 case ACTION_CLICK:
-                    UmLog.d(TAG, "click notification");
+                    Log.d(TAG, "click notification");
                     UTrack.getInstance(context).setClearPrevMessage(true);
                     MyPushIntentService.oldMessage = null;
                     UTrack.getInstance(context).trackMsgClick(msg);

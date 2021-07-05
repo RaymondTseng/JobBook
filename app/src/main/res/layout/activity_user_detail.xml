@@ -32,11 +32,11 @@
         android:layout_height="0dp"
         android:layout_weight="366" />
 
-    <android.support.v4.view.ViewPager
+    <androidx.viewpager.widget.ViewPager
         android:id="@+id/user_detail_vp"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="310"></android.support.v4.view.ViewPager>
+        android:layout_weight="310" />
 
 
     <LinearLayout

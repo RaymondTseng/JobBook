@@ -91,7 +91,7 @@ public class DataCleanManager {
                 }
             }
         }
-        return (dir != null) ? dir.delete() : false;
+        return (dir != null) && dir.delete();
     }
 
     // 获取文件
